@@ -1,0 +1,160 @@
+E:\Projects\Operation Survey\Project\Operation Survey\OperationSurvey.DAL\bin\Debug\OperationSurvey.DAL.dll.config
+E:\Projects\Operation Survey\Project\Operation Survey\OperationSurvey.DAL\bin\Debug\OperationSurvey.DAL.dll
+E:\Projects\Operation Survey\Project\Operation Survey\OperationSurvey.DAL\bin\Debug\OperationSurvey.DAL.pdb
+E:\Projects\Operation Survey\Project\Operation Survey\OperationSurvey.DAL\bin\Debug\EntityFramework.dll
+E:\Projects\Operation Survey\Project\Operation Survey\OperationSurvey.DAL\bin\Debug\EntityFramework.SqlServer.dll
+E:\Projects\Operation Survey\Project\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+E:\Projects\Operation Survey\Project\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.Configuration.dll
+E:\Projects\Operation Survey\Project\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.dll
+E:\Projects\Operation Survey\Project\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.Interception.Configuration.dll
+E:\Projects\Operation Survey\Project\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.Interception.dll
+E:\Projects\Operation Survey\Project\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.dll
+E:\Projects\Operation Survey\Project\Operation Survey\OperationSurvey.DAL\bin\Debug\OperationSurvey.Common.dll
+E:\Projects\Operation Survey\Project\Operation Survey\OperationSurvey.DAL\bin\Debug\Repository.Pattern.dll
+E:\Projects\Operation Survey\Project\Operation Survey\OperationSurvey.DAL\bin\Debug\Repository.Pattern.Ef6.dll
+E:\Projects\Operation Survey\Project\Operation Survey\OperationSurvey.DAL\bin\Debug\LinqKit.dll
+E:\Projects\Operation Survey\Project\Operation Survey\OperationSurvey.DAL\bin\Debug\Repository.Pattern.Ef6.pdb
+E:\Projects\Operation Survey\Project\Operation Survey\OperationSurvey.DAL\bin\Debug\Repository.Pattern.pdb
+E:\Projects\Operation Survey\Project\Operation Survey\OperationSurvey.DAL\bin\Debug\OperationSurvey.Common.pdb
+E:\Projects\Operation Survey\Project\Operation Survey\OperationSurvey.DAL\bin\Debug\EntityFramework.xml
+E:\Projects\Operation Survey\Project\Operation Survey\OperationSurvey.DAL\bin\Debug\EntityFramework.SqlServer.xml
+E:\Projects\Operation Survey\Project\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+E:\Projects\Operation Survey\Project\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+E:\Projects\Operation Survey\Project\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.xml
+E:\Projects\Operation Survey\Project\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.Configuration.xml
+E:\Projects\Operation Survey\Project\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.Interception.xml
+E:\Projects\Operation Survey\Project\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.Interception.Configuration.xml
+E:\Projects\Operation Survey\Project\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.xml
+E:\Projects\Operation Survey\Project\Operation Survey\OperationSurvey.DAL\bin\Debug\LinqKit.pdb
+E:\Projects\Operation Survey\Project\Operation Survey\OperationSurvey.DAL\bin\Debug\LinqKit.xml
+E:\Projects\Operation Survey\Project\Operation Survey\OperationSurvey.DAL\obj\Debug\OperationSurvey.DAL.csprojResolveAssemblyReference.cache
+E:\Projects\Operation Survey\Project\Operation Survey\OperationSurvey.DAL\obj\Debug\OperationSurvey.DAL.dll
+E:\Projects\Operation Survey\Project\Operation Survey\OperationSurvey.DAL\obj\Debug\OperationSurvey.DAL.pdb
+E:\Projects\SurveyV2\Operation Survey\OperationSurvey.DAL\bin\Debug\OperationSurvey.DAL.dll.config
+E:\Projects\SurveyV2\Operation Survey\OperationSurvey.DAL\bin\Debug\OperationSurvey.DAL.dll
+E:\Projects\SurveyV2\Operation Survey\OperationSurvey.DAL\bin\Debug\OperationSurvey.DAL.pdb
+E:\Projects\SurveyV2\Operation Survey\OperationSurvey.DAL\bin\Debug\EntityFramework.dll
+E:\Projects\SurveyV2\Operation Survey\OperationSurvey.DAL\bin\Debug\EntityFramework.SqlServer.dll
+E:\Projects\SurveyV2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+E:\Projects\SurveyV2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.Configuration.dll
+E:\Projects\SurveyV2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.dll
+E:\Projects\SurveyV2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.Interception.Configuration.dll
+E:\Projects\SurveyV2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.Interception.dll
+E:\Projects\SurveyV2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.dll
+E:\Projects\SurveyV2\Operation Survey\OperationSurvey.DAL\bin\Debug\OperationSurvey.Common.dll
+E:\Projects\SurveyV2\Operation Survey\OperationSurvey.DAL\bin\Debug\Repository.Pattern.dll
+E:\Projects\SurveyV2\Operation Survey\OperationSurvey.DAL\bin\Debug\Repository.Pattern.Ef6.dll
+E:\Projects\SurveyV2\Operation Survey\OperationSurvey.DAL\bin\Debug\LinqKit.dll
+E:\Projects\SurveyV2\Operation Survey\OperationSurvey.DAL\bin\Debug\Repository.Pattern.Ef6.pdb
+E:\Projects\SurveyV2\Operation Survey\OperationSurvey.DAL\bin\Debug\Repository.Pattern.pdb
+E:\Projects\SurveyV2\Operation Survey\OperationSurvey.DAL\bin\Debug\OperationSurvey.Common.pdb
+E:\Projects\SurveyV2\Operation Survey\OperationSurvey.DAL\bin\Debug\EntityFramework.xml
+E:\Projects\SurveyV2\Operation Survey\OperationSurvey.DAL\bin\Debug\EntityFramework.SqlServer.xml
+E:\Projects\SurveyV2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+E:\Projects\SurveyV2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+E:\Projects\SurveyV2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.xml
+E:\Projects\SurveyV2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.Configuration.xml
+E:\Projects\SurveyV2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.Interception.xml
+E:\Projects\SurveyV2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.Interception.Configuration.xml
+E:\Projects\SurveyV2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.xml
+E:\Projects\SurveyV2\Operation Survey\OperationSurvey.DAL\bin\Debug\LinqKit.pdb
+E:\Projects\SurveyV2\Operation Survey\OperationSurvey.DAL\bin\Debug\LinqKit.xml
+E:\Projects\SurveyV2\Operation Survey\OperationSurvey.DAL\obj\Debug\OperationSurvey.DAL.csprojResolveAssemblyReference.cache
+E:\Projects\SurveyV2\Operation Survey\OperationSurvey.DAL\obj\Debug\OperationSurvey.DAL.dll
+E:\Projects\SurveyV2\Operation Survey\OperationSurvey.DAL\obj\Debug\OperationSurvey.DAL.pdb
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\OperationSurvey.DAL.dll.config
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\OperationSurvey.DAL.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\OperationSurvey.DAL.pdb
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\EntityFramework.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\EntityFramework.SqlServer.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.Configuration.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.Interception.Configuration.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.Interception.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\OperationSurvey.Common.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Repository.Pattern.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Repository.Pattern.Ef6.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\LinqKit.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Repository.Pattern.Ef6.pdb
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Repository.Pattern.pdb
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\OperationSurvey.Common.pdb
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\EntityFramework.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\EntityFramework.SqlServer.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.Configuration.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.Interception.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.Interception.Configuration.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\LinqKit.pdb
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\LinqKit.xml
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.DAL\obj\Debug\OperationSurvey.DAL.csprojResolveAssemblyReference.cache
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.DAL\obj\Debug\OperationSurvey.DAL.dll
+E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\OperationSurvey.DAL\obj\Debug\OperationSurvey.DAL.pdb
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\OperationSurvey.DAL.dll.config
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\OperationSurvey.DAL.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\OperationSurvey.DAL.pdb
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\EntityFramework.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.Configuration.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.Interception.Configuration.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.Interception.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\OperationSurvey.Common.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Repository.Pattern.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Repository.Pattern.Ef6.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\LinqKit.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Repository.Pattern.Ef6.pdb
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Repository.Pattern.pdb
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\OperationSurvey.Common.pdb
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\EntityFramework.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.Configuration.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.Interception.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.Interception.Configuration.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\LinqKit.pdb
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\LinqKit.xml
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.DAL\obj\Debug\OperationSurvey.DAL.csprojResolveAssemblyReference.cache
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.DAL\obj\Debug\OperationSurvey.DAL.dll
+C:\Users\Sherif\Desktop\Projects\operationSurvey\Survey_Version2\Operation Survey\OperationSurvey.DAL\obj\Debug\OperationSurvey.DAL.pdb
+E:\Projects\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\OperationSurvey.DAL.dll.config
+E:\Projects\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\OperationSurvey.DAL.dll
+E:\Projects\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\OperationSurvey.DAL.pdb
+E:\Projects\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\EntityFramework.dll
+E:\Projects\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\EntityFramework.SqlServer.dll
+E:\Projects\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.ServiceLocation.dll
+E:\Projects\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.Configuration.dll
+E:\Projects\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.dll
+E:\Projects\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.Interception.Configuration.dll
+E:\Projects\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.Interception.dll
+E:\Projects\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.dll
+E:\Projects\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\OperationSurvey.Common.dll
+E:\Projects\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Repository.Pattern.dll
+E:\Projects\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Repository.Pattern.Ef6.dll
+E:\Projects\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\LinqKit.dll
+E:\Projects\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Repository.Pattern.Ef6.pdb
+E:\Projects\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Repository.Pattern.pdb
+E:\Projects\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\OperationSurvey.Common.pdb
+E:\Projects\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\EntityFramework.xml
+E:\Projects\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\EntityFramework.SqlServer.xml
+E:\Projects\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.ServiceLocation.pdb
+E:\Projects\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.ServiceLocation.xml
+E:\Projects\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.xml
+E:\Projects\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.Configuration.xml
+E:\Projects\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.Interception.xml
+E:\Projects\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.Interception.Configuration.xml
+E:\Projects\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.xml
+E:\Projects\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\LinqKit.pdb
+E:\Projects\Survey_Version2\Operation Survey\OperationSurvey.DAL\bin\Debug\LinqKit.xml
+E:\Projects\Survey_Version2\Operation Survey\OperationSurvey.DAL\obj\Debug\OperationSurvey.DAL.csprojResolveAssemblyReference.cache
+E:\Projects\Survey_Version2\Operation Survey\OperationSurvey.DAL\obj\Debug\OperationSurvey.DAL.dll
+E:\Projects\Survey_Version2\Operation Survey\OperationSurvey.DAL\obj\Debug\OperationSurvey.DAL.pdb
