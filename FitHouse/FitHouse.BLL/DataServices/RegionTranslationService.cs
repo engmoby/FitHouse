@@ -20,7 +20,7 @@ namespace FitHouse.BLL.DataServices
         {
             return Queryable()
                 .Any(x => x.Language.ToLower() == language.ToLower() && x.Title.ToLower() == objName.ToLower() &&
-                          x.RegionId != recordId && x.Region.Country.TenantId == tenantId && !x.Region.IsDeleted && x.Region.CountryId == countryId);
+                          x.RegionId != recordId   && !x.Region.IsDeleted && x.Region.CountryId == countryId);
         }
     }
 }

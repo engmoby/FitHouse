@@ -110,7 +110,7 @@ namespace FitHouse.BLL.DataServices
         {
             return Queryable()
                 .Any(x => x.Language.ToLower() == language.ToLower() && x.Title.ToLower() == objName.ToLower() &&
-                          x.CategoryId != recordId && x.Category.TenantId == tenantId && !x.Category.IsDeleted);
+                          x.CategoryId != recordId   && !x.Category.IsDeleted);
 
         }
     }

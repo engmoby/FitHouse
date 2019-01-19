@@ -101,8 +101,9 @@ namespace FitHouse.BLL.Services
         }
         public PagedResultsDto GetAllRegionsForUser(long userId)
         {
-            var user = _userService.Find(userId);
-            return user.AreaId.HasValue ? _regionService.GetAllRegions(user.Area.City.Region.CountryId, 1, 0, user.TenantId) : new PagedResultsDto();
+            //var user = _userService.Find(userId);
+            //return user.AreaId.HasValue ? _regionService.GetAllRegions(user.Area.City.Region.CountryId, 1, 0, user.TenantId) : new PagedResultsDto();
+            return null;
         }
     }
 }

@@ -25,7 +25,7 @@ namespace FitHouse.BLL.Services
         }
         public CountryDto GetCountry(long countryId, int tenantId)
         {
-            return Mapper.Map<CountryDto>(_countryService.Query(x => x.CountryId == countryId && x.TenantId == tenantId).Select().FirstOrDefault());
+            return Mapper.Map<CountryDto>(_countryService.Query(x => x.CountryId == countryId  ).Select().FirstOrDefault());
         }
         private void ValidateCountry(CountryDto countryDto, long tenantId)
         {
@@ -56,8 +56,7 @@ namespace FitHouse.BLL.Services
             }
 
             country.CreationTime = Strings.CurrentDateTime;
-            country.CreatorUserId = userId;
-            country.TenantId = tenantId;
+            country.CreatorUserId = userId; 
             _countryTranslationService.InsertRange(country.CountryTranslations);
             _countryService.Insert(country);
             SaveChanges();
@@ -66,7 +65,7 @@ namespace FitHouse.BLL.Services
 
         public CountryDto EditCountry(CountryDto countryDto, int userId, int tenantId)
         {
-            var country = _countryService.Query(x => x.CountryId == countryDto.CountryId && x.TenantId == tenantId).Select().FirstOrDefault();
+            var country = _countryService.Query(x => x.CountryId == countryDto.CountryId  ).Select().FirstOrDefault();
             if (country == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
             ValidateCountry(countryDto, tenantId);
             foreach (var areaName in countryDto.TitleDictionary)

@@ -33,7 +33,7 @@ namespace FitHouse.BLL.Services
             // return Mapper.Map<CategoryDto>(_categoryService.Query(x => x.CategoryId == categoryId && x.TenantId == tenantId).Select().FirstOrDefault());
             if (categoryId == 0) return null;
 
-            var query = _categoryService.Query(x => x.CategoryId == categoryId && x.TenantId == tenantId).Select()
+            var query = _categoryService.Query(x => x.CategoryId == categoryId ).Select()
                 .FirstOrDefault();
 
 

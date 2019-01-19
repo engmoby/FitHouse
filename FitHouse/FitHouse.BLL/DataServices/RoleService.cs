@@ -18,7 +18,7 @@ namespace FitHouse.BLL.DataServices
         
         public PagedResultsDto GetAllRoles(int page, int pageSize, int tenantId)
         { 
-            var query = Queryable().Where(x => !x.IsDeleted && (x.TenantId== tenantId || x.TenantId == null)).OrderBy(x => x.RoleId);
+            var query = Queryable().Where(x => !x.IsDeleted  ).OrderBy(x => x.RoleId);
             PagedResultsDto results = new PagedResultsDto();
             results.TotalCount = query.Select(x => x).Count();
             var data = pageSize > 0

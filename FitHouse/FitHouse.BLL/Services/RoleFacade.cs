@@ -39,7 +39,7 @@ namespace FitHouse.BLL.Services
             }
             //var getRole = _roleService.Find(roleId);
 
-            var getRole = _roleService.Query(x => x.RoleId == roleId && x.TenantId == tenantId).Select().FirstOrDefault();
+            var getRole = _roleService.Query(x => x.RoleId == roleId  ).Select().FirstOrDefault();
 
             var afterMap = Mapper.Map<RoleDto>(getRole);
 
@@ -65,8 +65,7 @@ namespace FitHouse.BLL.Services
                 roleObj.RoleTranslations.Add(new RoleTranslation
                 {
                     Title = roleName.Value,
-                    Language = roleName.Key,
-                    TenantId = tenantId
+                    Language = roleName.Key, 
                 });
             }
             foreach (var roleper in roleDto.Permissions)
@@ -75,14 +74,12 @@ namespace FitHouse.BLL.Services
                 roleObj.RolePermissions.Add(new RolePermission
                 { 
                     PermissionId = roleper.PermissionId,
-                    ActionId = 1,
-                    TenantId = tenantId
+                    ActionId = 1, 
                 });
             }
 
             roleObj.CreationTime = Strings.CurrentDateTime;
-            roleObj.CreatorUserId = userId;
-            roleObj.TenantId = tenantId;
+            roleObj.CreatorUserId = userId; 
             _rolePermissionService.InsertRange(roleObj.RolePermissions);
             _typeTranslationService.InsertRange(roleObj.RoleTranslations);
             _roleService.Insert(roleObj);
@@ -98,7 +95,7 @@ namespace FitHouse.BLL.Services
             {
                 throw new ValidationException(ErrorCodes.NameIsExist);
             }
-            var roleObj = _roleService.Query(x => x.RoleId == roleDto.RoleId && x.TenantId == tenantId)
+            var roleObj = _roleService.Query(x => x.RoleId == roleDto.RoleId  )
                 .Select().FirstOrDefault();
 
             if (roleObj == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
@@ -130,14 +127,12 @@ namespace FitHouse.BLL.Services
                 roleObj.RolePermissions.Add(new RolePermission
                 { 
                     PermissionId = roleper.PermissionId,
-                    ActionId = 1,
-                    TenantId = tenantId
+                    ActionId = 1, 
                 });
             }
             roleObj.LastModificationTime = Strings.CurrentDateTime;
             roleObj.LastModifierUserId = userId;
-            roleObj.IsDeleted = roleDto.IsDeleted;
-            roleObj.IsStatic = roleDto.IsStatic;
+            roleObj.IsDeleted = roleDto.IsDeleted; 
             _roleService.Update(roleObj);
             SaveChanges();
             return roleDto;

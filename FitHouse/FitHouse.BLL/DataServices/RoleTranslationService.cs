@@ -91,7 +91,7 @@ namespace FitHouse.BLL.DataServices
             return Queryable()
                 .Any(x => x.Language.ToLower() == language.ToLower() &&
                           x.Title.ToLower() == title.ToLower() &&
-                          x.RoleId != roleId && !x.Role.IsDeleted && x.Role.TenantId == tenantId);
+                          x.RoleId != roleId && !x.Role.IsDeleted );
         }
     }
 }

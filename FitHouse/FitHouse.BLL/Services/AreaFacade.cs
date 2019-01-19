@@ -35,7 +35,7 @@ namespace FitHouse.BLL.Services
 
         public AreaDto GetArea(long areaId, int tenantId)
         {
-            return Mapper.Map<AreaDto>(_areaService.Query(x => x.AreaId == areaId && x.TenantId == tenantId).Select()
+            return Mapper.Map<AreaDto>(_areaService.Query(x => x.AreaId == areaId).Select()
                 .FirstOrDefault());
         }
 
@@ -58,8 +58,7 @@ namespace FitHouse.BLL.Services
             }
 
             areaObj.CreationTime = Strings.CurrentDateTime;
-            areaObj.CreatorUserId = userId;
-            areaObj.TenantId = tenantId;
+            areaObj.CreatorUserId = userId; 
             _typeTranslationService.InsertRange(areaObj.AreaTranslations);
             _areaService.Insert(areaObj);
             SaveChanges();
@@ -68,7 +67,7 @@ namespace FitHouse.BLL.Services
 
         public AreaDto EditArea(AreaDto areaDto, int userId, int tenantId)
         {
-            var areaObj = _areaService.Query(x => x.AreaId == areaDto.AreaId && x.TenantId == tenantId).Select()
+            var areaObj = _areaService.Query(x => x.AreaId == areaDto.AreaId  ).Select()
                 .FirstOrDefault();
             if (areaObj == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
             ValidateArea(areaDto, tenantId,areaDto.CityId);
@@ -106,7 +105,8 @@ namespace FitHouse.BLL.Services
 
         public AreaDto GetAllAreasByUserId(long userId)
         {
-            return Mapper.Map<AreaDto>(_userService.Find(userId).Area);
+            return null;
+            //return Mapper.Map<AreaDto>(_userService.Find(userId).Area);
         }
 
         private void ValidateArea(AreaDto areaDto, long tenantId, long cityId)
@@ -123,10 +123,11 @@ namespace FitHouse.BLL.Services
 
         public PagedResultsDto GetAllAreasForUser(long userId)
         {
-            var user = _userService.Find(userId);
-            return user.AreaId.HasValue
-                ? _areaService.GetAllAreas(user.Area.CityId.Value, 1, 0, user.TenantId)
-                : new PagedResultsDto();
+            return null;
+            //var user = _userService.Find(userId);
+            //return user.AreaId.HasValue
+            //    ? _areaService.GetAllAreas(user.Area.CityId.Value, 1, 0, user.TenantId)
+            //    : new PagedResultsDto();
 
         }
     }

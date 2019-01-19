@@ -28,15 +28,15 @@ namespace FitHouse.BLL.DataServices
         }
         public bool CheckEmailDuplicated(string email, int tenantId)
         {
-            return _repository.Queryable().Any(u => u.Email.ToLower() == email.ToLower() && !u.IsDeleted && u.TenantId== tenantId);
+            return _repository.Queryable().Any(u => u.Email.ToLower() == email.ToLower() && !u.IsDeleted);
         }
         public bool CheckPhoneDuplicated(string phone, int tenantId)
         {
-            return _repository.Queryable().Any(u => u.Phone == phone.ToLower() && !u.IsDeleted && u.TenantId == tenantId);
+            return _repository.Queryable().Any(u => u.Phone == phone.ToLower() && !u.IsDeleted );
         }
         public PagedResultsDto GetAllUsers(int page, int pageSize, int tenantId)
         {
-            var query = Queryable().Where(x => x.IsActive && (x.TenantId == tenantId) && !x.IsStatic).OrderBy(x => x.UserId);
+            var query = Queryable().Where(x => x.IsActive &&  !x.IsStatic).OrderBy(x => x.UserId);
             PagedResultsDto results = new PagedResultsDto();
             results.TotalCount = query.Count(); //_repository.Query(x => !x.IsDeleted).Select().Count(x => !x.IsDeleted);
             var modelReturn = query.OrderBy(x => x.UserId).Skip((page - 1) * pageSize).Take(pageSize).ToList();
@@ -59,10 +59,7 @@ namespace FitHouse.BLL.DataServices
             results.Data = userDto;
             return results;
         }
-        public User GetAdminByAccountId(Guid userAccountId)
-        {
-            return _repository.Query(x => x.UserAccountId == userAccountId).Select().FirstOrDefault();
-        }
+       
          
     }
 }

@@ -18,7 +18,7 @@ namespace FitHouse.BLL.DataServices
 
         public List<UserRoleDto> GetUserRoleById(long userId,int tenantId)
         {
-            var userRoles = _repository.Query(x => x.UserId == userId && x.TenantId== tenantId).Select().ToList();
+            var userRoles = _repository.Query(x => x.UserId == userId ).Select().ToList();
 
             var userRoleDto = new List<UserRoleDto>();
             foreach (var user in userRoles)
