@@ -329,7 +329,6 @@
 
 
         });
-
     userPrepService.$inject = ['UserResource']
     function userPrepService(UserResource) {
         return UserResource.getAllUsers().$promise;
@@ -344,7 +343,6 @@
     function userConsumedPrepService(UserResource) {
         return UserResource.getUserLimit().$promise;
     }
-
 
     RolePrepService.$inject = ['RoleResource']
     function RolePrepService(RoleResource) {
@@ -363,7 +361,6 @@
     function PermissionPrepService(PermissionResource) {
         return PermissionResource.getAllPermissions({ pageSize: 20 }).$promise;
     }
-
     AreaPrepService.$inject = ['AreaResource', '$stateParams']
     function AreaPrepService(AreaResource, $stateParams) {
         return AreaResource.getAllAreas({ cityId: $stateParams.cityId }).$promise;
@@ -380,7 +377,6 @@
     }
 
 
-
     BranchPrepService.$inject = ['BranchResource']
     function BranchPrepService(BranchResource) {
         return BranchResource.getAllBranchs().$promise;
@@ -390,7 +386,6 @@
     function BranchByIdPrepService(BranchResource, $stateParams) {
         return BranchResource.getBranch({ branchId: $stateParams.branchId }).$promise;
     }
-
 
 
 
@@ -405,7 +400,6 @@
     function CategoryByIdPrepService(CategoryResource, $stateParams) {
         return CategoryResource.getCategory({ categoryId: $stateParams.categoryId }).$promise;
     }
-
     AnswerQuestionPrepService.$inject = ['AnswerQuestionResource']
     function AnswerQuestionPrepService(AnswerQuestionResource) {
         return AnswerQuestionResource.getAllQuestions().$promise;
