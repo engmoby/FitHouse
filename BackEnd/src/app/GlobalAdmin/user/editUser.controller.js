@@ -3,15 +3,15 @@
 
     angular
         .module('home')
-        .controller('editUserController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate', '$state', 'UserResource', 'UserTypeResource',
-            'RoleResource', 'RolePrepService', '$localStorage', 'authorizationService', 'appCONSTANTS', 'EditUserPrepService', 'ToastService',
-            'DepartmentPrepService', 'CountriesPrepService', 'RegionsForUserPrepService', 'CitiesForUserPrepService', 'AreasForUserPrepService',
+        .controller('editUserController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate', '$state', 'UserResource', 
+         'RoleResource', 'RolePrepService', '$localStorage', 'authorizationService', 'appCONSTANTS', 'EditUserPrepService',
+          'ToastService',            'CountriesPrepService', 'RegionsForUserPrepService', 'CitiesForUserPrepService', 'AreasForUserPrepService',
             'RegionResource', 'CityResource', 'AreaResource', editUserController]);
 
 
-    function editUserController($rootScope, blockUI, $scope, $filter, $translate, $state, UserResource, UserTypeResource,
+    function editUserController($rootScope, blockUI, $scope, $filter, $translate, $state, UserResource, 
         RoleResource, RolePrepService, $localStorage, authorizationService, appCONSTANTS, EditUserPrepService, ToastService,
-        DepartmentPrepService, CountriesPrepService, RegionsForUserPrepService, CitiesForUserPrepService, AreasForUserPrepService,
+        CountriesPrepService, RegionsForUserPrepService, CitiesForUserPrepService, AreasForUserPrepService,
         RegionResource, CityResource, AreaResource) {
 
         blockUI.start("Loading...");

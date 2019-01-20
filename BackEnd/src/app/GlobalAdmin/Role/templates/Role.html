@@ -13,8 +13,7 @@
             <table class="table pmd-table table-hover">
                 <thead>
                     <tr>
-                        <th >{{'Name' | translate}}</th> 
-                        <th >{{'status' | translate}}</th>
+                        <th >{{'Name' | translate}}</th>  
                         <th ></th>
                     </tr>
                 </thead>
@@ -22,10 +21,7 @@
                     <tr ng-repeat="role in RoleList.results">
                         <td data-title="Name" >{{role.titleDictionary[selectedLanguage]}}</td>
                          
-                         <td>
-                             <p  ng-show="role.isStatic">{{'Static' | translate}}</p> 
-                             <p  ng-show="!role.isStatic">{{'Dynamic' | translate}}</p> 
-                        </td> 
+                      
                         <td width="30%" ng-show="!role.isStatic">
                             <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editrole',{roleId: role.roleId});">mode_edit</i> 
                          </td>
