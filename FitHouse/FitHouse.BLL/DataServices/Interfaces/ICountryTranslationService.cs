@@ -10,6 +10,6 @@ namespace FitHouse.BLL.DataServices.Interfaces
 {
     public interface ICountryTranslationService:IService<CountryTranslation>
     {
-        bool CheckNameExist(string objName, string language, long recordId, long tenantId);
+        bool CheckNameExist(string objName, string language, long recordId);
     }
 }

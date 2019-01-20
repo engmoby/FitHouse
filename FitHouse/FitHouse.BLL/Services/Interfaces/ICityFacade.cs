@@ -9,10 +9,10 @@ namespace FitHouse.BLL.Services.Interfaces
 {
     public interface ICityFacade
     {
-        CityDto GetCity(long cityId, int tenantId);
-        CityDto CreateCity(CityDto cityDto, int userId, int tenantId);
-        CityDto EditCity(CityDto cityDto, int userId, int tenantId);
-        PagedResultsDto GetAllCities(long regionId, int page, int pageSize, int tenantId);
+        CityDto GetCity(long cityId);
+        CityDto CreateCity(CityDto cityDto, int userId);
+        CityDto EditCity(CityDto cityDto, int userId);
+        PagedResultsDto GetAllCities(long regionId, int page, int pageSize);
         PagedResultsDto GetAllCitiesForUser(long userId);
     }
 }

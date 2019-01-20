@@ -118,9 +118,9 @@ namespace FitHouse.API.Providers
         {
             var identity = new ClaimsIdentity(Strings.JWT);
             identity.AddClaim(new Claim(Strings.userName, user.FirstName));
-            identity.AddClaim(new Claim(ClaimTypes.Name, user.TenantId+"-"+user.FirstName+" " +user.LastName));
+            identity.AddClaim(new Claim(ClaimTypes.Name, "-"+user.FirstName+" " +user.LastName));
             identity.AddClaim(new Claim(Strings.userID, user.UserId.ToString()));
-           identity.AddClaim(new Claim(Strings.TenantId, user.TenantId.ToString()));
+           //identity.AddClaim(new Claim(Strings.TenantId, user.TenantId.ToString()));
             //identity.AddClaim(new Claim(Strings.PermissionId, string.Join(";", user.PermissionId)));
             // identity.AddClaim(new Claim(ClaimTypes.Role, user.Role.ToString()));
 
@@ -142,9 +142,9 @@ namespace FitHouse.API.Providers
                 {
                     "Username", user.FirstName +" "+user.LastName
                 },
-                {
-                    "TenantId", user.TenantId.ToString()
-                },
+                //{
+                //    "TenantId", user.TenantId.ToString()
+                //},
                 {
                     "PermissionId", string.Join(";", user.PermissionId)
                 }, 

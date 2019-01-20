@@ -10,7 +10,7 @@ namespace FitHouse.Common
         public const string userID = "UserID";
         public const string userName = "Name";
         public const string userRole = "Role";
-        public const string TenantId = "TenantId";
+       // public const string TenantId = "TenantId";
         public const string PermissionId = "PermissionId";
         public const string TypeId = "TypeId";
         public static DateTime CurrentDateTime = DateTime.Now;

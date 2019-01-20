@@ -9,6 +9,5 @@ namespace FitHouse.DAL.Entities.Model
         public string Title { get; set; } 
         public long CategoryId { get; set; }
         public virtual Category Category { get; set; }
-        public int TenantId { get; set; }
     }
 }

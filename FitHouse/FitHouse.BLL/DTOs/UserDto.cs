@@ -23,7 +23,6 @@ namespace FitHouse.BLL.DTOs
         public long? DeleterUserId { get; set; } 
         public int BranchId { get; set; } 
         public List<UserRoleDto> UserRoles { get; set; }
-        public int TenantId { get; set; }
         public List<long> PermissionId { get; set; } 
         public long? AreaId { get; set; }
         public long? CountryId { get; set; }

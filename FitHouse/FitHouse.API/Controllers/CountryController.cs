@@ -20,7 +20,7 @@ namespace FitHouse.API.Controllers
         [HttpGet]
         public IHttpActionResult GetAllCountries(int page = Page, int pagesize = PageSize)
         {
-            PagedResultsDto allCountries = _countryFacade.GetAllCountries(page, pagesize, TenantId);
+            PagedResultsDto allCountries = _countryFacade.GetAllCountries(page, pagesize);
             var data = Mapper.Map<List<CountryModel>>(allCountries.Data);
             return PagedResponse("GetAllCountries", page, pagesize, allCountries.TotalCount, data, allCountries.IsParentTranslated);
         }
@@ -30,7 +30,7 @@ namespace FitHouse.API.Controllers
         [HttpPost]
         public IHttpActionResult CreateCountry([FromBody] CountryModel countryModel)
         {
-            var country = _countryFacade.CreateCountry(Mapper.Map<CountryDto>(countryModel), UserId, TenantId);
+            var country = _countryFacade.CreateCountry(Mapper.Map<CountryDto>(countryModel), UserId);
 
             return Ok(country);
         }
@@ -40,7 +40,7 @@ namespace FitHouse.API.Controllers
         [HttpPost]
         public IHttpActionResult EditCountry([FromBody] CountryModel countryModel)
         {
-            var country = _countryFacade.EditCountry(Mapper.Map<CountryDto>(countryModel), UserId, TenantId);
+            var country = _countryFacade.EditCountry(Mapper.Map<CountryDto>(countryModel), UserId);
 
             return Ok(country);
         }
@@ -48,7 +48,7 @@ namespace FitHouse.API.Controllers
         [HttpGet]
         public IHttpActionResult GetCountry(long countryId)
         {
-            var countryModel = Mapper.Map<CountryModel>(_countryFacade.GetCountry(countryId, TenantId));
+            var countryModel = Mapper.Map<CountryModel>(_countryFacade.GetCountry(countryId));
             return Ok(countryModel);
         }
     }

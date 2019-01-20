@@ -22,7 +22,7 @@ namespace FitHouse.API.Controllers
         [HttpGet]
         public IHttpActionResult GetAllRoles(int page = Page, int pagesize = PageSize)
         {
-            PagedResultsDto roleObj = _roleFacade.GetAllRoles(page, pagesize, TenantId);
+            PagedResultsDto roleObj = _roleFacade.GetAllRoles(page, pagesize);
             var data = Mapper.Map<List<RoleModel>>(roleObj.Data);
             return PagedResponse("GetAllRoles", page, pagesize, roleObj.TotalCount, data, roleObj.IsParentTranslated);
         }
@@ -32,7 +32,7 @@ namespace FitHouse.API.Controllers
         [HttpPost]
         public IHttpActionResult CreateRole([FromBody] RoleModel roleModel)
         { 
-            var reurnRole = _roleFacade.CreateRole(Mapper.Map<RoleDto>(roleModel), UserId, TenantId);
+            var reurnRole = _roleFacade.CreateRole(Mapper.Map<RoleDto>(roleModel), UserId);
 
             return Ok(reurnRole);
         }
@@ -42,7 +42,7 @@ namespace FitHouse.API.Controllers
         [HttpPost]
         public IHttpActionResult EditRole([FromBody] RoleModel roleModel)
         {
-            var reurnRole = _roleFacade.EditRole(Mapper.Map<RoleDto>(roleModel), UserId, TenantId);
+            var reurnRole = _roleFacade.EditRole(Mapper.Map<RoleDto>(roleModel), UserId);
 
             return Ok(reurnRole);
         }
@@ -52,7 +52,7 @@ namespace FitHouse.API.Controllers
         [HttpGet]
         public IHttpActionResult GetRoleById(long roleId)
         {
-            var reurnRole = _roleFacade.GetRole(roleId, TenantId);  
+            var reurnRole = _roleFacade.GetRole(roleId);  
             return Ok(reurnRole);
         }
     }

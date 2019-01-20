@@ -68,3 +68,9 @@ E:\Projects\FitHouse\Project\FitHouse\FitHouse\Frameworks\Repository.Pattern\bin
 E:\Projects\FitHouse\Project\FitHouse\FitHouse\Frameworks\Repository.Pattern\bin\Debug\Repository.Pattern.pdb
 E:\Projects\FitHouse\Project\FitHouse\FitHouse\Frameworks\Repository.Pattern\obj\Debug\Repository.Pattern.dll
 E:\Projects\FitHouse\Project\FitHouse\FitHouse\Frameworks\Repository.Pattern\obj\Debug\Repository.Pattern.pdb
+E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern\bin\Debug\Repository.Pattern.dll.config
+E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern\bin\Debug\Repository.Pattern.dll
+E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern\bin\Debug\Repository.Pattern.pdb
+E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern\obj\Debug\Repository.Pattern.csprojResolveAssemblyReference.cache
+E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern\obj\Debug\Repository.Pattern.dll
+E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern\obj\Debug\Repository.Pattern.pdb

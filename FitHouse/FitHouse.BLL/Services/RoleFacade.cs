@@ -31,7 +31,7 @@ namespace FitHouse.BLL.Services
             _rolePermissionService = rolePermissionService;
         }
 
-        public RoleDto GetRole(long roleId, int tenantId)
+        public RoleDto GetRole(long roleId)
         {
             if (roleId == 0)
             {
@@ -43,18 +43,18 @@ namespace FitHouse.BLL.Services
 
             var afterMap = Mapper.Map<RoleDto>(getRole);
 
-            afterMap.Permissions = _rolePermissionService.GetRolePermissionById(roleId, tenantId);
+            afterMap.Permissions = _rolePermissionService.GetRolePermissionById(roleId);
 
             return afterMap;
         }
 
-        public RoleDto CreateRole(RoleDto roleDto, int userId, int tenantId)
+        public RoleDto CreateRole(RoleDto roleDto, int userId)
         {
-            if (GetRole(roleDto.RoleId,tenantId) != null)
+            if (GetRole(roleDto.RoleId) != null)
             {
-                return EditRole(roleDto, userId, tenantId);
+                return EditRole(roleDto, userId);
             }
-                if (roleDto.TitleDictionary.Any(name => _typeTranslationService.CheckNameExist(name.Key, name.Value, roleDto.RoleId, tenantId)))
+                if (roleDto.TitleDictionary.Any(name => _typeTranslationService.CheckNameExist(name.Key, name.Value, roleDto.RoleId)))
                 {
                     throw new ValidationException(ErrorCodes.NameIsExist);
                 }
@@ -88,10 +88,10 @@ namespace FitHouse.BLL.Services
             return roleDto;
         }
 
-        public RoleDto EditRole(RoleDto roleDto, int userId, int tenantId)
+        public RoleDto EditRole(RoleDto roleDto, int userId )
         {
             //var roleObj = _roleService.Find(roleDto.RoleId);
-            if (roleDto.TitleDictionary.Any(name => _typeTranslationService.CheckNameExist(name.Key,name.Value, roleDto.RoleId, tenantId)))
+            if (roleDto.TitleDictionary.Any(name => _typeTranslationService.CheckNameExist(name.Key,name.Value, roleDto.RoleId)))
             {
                 throw new ValidationException(ErrorCodes.NameIsExist);
             }
@@ -139,9 +139,9 @@ namespace FitHouse.BLL.Services
 
         }
 
-        public PagedResultsDto GetAllRoles(int page, int pageSize, int tenantId)
+        public PagedResultsDto GetAllRoles(int page, int pageSize )
         {
-            return _roleService.GetAllRoles(page, pageSize, tenantId);
+            return _roleService.GetAllRoles(page, pageSize);
         }
 
     }

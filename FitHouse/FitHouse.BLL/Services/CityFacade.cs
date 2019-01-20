@@ -26,28 +26,28 @@ namespace FitHouse.BLL.Services
             _cityService = cityService;
             _userService = userService;
         }
-        public CityDto GetCity(long cityId, int tenantId)
+        public CityDto GetCity(long cityId)
         {
             return Mapper.Map<CityDto>(_cityService.Query(x => x.CityId == cityId).Select().FirstOrDefault());
         }
-        private void ValidateCity(CityDto cityDto, long tenantId, long regionId)
+        private void ValidateCity(CityDto cityDto, long regionId)
         {
             foreach (var name in cityDto.TitleDictionary)
             {
                 if (name.Value.Length > 300)
                     throw new ValidationException(ErrorCodes.MenuNameExceedLength);
 
-                if (_cityTranslationService.CheckNameExist(name.Value, name.Key, cityDto.CityId, tenantId,regionId))
+                if (_cityTranslationService.CheckNameExist(name.Value, name.Key, cityDto.CityId,regionId))
                     throw new ValidationException(ErrorCodes.NameIsExist);
             }
         }
-        public CityDto CreateCity(CityDto cityDto, int userId, int tenantId)
+        public CityDto CreateCity(CityDto cityDto, int userId)
         {
-            if (GetCity(cityDto.CityId, tenantId) != null)
+            if (GetCity(cityDto.CityId) != null)
             {
-                return EditCity(cityDto, userId, tenantId);
+                return EditCity(cityDto, userId);
             }
-            ValidateCity(cityDto, tenantId,cityDto.RegionId);
+            ValidateCity(cityDto,cityDto.RegionId);
             var city = Mapper.Map<City>(cityDto);
             foreach (var name in cityDto.TitleDictionary)
             {
@@ -66,11 +66,11 @@ namespace FitHouse.BLL.Services
             return cityDto;
         }
 
-        public CityDto EditCity(CityDto cityDto, int userId, int tenantId)
+        public CityDto EditCity(CityDto cityDto, int userId)
         {
             var city = _cityService.Query(x => x.CityId == cityDto.CityId).Select().FirstOrDefault();
             if (city == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
-            ValidateCity(cityDto, tenantId, cityDto.RegionId);
+            ValidateCity(cityDto, cityDto.RegionId);
             foreach (var name in cityDto.TitleDictionary)
             {
                 var cityTranslation = city.CityTranslations.FirstOrDefault(x => x.Language.ToLower() == name.Key.ToLower()
@@ -96,9 +96,9 @@ namespace FitHouse.BLL.Services
 
         }
            
-        public PagedResultsDto GetAllCities(long regionId, int page, int pageSize, int tenantId)
+        public PagedResultsDto GetAllCities(long regionId, int page, int pageSize)
         {
-            return _cityService.GetAllCities(regionId, page, pageSize, tenantId);
+            return _cityService.GetAllCities(regionId, page, pageSize);
         }
         public PagedResultsDto GetAllCitiesForUser(long userId)
         {

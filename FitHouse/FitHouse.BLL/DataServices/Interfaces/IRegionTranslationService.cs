@@ -10,6 +10,6 @@ namespace FitHouse.BLL.DataServices.Interfaces
 {
     public interface IRegionTranslationService:IService<RegionTranslation>
     {
-        bool CheckNameExist(string objName, string language, long recordId, long tenantId, long countryId);
+        bool CheckNameExist(string objName, string language, long recordId, long countryId);
     }
 }

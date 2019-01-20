@@ -7,6 +7,6 @@ namespace FitHouse.BLL.DataServices.Interfaces
 {
     public interface ICategoryService : IService<Category>
     {
-         PagedResultsDto GetAllCategorys(int page, int pageSize, int tenantId); 
+         PagedResultsDto GetAllCategorys(int page, int pageSize); 
     }
 }

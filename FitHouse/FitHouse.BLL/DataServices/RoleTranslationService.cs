@@ -86,7 +86,7 @@ namespace FitHouse.BLL.DataServices
             return results;
         }
 
-        public bool CheckNameExist(string language, string title, long roleId, int tenantId)
+        public bool CheckNameExist(string language, string title, long roleId)
         {
             return Queryable()
                 .Any(x => x.Language.ToLower() == language.ToLower() &&

@@ -23,7 +23,6 @@ namespace FitHouse.BLL.Services
         private readonly IUserRoleService _userRoleService;
         private readonly IPermissionService _permissionService;
         private readonly IRolePermissionService _rolePermissionService;
-        private readonly IPackageService _packageService;
 
         public UserFacade(IUserService userService, IUnitOfWorkAsync unitOfWork, IUserRoleService userRoleService, IPermissionService permissionService, IRolePermissionService rolePermissionService) : base(unitOfWork)
         {
@@ -87,42 +86,42 @@ namespace FitHouse.BLL.Services
             var afterMap = userDto;
             //var afterMap = Mapper.Map<UserDto>(getRole);
 
-            afterMap.UserRoles = _userRoleService.GetUserRoleById(userId, userDto.TenantId);
+            afterMap.UserRoles = _userRoleService.GetUserRoleById(userId);
 
             return afterMap;
         }
-        public UserDto GetUser(long userId, int tenantId)
-        {
-            if (userId == 0)
-            {
-                return null;
-            }
-            //var getRole = _userService.Find(userId);
-            var getRole = _userService.Query(x => x.UserId == userId ).Select().FirstOrDefault();
-            getRole.UserRoles = new List<UserRole>();
+        //public UserDto GetUser(long userId, int tenantId)
+        //{
+        //    if (userId == 0)
+        //    {
+        //        return null;
+        //    }
+        //    //var getRole = _userService.Find(userId);
+        //    var getRole = _userService.Query(x => x.UserId == userId ).Select().FirstOrDefault();
+        //    getRole.UserRoles = new List<UserRole>();
 
-            var userDto = new UserDto();
+        //    var userDto = new UserDto();
 
-            userDto.UserId = getRole.UserId;
-            userDto.FirstName = getRole.FirstName;
-            userDto.LastName = getRole.LastName;
-            userDto.Email = getRole.Email;
-            userDto.Phone = getRole.Phone;
-            //userDto.AreaId = getRole.AreaId;
-            //userDto.CountryId = getRole.AreaId.HasValue ? getRole.Area.City.Region.CountryId : 0;
-            //userDto.RegionId = getRole.AreaId.HasValue ? getRole.Area.City.RegionId : 0;
-            //userDto.CityId = getRole.AreaId.HasValue ? getRole.Area.CityId : 0;
-            ////  userDto.BranchId = getRole.b.Select(x=>x.BranchId).ToList(); 
-            userDto.Password = PasswordHelper.Decrypt(getRole.Password);
+        //    userDto.UserId = getRole.UserId;
+        //    userDto.FirstName = getRole.FirstName;
+        //    userDto.LastName = getRole.LastName;
+        //    userDto.Email = getRole.Email;
+        //    userDto.Phone = getRole.Phone;
+        //    //userDto.AreaId = getRole.AreaId;
+        //    //userDto.CountryId = getRole.AreaId.HasValue ? getRole.Area.City.Region.CountryId : 0;
+        //    //userDto.RegionId = getRole.AreaId.HasValue ? getRole.Area.City.RegionId : 0;
+        //    //userDto.CityId = getRole.AreaId.HasValue ? getRole.Area.CityId : 0;
+        //    ////  userDto.BranchId = getRole.b.Select(x=>x.BranchId).ToList(); 
+        //    userDto.Password = PasswordHelper.Decrypt(getRole.Password);
 
 
-            var afterMap = userDto;
-            //var afterMap = Mapper.Map<UserDto>(getRole);
+        //    var afterMap = userDto;
+        //    //var afterMap = Mapper.Map<UserDto>(getRole);
 
-            afterMap.UserRoles = _userRoleService.GetUserRoleById(userId, tenantId);
+        //    afterMap.UserRoles = _userRoleService.GetUserRoleById(userId, tenantId);
 
-            return afterMap;
-        }
+        //    return afterMap;
+        //}
 
 
         public UserDto GetUserByAccountId(Guid userAccountId)
@@ -130,17 +129,17 @@ namespace FitHouse.BLL.Services
             //return Mapper.Map<UserDto>(_userService.Query(x => x.UserAccountId == userAccountId).Select().FirstOrDefault());
             return null;
         }
-        public UserDto RegisterUser(UserDto userDto, int userId, int tenantId)
+        public UserDto RegisterUser(UserDto userDto, int userId)
         {
-            if (GetUser(userDto.UserId, tenantId) != null)
+            if (GetUser(userDto.UserId) != null)
             {
-                return EditUser(userDto, userId, tenantId);
+                return EditUser(userDto, userId);
             }
-            if (_userService.CheckEmailDuplicated(userDto.Email, tenantId))
+            if (_userService.CheckEmailDuplicated(userDto.Email))
             {
                 throw new ValidationException(ErrorCodes.MailExist);
             }
-            if (_userService.CheckPhoneDuplicated(userDto.Phone, tenantId))
+            if (_userService.CheckPhoneDuplicated(userDto.Phone))
             {
                 throw new ValidationException(ErrorCodes.PhoneExist);
             }
@@ -196,13 +195,13 @@ namespace FitHouse.BLL.Services
             return userDto;
         }
 
-        public UserDto EditUserInfo(UserDto userDto, int userId, int tenantId)
+        public UserDto EditUserInfo(UserDto userDto, int userId)
         {
             //  var getUser = GetUser(userDto.UserId);
-            var returnUser = EditUser(userDto, userId, tenantId);
+            var returnUser = EditUser(userDto, userId);
             return returnUser;
         }
-        public UserDto EditUser(UserDto userDto, int userId, int tenantId)
+        public UserDto EditUser(UserDto userDto, int userId)
         {
             var userObj = _userService.Query(x => x.UserId == userDto.UserId )
                 .Select().FirstOrDefault();

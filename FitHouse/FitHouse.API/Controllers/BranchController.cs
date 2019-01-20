@@ -20,7 +20,7 @@ namespace FitHouse.API.Controllers
         [HttpGet]
         public IHttpActionResult GetAllBranchs(int page = Page, int pagesize = PageSize)
         {
-            PagedResultsDto branchObj = _branchFacade.GetAllBranchs(page, pagesize, TenantId);
+            PagedResultsDto branchObj = _branchFacade.GetAllBranchs(page, pagesize);
             var data = Mapper.Map<List<BranchModel>>(branchObj.Data);
             return PagedResponse("GetAllAreas", page, pagesize, branchObj.TotalCount, data, branchObj.IsParentTranslated);
         }
@@ -30,7 +30,7 @@ namespace FitHouse.API.Controllers
         [HttpPost]
         public IHttpActionResult CreateBranch([FromBody] BranchModel branchModel)
         {
-            var reurnBranch = _branchFacade.CreateBranch(Mapper.Map<BranchDto>(branchModel), UserId, TenantId);
+            var reurnBranch = _branchFacade.CreateBranch(Mapper.Map<BranchDto>(branchModel), UserId);
 
             return Ok(reurnBranch);
         }
@@ -40,7 +40,7 @@ namespace FitHouse.API.Controllers
         [HttpPost]
         public IHttpActionResult EditBranch([FromBody] BranchModel BranchModel)
         {
-            var reurnBranch = _branchFacade.EditBranch(Mapper.Map<BranchDto>(BranchModel), UserId, TenantId);
+            var reurnBranch = _branchFacade.EditBranch(Mapper.Map<BranchDto>(BranchModel), UserId);
 
             return Ok(reurnBranch);
         }
@@ -50,7 +50,7 @@ namespace FitHouse.API.Controllers
         [HttpGet]
         public IHttpActionResult GetBranchById(long BranchId)
         {
-            var reurnBranch = _branchFacade.GetBranch(BranchId, TenantId);
+            var reurnBranch = _branchFacade.GetBranch(BranchId);
             return Ok(reurnBranch);
         }
     }

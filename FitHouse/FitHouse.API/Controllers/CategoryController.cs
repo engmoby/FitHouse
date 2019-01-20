@@ -20,7 +20,7 @@ namespace FitHouse.API.Controllers
         [HttpGet]
         public IHttpActionResult GetAllCategories(int page = Page, int pagesize = PageSize)
         {
-            PagedResultsDto categoryObj = _categoryFacade.GetAllCategorys(page, pagesize, TenantId);
+            PagedResultsDto categoryObj = _categoryFacade.GetAllCategorys(page, pagesize);
             var data = Mapper.Map<List<CategoryModel>>(categoryObj.Data);
             return PagedResponse("GetAllCategories", page, pagesize, categoryObj.TotalCount, data, categoryObj.IsParentTranslated);
         }
@@ -30,7 +30,7 @@ namespace FitHouse.API.Controllers
         [HttpPost]
         public IHttpActionResult CreateCategory([FromBody] CategoryModel categoryModel)
         {
-            var reurnCategory = _categoryFacade.CreateCategory(Mapper.Map<CategoryDto>(categoryModel),UserId, TenantId);
+            var reurnCategory = _categoryFacade.CreateCategory(Mapper.Map<CategoryDto>(categoryModel),UserId);
 
             return Ok(reurnCategory);
         }
@@ -40,7 +40,7 @@ namespace FitHouse.API.Controllers
         [HttpPost]
         public IHttpActionResult EditCategory([FromBody] CategoryModel categoryModel)
         {
-            var reurnCategory = _categoryFacade.EditCategory(Mapper.Map<CategoryDto>(categoryModel), UserId, TenantId);
+            var reurnCategory = _categoryFacade.EditCategory(Mapper.Map<CategoryDto>(categoryModel), UserId);
 
             return Ok(reurnCategory);
         }
@@ -50,7 +50,7 @@ namespace FitHouse.API.Controllers
         [HttpGet]
         public IHttpActionResult GetCategoryById(long CategoryId)
         {
-            var reurnCategory = _categoryFacade.GetCategory(CategoryId, TenantId);
+            var reurnCategory = _categoryFacade.GetCategory(CategoryId);
             return Ok(reurnCategory);
         }
     }

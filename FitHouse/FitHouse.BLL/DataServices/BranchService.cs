@@ -16,10 +16,10 @@ namespace FitHouse.BLL.DataServices
             _repository = repository;
         }
         
-        public PagedResultsDto GetAllBranchs(int page, int pageSize,int tenantId)
+        public PagedResultsDto GetAllBranchs(int page, int pageSize)
         {  
 
-            var query = Queryable().Where(x => !x.IsDeleted && (x.TenantId == tenantId || x.TenantId == null)).OrderBy(x => x.BranchId);
+            var query = Queryable().Where(x => !x.IsDeleted ).OrderBy(x => x.BranchId);
             PagedResultsDto results = new PagedResultsDto();
             results.TotalCount = query.Select(x => x).Count();
 

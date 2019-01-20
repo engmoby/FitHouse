@@ -11,6 +11,6 @@ namespace FitHouse.BLL.DataServices.Interfaces
 {
     public interface ICountryService:IService<Country>
     {
-        PagedResultsDto GetAllCountries(int page, int pageSize, int tenantId);
+        PagedResultsDto GetAllCountries(int page, int pageSize);
     }
 }

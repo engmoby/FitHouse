@@ -106,10 +106,8 @@
     <Compile Include="DataServices\Interfaces\ICityTranslationService.cs" />
     <Compile Include="DataServices\Interfaces\ICountryService.cs" />
     <Compile Include="DataServices\Interfaces\ICountryTranslationService.cs" />
-    <Compile Include="DataServices\Interfaces\IPackageService.cs" />
     <Compile Include="DataServices\Interfaces\IRegionService.cs" />
     <Compile Include="DataServices\Interfaces\IRegionTranslationService.cs" />
-    <Compile Include="DataServices\PackageService.cs" />
     <Compile Include="DataServices\CategoryService.cs" />
     <Compile Include="DataServices\CategoryTranslationService.cs" />
     <Compile Include="DataServices\Interfaces\ICategoryService.cs" />

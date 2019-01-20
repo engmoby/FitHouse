@@ -33,27 +33,26 @@ namespace FitHouse.BLL.Services
             _userService = userService;
         }
 
-        public AreaDto GetArea(long areaId, int tenantId)
+        public AreaDto GetArea(long areaId)
         {
             return Mapper.Map<AreaDto>(_areaService.Query(x => x.AreaId == areaId).Select()
                 .FirstOrDefault());
         }
 
-        public AreaDto CreateArea(AreaDto areaDto, int userId, int tenantId)
+        public AreaDto CreateArea(AreaDto areaDto, int userId)
         {
-            if (GetArea(areaDto.AreaId, tenantId) != null)
+            if (GetArea(areaDto.AreaId) != null)
             {
-                return EditArea(areaDto, userId, tenantId);
+                return EditArea(areaDto, userId);
             }
-            ValidateArea(areaDto, tenantId, areaDto.CityId);
+            ValidateArea(areaDto, areaDto.CityId);
             var areaObj = Mapper.Map<Area>(areaDto);
             foreach (var areaName in areaDto.TitleDictionary)
             {
                 areaObj.AreaTranslations.Add(new AreaTranslation
                 {
                     Title = areaName.Value,
-                    Language = areaName.Key,
-                    TenantId = tenantId
+                    Language = areaName.Key
                 });
             }
 
@@ -65,12 +64,12 @@ namespace FitHouse.BLL.Services
             return areaDto;
         }
 
-        public AreaDto EditArea(AreaDto areaDto, int userId, int tenantId)
+        public AreaDto EditArea(AreaDto areaDto, int userId)
         {
             var areaObj = _areaService.Query(x => x.AreaId == areaDto.AreaId  ).Select()
                 .FirstOrDefault();
             if (areaObj == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
-            ValidateArea(areaDto, tenantId,areaDto.CityId);
+            ValidateArea(areaDto,areaDto.CityId);
             foreach (var areaName in areaDto.TitleDictionary)
             {
                 var areaTranslation = areaObj.AreaTranslations.FirstOrDefault(
@@ -91,16 +90,16 @@ namespace FitHouse.BLL.Services
             areaObj.LastModificationTime = Strings.CurrentDateTime;
             areaObj.LastModifierUserId = userId;
             areaObj.IsDeleted = areaDto.IsDeleted;
-            areaObj.IsStatic = areaDto.IsStatic;
+            //areaObj.IsStatic = areaDto.IsStatic;
             _areaService.Update(areaObj);
             SaveChanges();
             return areaDto;
 
         }
 
-        public PagedResultsDto GetAllAreas(long cityId, int page, int pageSize, int tenantId)
+        public PagedResultsDto GetAllAreas(long cityId, int page, int pageSize)
         {
-            return _areaService.GetAllAreas(cityId, page, pageSize, tenantId);
+            return _areaService.GetAllAreas(cityId, page, pageSize);
         }
 
         public AreaDto GetAllAreasByUserId(long userId)
@@ -109,14 +108,14 @@ namespace FitHouse.BLL.Services
             //return Mapper.Map<AreaDto>(_userService.Find(userId).Area);
         }
 
-        private void ValidateArea(AreaDto areaDto, long tenantId, long cityId)
+        private void ValidateArea(AreaDto areaDto, long cityId)
         {
             foreach (var name in areaDto.TitleDictionary)
             {
                 if (name.Value.Length > 300)
                     throw new ValidationException(ErrorCodes.MenuNameExceedLength);
 
-                if (_typeTranslationService.CheckNameExist(name.Value, name.Key, areaDto.AreaId, tenantId,cityId))
+                if (_typeTranslationService.CheckNameExist(name.Value, name.Key, areaDto.AreaId,cityId))
                     throw new ValidationException(ErrorCodes.NameIsExist);
             }
         }

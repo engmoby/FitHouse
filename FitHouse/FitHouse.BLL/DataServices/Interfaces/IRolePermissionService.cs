@@ -7,6 +7,6 @@ namespace FitHouse.BLL.DataServices.Interfaces
 {
     public interface IRolePermissionService : IService<RolePermission>
     {
-        List<RolePermissionDto> GetRolePermissionById(long roleId, int tenantId);
+        List<RolePermissionDto> GetRolePermissionById(long roleId);
     }
 }

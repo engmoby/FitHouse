@@ -4,10 +4,10 @@ namespace FitHouse.BLL.Services.Interfaces
 {
     public interface IAreaFacade
     { 
-        AreaDto GetArea(long userId, int tenantId); 
-        AreaDto CreateArea(AreaDto userDto, int userId, int tenantId); 
-        AreaDto EditArea(AreaDto userDto, int userId, int tenantId);
-        PagedResultsDto GetAllAreas(long cityId,int page, int pageSize, int tenantId);
+        AreaDto GetArea(long userId); 
+        AreaDto CreateArea(AreaDto userDto, int userId); 
+        AreaDto EditArea(AreaDto userDto, int userId);
+        PagedResultsDto GetAllAreas(long cityId,int page, int pageSize);
         AreaDto GetAllAreasByUserId(long userId);
         PagedResultsDto GetAllAreasForUser(long userId);
     }

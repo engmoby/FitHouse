@@ -12,7 +12,6 @@ namespace FitHouse.BLL.DTOs
          
         public long RoleId { get; set; }
         public virtual RoleDto Role { get; set; }
-        public int TenantId { get; set; }
     }
 }
 

@@ -6,7 +6,6 @@ namespace FitHouse.API.Models
     {
         public long AreaId { get; set; }
         public Dictionary<string, string> TitleDictionary { get; set; } 
-        public bool IsStatic { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime? LastModificationTime { get; set; }
         public long? LastModifierUserId { get; set; }

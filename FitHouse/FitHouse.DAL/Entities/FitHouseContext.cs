@@ -23,8 +23,6 @@ namespace FitHouse.DAL.Entities
 
         public DbSet<Branch> Branches { get; set; }
         public DbSet<BranchTranslation> BranchTranslations { get; set; }
-         
-        public DbSet<Package> Packages { get; set; }  
      
         public DbSet<Country> Countries { get; set; }
         public DbSet<CountryTranslation> CountryTranslations { get; set; }
@@ -32,6 +30,22 @@ namespace FitHouse.DAL.Entities
         public DbSet<RegionTranslation> RegionTranslations { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<CityTranslation> CityTranslations { get; set; }
+        public DbSet<Day> Days  { get; set; }
+        public DbSet<DayTranslation> DayTranslations { get; set; }
+        public DbSet<Item> Items { get; set; }
+        public DbSet<ItemTranslation> ItemTranslations { get; set; }
+        public DbSet<Log> Logs { get; set; }
+        public DbSet<Meal> Meals { get; set; }
+        public DbSet<MealDetail> MealDetails { get; set; }
+        public DbSet<Order> Orders { get; set; }
+        public DbSet<OrderDetail> OrderDetails { get; set; }
+        public DbSet<ProgExcludeDay> ProgExcludeDays { get; set; }
+        public DbSet<Program> Programs { get; set; }
+        public DbSet<ProgramDetail> ProgramDetails { get; set; }
+        public DbSet<ProgramTranslation> ProgramTranslations { get; set; }
+        public DbSet<Setting> Settings { get; set; }
+        public DbSet<Status> Statuses { get; set; }
+        public DbSet<StatusTranslation> StatusTranslations { get; set; }
      
 
 
