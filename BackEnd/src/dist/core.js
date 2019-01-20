@@ -14,7 +14,7 @@
       'ngProgressLite',
       'ui.bootstrap',
       'pascalprecht.translate',
-      'ADM-treeView',
+      // 'ADM-treeView',
       'blockUI',
       'ui.carousel',
       'nvd3',
