@@ -50,7 +50,7 @@ namespace FitHouse.API.Controllers
         [HttpGet]
         public IHttpActionResult GetCategoryById(long categoryId)
         {
-            var reurnCategory = _categoryFacade.GetCategory(CategoryId);
+            var reurnCategory = _categoryFacade.GetCategory(categoryId);
             return Ok(reurnCategory);
         }
     }

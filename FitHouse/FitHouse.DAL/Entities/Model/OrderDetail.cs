@@ -13,7 +13,7 @@ namespace FitHouse.DAL.Entities.Model
         public OrderDetail()
         {
         }
-        public long OrderDetailsId { get; set; }
+        public long OrderDetailId { get; set; }
         [ForeignKey("Order")]
         public long OrderId { get; set; }
         [ForeignKey("Item")]

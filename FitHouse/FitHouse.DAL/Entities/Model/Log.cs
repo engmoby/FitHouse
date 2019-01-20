@@ -16,6 +16,7 @@ namespace FitHouse.DAL.Entities.Model
         public long LogId { get; set; }
         [ForeignKey("User")]
         public long UserId { get; set; }
+        public User User { get; set; }
         public string EndPointName { get; set; }
         public string Action { get; set; }
         public string Module { get; set; }
