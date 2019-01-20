@@ -15,6 +15,5 @@ namespace FitHouse.DAL.Entities.Model
         [ForeignKey("Role")]
         public long RoleId { get; set; }
         public virtual Role Role { get; set; }
-        public int TenantId { get; set; }
     }
 }

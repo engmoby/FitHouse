@@ -13,8 +13,9 @@ namespace FitHouse.DAL.Entities.Model
             RolePermissions = new List<RolePermission>(); 
             RoleTranslations = new List<RoleTranslation>();
         }
-        public long RoleId { get; set; }  
+        public long RoleId { get; set; }
         public bool IsDeleted { get; set; }
+        public bool IsActive { get; set; }
         public DateTime? LastModificationTime { get; set; }
         public long? LastModifierUserId { get; set; }
         public DateTime? CreationTime { get; set; }

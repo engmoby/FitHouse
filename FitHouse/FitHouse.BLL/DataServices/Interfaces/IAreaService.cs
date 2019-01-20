@@ -6,6 +6,6 @@ namespace FitHouse.BLL.DataServices.Interfaces
 {
     public interface IAreaService : IService<Area>
     {
-         PagedResultsDto GetAllAreas(long cityId,int page, int pageSize, int tenantId);
+         PagedResultsDto GetAllAreas(long cityId,int page, int pageSize);
     }
 }

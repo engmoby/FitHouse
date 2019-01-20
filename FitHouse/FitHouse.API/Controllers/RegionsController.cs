@@ -21,7 +21,7 @@ namespace FitHouse.API.Controllers
         [HttpGet]
         public IHttpActionResult GetAllRegions(long countryId, int page = Page, int pagesize = PageSize)
         {
-            PagedResultsDto allRegions = _regionFacade.GetAllRegions(countryId, page, pagesize, TenantId);
+            PagedResultsDto allRegions = _regionFacade.GetAllRegions(countryId, page, pagesize);
             var data = Mapper.Map<List<RegionModel>>(allRegions.Data);
             return PagedResponse("GetAllRegions", page, pagesize, allRegions.TotalCount, data,
                 allRegions.IsParentTranslated);
@@ -32,7 +32,7 @@ namespace FitHouse.API.Controllers
         [HttpPost]
         public IHttpActionResult CreateRegion([FromBody] RegionModel regionModel)
         {
-            var region = _regionFacade.CreateRegion(Mapper.Map<RegionDto>(regionModel), UserId, TenantId);
+            var region = _regionFacade.CreateRegion(Mapper.Map<RegionDto>(regionModel), UserId);
 
             return Ok(region);
         }
@@ -42,7 +42,7 @@ namespace FitHouse.API.Controllers
         [HttpPost]
         public IHttpActionResult EditRegion([FromBody] RegionModel regionModel)
         {
-            var region = _regionFacade.EditRegion(Mapper.Map<RegionDto>(regionModel), UserId, TenantId);
+            var region = _regionFacade.EditRegion(Mapper.Map<RegionDto>(regionModel), UserId);
 
             return Ok(region);
         }
@@ -51,7 +51,7 @@ namespace FitHouse.API.Controllers
         [HttpGet]
         public IHttpActionResult GetRegion(long regionId)
         {
-            var regionModel = Mapper.Map<RegionModel>(_regionFacade.GetRegion(regionId, TenantId));
+            var regionModel = Mapper.Map<RegionModel>(_regionFacade.GetRegion(regionId));
             return Ok(regionModel);
         }
 

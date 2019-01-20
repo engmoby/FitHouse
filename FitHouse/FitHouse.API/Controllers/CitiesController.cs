@@ -20,7 +20,7 @@ namespace FitHouse.API.Controllers
         [HttpGet]
         public IHttpActionResult GetAllCities(long regionId, int page = Page, int pagesize = PageSize)
         {
-            PagedResultsDto allCities = _cityFacade.GetAllCities(regionId, page, pagesize, TenantId);
+            PagedResultsDto allCities = _cityFacade.GetAllCities(regionId, page, pagesize);
             var data = Mapper.Map<List<CityModel>>(allCities.Data);
             return PagedResponse("GetAllCities", page, pagesize, allCities.TotalCount, data, allCities.IsParentTranslated);
         }
@@ -30,7 +30,7 @@ namespace FitHouse.API.Controllers
         [HttpPost]
         public IHttpActionResult CreateCity([FromBody] CityModel cityModel)
         {
-            var city = _cityFacade.CreateCity(Mapper.Map<CityDto>(cityModel), UserId, TenantId);
+            var city = _cityFacade.CreateCity(Mapper.Map<CityDto>(cityModel), UserId);
 
             return Ok(city);
         }
@@ -40,7 +40,7 @@ namespace FitHouse.API.Controllers
         [HttpPost]
         public IHttpActionResult EditCity([FromBody] CityModel cityModel)
         {
-            var city = _cityFacade.EditCity(Mapper.Map<CityDto>(cityModel), UserId, TenantId);
+            var city = _cityFacade.EditCity(Mapper.Map<CityDto>(cityModel), UserId);
 
             return Ok(city);
         }
@@ -48,7 +48,7 @@ namespace FitHouse.API.Controllers
         [HttpGet]
         public IHttpActionResult GetCity(long cityId)
         {
-            var cityModel = Mapper.Map<CityModel>(_cityFacade.GetCity(cityId, TenantId));
+            var cityModel = Mapper.Map<CityModel>(_cityFacade.GetCity(cityId));
             return Ok(cityModel);
         }
 

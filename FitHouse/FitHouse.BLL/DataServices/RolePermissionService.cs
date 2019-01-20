@@ -16,7 +16,7 @@ namespace FitHouse.BLL.DataServices
             _repository = repository;
         }
 
-        public List<RolePermissionDto> GetRolePermissionById(long roleId, int tenantId)
+        public List<RolePermissionDto> GetRolePermissionById(long roleId)
         {
             var rolePermissions = _repository.Query(x => x.RoleId == roleId  ).Select().ToList();
             var results = Mapper.Map<List<RolePermission>, List<RolePermissionDto>>(rolePermissions);

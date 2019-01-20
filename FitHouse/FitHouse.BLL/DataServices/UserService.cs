@@ -26,15 +26,15 @@ namespace FitHouse.BLL.DataServices
             var getUser = _repository.Query(u => u.Email.ToLower() == email.ToLower() && u.Password == password).Select().FirstOrDefault();
             return getUser;
         }
-        public bool CheckEmailDuplicated(string email, int tenantId)
+        public bool CheckEmailDuplicated(string email)
         {
             return _repository.Queryable().Any(u => u.Email.ToLower() == email.ToLower() && !u.IsDeleted);
         }
-        public bool CheckPhoneDuplicated(string phone, int tenantId)
+        public bool CheckPhoneDuplicated(string phone)
         {
             return _repository.Queryable().Any(u => u.Phone == phone.ToLower() && !u.IsDeleted );
         }
-        public PagedResultsDto GetAllUsers(int page, int pageSize, int tenantId)
+        public PagedResultsDto GetAllUsers(int page, int pageSize)
         {
             var query = Queryable().Where(x => !x.IsStatic && !x.IsDeleted).OrderBy(x => x.UserId);
             PagedResultsDto results = new PagedResultsDto();

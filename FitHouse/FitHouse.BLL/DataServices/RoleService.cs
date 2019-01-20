@@ -16,7 +16,7 @@ namespace FitHouse.BLL.DataServices
             _repository = repository;
         }
         
-        public PagedResultsDto GetAllRoles(int page, int pageSize, int tenantId)
+        public PagedResultsDto GetAllRoles(int page, int pageSize)
         { 
             var query = Queryable().Where(x => !x.IsDeleted  ).OrderBy(x => x.RoleId);
             PagedResultsDto results = new PagedResultsDto();

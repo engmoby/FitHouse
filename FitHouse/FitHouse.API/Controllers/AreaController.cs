@@ -20,7 +20,7 @@ namespace FitHouse.API.Controllers
         [HttpGet]
         public IHttpActionResult GetAllAreas(long cityId, int page = Page, int pagesize = PageSize)
         {
-            PagedResultsDto areaObj = _areaFacade.GetAllAreas(cityId,page, pagesize, TenantId);
+            PagedResultsDto areaObj = _areaFacade.GetAllAreas(cityId,page, pagesize);
             var data = Mapper.Map<List<AreaModel>>(areaObj.Data);
             return PagedResponse("GetAllAreas", page, pagesize, areaObj.TotalCount, data, areaObj.IsParentTranslated);
         }
@@ -30,7 +30,7 @@ namespace FitHouse.API.Controllers
         [HttpPost]
         public IHttpActionResult CreateArea([FromBody] AreaModel areaModel)
         {
-            var reurnArea = _areaFacade.CreateArea(Mapper.Map<AreaDto>(areaModel),UserId, TenantId);
+            var reurnArea = _areaFacade.CreateArea(Mapper.Map<AreaDto>(areaModel),UserId);
 
             return Ok(reurnArea);
         }
@@ -40,7 +40,7 @@ namespace FitHouse.API.Controllers
         [HttpPost]
         public IHttpActionResult EditArea([FromBody] AreaModel areaModel)
         {
-            var reurnArea = _areaFacade.EditArea(Mapper.Map<AreaDto>(areaModel), UserId, TenantId);
+            var reurnArea = _areaFacade.EditArea(Mapper.Map<AreaDto>(areaModel), UserId);
 
             return Ok(reurnArea);
         }
@@ -50,7 +50,7 @@ namespace FitHouse.API.Controllers
         [HttpGet]
         public IHttpActionResult GetAreaById(long areaId)
         {
-            var reurnArea = _areaFacade.GetArea(areaId, TenantId);
+            var reurnArea = _areaFacade.GetArea(areaId);
             return Ok(reurnArea);
         }
 

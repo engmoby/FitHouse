@@ -9,6 +9,6 @@ namespace FitHouse.DAL.Entities.Model
         public string Title { get; set; } 
         public long AreaId { get; set; }
         public virtual Area Area { get; set; }
-        public int TenantId { get; set; }
+        
     }
 }

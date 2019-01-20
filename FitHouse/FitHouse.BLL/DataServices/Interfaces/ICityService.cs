@@ -11,6 +11,6 @@ namespace FitHouse.BLL.DataServices.Interfaces
 {
     public interface ICityService:IService<City>
     {
-        PagedResultsDto GetAllCities(long regionId, int page, int pageSize, int tenantId);
+        PagedResultsDto GetAllCities(long regionId, int page, int pageSize);
     }
 }

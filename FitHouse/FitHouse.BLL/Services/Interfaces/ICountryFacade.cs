@@ -9,9 +9,9 @@ namespace FitHouse.BLL.Services.Interfaces
 {
     public interface ICountryFacade
     {
-        CountryDto GetCountry(long countryId, int tenantId);
-        CountryDto CreateCountry(CountryDto countryDto, int userId, int tenantId);
-        CountryDto EditCountry(CountryDto countryDto, int userId, int tenantId);
-        PagedResultsDto GetAllCountries(int page, int pageSize, int tenantId);
+        CountryDto GetCountry(long countryId);
+        CountryDto CreateCountry(CountryDto countryDto, int userId);
+        CountryDto EditCountry(CountryDto countryDto, int userId);
+        PagedResultsDto GetAllCountries(int page, int pageSize);
     }
 }

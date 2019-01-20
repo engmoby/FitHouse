@@ -10,6 +10,6 @@ namespace FitHouse.BLL.DataServices.Interfaces
         PagedResultsDto GetAllCategorysTranslation(string language);
         PagedResultsDto GetCategoryTranslationByCategoryId(string language, long categoryId);
         CategoryDto CategoryTranslationByCategoryId(string language, long categoryId);
-        bool CheckNameExist(string objName, string language, long recordId, long tenantId);
+        bool CheckNameExist(string objName, string language, long recordId);
     }
 }

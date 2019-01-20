@@ -18,7 +18,7 @@ namespace FitHouse.BLL.DataServices
         {
             
         }
-        public PagedResultsDto GetAllCountries(int page, int pageSize, int tenantId)
+        public PagedResultsDto GetAllCountries(int page, int pageSize)
         {
             var query = Queryable().Where(x => !x.IsDeleted  ).OrderBy(x => x.CountryId);
             PagedResultsDto results = new PagedResultsDto();

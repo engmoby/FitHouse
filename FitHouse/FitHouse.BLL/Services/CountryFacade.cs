@@ -23,28 +23,28 @@ namespace FitHouse.BLL.Services
             _countryTranslationService = countryTranslationService;
             _countryService = countryService;
         }
-        public CountryDto GetCountry(long countryId, int tenantId)
+        public CountryDto GetCountry(long countryId)
         {
             return Mapper.Map<CountryDto>(_countryService.Query(x => x.CountryId == countryId  ).Select().FirstOrDefault());
         }
-        private void ValidateCountry(CountryDto countryDto, long tenantId)
+        private void ValidateCountry(CountryDto countryDto)
         {
             foreach (var name in countryDto.TitleDictionary)
             {
                 if (name.Value.Length > 300)
                     throw new ValidationException(ErrorCodes.MenuNameExceedLength);
 
-                if (_countryTranslationService.CheckNameExist(name.Value, name.Key, countryDto.CountryId, tenantId))
+                if (_countryTranslationService.CheckNameExist(name.Value, name.Key, countryDto.CountryId))
                     throw new ValidationException(ErrorCodes.NameIsExist);
             }
         }
-        public CountryDto CreateCountry (CountryDto countryDto, int userId, int tenantId)
+        public CountryDto CreateCountry (CountryDto countryDto, int userId)
         {
-            if (GetCountry(countryDto.CountryId, tenantId) != null)
+            if (GetCountry(countryDto.CountryId) != null)
             {
-                return EditCountry(countryDto, userId, tenantId);
+                return EditCountry(countryDto, userId);
             }
-            ValidateCountry(countryDto, tenantId);
+            ValidateCountry(countryDto);
             var country = Mapper.Map<Country>(countryDto);
             foreach (var name in countryDto.TitleDictionary)
             {
@@ -63,11 +63,11 @@ namespace FitHouse.BLL.Services
             return countryDto;
         }
 
-        public CountryDto EditCountry(CountryDto countryDto, int userId, int tenantId)
+        public CountryDto EditCountry(CountryDto countryDto, int userId)
         {
             var country = _countryService.Query(x => x.CountryId == countryDto.CountryId  ).Select().FirstOrDefault();
             if (country == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
-            ValidateCountry(countryDto, tenantId);
+            ValidateCountry(countryDto);
             foreach (var areaName in countryDto.TitleDictionary)
             {
                 var countryTranslation = country.CountryTranslations.FirstOrDefault(x => x.Language.ToLower() == areaName.Key.ToLower()
@@ -93,9 +93,9 @@ namespace FitHouse.BLL.Services
 
         }
 
-        public PagedResultsDto GetAllCountries(int page, int pageSize, int tenantId)
+        public PagedResultsDto GetAllCountries(int page, int pageSize)
         {
-            return _countryService.GetAllCountries(page, pageSize, tenantId);
+            return _countryService.GetAllCountries(page, pageSize);
         }
     }
 }

@@ -90,7 +90,6 @@ namespace FitHouse.BLL
                 .RegisterType<IPermissionService, PermissionService>(new PerResolveLifetimeManager())
                 .RegisterType<IPermissionTranslationService, PermissionTranslationService>(new PerResolveLifetimeManager())
                 .RegisterType<IRolePermissionService, RolePermissionService>(new PerResolveLifetimeManager()) 
-                .RegisterType<IPackageService, PackageService>(new PerResolveLifetimeManager()) 
                 .RegisterType<IManageStorage, ManageStorage>(new PerResolveLifetimeManager())
                 .RegisterType<IFormToMail, FormToMail>(new PerResolveLifetimeManager())
 

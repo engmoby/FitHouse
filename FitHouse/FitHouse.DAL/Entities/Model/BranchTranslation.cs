@@ -9,6 +9,5 @@ namespace FitHouse.DAL.Entities.Model
         public string Title { get; set; } 
         public long BranchId { get; set; }
         public virtual Branch Branch { get; set; }
-        public int TenantId { get; set; }
     }
 }

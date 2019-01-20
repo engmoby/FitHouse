@@ -27,45 +27,43 @@ namespace FitHouse.BLL.Services
             _typeTranslationService = typeTranslationService;
         }
 
-        public BranchDto GetBranch(long branchId, int tenantId)
+        public BranchDto GetBranch(long branchId)
         {
-            return Mapper.Map<BranchDto>(_branchService.Query(x => x.BranchId == branchId && x.TenantId == tenantId)
+            return Mapper.Map<BranchDto>(_branchService.Query(x => x.BranchId == branchId)
                 .Select().FirstOrDefault());
         }
 
-        public BranchDto CreateBranch(BranchDto branchDto, int userId, int tenantId)
+        public BranchDto CreateBranch(BranchDto branchDto, int userId)
         {
-            if (GetBranch(branchDto.BranchId, tenantId) != null)
+            if (GetBranch(branchDto.BranchId) != null)
             {
-                return EditBranch(branchDto, userId, tenantId);
+                return EditBranch(branchDto, userId);
             }
-            ValidateBranch(branchDto, tenantId, branchDto.AreaId);
+            ValidateBranch(branchDto, branchDto.AreaId);
             var branchObj = Mapper.Map<Branch>(branchDto);
             foreach (var branchName in branchDto.TitleDictionary)
             {
                 branchObj.BranchTranslations.Add(new BranchTranslation
                 {
                     Title = branchName.Value,
-                    Language = branchName.Key,
-                    TenantId = tenantId
+                    Language = branchName.Key
                 });
             }
 
             branchObj.CreationTime = Strings.CurrentDateTime;
             branchObj.CreatorUserId = userId;
-            branchObj.TenantId = tenantId;
             _typeTranslationService.InsertRange(branchObj.BranchTranslations);
             _branchService.Insert(branchObj);
             SaveChanges();
             return branchDto;
         }
 
-        public BranchDto EditBranch(BranchDto branchDto, int userId, int tenantId)
+        public BranchDto EditBranch(BranchDto branchDto, int userId)
         { 
-            var branchObj = _branchService.Query(x => x.BranchId == branchDto.BranchId && x.TenantId == tenantId)
+            var branchObj = _branchService.Query(x => x.BranchId == branchDto.BranchId)
                 .Select().FirstOrDefault();
             if (branchObj == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
-            ValidateBranch(branchDto, tenantId,branchDto.AreaId);
+            ValidateBranch(branchDto,branchDto.AreaId);
             foreach (var branchName in branchDto.TitleDictionary)
             {
                 var branchTranslation = branchObj.BranchTranslations.FirstOrDefault(x => x.Language.ToLower() == branchName.Key.ToLower() && x.BranchId == branchDto.BranchId);
@@ -83,26 +81,25 @@ namespace FitHouse.BLL.Services
             branchObj.LastModificationTime = Strings.CurrentDateTime;
             branchObj.LastModifierUserId = userId;
             branchObj.IsDeleted = branchDto.IsDeleted;
-            branchObj.IsStatic = branchDto.IsStatic;
             _branchService.Update(branchObj);
             SaveChanges();
             return branchDto;
 
         }
 
-        public PagedResultsDto GetAllBranchs(int page, int pageSize, int tenantId)
+        public PagedResultsDto GetAllBranchs(int page, int pageSize)
         {
-            return _branchService.GetAllBranchs(page, pageSize, tenantId);
+            return _branchService.GetAllBranchs(page, pageSize);
         }
 
-        private void ValidateBranch(BranchDto branchDto, long tenantId, long areaId)
+        private void ValidateBranch(BranchDto branchDto, long areaId)
         {
             foreach (var name in branchDto.TitleDictionary)
             {
                 if (name.Value.Length > 300)
                     throw new ValidationException(ErrorCodes.MenuNameExceedLength);
 
-                if (_typeTranslationService.CheckNameExist(name.Value, name.Key, branchDto.BranchId, tenantId,areaId))
+                if (_typeTranslationService.CheckNameExist(name.Value, name.Key, branchDto.BranchId,areaId))
                     throw new ValidationException(ErrorCodes.NameIsExist);
             }
         }

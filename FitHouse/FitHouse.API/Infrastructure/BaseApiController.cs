@@ -17,7 +17,7 @@ namespace FitHouse.API.Infrastructure
         public string UserRole { get; set; }
         public string UserName { get; set; }
         public int UserId { get; set; }
-        public int TenantId { get; set; }
+        //public int TenantId { get; set; }
 
         public const int PageSize = 10;
         public const int Page = 1;
@@ -34,7 +34,7 @@ namespace FitHouse.API.Infrastructure
             {
                 UserId = GetTokenValue<int>(Strings.userID);
                 UserName = GetTokenValue<string>(Strings.userName);
-                TenantId = GetTokenValue<int>(Strings.TenantId);
+                //TenantId = GetTokenValue<int>(Strings.TenantId);
              //   UserRole = GetTokenValue<string>(ClaimTypes.Role);
             }
         }

@@ -6,6 +6,6 @@ namespace FitHouse.BLL.DataServices.Interfaces
 {
     public interface IBranchService : IService<Branch>
     {
-         PagedResultsDto GetAllBranchs(int page, int pageSize, int tenantId);
+         PagedResultsDto GetAllBranchs(int page, int pageSize);
     }
 }

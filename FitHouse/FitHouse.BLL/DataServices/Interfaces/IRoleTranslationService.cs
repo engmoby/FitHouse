@@ -11,6 +11,6 @@ namespace FitHouse.BLL.DataServices.Interfaces
         PagedResultsDto GetAllRolesTranslation(string language);
         PagedResultsDto GetRoleTranslationByRoleId(string language, long RoleId);
         RoleDto RoleTranslationByRoleId(string language, long RoleId);
-        bool CheckNameExist(string language, string title, long roleId, int tenantId);
+        bool CheckNameExist(string language, string title, long roleId);
     }
 }

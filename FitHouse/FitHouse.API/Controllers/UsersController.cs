@@ -29,14 +29,14 @@ namespace FitHouse.API.Controllers
         [HttpPost]
         public IHttpActionResult RegisterUser([FromBody] UserModel userModel)
         {
-            var reurnUser = _userFacade.RegisterUser(Mapper.Map<UserDto>(userModel), UserId, TenantId); 
+            var reurnUser = _userFacade.RegisterUser(Mapper.Map<UserDto>(userModel), UserId); 
             return Ok(reurnUser);
         } 
         [Route("api/Users/EditRegisterUser", Name = "EditRegisterUser")]
         [HttpPost]
         public IHttpActionResult EditRegisterUser([FromBody] UserModel userModel)
         {
-            var reurnUser = _userFacade.EditUserInfo(Mapper.Map<UserDto>(userModel), UserId, TenantId);
+            var reurnUser = _userFacade.EditUserInfo(Mapper.Map<UserDto>(userModel), UserId);
  
             return Ok(reurnUser);
         }
@@ -45,7 +45,7 @@ namespace FitHouse.API.Controllers
         [HttpGet]
         public IHttpActionResult GetAllUsers(int page = Page, int pagesize = PageSize)
         {
-            var getAllDataForuser = _userService.GetAllUsers(page, pagesize, TenantId);
+            var getAllDataForuser = _userService.GetAllUsers(page, pagesize);
             var userList = Mapper.Map<List<UserModel>>(getAllDataForuser.Data); 
             PagedResultsDto results = new PagedResultsDto();
             results.TotalCount = getAllDataForuser.TotalCount;
@@ -57,7 +57,7 @@ namespace FitHouse.API.Controllers
         [HttpGet]
         public IHttpActionResult GetUserById(long userId)
         {
-            var reurnUser = _userFacade.GetUser(userId, TenantId);
+            var reurnUser = _userFacade.GetUser(userId);
             return Ok(reurnUser);
         }
         
