@@ -1,8 +1,7 @@
 <div>
     <div style="margin-bottom:10px">
         <button ng-click="$state.go('addUser');" ng-disabled="userCtrl.userConsumed.consumedUsers >= userCtrl.userConsumed.maxNumUsers" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddUserBtn' | translate}}</button>
-        <span>{{userCtrl.userConsumed.consumedUsers}}</span>/
-        <span>{{userCtrl.userConsumed.maxNumUsers}}</span>
+ 
     </div>
     <div ng-if="userCtrl.userList.results.length == 0">
         <span>{{'NouserAvailable' | translate}}</span>

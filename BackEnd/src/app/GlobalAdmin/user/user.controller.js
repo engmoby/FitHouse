@@ -3,13 +3,12 @@
 
     angular
         .module('home')
-        .controller('userController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate', '$state', 'UserResource', 'UserTypeResource',
-            'userPrepService', 'RoleResource', 'RolePrepService', '$localStorage', 'authorizationService', 'appCONSTANTS', 'ToastService', 'userConsumedPrepService',
-            'CountriesPrepService', 'DepartmentPrepService',
-            'RegionResource', 'CityResource', 'AreaResource', userController]);
+        .controller('userController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate', '$state', 'UserResource',
+            'userPrepService', 'RoleResource', 'RolePrepService', '$localStorage', 'authorizationService', 'appCONSTANTS',
+            'ToastService', 'CountriesPrepService', 'RegionResource', 'CityResource', 'AreaResource', userController]);
 
-    function userController($rootScope, blockUI, $scope, $filter, $translate, $state, UserResource, UserTypeResource, userPrepService, RoleResource,
-        RolePrepService, $localStorage, authorizationService, appCONSTANTS, ToastService, userConsumedPrepService, CountriesPrepService, DepartmentPrepService,
+    function userController($rootScope, blockUI, $scope, $filter, $translate, $state, UserResource,   userPrepService,
+        RoleResource, RolePrepService, $localStorage, authorizationService, appCONSTANTS, ToastService, CountriesPrepService,
         RegionResource, CityResource, AreaResource) {
 
         $('.pmd-sidebar-nav>li>a').removeClass("active")
@@ -18,7 +17,6 @@
         blockUI.start("Loading...");
 
         var vm = this;
-        vm.userConsumed = userConsumedPrepService;
         // vm.area = [];
         // vm.area.push({ areaId: 0, titleDictionary: { "en": "Select Area", "ar": "اختار منطقه" } });
         // vm.selectedAreaId = 0;
@@ -27,15 +25,11 @@
         vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
         vm.selectedCountryId = 0;
         vm.counties = vm.counties.concat(CountriesPrepService.results)
-        vm.department = [];
-        vm.department.push({ departmentId: 0, titleDictionary: { "en": "Select Department", "ar": "اختار أدارة" } });
-        vm.selectedDepartmentId = 0;
-        vm.department = vm.department.concat(DepartmentPrepService.results)
+       
         $scope.totalCount = userPrepService.totalCount;
         $scope.userList = userPrepService.results;
-        $scope.roleList = RolePrepService.results;
-        BindUserType();
-        console.log($scope.userList);
+        $scope.roleList = RolePrepService.results; 
+        console.log(userPrepService);
 
         $scope.phoneNumbr = /^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/;
         $scope.userObj = "";
@@ -54,13 +48,7 @@
             vm.regions = [];
             vm.cities = [];
             vm.area = [];
-
-
-            vm.department = [];
-            vm.department.push({ departmentId: 0, titleDictionary: { "en": "Select Department", "ar": "اختار أدارة" } });
-            vm.selectedDepartmentId = 0;
-            vm.department = vm.department.concat(DepartmentPrepService.results)
-            vm.categoryList = [];
+    vm.categoryList = [];
         }
         vm.departmentChange = function () {
             vm.department.splice(0, 1);
@@ -138,7 +126,7 @@
         }
         vm.areaChange = function () {
             // vm.area.splice(0, 1);
-            if (vm.selectedAreaId != undefined && vm.selectedAreaId >0) {
+            if (vm.selectedAreaId != undefined && vm.selectedAreaId > 0) {
                 for (var i = vm.area.length - 1; i >= 0; i--) {
                     if (vm.area[i].areaId == 0) {
                         vm.area.splice(i, 1);
@@ -173,22 +161,7 @@
                     ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
                 });
         }
-
-        function BindUserType() {
-            blockUI.start("Loading...");
-
-            var k = UserTypeResource.getAllUserTypes().$promise.then(function (results) {
-                vm.getPageData = results;
-                $scope.userTypeList = vm.getPageData.results;
-                blockUI.stop();
-
-            },
-                function (data, status) {
-                    blockUI.stop();
-
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
-        }
+ 
 
         $scope.AddNewclient = function () {
             blockUI.start("Loading...");

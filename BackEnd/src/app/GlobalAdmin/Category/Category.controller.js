@@ -5,13 +5,13 @@
         .module('home')
         .controller('CategoryController', ['$rootScope', '$scope', '$filter', '$translate',
             '$state', 'CategoryResource',   '$localStorage',
-            'authorizationService', 'appCONSTANTS',
+            'authorizationService', 'appCONSTANTS','blockUI',
             'ToastService', CategoryController]);
 
 
     function CategoryController($rootScope, $scope, $filter, $translate,
         $state, CategoryResource,  $localStorage, authorizationService,
-        appCONSTANTS, ToastService) {
+        appCONSTANTS,blockUI, ToastService) {
 
         refreshCategorys();
 
@@ -20,6 +20,8 @@
             
             var k = CategoryResource.getAllCategorys().$promise.then(function (results) {
                 $scope.CategoryList = results;
+              
+              console.log($scope.CategoryList);
                 blockUI.stop();
                 
             },

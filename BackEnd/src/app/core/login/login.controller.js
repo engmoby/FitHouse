@@ -10,23 +10,11 @@
         if ($localStorage.authInfo) {
             var user = authorizationService.getUser();
             if (user.PermissionId[0] == 1)
-                $state.go('users');
-            if (user.PermissionId[0] == 2)
-                $state.go('categoryType');
+                $state.go('users'); 
             if (user.PermissionId[0] == 3)
                 $state.go('Role');
             if (user.PermissionId[0] == 4)
-                $state.go('Area');
-            if (user.PermissionId[0] == 5)
-                $state.go('Department');
-            if (user.PermissionId[0] == 6)
-                $state.go('Question');
-            if (user.PermissionId[0] == 7)
-                $state.go('AnswerQuestion');
-            if (user.PermissionId[0] == 8)
-                $state.go('Answers');
-            if ($scope.user.PermissionId[0] == 9)
-                $state.go('Tickets');
+                $state.go('Area'); 
             if ($scope.user.PermissionId[0] == 10)
                 $state.go('Dashboard');
 

@@ -1,0 +1,34 @@
+<div>
+    <div ncy-breadcrumb></div>
+    <div style="margin-bottom:10px">
+        <button ng-click="$state.go('newCategory');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddNew'
+            | translate}}</button>
+
+    </div>
+    <div ng-if="CategoryList.results.length == 0">
+        <span>{{'NoCategorysAvailable' | translate}}</span>
+    </div>
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="CategoryList.results.length > 0">
+        <div class="table-responsive"></div>
+        <table class="table pmd-table table-hover">
+            <thead>
+                <tr>
+                    <th>{{'Name' | translate}}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="Category in CategoryList.results">
+                    <td data-title="Name">{{Category.titleDictionary[selectedLanguage]}}</td>
+
+                    <td width="30%" ng-show="!Category.isStatic">
+                        <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editCategory',{categoryId: Category.CategoryId});">mode_edit</i>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount" paging-action="changePage(page)"
+        flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">
+    </div>
+</div>
