@@ -78,6 +78,7 @@ namespace FitHouse.BLL.Services
                 });
             }
 
+            roleObj.IsActive = true;
             roleObj.CreationTime = Strings.CurrentDateTime;
             roleObj.CreatorUserId = userId; 
             _rolePermissionService.InsertRange(roleObj.RolePermissions);
@@ -130,6 +131,7 @@ namespace FitHouse.BLL.Services
                     ActionId = 1, 
                 });
             }
+            roleObj.IsActive = roleDto.IsActive;
             roleObj.LastModificationTime = Strings.CurrentDateTime;
             roleObj.LastModifierUserId = userId;
             roleObj.IsDeleted = roleDto.IsDeleted; 

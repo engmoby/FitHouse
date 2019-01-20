@@ -129,6 +129,9 @@
   <data name="RecordIsExist" xml:space="preserve">
     <value>موجود بالفعل</value>
   </data>
+  <data name="RecordIsUsedInAnotherModule" xml:space="preserve">
+    <value>يستخدم هذا السجل في وحدة أخرى</value>
+  </data>
   <data name="String1" xml:space="preserve">
     <value>.حسابك لم يفعل، يرجى الاتصال بالمشرف</value>
   </data>

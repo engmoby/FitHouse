@@ -104,5 +104,14 @@ namespace FitHouse.Resources {
                 return ResourceManager.GetString("PhoneExist", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to This Record Is Used In Another Module.
+        /// </summary>
+        public static string RecordIsUsedInAnotherModule {
+            get {
+                return ResourceManager.GetString("RecordIsUsedInAnotherModule", resourceCulture);
+            }
+        }
     }
 }

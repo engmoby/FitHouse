@@ -144,7 +144,7 @@ namespace FitHouse.BLL.Services
                 throw new ValidationException(ErrorCodes.PhoneExist);
             }
 
-
+            userDto.BranchId = 1;
             var userObj = Mapper.Map<User>(userDto);
             userObj.FirstName = userDto.FirstName;
             // userObj.UserAccountId = Guid.NewGuid();

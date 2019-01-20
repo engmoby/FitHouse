@@ -7,7 +7,7 @@ namespace FitHouse.API.Models
     {
         public long CategoryId { get; set; }
         public Dictionary<string, string> TitleDictionary { get; set; }
-        public long DepartmentId { get; set; }
+        public bool IsActive { get; set; }
         
         public bool IsDeleted { get; set; }
         public DateTime? LastModificationTime { get; set; }

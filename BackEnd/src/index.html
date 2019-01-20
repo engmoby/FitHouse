@@ -2,7 +2,7 @@
 <html lang="en" ng-app="home" ng-cloak ng-controller="homeCtrl">
 
 <head>
-	<title>Operation Survey</title>
+	<title>Fit House</title>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<link rel="icon" type="image/png" sizes="16x16" href="assets/img/favicon.png">
@@ -16,6 +16,40 @@
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.1/nv.d3.min.css" />
 
 	<style>
+		.btn-switch {
+			position: relative;
+			display: block;
+			width: 50px;
+			height: 25px;
+			cursor: pointer;
+			background-color: #F27878;
+			border: 2px solid #F27878;
+			border-radius: 40px;
+
+		}
+
+		.btn-switch-circle {
+			position: absolute;
+			top: -2px;
+			left: -2px;
+			display: block;
+			height: 25px;
+			width: 25px;
+			background-color: #fff;
+			border-radius: 40px;
+		}
+
+		.btn-switch--on {
+			background-color: #80CDBE;
+			border: 2px solid #80CDBE;
+
+		}
+
+		.btn-switch-circle--on {
+			left: auto;
+			right: -1px;
+		}
+
 		.red-text {
 			background-color: #e85656 !important;
 		}

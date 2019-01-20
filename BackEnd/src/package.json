@@ -31,7 +31,9 @@
     "ngprogress-lite": "^1.0.8",
     "ngstorage": "^0.3.10",
     "optipng-bin": "^3.1.2",
-    "pdfmake": "^0.1.38"
+    "pdfmake": "^0.1.38",
+    "propellerkit": "^1.1.0",
+    "propellerkit-select2": "^1.1.0"
   },
   "devDependencies": {
     "add-stream": "^1.0.0",
