@@ -272,6 +272,43 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 
 angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/Category/templates/Category.html',
+    '<style>\n' +
+    '    .container {\n' +
+    '    width: 50px;\n' +
+    '    margin: 50px auto;\n' +
+    '}\n' +
+    '.btn-isActive {\n' +
+    '    position: relative;\n' +
+    '    display: block;\n' +
+    '    width: 50px;\n' +
+    '    height: 25px;\n' +
+    '    cursor: pointer;\n' +
+    '    background-color: #F27878;\n' +
+    '    border: 2px solid #F27878;\n' +
+    '    border-radius: 40px;\n' +
+    '    \n' +
+    '}\n' +
+    '    .btn-isActive-circle {\n' +
+    '        position: absolute;\n' +
+    '        top: 0;\n' +
+    '        left: 0;\n' +
+    '        display: block;\n' +
+    '        height: 25px;\n' +
+    '        width: 25px;\n' +
+    '        background-color: #fff;\n' +
+    '        border-radius: 40px;\n' +
+    '    }\n' +
+    '\n' +
+    '.btn-isActive--on {\n' +
+    '    background-color: #80CDBE;\n' +
+    '    border: 2px solid #80CDBE;\n' +
+    '    \n' +
+    '}\n' +
+    '    .btn-isActive-circle--on {\n' +
+    '        left: auto;\n' +
+    '        right: 0;\n' +
+    '    }\n' +
+    '</style>\n' +
     '<div>\n' +
     '    <div ncy-breadcrumb></div>\n' +
     '    <div style="margin-bottom:10px">\n' +
@@ -288,15 +325,29 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '            <thead>\n' +
     '                <tr>\n' +
     '                    <th>{{\'Name\' | translate}}</th>\n' +
+    '                    <th>{{\'Status\' | translate}}</th>\n' +
     '                    <th></th>\n' +
     '                </tr>\n' +
     '            </thead>\n' +
     '            <tbody>\n' +
     '                <tr ng-repeat="Category in CategoryList.results">\n' +
     '                    <td data-title="Name">{{Category.titleDictionary[selectedLanguage]}}</td>\n' +
+    '                    <td>\n' +
     '\n' +
+    '                        <div class="btn-isActive" ng-class="{\'btn-isActive--on\':toggle.isActive}" ng-model="Category.isActive"\n' +
+    '                            ng-click="Category.isActive = !Category.isActive">\n' +
+    '\n' +
+    '                            <div class="btn-isActive-circle" ng-class="{\'btn-isActive-circle--on\':Category.isActive}"\n' +
+    '                             ng-model="Category.isActive" ng-click="!Category.isActive = Category.isActive"></div>\n' +
+    '\n' +
+    '                            <!--                             \n' +
+    '                            <a class="btn pull-right" ng-class="{true: \'btn-primary\', false: \'btn-danger\'}[!Category.isActive]"\n' +
+    '                            ng-click="Category.isActive = !Category.isActive">\n' +
+    '                            {{!Category.isActive && \'isActive\' || \'UnisActive\'}} patient\n' +
+    '                        </a> -->\n' +
+    '                    </td>\n' +
     '                    <td width="30%" ng-show="!Category.isStatic">\n' +
-    '                        <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go(\'editCategory\',{categoryId: Category.CategoryId});">mode_edit</i>\n' +
+    '                        <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go(\'editCategory\',{categoryId: Category.categoryId});">mode_edit</i>\n' +
     '                    </td>\n' +
     '                </tr>\n' +
     '            </tbody>\n' +

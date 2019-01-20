@@ -1,3 +1,40 @@
+<style>
+    .container {
+    width: 50px;
+    margin: 50px auto;
+}
+.btn-isActive {
+    position: relative;
+    display: block;
+    width: 50px;
+    height: 25px;
+    cursor: pointer;
+    background-color: #F27878;
+    border: 2px solid #F27878;
+    border-radius: 40px;
+    
+}
+    .btn-isActive-circle {
+        position: absolute;
+        top: 0;
+        left: 0;
+        display: block;
+        height: 25px;
+        width: 25px;
+        background-color: #fff;
+        border-radius: 40px;
+    }
+
+.btn-isActive--on {
+    background-color: #80CDBE;
+    border: 2px solid #80CDBE;
+    
+}
+    .btn-isActive-circle--on {
+        left: auto;
+        right: 0;
+    }
+</style>
 <div>
     <div ncy-breadcrumb></div>
     <div style="margin-bottom:10px">
@@ -14,15 +51,29 @@
             <thead>
                 <tr>
                     <th>{{'Name' | translate}}</th>
+                    <th>{{'Status' | translate}}</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="Category in CategoryList.results">
                     <td data-title="Name">{{Category.titleDictionary[selectedLanguage]}}</td>
+                    <td>
 
+                        <div class="btn-isActive" ng-class="{'btn-isActive--on':toggle.isActive}" ng-model="Category.isActive"
+                            ng-click="Category.isActive = !Category.isActive">
+
+                            <div class="btn-isActive-circle" ng-class="{'btn-isActive-circle--on':Category.isActive}"
+                             ng-model="Category.isActive" ng-click="!Category.isActive = Category.isActive"></div>
+
+                            <!--                             
+                            <a class="btn pull-right" ng-class="{true: 'btn-primary', false: 'btn-danger'}[!Category.isActive]"
+                            ng-click="Category.isActive = !Category.isActive">
+                            {{!Category.isActive && 'isActive' || 'UnisActive'}} patient
+                        </a> -->
+                    </td>
                     <td width="30%" ng-show="!Category.isStatic">
-                        <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editCategory',{categoryId: Category.CategoryId});">mode_edit</i>
+                        <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editCategory',{categoryId: Category.categoryId});">mode_edit</i>
                     </td>
                 </tr>
             </tbody>
