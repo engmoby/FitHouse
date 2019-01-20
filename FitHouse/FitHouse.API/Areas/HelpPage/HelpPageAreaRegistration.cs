@@ -1,7 +1,7 @@
 using System.Web.Http;
 using System.Web.Mvc;
 
-namespace OperationSurvey.API.Areas.HelpPage
+namespace FitHouse.API.Areas.HelpPage
 {
     public class HelpPageAreaRegistration : AreaRegistration
     {

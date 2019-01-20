@@ -36,7 +36,7 @@ namespace FitHouse.BLL.DataServices
         }
         public PagedResultsDto GetAllUsers(int page, int pageSize, int tenantId)
         {
-            var query = Queryable().Where(x => x.IsActive &&  !x.IsStatic).OrderBy(x => x.UserId);
+            var query = Queryable().Where(x => !x.IsStatic && !x.IsDeleted).OrderBy(x => x.UserId);
             PagedResultsDto results = new PagedResultsDto();
             results.TotalCount = query.Count(); //_repository.Query(x => !x.IsDeleted).Select().Count(x => !x.IsDeleted);
             var modelReturn = query.OrderBy(x => x.UserId).Skip((page - 1) * pageSize).Take(pageSize).ToList();
@@ -46,7 +46,7 @@ namespace FitHouse.BLL.DataServices
             {
                 userDto.Add(new UserDto
                 {
-                    // UserRoles = Mapper.Map<List<UserRole>, List<UserRoleDto>>(user.UserRoles as List<UserRole>),
+                      UserRoles = Mapper.Map<List<UserRole>, List<UserRoleDto>>(user.UserRoles as List<UserRole>),
      
                     UserId = user.UserId,
                     FirstName = user.FirstName,

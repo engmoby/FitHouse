@@ -1,7 +1,7 @@
 using System;
 using System.Reflection;
 
-namespace OperationSurvey.API.Areas.HelpPage.ModelDescriptions
+namespace FitHouse.API.Areas.HelpPage.ModelDescriptions
 {
     public interface IModelDocumentationProvider
     {

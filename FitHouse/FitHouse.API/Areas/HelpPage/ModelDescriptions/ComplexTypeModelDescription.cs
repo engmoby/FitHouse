@@ -1,6 +1,6 @@
 using System.Collections.ObjectModel;
 
-namespace OperationSurvey.API.Areas.HelpPage.ModelDescriptions
+namespace FitHouse.API.Areas.HelpPage.ModelDescriptions
 {
     public class ComplexTypeModelDescription : ModelDescription
     {

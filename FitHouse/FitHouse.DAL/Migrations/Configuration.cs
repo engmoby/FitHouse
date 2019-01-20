@@ -13,13 +13,6 @@
 
         protected override void Seed(Entities.FitHouseContext context)
         {
-            var p1 = context.PermissionTranslations.Find(3);
-            var p2 = context.PermissionTranslations.Find(4);
-            p1.Title = "Category Type Permissions";
-            p2.Title = "أذونات نوع الفئة";
-            context.PermissionTranslations.AddOrUpdate(p1);
-            context.PermissionTranslations.AddOrUpdate(p2);
-
             context.Users.AddOrUpdate(new User
             {
                 IsDeleted = false,
@@ -27,7 +20,7 @@
                 LastName = "Abdo",
                 Password = "ADX4VeuwJ0BAoXSOXntYdJQJoRd61V+N/TNePnJfu38=",
                 Phone = "011435012598",
-                Email = "admin@gmail.com" 
+                Email = "admin@gmail.com"
             });
 
             var permisison11 = new Permission { IsDeleted = false, IsStatic = true };
@@ -41,7 +34,7 @@
             var permisison7 = new Permission { IsDeleted = false, IsStatic = true };
             var permisison8 = new Permission { IsDeleted = false, IsStatic = true };
             var permisison9 = new Permission { IsDeleted = false, IsStatic = true };
-            var permisison10 = new Permission { IsDeleted = false, IsStatic = true }; 
+            var permisison10 = new Permission { IsDeleted = false, IsStatic = true };
             context.Permissions.AddOrUpdate(h => h.PermissionId, permisison3);
             context.Permissions.AddOrUpdate(h => h.PermissionId, permisison4);
             context.Permissions.AddOrUpdate(h => h.PermissionId, permisison5);
@@ -105,7 +98,7 @@
             context.PermissionTranslations.AddOrUpdate(h => h.PermissionTranslationId, permissionTreanslation12);
 
             var permissionTreanslation13 =
-                new PermissionTranslation{Language = "en",Title = "Delivery",Permission = permisison7};
+                new PermissionTranslation { Language = "en", Title = "Delivery", Permission = permisison7 };
             var permissionTreanslation14 =
                 new PermissionTranslation { Language = "ar", Title = "التوصيل", Permission = permisison7 };
             context.PermissionTranslations.AddOrUpdate(h => h.PermissionTranslationId, permissionTreanslation13);

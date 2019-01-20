@@ -1,4 +1,4 @@
-namespace OperationSurvey.API.Areas.HelpPage
+namespace FitHouse.API.Areas.HelpPage
 {
     /// <summary>
     /// Indicates whether the sample is used for request or response

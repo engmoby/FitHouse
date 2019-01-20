@@ -22,3 +22,4 @@ E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.Resources\obj\Debug\FitH
 E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.Resources\obj\Debug\ar-EG\FitHouse.Resources.resources.dll
 E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.Resources\obj\Debug\FitHouse.Resources.dll
 E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.Resources\obj\Debug\FitHouse.Resources.pdb
+E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.Resources\obj\Debug\FitHouse.Resources.csprojResolveAssemblyReference.cache

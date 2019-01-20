@@ -1,4 +1,3 @@
-E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.DAL\obj\Debug\FitHouse.DAL.csprojResolveAssemblyReference.cache
 E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.DAL\bin\Debug\FitHouse.DAL.dll.config
 E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.DAL\bin\Debug\FitHouse.DAL.dll
 E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.DAL\bin\Debug\FitHouse.DAL.pdb
@@ -28,5 +27,6 @@ E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.DAL\bin\Debug\Microsoft.
 E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.DAL\bin\Debug\Microsoft.Practices.Unity.RegistrationByConvention.xml
 E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.DAL\bin\Debug\LinqKit.pdb
 E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.DAL\bin\Debug\LinqKit.xml
+E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.DAL\obj\Debug\FitHouse.DAL.csprojResolveAssemblyReference.cache
 E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.DAL\obj\Debug\FitHouse.DAL.dll
 E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.DAL\obj\Debug\FitHouse.DAL.pdb

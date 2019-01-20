@@ -35,7 +35,7 @@ namespace FitHouse.DAL.Entities
      
 
 
-        public FitHouseContext() : base("name=FitHouseDB")
+        public FitHouseContext() : base("name=FitHouse")
         {
             Database.SetInitializer<FitHouseContext>(null);
         }

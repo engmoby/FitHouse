@@ -3,7 +3,7 @@ using System.Text;
 using System.Web;
 using System.Web.Http.Description;
 
-namespace OperationSurvey.API.Areas.HelpPage
+namespace FitHouse.API.Areas.HelpPage
 {
     public static class ApiDescriptionExtensions
     {

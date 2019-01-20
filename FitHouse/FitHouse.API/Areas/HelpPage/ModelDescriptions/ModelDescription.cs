@@ -1,6 +1,6 @@
 using System;
 
-namespace OperationSurvey.API.Areas.HelpPage.ModelDescriptions
+namespace FitHouse.API.Areas.HelpPage.ModelDescriptions
 {
     /// <summary>
     /// Describes a type model.

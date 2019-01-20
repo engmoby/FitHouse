@@ -1,10 +1,10 @@
 using System;
 using System.Web.Http;
 using System.Web.Mvc;
-using OperationSurvey.API.Areas.HelpPage.ModelDescriptions;
-using OperationSurvey.API.Areas.HelpPage.Models;
+using FitHouse.API.Areas.HelpPage.ModelDescriptions;
+using FitHouse.API.Areas.HelpPage.Models;
 
-namespace OperationSurvey.API.Areas.HelpPage.Controllers
+namespace FitHouse.API.Areas.HelpPage.Controllers
 {
     /// <summary>
     /// The controller that will handle requests for the help page.

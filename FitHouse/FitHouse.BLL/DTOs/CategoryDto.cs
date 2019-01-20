@@ -6,10 +6,9 @@ namespace FitHouse.BLL.DTOs
     public class CategoryDto
     {
         public long CategoryId { get; set; }
-        public Dictionary<string, string> TitleDictionary { get; set; }
-        public long DepartmentId { get; set; }
+        public Dictionary<string, string> TitleDictionary { get; set; } 
 
-        public bool IsStatic { get; set; }
+        public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime? LastModificationTime { get; set; }
         public long? LastModifierUserId { get; set; }

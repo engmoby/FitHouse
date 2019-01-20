@@ -11,10 +11,10 @@ using System.Net.Http.Headers;
 using System.Web.Http;
 using System.Web.Http.Controllers;
 using System.Web.Http.Description;
-using OperationSurvey.API.Areas.HelpPage.ModelDescriptions;
-using OperationSurvey.API.Areas.HelpPage.Models;
+using FitHouse.API.Areas.HelpPage.ModelDescriptions;
+using FitHouse.API.Areas.HelpPage.Models;
 
-namespace OperationSurvey.API.Areas.HelpPage
+namespace FitHouse.API.Areas.HelpPage
 {
     public static class HelpPageConfigurationExtensions
     {

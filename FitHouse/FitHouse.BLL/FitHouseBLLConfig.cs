@@ -49,7 +49,10 @@ namespace FitHouse.BLL
             mapperConfiguration.CreateMap<CategoryRoleDto, CategoryRole>();
             mapperConfiguration.CreateMap<CategoryRole, CategoryRoleDto>();
 
-        
+            mapperConfiguration.CreateMap<CategoryDto, Category>();
+            mapperConfiguration.CreateMap<Category, CategoryDto>()
+                .ForMember(dto => dto.TitleDictionary, m => m.MapFrom(src => src.CategoryTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)));
+
 
             mapperConfiguration.CreateMap<CountryDto, Country>();
             mapperConfiguration.CreateMap<Country, CountryDto>()

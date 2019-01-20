@@ -56,7 +56,7 @@ namespace FitHouse.API
             UnityConfig.RegisterTypes(config);
             config.EnableSwagger(c =>
             {
-                c.SingleApiVersion("v1", "WebAPI");
+                c.SingleApiVersion("v2", "WebAPI");
                 //c.IncludeXmlComments(GetXmlCommentsPath());
                 c.OperationFilter<AddAuthorizationHeader>();
                 c.ResolveConflictingActions(x => x.First());

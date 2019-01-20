@@ -12,7 +12,7 @@ namespace FitHouse.DAL.Entities.Model
         }
 
         public long CategoryId { get; set; }
-        public bool IsStatic { get; set; }
+        public bool IsActive { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime? LastModificationTime { get; set; }
         public long? LastModifierUserId { get; set; }

@@ -64,8 +64,8 @@ namespace FitHouse.BLL.Services
                     Language = categoryName.Key 
                 });
             }
-      
-            
+       
+            categoryObj.IsActive = true;
             categoryObj.CreationTime = Strings.CurrentDateTime;
             categoryObj.CreatorUserId = userId; 
             _typeTranslationService.InsertRange(categoryObj.CategoryTranslations);
@@ -99,7 +99,7 @@ namespace FitHouse.BLL.Services
             categoryObj.LastModificationTime = Strings.CurrentDateTime;
             categoryObj.LastModifierUserId = userId;
             categoryObj.IsDeleted = categoryDto.IsDeleted;
-            categoryObj.IsStatic = categoryDto.IsStatic;
+            categoryObj.IsActive = categoryDto.IsActive;
             _categoryService.Update(categoryObj);
             SaveChanges();
             return categoryDto;

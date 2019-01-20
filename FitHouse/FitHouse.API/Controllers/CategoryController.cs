@@ -48,9 +48,9 @@ namespace FitHouse.API.Controllers
 
         [Route("api/Category/GetCategoryById", Name = "GetCategoryById")]
         [HttpGet]
-        public IHttpActionResult GetCategoryById(long CategoryId)
+        public IHttpActionResult GetCategoryById(long categoryId)
         {
-            var reurnCategory = _categoryFacade.GetCategory(CategoryId, TenantId);
+            var reurnCategory = _categoryFacade.GetCategory(categoryId, TenantId);
             return Ok(reurnCategory);
         }
     }
