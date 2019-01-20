@@ -13,7 +13,7 @@ namespace FitHouse.DAL.Entities.Model
         public ProgramDetail()
         {
         }
-        public long ProgramDetailsId { get; set; }
+        public long ProgramDetailId { get; set; }
         [ForeignKey("Program")]
         public long ProgramId { get; set; }
         [ForeignKey("Item")]

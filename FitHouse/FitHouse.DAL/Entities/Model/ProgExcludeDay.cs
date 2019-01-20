@@ -14,7 +14,7 @@ namespace FitHouse.DAL.Entities.Model
         {
         }
 
-        public long ProgExcludeDaysId { get; set; }
+        public long ProgExcludeDayId { get; set; }
         [ForeignKey("Day")]
         public long DayId { get; set; }
         public virtual Day Day { get; set; }
