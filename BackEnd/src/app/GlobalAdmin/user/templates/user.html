@@ -1,7 +1,8 @@
 <div>
     <div style="margin-bottom:10px">
-        <button ng-click="$state.go('addUser');" ng-disabled="userCtrl.userConsumed.consumedUsers >= userCtrl.userConsumed.maxNumUsers" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddUserBtn' | translate}}</button>
- 
+        <button ng-click="$state.go('addUser');" ng-disabled="userCtrl.userConsumed.consumedUsers >= userCtrl.userConsumed.maxNumUsers"
+            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddUserBtn' | translate}}</button>
+
     </div>
     <div ng-if="userCtrl.userList.results.length == 0">
         <span>{{'NouserAvailable' | translate}}</span>
@@ -16,28 +17,32 @@
                         <th>{{'userName' | translate}}</th>
                         <th>{{'EmailLbl' | translate}}</th>
 
-                        <th>{{'Phone1Lbl' | translate}}</th> 
+                        <th>{{'Phone1Lbl' | translate}}</th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr ng-repeat="user in userList">
                         <td data-title="Name" width="20%">{{user.firstName}} {{user.lastName}}</td>
-                        <td  data-title="Name" width="20%">{{user.email}}  </td>
+                        <td data-title="Name" width="20%">{{user.email}} </td>
 
-                        <td  data-title="Description">{{user.phone}}</td> 
-                       
+                        <td data-title="Description">{{user.phone}}</td>
+                        <td width="30%">
+                            <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editUser', {userId: user.userId});">mode_edit</i>
+                            <i class="material-icons pmd-md deleteButton cursorPointer font25" ng-click="CategoryCtrl.openDeleteDialog(Category,Category.titleDictionary[selectedLanguage],Category.categoryId)">delete</i>
+                        </td>
+                        <!-- 
                         <td  width="15%">  
                             <i class="cursorPointer" ng-click="$state.go('editUser', {userId: user.userId});">{{'Edit' | translate}} </i>
 
-                        </td>
+                        </td> -->
                     </tr>
                 </tbody>
             </table>
         </div>
 
     </div>
+   
     <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount" paging-action="changePage(page)"
-         flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">
+        flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">
     </div>
 </div>
-

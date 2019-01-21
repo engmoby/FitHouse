@@ -33,8 +33,8 @@
             updateObj.RoleId = vm.Role.roleId;
             updateObj.Permissions = vm.selectedPermissions;
             updateObj.titleDictionary = vm.Role.titleDictionary;
-            updateObj.IsDeleted = false;
-            updateObj.IsStatic = false;
+            updateObj.IsDeleted = vm.Role.IsDeleted;
+            updateObj.isActive = vm.Role.isActive;
             updateObj.$update().then(
                 function (data, status) {
                 blockUI.stop();

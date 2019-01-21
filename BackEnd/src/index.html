@@ -159,8 +159,7 @@
 			</li>
 			<!-- End user info -->
 
-			<!-- <li ng-show="user.PermissionId.indexOf('3') !== -1"> -->
-			<li>
+			<li ng-show="user.PermissionId.indexOf('7') !== -1">
 				<a class="pmd-ripple-effect" ng-click="$state.go('Role');">
 					<i class="media-left media-middle">
 						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
@@ -175,7 +174,7 @@
 				</a>
 			</li>
 
-			<li ng-show="user.PermissionId.indexOf('4') !== -1">
+			<li ng-show="user.PermissionId.indexOf('5') !== -1">
 				<a class="pmd-ripple-effect" ng-click="$state.go('Countries');">
 					<i class="media-left media-middle">
 						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
@@ -189,9 +188,8 @@
 					<span class="media-body">{{'Branch' | translate}}</span>
 				</a>
 			</li>
-			<!-- 
-			<li ng-show="user.PermissionId.indexOf('5') !== -1"> -->
-			<li>
+
+			<li ng-show="user.PermissionId.indexOf('2') !== -1"> 
 				<a class="pmd-ripple-effect" ng-click="$state.go('Category');">
 					<i class="media-left media-middle">
 						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
@@ -206,8 +204,7 @@
 				</a>
 			</li>
 
-			<!-- <li ng-show="user.PermissionId.indexOf('1') !== -1"> -->
-			<li>
+			<li ng-show="user.PermissionId.indexOf('1') !== -1"> 
 				<a class="pmd-ripple-effect" ng-click="$state.go('users');">
 					<i class="media-left media-middle">
 						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
@@ -222,8 +219,8 @@
 				</a>
 			</li>
 
-			<li ng-show="user.PermissionId.indexOf('6') !== -1">
-				<a class="pmd-ripple-effect " ng-click="$state.go('Question');">
+			<li ng-show="user.PermissionId.indexOf('3') !== -1">
+				<a class="pmd-ripple-effect " ng-click="$state.go('Items');">
 					<i class="media-left media-middle">
 						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
 						 enable-background="new 287.725 407.535 19.83 18" xml:space="preserve">
@@ -233,12 +230,11 @@
 							</g>
 						</svg>
 					</i>
-					<span class="media-body" ng-cloak>{{'Question' | translate}}</span>
+					<span class="media-body" ng-cloak>{{'Item' | translate}}</span>
 				</a>
 			</li>
-			<li ng-show="user.PermissionId.indexOf('7') !== -1">
-				<!-- <a class="pmd-ripple-effect " ng-click="$state.go('Asset',{projectId:0});"> -->
-				<a class="pmd-ripple-effect " ng-click="$state.go('AnswerQuestion',{projectId:0})">
+			<li ng-show="user.PermissionId.indexOf('4') !== -1"> 
+				<a class="pmd-ripple-effect " ng-click="$state.go('Log')">
 					<i class="media-left media-middle">
 						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
 						 enable-background="new 287.725 407.535 19.83 18" xml:space="preserve">
@@ -248,12 +244,27 @@
 							</g>
 						</svg>
 					</i>
-					<span class="media-body" ng-cloak>{{'AnswerQuestion' | translate}}</span>
+					<span class="media-body" ng-cloak>{{'Log' | translate}}</span>
+				</a>
+			</li>
+
+			<li ng-show="user.PermissionId.indexOf('6') !== -1">
+				<a class="pmd-ripple-effect " ng-click="$state.go('Program' );">
+					<i class="media-left media-middle">
+						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
+						 enable-background="new 287.725 407.535 19.83 18" xml:space="preserve">
+							<g>
+								<path fill="#C9C8C8" d="M307.555,407.535h-9.108v10.264h9.108V407.535z M287.725,407.535v6.232h9.109v-6.232H287.725z
+						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
+							</g>
+						</svg>
+					</i>
+					<span class="media-body" ng-cloak>{{'Program' | translate}}</span>
 				</a>
 			</li>
 
 			<li ng-show="user.PermissionId.indexOf('8') !== -1">
-				<a class="pmd-ripple-effect " ng-click="$state.go('Answers',{projectId:0});">
+				<a class="pmd-ripple-effect " ng-click="$state.go('Delivery');">
 					<i class="media-left media-middle">
 						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
 						 enable-background="new 287.725 407.535 19.83 18" xml:space="preserve">
@@ -263,22 +274,7 @@
 							</g>
 						</svg>
 					</i>
-					<span class="media-body" ng-cloak>{{'Answers' | translate}}</span>
-				</a>
-			</li>
-
-			<li ng-show="user.PermissionId.indexOf('9') !== -1">
-				<a class="pmd-ripple-effect " ng-click="$state.go('Tickets');">
-					<i class="media-left media-middle">
-						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
-						 enable-background="new 287.725 407.535 19.83 18" xml:space="preserve">
-							<g>
-								<path fill="#C9C8C8" d="M307.555,407.535h-9.108v10.264h9.108V407.535z M287.725,407.535v6.232h9.109v-6.232H287.725z
-						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
-							</g>
-						</svg>
-					</i>
-					<span class="media-body" ng-cloak>{{'Tickets' | translate}}</span>
+					<span class="media-body" ng-cloak>{{'Delivery' | translate}}</span>
 				</a>
 			</li>
 			<li ng-show="user.PermissionId.indexOf('10') !== -1">
@@ -295,8 +291,8 @@
 					<span class="media-body" ng-cloak>{{'DashboardLbl' | translate}}</span>
 				</a>
 			</li>
-			<li ng-show="user.PermissionId.indexOf('11') !== -1">
-				<a class="pmd-ripple-effect " ng-click="$state.go('Config');">
+			<li ng-show="user.PermissionId.indexOf('9') !== -1">
+				<a class="pmd-ripple-effect " ng-click="$state.go('Kitchen');">
 					<i class="media-left media-middle">
 						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
 						 enable-background="new 287.725 407.535 19.83 18" xml:space="preserve">
@@ -306,7 +302,35 @@
 							</g>
 						</svg>
 					</i>
-					<span class="media-body" ng-cloak>{{'ConfigLbl' | translate}}</span>
+					<span class="media-body" ng-cloak>{{'Kitchen' | translate}}</span>
+				</a>
+			</li>
+			<li ng-show="user.PermissionId.indexOf('10') !== -1">
+				<a class="pmd-ripple-effect " ng-click="$state.go('Call Center');">
+					<i class="media-left media-middle">
+						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
+						 enable-background="new 287.725 407.535 19.83 18" xml:space="preserve">
+							<g>
+								<path fill="#C9C8C8" d="M307.555,407.535h-9.108v10.264h9.108V407.535z M287.725,407.535v6.232h9.109v-6.232H287.725z
+						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
+							</g>
+						</svg>
+					</i>
+					<span class="media-body" ng-cloak>{{'Call Center' | translate}}</span>
+				</a>
+			</li>
+			<li ng-show="user.PermissionId.indexOf('11') !== -1">
+				<a class="pmd-ripple-effect " ng-click="$state.go('Settings');">
+					<i class="media-left media-middle">
+						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
+						 enable-background="new 287.725 407.535 19.83 18" xml:space="preserve">
+							<g>
+								<path fill="#C9C8C8" d="M307.555,407.535h-9.108v10.264h9.108V407.535z M287.725,407.535v6.232h9.109v-6.232H287.725z
+						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
+							</g>
+						</svg>
+					</i>
+					<span class="media-body" ng-cloak>{{'Settings' | translate}}</span>
 				</a>
 			</li>
 		</ul>

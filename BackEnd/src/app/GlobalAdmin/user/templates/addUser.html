@@ -113,10 +113,17 @@
 
     </div>
 </form>
+
+<div class="pmd-modal-action text-right">
+    <button ng-disabled="newclientForm.$invalid  && (userCtrl.selectedAreaId <= 0 || userCtrl.selectedBranchId <= 0)" 
+    class="btn pmd-ripple-effect btn-primary" Category="button" ng-click="AddNewclient()">{{'saveChangesBtn' | translate}}</button>
+    <button class="btn pmd-ripple-effect btn-default" Category="button" ng-click="newCategoryCtrl.close()">{{'DiscardBtn' | translate}}</button>
+</div>
+<!-- 
 <div class="pmd-modal-action text-right">
     <button ng-disabled="newclientForm.$invalid  && (userCtrl.selectedAreaId <= 0 || userCtrl.selectedBranchId <= 0))"
         class="btn pmd-ripple-effect btn-primary" type="button" ng-click="AddNewclient()">{{'NextLbl' | translate}}</button>
-</div>
+</div> -->
 <script type="text/javascript">
     $(document).ready(function () {
         // $(".select-add-tags").select2({

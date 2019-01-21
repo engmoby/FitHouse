@@ -72,7 +72,7 @@
             change(model, true);
 
         }
-        vm.openDeleteSizeDialog = function (model, name, id) {
+        vm.openDeleteDialog = function (model, name, id) {
             var modalContent = $uibModal.open({
                 templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
                 controller: 'confirmDeleteDialogController',

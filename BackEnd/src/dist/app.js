@@ -329,6 +329,7 @@
 
 
         });
+
     userPrepService.$inject = ['UserResource']
     function userPrepService(UserResource) {
         return UserResource.getAllUsers().$promise;
@@ -343,6 +344,7 @@
     function userConsumedPrepService(UserResource) {
         return UserResource.getUserLimit().$promise;
     }
+
 
     RolePrepService.$inject = ['RoleResource']
     function RolePrepService(RoleResource) {
@@ -361,6 +363,7 @@
     function PermissionPrepService(PermissionResource) {
         return PermissionResource.getAllPermissions({ pageSize: 20 }).$promise;
     }
+
     AreaPrepService.$inject = ['AreaResource', '$stateParams']
     function AreaPrepService(AreaResource, $stateParams) {
         return AreaResource.getAllAreas({ cityId: $stateParams.cityId }).$promise;
@@ -377,6 +380,7 @@
     }
 
 
+
     BranchPrepService.$inject = ['BranchResource']
     function BranchPrepService(BranchResource) {
         return BranchResource.getAllBranchs().$promise;
@@ -386,6 +390,7 @@
     function BranchByIdPrepService(BranchResource, $stateParams) {
         return BranchResource.getBranch({ branchId: $stateParams.branchId }).$promise;
     }
+
 
 
 
@@ -400,6 +405,7 @@
     function CategoryByIdPrepService(CategoryResource, $stateParams) {
         return CategoryResource.getCategory({ categoryId: $stateParams.categoryId }).$promise;
     }
+
     AnswerQuestionPrepService.$inject = ['AnswerQuestionResource']
     function AnswerQuestionPrepService(AnswerQuestionResource) {
         return AnswerQuestionResource.getAllQuestions().$promise;
@@ -858,7 +864,7 @@
             change(model, true);
 
         }
-        vm.openDeleteSizeDialog = function (model, name, id) {
+        vm.openDeleteDialog = function (model, name, id) {
             var modalContent = $uibModal.open({
                 templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
                 controller: 'confirmDeleteDialogController',
@@ -950,8 +956,9 @@
         vm.UpdateCategory = function () {
             var updateObj = new CategoryResource();
             updateObj.CategoryId = vm.Category.categoryId;
-            updateObj.titleDictionary = vm.Category.titleDictionary;
-
+            updateObj.titleDictionary = vm.Category.titleDictionary; 
+            updateObj.IsDeleted = vm.Category.IsDeleted;
+            updateObj.isActive = vm.Category.isActive;
             updateObj.$update().then(
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
@@ -1785,8 +1792,8 @@
             updateObj.RoleId = vm.Role.roleId;
             updateObj.Permissions = vm.selectedPermissions;
             updateObj.titleDictionary = vm.Role.titleDictionary;
-            updateObj.IsDeleted = false;
-            updateObj.IsStatic = false;
+            updateObj.IsDeleted = vm.Role.IsDeleted;
+            updateObj.isActive = vm.Role.isActive;
             updateObj.$update().then(
                 function (data, status) {
                 blockUI.stop();
@@ -1880,7 +1887,7 @@
             change(model, true);
 
         }
-        vm.openDeleteSizeDialog = function (model, name, id) {
+        vm.openDeleteDialog = function (model, name, id) {
             var modalContent = $uibModal.open({
                 templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
                 controller: 'confirmDeleteDialogController',
@@ -2564,7 +2571,7 @@
         .module('home')
         .controller('editUserController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate', '$state', 'UserResource', 
          'RoleResource', 'RolePrepService', '$localStorage', 'authorizationService', 'appCONSTANTS', 'EditUserPrepService',
-          'ToastService',            'CountriesPrepService', 'RegionsForUserPrepService', 'CitiesForUserPrepService', 'AreasForUserPrepService',
+          'ToastService', 'CountriesPrepService', 'RegionsForUserPrepService', 'CitiesForUserPrepService', 'AreasForUserPrepService',
             'RegionResource', 'CityResource', 'AreaResource', editUserController]);
 
 
