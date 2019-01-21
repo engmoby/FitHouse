@@ -89,6 +89,7 @@ namespace FitHouse.Common.CustomException
         NameIsExist,
         PackageExpired,
         PackageNotActivated,
-        StatusAlreadyExist
+        StatusAlreadyExist,
+        RecordIsUsedInAnotherModule
     }
 }

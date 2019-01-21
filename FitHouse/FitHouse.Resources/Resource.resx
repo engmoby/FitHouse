@@ -132,4 +132,7 @@
   <data name="PhoneExist" xml:space="preserve">
     <value>Phone Is Already Exist</value>
   </data>
+  <data name="RecordIsUsedInAnotherModule" xml:space="preserve">
+    <value>This Record Is Used In Another Module</value>
+  </data>
 </root>

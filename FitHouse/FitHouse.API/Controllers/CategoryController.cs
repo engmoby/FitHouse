@@ -30,6 +30,7 @@ namespace FitHouse.API.Controllers
         [HttpPost]
         public IHttpActionResult CreateCategory([FromBody] CategoryModel categoryModel)
         {
+
             var reurnCategory = _categoryFacade.CreateCategory(Mapper.Map<CategoryDto>(categoryModel),UserId);
 
             return Ok(reurnCategory);

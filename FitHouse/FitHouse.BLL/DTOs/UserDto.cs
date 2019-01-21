@@ -10,11 +10,11 @@ namespace FitHouse.BLL.DTOs
         public string LastName { get; set; } 
         public string Email { get; set; } 
         public string Password { get; set; } 
-        public string Phone  { get; set; }
-        public Guid UserAccountId { get; set; }
+        public string Phone  { get; set; } 
 
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
+        public bool IsStatic { get; set; }
         public DateTime? LastModificationTime { get; set; }
         public long? LastModifierUserId { get; set; }
         public DateTime? CreationTime { get; set; }
