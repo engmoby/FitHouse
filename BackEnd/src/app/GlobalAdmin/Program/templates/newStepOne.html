@@ -1,0 +1,91 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".select-add-tags").select2({
+            tags: true,
+            theme: "bootstrap",
+            insertTag: function (data, tag) {
+                // Insert the tag at the end of the results
+                data.push(tag);
+            }
+        });
+    });
+</script>
+
+<div>
+   
+    <!-- <div style="margin-bottom:10px">
+        <h2 class="pmd-card-title-text">{{'AddNew' | translate}}</h2>
+    </div> -->
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view">
+        <form class="form-horizontal" name="newProgramForm">
+
+            <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                <label for="first-name">{{'ProgramName' | translate}}</label>
+                <input required type="text" class="mat-input form-control" name="programName" ng-pattern="/^(\D)+$/" ng-model="ProgramName"
+                    ng-minlength="2" ng-maxlength="50">
+                <div ng-messages="newProgramForm.programName.$error" class="error">
+                    <div ng-show="newProgramForm.programName.$error.pattern">{{'TextOnly' | translate}}</div>
+                    <div ng-if="newProgramForm.programName.$error.required && !newProgramForm.programName.$pristine">{{'requiredErr' | translate}}</div>
+                    <div ng-if="(newProgramForm.programName.$error.minlength || newProgramForm.programName.$error.maxlength) && !newProgramForm.programName.$error.required">{{'NameLengthError' | translate}}</div>
+                </div>
+            </div>
+
+            <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                <label for="first-name">{{'ProgramDescription' | translate}}</label>
+                <input required type="text" class="mat-input form-control" name="programDescription" ng-pattern="/^(\D)+$/" ng-model="ProgramDescription"
+                    ng-minlength="2" ng-maxlength="50">
+                <div ng-messages="newProgramForm.programDescription.$error" class="error">
+                    <div ng-show="newProgramForm.programDescription.$error.pattern">{{'TextOnly' | translate}}</div>
+                    <div ng-if="newProgramForm.programDescription.$error.required && !newProgramForm.programDescription.$pristine">{{'requiredErr' | translate}}</div>
+                    <div ng-if="(newProgramForm.programDescription.$error.minlength || newProgramForm.programDescription.$error.maxlength) && !newProgramForm.programDescription.$error.required">{{'NameLengthError' | translate}}</div>
+                </div>
+            </div>
+
+            <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                <label for="first-name">{{'ProgramDaysCount' | translate}}</label>
+                <input required type="text" class="mat-input form-control" name="programDaysCount" numbers-only ng-model="ProgramDaysCount"
+                    ng-minlength="1" ng-maxlength="2">
+                <div ng-messages="newProgramForm.programDaysCount.$error" class="error">
+                    <div ng-if="newProgramForm.programDaysCount.$error.required && !newProgramForm.programDaysCount.$pristine">{{'ProgramDaysCountReqError' | translate}}</div>
+                    <div ng-if="(newProgramForm.programDaysCount.$error.minlength || newProgramForm.programDaysCount.$error.maxlength)">{{'ProgramDaysCountLengthError' | translate}}</div>
+                </div>
+            </div>
+
+            <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                <label for="first-name">{{'MealPerDay' | translate}}</label>
+                <input required type="text" class="mat-input form-control" name="mealPerDay" numbers-only ng-model="MealPerDay" ng-minlength="1"
+                    ng-maxlength="2">
+                <div ng-messages="newProgramForm.mealPerDay.$error" class="error">
+                    <div ng-if="newProgramForm.mealPerDay.$error.required && !newProgramForm.mealPerDay.$pristine">{{'MealPerDayReqError' | translate}}</div>
+                    <div ng-if="(newProgramForm.mealPerDay.$error.minlength || newProgramForm.mealPerDay.$error.maxlength)">{{'MealPerDayLengthError' | translate}}</div>
+                </div>
+            </div>
+
+            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                <label for="first-name">{{'SelectExcludeDays' | translate}}</label>
+                <select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" multiple ng-model="addProgramCtrl.SelectedDays"
+                    ng-options="day as day.groupName for day in programCtrl.dayList">
+
+                </select>
+            </div>
+            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                <label for="first-name">{{'Breakfast' | translate}}
+                    <input type="checkbox" ng-model="IsBreakFast">
+                </label>
+                <br/>
+                <label for="first-name">{{'Snack' | translate}}
+                    <input type="checkbox" ng-model="IsSnack">
+                </label>
+            </div>
+            <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                <label for="first-name">{{'ProgramDiscount' | translate}}</label>
+                <input required type="text" class="mat-input form-control" name="programDiscount" numbers-only ng-model="ProgramDiscount"
+                    ng-minlength="1" ng-maxlength="2">
+                <div ng-messages="newProgramForm.programDiscount.$error" class="error">
+                    <div ng-if="newProgramForm.programDiscount.$error.required && !newProgramForm.programDiscount.$pristine">{{'ProgramDiscountReqError' | translate}}</div>
+                    <div ng-if="(newProgramForm.programDiscount.$error.minlength || newProgramForm.programDiscount.$error.maxlength)">{{'ProgramDiscountLengthError' | translate}}</div>
+                </div>
+            </div>
+        </form>
+    </div>
+</div>

@@ -639,6 +639,242 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Program/templates/newStepOne.html',
+    '<script type="text/javascript">\n' +
+    '    $(document).ready(function () {\n' +
+    '        $(".select-add-tags").select2({\n' +
+    '            tags: true,\n' +
+    '            theme: "bootstrap",\n' +
+    '            insertTag: function (data, tag) {\n' +
+    '                // Insert the tag at the end of the results\n' +
+    '                data.push(tag);\n' +
+    '            }\n' +
+    '        });\n' +
+    '    });\n' +
+    '</script>\n' +
+    '\n' +
+    '<div>\n' +
+    '   \n' +
+    '    <!-- <div style="margin-bottom:10px">\n' +
+    '        <h2 class="pmd-card-title-text">{{\'AddNew\' | translate}}</h2>\n' +
+    '    </div> -->\n' +
+    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view">\n' +
+    '        <form class="form-horizontal" name="newProgramForm">\n' +
+    '\n' +
+    '            <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                <label for="first-name">{{\'ProgramName\' | translate}}</label>\n' +
+    '                <input required type="text" class="mat-input form-control" name="programName" ng-pattern="/^(\\D)+$/" ng-model="ProgramName"\n' +
+    '                    ng-minlength="2" ng-maxlength="50">\n' +
+    '                <div ng-messages="newProgramForm.programName.$error" class="error">\n' +
+    '                    <div ng-show="newProgramForm.programName.$error.pattern">{{\'TextOnly\' | translate}}</div>\n' +
+    '                    <div ng-if="newProgramForm.programName.$error.required && !newProgramForm.programName.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '                    <div ng-if="(newProgramForm.programName.$error.minlength || newProgramForm.programName.$error.maxlength) && !newProgramForm.programName.$error.required">{{\'NameLengthError\' | translate}}</div>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '\n' +
+    '            <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                <label for="first-name">{{\'ProgramDescription\' | translate}}</label>\n' +
+    '                <input required type="text" class="mat-input form-control" name="programDescription" ng-pattern="/^(\\D)+$/" ng-model="ProgramDescription"\n' +
+    '                    ng-minlength="2" ng-maxlength="50">\n' +
+    '                <div ng-messages="newProgramForm.programDescription.$error" class="error">\n' +
+    '                    <div ng-show="newProgramForm.programDescription.$error.pattern">{{\'TextOnly\' | translate}}</div>\n' +
+    '                    <div ng-if="newProgramForm.programDescription.$error.required && !newProgramForm.programDescription.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '                    <div ng-if="(newProgramForm.programDescription.$error.minlength || newProgramForm.programDescription.$error.maxlength) && !newProgramForm.programDescription.$error.required">{{\'NameLengthError\' | translate}}</div>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '\n' +
+    '            <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                <label for="first-name">{{\'ProgramDaysCount\' | translate}}</label>\n' +
+    '                <input required type="text" class="mat-input form-control" name="programDaysCount" numbers-only ng-model="ProgramDaysCount"\n' +
+    '                    ng-minlength="1" ng-maxlength="2">\n' +
+    '                <div ng-messages="newProgramForm.programDaysCount.$error" class="error">\n' +
+    '                    <div ng-if="newProgramForm.programDaysCount.$error.required && !newProgramForm.programDaysCount.$pristine">{{\'ProgramDaysCountReqError\' | translate}}</div>\n' +
+    '                    <div ng-if="(newProgramForm.programDaysCount.$error.minlength || newProgramForm.programDaysCount.$error.maxlength)">{{\'ProgramDaysCountLengthError\' | translate}}</div>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '\n' +
+    '            <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                <label for="first-name">{{\'MealPerDay\' | translate}}</label>\n' +
+    '                <input required type="text" class="mat-input form-control" name="mealPerDay" numbers-only ng-model="MealPerDay" ng-minlength="1"\n' +
+    '                    ng-maxlength="2">\n' +
+    '                <div ng-messages="newProgramForm.mealPerDay.$error" class="error">\n' +
+    '                    <div ng-if="newProgramForm.mealPerDay.$error.required && !newProgramForm.mealPerDay.$pristine">{{\'MealPerDayReqError\' | translate}}</div>\n' +
+    '                    <div ng-if="(newProgramForm.mealPerDay.$error.minlength || newProgramForm.mealPerDay.$error.maxlength)">{{\'MealPerDayLengthError\' | translate}}</div>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '\n' +
+    '            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                <label for="first-name">{{\'SelectExcludeDays\' | translate}}</label>\n' +
+    '                <select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" multiple ng-model="addProgramCtrl.SelectedDays"\n' +
+    '                    ng-options="day as day.groupName for day in programCtrl.dayList">\n' +
+    '\n' +
+    '                </select>\n' +
+    '            </div>\n' +
+    '            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                <label for="first-name">{{\'Breakfast\' | translate}}\n' +
+    '                    <input type="checkbox" ng-model="IsBreakFast">\n' +
+    '                </label>\n' +
+    '                <br/>\n' +
+    '                <label for="first-name">{{\'Snack\' | translate}}\n' +
+    '                    <input type="checkbox" ng-model="IsSnack">\n' +
+    '                </label>\n' +
+    '            </div>\n' +
+    '            <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                <label for="first-name">{{\'ProgramDiscount\' | translate}}</label>\n' +
+    '                <input required type="text" class="mat-input form-control" name="programDiscount" numbers-only ng-model="ProgramDiscount"\n' +
+    '                    ng-minlength="1" ng-maxlength="2">\n' +
+    '                <div ng-messages="newProgramForm.programDiscount.$error" class="error">\n' +
+    '                    <div ng-if="newProgramForm.programDiscount.$error.required && !newProgramForm.programDiscount.$pristine">{{\'ProgramDiscountReqError\' | translate}}</div>\n' +
+    '                    <div ng-if="(newProgramForm.programDiscount.$error.minlength || newProgramForm.programDiscount.$error.maxlength)">{{\'ProgramDiscountLengthError\' | translate}}</div>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '        </form>\n' +
+    '    </div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Program/templates/newStepTwo.html',
+    '<script type="text/javascript">\n' +
+    '    $(document).ready(function () {\n' +
+    '        $(".select-add-tags").select2({\n' +
+    '            tags: true,\n' +
+    '            theme: "bootstrap",\n' +
+    '            insertTag: function (data, tag) {\n' +
+    '                // Insert the tag at the end of the results\n' +
+    '                data.push(tag);\n' +
+    '            }\n' +
+    '        });\n' +
+    '    });\n' +
+    '</script>\n' +
+    '\n' +
+    '\n' +
+    '<!-- Inbox like Accordion -->\n' +
+    '<div class="panel-group pmd-accordion pmd-accordion-inbox" id="accordion6" role="tablist" aria-multiselectable="true">\n' +
+    '    <div class="panel panel-default">\n' +
+    '        <div class="panel-heading" role="tab" id="headingOne">\n' +
+    '            <h4 class="panel-title">\n' +
+    '                <a data-toggle="collapse" data-parent="#accordion6" ng-init="flag=false"  ng-click="flag=!flag" aria-expanded="true" aria-controls="collapseOne6"\n' +
+    '                    data-expandable="false"> Collapsible Group Item #1\n' +
+    '                    <i class="material-icons md-dark pmd-sm pmd-accordion-arrow">keyboard_arrow_down</i>\n' +
+    '                </a>\n' +
+    '            </h4>\n' +
+    '        </div>\n' +
+    '        <div ng-show="flag == true" id="collapseOne6" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">\n' +
+    '            <div class="panel-body">The word "accordion" typically conjures a mental image of your favorite polka band. However that’s not what we\n' +
+    '                are talking about when referring to accordion menu. Although polka music can offer a rip-snorting good time,\n' +
+    '                the term is associated with something different in the realm of web design. User interface accordions might\n' +
+    '                refer to menus, widgets, or content areas which expand like the musical instrument. These interfaces have\n' +
+    '                grown a lot more popular in recent years with the expansion of JavaScript.</div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '<!-- Accordion with No Space example end -->');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Program/templates/program.html',
+    '<div>\n' +
+    '    <div ncy-breadcrumb></div>\n' +
+    '    <div style="margin-bottom:10px">\n' +
+    '        <button ng-init="isAdd = false" ng-click="isAdd = !isAdd"\n' +
+    '            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'AddNew\' | translate}}</button>\n' +
+    '\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div class="row" ng-if="isAdd == true">\n' +
+    '        <div id="wizard-container">\n' +
+    '            <div id="wizard-step-container">\n' +
+    '                <ul class="nav nav-pills nav-justified">\n' +
+    '                    <li ng-repeat="step in programCtrl.steps" ng-class="{\'active\':step.step == programCtrl.currentStep}">\n' +
+    '                        <a ng-click="programCtrl.gotoStep(step.step)" href="">{{step.name}}</a>\n' +
+    '                    </li>\n' +
+    '                </ul>\n' +
+    '            </div>\n' +
+    '\n' +
+    '            <div id="wizard-content-container">\n' +
+    '                <ng-include src="programCtrl.getStepTemplate()"></ng-include>\n' +
+    '            </div>\n' +
+    '\n' +
+    '            <div id="wizard-navigation-container">\n' +
+    '                <div class="pull-right">\n' +
+    '                    <span class="btn-group">\n' +
+    '                        <button ng-disabled="programCtrl.currentStep <= 1" class="btn btn-default" name="previous" type="button" ng-click="programCtrl.gotoStep(programCtrl.currentStep - 1)">\n' +
+    '                            <i class="fa fa-arrow-left"></i>{{\'PreviousStep\' | translate}}</button>\n' +
+    '                        <button ng-disabled="programCtrl.currentStep >= programCtrl.steps.length" class="btn btn-primary" name="next" type="button"\n' +
+    '                            ng-click="programCtrl.gotoStep(programCtrl.currentStep + 1)">{{\'NextStep\' | translate}}\n' +
+    '                            <i class="fa fa-arrow-right"></i>\n' +
+    '                        </button>\n' +
+    '                    </span>\n' +
+    '                    <button ng-disabled="programCtrl.currentStep != programCtrl.steps.length" class="btn btn-success" name="next" type="button"\n' +
+    '                        ng-click="programCtrl.save()">\n' +
+    '                        <i class="fa fa-floppy-o"></i>{{\'Save\' | translate}}</button>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <!-- <div ng-if="AreaList.results.length == 0">\n' +
+    '        <span>{{\'NoAreasAvailable\' | translate}}</span>\n' +
+    '    </div>\n' +
+    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="AreaList.results.length > 0">\n' +
+    '        <div class="table-responsive"></div>\n' +
+    '        <table class="table pmd-table table-hover">\n' +
+    '            <thead>\n' +
+    '                <tr>\n' +
+    '                    <th>{{\'Name\' | translate}}</th>\n' +
+    '                    <th>{{\'Branch\' | translate}}</th>\n' +
+    '                    <th></th>\n' +
+    '                </tr>\n' +
+    '            </thead>\n' +
+    '            <tbody>\n' +
+    '                <tr ng-repeat-start="Area in AreaList.results">\n' +
+    '                    <td data-title="Name">{{Area.titleDictionary[selectedLanguage]}}</td>\n' +
+    '                    <td>\n' +
+    '                        <button ng-click="$state.go(\'newBranch\',{countryId: $stateParams.countryId,regionId: $stateParams.regionId,cityId:$stateParams.cityId,areaId: Area.areaId});"\n' +
+    '                            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'AddNewBranch\' | translate}}</button>\n' +
+    '                        <span href="javascript:void(0);" ng-click="Area.show=!Area.show;AreaCtrl.showMore($event)" ng-show="Area.branches.length != 0"\n' +
+    '                            class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm child-table-expand direct-expand">\n' +
+    '                            <i class="material-icons md-dark pmd-sm"></i>\n' +
+    '                        </span>\n' +
+    '                    </td>\n' +
+    '\n' +
+    '                    <td width="30%" ng-show="!Area.isStatic">\n' +
+    '                        <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go(\'editArea\',{countryId: $stateParams.countryId,regionId: $stateParams.regionId,cityId:$stateParams.cityId,areaId: Area.areaId});">mode_edit</i>\n' +
+    '                    </td>\n' +
+    '                </tr>\n' +
+    '                <tr ng-repeat-end ng-show="Area.show">\n' +
+    '                    <td>\n' +
+    '                        <table class="table pmd-table table-hover">\n' +
+    '                            <thead>\n' +
+    '                                <tr>\n' +
+    '                                    <th>{{\'Name\' | translate}}</th>\n' +
+    '                                    <th></th>\n' +
+    '                                </tr>\n' +
+    '                            </thead>\n' +
+    '                            <tbody>\n' +
+    '                                <tr ng-repeat="Branch in Area.branches">\n' +
+    '                                    <td data-title="Name">{{Branch.titleDictionary[selectedLanguage]}}</td>\n' +
+    '                                   \n' +
+    '                                    <td width="30%" ng-show="!Branch.isStatic">\n' +
+    '                                        <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go(\'editBranch\',{countryId: $stateParams.countryId,regionId: $stateParams.regionId,cityId:$stateParams.cityId,areaId: Area.areaId,branchId: Branch.branchId});">mode_edit</i>\n' +
+    '                                    </td>\n' +
+    '                                </tr>\n' +
+    '                            </tbody>\n' +
+    '                        </table>\n' +
+    '                    </td>\n' +
+    '                </tr>\n' +
+    '            </tbody>\n' +
+    '        </table>\n' +
+    '    </div>\n' +
+    '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount" paging-action="changePage(page)"\n' +
+    '        flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">\n' +
+    '    </div> -->\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/Country/templates/Countries.html',
     '\n' +
     '<div>\n' +
