@@ -58,6 +58,7 @@ namespace FitHouse.API
                 .RegisterType<IAreaFacade, AreaFacade>(new PerResolveLifetimeManager())
                 .RegisterType<IBranchFacade, BranchFacade>(new PerResolveLifetimeManager())
                  .RegisterType<ICategoryFacade, CategoryFacade>(new PerResolveLifetimeManager())
+                 .RegisterType<IItemFacade, ItemFacade>(new PerResolveLifetimeManager())
                 .RegisterType<IPermissionFacade, PermissionFacade>(new PerResolveLifetimeManager())
                    .RegisterType<ICountryFacade, CountryFacade>(new PerResolveLifetimeManager())
                 .RegisterType<IRegionFacade, RegionFacade>(new PerResolveLifetimeManager())

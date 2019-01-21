@@ -12,9 +12,23 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
 	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
-	<link rel="stylesheet" ng-href="bundle-{{selectedLanguage}}.css?v=e48bb5840f01b2717e891f021886d518" />
+	<link rel="stylesheet" ng-href="bundle-{{selectedLanguage}}.css?v=3760f1a443799e6eae899a2f0603a93e" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.1/nv.d3.min.css" />
 
+	<!-- acco -->
+	<!-- /* Propeller accordion */ -->
+	<link rel="stylesheet" href="http://propeller.in/components/accordion/css/accordion.css" />
+
+	<!-- jquery JS -->
+	<!-- <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
+	<!-- Bootstrap js -->
+	<!-- <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script> -->
+
+	<!-- Propeller Global js -->
+	<!-- <script src="http://propeller.in/components/global/js/global.js"></script> -->
+	<!-- Propeller accordion js -->
+	<!-- <script type="text/javascript" src="http://propeller.in/components/accordion/js/accordion.js"></script> -->
+	<!-- End acco -->
 	<style>
 		.btn-switch {
 			position: relative;
@@ -30,11 +44,11 @@
 
 		.btn-switch-circle {
 			position: absolute;
-			top: -2px;
-			left: -2px;
+			top: -1px;
+			left: 0px;
 			display: block;
-			height: 25px;
-			width: 25px;
+			height: 23px;
+			width: 24px;
 			background-color: #fff;
 			border-radius: 40px;
 		}
@@ -189,7 +203,7 @@
 				</a>
 			</li>
 
-			<li ng-show="user.PermissionId.indexOf('2') !== -1"> 
+			<li ng-show="user.PermissionId.indexOf('2') !== -1">
 				<a class="pmd-ripple-effect" ng-click="$state.go('Category');">
 					<i class="media-left media-middle">
 						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
@@ -204,7 +218,7 @@
 				</a>
 			</li>
 
-			<li ng-show="user.PermissionId.indexOf('1') !== -1"> 
+			<li ng-show="user.PermissionId.indexOf('1') !== -1">
 				<a class="pmd-ripple-effect" ng-click="$state.go('users');">
 					<i class="media-left media-middle">
 						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
@@ -233,7 +247,7 @@
 					<span class="media-body" ng-cloak>{{'Item' | translate}}</span>
 				</a>
 			</li>
-			<li ng-show="user.PermissionId.indexOf('4') !== -1"> 
+			<li ng-show="user.PermissionId.indexOf('4') !== -1">
 				<a class="pmd-ripple-effect " ng-click="$state.go('Log')">
 					<i class="media-left media-middle">
 						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
@@ -344,7 +358,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
 
 
-	<script src="libs.js?v=e48bb5840f01b2717e891f021886d518"></script>
+	<script src="libs.js?v=3760f1a443799e6eae899a2f0603a93e"></script>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.1/nv.d3.min.js"></script>
@@ -354,9 +368,9 @@
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/stackblur-canvas/1.4.1/stackblur.min.js"></script>
 	<script src="http://cdn.jsdelivr.net/npm/canvg/dist/browser/canvg.min.js"></script>
 
-	<script src="core.js?v=e48bb5840f01b2717e891f021886d518"></script>
-	<script src="app.js?v=e48bb5840f01b2717e891f021886d518"></script>
-	<script src="templates.js?v=e48bb5840f01b2717e891f021886d518"></script>
+	<script src="core.js?v=3760f1a443799e6eae899a2f0603a93e"></script>
+	<script src="app.js?v=3760f1a443799e6eae899a2f0603a93e"></script>
+	<script src="templates.js?v=3760f1a443799e6eae899a2f0603a93e"></script>
 
 	<script src="https://rawgithub.com/McNull/angular-block-ui/bower/angular-block-ui.min.js"></script>
 	<link rel="stylesheet" href="https://rawgithub.com/McNull/angular-block-ui/bower/angular-block-ui.min.css">

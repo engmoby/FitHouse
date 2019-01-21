@@ -29,7 +29,10 @@ namespace FitHouse.API
 
             mapperConfiguration.CreateMap<CategoryModel, CategoryDto>();
             mapperConfiguration.CreateMap<CategoryDto, CategoryModel>();
-             
+
+            mapperConfiguration.CreateMap<ItemModel, ItemDto>();
+            mapperConfiguration.CreateMap<ItemDto, ItemModel>();
+
             mapperConfiguration.CreateMap<PermissionModel, PermissionDto>();
             mapperConfiguration.CreateMap<PermissionDto, PermissionModel>();
 

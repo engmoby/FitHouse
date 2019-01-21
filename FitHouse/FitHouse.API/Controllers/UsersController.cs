@@ -50,7 +50,7 @@ namespace FitHouse.API.Controllers
             PagedResultsDto results = new PagedResultsDto();
             results.TotalCount = getAllDataForuser.TotalCount;
             //results.Data = Mapper.Map<List<UserModel>, List<UserDto>>(userList); 
-            return PagedResponse("GetAllUsers", Page, PageSize, results.TotalCount, userList, results.IsParentTranslated); 
+            return PagedResponse("GetAllUsers", Page, PageSize, results.TotalCount, userList ); 
         }
          
         [Route("api/Users/GetUserById", Name = "GetUserById")]

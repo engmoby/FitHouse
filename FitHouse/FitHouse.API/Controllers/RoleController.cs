@@ -29,7 +29,7 @@ namespace FitHouse.API.Controllers
         {
             PagedResultsDto roleObj = _roleFacade.GetAllRoles(page, pagesize);
             var data = Mapper.Map<List<RoleModel>>(roleObj.Data);
-            return PagedResponse("GetAllRoles", page, pagesize, roleObj.TotalCount, data, roleObj.IsParentTranslated);
+            return PagedResponse("GetAllRoles", page, pagesize, roleObj.TotalCount, data );
         }
 
 

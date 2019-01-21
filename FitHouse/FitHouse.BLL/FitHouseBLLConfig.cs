@@ -54,6 +54,11 @@ namespace FitHouse.BLL
             mapperConfiguration.CreateMap<Category, CategoryDto>()
                 .ForMember(dto => dto.TitleDictionary, m => m.MapFrom(src => src.CategoryTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)));
 
+            mapperConfiguration.CreateMap<ItemDto, Item>();
+            mapperConfiguration.CreateMap<Item, ItemDto>()
+                .ForMember(dto => dto.ItemNameDictionary, m => m.MapFrom(src => src.ItemTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)))
+                .ForMember(dto => dto.ItemDescriptionDictionary, m => m.MapFrom(src => src.ItemTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Description)));
+
 
             mapperConfiguration.CreateMap<CountryDto, Country>();
             mapperConfiguration.CreateMap<Country, CountryDto>()
@@ -86,6 +91,9 @@ namespace FitHouse.BLL
                 .RegisterType<IBranchTranslationService, BranchTranslationService>(new PerResolveLifetimeManager())
                 .RegisterType<ICategoryService, CategoryService>(new PerResolveLifetimeManager())
                 .RegisterType<ICategoryTranslationService, CategoryTranslationService>(new PerResolveLifetimeManager())
+                .RegisterType<IItemService, ItemService>(new PerResolveLifetimeManager())
+                .RegisterType<IItemTranslationService, ItemTranslationService>(new PerResolveLifetimeManager())
+               
                 .RegisterType<IUserService, UserService>(new PerResolveLifetimeManager())
                 .RegisterType<IUserRoleService, UserRoleService>(new PerResolveLifetimeManager())
                 .RegisterType<IPermissionService, PermissionService>(new PerResolveLifetimeManager())

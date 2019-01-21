@@ -22,7 +22,7 @@ namespace FitHouse.API.Controllers
         {
             PagedResultsDto allCities = _cityFacade.GetAllCities(regionId, page, pagesize);
             var data = Mapper.Map<List<CityModel>>(allCities.Data);
-            return PagedResponse("GetAllCities", page, pagesize, allCities.TotalCount, data, allCities.IsParentTranslated);
+            return PagedResponse("GetAllCities", page, pagesize, allCities.TotalCount, data );
         }
 
 

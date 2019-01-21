@@ -15,9 +15,9 @@ namespace FitHouse.API.Infrastructure.ActionResult
         private string NextPageUrl { get; set; }
         private string PrevPageUrl { get; set; }
         private dynamic Results { get; set; }
-        private bool IsParentTranslated { get; set; }
+      //  private bool IsParentTranslated { get; set; }
         private UrlHelper _url;
-        public PagedResponseActionResult(HttpRequestMessage request, string routeName, int currentPage, int pageSize, long totalCount, dynamic results, bool isParentTranslated)
+        public PagedResponseActionResult(HttpRequestMessage request, string routeName, int currentPage, int pageSize, long totalCount, dynamic results)
         {
             _request = request;
             Results = results;
@@ -43,7 +43,7 @@ namespace FitHouse.API.Infrastructure.ActionResult
             }
 
             TotalCount = totalCount;
-            IsParentTranslated = isParentTranslated;
+           // IsParentTranslated = isParentTranslated;
         }
         public Task<HttpResponseMessage> ExecuteAsync(CancellationToken cancellationToken)
         {
@@ -54,7 +54,7 @@ namespace FitHouse.API.Infrastructure.ActionResult
                 NextPageURL = NextPageUrl,
                 PrevPageURL = PrevPageUrl,
                 Results = Results,
-                IsParentTranslated = IsParentTranslated
+               // IsParentTranslated = IsParentTranslated
             };
             return Task.FromResult(_request.CreateResponse(System.Net.HttpStatusCode.OK, response));
         }

@@ -30,6 +30,8 @@
                             </div>
                     </td>
                     <td width="30%" ng-show="!Category.isStatic">
+                        <a ng-click="$state.go('Items', {categoryId: Category.categoryId});" class="cursorPointer">{{'ItemsBtn'
+                            | translate}}</a>
                         <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editCategory',{categoryId: Category.categoryId});">mode_edit</i>
                         <i class="material-icons pmd-md deleteButton cursorPointer font25" ng-click="CategoryCtrl.openDeleteDialog(Category,Category.titleDictionary[selectedLanguage],Category.categoryId)">delete</i>
                     </td>

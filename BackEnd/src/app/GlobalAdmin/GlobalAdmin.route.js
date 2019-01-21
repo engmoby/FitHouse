@@ -309,23 +309,6 @@
                     }
 
                 })
-                // .state('editCategory', {
-                //     url: '/editCategory/:categoryId',
-                //     templateUrl: './app/GlobalAdmin/Category/templates/edit.html',
-                //     controller: 'editCategoryDialogController',
-                //     'controllerAs': 'editCategoryCtrl',
-                //     resolve: {
-                //         CategoryByIdPrepService: CategoryByIdPrepService, 
-                //     },
-                //     data: {
-                //         permissions: {
-                //             only: ['5'],
-                //             redirectTo: 'root'
-                //         }
-                //     }
-
-                // })
-
                 .state('editCategory', {
                     url: '/editcategory/:categoryId',
                     templateUrl: './app/GlobalAdmin/Category/templates/edit.html',
@@ -343,7 +326,54 @@
                     }
 
                 })
-
+                .state('Items', {
+                    url: '/Category/:categoryId/Item',
+                    templateUrl: './app/GlobalAdmin/item/templates/Item.html',
+                    controller: 'ItemController',
+                    'controllerAs': 'itemCtrl',
+                    data: {
+                        permissions: {
+                            only: ['RestaurantAdmin'],
+                            redirectTo: 'root'
+                        },
+                        displayName: 'Category'
+                    },
+                    resolve: {
+                        itemsPrepService: itemsPrepService
+                    }
+                })
+                .state('newItem', {
+                    url: '/Category/:categoryId/newItem',
+                    templateUrl: './app/GlobalAdmin/item/templates/new.html',
+                    controller: 'newItemController',
+                    'controllerAs': 'newItemCtrl',
+                    data: {
+                        permissions: {
+                            only: ['RestaurantAdmin'],
+                            redirectTo: 'root'
+                        },
+                        displayName: 'Items'
+                    },
+                    resolve: { 
+                        defaultItemsPrepService: defaultItemsPrepService,
+                    }
+                })
+                .state('editItem', {
+                    url: '/Category/:categoryId/Items/:itemId',
+                    templateUrl: './app/GlobalAdmin/item/templates/edit.html', 
+                    controller: 'editItemController',
+                    'controllerAs': 'editItemCtrl',
+                    data: {
+                        permissions: {
+                            only: ['RestaurantAdmin'],
+                            redirectTo: 'root'
+                        },
+                        displayName: 'Items'
+                    },
+                    resolve: {
+                        itemPrepService: itemPrepService, 
+                    }
+                })
                 .state('Dashboard', {
                     url: '/Dashboard',
                     templateUrl: './app/GlobalAdmin/dashboard/templates/dashboard.html',
@@ -440,17 +470,25 @@
     function CategoryByIdPrepService(CategoryResource, $stateParams) {
         return CategoryResource.getCategory({ categoryId: $stateParams.categoryId }).$promise;
     }
-    /*AnswerQuestionResource */
-    AnswerQuestionPrepService.$inject = ['AnswerQuestionResource']
-    function AnswerQuestionPrepService(AnswerQuestionResource) {
-        return AnswerQuestionResource.getAllQuestions().$promise;
+    /*Items */
+    itemsPrepService.$inject = ['GetItemsResource', '$stateParams']
+    function itemsPrepService(GetItemsResource, $stateParams) {
+        return GetItemsResource.getAllItems({ CategoryId: $stateParams.categoryId }).$promise;
+    } 
+
+    itemPrepService.$inject = ['ItemResource', '$stateParams']
+    function itemPrepService(ItemResource, $stateParams) {
+        return ItemResource.getItem({ itemId: $stateParams.itemId }).$promise;
     }
 
-    AnswerQuestionDashBoardPrepService.$inject = ['AnswerQuestionResource']
-    function AnswerQuestionDashBoardPrepService(AnswerQuestionResource) {
-        return AnswerQuestionResource.getAllQuestions({ pageName: 'dashboard' }).$promise;
+    defaultItemsPrepService.$inject = ['GetItemNamesResource', '$stateParams', '$localStorage', 'appCONSTANTS']
+    function defaultItemsPrepService(GetItemNamesResource, $stateParams, $localStorage, appCONSTANTS) {
+        if ($localStorage.language != appCONSTANTS.defaultLanguage) {
+            return GetItemNamesResource.getAllItemNames({ CategoryId: $stateParams.categoryId, lang: appCONSTANTS.defaultLanguage }).$promise;
+        }
+        else
+            return null;
     }
-
 
 
 

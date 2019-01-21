@@ -22,7 +22,7 @@ namespace FitHouse.API.Controllers
         {
             PagedResultsDto branchObj = _branchFacade.GetAllBranchs(page, pagesize);
             var data = Mapper.Map<List<BranchModel>>(branchObj.Data);
-            return PagedResponse("GetAllAreas", page, pagesize, branchObj.TotalCount, data, branchObj.IsParentTranslated);
+            return PagedResponse("GetAllAreas", page, pagesize, branchObj.TotalCount, data );
         }
 
 

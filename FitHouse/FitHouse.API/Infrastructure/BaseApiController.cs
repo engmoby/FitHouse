@@ -54,9 +54,9 @@ namespace FitHouse.API.Infrastructure
             return default(T);
         }
 
-            protected IHttpActionResult PagedResponse(string routeName, int currentPage, int pageSize, long totalCount, dynamic results,bool isParentTranslated)
+            protected IHttpActionResult PagedResponse(string routeName, int currentPage, int pageSize, long totalCount, dynamic results)
             {
-                return new PagedResponseActionResult(Request, routeName, currentPage, pageSize, totalCount, results, isParentTranslated);
+                return new PagedResponseActionResult(Request, routeName, currentPage, pageSize, totalCount, results );
             }
     }
 }
