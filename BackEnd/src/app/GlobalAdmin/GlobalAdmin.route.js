@@ -5,6 +5,26 @@
         .module('home')
         .config(function ($stateProvider, $urlRouterProvider) {
             $stateProvider
+
+                .state('program', {
+                    url: '/programs',
+                    templateUrl: './app/GlobalAdmin/Program/templates/program.html',
+                    controller: 'ProgramController',
+                    'controllerAs': 'programCtrl',
+                    // resolve: {
+                    //     userPrepService: userPrepService,
+                    //     RolePrepService: RolePrepService,
+                    //     CountriesPrepService: CountriesPrepService,
+                    // },
+                    data: {
+                        permissions: {
+                            only: ['1'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
                 .state('users', {
                     url: '/users',
                     templateUrl: './app/GlobalAdmin/user/templates/user.html',
@@ -323,7 +343,7 @@
                     }
 
                 })
- 
+
                 .state('Dashboard', {
                     url: '/Dashboard',
                     templateUrl: './app/GlobalAdmin/dashboard/templates/dashboard.html',
@@ -414,7 +434,7 @@
         return CategoryResource.getAllCategorys().$promise;
     }
 
-    
+
 
     CategoryByIdPrepService.$inject = ['CategoryResource', '$stateParams']
     function CategoryByIdPrepService(CategoryResource, $stateParams) {
