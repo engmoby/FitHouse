@@ -10,7 +10,7 @@
 		vm.language = appCONSTANTS.supportedLanguage;
 		vm.item = itemPrepService;
 		vm.item.imageUrl = vm.item.imageUrl + "?date=" + $scope.getCurrentTime();
-console.log(	vm.item);
+		console.log(vm.item);
 
 		vm.close = function () {
 			$state.go('Items', { categoryId: $stateParams.categoryId });
@@ -99,8 +99,8 @@ console.log(	vm.item);
 		}
 
 		vm.calclulate = function () {
-			var vatPresantage = vm.price * vm.vat / 100;
-			vm.totalPrice = vm.price + vatPresantage;
+			var vatPresantage = vm.item.price * vm.item.vat / 100;
+			vm.item.totalPrice = vm.item.price + vatPresantage;
 		}
 	}
 }());

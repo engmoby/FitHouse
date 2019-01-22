@@ -35,13 +35,12 @@
 			newItem.price = vm.price;
 			newItem.vat = vm.vat;
 			newItem.totalPrice = vm.totalPrice;
+			newItem.isActive = true;
 
 
 			var model = new FormData();
 			model.append('data', JSON.stringify(newItem));
 			model.append('file', itemImage);
-			model.append('file', itemImage2);
-			model.append('file', itemImage3);
 			$http({
 				method: 'POST',
 				url: appCONSTANTS.API_URL + 'Items/',
@@ -61,7 +60,7 @@
 				}
 			);
 
-		} 
+		}
 		vm.LoadUploadLogo = function () {
 			$("#itemImage").click();
 		}
@@ -105,6 +104,6 @@
 
 		}
 
-	 
+
 	}
 }());

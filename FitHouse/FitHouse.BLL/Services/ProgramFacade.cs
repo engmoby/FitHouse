@@ -38,6 +38,7 @@ namespace FitHouse.BLL.Services
                 programObj.ProgramTranslations.Add(new ProgramTranslation
                 {
                     Title = programName.Value,
+
                     Language = programName.Key,
                     Description = programDto.ProgramDescriptionDictionary[programName.Key],
                 });

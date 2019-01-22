@@ -1,8 +1,8 @@
 <div>
     <div style="margin-bottom:10px">
-        <button ng-click="$state.go('newItem',{categoryId: $stateParams.categoryId});" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
+        <button ng-click="$state.go('newItem',{itemId: $stateParams.itemId});" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
             type="button">{{'AddItemBtn' | translate}}</button>
-     </div>
+    </div>
 
     <div ng-if="itemCtrl.items.results.length == 0">
         <span>{{'NoItemAvailable' | translate}}</span>
@@ -24,12 +24,19 @@
                         <td data-title="Description">{{item.itemDescriptionDictionary[selectedLanguage] | limitTo:50}}</td>
 
                         <td>
-                            <input type="checkbox" ng-model="item.isActive" name="name" ng-click="itemCtrl.UpdateStatus(item)"
-                                title="click To Update user status">
+                            <!-- <input type="checkbox" ng-model="item.isActive" name="name" ng-click="itemCtrl.UpdateStatus(item)"
+                                title="click To Update user status"> -->
+
+                            <div class="btn-switch" ng-class="{'btn-switch--on':item.isActive}" ng-model="item.isActive"
+                                ng-click="itemCtrl.UpdateStatus(item)">
+
+                                <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':item.isActive}"
+                                    ng-model="item.isActive" ng-click="itemCtrl.UpdateStatus(item)">
+                                </div>
 
                         </td>
                         <td width="10%">
-                            <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editItem',{categoryId:item.categoryId,itemId:item.itemId});">mode_edit</i>
+                            <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editItem',{itemId:item.itemId,itemId:item.itemId});">mode_edit</i>
                             <i class="material-icons pmd-md deleteButton cursorPointer font25" ng-click="itemCtrl.openDeleteItemDialog(item.itemName,item.itemId)">delete</i>
                         </td>
                     </tr>
