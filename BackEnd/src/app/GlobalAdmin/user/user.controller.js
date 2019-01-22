@@ -14,9 +14,12 @@
         $('.pmd-sidebar-nav>li>a').removeClass("active")
         $($('.pmd-sidebar-nav').children()[5].children[0]).addClass("active")
 
-        blockUI.start("Loading...");
-
         var vm = this;
+        blockUI.start("Loading...");
+        vm.close = function(){
+        debugger;
+        	$state.go('users');
+		} 
         // vm.area = [];
         // vm.area.push({ areaId: 0, titleDictionary: { "en": "Select Area", "ar": "اختار منطقه" } });
         // vm.selectedAreaId = 0;

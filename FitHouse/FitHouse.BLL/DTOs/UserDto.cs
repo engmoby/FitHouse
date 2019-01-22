@@ -21,7 +21,8 @@ namespace FitHouse.BLL.DTOs
         public long? CreatorUserId { get; set; }
         public DateTime? DeletionTime { get; set; }
         public long? DeleterUserId { get; set; } 
-        public int BranchId { get; set; } 
+        public long? BranchId { get; set; } 
+        public BranchDto Branch { get; set; }
         public List<UserRoleDto> UserRoles { get; set; }
         public List<long> PermissionId { get; set; } 
         public long? AreaId { get; set; }

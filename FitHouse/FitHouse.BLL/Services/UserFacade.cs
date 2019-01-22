@@ -70,22 +70,24 @@ namespace FitHouse.BLL.Services
             {
                 return null;
             }
-            var getRole = _userService.Find(userId);
-            getRole.UserRoles = new List<UserRole>();
+            var getUserInfo = _userService.Find(userId); 
+            getUserInfo.UserRoles = new List<UserRole>();
 
             var userDto = new UserDto();
 
-            userDto.UserId = getRole.UserId;
-            userDto.FirstName = getRole.FirstName;
-            userDto.LastName = getRole.LastName;
-            userDto.Email = getRole.Email;
-            userDto.Phone = getRole.Phone; 
-            userDto.Password = PasswordHelper.Decrypt(getRole.Password);
-
+            userDto.UserId = getUserInfo.UserId;
+            userDto.FirstName = getUserInfo.FirstName;
+            userDto.LastName = getUserInfo.LastName;
+            userDto.Email = getUserInfo.Email;
+            userDto.Phone = getUserInfo.Phone;
+            userDto.Password = PasswordHelper.Decrypt(getUserInfo.Password);
+            userDto.BranchId = getUserInfo.BranchId;
+            userDto.AreaId = getUserInfo.Branch.AreaId;
+            userDto.CityId = getUserInfo.Branch.Area.CityId; 
+            userDto.RegionId = getUserInfo.Branch.Area.City.RegionId;
+            userDto.CountryId = getUserInfo.Branch.Area.City.Region.CountryId;
 
             var afterMap = userDto;
-            //var afterMap = Mapper.Map<UserDto>(getRole);
-
             afterMap.UserRoles = _userRoleService.GetUserRoleById(userId);
 
             return afterMap;
@@ -154,7 +156,7 @@ namespace FitHouse.BLL.Services
             userObj.Password = PasswordHelper.Encrypt(userDto.Password);
             userObj.CreationTime = DateTime.Now;
             userObj.IsActive = userDto.IsActive;
-            userObj.IsDeleted = false; 
+            userObj.IsDeleted = false;
             userObj.CreationTime = Strings.CurrentDateTime;
             userObj.CreatorUserId = userId;
 
@@ -186,7 +188,7 @@ namespace FitHouse.BLL.Services
             //    count++;
             //}
             //userObj.PackageId = package.PackageId;
-             
+
             _userRoleService.InsertRange(userObj.UserRoles);
             _userService.Insert(userObj);
             SaveChanges();
@@ -203,7 +205,7 @@ namespace FitHouse.BLL.Services
         }
         public UserDto EditUser(UserDto userDto, int userId)
         {
-            var userObj = _userService.Query(x => x.UserId == userDto.UserId )
+            var userObj = _userService.Query(x => x.UserId == userDto.UserId)
                 .Select().FirstOrDefault();
             userObj.FirstName = userDto.FirstName;
             userObj.LastName = userDto.LastName;
@@ -229,7 +231,7 @@ namespace FitHouse.BLL.Services
                     RoleId = roleper.RoleId
                 });
             }
-         
+
             //foreach (var branchId in userDto.BranchesId)
             //{
             //    userObj.UserBranches.Add(new UserBranch

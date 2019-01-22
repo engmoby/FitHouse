@@ -36,24 +36,14 @@ namespace FitHouse.BLL
             mapperConfiguration.CreateMap<PermissionDto, Permission>();
             mapperConfiguration.CreateMap<Permission, PermissionDto>()
                 .ForMember(dto => dto.TitleDictionary, m => m.MapFrom(src => src.PermissionTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)));
-
-
-            mapperConfiguration.CreateMap<AreaDto, Area>()
-                .ForMember(dto => dto.Branches, m => m.Ignore());
-            mapperConfiguration.CreateMap<Area, AreaDto>()
-                .ForMember(dto => dto.TitleDictionary, m => m.MapFrom(src => src.AreaTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)));
-
+             
             mapperConfiguration.CreateMap<ProgramDto, Program>();
             mapperConfiguration.CreateMap<Program, ProgramDto>()
                 .ForMember(dto => dto.ProgramNameDictionary, m => m.MapFrom(src => src.ProgramTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)))
                 .ForMember(dto => dto.ProgramDescriptionDictionary, m => m.MapFrom(src => src.ProgramTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Description)));
 
             mapperConfiguration.CreateMap<ProgramDetailDto, ProgramDetail>().ReverseMap();
-
-            mapperConfiguration.CreateMap<BranchDto, Branch>();
-            mapperConfiguration.CreateMap<Branch, BranchDto>()
-                .ForMember(dto => dto.TitleDictionary, m => m.MapFrom(src => src.BranchTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)));
-
+             
             mapperConfiguration.CreateMap<CategoryRoleDto, CategoryRole>();
             mapperConfiguration.CreateMap<CategoryRole, CategoryRoleDto>();
 
@@ -67,9 +57,15 @@ namespace FitHouse.BLL
                 .ForMember(dto => dto.ItemDescriptionDictionary, m => m.MapFrom(src => src.ItemTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Description)));
 
 
-            mapperConfiguration.CreateMap<CountryDto, Country>();
-            mapperConfiguration.CreateMap<Country, CountryDto>()
-                .ForMember(dto => dto.TitleDictionary, m => m.MapFrom(src => src.CountryTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)));
+    mapperConfiguration.CreateMap<AreaDto, Area>();
+            mapperConfiguration.CreateMap<Area, AreaDto>()
+                .ForMember(dto => dto.TitleDictionary, m => m.MapFrom(src => src.AreaTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)));
+
+            mapperConfiguration.CreateMap<BranchDto, Branch>();
+            mapperConfiguration.CreateMap<Branch, BranchDto>()
+                .ForMember(dto => dto.TitleDictionary,
+                    m => m.MapFrom(src => src.BranchTranslations.ToDictionary(
+                        translation => translation.Language.ToLower(), translation => translation.Title)));
 
 
             mapperConfiguration.CreateMap<RegionDto, Region>();
@@ -81,6 +77,11 @@ namespace FitHouse.BLL
             mapperConfiguration.CreateMap<City, CityDto>()
                 .ForMember(dto => dto.TitleDictionary, m => m.MapFrom(src => src.CityTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)))
                 .ForMember(dto => dto.RegionNameDictionary, m => m.MapFrom(src => src.Region.RegionTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)));
+
+
+            mapperConfiguration.CreateMap<CountryDto, Country>();
+            mapperConfiguration.CreateMap<Country, CountryDto>()
+                .ForMember(dto => dto.TitleDictionary, m => m.MapFrom(src => src.CountryTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)));
 
 
             Mapper.Initialize(mapperConfiguration);

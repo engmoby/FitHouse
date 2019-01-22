@@ -19,6 +19,7 @@ namespace FitHouse.BLL.DTOs
         public DateTime? DeletionTime { get; set; }
         public long? DeleterUserId { get; set; }
         public long RegionId { get; set; }
+      //  public RegionDto Region { get; set; }
         public Dictionary<string, string> RegionNameDictionary { get; set; }
     }
 }

@@ -30,21 +30,24 @@
 		}
 
 
-		function confirmationDelete(itemId) {
-			ItemResource.deleteItem({ itemId: itemId }).$promise.then(function (results) {
-				ToastService.show("right", "bottom", "fadeInUp", $translate.instant('itemDeleteSuccess'), "success");
+		function confirmationDelete(item) {
+			debugger;
+			ItemResource.deleteItem({ itemId: item.itemId }).$promise.then(function (results) {
+		debugger;
+		ToastService.show("right", "bottom", "fadeInUp", $translate.instant('itemDeleteSuccess'), "success");
 				refreshItems();
 			},
 				function (data, status) {
 					ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
 				});
 		}
-		vm.openDeleteItemDialog = function (name, id) {
+		vm.openDeleteDialog = function (model,name, id) {
 			var modalContent = $uibModal.open({
 				templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
 				controller: 'confirmDeleteDialogController',
 				controllerAs: 'deleteDlCtrl',
 				resolve: {
+                    model: function () { return model },
 					itemName: function () { return name },
 					itemId: function () { return id },
 					message: function () { return null },
@@ -67,6 +70,7 @@
 					item.isActive = true;
 				},
 					function (data, status) {
+						debugger;
 						ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
 						item.isActive = true;
 					})
@@ -78,8 +82,9 @@
 					item.isActive = false;
 				},
 					function (data, status) {
+						debugger;
 						ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-						item.isActive = false;
+						if (data == null) item.isActive = false;
 					})
 		}
 

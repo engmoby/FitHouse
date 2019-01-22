@@ -93,10 +93,7 @@
                     resolve: {
                         EditUserPrepService: EditUserPrepService,
                         RolePrepService: AllRolePrepService,
-                        CountriesPrepService: CountriesPrepService,
-                        RegionsForUserPrepService: RegionsForUserPrepService,
-                        CitiesForUserPrepService: CitiesForUserPrepService,
-                        AreasForUserPrepService: AreasForUserPrepService,
+                        CountriesPrepService: CountriesPrepService, 
 
                     },
                     data: {

@@ -74,7 +74,7 @@ namespace FitHouse.API.Controllers
             var data = Mapper.Map<List<ItemModel>>(items.Data);
             foreach (var item in data)
             {
-                //item.ImageUrl = Url.Link("ItemImage", new { item.CategoryId, item.ItemId });
+                item.ImageUrl = Url.Link("ItemImage", new { item.CategoryId, item.ItemId });
             }
             return PagedResponse("GetAllItemsForCategory", page, pagesize, items.TotalCount, data);
         }

@@ -13,24 +13,16 @@
         <table class="table pmd-table table-hover">
             <thead>
                 <tr>
-                    <th>{{'Name' | translate}}</th>
-                    <!-- <th>{{'status' | translate}}</th> -->
-                    <!-- <th>{{'Branch' | translate}}</th> -->
+                    <th>{{'Name' | translate}}</th> 
                     <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr ng-repeat="city in Cities.results">
-                    <td data-title="Name">{{city.titleDictionary[selectedLanguage]}}</td>
-                    
-                    <!-- <td>
-                        <p ng-show="Area.isStatic"> Static</p>
-                    </td> -->
+                    <td data-title="Name">{{city.titleDictionary[selectedLanguage]}}</td> 
                     <td>
-                        <button ng-click="$state.go('Area',{countryId: $stateParams.countryId,regionId: $stateParams.regionId,cityId:city.cityId});" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'viewAreas' | translate}}</button>
-                        <!-- <span href="javascript:void(0);" ng-click="Area.show=!Area.show;AreaCtrl.showMore($event)" ng-show="Area.branches.length != 0"
-                              class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm child-table-expand direct-expand"><i class="material-icons md-dark pmd-sm"></i></span> -->
-                    </td>
+                        <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-click="$state.go('Area',{countryId: $stateParams.countryId,regionId: $stateParams.regionId,cityId:city.cityId});" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'viewAreas' | translate}}</button>
+                      </td>
                    
                     <td width="30%" >
                         <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editCity',{countryId: $stateParams.countryId,regionId: $stateParams.regionId,cityId: city.cityId});">mode_edit</i>

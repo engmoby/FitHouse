@@ -14,6 +14,7 @@ using AutoMapper;
 using FitHouse.API.Infrastructure;
 using FitHouse.API.Models;
 using FitHouse.API.Providers;
+using FitHouse.BLL.DataServices.Interfaces;
 using FitHouse.BLL.DTOs;
 using FitHouse.Common;
 using FitHouse.Common.CustomException;
@@ -25,9 +26,11 @@ namespace FitHouse.API.Controllers
     public class ItemsController : BaseApiController
     {
         private readonly IItemFacade _itemFacade;
-        public ItemsController(ItemFacade itemFacade)
+        private IProgramDetailService _programDetailService;
+        public ItemsController(ItemFacade itemFacade, IProgramDetailService programDetailService)
         {
             _itemFacade = itemFacade;
+            _programDetailService = programDetailService;
         }
         //  [AuthorizeRoles(Enums.RoleType.RestaurantAdmin)]
         [Route("api/Items", Name = "AddItem")]
