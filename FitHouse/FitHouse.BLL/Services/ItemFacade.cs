@@ -72,7 +72,7 @@ namespace FitHouse.BLL.Services
         {
             var item = _itemService.Find(itemId);
             if (item == null) throw new NotFoundException(ErrorCodes.ItemNotFound);
-            if (item.IsDeleted) throw new NotFoundException(ErrorCodes.ItemDeleted); 
+            if (item.IsDeleted) throw new NotFoundException(ErrorCodes.ItemDeleted);
             var itemDto = Mapper.Map<ItemDto>(item);
             var itemTranslation = item.ItemTranslations.FirstOrDefault(x => x.Language.ToLower() == language.ToLower());
             itemDto.ItemName = itemTranslation.Title;
@@ -91,7 +91,7 @@ namespace FitHouse.BLL.Services
                 if (itemName.Value.Length > 100)
                     throw new ValidationException(ErrorCodes.ItemNameExceedLength);
                 if (_itemTranslationService.CheckItemNameExistForCategory(itemName.Value, itemName.Key, itemDto.ItemId, itemDto.CategoryId)) throw new ValidationException(ErrorCodes.ItemNameAlreadyExist);
-            } 
+            }
         }
 
         public PagedResultsDto GetAllItemsByCategoryId(string language, long categoryId, int page, int pageSize)
@@ -172,9 +172,9 @@ namespace FitHouse.BLL.Services
         public void UpdateItem(ItemDto itemDto, string path)
         {
             var item = _itemService.Find(itemDto.ItemId);
-            if (item == null) throw new NotFoundException(ErrorCodes.ItemNotFound); 
+            if (item == null) throw new NotFoundException(ErrorCodes.ItemNotFound);
             ValidateItem(itemDto);
-            
+
             foreach (var itemName in itemDto.ItemNameDictionary)
             {
                 var itemTranslation =
@@ -193,11 +193,19 @@ namespace FitHouse.BLL.Services
                     itemTranslation.Title = itemName.Value;
                     itemTranslation.Description = itemDto.ItemDescriptionDictionary[itemName.Key];
                 }
-            }   
+            }
+            item.Calories = itemDto.Calories;
+            item.ItemSize = itemDto.ItemSize;
+            item.Protein = itemDto.Protein;
+            item.Carbs = itemDto.Carbs;
+            item.Cost = itemDto.Cost;
+            item.VAT = itemDto.VAT;
+            item.Price = itemDto.Price;
+            item.TotalPrice = itemDto.TotalPrice;
             _itemService.Update(item);
             SaveChanges();
             if (itemDto.IsImageChange)
-                _manageStorage.UploadImage(path +   "\\" + "Category-" + item.CategoryId + "\\Items", itemDto.Image, item.ItemId + "-1");
+                _manageStorage.UploadImage(path + "\\" + "Category-" + item.CategoryId + "\\Items", itemDto.Image, item.ItemId + "-1");
 
         }
 
@@ -213,7 +221,7 @@ namespace FitHouse.BLL.Services
                 {
                     Language = language,
                     Title = itemDto.ItemName,
-                     Description = itemDto.ItemDescription
+                    Description = itemDto.ItemDescription
                 });
             }
             else
