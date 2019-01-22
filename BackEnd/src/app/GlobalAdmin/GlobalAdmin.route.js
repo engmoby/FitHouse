@@ -25,6 +25,25 @@
 
                 })
 
+                .state('newProgram', {
+                    url: '/newPrograms',
+                    templateUrl: './app/GlobalAdmin/Program/templates/addProgram.html',
+                    controller: 'addProgramController',
+                    'controllerAs': 'addProgramCtrl',
+                    // resolve: {
+                    //     userPrepService: userPrepService,
+                    //     RolePrepService: RolePrepService,
+                    //     CountriesPrepService: CountriesPrepService,
+                    // },
+                    data: {
+                        permissions: {
+                            only: ['1'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
                 .state('users', {
                     url: '/users',
                     templateUrl: './app/GlobalAdmin/user/templates/user.html',
@@ -364,6 +383,11 @@
 
 
         });
+
+    // Program
+
+    
+
     /*User */
     userPrepService.$inject = ['UserResource']
     function userPrepService(UserResource) {

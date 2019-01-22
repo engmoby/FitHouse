@@ -18,7 +18,7 @@ namespace FitHouse.BLL.DTOs
         public long ProgramDiscount { get; set; }
         public bool IsAdmin { get; set; }
         public bool IsForClient { get; set; }
-        public virtual List<ProgramTranslationDto> ProgramTranslations { get; set; }
-        public virtual List<ProgramDetailDto> ProgramDetails { get; set; }
+        public List<ProgramTranslationDto> ProgramTranslations { get; set; }
+        public List<ProgramDetailDto> ProgramDetails { get; set; }
     }
 }

@@ -281,6 +281,9 @@
     <Compile Include="Controllers\AreaController.cs" />
     <Compile Include="Models\CityModel.cs" />
     <Compile Include="Models\CountryModel.cs" />
+    <Compile Include="Models\ProgramDetailModel.cs" />
+    <Compile Include="Models\ProgramModel.cs" />
+    <Compile Include="Models\ProgramTranslationModel.cs" />
     <Compile Include="Models\RegionModel.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Infrastructure\ActionResult\PagedResponseActionResult.cs" />

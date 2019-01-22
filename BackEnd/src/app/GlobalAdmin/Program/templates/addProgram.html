@@ -1,0 +1,38 @@
+<div class="modal-content">
+    <div class="modal-header bordered">
+        <h2 class="pmd-card-title-text">{{'ProgramLbl' | translate}}</h2>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div id="wizard-container">
+                <div id="wizard-step-container">
+                    <ul ng-init="counter = 0" class="nav nav-pills nav-justified">
+                        <li ng-repeat="step in addProgramCtrl.steps" ng-class="{'active':step.step == addProgramCtrl.currentStep}">
+                            <a ng-click="addProgramCtrl.gotoStep(step.step)" href="">{{'Step' | translate}} #{{step.step}} </a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div id="wizard-content-container">
+                    <ng-include src="addProgramCtrl.getStepTemplate()"></ng-include>
+                </div>
+
+                <div id="wizard-navigation-container">
+                    <div class="pull-right">
+                        <span class="btn-group">
+                            <button ng-disabled="addProgramCtrl.currentStep <= 1" class="btn btn-default" name="previous" type="button" ng-click="addProgramCtrl.gotoStep(addProgramCtrl.currentStep - 1)">
+                                <i class="fa fa-arrow-left"></i>{{'PreviousStep' | translate}}</button>
+                            <button ng-disabled="addProgramCtrl.currentStep >= addProgramCtrl.steps.length" class="btn btn-primary" name="next" type="button"
+                                ng-click="addProgramCtrl.gotoStep(addProgramCtrl.currentStep + 1)">{{'NextStep' | translate}}
+                                <i class="fa fa-arrow-right"></i>
+                            </button>
+                        </span>
+                        <button ng-disabled="addProgramCtrl.currentStep != addProgramCtrl.steps.length" class="btn btn-success" name="next" type="button"
+                            ng-click="addProgramCtrl.save()">
+                            <i class="fa fa-floppy-o"></i>{{'Save' | translate}}</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -20,7 +20,7 @@ namespace FitHouse.BLL.DTOs
         public long Calories { get; set; }
         public long VAT { get; set; }
         public long Protein { get; set; }
-        public virtual List<ItemTranslationDto> ItemTranslations { get; set; }
-        public virtual CategoryDto Category { get; set; }
+        public List<ItemTranslationDto> ItemTranslations { get; set; }
+        public CategoryDto Category { get; set; }
     }
 }

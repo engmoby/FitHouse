@@ -50,37 +50,37 @@
         // blockUI.stop();
 
         //Model
-        vm.currentStep = 1;
-        vm.steps = [
-            {
-                step: 1,
-                name: "Step 1",
-                template: "./app/GlobalAdmin/Program/templates/newStepOne.html"
-            },
-            {
-                step: 2,
-                name: "Step 2",
-                template: "./app/GlobalAdmin/Program/templates/newStepTwo.html"
-            }
-        ];
-        vm.user = {};
+        // vm.currentStep = 1;
+        // vm.steps = [
+        //     {
+        //         step: 1,
+        //         name: "Step 1",
+        //         template: "./app/GlobalAdmin/Program/templates/newStepOne.html"
+        //     },
+        //     {
+        //         step: 2,
+        //         name: "Step 2",
+        //         template: "./app/GlobalAdmin/Program/templates/newStepTwo.html"
+        //     }
+        // ];
+        // vm.user = {};
 
-        //Functions
-        vm.gotoStep = function (newStep) {
-            vm.currentStep = newStep;
-        }
+        // //Functions
+        // vm.gotoStep = function (newStep) {
+        //     vm.currentStep = newStep;
+        // }
 
-        vm.getStepTemplate = function () {
-            for (var i = 0; i < vm.steps.length; i++) {
-                if (vm.currentStep == vm.steps[i].step) {
-                    return vm.steps[i].template;
-                }
-            }
-        }
+        // vm.getStepTemplate = function () {
+        //     for (var i = 0; i < vm.steps.length; i++) {
+        //         if (vm.currentStep == vm.steps[i].step) {
+        //             return vm.steps[i].template;
+        //         }
+        //     }
+        // }
 
-        vm.save = function () {
-            //todo: save data...
-        }
+        // vm.save = function () {
+        //     //todo: save data...
+        // }
 
     }
 
