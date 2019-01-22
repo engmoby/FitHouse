@@ -20,8 +20,9 @@
         vm.UpdateCategory = function () {
             var updateObj = new CategoryResource();
             updateObj.CategoryId = vm.Category.categoryId;
-            updateObj.titleDictionary = vm.Category.titleDictionary;
-
+            updateObj.titleDictionary = vm.Category.titleDictionary; 
+            updateObj.IsDeleted = vm.Category.IsDeleted;
+            updateObj.isActive = vm.Category.isActive;
             updateObj.$update().then(
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");

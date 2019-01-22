@@ -22,7 +22,7 @@ namespace FitHouse.API.Controllers
         {
             PagedResultsDto PermissionObj = _permissionFacade.GetAllPermissions(page, pagesize);
             var data = Mapper.Map<List<PermissionModel>>(PermissionObj.Data);
-            return PagedResponse("GetAllPermissions", page, pagesize, PermissionObj.TotalCount, data, PermissionObj.IsParentTranslated);
+            return PagedResponse("GetAllPermissions", page, pagesize, PermissionObj.TotalCount, data );
         }
 
 

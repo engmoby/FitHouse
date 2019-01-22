@@ -9,10 +9,12 @@ namespace FitHouse.DAL.Entities.Model
         public Category()
         {
             CategoryTranslations = new List<CategoryTranslation>();  
+            Items = new List<Item>();
         }
 
         public long CategoryId { get; set; }
         public bool IsActive { get; set; }
+        public virtual ICollection<Item> Items { get; set; }
         public bool IsDeleted { get; set; } 
         public DateTime? LastModificationTime { get; set; }
         public long? LastModifierUserId { get; set; }

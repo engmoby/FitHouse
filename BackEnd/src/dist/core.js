@@ -470,10 +470,27 @@ angular.module('core')
         "NotRecevied":"Not Recevied",
         "priceLengthError":"Price Length Error",
         "from0to100":"Percentage from 0 to 100",
-      }
+        "ItemsBtn": "View items",
+        "NoItemAvailable": "there is no items.",
+        "AddItemBtn": "Add new Item",
+        "itemAddSuccess": "item added successfully.",
+        "NewItemtLbl": "New item",
+        "UpdateItemLbl": "Update item",
+        "Pricelbl": "Price",
+        "itemDeleteSuccess": "item deleted successfully."
+       }
 
       var ar_translations = {
-        "from0to100":"النسبه من 0 الي 100",
+        "ItemsBtn": "عرض منتجات",
+                "NoItemAvailable": ".لا يوجد منتاجات",
+                "AddItemBtn": "اضف منتج جديد",
+                "CategoryNotTranslated": ".قسم ليس مترجم بالعربيه",
+                "itemAddSuccess": ".تم ادخال منتج بنجاح",
+                "NewItemtLbl": "منتج جديد",
+                "UpdateItemLbl": "تحديث المنتج",
+                "Pricelbl": "السعر",
+                "itemDeleteSuccess": ".تم حذف المنتج بنجاح",
+                  "from0to100":"النسبه من 0 الي 100",
         "priceLengthError":"خطأ في السعر",
         "Recevied":"استلمت",
         "NotRecevied":"لم تستلم",

@@ -1,0 +1,45 @@
+<div>
+    <div style="margin-bottom:10px">
+        <button ng-click="$state.go('newItem',{categoryId: $stateParams.categoryId});" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
+            type="button">{{'AddItemBtn' | translate}}</button>
+     </div>
+
+    <div ng-if="itemCtrl.items.results.length == 0">
+        <span>{{'NoItemAvailable' | translate}}</span>
+    </div>
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="itemCtrl.items.results.length > 0">
+        <div class="table-responsive">
+            <table class="table pmd-table table-hover">
+                <thead>
+                    <tr>
+                        <th>{{'Name' | translate}}</th>
+                        <th>{{'DescriptionLbl' | translate}}</th>
+                        <th>{{'status' | translate}}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="item in itemCtrl.items.results">
+                        <td data-title="Name" width="15%">{{item.itemNameDictionary[selectedLanguage] | limitTo:10}}</td>
+                        <td data-title="Description">{{item.itemDescriptionDictionary[selectedLanguage] | limitTo:50}}</td>
+
+                        <td>
+                            <input type="checkbox" ng-model="item.isActive" name="name" ng-click="itemCtrl.UpdateStatus(item)"
+                                title="click To Update user status">
+
+                        </td>
+                        <td width="10%">
+                            <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editItem',{categoryId:item.categoryId,itemId:item.itemId});">mode_edit</i>
+                            <i class="material-icons pmd-md deleteButton cursorPointer font25" ng-click="itemCtrl.openDeleteItemDialog(item.itemName,item.itemId)">delete</i>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div style="text-align:center;" paging page="1" page-size="10" total="itemCtrl.items.totalCount" paging-action="itemCtrl.changePage( page)"
+            flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">
+        </div>
+    </div>
+
+
+</div>
