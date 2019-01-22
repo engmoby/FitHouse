@@ -17,8 +17,10 @@
         // blockUI.start("Loading...");
 
         var vm = this;
-        $scope.ProgramName = "";
-        $scope.ProgramDescription = "";
+        vm.language = appCONSTANTS.supportedLanguage; 
+
+        // $scope.ProgramName = "";
+        // $scope.ProgramDescription = "";
         vm.ProgramDaysCount = 0;
         vm.MealPerDay = 0;
         $scope.ProgramDiscount = 0;
@@ -27,7 +29,7 @@
         $scope.ProgramPrice = 0;
         $scope.ProgramCost = 0;
         $scope.ProgramVAT = 0;
-        $scope.ProgramDiscount = 0;
+       // $scope.ProgramDiscount = 0;
         $scope.ProgramTotalPrice = 0;
         // vm.dayList = daysPrepService;
         vm.SelectedDays = [];
@@ -67,32 +69,31 @@
             }
         }
 
-        vm.save = function () {
-            $scope.AddNewProgram = function () {
-                var newProgram = new AddProgramResource();
+        vm.AddNewProgram = function () {
+            var newProgram = new AddProgramResource();
+            newProgram.programNameDictionary = vm.titleDictionary;
+            newProgram.programDescriptionDictionary = vm.descriptionDictionary;
+            newProgram.isActive = true;
+            newProgram.programDays = vm.ProgramDaysCount;
+            newProgram.noOfMeals = vm.MealPerDay;
+            newProgram.isBreakfast = $scope.IsBreakFast;
+            newProgram.isSnack = $scope.IsSnack;
+            newProgram.programDiscount = vm.ProgramDiscount;
+            newProgram.isAdmin = true;
+            newProgram.isForClient = false;
+            newProgram.isDeleted = false;
+            newProgram.$create().then(
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+                    $state.go('Category');
 
-                newContact.GroupName = vm.ContactGroupName;
-
-                newContact.ContactName = $scope.ContactName;
-                newContact.ContactEmail = $scope.ContactEmail;
-                newContact.ContactMobileNum = $scope.ContactMobileNum;
-                newContact.ContactGroups = vm.selectedGroups;
-                // newContact.GroupName =  $scope.ContactGroupName;
-                //var k = vm.groupListSelection;
-                newContact.$create().then(
-                    function (data, status) {
-                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddSuccess'), "success");
-                        callBackFunction();
-                        //close popup after save
-                        $uibModalInstance.dismiss('cancel');
-
-                    },
-                    function (data, status) {
-                        ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                    }
-                );
-            }
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
         }
+
 
     }
 

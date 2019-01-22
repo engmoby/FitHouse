@@ -272,6 +272,7 @@
     <Compile Include="Areas\HelpPage\XmlDocumentationProvider.cs" />
     <Compile Include="Controllers\CitiesController.cs" />
     <Compile Include="Controllers\CountryController.cs" />
+    <Compile Include="Controllers\ProgramController.cs" />
     <Compile Include="Controllers\RegionsController.cs" />
     <Compile Include="Models\AdminModel.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
@@ -281,6 +282,7 @@
     <Compile Include="Controllers\AreaController.cs" />
     <Compile Include="Models\CityModel.cs" />
     <Compile Include="Models\CountryModel.cs" />
+    <Compile Include="Models\ItemModel.cs" />
     <Compile Include="Models\ProgramDetailModel.cs" />
     <Compile Include="Models\ProgramModel.cs" />
     <Compile Include="Models\ProgramTranslationModel.cs" />

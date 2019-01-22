@@ -1,11 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using System.Web;
 
 namespace FitHouse.API.Models
 {
     public class ItemModel
     {
-        public long ItemId { get; set; } 
-        public string ImageUrl { get; set; }
+        public long ItemId { get; set; }
+        public MemoryStream Image { get; set; }
         public string ItemName { get; set; }
         public string ItemDescription { get; set; }
         public bool IsDeleted { get; set; }
@@ -21,7 +25,7 @@ namespace FitHouse.API.Models
         public long Protein { get; set; }
         public Dictionary<string, string> ItemNameDictionary { get; set; }
         public Dictionary<string, string> ItemDescriptionDictionary { get; set; }
-        public virtual CategoryModel Category { get; set; }
+        public CategoryModel Category { get; set; }
         public bool IsImageChange { get; set; }
     }
 }

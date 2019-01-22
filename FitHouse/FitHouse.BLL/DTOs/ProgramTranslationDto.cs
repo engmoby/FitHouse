@@ -11,6 +11,7 @@ namespace FitHouse.BLL.DTOs
         public long ProgramTranslationId { get; set; }
         public string Language { get; set; }
         public string Title { get; set; }
+        public string Description { get; set; }
         public long ProgramId { get; set; }
         public ProgramDto Program { get; set; }
     }

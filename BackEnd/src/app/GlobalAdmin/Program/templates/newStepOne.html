@@ -18,8 +18,46 @@
     </div> -->
     <div>
         <form class="form-horizontal" name="newProgramForm">
+            <div>
+                <ul class="nav nav-tabs" role="tablist">
+                    <li role="presentation" ng-class="{'active':$index == 0}" ng-repeat="lang in addProgramCtrl.language">
+                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">
+                            {{lang.value | translate}}
+                        </a>
+                    </li>
+                </ul>
+                <div class="pmd-card">
+                    <div class="pmd-card-body">
+                        <div class="tab-content">
+                            <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}" ng-repeat="lang in addProgramCtrl.language" id="{{lang.value}}-form">
+                                <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                                    <label for="first-name"> {{ lang.value+'ProgramName' | translate}} </label>
+                                    <input required Category="text" class="mat-input form-control" name="titleDictionary{{lang.value+'Name'}}" ng-model="addProgramCtrl.titleDictionary[lang.key]"
+                                        ng-minlength="2" ng-maxlength="255">
+                                    <div ng-messages="newProgramForm.titleDictionary{{lang.value+'Name'}}.$error">
+                                        <div ng-show="newProgramForm.titleDictionary{{lang.value+'Name'}}.$error.required && !newProgramForm.titleDictionary{{lang.value+'Name'}}.$pristine">{{'requiredErr' | translate}}</div>
+                                        <div ng-show="(newProgramForm.titleDictionary{{lang.value+'Name'}}.$error.minlength || newProgramForm.titleDictionary{{lang.value+'Name'}}.$error.maxlength) && !newProgramForm.titleDictionary{{lang.value+'Name'}}.$error.required">{{'NameLengthError255' | translate}}</div>
+                                    </div>
+                                </div>
 
-            <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                                <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                                    <label for="first-name"> {{ lang.value+'ProgramDescription' | translate}} </label>
+                                    <input required Category="text" class="mat-input form-control" name="descriptionDictionary{{lang.value+'Name'}}" ng-model="addProgramCtrl.descriptionDictionary[lang.key]"
+                                        ng-minlength="2" ng-maxlength="255">
+                                    <div ng-messages="newProgramForm.descriptionDictionary{{lang.value+'Name'}}.$error">
+                                        <div ng-show="newProgramForm.descriptionDictionary{{lang.value+'Name'}}.$error.required && !newProgramForm.descriptionDictionary{{lang.value+'Name'}}.$pristine">{{'requiredErr' | translate}}</div>
+                                        <div ng-show="(newProgramForm.descriptionDictionary{{lang.value+'Name'}}.$error.minlength || newProgramForm.descriptionDictionary{{lang.value+'Name'}}.$error.maxlength) && !newProgramForm.descriptionDictionary{{lang.value+'Name'}}.$error.required">{{'NameLengthError255' | translate}}</div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <hr>
+
+            <!-- <div class="form-group pmd-textfield pmd-textfield-floating-label">
                 <label for="first-name">{{'ProgramName' | translate}}</label>
                 <input required type="text" class="mat-input form-control" name="programName" ng-pattern="/^(\D)+$/" ng-model="ProgramName"
                     ng-minlength="2" ng-maxlength="50">
@@ -28,9 +66,9 @@
                     <div ng-if="newProgramForm.programName.$error.required && !newProgramForm.programName.$pristine">{{'requiredErr' | translate}}</div>
                     <div ng-if="(newProgramForm.programName.$error.minlength || newProgramForm.programName.$error.maxlength) && !newProgramForm.programName.$error.required">{{'NameLengthError' | translate}}</div>
                 </div>
-            </div>
+            </div> -->
 
-            <div class="form-group pmd-textfield pmd-textfield-floating-label">
+            <!-- <div class="form-group pmd-textfield pmd-textfield-floating-label">
                 <label for="first-name">{{'ProgramDescription' | translate}}</label>
                 <input required type="text" class="mat-input form-control" name="programDescription" ng-pattern="/^(\D)+$/" ng-model="ProgramDescription"
                     ng-minlength="2" ng-maxlength="50">
@@ -39,11 +77,11 @@
                     <div ng-if="newProgramForm.programDescription.$error.required && !newProgramForm.programDescription.$pristine">{{'requiredErr' | translate}}</div>
                     <div ng-if="(newProgramForm.programDescription.$error.minlength || newProgramForm.programDescription.$error.maxlength) && !newProgramForm.programDescription.$error.required">{{'NameLengthError' | translate}}</div>
                 </div>
-            </div>
+            </div> -->
 
             <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                 <label for="first-name">{{'ProgramDaysCount' | translate}}</label>
-                <input required type="number" class="mat-input form-control" name="programDaysCount"  ng-model="addProgramCtrl.ProgramDaysCount"
+                <input required type="number" class="mat-input form-control" name="programDaysCount" ng-model="addProgramCtrl.ProgramDaysCount"
                     ng-minlength="1" ng-maxlength="2">
                 <div ng-messages="newProgramForm.programDaysCount.$error" class="error">
                     <div ng-if="newProgramForm.programDaysCount.$error.required && !newProgramForm.programDaysCount.$pristine">{{'ProgramDaysCountReqError' | translate}}</div>

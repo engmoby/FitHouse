@@ -16,6 +16,7 @@ namespace FitHouse.DAL.Entities.Model
         public long ProgramTranslationId { get; set; }
         public string Language { get; set; }
         public string Title { get; set; }
+        public string Description { get; set; }
         [ForeignKey("Program")]
         public long ProgramId { get; set; }
         public virtual Program Program { get; set; }

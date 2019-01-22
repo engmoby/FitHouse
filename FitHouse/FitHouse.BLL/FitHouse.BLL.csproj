@@ -108,7 +108,9 @@
     <Compile Include="DataServices\Interfaces\ICountryTranslationService.cs" />
     <Compile Include="DataServices\Interfaces\IitemService.cs" />
     <Compile Include="DataServices\Interfaces\IitemTranslationService.cs" />
+    <Compile Include="DataServices\Interfaces\IProgramDetailService.cs" />
     <Compile Include="DataServices\Interfaces\IProgramService.cs" />
+    <Compile Include="DataServices\Interfaces\IProgramTranslationService.cs" />
     <Compile Include="DataServices\Interfaces\IRegionService.cs" />
     <Compile Include="DataServices\Interfaces\IRegionTranslationService.cs" />
     <Compile Include="DataServices\CategoryService.cs" />
@@ -130,7 +132,9 @@
     <Compile Include="DataServices\ItemService.cs" />
     <Compile Include="DataServices\ItemTranslationService.cs" />
     <Compile Include="DataServices\PermissionService.cs" />
+    <Compile Include="DataServices\ProgramDetailService.cs" />
     <Compile Include="DataServices\ProgramService.cs" />
+    <Compile Include="DataServices\ProgramTranslationService.cs" />
     <Compile Include="DataServices\RegionService.cs" />
     <Compile Include="DataServices\RegionTranslationService.cs" />
     <Compile Include="DataServices\UserRoleService.cs" />
@@ -171,6 +175,7 @@
     <Compile Include="Services\Interfaces\ICityFacade.cs" />
     <Compile Include="Services\Interfaces\ICountryFacade.cs" />
     <Compile Include="Services\Interfaces\IItemFacade.cs" />
+    <Compile Include="Services\Interfaces\IProgramDetailFacade.cs" />
     <Compile Include="Services\Interfaces\IProgramFacade.cs" />
     <Compile Include="Services\Interfaces\IRegionFacade.cs" />
     <Compile Include="Services\CategoryFacade.cs" />
@@ -187,6 +192,7 @@
     <Compile Include="Services\ItemFacade.cs" />
     <Compile Include="Services\ManageStorage\IManageStorage.cs" />
     <Compile Include="Services\ManageStorage\ManageStorage.cs" />
+    <Compile Include="Services\ProgramDetailFacade.cs" />
     <Compile Include="Services\ProgramFacade.cs" />
     <Compile Include="Services\RefreshTokenFacade.cs" />
     <Compile Include="Services\PermissionFacade.cs" />

@@ -22,7 +22,7 @@ namespace FitHouse.BLL.DTOs
         public long Protein { get; set; }
         public Dictionary<string, string> ItemNameDictionary { get; set; }
         public Dictionary<string, string> ItemDescriptionDictionary { get; set; }
-        public virtual CategoryDto Category { get; set; }
+        public CategoryDto Category { get; set; }
         public bool IsImageChange { get; set; }
     }
 }

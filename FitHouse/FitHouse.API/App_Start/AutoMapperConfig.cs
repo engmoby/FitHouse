@@ -49,7 +49,10 @@ namespace FitHouse.API
             mapperConfiguration.CreateMap<RegionDto, RegionModel>();
             mapperConfiguration.CreateMap<CityModel, CityDto>();
             mapperConfiguration.CreateMap<CityDto, CityModel>();
-             
+
+            mapperConfiguration.CreateMap<ProgramDto, ProgramModel>().ReverseMap();
+            mapperConfiguration.CreateMap<ProgramTranslationDto, ProgramTranslationModel>().ReverseMap();
+            mapperConfiguration.CreateMap<ProgramDetailDto, ProgramModel>().ReverseMap();
 
             FitHouseBllConfig.RegisterMappings(mapperConfiguration);
 

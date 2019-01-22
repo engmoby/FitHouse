@@ -17,7 +17,8 @@ namespace FitHouse.API.Models
         public long ProgramDiscount { get; set; }
         public bool IsAdmin { get; set; }
         public bool IsForClient { get; set; }
-        public List<ProgramTranslationModel> ProgramTranslations { get; set; }
+        public Dictionary<string, string> ProgramNameDictionary { get; set; }
+        public Dictionary<string, string> ProgramDescriptionDictionary { get; set; }
         public List<ProgramDetailModel> ProgramDetails { get; set; }
     }
 }

@@ -41,6 +41,9 @@ namespace FitHouse.DAL
                 .RegisterType<IRepositoryAsync<RegionTranslation>, Repository<RegionTranslation>>(new PerResolveLifetimeManager())
                 .RegisterType<IRepositoryAsync<City>, Repository<City>>(new PerResolveLifetimeManager())
                 .RegisterType<IRepositoryAsync<CityTranslation>, Repository<CityTranslation>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<Program>, Repository<Program>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<ProgramTranslation>, Repository<ProgramTranslation>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<ProgramDetail>, Repository<ProgramDetail>>(new PerResolveLifetimeManager())
                 ;
 
 

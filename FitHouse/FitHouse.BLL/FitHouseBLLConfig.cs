@@ -43,6 +43,13 @@ namespace FitHouse.BLL
             mapperConfiguration.CreateMap<Area, AreaDto>()
                 .ForMember(dto => dto.TitleDictionary, m => m.MapFrom(src => src.AreaTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)));
 
+            mapperConfiguration.CreateMap<ProgramDto, Program>();
+            mapperConfiguration.CreateMap<Program, ProgramDto>()
+                .ForMember(dto => dto.ProgramNameDictionary, m => m.MapFrom(src => src.ProgramTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)))
+                .ForMember(dto => dto.ProgramDescriptionDictionary, m => m.MapFrom(src => src.ProgramTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Description)));
+
+            mapperConfiguration.CreateMap<ProgramDetailDto, ProgramDetail>().ReverseMap();
+
             mapperConfiguration.CreateMap<BranchDto, Branch>();
             mapperConfiguration.CreateMap<Branch, BranchDto>()
                 .ForMember(dto => dto.TitleDictionary, m => m.MapFrom(src => src.BranchTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)));
@@ -108,6 +115,10 @@ namespace FitHouse.BLL
                 .RegisterType<IRegionTranslationService, RegionTranslationService>(new PerResolveLifetimeManager())
                 .RegisterType<ICityService, CityService>(new PerResolveLifetimeManager())
                 .RegisterType<ICityTranslationService, CityTranslationService>(new PerResolveLifetimeManager())
+
+                .RegisterType<IProgramService, ProgramService>(new PerResolveLifetimeManager())
+                .RegisterType<IProgramTranslationService, ProgramTranslationService>(new PerResolveLifetimeManager())
+                .RegisterType<IProgramDetailService, ProgramDetailService>(new PerResolveLifetimeManager())
 
                 ;
         }
