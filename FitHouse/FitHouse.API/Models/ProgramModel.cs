@@ -1,12 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Web;
 
-namespace FitHouse.BLL.DTOs
+namespace FitHouse.API.Models
 {
-    public class ProgramDto
+    public class ProgramModel
     {
         public long ProgramId { get; set; }
         public bool IsDeleted { get; set; }
@@ -18,7 +17,7 @@ namespace FitHouse.BLL.DTOs
         public long ProgramDiscount { get; set; }
         public bool IsAdmin { get; set; }
         public bool IsForClient { get; set; }
-        public List<ProgramTranslationDto> ProgramTranslations { get; set; }
-        public List<ProgramDetailDto> ProgramDetails { get; set; }
+        public List<ProgramTranslationModel> ProgramTranslations { get; set; }
+        public List<ProgramDetailModel> ProgramDetails { get; set; }
     }
 }

@@ -1,43 +1,11 @@
 <div>
-    <div ncy-breadcrumb></div>
+  
     <div style="margin-bottom:10px">
-        <button ng-init="isAdd = false" ng-click="isAdd = !isAdd"
+        <button ng-click="$state.go('newProgram');"
             class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddNew' | translate}}</button>
 
     </div>
 
-    <div class="row" ng-if="isAdd == true">
-        <div id="wizard-container">
-            <div id="wizard-step-container">
-                <ul class="nav nav-pills nav-justified">
-                    <li ng-repeat="step in programCtrl.steps" ng-class="{'active':step.step == programCtrl.currentStep}">
-                        <a ng-click="programCtrl.gotoStep(step.step)" href="">{{step.name}}</a>
-                    </li>
-                </ul>
-            </div>
-
-            <div id="wizard-content-container">
-                <ng-include src="programCtrl.getStepTemplate()"></ng-include>
-            </div>
-
-            <div id="wizard-navigation-container">
-                <div class="pull-right">
-                    <span class="btn-group">
-                        <button ng-disabled="programCtrl.currentStep <= 1" class="btn btn-default" name="previous" type="button" ng-click="programCtrl.gotoStep(programCtrl.currentStep - 1)">
-                            <i class="fa fa-arrow-left"></i>{{'PreviousStep' | translate}}</button>
-                        <button ng-disabled="programCtrl.currentStep >= programCtrl.steps.length" class="btn btn-primary" name="next" type="button"
-                            ng-click="programCtrl.gotoStep(programCtrl.currentStep + 1)">{{'NextStep' | translate}}
-                            <i class="fa fa-arrow-right"></i>
-                        </button>
-                    </span>
-                    <button ng-disabled="programCtrl.currentStep != programCtrl.steps.length" class="btn btn-success" name="next" type="button"
-                        ng-click="programCtrl.save()">
-                        <i class="fa fa-floppy-o"></i>{{'Save' | translate}}</button>
-                </div>
-            </div>
-
-        </div>
-    </div>
 
     <!-- <div ng-if="AreaList.results.length == 0">
         <span>{{'NoAreasAvailable' | translate}}</span>

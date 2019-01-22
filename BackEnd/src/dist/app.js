@@ -20,6 +20,20 @@
 
                 })
 
+                .state('newProgram', {
+                    url: '/newPrograms',
+                    templateUrl: './app/GlobalAdmin/Program/templates/addProgram.html',
+                    controller: 'addProgramController',
+                    'controllerAs': 'addProgramCtrl',
+                    data: {
+                        permissions: {
+                            only: ['1'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
                 .state('users', {
                     url: '/users',
                     templateUrl: './app/GlobalAdmin/user/templates/user.html',
@@ -304,6 +318,8 @@
                     }
 
                 })
+
+
                 .state('editCategory', {
                     url: '/editcategory/:categoryId',
                     templateUrl: './app/GlobalAdmin/Category/templates/edit.html',
@@ -321,54 +337,7 @@
                     }
 
                 })
-                .state('Items', {
-                    url: '/Category/:categoryId/Item',
-                    templateUrl: './app/GlobalAdmin/item/templates/Item.html',
-                    controller: 'ItemController',
-                    'controllerAs': 'itemCtrl',
-                    data: {
-                        permissions: {
-                            only: ['RestaurantAdmin'],
-                            redirectTo: 'root'
-                        },
-                        displayName: 'Category'
-                    },
-                    resolve: {
-                        itemsPrepService: itemsPrepService
-                    }
-                })
-                .state('newItem', {
-                    url: '/Category/:categoryId/newItem',
-                    templateUrl: './app/GlobalAdmin/item/templates/new.html',
-                    controller: 'newItemController',
-                    'controllerAs': 'newItemCtrl',
-                    data: {
-                        permissions: {
-                            only: ['RestaurantAdmin'],
-                            redirectTo: 'root'
-                        },
-                        displayName: 'Items'
-                    },
-                    resolve: { 
-                        defaultItemsPrepService: defaultItemsPrepService,
-                    }
-                })
-                .state('editItem', {
-                    url: '/Category/:categoryId/Items/:itemId',
-                    templateUrl: './app/GlobalAdmin/item/templates/edit.html', 
-                    controller: 'editItemController',
-                    'controllerAs': 'editItemCtrl',
-                    data: {
-                        permissions: {
-                            only: ['RestaurantAdmin'],
-                            redirectTo: 'root'
-                        },
-                        displayName: 'Items'
-                    },
-                    resolve: {
-                        itemPrepService: itemPrepService, 
-                    }
-                })
+
                 .state('Dashboard', {
                     url: '/Dashboard',
                     templateUrl: './app/GlobalAdmin/dashboard/templates/dashboard.html',
@@ -390,6 +359,9 @@
 
         });
 
+
+
+
     userPrepService.$inject = ['UserResource']
     function userPrepService(UserResource) {
         return UserResource.getAllUsers().$promise;
@@ -404,7 +376,6 @@
     function userConsumedPrepService(UserResource) {
         return UserResource.getUserLimit().$promise;
     }
-
 
     RolePrepService.$inject = ['RoleResource']
     function RolePrepService(RoleResource) {
@@ -423,7 +394,6 @@
     function PermissionPrepService(PermissionResource) {
         return PermissionResource.getAllPermissions({ pageSize: 20 }).$promise;
     }
-
     AreaPrepService.$inject = ['AreaResource', '$stateParams']
     function AreaPrepService(AreaResource, $stateParams) {
         return AreaResource.getAllAreas({ cityId: $stateParams.cityId }).$promise;
@@ -440,7 +410,6 @@
     }
 
 
-
     BranchPrepService.$inject = ['BranchResource']
     function BranchPrepService(BranchResource) {
         return BranchResource.getAllBranchs().$promise;
@@ -450,7 +419,6 @@
     function BranchByIdPrepService(BranchResource, $stateParams) {
         return BranchResource.getBranch({ branchId: $stateParams.branchId }).$promise;
     }
-
 
 
 
@@ -465,25 +433,16 @@
     function CategoryByIdPrepService(CategoryResource, $stateParams) {
         return CategoryResource.getCategory({ categoryId: $stateParams.categoryId }).$promise;
     }
-
-    itemsPrepService.$inject = ['GetItemsResource', '$stateParams']
-    function itemsPrepService(GetItemsResource, $stateParams) {
-        return GetItemsResource.getAllItems({ CategoryId: $stateParams.categoryId }).$promise;
-    } 
-
-    itemPrepService.$inject = ['ItemResource', '$stateParams']
-    function itemPrepService(ItemResource, $stateParams) {
-        return ItemResource.getItem({ itemId: $stateParams.itemId }).$promise;
+    AnswerQuestionPrepService.$inject = ['AnswerQuestionResource']
+    function AnswerQuestionPrepService(AnswerQuestionResource) {
+        return AnswerQuestionResource.getAllQuestions().$promise;
     }
 
-    defaultItemsPrepService.$inject = ['GetItemNamesResource', '$stateParams', '$localStorage', 'appCONSTANTS']
-    function defaultItemsPrepService(GetItemNamesResource, $stateParams, $localStorage, appCONSTANTS) {
-        if ($localStorage.language != appCONSTANTS.defaultLanguage) {
-            return GetItemNamesResource.getAllItemNames({ CategoryId: $stateParams.categoryId, lang: appCONSTANTS.defaultLanguage }).$promise;
-        }
-        else
-            return null;
+    AnswerQuestionDashBoardPrepService.$inject = ['AnswerQuestionResource']
+    function AnswerQuestionDashBoardPrepService(AnswerQuestionResource) {
+        return AnswerQuestionResource.getAllQuestions({ pageName: 'dashboard' }).$promise;
     }
+
 
 
 
@@ -932,7 +891,7 @@
             change(model, true);
 
         }
-        vm.openDeleteDialog = function (model, name, id) {
+        vm.openDeleteSizeDialog = function (model, name, id) {
             var modalContent = $uibModal.open({
                 templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
                 controller: 'confirmDeleteDialogController',
@@ -1024,9 +983,8 @@
         vm.UpdateCategory = function () {
             var updateObj = new CategoryResource();
             updateObj.CategoryId = vm.Category.categoryId;
-            updateObj.titleDictionary = vm.Category.titleDictionary; 
-            updateObj.IsDeleted = vm.Category.IsDeleted;
-            updateObj.isActive = vm.Category.isActive;
+            updateObj.titleDictionary = vm.Category.titleDictionary;
+
             updateObj.$update().then(
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
@@ -1544,6 +1502,65 @@
 
 
 
+
+
+
+
+    }
+
+})();
+(function() {
+    angular
+      .module('home')
+      .factory('AddProgramResource', ['$resource', 'appCONSTANTS', AddProgramResource])
+      ;
+
+      function AddProgramResource($resource, appCONSTANTS) {
+      return $resource(appCONSTANTS.API_URL + 'Programs/', {}, { 
+        create: { method: 'POST',useToken: true}
+      })
+    }
+
+
+
+
+
+
+
+
+        }());
+
+  (function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('addProgramController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate',
+            '$state', '$localStorage', 'authorizationService', 'appCONSTANTS', 'ToastService', '$stateParams',
+            'AddProgramResource', addProgramController]);
+
+
+    function addProgramController($rootScope, blockUI, $scope, $filter, $translate, $state, $localStorage, authorizationService,
+        appCONSTANTS, ToastService, $stateParams, AddProgramResource) {
+
+
+
+        var vm = this;
+        $scope.ProgramName = "";
+        $scope.ProgramDescription = "";
+        vm.ProgramDaysCount = 0;
+        vm.MealPerDay = 0;
+        $scope.ProgramDiscount = 0;
+        $scope.IsBreakFast = false;
+        $scope.IsSnack = false;
+        $scope.ProgramPrice = 0;
+        $scope.ProgramCost = 0;
+        $scope.ProgramVAT = 0;
+        $scope.ProgramDiscount = 0;
+        $scope.ProgramTotalPrice = 0;
+        vm.SelectedDays = [];
+        vm.progCountList = [];
+
         vm.currentStep = 1;
         vm.steps = [
             {
@@ -1555,6 +1572,11 @@
                 step: 2,
                 name: "Step 2",
                 template: "./app/GlobalAdmin/Program/templates/newStepTwo.html"
+            },
+            {
+                step: 3,
+                name: "Step 3",
+                template: "./app/GlobalAdmin/Program/templates/newStepThree.html"
             }
         ];
         vm.user = {};
@@ -1572,6 +1594,27 @@
         }
 
         vm.save = function () {
+            $scope.AddNewProgram = function () {
+                var newProgram = new AddProgramResource();
+
+                newContact.GroupName = vm.ContactGroupName;
+
+                newContact.ContactName = $scope.ContactName;
+                newContact.ContactEmail = $scope.ContactEmail;
+                newContact.ContactMobileNum = $scope.ContactMobileNum;
+                newContact.ContactGroups = vm.selectedGroups;
+                newContact.$create().then(
+                    function (data, status) {
+                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddSuccess'), "success");
+                        callBackFunction();
+                        $uibModalInstance.dismiss('cancel');
+
+                    },
+                    function (data, status) {
+                        ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                    }
+                );
+            }
         }
 
     }
@@ -1916,8 +1959,8 @@
             updateObj.RoleId = vm.Role.roleId;
             updateObj.Permissions = vm.selectedPermissions;
             updateObj.titleDictionary = vm.Role.titleDictionary;
-            updateObj.IsDeleted = vm.Role.IsDeleted;
-            updateObj.isActive = vm.Role.isActive;
+            updateObj.IsDeleted = false;
+            updateObj.IsStatic = false;
             updateObj.$update().then(
                 function (data, status) {
                 blockUI.stop();
@@ -2011,7 +2054,7 @@
             change(model, true);
 
         }
-        vm.openDeleteDialog = function (model, name, id) {
+        vm.openDeleteSizeDialog = function (model, name, id) {
             var modalContent = $uibModal.open({
                 templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
                 controller: 'confirmDeleteDialogController',
@@ -3043,7 +3086,7 @@
         .module('home')
         .controller('editUserController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate', '$state', 'UserResource', 
          'RoleResource', 'RolePrepService', '$localStorage', 'authorizationService', 'appCONSTANTS', 'EditUserPrepService',
-          'ToastService', 'CountriesPrepService', 'RegionsForUserPrepService', 'CitiesForUserPrepService', 'AreasForUserPrepService',
+          'ToastService',            'CountriesPrepService', 'RegionsForUserPrepService', 'CitiesForUserPrepService', 'AreasForUserPrepService',
             'RegionResource', 'CityResource', 'AreaResource', editUserController]);
 
 
