@@ -13,9 +13,9 @@ namespace FitHouse.API.Models
         public long CategoryId { get; set; }
         public long ItemSize { get; set; }
         public long Carbs { get; set; }
-        public long TotalPrice { get; set; }
-        public long Cost { get; set; }
-        public long Price { get; set; }
+        public decimal TotalPrice { get; set; }
+        public decimal Cost { get; set; }
+        public decimal Price { get; set; }
         public long Calories { get; set; }
         public long VAT { get; set; }
         public long Protein { get; set; }

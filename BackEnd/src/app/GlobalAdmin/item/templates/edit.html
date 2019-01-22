@@ -1,10 +1,9 @@
- 
 <div class="modal-content">
-	<div class="modal-header bordered"> 
+	<div class="modal-header bordered">
 		<h2 class="pmd-card-title-text">{{'UpdateItemLbl' | translate}}</h2>
 	</div>
 	<div class="modal-body">
-		<form class="form-horizontal" name="newItemForm"> 
+		<form class="form-horizontal" name="newItemForm">
 
 			<div>
 				<ul class="nav nav-tabs" role="tablist">
@@ -48,111 +47,112 @@
 			</div>
 			<div class="row">
 
-					<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-						<label for="first-name">{{'itemSize' | translate}} </label>
-						<input type="number" class="mat-input form-control" name="itemSize" ng-model="editItemCtrl.item.itemSize" min="1"
-						 ng-maxlength="5">
-						<div ng-messages="newItemForm.itemSize.$error">
-							<div ng-if="newItemForm.itemSize.$error.required && !newItemForm.itemSize.$pristine">{{'requiredErr' |
-								translate}}</div>
-							<div ng-if="newItemForm.itemSize.$error.maxlength">{{'itemSizeLengthError' | translate}}</div>
-						</div>
-					</div>
-	
-	
-	
-					<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-						<label for="first-name">{{'carbs' | translate}} </label>
-						<input type="number" class="mat-input form-control" name="carbs" ng-model="editItemCtrl.item.carbs" min="1" ng-maxlength="5">
-						<div ng-messages="newItemForm.carbs.$error">
-							<div ng-if="newItemForm.carbs.$error.required && !newItemForm.carbs.$pristine">{{'requiredErr' | translate}}</div>
-							<div ng-if="newItemForm.carbs.$error.maxlength">{{'carbsLengthError' | translate}}</div>
-						</div>
-					</div>
-	
-					<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-						<label for="first-name">{{'calories' | translate}} </label>
-						<input type="number" class="mat-input form-control" name="calories" ng-model="editItemCtrl.item.calories" min="1"
-						 ng-maxlength="5">
-						<div ng-messages="newItemForm.calories.$error">
-							<div ng-if="newItemForm.calories.$error.required && !newItemForm.calories.$pristine">{{'requiredErr' |
-								translate}}</div>
-							<div ng-if="newItemForm.calories.$error.maxlength">{{'caloriesLengthError' | translate}}</div>
-						</div>
-					</div>
-	
-	
-					<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed"><label
-						 for="first-name">{{'protein' | translate}} </label>
-						<input type="number" class="mat-input form-control" name="protein" ng-model="editItemCtrl.item.protein" min="1"
-						 ng-maxlength="5">
-						<div ng-messages="newItemForm.protein.$error">
-							<div ng-if="newItemForm.protein.$error.required && !newItemForm.protein.$pristine">{{'requiredErr' | translate}}</div>
-							<div ng-if="newItemForm.protein.$error.maxlength">{{'proteinLengthError' | translate}}</div>
-						</div>
-					</div>
-	
-				</div>
-				<div class="row">
-					<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-						<label for="first-name">{{'costlbl' | translate}} </label>
-						<input type="number" class="mat-input form-control" name="cost" ng-model="editItemCtrl.item.cost" min="1" ng-maxlength="5">
-						<div ng-messages="newItemForm.cost.$error">
-							<div ng-if="newItemForm.cost.$error.required && !newItemForm.cost.$pristine">{{'requiredErr' | translate}}</div>
-							<div ng-if="newItemForm.cost.$error.maxlength">{{'costLengthError' | translate}}</div>
-						</div>
-					</div>
-	
-					<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-						<label for="first-name">{{'Pricelbl' | translate}} </label>
-						<input type="number" class="mat-input form-control" name="price" 
-						ng-change="editItemCtrl.calclulate()" ng-model="editItemCtrl.item.price" min="1" ng-maxlength="5">
-						<div ng-messages="newItemForm.price.$error">
-							<div ng-if="newItemForm.price.$error.required && !newItemForm.price.$pristine">{{'requiredErr' | translate}}</div>
-							<div ng-if="newItemForm.price.$error.maxlength">{{'PriceLengthError' | translate}}</div>
-						</div>
-					</div>
-	
-					<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-	
-						<label for="first-name">{{'vat' | translate}} </label>
-						<input type="number" ng-change="editItemCtrl.calclulate()"  class="mat-input form-control" name="vat" ng-model="editItemCtrl.item.vat" min="1" ng-maxlength="5">
-						<div ng-messages="newItemForm.vat.$error">
-							<div ng-if="newItemForm.vat.$error.required && !newItemForm.vat.$pristine">{{'requiredErr' | translate}}</div>
-							<div ng-if="newItemForm.vat.$error.maxlength">{{'vatLengthError' | translate}}</div>
-						</div>
-					</div>
-	
-					<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-	
-						<label for="first-name">{{'Total' | translate}} </label>
-						<input type="number" readonly class="mat-input form-control" name="totalPrice" ng-model="editItemCtrl.item.totalPrice" min="1"
-						 ng-maxlength="5">
-						<div ng-messages="newItemForm.totalPrice.$error">
-							<div ng-if="newItemForm.totalPrice.$error.required && !newItemForm.totalPrice.$pristine">{{'requiredErr' |
-								translate}}</div>
-							<div ng-if="newItemForm.totalPrice.$error.maxlength">{{'totalPriceLengthError' | translate}}</div>
-						</div>
+				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+					<label for="first-name">{{'itemSize' | translate}} </label>
+					<input type="number" class="mat-input form-control" name="itemSize" ng-model="editItemCtrl.item.itemSize" min="1"
+					 ng-maxlength="5">
+					<div ng-messages="newItemForm.itemSize.$error">
+						<div ng-if="newItemForm.itemSize.$error.required && !newItemForm.itemSize.$pristine">{{'requiredErr' |
+							translate}}</div>
+						<div ng-if="newItemForm.itemSize.$error.maxlength">{{'itemSizeLengthError' | translate}}</div>
 					</div>
 				</div>
-	
+
+
+
+				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+					<label for="first-name">{{'carbs' | translate}} </label>
+					<input type="number" class="mat-input form-control" name="carbs" ng-model="editItemCtrl.item.carbs" min="1"
+					 ng-maxlength="5">
+					<div ng-messages="newItemForm.carbs.$error">
+						<div ng-if="newItemForm.carbs.$error.required && !newItemForm.carbs.$pristine">{{'requiredErr' | translate}}</div>
+						<div ng-if="newItemForm.carbs.$error.maxlength">{{'carbsLengthError' | translate}}</div>
+					</div>
+				</div>
+
+				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+					<label for="first-name">{{'calories' | translate}} </label>
+					<input type="number" class="mat-input form-control" name="calories" ng-model="editItemCtrl.item.calories" min="1"
+					 ng-maxlength="5">
+					<div ng-messages="newItemForm.calories.$error">
+						<div ng-if="newItemForm.calories.$error.required && !newItemForm.calories.$pristine">{{'requiredErr' |
+							translate}}</div>
+						<div ng-if="newItemForm.calories.$error.maxlength">{{'caloriesLengthError' | translate}}</div>
+					</div>
+				</div>
+
+
+				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed"><label
+					 for="first-name">{{'protein' | translate}} </label>
+					<input type="number" class="mat-input form-control" name="protein" ng-model="editItemCtrl.item.protein" min="1"
+					 ng-maxlength="5">
+					<div ng-messages="newItemForm.protein.$error">
+						<div ng-if="newItemForm.protein.$error.required && !newItemForm.protein.$pristine">{{'requiredErr' | translate}}</div>
+						<div ng-if="newItemForm.protein.$error.maxlength">{{'proteinLengthError' | translate}}</div>
+					</div>
+				</div>
+
+			</div>
+			<div class="row">
+				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+					<label for="first-name">{{'costlbl' | translate}} </label>
+					<input type="number" class="mat-input form-control" name="cost" ng-model="editItemCtrl.item.cost" min="1"
+					 ng-maxlength="5">
+					<div ng-messages="newItemForm.cost.$error">
+						<div ng-if="newItemForm.cost.$error.required && !newItemForm.cost.$pristine">{{'requiredErr' | translate}}</div>
+						<div ng-if="newItemForm.cost.$error.maxlength">{{'costLengthError' | translate}}</div>
+					</div>
+				</div>
+
+				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+					<label for="first-name">{{'Pricelbl' | translate}} </label>
+					<input type="number" ng-change="editItemCtrl.calclulate()" class="mat-input form-control" name="price" ng-model="editItemCtrl.item.price"
+					 min="1" ng-maxlength="5">
+					<div ng-messages="newItemForm.price.$error">
+						<div ng-if="newItemForm.price.$error.required && !newItemForm.price.$pristine">{{'requiredErr' | translate}}</div>
+						<div ng-if="newItemForm.price.$error.maxlength">{{'PriceLengthError' | translate}}</div>
+					</div>
+				</div>
+
+				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+
+					<label for="first-name">{{'vat' | translate}} </label>
+					<input type="number" ng-change="editItemCtrl.calclulate()" class="mat-input form-control" name="vat" ng-model="editItemCtrl.item.vat"
+					 min="1" ng-maxlength="5">
+					<div ng-messages="newItemForm.vat.$error">
+						<div ng-if="newItemForm.vat.$error.required && !newItemForm.vat.$pristine">{{'requiredErr' | translate}}</div>
+						<div ng-if="newItemForm.vat.$error.maxlength">{{'vatLengthError' | translate}}</div>
+					</div>
+				</div>
+
+				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+
+					<label for="first-name">{{'Total' | translate}} </label>
+					<input type="number" readonly class="mat-input form-control" name="totalPrice" ng-model="editItemCtrl.item.totalPrice"
+					 min="1" ng-maxlength="5">
+					<div ng-messages="newItemForm.totalPrice.$error">
+						<div ng-if="newItemForm.totalPrice.$error.required && !newItemForm.totalPrice.$pristine">{{'requiredErr' |
+							translate}}</div>
+						<div ng-if="newItemForm.totalPrice.$error.maxlength">{{'totalPriceLengthError' | translate}}</div>
+					</div>
+				</div>
+			</div>
+
 			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 				<input id="itemImage" name="itemImage" style="display: none;" onchange="angular.element(this).scope().AddItemImage(this.files)"
-				 type="file" required>
+				 type="file">
 				<button ng-click="editItemCtrl.LoadUploadLogo()">{{'UploadImageBtn' | translate}}</button>
 				<span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i> {{'RecommendedItemImage1' | translate}}</span>
-				<img ng-src="{{editItemCtrl.item.imageUrl}}" style="max-height: 200px;max-width: 200px;">
-				<div ng-messages="newItemForm.itemImage.$error">
-					<div ng-if="newItemForm.itemImage.$error.required">{{'requiredErr' | translate}}</div>
-				</div>
+				<img ng-show="editItemCtrl.item.imageUrl != """ ng-src="{{editItemCtrl.item.imageUrl}}" style="max-height: 200px;max-width: 200px;">
+
 			</div>
 
 
 		</form>
 	</div>
 	<div class="pmd-modal-action text-right">
-		<button ng-disabled="newItemForm.$invalid"
-		 class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editItemCtrl.updateItem()">{{'saveChangesBtn' |
+		<button ng-disabled="newItemForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editItemCtrl.updateItem()">{{'saveChangesBtn'
+			|
 			translate}}</button>
 		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editItemCtrl.close()">{{'DiscardBtn' |
 			translate}}</button>

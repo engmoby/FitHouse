@@ -59,7 +59,7 @@
 				Activate(item);
 			else
 				Deactivate(item);
-			refreshItems();
+			//refreshItems();
 		}
 		function Activate(item) {
 			ActivateItemResource.Activate({ itemId: item.itemId })
@@ -68,6 +68,7 @@
 				},
 					function (data, status) {
 						ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+						item.isActive = true;
 					})
 		}
 
@@ -78,6 +79,7 @@
 				},
 					function (data, status) {
 						ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+						item.isActive = false;
 					})
 		}
 

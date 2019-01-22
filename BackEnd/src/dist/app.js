@@ -2700,7 +2700,7 @@
 		vm.language = appCONSTANTS.supportedLanguage;
 		vm.item = itemPrepService;
 		vm.item.imageUrl = vm.item.imageUrl + "?date=" + $scope.getCurrentTime();
-console.log(	vm.item);
+		console.log(vm.item);
 
 		vm.close = function () {
 			$state.go('Items', { categoryId: $stateParams.categoryId });
@@ -2789,8 +2789,8 @@ console.log(	vm.item);
 		}
 
 		vm.calclulate = function () {
-			var vatPresantage = vm.price * vm.vat / 100;
-			vm.totalPrice = vm.price + vatPresantage;
+			var vatPresantage = vm.item.price * vm.item.vat / 100;
+			vm.item.totalPrice = vm.item.price + vatPresantage;
 		}
 	}
 }());
@@ -2852,7 +2852,6 @@ console.log(	vm.item);
 				Activate(item);
 			else
 				Deactivate(item);
-			refreshItems();
 		}
 		function Activate(item) {
 			ActivateItemResource.Activate({ itemId: item.itemId })
@@ -2861,6 +2860,7 @@ console.log(	vm.item);
 				},
 					function (data, status) {
 						ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+						item.isActive = true;
 					})
 		}
 
@@ -2871,6 +2871,7 @@ console.log(	vm.item);
 				},
 					function (data, status) {
 						ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+						item.isActive = false;
 					})
 		}
 
@@ -2963,13 +2964,12 @@ console.log(	vm.item);
 			newItem.price = vm.price;
 			newItem.vat = vm.vat;
 			newItem.totalPrice = vm.totalPrice;
+			newItem.isActive = true;
 
 
 			var model = new FormData();
 			model.append('data', JSON.stringify(newItem));
 			model.append('file', itemImage);
-			model.append('file', itemImage2);
-			model.append('file', itemImage3);
 			$http({
 				method: 'POST',
 				url: appCONSTANTS.API_URL + 'Items/',
@@ -2989,7 +2989,7 @@ console.log(	vm.item);
 				}
 			);
 
-		} 
+		}
 		vm.LoadUploadLogo = function () {
 			$("#itemImage").click();
 		}
@@ -3034,7 +3034,7 @@ console.log(	vm.item);
 		}
 
 
-	 	}
+	}
 }());
 (function () {
     'use strict';
