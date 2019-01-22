@@ -31,6 +31,7 @@ namespace FitHouse.BLL.Services
             //{
             //    return EditCategory(programDto, userId);
             //}
+
             ValidateProgram(programDto);
             var programObj = Mapper.Map<Program>(programDto);
             foreach (var programName in programDto.ProgramNameDictionary)
