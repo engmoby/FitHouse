@@ -15,7 +15,7 @@ namespace FitHouse.API.Models
         public long DayNumber { get; set; }
         public long MealNumberPerDay { get; set; }
         public DateTime DayDateTime { get; set; }
-        public long IsDeleted { get; set; }
+        public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
     }
 }

@@ -111,6 +111,11 @@ namespace FitHouse.BLL.Services
             return _categoryService.GetAllCategorys(page, pageSize);
         }
 
+        public List<CategoryProgramDto> GetAllCategs()
+        {
+            return Mapper.Map<List<CategoryProgramDto>>(_categoryService.GetAllCategs());
+        }
+
         private void ValidateCategory(CategoryDto categoryDto)
         {
             foreach (var name in categoryDto.TitleDictionary)

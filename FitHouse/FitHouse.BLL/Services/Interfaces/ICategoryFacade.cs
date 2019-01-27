@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using FitHouse.BLL.DTOs;
 
 namespace FitHouse.BLL.Services.Interfaces
@@ -8,6 +9,7 @@ namespace FitHouse.BLL.Services.Interfaces
         CategoryDto GetCategory(long userId); 
         CategoryDto CreateCategory(CategoryDto userDto, int userId);
         CategoryDto EditCategory(CategoryDto userDto, int userId);
-        PagedResultsDto GetAllCategorys(int page, int pageSize); 
+        PagedResultsDto GetAllCategorys(int page, int pageSize);
+        List<CategoryProgramDto> GetAllCategs();
     }
 }

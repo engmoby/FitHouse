@@ -31,6 +31,14 @@ namespace FitHouse.API.Controllers
             return PagedResponse("GetAllCategories", page, pagesize, categoryObj.TotalCount, data );
         }
 
+        [Route("api/Category/GetAllCategs", Name = "GetAllCategs")]
+        [HttpGet]
+        public IHttpActionResult GetAllCategs()
+        {
+            var categories = Mapper.Map<List<CategoryProgramModel>>(_categoryFacade.GetAllCategs());
+
+            return Ok(categories);
+        }
 
         [Route("api/Category", Name = "CreateCategory")]
         [HttpPost]

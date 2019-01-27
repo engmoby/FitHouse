@@ -69,6 +69,11 @@ namespace FitHouse.BLL.Services
             }
         }
 
+        public List<ItemProgramDto> GetAllItems()
+        {
+            return Mapper.Map<List<ItemProgramDto>>(_itemService.GetAllItems());
+        }
+
         public ItemDto GetItem(long itemId, string language)
         {
             var item = _itemService.Find(itemId);

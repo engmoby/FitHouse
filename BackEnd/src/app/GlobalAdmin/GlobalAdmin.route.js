@@ -30,11 +30,11 @@
                     templateUrl: './app/GlobalAdmin/Program/templates/addProgram.html',
                     controller: 'addProgramController',
                     'controllerAs': 'addProgramCtrl',
-                    // resolve: {
-                    //     userPrepService: userPrepService,
-                    //     RolePrepService: RolePrepService,
-                    //     CountriesPrepService: CountriesPrepService,
-                    // },
+                    resolve: {
+                        CategoriesPrepService: CategoriesPrepService,
+                        daysPrepService:daysPrepService,
+                        itemsssPrepService:itemsssPrepService
+                    },
                     data: {
                         permissions: {
                             only: ['1'],
@@ -536,7 +536,20 @@
         return CategoryResource.getAllCategorys().$promise;
     }
 
+    CategoriesPrepService.$inject = ['CategoryResource']
+    function CategoriesPrepService(CategoryResource) {
+        return CategoryResource.getAllCategories().$promise;
+    }
 
+    itemsssPrepService.$inject = ['GetItemsssResource']
+    function itemsssPrepService(GetItemsssResource) {
+        return GetItemsssResource.getAllItemsss().$promise;
+    }
+
+    daysPrepService.$inject = ['GetDaysResource']
+    function daysPrepService(GetDaysResource) {
+        return GetDaysResource.gatAllDays().$promise;
+    }
 
     CategoryByIdPrepService.$inject = ['CategoryResource', '$stateParams']
     function CategoryByIdPrepService(CategoryResource, $stateParams) {

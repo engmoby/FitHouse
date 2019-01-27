@@ -13,6 +13,7 @@ namespace FitHouse.BLL.Services.Interfaces
         void TranslateItem(ItemDto itemDto, string language);
         void ActivateItem(long itemId);
         void DeActivateItem(long itemId);
-        PagedResultsDto GetActivatedItemsByCategoryId(string language, long categoryId, int page, int pageSize);  
+        PagedResultsDto GetActivatedItemsByCategoryId(string language, long categoryId, int page, int pageSize);
+        List<ItemProgramDto> GetAllItems();
     }
 }

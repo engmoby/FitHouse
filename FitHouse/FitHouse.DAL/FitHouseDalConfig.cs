@@ -48,6 +48,7 @@ namespace FitHouse.DAL
                 .RegisterType<IRepositoryAsync<Meal>, Repository<Meal>>(new PerResolveLifetimeManager())
                 .RegisterType<IRepositoryAsync<MealTranslation>, Repository<MealTranslation>>(new PerResolveLifetimeManager())
                 .RegisterType<IRepositoryAsync<MealDetail>, Repository<MealDetail>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<Day>, Repository<Day>>(new PerResolveLifetimeManager())
                 ;
 
 

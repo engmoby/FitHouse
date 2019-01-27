@@ -18,11 +18,13 @@ namespace FitHouse.BLL.Services
     {
         private readonly IProgramService _programService;
         private readonly IProgramTranslationService _programTranslationService;
+        private readonly IProgramDetailService _programDetailService;
 
-        public ProgramFacade(IProgramService programService, IUnitOfWorkAsync unitOfWork, IProgramTranslationService programTranslationService) : base(unitOfWork)
+        public ProgramFacade(IProgramService programService, IProgramDetailService programDetailService, IUnitOfWorkAsync unitOfWork, IProgramTranslationService programTranslationService) : base(unitOfWork)
         {
             _programService = programService;
             _programTranslationService = programTranslationService;
+            _programDetailService = programDetailService;
         }
 
         public ProgramDto CreateProgram(ProgramDto programDto, int userId)
@@ -45,17 +47,32 @@ namespace FitHouse.BLL.Services
                 });
             }
 
-            programObj.ProgramDays = programDto.ProgramDays;
-            programObj.NoOfMeals = programDto.NoOfMeals;
-            programObj.IsBreakfast = programDto.IsBreakfast;
-            programObj.IsForClient = programDto.IsForClient;
-            programObj.IsAdmin = programDto.IsAdmin;
-            programObj.ProgramDiscount = programDto.ProgramDiscount;
-            programObj.IsActive = true;
-            programObj.IsDeleted = false;
-          
-            _programTranslationService.InsertRange(programObj.ProgramTranslations);
+            //programObj.ProgramDays = programDto.ProgramDays;
+            //programObj.NoOfMeals = programDto.NoOfMeals;
+            //programObj.IsBreakfast = programDto.IsBreakfast;
+            //programObj.IsForClient = programDto.IsForClient;
+            //programObj.IsAdmin = programDto.IsAdmin;
+            //programObj.ProgramDiscount = programDto.ProgramDiscount;
+            //programObj.IsActive = true;
+            //programObj.IsDeleted = false;
+
+            var detailInfo = new List<ProgramDetail>();
+
+            foreach (var detail in programObj.ProgramDetails)
+            {
+                var det= new ProgramDetail();
+                det.DayDateTime = DateTime.Now;
+                det.DayNumber = detail.DayNumber;
+                det.IsActive = true;
+                det.IsDeleted = false;
+                det.ItemId = detail.ItemId;
+                det.ProgramId = programObj.ProgramId;
+                det.MealNumberPerDay = detail.MealNumberPerDay;
+                detailInfo.Add(det);
+            }
+
             _programService.Insert(programObj);
+            _programDetailService.InsertRange(detailInfo);
             SaveChanges();
             return programDto;
         }

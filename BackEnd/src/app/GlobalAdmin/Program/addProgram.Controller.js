@@ -5,11 +5,11 @@
         .module('home')
         .controller('addProgramController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate',
             '$state', '$localStorage', 'authorizationService', 'appCONSTANTS', 'ToastService', '$stateParams',
-            'AddProgramResource', addProgramController]);
+            'AddProgramResource', 'CategoriesPrepService', 'daysPrepService', 'itemsssPrepService', addProgramController]);
 
 
     function addProgramController($rootScope, blockUI, $scope, $filter, $translate, $state, $localStorage, authorizationService,
-        appCONSTANTS, ToastService, $stateParams, AddProgramResource) {
+        appCONSTANTS, ToastService, $stateParams, AddProgramResource, CategoriesPrepService, daysPrepService, itemsssPrepService) {
 
         // $('.pmd-sidebar-nav>li>a').removeClass("active")
         // $($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
@@ -17,7 +17,7 @@
         // blockUI.start("Loading...");
 
         var vm = this;
-        vm.language = appCONSTANTS.supportedLanguage; 
+        vm.language = appCONSTANTS.supportedLanguage;
 
         // $scope.ProgramName = "";
         // $scope.ProgramDescription = "";
@@ -29,12 +29,38 @@
         $scope.ProgramPrice = 0;
         $scope.ProgramCost = 0;
         $scope.ProgramVAT = 0;
-       // $scope.ProgramDiscount = 0;
+        // $scope.ProgramDiscount = 0;
         $scope.ProgramTotalPrice = 0;
-        // vm.dayList = daysPrepService;
+        vm.dayList = daysPrepService;
+        $scope.CategoriesPrepService = CategoriesPrepService;
+        $scope.itemsssPrepService = itemsssPrepService;
+        $scope.itemList = [];
+        //$scope.itemModel = [];
+        //$scope.variableitemmodel;
+        console.log($scope.itemList);
         vm.SelectedDays = [];
         vm.progCountList = [];
 
+        $scope.deletedItem = false;
+        $scope.getData = function (itemModel, day, meal) {
+            // debugger;
+            // var allDayMeal = $scope.itemList.filter(x=>x.day == day && x.meal == meal);
+            var differntMeal = $scope.itemList.filter(x=> (x.day == day && x.meal != meal) || (x.day != day) );
+            $scope.itemList = [];
+            $scope.itemList = angular.copy(differntMeal);
+            itemModel.forEach(element => {
+                element.day = day;
+                element.meal = meal;
+                // element.itemModel = element;
+                //$scope.itemList=[];
+                $scope.itemList.push(element);
+            });
+
+
+            
+           
+            console.log($scope.itemList);
+        }
         //Model
         vm.currentStep = 1;
         vm.steps = [
@@ -69,6 +95,16 @@
             }
         }
 
+        vm.showDDL = function () {
+            $(".select-add-tags").select2({
+                tags: true,
+                theme: "bootstrap",
+                insertTag: function (data, tag) {
+                    // Insert the tag at the end of the results
+                    data.push(tag);
+                }
+            });
+        }
         vm.AddNewProgram = function () {
             var newProgram = new AddProgramResource();
             newProgram.programNameDictionary = vm.titleDictionary;
@@ -89,7 +125,7 @@
 
                 },
                 function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
                 }
             );
         }
