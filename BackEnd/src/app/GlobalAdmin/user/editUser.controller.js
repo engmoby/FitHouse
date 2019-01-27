@@ -5,13 +5,13 @@
         .module('home')
         .controller('editUserController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate', '$state', 'UserResource',
             'RoleResource', 'RolePrepService', '$localStorage', 'authorizationService', 'appCONSTANTS', 'EditUserPrepService',
-            'ToastService', 'CountriesPrepService',   
+            'ToastService', 'CountriesPrepService',
             'RegionResource', 'CityResource', 'AreaResource', editUserController]);
 
 
     function editUserController($rootScope, blockUI, $scope, $filter, $translate, $state, UserResource,
         RoleResource, RolePrepService, $localStorage, authorizationService, appCONSTANTS, EditUserPrepService, ToastService,
-        CountriesPrepService ,RegionResource, CityResource, AreaResource) {
+        CountriesPrepService, RegionResource, CityResource, AreaResource) {
 
         blockUI.start("Loading...");
 
@@ -21,12 +21,12 @@
         vm.close = function () {
             $state.go('users');
         }
- 
+
         vm.show = true;
         $scope.roleList = RolePrepService.results;
         vm.selectedUserRoles = [];
         $scope.userObj = EditUserPrepService;
-        $scope.userObj.confirmPassword = $scope.userObj.password; 
+        $scope.userObj.confirmPassword = $scope.userObj.password;
         console.log($scope.userObj);
         init();
         var i;
@@ -36,7 +36,7 @@
 
         }
 
- 
+
         $scope.Updateclient = function () {
             blockUI.start("Loading...");
 
@@ -49,12 +49,8 @@
             newClient.Email = $scope.userObj.email;
             newClient.Password = $scope.userObj.password;
             newClient.IsActive = true;
-            newClient.UserTypeId = $scope.selectedType.userTypeId;
             newClient.UserRoles = vm.selectedUserRoles;
-            newClient.departmentId = vm.selectedDepartmentId > 0 ? vm.selectedDepartmentId : null;
-            newClient.areaId = vm.selectedAreaId > 0 ? vm.selectedAreaId : null;
-            newClient.cateoriesId = vm.selectedCategoryId;
-            newClient.branchesId = vm.selectedBranchId;
+            newClient.branchId = 1;//vm.selectedBranchId;
             newClient.$update().then(
                 function (data, status) {
                     blockUI.stop();
@@ -76,20 +72,20 @@
 
 
         function init() {
-            // vm.counties = [];
-            vm.selectedCountry = $scope.userObj.branch.area.city.region.country;// { countryId: 0, titleDictionary: { "en-us": "All Countries", "ar-eg": "كل البلاد" } };
+            vm.counties = [];
+            //   vm.selectedCountry = $scope.userObj.branch.area.city.region.country;// { countryId: 0, titleDictionary: { "en-us": "All Countries", "ar-eg": "كل البلاد" } };
             vm.counties.push(vm.selectedCountry);
-            // vm.counties = vm.counties.concat(CountriesPrepService.results)
-            vm.selectedRegion = $scope.userObj.branch.area.city.region;// { regionId: 0, titleDictionary: { "en-us": "All Regions", "ar-eg": "كل الأقاليم" } };
+            vm.counties = vm.counties.concat(CountriesPrepService.results)
+            //   vm.selectedRegion = $scope.userObj.branch.area.city.region;// { regionId: 0, titleDictionary: { "en-us": "All Regions", "ar-eg": "كل الأقاليم" } };
             vm.regions = [];
             vm.regions.push(vm.selectedRegion);
-            vm.selectedCity = $scope.userObj.branch.area.city;//{ cityId: 0, titleDictionary: { "en-us": "All Cities", "ar-eg": "كل المدن" } };
+            //   vm.selectedCity = $scope.userObj.branch.area.city;//{ cityId: 0, titleDictionary: { "en-us": "All Cities", "ar-eg": "كل المدن" } };
             vm.cities = [];
             vm.cities.push(vm.selectedCity);
-            vm.selectedArea = $scope.userObj.branch.area;// { areaId: 0, titleDictionary: { "en-us": "All Areas", "ar-eg": "كل المناطق" } };
+            //  vm.selectedArea = $scope.userObj.branch.area;// { areaId: 0, titleDictionary: { "en-us": "All Areas", "ar-eg": "كل المناطق" } };
             vm.areaList = [];
             vm.areaList.push(vm.selectedArea);
-            vm.selectedBranch = $scope.userObj.branch;// { branchId: 0, titleDictionary: { "en-us": "All Branches", "ar-eg": "كل الفروع" } };
+            //   vm.selectedBranch = $scope.userObj.branch;// { branchId: 0, titleDictionary: { "en-us": "All Branches", "ar-eg": "كل الفروع" } };
             vm.branchList = [];
             vm.branchList.push(vm.selectedBranch);
             debugger;

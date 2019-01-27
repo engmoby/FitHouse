@@ -135,4 +135,7 @@
   <data name="RecordIsUsedInAnotherModule" xml:space="preserve">
     <value>This Record Is Used In Another Module</value>
   </data>
+  <data name="YourAccountIsDisabled" xml:space="preserve">
+    <value>Your Account Is Disabled, Please contact to administrator</value>
+  </data>
 </root>

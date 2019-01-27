@@ -83,6 +83,13 @@ namespace FitHouse.BLL
             mapperConfiguration.CreateMap<Country, CountryDto>()
                 .ForMember(dto => dto.TitleDictionary, m => m.MapFrom(src => src.CountryTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)));
 
+            mapperConfiguration.CreateMap<MealDto, Meal>();
+            mapperConfiguration.CreateMap<Meal, MealDto>()
+                .ForMember(dto => dto.MealNameDictionary, m => m.MapFrom(src => src.MealTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)))
+                .ForMember(dto => dto.MealDescriptionDictionary, m => m.MapFrom(src => src.MealTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Description)));
+
+            mapperConfiguration.CreateMap<MealDetailDto, MealDetail>().ReverseMap();
+
 
             Mapper.Initialize(mapperConfiguration);
         }
@@ -121,6 +128,9 @@ namespace FitHouse.BLL
                 .RegisterType<IProgramTranslationService, ProgramTranslationService>(new PerResolveLifetimeManager())
                 .RegisterType<IProgramDetailService, ProgramDetailService>(new PerResolveLifetimeManager())
 
+                .RegisterType<IMealservice, Mealservice>(new PerResolveLifetimeManager())
+                .RegisterType<IMealTranslationService, MealTranslationService>(new PerResolveLifetimeManager())
+                .RegisterType<IMealDetailsService, MealDetailsService>(new PerResolveLifetimeManager())
                 ;
         }
 

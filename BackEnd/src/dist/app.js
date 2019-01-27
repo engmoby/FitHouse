@@ -83,7 +83,7 @@
                     resolve: {
                         EditUserPrepService: EditUserPrepService,
                         RolePrepService: AllRolePrepService,
-                        CountriesPrepService: CountriesPrepService, 
+                        CountriesPrepService: CountriesPrepService,
 
                     },
                     data: {
@@ -360,13 +360,13 @@
                         },
                         displayName: 'Items'
                     },
-                    resolve: { 
+                    resolve: {
                         defaultItemsPrepService: defaultItemsPrepService,
                     }
                 })
                 .state('editItem', {
                     url: '/Category/:categoryId/Items/:itemId',
-                    templateUrl: './app/GlobalAdmin/item/templates/edit.html', 
+                    templateUrl: './app/GlobalAdmin/item/templates/edit.html',
                     controller: 'editItemController',
                     'controllerAs': 'editItemCtrl',
                     data: {
@@ -377,9 +377,59 @@
                         displayName: 'Items'
                     },
                     resolve: {
-                        itemPrepService: itemPrepService, 
+                        itemPrepService: itemPrepService,
                     }
                 })
+
+
+                .state('Meal', {
+                    url: '/Meal',
+                    templateUrl: './app/GlobalAdmin/meal/templates/Meal.html',
+                    controller: 'MealController',
+                    'controllerAs': 'mealCtrl',
+                    data: {
+                        permissions: {
+                            only: ['RestaurantAdmin'],
+                            redirectTo: 'root'
+                        },
+                        displayName: 'Category'
+                    },
+                    resolve: {
+                        mealsPrepService: mealsPrepService
+                    }
+                })
+                .state('newMeal', {
+                    url: '/newMeal',
+                    templateUrl: './app/GlobalAdmin/meal/templates/new.html',
+                    controller: 'newMealController',
+                    'controllerAs': 'newMealCtrl',
+                    data: {
+                        permissions: {
+                            only: ['RestaurantAdmin'],
+                            redirectTo: 'root'
+                        },
+                        displayName: 'meals'
+                    },
+                    resolve: {
+                    }
+                })
+                .state('editMeal', {
+                    url: '/meals/:mealId',
+                    templateUrl: './app/GlobalAdmin/meal/templates/edit.html',
+                    controller: 'editMealController',
+                    'controllerAs': 'editMealCtrl',
+                    data: {
+                        permissions: {
+                            only: ['RestaurantAdmin'],
+                            redirectTo: 'root'
+                        },
+                        displayName: 'meals'
+                    },
+                    resolve: {
+                        mealPrepService: mealPrepService,
+                    }
+                })
+
                 .state('Dashboard', {
                     url: '/Dashboard',
                     templateUrl: './app/GlobalAdmin/dashboard/templates/dashboard.html',
@@ -484,7 +534,7 @@
     itemsPrepService.$inject = ['GetItemsResource', '$stateParams']
     function itemsPrepService(GetItemsResource, $stateParams) {
         return GetItemsResource.getAllItems({ CategoryId: $stateParams.categoryId }).$promise;
-    } 
+    }
 
     itemPrepService.$inject = ['ItemResource', '$stateParams']
     function itemPrepService(ItemResource, $stateParams) {
@@ -495,6 +545,26 @@
     function defaultItemsPrepService(GetItemNamesResource, $stateParams, $localStorage, appCONSTANTS) {
         if ($localStorage.language != appCONSTANTS.defaultLanguage) {
             return GetItemNamesResource.getAllItemNames({ CategoryId: $stateParams.categoryId, lang: appCONSTANTS.defaultLanguage }).$promise;
+        }
+        else
+            return null;
+    }
+
+
+    mealsPrepService.$inject = ['GetMealsResource', '$stateParams']
+    function mealsPrepService(GetMealsResource, $stateParams) {
+        return GetMealsResource.getAllMeals( ).$promise;
+    }
+
+    mealPrepService.$inject = ['MealResource', '$stateParams']
+    function mealPrepService(MealResource, $stateParams) {
+        return MealResource.getMeal({ mealId: $stateParams.mealId }).$promise;
+    }
+
+    defaultMealsPrepService.$inject = ['GetMealNamesResource', '$stateParams', '$localStorage', 'appCONSTANTS']
+    function defaultMealsPrepService(GetMealNamesResource, $stateParams, $localStorage, appCONSTANTS) {
+        if ($localStorage.language != appCONSTANTS.defaultLanguage) {
+            return GetMealNamesResource.getAllMealNames( {lang: appCONSTANTS.defaultLanguage }).$promise;
         }
         else
             return null;
@@ -897,7 +967,10 @@
     function CategoryController($rootScope, $scope, $filter, $translate,
         $state, CategoryResource, $localStorage, authorizationService,
         appCONSTANTS, blockUI, $uibModal, ToastService) {
-        var vm = this;
+            $('.pmd-sidebar-nav>li>a').removeClass("active")
+            $($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
+
+            var vm = this;
 
         refreshCategorys();
 
@@ -1332,7 +1405,7 @@
         $state, CountryResource, CountriesPrepService, $localStorage, appCONSTANTS, ToastService) { 
 
         $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
+        $($('.pmd-sidebar-nav').children()[2].children[0]).addClass("active")
 
         blockUI.start("Loading..."); 
 
@@ -2013,12 +2086,12 @@
 
                vm.UpdateType = function () {
             blockUI.start("Loading..."); 
-
-                        var updateObj = new RoleResource();
+            console.log(vm.Role);
+            var updateObj = new RoleResource();
             updateObj.RoleId = vm.Role.roleId;
             updateObj.Permissions = vm.selectedPermissions;
             updateObj.titleDictionary = vm.Role.titleDictionary;
-            updateObj.IsDeleted = vm.Role.IsDeleted;
+            updateObj.isDeleted = vm.Role.IsDeleted;
             updateObj.isActive = vm.Role.isActive;
             updateObj.$update().then(
                 function (data, status) {
@@ -2055,7 +2128,7 @@
         appCONSTANTS, ToastService, $uibModal) {
 
         $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[2].children[0]).addClass("active")
+        $($('.pmd-sidebar-nav').children()[1].children[0]).addClass("active")
 
         blockUI.start("Loading...");
 
@@ -3144,19 +3217,372 @@
 	}
 }());
 (function () {
+	'use strict';
+
+	angular
+		.module('home')
+		.controller('editMealController', ['$scope', '$http', '$translate', '$stateParams', 'appCONSTANTS', '$state', 'MealResource', 'ToastService', 'mealPrepService', editMealController])
+
+	function editMealController($scope, $http, $translate, $stateParams, appCONSTANTS, $state, MealResource, ToastService, mealPrepService) {
+		var vm = this;
+		vm.language = appCONSTANTS.supportedLanguage;
+		vm.meal = mealPrepService;
+		vm.meal.imageUrl = vm.meal.imageUrl + "?date=" + $scope.getCurrentTime();
+		console.log(vm.meal);
+
+		vm.close = function () {
+			$state.go('Meals', { categoryId: $stateParams.categoryId });
+		}
+		vm.updateMeal = function () {
+			var updatedMeal = new Object();
+			updatedMeal.mealNameDictionary = vm.meal.mealNameDictionary;
+			updatedMeal.mealDescriptionDictionary = vm.meal.mealDescriptionDictionary;
+			updatedMeal.categoryId = $stateParams.categoryId;
+
+			updatedMeal.mealId = vm.meal.mealId;
+			updatedMeal.isImageChange = isMealImageChange;
+
+			updatedMeal.mealSize = vm.meal.mealSize;
+			updatedMeal.carbs = vm.meal.carbs;
+			updatedMeal.calories = vm.meal.calories;
+			updatedMeal.protein = vm.meal.protein;
+			updatedMeal.cost = vm.meal.cost;
+			updatedMeal.price = vm.meal.price;
+			updatedMeal.vat = vm.meal.vat;
+			updatedMeal.totalPrice = vm.meal.totalPrice;
+
+
+			var model = new FormData();
+			model.append('data', JSON.stringify(updatedMeal));
+			model.append('file', mealImage);
+			$http({
+				method: 'put',
+				url: appCONSTANTS.API_URL + 'Meals/',
+				useToken: true,
+				headers: { 'Content-Type': undefined },
+				data: model
+			}).then(
+				function (data, status) {
+					ToastService.show("right", "bottom", "fadeInUp", $translate.instant('MealUpdateSuccess'), "success");
+					$state.go('Meals', { categoryId: $stateParams.categoryId });
+				},
+				function (data, status) {
+					ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+				}
+			);
+		}
+		vm.LoadUploadLogo = function () {
+			$("#mealImage").click();
+		}
+		var mealImage;
+		var isMealImageChange = false;
+		$scope.AddMealImage = function (element) {
+			var logoFile = element[0];
+
+			var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
+
+			if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {
+
+				if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
+					$scope.updatedMealForm.$dirty = true;
+					$scope.$apply(function () {
+
+						mealImage = logoFile;
+						isMealImageChange = true;
+						var reader = new FileReader();
+
+						reader.onloadend = function () {
+							vm.meal.imageURL = reader.result;
+
+							$scope.$apply();
+						};
+						if (logoFile) {
+							reader.readAsDataURL(logoFile);
+						}
+					})
+				} else {
+					$("#logoImage").val('');
+					ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imageTypeError'), "error");
+				}
+
+			} else {
+				if (logoFile) {
+					$("#logoImage").val('');
+					ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imgaeSizeError'), "error");
+				}
+
+			}
+
+
+		}
+
+		vm.calclulate = function () {
+			var vatPresantage = vm.meal.price * vm.meal.vat / 100;
+			vm.meal.totalPrice = vm.meal.price + vatPresantage;
+		}
+	}
+}());
+(function () {
+	'use strict';
+
+	angular
+		.module('home')
+		.controller('MealController', ['$scope', '$translate', '$stateParams', 'appCONSTANTS', '$uibModal', 'GetMealsResource', 'MealResource', 'mealsPrepService', 'ToastService', 'ActivateMealResource', 'DeactivateMealResource', MealController])
+
+	function MealController($scope, $translate, $stateParams, appCONSTANTS, $uibModal, GetMealsResource, MealResource, mealsPrepService, ToastService, ActivateMealResource, DeactivateMealResource) {
+
+		var vm = this;
+		vm.meals = mealsPrepService;
+		console.log(vm.meals);
+
+		vm.Now = $scope.getCurrentTime();
+		function refreshMeals() {
+			var k = GetMealsResource.getAllMeals({ CategoryId: $stateParams.categoryId, page: vm.currentPage }).$promise.then(function (results) {
+				vm.meals = results
+			},
+				function (data, status) {
+					ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+				});
+		}
+		vm.currentPage = 1;
+		vm.changePage = function (page) {
+			vm.currentPage = page;
+			refreshMeals();
+		}
+
+
+		function confirmationDelete(meal) {
+			debugger;
+			MealResource.deleteMeal({ mealId: meal.mealId }).$promise.then(function (results) {
+		debugger;
+		ToastService.show("right", "bottom", "fadeInUp", $translate.instant('mealDeleteSuccess'), "success");
+				refreshMeals();
+			},
+				function (data, status) {
+					ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+				});
+		}
+		vm.openDeleteDialog = function (model,name, id) {
+			var modalContent = $uibModal.open({
+				templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
+				controller: 'confirmDeleteDialogController',
+				controllerAs: 'deleteDlCtrl',
+				resolve: {
+                    model: function () { return model },
+					mealName: function () { return name },
+					mealId: function () { return id },
+					message: function () { return null },
+					callBackFunction: function () { return confirmationDelete }
+				}
+
+			});
+		}
+		vm.UpdateStatus = function (meal) {
+			debugger;
+			if (meal.isActive == false)
+				Activate(meal);
+			else
+				Deactivate(meal);
+		}
+		function Activate(meal) {
+			ActivateMealResource.Activate({ mealId: meal.mealId })
+				.$promise.then(function (result) {
+					meal.isActive = true;
+				},
+					function (data, status) {
+						debugger;
+						ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+						meal.isActive = true;
+					})
+		}
+
+		function Deactivate(meal) {
+			DeactivateMealResource.Deactivate({ mealId: meal.mealId })
+				.$promise.then(function (result) {
+					meal.isActive = false;
+				},
+					function (data, status) {
+						debugger;
+						ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+						if (data == null) meal.isActive = false;
+					})
+		}
+
+
+	}
+
+}
+	());
+(function() {
+    angular
+      .module('home')
+      .factory('MealResource', ['$resource', 'appCONSTANTS', MealResource])
+      .factory('GetMealsResource', ['$resource', 'appCONSTANTS', GetMealsResource])
+      .factory('GetMealNamesResource', ['$resource', 'appCONSTANTS', GetMealNamesResource])
+      .factory('TranslateMealResource', ['$resource', 'appCONSTANTS', TranslateMealResource])
+      .factory('ActivateMealResource', ['$resource', 'appCONSTANTS', ActivateMealResource])
+      .factory('DeactivateMealResource', ['$resource', 'appCONSTANTS', DeactivateMealResource]);
+
+      function MealResource($resource, appCONSTANTS) {
+      return $resource(appCONSTANTS.API_URL + 'Meals/:mealId', {}, {
+        create: { method: 'POST', useToken: true },
+        getMeal: { method: 'GET', useToken: true },
+        deleteMeal: { method: 'DELETE', useToken: true },
+        update: { method: 'PUT', useToken: true }
+      })
+    }
+    function GetMealsResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Meals/GetAllMeals', {}, {
+          getAllMeals: { method: 'GET', useToken: true, params:{lang:'@lang'} },
+        })
+    }
+
+    function GetMealNamesResource($resource, appCONSTANTS) {
+      return $resource(appCONSTANTS.API_URL + 'Category/:CategoryId/Meals/Name', {}, {
+        getAllMealNames: { method: 'GET', useToken: true, isArray: true, params:{lang:'@lang'} },
+      })
+    }
+
+        function TranslateMealResource($resource, appCONSTANTS) {
+      return $resource(appCONSTANTS.API_URL + 'Meals/Translate', {}, {
+        translateMeal: { method: 'PUT', useToken: true},
+      })
+    }
+
+    function ActivateMealResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Meals/:mealId/Activate', {}, {
+          Activate: { method: 'GET', useToken: true}
+        })
+    }
+    function DeactivateMealResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Meals/:mealId/DeActivate', {}, {
+          Deactivate: { method: 'GET', useToken: true }
+        })
+    }
+}());
+  (function () {
+	'use strict';
+
+	angular
+		.module('home')
+		.controller('newMealController', ['$scope', '$translate', '$http', '$stateParams', 'appCONSTANTS', '$state', 'ToastService', 'TranslateMealResource', newMealController])
+
+	function newMealController($scope, $translate, $http, $stateParams, appCONSTANTS, $state, ToastService, TranslateMealResource) {
+		var vm = this;
+
+		vm.language = appCONSTANTS.supportedLanguage;
+
+		vm.close = function () {
+			$state.go('Meals', { categoryId: $stateParams.categoryId });
+		}
+
+		vm.isChanged = false;
+
+		vm.calclulate = function () {
+			var vatPresantage = vm.price * vm.vat / 100;
+			vm.totalPrice = vm.price + vatPresantage;
+		}
+		vm.addNewMeal = function () {
+			vm.isChanged = true;
+
+			var newMeal = new Object();
+			newMeal.mealNameDictionary = vm.mealNameDictionary;
+			newMeal.mealDescriptionDictionary = vm.mealDescriptionDictionary;
+			newMeal.categoryId = $stateParams.categoryId;
+			newMeal.mealSize = vm.mealSize;
+			newMeal.carbs = vm.carbs;
+			newMeal.calories = vm.calories;
+			newMeal.protein = vm.protein;
+			newMeal.cost = vm.cost;
+			newMeal.price = vm.price;
+			newMeal.vat = vm.vat;
+			newMeal.totalPrice = vm.totalPrice;
+			newMeal.isActive = true;
+
+
+			var model = new FormData();
+			model.append('data', JSON.stringify(newMeal));
+			model.append('file', mealImage);
+			$http({
+				method: 'POST',
+				url: appCONSTANTS.API_URL + 'Meals/',
+				useToken: true,
+				headers: { 'Content-Type': undefined },
+				data: model
+			}).then(
+				function (data, status) {
+					ToastService.show("right", "bottom", "fadeInUp", $translate.instant('mealAddSuccess'), "success");
+					$state.go('Meals', { categoryId: $stateParams.categoryId });
+					vm.isChanged = false;
+
+				},
+				function (data, status) {
+					vm.isChanged = false;
+					ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+				}
+			);
+
+		}
+		vm.LoadUploadLogo = function () {
+			$("#mealImage").click();
+		}
+		var mealImage;
+		$scope.AddMealImage = function (element) {
+			var logoFile = element[0];
+
+			var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
+
+			if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {
+
+				if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
+					$scope.newMealForm.$dirty = true;
+					$scope.$apply(function () {
+
+						mealImage = logoFile;
+						var reader = new FileReader();
+
+						reader.onloadend = function () {
+							vm.mealImage = reader.result;
+
+							$scope.$apply();
+						};
+						if (logoFile) {
+							reader.readAsDataURL(logoFile);
+						}
+					})
+				} else {
+					$("#logoImage").val('');
+					ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imageTypeError'), "error");
+				}
+
+			} else {
+				if (logoFile) {
+					$("#logoImage").val('');
+					ToastService.show("right", "bottom", "fadeInUp", $translate.instant('imgaeSizeError'), "error");
+				}
+
+			}
+
+
+		}
+
+
+	}
+}());
+(function () {
     'use strict';
 
     angular
         .module('home')
         .controller('editUserController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate', '$state', 'UserResource',
             'RoleResource', 'RolePrepService', '$localStorage', 'authorizationService', 'appCONSTANTS', 'EditUserPrepService',
-            'ToastService', 'CountriesPrepService',   
+            'ToastService', 'CountriesPrepService',
             'RegionResource', 'CityResource', 'AreaResource', editUserController]);
 
 
     function editUserController($rootScope, blockUI, $scope, $filter, $translate, $state, UserResource,
         RoleResource, RolePrepService, $localStorage, authorizationService, appCONSTANTS, EditUserPrepService, ToastService,
-        CountriesPrepService ,RegionResource, CityResource, AreaResource) {
+        CountriesPrepService, RegionResource, CityResource, AreaResource) {
 
         blockUI.start("Loading...");
 
@@ -3167,11 +3593,11 @@
             $state.go('users');
         }
 
-         vm.show = true;
+        vm.show = true;
         $scope.roleList = RolePrepService.results;
         vm.selectedUserRoles = [];
         $scope.userObj = EditUserPrepService;
-        $scope.userObj.confirmPassword = $scope.userObj.password; 
+        $scope.userObj.confirmPassword = $scope.userObj.password;
         console.log($scope.userObj);
         init();
         var i;
@@ -3182,7 +3608,7 @@
         }
 
 
-         $scope.Updateclient = function () {
+        $scope.Updateclient = function () {
             blockUI.start("Loading...");
 
             vm.show = false;
@@ -3194,12 +3620,8 @@
             newClient.Email = $scope.userObj.email;
             newClient.Password = $scope.userObj.password;
             newClient.IsActive = true;
-            newClient.UserTypeId = $scope.selectedType.userTypeId;
             newClient.UserRoles = vm.selectedUserRoles;
-            newClient.departmentId = vm.selectedDepartmentId > 0 ? vm.selectedDepartmentId : null;
-            newClient.areaId = vm.selectedAreaId > 0 ? vm.selectedAreaId : null;
-            newClient.cateoriesId = vm.selectedCategoryId;
-            newClient.branchesId = vm.selectedBranchId;
+            newClient.branchId = 1;
             newClient.$update().then(
                 function (data, status) {
                     blockUI.stop();
@@ -3221,18 +3643,15 @@
 
 
         function init() {
-            vm.selectedCountry = $scope.userObj.branch.area.city.region.country;
+            vm.counties = [];
             vm.counties.push(vm.selectedCountry);
-            vm.selectedRegion = $scope.userObj.branch.area.city.region;
+            vm.counties = vm.counties.concat(CountriesPrepService.results)
             vm.regions = [];
             vm.regions.push(vm.selectedRegion);
-            vm.selectedCity = $scope.userObj.branch.area.city;
             vm.cities = [];
             vm.cities.push(vm.selectedCity);
-            vm.selectedArea = $scope.userObj.branch.area;
             vm.areaList = [];
             vm.areaList.push(vm.selectedArea);
-            vm.selectedBranch = $scope.userObj.branch;
             vm.branchList = [];
             vm.branchList.push(vm.selectedBranch);
             debugger;
@@ -3350,27 +3769,27 @@
             'userPrepService', 'RoleResource', 'RolePrepService', '$localStorage', 'authorizationService', 'appCONSTANTS',
             'ToastService', 'CountriesPrepService', 'RegionResource', 'CityResource', 'AreaResource', userController]);
 
-    function userController($rootScope, blockUI, $scope, $filter, $translate, $state, UserResource,   userPrepService,
+    function userController($rootScope, blockUI, $scope, $filter, $translate, $state, UserResource, userPrepService,
         RoleResource, RolePrepService, $localStorage, authorizationService, appCONSTANTS, ToastService, CountriesPrepService,
         RegionResource, CityResource, AreaResource) {
 
         $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[5].children[0]).addClass("active")
+        $($('.pmd-sidebar-nav').children()[4].children[0]).addClass("active")
 
         var vm = this;
         blockUI.start("Loading...");
-        vm.close = function(){
-        debugger;
-        	$state.go('users');
-		} 
+        vm.close = function () {
+            debugger;
+            $state.go('users');
+        }
         vm.counties = [];
         vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
         vm.selectedCountryId = 0;
         vm.counties = vm.counties.concat(CountriesPrepService.results)
 
-               $scope.totalCount = userPrepService.totalCount;
+        $scope.totalCount = userPrepService.totalCount;
         $scope.userList = userPrepService.results;
-        $scope.roleList = RolePrepService.results; 
+        $scope.roleList = RolePrepService.results;
         console.log(userPrepService);
 
         $scope.phoneNumbr = /^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/;
@@ -3385,7 +3804,7 @@
             vm.regions = [];
             vm.cities = [];
             vm.area = [];
-    vm.categoryList = [];
+            vm.categoryList = [];
         }
         vm.departmentChange = function () {
             vm.department.splice(0, 1);
@@ -3495,7 +3914,7 @@
         }
 
 
-         $scope.AddNewclient = function () {
+        $scope.AddNewclient = function () {
             blockUI.start("Loading...");
 
             var newClient = new UserResource();
@@ -3507,10 +3926,7 @@
             newClient.IsActive = true;
             newClient.UserTypeId = $scope.selectedType.userTypeId;
             newClient.UserRoles = vm.selectedUserRoles;
-            newClient.departmentId = vm.selectedDepartmentId > 0 ? vm.selectedDepartmentId : null;
-            newClient.areaId = vm.selectedAreaId > 0 ? vm.selectedAreaId : null;
-            newClient.cateoriesId = vm.selectedCategoryId;
-            newClient.branchesId = vm.selectedBranchId;
+            newClient.branchId = vm.selectedBranchId;
             newClient.$create().then(
                 function (data, status) {
                     blockUI.stop();
@@ -3535,6 +3951,34 @@
         }
 
         blockUI.stop();
+
+
+
+        function change(user, isDeleted) { 
+            debugger;
+            var updateObj = new UserResource();
+            updateObj.userId = user.userId;
+            if (!isDeleted)
+                updateObj.isActive = (user.isActive == true ? false : true);
+            updateObj.isDeleted = user.isDeleted;
+
+            updateObj.$update().then(
+                function (data, status) { 
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    user.isActive = updateObj.isActive;
+
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+
+        }
+        vm.UpdateUser = function (user) {
+            change(user, false);
+        }
+
+
 
     }
 

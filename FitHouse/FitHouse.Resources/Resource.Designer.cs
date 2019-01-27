@@ -113,5 +113,14 @@ namespace FitHouse.Resources {
                 return ResourceManager.GetString("RecordIsUsedInAnotherModule", resourceCulture);
             }
         }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Your Account Is Disabled, Please contact to administrator.
+        /// </summary>
+        public static string YourAccountIsDisabled {
+            get {
+                return ResourceManager.GetString("YourAccountIsDisabled", resourceCulture);
+            }
+        }
     }
 }

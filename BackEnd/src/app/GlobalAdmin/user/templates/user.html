@@ -1,6 +1,6 @@
 <div>
     <div style="margin-bottom:10px">
-        <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-click="$state.go('addUser');" ng-disabled="userCtrl.userConsumed.consumedUsers >= userCtrl.userConsumed.maxNumUsers"
+        <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-click="$state.go('addUser');"
             class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddUserBtn' | translate}}</button>
 
     </div>
@@ -16,8 +16,9 @@
                     <tr>
                         <th>{{'userName' | translate}}</th>
                         <th>{{'EmailLbl' | translate}}</th>
-
                         <th>{{'Phone1Lbl' | translate}}</th>
+                        <th>{{'Status' | translate}}</th>
+                        <th></th>
                     </tr>
                 </thead>
                 <tbody>
@@ -26,22 +27,25 @@
                         <td data-title="Name" width="20%">{{user.email}} </td>
 
                         <td data-title="Description">{{user.phone}}</td>
+                        <td>
+                            <div class="btn-switch" ng-class="{'btn-switch--on':user.isActive}" ng-model="user.isActive"
+                                ng-click="userCtrl.UpdateUser(user)">
+
+                                <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':user.isActive}"
+                                    ng-model="user.isActive" ng-click="userCtrl.UpdateUser(user)">
+                                </div>
+                        </td>
                         <td width="30%">
                             <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editUser', {userId: user.userId});">mode_edit</i>
-                            <i class="material-icons pmd-md deleteButton cursorPointer font25" ng-click="CategoryCtrl.openDeleteDialog(Category,Category.titleDictionary[selectedLanguage],Category.categoryId)">delete</i>
+                            <!-- <i class="material-icons pmd-md deleteButton cursorPointer font25" ng-click="CategoryCtrl.openDeleteDialog(Category,Category.titleDictionary[selectedLanguage],Category.categoryId)">delete</i> -->
                         </td>
-                        <!-- 
-                        <td  width="15%">  
-                            <i class="cursorPointer" ng-click="$state.go('editUser', {userId: user.userId});">{{'Edit' | translate}} </i>
-
-                        </td> -->
                     </tr>
                 </tbody>
             </table>
         </div>
 
     </div>
-   
+
     <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount" paging-action="changePage(page)"
         flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">
     </div>

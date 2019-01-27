@@ -12,7 +12,10 @@
     function CategoryController($rootScope, $scope, $filter, $translate,
         $state, CategoryResource, $localStorage, authorizationService,
         appCONSTANTS, blockUI, $uibModal, ToastService) {
-        var vm = this;
+            $('.pmd-sidebar-nav>li>a').removeClass("active")
+            $($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
+
+            var vm = this;
 
         refreshCategorys();
 

@@ -8,6 +8,7 @@ using System.Web.Http;
 using FitHouse.BLL.DTOs;
 using FitHouse.BLL.Services.Interfaces;
 using FitHouse.Common;
+using FitHouse.Common.CustomException;
 using Microsoft.Owin.Security;
 using Microsoft.Owin.Security.OAuth;
 using Microsoft.Practices.ObjectBuilder2;
@@ -52,6 +53,7 @@ namespace FitHouse.API.Providers
             }
             catch (Exception e)
             {
+                
                 //user = new UserDto();
             }
 
@@ -71,6 +73,7 @@ namespace FitHouse.API.Providers
                     new[] { ((int)HttpStatusCode.Unauthorized).ToString() });
                 return Task.FromResult<object>(null);
             }
+            if (!user.IsActive) throw new ValidationException(ErrorCodes.YourAccountIsDisabled);
 
             var ticket = GetAuthenticationTicket(user);
             context.Validated(ticket);

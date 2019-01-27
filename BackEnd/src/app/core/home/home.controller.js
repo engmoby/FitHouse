@@ -114,6 +114,10 @@
         function loginFailed(response) {
             $scope.afterSubmit = true;
 
+            if (response.data == null) {
+                $scope.invalidLoginInfo = false;
+                $scope.inActiveUser = true;
+            }
             // $scope.invalidLoginInfo = true;
             if (response) {
                 if (response.data.error == "invalid grant") {
@@ -124,10 +128,6 @@
                     $scope.invalidLoginInfo = false;
                     $scope.inActiveUser = true;
                 }
-            }
-            if (response == null) {
-                $scope.invalidLoginInfo = false;
-                $scope.inActiveUser = true;
             }
         }
 

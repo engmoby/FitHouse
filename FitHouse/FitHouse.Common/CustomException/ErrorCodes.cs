@@ -90,6 +90,14 @@ namespace FitHouse.Common.CustomException
         PackageExpired,
         PackageNotActivated,
         StatusAlreadyExist,
-        RecordIsUsedInAnotherModule
+        RecordIsUsedInAnotherModule,
+        YourAccountIsDisabled,
+        MealIsNotTranslated,
+        MealNotFound,
+        MealNameAlreadyExist,
+        MealNameExceedLength,
+        EmptyMealDescription,
+        EmptyMealName,
+        MealDeleted
     }
 }

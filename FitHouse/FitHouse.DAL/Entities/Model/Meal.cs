@@ -18,7 +18,7 @@ namespace FitHouse.DAL.Entities.Model
         public long MealId { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
-        public long MealPrice { get; set; }
+        public decimal MealPrice { get; set; }
         public long MealDiscount { get; set; }
         public virtual ICollection<MealTranslation> MealTranslations { get; set; }
         public virtual ICollection<MealDetail> MealDetails { get; set; }

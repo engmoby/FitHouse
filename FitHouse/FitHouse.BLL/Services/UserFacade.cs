@@ -46,7 +46,7 @@ namespace FitHouse.BLL.Services
             string encryptedPassword = PasswordHelper.Encrypt(password); ;
             var user = _userService.ValidateUser(email, encryptedPassword) ?? _userService.CheckUserIsDeleted(email, encryptedPassword);
             if (user == null) throw new ValidationException(ErrorCodes.UserNotFound);
-            //if (!user.IsStatic && DateTime.Now.Date > user.Package.End.Date) throw new ValidationException(ErrorCodes.PackageExpired);
+            //  if (!user.IsActive) throw new ValidationException(ErrorCodes.YourAccountIsDisabled);
             //if (!user.IsStatic && DateTime.Now.Date < user.Package.Start.Date) throw new ValidationException(ErrorCodes.PackageNotActivated);
             var userDto = Mapper.Map<UserDto>(user);
             userDto.PermissionId = GetUserPaermissionId(user.UserId);
@@ -70,7 +70,7 @@ namespace FitHouse.BLL.Services
             {
                 return null;
             }
-            var getUserInfo = _userService.Find(userId); 
+            var getUserInfo = _userService.Find(userId);
             getUserInfo.UserRoles = new List<UserRole>();
 
             var userDto = new UserDto();
@@ -81,12 +81,14 @@ namespace FitHouse.BLL.Services
             userDto.Email = getUserInfo.Email;
             userDto.Phone = getUserInfo.Phone;
             userDto.Password = PasswordHelper.Decrypt(getUserInfo.Password);
-            userDto.BranchId = getUserInfo.BranchId;
-            userDto.AreaId = getUserInfo.Branch.AreaId;
-            userDto.CityId = getUserInfo.Branch.Area.CityId; 
-            userDto.RegionId = getUserInfo.Branch.Area.City.RegionId;
-            userDto.CountryId = getUserInfo.Branch.Area.City.Region.CountryId;
-
+            if (getUserInfo.BranchId != null)
+            {
+                userDto.BranchId = getUserInfo.BranchId;
+                userDto.AreaId = getUserInfo.Branch.AreaId;
+                userDto.CityId = getUserInfo.Branch.Area.CityId;
+                userDto.RegionId = getUserInfo.Branch.Area.City.RegionId;
+                userDto.CountryId = getUserInfo.Branch.Area.City.Region.CountryId; 
+            }
             var afterMap = userDto;
             afterMap.UserRoles = _userRoleService.GetUserRoleById(userId);
 
@@ -146,17 +148,18 @@ namespace FitHouse.BLL.Services
                 throw new ValidationException(ErrorCodes.PhoneExist);
             }
 
-            userDto.BranchId = 1;
             var userObj = Mapper.Map<User>(userDto);
             userObj.FirstName = userDto.FirstName;
-            // userObj.UserAccountId = Guid.NewGuid();
             userObj.LastName = userDto.LastName;
             userObj.Email = userDto.Email;
             userObj.Phone = userDto.Phone;
             userObj.Password = PasswordHelper.Encrypt(userDto.Password);
             userObj.CreationTime = DateTime.Now;
+            userObj.BranchId = (userDto.BranchId == 0) ? null : userDto.BranchId;
             userObj.IsActive = userDto.IsActive;
             userObj.IsDeleted = false;
+            userObj.IsStatic = false;
+            userObj.IsAdmin = true;
             userObj.CreationTime = Strings.CurrentDateTime;
             userObj.CreatorUserId = userId;
 
@@ -207,29 +210,32 @@ namespace FitHouse.BLL.Services
         {
             var userObj = _userService.Query(x => x.UserId == userDto.UserId)
                 .Select().FirstOrDefault();
-            userObj.FirstName = userDto.FirstName;
-            userObj.LastName = userDto.LastName;
-            userObj.Phone = userDto.Phone;
+            userObj.FirstName = userDto.FirstName ?? userObj.FirstName;
+            userObj.LastName = userDto.LastName ?? userObj.LastName;
+            userObj.Phone = userDto.Phone ?? userObj.Phone;
             userObj.Password = (userDto.Password != null) ? PasswordHelper.Encrypt(userDto.Password) : userObj.Password;
-            userObj.IsActive = userDto.IsActive;
+            userObj.IsActive = (true) ? userDto.IsActive : userObj.IsActive;
             userObj.IsDeleted = false;
-            userObj.Email = userDto.Email;
-            userObj.BranchId = userDto.BranchId;
+            userObj.Email = userDto.Email ?? userObj.Email;
+            userObj.BranchId = (userDto.BranchId != 0) ? userDto.BranchId : userObj.BranchId;
 
-
-            var deleteuserRoles = new UserRole[userObj.UserRoles.Count];
-            userObj.UserRoles.CopyTo(deleteuserRoles, 0);
-            foreach (var roleObjRoleuserRole in deleteuserRoles)
+            if (userDto.UserRoles.Any())
             {
-                _userRoleService.Delete(roleObjRoleuserRole);
-
-            }
-            foreach (var roleper in userDto.UserRoles)
-            {
-                userObj.UserRoles.Add(new UserRole
+                var deleteuserRoles = new UserRole[userObj.UserRoles.Count];
+                userObj.UserRoles.CopyTo(deleteuserRoles, 0);
+                foreach (var roleObjRoleuserRole in deleteuserRoles)
                 {
-                    RoleId = roleper.RoleId
-                });
+                    _userRoleService.Delete(roleObjRoleuserRole);
+
+                }
+                foreach (var roleper in userDto.UserRoles)
+                {
+                    userObj.UserRoles.Add(new UserRole
+                    {
+                        RoleId = roleper.RoleId
+                    });
+                }
+
             }
 
             //foreach (var branchId in userDto.BranchesId)

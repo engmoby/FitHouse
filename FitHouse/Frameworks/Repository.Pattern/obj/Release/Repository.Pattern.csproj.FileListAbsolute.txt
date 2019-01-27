@@ -40,3 +40,9 @@ E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\Frameworks
 E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\Frameworks\Repository.Pattern\obj\Release\Repository.Pattern.csprojResolveAssemblyReference.cache
 E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\Frameworks\Repository.Pattern\obj\Release\Repository.Pattern.dll
 E:\Projects\Operation Survey\Project\Survey_Version2\Operation Survey\Frameworks\Repository.Pattern\obj\Release\Repository.Pattern.pdb
+E:\Projects\FitHouse\Project\FitHouse\FitHouse\Frameworks\Repository.Pattern\bin\Release\Repository.Pattern.dll.config
+E:\Projects\FitHouse\Project\FitHouse\FitHouse\Frameworks\Repository.Pattern\bin\Release\Repository.Pattern.dll
+E:\Projects\FitHouse\Project\FitHouse\FitHouse\Frameworks\Repository.Pattern\bin\Release\Repository.Pattern.pdb
+E:\Projects\FitHouse\Project\FitHouse\FitHouse\Frameworks\Repository.Pattern\obj\Release\Repository.Pattern.csprojResolveAssemblyReference.cache
+E:\Projects\FitHouse\Project\FitHouse\FitHouse\Frameworks\Repository.Pattern\obj\Release\Repository.Pattern.dll
+E:\Projects\FitHouse\Project\FitHouse\FitHouse\Frameworks\Repository.Pattern\obj\Release\Repository.Pattern.pdb
