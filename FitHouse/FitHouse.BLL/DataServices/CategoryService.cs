@@ -25,6 +25,12 @@ namespace FitHouse.BLL.DataServices
             results.Data = Mapper.Map<List<Category>, List<CategoryDto>>(query.OrderBy(x => x.CategoryId).Skip((page - 1) * pageSize).Take(pageSize).ToList());
 
             return results;
-        } 
+        }
+
+        public List<Category> GetAllCategs()
+        {
+            var categories = _repository.Query(x => x.IsDeleted != true).Select().ToList();
+            return categories;
+        }
     }
 }

@@ -7,11 +7,18 @@
     //   .factory('DeleteProgramResource', ['$resource', 'appCONSTANTS', DeleteProgramResource])
     //   .factory('AddProgramListResource', ['$resource', 'appCONSTANTS', AddProgramListResource])
       .factory('AddProgramResource', ['$resource', 'appCONSTANTS', AddProgramResource])
+      .factory('GetDaysResource', ['$resource', 'appCONSTANTS', GetDaysResource])
       ;
   
     function AddProgramResource($resource, appCONSTANTS) {
-      return $resource(appCONSTANTS.API_URL + 'Programs/', {}, { 
+      return $resource(appCONSTANTS.API_URL + 'Program/', {}, { 
         create: { method: 'POST',useToken: true}
+      })
+    }
+
+     function GetDaysResource($resource, appCONSTANTS) {
+      return $resource(appCONSTANTS.API_URL + 'Day/GetAllDays', {}, {
+        gatAllDays: { method: 'GET', useToken: true,isArray:true} 
       })
     }
     

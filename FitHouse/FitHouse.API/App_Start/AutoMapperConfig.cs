@@ -53,6 +53,9 @@ namespace FitHouse.API
             mapperConfiguration.CreateMap<ProgramDto, ProgramModel>().ReverseMap();
             mapperConfiguration.CreateMap<ProgramTranslationDto, ProgramTranslationModel>().ReverseMap();
             mapperConfiguration.CreateMap<ProgramDetailDto, ProgramModel>().ReverseMap();
+            mapperConfiguration.CreateMap<CategoryProgramDto, CategoryProgramModel>().ReverseMap();
+            mapperConfiguration.CreateMap<ItemProgramDto, ItemProgramModel>().ReverseMap();
+            mapperConfiguration.CreateMap<DayDto, DayModel>().ReverseMap();
 
             FitHouseBllConfig.RegisterMappings(mapperConfiguration);
 

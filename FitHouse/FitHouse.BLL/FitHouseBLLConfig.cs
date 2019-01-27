@@ -48,6 +48,12 @@ namespace FitHouse.BLL
                 .ForMember(dto => dto.ProgramNameDictionary, m => m.MapFrom(src => src.ProgramTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)))
                 .ForMember(dto => dto.ProgramDescriptionDictionary, m => m.MapFrom(src => src.ProgramTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Description)));
 
+            mapperConfiguration.CreateMap<DayDto, Day>();
+            mapperConfiguration.CreateMap<Day, DayDto>()
+                .ForMember(dto => dto.DayNameDictionary,
+                    m => m.MapFrom(src => src.DayTranslations.ToDictionary(
+                        translation => translation.Language.ToLower(), translation => translation.Title)));
+
             mapperConfiguration.CreateMap<ProgramDetailDto, ProgramDetail>().ReverseMap();
 
             mapperConfiguration.CreateMap<BranchDto, Branch>();
@@ -60,6 +66,17 @@ namespace FitHouse.BLL
             mapperConfiguration.CreateMap<CategoryDto, Category>();
             mapperConfiguration.CreateMap<Category, CategoryDto>()
                 .ForMember(dto => dto.TitleDictionary, m => m.MapFrom(src => src.CategoryTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)));
+
+            mapperConfiguration.CreateMap<CategoryProgramDto, Category>();
+            mapperConfiguration.CreateMap<Category, CategoryProgramDto>()
+                .ForMember(dto => dto.TitleDictionary, m => m.MapFrom(src => src.CategoryTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)));
+
+
+            mapperConfiguration.CreateMap<ItemProgramDto, Item>();
+            mapperConfiguration.CreateMap<Item, ItemProgramDto>()
+                .ForMember(dto => dto.ItemNameDictionary, m => m.MapFrom(src => src.ItemTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)))
+                .ForMember(dto => dto.ItemDescriptionDictionary, m => m.MapFrom(src => src.ItemTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Description)));
+
 
             mapperConfiguration.CreateMap<ItemDto, Item>();
             mapperConfiguration.CreateMap<Item, ItemDto>()
@@ -119,6 +136,9 @@ namespace FitHouse.BLL
                 .RegisterType<IProgramService, ProgramService>(new PerResolveLifetimeManager())
                 .RegisterType<IProgramTranslationService, ProgramTranslationService>(new PerResolveLifetimeManager())
                 .RegisterType<IProgramDetailService, ProgramDetailService>(new PerResolveLifetimeManager())
+
+                .RegisterType<IDayService, DayService>(new PerResolveLifetimeManager())
+
 
                 ;
         }

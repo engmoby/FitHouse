@@ -20,7 +20,8 @@ namespace FitHouse.DAL.Entities
                     new InjectionConstructor(new object[] {new RepositoryFactories()})
                 )
               
-                .RegisterType<IRepositoryAsync<User>, Repository<User>>(new PerResolveLifetimeManager());
+                .RegisterType<IRepositoryAsync<User>, Repository<User>>(new PerResolveLifetimeManager())
+                ;
 
 
         }

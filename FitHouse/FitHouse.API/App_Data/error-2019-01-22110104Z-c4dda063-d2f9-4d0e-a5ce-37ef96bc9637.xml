@@ -1,0 +1,160 @@
+﻿<error errorId="c4dda063-d2f9-4d0e-a5ce-37ef96bc9637" application="/LM/W3SVC/5/ROOT" host="DESKTOP-ELL7P09" type="AutoMapper.AutoMapperMappingException" message="Missing type map configuration or unsupported mapping.&#xD;&#xA;&#xD;&#xA;Mapping types:&#xD;&#xA;Item -&gt; ItemProgramDto&#xD;&#xA;FitHouse.DAL.Entities.Model.Item -&gt; FitHouse.BLL.DTOs.ItemProgramDto" source="Anonymously Hosted DynamicMethods Assembly" detail="AutoMapper.AutoMapperMappingException: Error mapping types.&#xD;&#xA;&#xD;&#xA;Mapping types:&#xD;&#xA;List`1 -&gt; List`1&#xD;&#xA;System.Collections.Generic.List`1[[FitHouse.DAL.Entities.Model.Category, FitHouse.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] -&gt; System.Collections.Generic.List`1[[FitHouse.BLL.DTOs.CategoryProgramDto, FitHouse.BLL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] ---&gt; AutoMapper.AutoMapperMappingException: Error mapping types.&#xD;&#xA;&#xD;&#xA;Mapping types:&#xD;&#xA;Category -&gt; CategoryProgramDto&#xD;&#xA;FitHouse.DAL.Entities.Model.Category -&gt; FitHouse.BLL.DTOs.CategoryProgramDto&#xD;&#xA;&#xD;&#xA;Type Map configuration:&#xD;&#xA;Category -&gt; CategoryProgramDto&#xD;&#xA;FitHouse.DAL.Entities.Model.Category -&gt; FitHouse.BLL.DTOs.CategoryProgramDto&#xD;&#xA;&#xD;&#xA;Property:&#xD;&#xA;Items ---&gt; AutoMapper.AutoMapperMappingException: Missing type map configuration or unsupported mapping.&#xD;&#xA;&#xD;&#xA;Mapping types:&#xD;&#xA;Item -&gt; ItemProgramDto&#xD;&#xA;FitHouse.DAL.Entities.Model.Item -&gt; FitHouse.BLL.DTOs.ItemProgramDto&#xD;&#xA;   at lambda_method(Closure , Item , ItemProgramDto , ResolutionContext )&#xD;&#xA;   at AutoMapper.ResolutionContext.Map[TSource,TDestination](TSource source, TDestination destination)&#xD;&#xA;   at lambda_method(Closure , Object , Object , ResolutionContext )&#xD;&#xA;   --- End of inner exception stack trace ---&#xD;&#xA;   at lambda_method(Closure , Object , Object , ResolutionContext )&#xD;&#xA;   --- End of inner exception stack trace ---&#xD;&#xA;   at lambda_method(Closure , Object , Object , ResolutionContext )&#xD;&#xA;   at AutoMapper.Mapper.AutoMapper.IMapper.Map[TDestination](Object source)&#xD;&#xA;   at AutoMapper.Mapper.Map[TDestination](Object source)&#xD;&#xA;   at FitHouse.BLL.Services.CategoryFacade.GetAllCategs() in E:\Projects\FitHouse\FitHouse\FitHouse.BLL\Services\CategoryFacade.cs:line 116&#xD;&#xA;   at FitHouse.API.Controllers.CategoryController.GetAllCategs() in E:\Projects\FitHouse\FitHouse\FitHouse.API\Controllers\CategoryController.cs:line 38&#xD;&#xA;   at lambda_method(Closure , Object , Object[] )&#xD;&#xA;   at System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ActionExecutor.&lt;&gt;c__DisplayClass10.&lt;GetExecutor&gt;b__9(Object instance, Object[] methodParameters)&#xD;&#xA;   at System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ActionExecutor.Execute(Object instance, Object[] arguments)&#xD;&#xA;   at System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ExecuteAsync(HttpControllerContext controllerContext, IDictionary`2 arguments, CancellationToken cancellationToken)&#xD;&#xA;--- End of stack trace from previous location where exception was thrown ---&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)&#xD;&#xA;   at System.Web.Http.Controllers.ApiControllerActionInvoker.&lt;InvokeActionAsyncCore&gt;d__0.MoveNext()&#xD;&#xA;--- End of stack trace from previous location where exception was thrown ---&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)&#xD;&#xA;   at System.Web.Http.Controllers.ActionFilterResult.&lt;ExecuteAsync&gt;d__2.MoveNext()&#xD;&#xA;--- End of stack trace from previous location where exception was thrown ---&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)&#xD;&#xA;   at System.Web.Http.Controllers.ExceptionFilterResult.&lt;ExecuteAsync&gt;d__0.MoveNext()" user="-Admin Abdo" time="2019-01-22T11:01:04.2136075Z">
+  <serverVariables>
+    <item name="ALL_HTTP">
+      <value string="HTTP_CONNECTION:keep-alive&#xD;&#xA;HTTP_ACCEPT:application/json, text/plain, */*&#xD;&#xA;HTTP_ACCEPT_ENCODING:gzip, deflate, br&#xD;&#xA;HTTP_ACCEPT_LANGUAGE:en&#xD;&#xA;HTTP_AUTHORIZATION:bearer 6XLLVFvRcBUQpftB36_zjEdptqb8j9QZNJT5PjDXsB-1gCNrvmVssewaZXy6jF87xC9yBzldsVQcqep2GBLMqwZ9JO8ZUY0diREhjyavVH6QQzj_40er8Vm92_nLxDR0T34b88eXxPN345wRaw6u0rMQIXV6MqYrw13N-LN8bCBbfxpvR6ii8ULpPR-JSWFPxaRE1mYKSktR7C_zLzEgWY4OjZxip23q9GcicX9knFyPK6iAZvils3Z61M9-GdkaFPh_tOZxLIxZk6fsVjzAFii8H0jXPgIymGUnUy4Q_IFebfR5rr1WCHiJaTBiKmIM&#xD;&#xA;HTTP_HOST:localhost:32569&#xD;&#xA;HTTP_REFERER:http://localhost:9091/&#xD;&#xA;HTTP_USER_AGENT:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36&#xD;&#xA;HTTP_ORIGIN:http://localhost:9091&#xD;&#xA;" />
+    </item>
+    <item name="ALL_RAW">
+      <value string="Connection: keep-alive&#xD;&#xA;Accept: application/json, text/plain, */*&#xD;&#xA;Accept-Encoding: gzip, deflate, br&#xD;&#xA;Accept-Language: en&#xD;&#xA;Authorization: bearer 6XLLVFvRcBUQpftB36_zjEdptqb8j9QZNJT5PjDXsB-1gCNrvmVssewaZXy6jF87xC9yBzldsVQcqep2GBLMqwZ9JO8ZUY0diREhjyavVH6QQzj_40er8Vm92_nLxDR0T34b88eXxPN345wRaw6u0rMQIXV6MqYrw13N-LN8bCBbfxpvR6ii8ULpPR-JSWFPxaRE1mYKSktR7C_zLzEgWY4OjZxip23q9GcicX9knFyPK6iAZvils3Z61M9-GdkaFPh_tOZxLIxZk6fsVjzAFii8H0jXPgIymGUnUy4Q_IFebfR5rr1WCHiJaTBiKmIM&#xD;&#xA;Host: localhost:32569&#xD;&#xA;Referer: http://localhost:9091/&#xD;&#xA;User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36&#xD;&#xA;Origin: http://localhost:9091&#xD;&#xA;" />
+    </item>
+    <item name="APPL_MD_PATH">
+      <value string="/LM/W3SVC/5/ROOT" />
+    </item>
+    <item name="APPL_PHYSICAL_PATH">
+      <value string="E:\Projects\FitHouse\FitHouse\FitHouse.API\" />
+    </item>
+    <item name="AUTH_TYPE">
+      <value string="JWT" />
+    </item>
+    <item name="AUTH_USER">
+      <value string="-Admin Abdo" />
+    </item>
+    <item name="AUTH_PASSWORD">
+      <value string="*****" />
+    </item>
+    <item name="LOGON_USER">
+      <value string="-Admin Abdo" />
+    </item>
+    <item name="REMOTE_USER">
+      <value string="-Admin Abdo" />
+    </item>
+    <item name="CERT_COOKIE">
+      <value string="" />
+    </item>
+    <item name="CERT_FLAGS">
+      <value string="" />
+    </item>
+    <item name="CERT_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SERIALNUMBER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CERT_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CONTENT_LENGTH">
+      <value string="0" />
+    </item>
+    <item name="CONTENT_TYPE">
+      <value string="" />
+    </item>
+    <item name="GATEWAY_INTERFACE">
+      <value string="CGI/1.1" />
+    </item>
+    <item name="HTTPS">
+      <value string="off" />
+    </item>
+    <item name="HTTPS_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="INSTANCE_ID">
+      <value string="5" />
+    </item>
+    <item name="INSTANCE_META_PATH">
+      <value string="/LM/W3SVC/5" />
+    </item>
+    <item name="LOCAL_ADDR">
+      <value string="::1" />
+    </item>
+    <item name="PATH_INFO">
+      <value string="/api/Category/GetAllCategs" />
+    </item>
+    <item name="PATH_TRANSLATED">
+      <value string="E:\Projects\FitHouse\FitHouse\FitHouse.API\api\Category\GetAllCategs" />
+    </item>
+    <item name="QUERY_STRING">
+      <value string="" />
+    </item>
+    <item name="REMOTE_ADDR">
+      <value string="::1" />
+    </item>
+    <item name="REMOTE_HOST">
+      <value string="::1" />
+    </item>
+    <item name="REMOTE_PORT">
+      <value string="63774" />
+    </item>
+    <item name="REQUEST_METHOD">
+      <value string="GET" />
+    </item>
+    <item name="SCRIPT_NAME">
+      <value string="/api/Category/GetAllCategs" />
+    </item>
+    <item name="SERVER_NAME">
+      <value string="localhost" />
+    </item>
+    <item name="SERVER_PORT">
+      <value string="32569" />
+    </item>
+    <item name="SERVER_PORT_SECURE">
+      <value string="0" />
+    </item>
+    <item name="SERVER_PROTOCOL">
+      <value string="HTTP/1.1" />
+    </item>
+    <item name="SERVER_SOFTWARE">
+      <value string="Microsoft-IIS/10.0" />
+    </item>
+    <item name="URL">
+      <value string="/api/Category/GetAllCategs" />
+    </item>
+    <item name="HTTP_CONNECTION">
+      <value string="keep-alive" />
+    </item>
+    <item name="HTTP_ACCEPT">
+      <value string="application/json, text/plain, */*" />
+    </item>
+    <item name="HTTP_ACCEPT_ENCODING">
+      <value string="gzip, deflate, br" />
+    </item>
+    <item name="HTTP_ACCEPT_LANGUAGE">
+      <value string="en" />
+    </item>
+    <item name="HTTP_AUTHORIZATION">
+      <value string="bearer 6XLLVFvRcBUQpftB36_zjEdptqb8j9QZNJT5PjDXsB-1gCNrvmVssewaZXy6jF87xC9yBzldsVQcqep2GBLMqwZ9JO8ZUY0diREhjyavVH6QQzj_40er8Vm92_nLxDR0T34b88eXxPN345wRaw6u0rMQIXV6MqYrw13N-LN8bCBbfxpvR6ii8ULpPR-JSWFPxaRE1mYKSktR7C_zLzEgWY4OjZxip23q9GcicX9knFyPK6iAZvils3Z61M9-GdkaFPh_tOZxLIxZk6fsVjzAFii8H0jXPgIymGUnUy4Q_IFebfR5rr1WCHiJaTBiKmIM" />
+    </item>
+    <item name="HTTP_HOST">
+      <value string="localhost:32569" />
+    </item>
+    <item name="HTTP_REFERER">
+      <value string="http://localhost:9091/" />
+    </item>
+    <item name="HTTP_USER_AGENT">
+      <value string="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36" />
+    </item>
+    <item name="HTTP_ORIGIN">
+      <value string="http://localhost:9091" />
+    </item>
+  </serverVariables>
+</error>

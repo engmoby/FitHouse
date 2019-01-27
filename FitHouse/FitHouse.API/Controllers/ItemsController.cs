@@ -73,6 +73,15 @@ namespace FitHouse.API.Controllers
             return Ok();
         }
 
+        [Route("api/Items/GetAllItems", Name = "GetAllItems")]
+        [HttpGet]
+        public IHttpActionResult GetAllItems()
+        {
+            var items = Mapper.Map<List<ItemProgramModel>>(_itemFacade.GetAllItems());
+
+            return Ok(items);
+        }
+
         // [AuthorizeRoles(Enums.RoleType.RestaurantAdmin,Enums.RoleType.User)]
         [Route("api/Items/{itemId:long}", Name = "GetItem")]
         [HttpGet]
@@ -80,7 +89,7 @@ namespace FitHouse.API.Controllers
         public IHttpActionResult GetItem(long itemId)
         {
             var item = Mapper.Map<ItemModel>(_itemFacade.GetItem(itemId, Language));
-            item.ImageUrl = Url.Link("ItemImage", new { item.CategoryId, item.ItemId });
+            //item.ImageUrl = Url.Link("ItemImage", new { item.CategoryId, item.ItemId });
             return Ok(item);
         }
 
