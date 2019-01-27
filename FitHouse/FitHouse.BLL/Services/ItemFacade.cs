@@ -19,26 +19,27 @@ namespace FitHouse.BLL.Services
         private readonly IItemTranslationService _itemTranslationService;
         private readonly IManageStorage _manageStorage;
         private ICategoryTranslationService _categoryTranslationService;
-
+        private IProgramDetailService _programDetailService;
         public ItemFacade(ICategoryService categoryService, IItemService itemService, IItemTranslationService itemTranslationService, IManageStorage manageStorage,
-              ICategoryTranslationService categoryTranslationService, IUnitOfWorkAsync unitOfWork) : base(unitOfWork)
+              ICategoryTranslationService categoryTranslationService, IUnitOfWorkAsync unitOfWork, IProgramDetailService programDetailService) : base(unitOfWork)
         {
             _categoryService = categoryService;
             _itemService = itemService;
             _itemTranslationService = itemTranslationService;
             _manageStorage = manageStorage;
             _categoryTranslationService = categoryTranslationService;
-
+            _programDetailService = programDetailService;
         }
 
         public ItemFacade(ICategoryService categoryService, IItemService itemService, IItemTranslationService itemTranslationService, IManageStorage manageStorage,
-              ICategoryTranslationService categoryTranslationService)
+              ICategoryTranslationService categoryTranslationService, IProgramDetailService programDetailService)
         {
             _categoryService = categoryService;
             _itemService = itemService;
             _itemTranslationService = itemTranslationService;
             _manageStorage = manageStorage;
             _categoryTranslationService = categoryTranslationService;
+            _programDetailService = programDetailService;
         }
 
 
@@ -136,7 +137,19 @@ namespace FitHouse.BLL.Services
         {
             var item = _itemService.Find(itemId);
             if (item == null) throw new NotFoundException(ErrorCodes.CategoryNotFound);
+             
             item.IsActive = false;
+             
+            if (!item.IsActive)
+            {
+                var checkIfUsed = _programDetailService.Queryable().Where(x => x.ItemId == item.ItemId);
+                if (checkIfUsed.Any())
+                {
+                    throw new ValidationException(ErrorCodes.RecordIsUsedInAnotherModule);
+                }
+            }
+
+
             _itemService.Update(item);
             var categoryHasItemActivated = item.Category.Items.Any(x => x.IsActive);
             if (!categoryHasItemActivated)
@@ -153,6 +166,16 @@ namespace FitHouse.BLL.Services
             var item = _itemService.Find(itemId);
             if (item == null) throw new NotFoundException(ErrorCodes.ItemNotFound);
             item.IsDeleted = true;
+             
+            if (item.IsDeleted)
+            {
+                var checkIfUsed = _programDetailService.Queryable().Where(x => x.ItemId == item.ItemId);
+                if (checkIfUsed.Any())
+                {
+                    throw new ValidationException(ErrorCodes.RecordIsUsedInAnotherModule);
+                }
+            }
+
             item.IsActive = false;
             _itemService.Update(item);
             var categoryHasItemActivated = item.Category.Items.Any(x => x.IsActive);

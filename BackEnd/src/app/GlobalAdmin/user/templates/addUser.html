@@ -102,7 +102,7 @@
     <div ng-show=" userCtrl.selectedAreaId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
         <label for="first-name">{{'Branch' | translate}}</label>
         <select ng-required=" userCtrl.selectedAreaId > 0 " class="form-control select-with-search pmd-select2-tags"
-            multiple ng-change="userCtrl.branchChange()" ng-model="userCtrl.selectedBranchId" ng-options="a.branchId as a.titleDictionary[selectedLanguage] for a in userCtrl.branchList"></select>
+              ng-change="userCtrl.branchChange()" ng-model="userCtrl.selectedBranchId" ng-options="a.branchId as a.titleDictionary[selectedLanguage] for a in userCtrl.branchList"></select>
     </div>
 
 
@@ -115,9 +115,9 @@
 </form>
 
 <div class="pmd-modal-action text-right">
-    <button ng-disabled="newclientForm.$invalid  && (userCtrl.selectedAreaId <= 0 || userCtrl.selectedBranchId <= 0)" 
-    class="btn pmd-ripple-effect btn-primary" Category="button" ng-click="AddNewclient()">{{'saveChangesBtn' | translate}}</button>
-    <button class="btn pmd-ripple-effect btn-default" Category="button" ng-click="newCategoryCtrl.close()">{{'DiscardBtn' | translate}}</button>
+    <button  style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="newclientForm.$invalid  && (userCtrl.selectedAreaId <= 0 || userCtrl.selectedBranchId <= 0)" 
+    class="btn pmd-ripple-effect btn-primary" type="button" ng-click="AddNewclient()">{{'saveChangesBtn' | translate}}</button>
+    <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="userCtrl.close()">{{'DiscardBtn' | translate}}</button>
 </div>
 <!-- 
 <div class="pmd-modal-action text-right">

@@ -2,7 +2,9 @@
 using AutoMapper.Configuration;
 using FitHouse.API.Models;
 using FitHouse.BLL;
-using FitHouse.BLL.DTOs; 
+using FitHouse.BLL.DTOs;
+using FitHouse.DAL.Entities.Model;
+
 namespace FitHouse.API
 {
     public class AutoMapperConfig
@@ -56,6 +58,10 @@ namespace FitHouse.API
             mapperConfiguration.CreateMap<CategoryProgramDto, CategoryProgramModel>().ReverseMap();
             mapperConfiguration.CreateMap<ItemProgramDto, ItemProgramModel>().ReverseMap();
             mapperConfiguration.CreateMap<DayDto, DayModel>().ReverseMap();
+
+
+            mapperConfiguration.CreateMap<MealDto, MealModel>().ReverseMap(); 
+            mapperConfiguration.CreateMap<MealDetailDto, MealModel>().ReverseMap();
 
             FitHouseBllConfig.RegisterMappings(mapperConfiguration);
 

@@ -14,9 +14,10 @@ namespace FitHouse.BLL.DTOs
         public long? CreatorUserId { get; set; }
         public DateTime? DeletionTime { get; set; }
         public long? DeleterUserId { get; set; }
-        public List<BranchDto> Branches { get; set; }
+      public List<BranchDto> Branches { get; set; }
 
         public long CityId { get; set; }
+       // public CityDto City { get; set; }
 
     }
 }

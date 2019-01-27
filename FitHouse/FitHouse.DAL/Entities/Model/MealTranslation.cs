@@ -16,6 +16,7 @@ namespace FitHouse.DAL.Entities.Model
         public long MealTranslationId { get; set; }
         public string Language { get; set; }
         public string Title { get; set; }
+        public string Description { get; set; }
         [ForeignKey("Meal")]
         public long MealId { get; set; }
         public virtual Meal Meal { get; set; }

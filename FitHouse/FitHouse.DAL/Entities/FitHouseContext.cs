@@ -5,16 +5,16 @@ using Repository.Pattern.Ef6;
 namespace FitHouse.DAL.Entities
 {
     public class FitHouseContext : DataContext
-    { 
+    {
         public DbSet<User> Users { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
-        public DbSet<RolePermission> RolePermissions { get; set; } 
+        public DbSet<RolePermission> RolePermissions { get; set; }
         public DbSet<Role> Roles { get; set; }
         public DbSet<RoleTranslation> RoleTranslations { get; set; }
 
         public DbSet<Permission> Permissions { get; set; }
         public DbSet<PermissionTranslation> PermissionTranslations { get; set; }
- 
+
         public DbSet<Category> Categories { get; set; }
         public DbSet<CategoryTranslation> CategoryTranslations { get; set; }
 
@@ -23,14 +23,14 @@ namespace FitHouse.DAL.Entities
 
         public DbSet<Branch> Branches { get; set; }
         public DbSet<BranchTranslation> BranchTranslations { get; set; }
-     
+
         public DbSet<Country> Countries { get; set; }
         public DbSet<CountryTranslation> CountryTranslations { get; set; }
         public DbSet<Region> Regions { get; set; }
         public DbSet<RegionTranslation> RegionTranslations { get; set; }
         public DbSet<City> Cities { get; set; }
         public DbSet<CityTranslation> CityTranslations { get; set; }
-        public DbSet<Day> Days  { get; set; }
+        public DbSet<Day> Days { get; set; }
         public DbSet<DayTranslation> DayTranslations { get; set; }
         public DbSet<Item> Items { get; set; }
         public DbSet<ItemTranslation> ItemTranslations { get; set; }
@@ -46,7 +46,7 @@ namespace FitHouse.DAL.Entities
         public DbSet<Setting> Settings { get; set; }
         public DbSet<Status> Statuses { get; set; }
         public DbSet<StatusTranslation> StatusTranslations { get; set; }
-     
+
 
 
         public FitHouseContext() : base("name=FitHouse")
@@ -55,7 +55,14 @@ namespace FitHouse.DAL.Entities
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
-        { 
+        {
+            modelBuilder.Entity<User>().HasOptional(c => c.Branch);
+
+            //base.OnModelCreating(modelBuilder);
+            //modelBuilder.Entity<User>()
+            //    .HasRequired(c => c.Branch)
+            //    .WithMany()
+            //    .WillCascadeOnDelete(false);
         }
     }
 }

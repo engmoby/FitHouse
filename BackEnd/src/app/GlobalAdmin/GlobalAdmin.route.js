@@ -94,9 +94,6 @@
                         EditUserPrepService: EditUserPrepService,
                         RolePrepService: AllRolePrepService,
                         CountriesPrepService: CountriesPrepService,
-                        RegionsForUserPrepService: RegionsForUserPrepService,
-                        CitiesForUserPrepService: CitiesForUserPrepService,
-                        AreasForUserPrepService: AreasForUserPrepService,
 
                     },
                     data: {
@@ -373,13 +370,13 @@
                         },
                         displayName: 'Items'
                     },
-                    resolve: { 
+                    resolve: {
                         defaultItemsPrepService: defaultItemsPrepService,
                     }
                 })
                 .state('editItem', {
                     url: '/Category/:categoryId/Items/:itemId',
-                    templateUrl: './app/GlobalAdmin/item/templates/edit.html', 
+                    templateUrl: './app/GlobalAdmin/item/templates/edit.html',
                     controller: 'editItemController',
                     'controllerAs': 'editItemCtrl',
                     data: {
@@ -390,9 +387,60 @@
                         displayName: 'Items'
                     },
                     resolve: {
-                        itemPrepService: itemPrepService, 
+                        itemPrepService: itemPrepService,
                     }
                 })
+
+
+                .state('Meal', {
+                    url: '/Meal',
+                    templateUrl: './app/GlobalAdmin/meal/templates/Meal.html',
+                    controller: 'MealController',
+                    'controllerAs': 'mealCtrl',
+                    data: {
+                        permissions: {
+                            only: ['RestaurantAdmin'],
+                            redirectTo: 'root'
+                        },
+                        displayName: 'Category'
+                    },
+                    resolve: {
+                        mealsPrepService: mealsPrepService
+                    }
+                })
+                .state('newMeal', {
+                    url: '/newMeal',
+                    templateUrl: './app/GlobalAdmin/meal/templates/new.html',
+                    controller: 'newMealController',
+                    'controllerAs': 'newMealCtrl',
+                    data: {
+                        permissions: {
+                            only: ['RestaurantAdmin'],
+                            redirectTo: 'root'
+                        },
+                        displayName: 'meals'
+                    },
+                    resolve: {
+                      //  defaultmealsPrepService: defaultmealsPrepService,
+                    }
+                })
+                .state('editMeal', {
+                    url: '/meals/:mealId',
+                    templateUrl: './app/GlobalAdmin/meal/templates/edit.html',
+                    controller: 'editMealController',
+                    'controllerAs': 'editMealCtrl',
+                    data: {
+                        permissions: {
+                            only: ['RestaurantAdmin'],
+                            redirectTo: 'root'
+                        },
+                        displayName: 'meals'
+                    },
+                    resolve: {
+                        mealPrepService: mealPrepService,
+                    }
+                })
+
                 .state('Dashboard', {
                     url: '/Dashboard',
                     templateUrl: './app/GlobalAdmin/dashboard/templates/dashboard.html',
@@ -416,7 +464,7 @@
 
     // Program
 
-    
+
 
     /*User */
     userPrepService.$inject = ['UserResource']
@@ -511,7 +559,7 @@
     itemsPrepService.$inject = ['GetItemsResource', '$stateParams']
     function itemsPrepService(GetItemsResource, $stateParams) {
         return GetItemsResource.getAllItems({ CategoryId: $stateParams.categoryId }).$promise;
-    } 
+    }
 
     itemPrepService.$inject = ['ItemResource', '$stateParams']
     function itemPrepService(ItemResource, $stateParams) {
@@ -522,6 +570,26 @@
     function defaultItemsPrepService(GetItemNamesResource, $stateParams, $localStorage, appCONSTANTS) {
         if ($localStorage.language != appCONSTANTS.defaultLanguage) {
             return GetItemNamesResource.getAllItemNames({ CategoryId: $stateParams.categoryId, lang: appCONSTANTS.defaultLanguage }).$promise;
+        }
+        else
+            return null;
+    }
+
+    /*Meals */
+    mealsPrepService.$inject = ['GetMealsResource', '$stateParams']
+    function mealsPrepService(GetMealsResource, $stateParams) {
+        return GetMealsResource.getAllMeals( ).$promise;
+    }
+
+    mealPrepService.$inject = ['MealResource', '$stateParams']
+    function mealPrepService(MealResource, $stateParams) {
+        return MealResource.getMeal({ mealId: $stateParams.mealId }).$promise;
+    }
+
+    defaultMealsPrepService.$inject = ['GetMealNamesResource', '$stateParams', '$localStorage', 'appCONSTANTS']
+    function defaultMealsPrepService(GetMealNamesResource, $stateParams, $localStorage, appCONSTANTS) {
+        if ($localStorage.language != appCONSTANTS.defaultLanguage) {
+            return GetMealNamesResource.getAllMealNames( {lang: appCONSTANTS.defaultLanguage }).$promise;
         }
         else
             return null;

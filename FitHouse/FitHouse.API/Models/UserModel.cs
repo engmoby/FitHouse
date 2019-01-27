@@ -5,8 +5,9 @@ namespace FitHouse.API.Models
 {
     public class UserModel
     {
-        public long UserId { get; set; } 
-
+        public long UserId { get; set; }
+        public string UserCode { get; set; }
+        public long Code { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public string Email { get; set; }
@@ -14,6 +15,9 @@ namespace FitHouse.API.Models
         public string Phone { get; set; } 
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
+
+        public bool IsAdmin { get; set; }
+        public bool IsDefaultPassword { get; set; }
         public bool IsStatic { get; set; }
         public DateTime? LastModificationTime { get; set; }
         public long? LastModifierUserId { get; set; }

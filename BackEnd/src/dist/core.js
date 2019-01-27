@@ -61,8 +61,8 @@
 	angular
 		.module('core')
 		.constant('appCONSTANTS', {
-			'API_URL': 'http://localhost:32569/api/', 
-			//'API_URL': 'https://surveyv2-testing.azurewebsites.net/api/',
+			'API_URL': 'http://localhost:32569/api/',
+			//'API_URL': 'http:192.168.1.18:80/api/',
 			'defaultLanguage': 'en',
 			'supportedLanguage': {
 				'en': { 'key': 'en', 'value': 'english' },
@@ -968,6 +968,10 @@ angular.module('core')
         function loginFailed(response) {
             $scope.afterSubmit = true;
 
+            if (response.data == null) {
+                $scope.invalidLoginInfo = false;
+                $scope.inActiveUser = true;
+            }
             // $scope.invalidLoginInfo = true;
             if (response) {
                 if (response.data.error == "invalid grant") {
@@ -978,10 +982,6 @@ angular.module('core')
                     $scope.invalidLoginInfo = false;
                     $scope.inActiveUser = true;
                 }
-            }
-            if (response == null) {
-                $scope.invalidLoginInfo = false;
-                $scope.inActiveUser = true;
             }
         }
 

@@ -8,7 +8,8 @@ namespace FitHouse.BLL.DTOs
         public long BranchId { get; set; }
         public Dictionary<string, string> TitleDictionary { get; set; }
         public long AreaId { get; set; }
-        
+      // public AreaDto Area { get; set; }
+
         public bool IsDeleted { get; set; }
         public DateTime? LastModificationTime { get; set; }
         public long? LastModifierUserId { get; set; }

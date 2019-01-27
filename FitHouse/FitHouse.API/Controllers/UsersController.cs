@@ -48,8 +48,7 @@ namespace FitHouse.API.Controllers
             var getAllDataForuser = _userService.GetAllUsers(page, pagesize);
             var userList = Mapper.Map<List<UserModel>>(getAllDataForuser.Data); 
             PagedResultsDto results = new PagedResultsDto();
-            results.TotalCount = getAllDataForuser.TotalCount;
-            //results.Data = Mapper.Map<List<UserModel>, List<UserDto>>(userList); 
+            results.TotalCount = getAllDataForuser.TotalCount; 
             return PagedResponse("GetAllUsers", Page, PageSize, results.TotalCount, userList ); 
         }
          

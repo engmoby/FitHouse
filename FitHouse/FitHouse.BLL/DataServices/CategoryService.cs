@@ -21,8 +21,8 @@ namespace FitHouse.BLL.DataServices
             var query = Queryable().Where(x => !x.IsDeleted  ).OrderBy(x => x.CategoryId);
             PagedResultsDto results = new PagedResultsDto();
             results.TotalCount = query.Select(x => x).Count();
-
-            results.Data = Mapper.Map<List<Category>, List<CategoryDto>>(query.OrderBy(x => x.CategoryId).Skip((page - 1) * pageSize).Take(pageSize).ToList());
+            var getList = query.OrderBy(x => x.CategoryId).Skip((page - 1) * pageSize).Take(pageSize).ToList();
+            results.Data = Mapper.Map<List<Category>, List<CategoryDto>>(getList);
 
             return results;
         }

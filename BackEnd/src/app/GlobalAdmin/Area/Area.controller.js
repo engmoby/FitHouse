@@ -21,6 +21,7 @@
         var vm = this;
         $scope.totalCount = AreaPrepService.totalCount;
         $scope.AreaList = AreaPrepService;
+        console.log($scope.AreaList);
         $scope.countryName = RegionByIdPrepService.countryNameDictionary[$scope.selectedLanguage];
         $scope.regionName = RegionByIdPrepService.titleDictionary[$scope.selectedLanguage];
         $scope.cityName = CityByIdPrepService.titleDictionary[$scope.selectedLanguage];

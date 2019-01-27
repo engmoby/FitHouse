@@ -277,7 +277,7 @@ h2.typo-fill-secondary{ color:rgba(77, 87, 93, 0.68); font-size:22px;}
 .pmd-sidebar .pmd-sidebar-nav li a { color:#c8c8c8; font-size:15px; font-family:"Roboto"; padding: 18px 24px; transition: all 0.5s ease; -moz-transition: all 0.5s ease; -webkit-transition: all 0.5s ease;}
 .pmd-sidebar .pmd-sidebar-nav li a i { min-width:44px; text-align:center;}
 .pmd-sidebar .pmd-sidebar-nav a i svg {display: block; margin: 0 auto;}
-.pmd-sidebar-left .nav > li > a:hover, .pmd-sidebar-left .nav > li > a:focus, .pmd-sidebar-left .nav > li > a:active, .pmd-sidebar-left .nav > li > a.active { background-color:#1a2940; color:#fff;}
+.pmd-sidebar-left .nav > li > a:hover, .pmd-sidebar-left .nav > li > a:focus, .pmd-sidebar-left .nav > li > a:active, .pmd-sidebar-left .nav > li > a.active { background-color:purple; color:#fff;}
 .pmd-sidebar-left .nav > li > a:hover svg path, .pmd-sidebar-left .nav > li > a:focus svg path, .pmd-sidebar-left .nav > li > a:active svg path, .pmd-sidebar-left .nav > li > a.active svg path, .pmd-sidebar-left .nav > li > a:hover svg, .pmd-sidebar-left .nav > li > a:focus svg, .pmd-sidebar-left .nav > li > a:active svg, .pmd-sidebar-left .nav > li > a.active svg  { fill: #fff;}
 .pmd-sidebar.pmd-sidebar-open{ width:274px; min-width:274px;}
 .pmd-sidebar-slide-push.pmd-sidebar-open ~ .wrapper .constructor, .pmd-sidebar-slide-push.pmd-sidebar-open ~ .pmd-content { margin-left:274px;}

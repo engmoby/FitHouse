@@ -7,16 +7,19 @@
             'userPrepService', 'RoleResource', 'RolePrepService', '$localStorage', 'authorizationService', 'appCONSTANTS',
             'ToastService', 'CountriesPrepService', 'RegionResource', 'CityResource', 'AreaResource', userController]);
 
-    function userController($rootScope, blockUI, $scope, $filter, $translate, $state, UserResource,   userPrepService,
+    function userController($rootScope, blockUI, $scope, $filter, $translate, $state, UserResource, userPrepService,
         RoleResource, RolePrepService, $localStorage, authorizationService, appCONSTANTS, ToastService, CountriesPrepService,
         RegionResource, CityResource, AreaResource) {
 
         $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[5].children[0]).addClass("active")
-
-        blockUI.start("Loading...");
+        $($('.pmd-sidebar-nav').children()[4].children[0]).addClass("active")
 
         var vm = this;
+        blockUI.start("Loading...");
+        vm.close = function () {
+            debugger;
+            $state.go('users');
+        }
         // vm.area = [];
         // vm.area.push({ areaId: 0, titleDictionary: { "en": "Select Area", "ar": "اختار منطقه" } });
         // vm.selectedAreaId = 0;
@@ -25,10 +28,10 @@
         vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
         vm.selectedCountryId = 0;
         vm.counties = vm.counties.concat(CountriesPrepService.results)
-       
+
         $scope.totalCount = userPrepService.totalCount;
         $scope.userList = userPrepService.results;
-        $scope.roleList = RolePrepService.results; 
+        $scope.roleList = RolePrepService.results;
         console.log(userPrepService);
 
         $scope.phoneNumbr = /^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/;
@@ -48,7 +51,7 @@
             vm.regions = [];
             vm.cities = [];
             vm.area = [];
-    vm.categoryList = [];
+            vm.categoryList = [];
         }
         vm.departmentChange = function () {
             vm.department.splice(0, 1);
@@ -161,7 +164,7 @@
                     ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
                 });
         }
- 
+
 
         $scope.AddNewclient = function () {
             blockUI.start("Loading...");
@@ -175,10 +178,7 @@
             newClient.IsActive = true;
             newClient.UserTypeId = $scope.selectedType.userTypeId;
             newClient.UserRoles = vm.selectedUserRoles;
-            newClient.departmentId = vm.selectedDepartmentId > 0 ? vm.selectedDepartmentId : null;
-            newClient.areaId = vm.selectedAreaId > 0 ? vm.selectedAreaId : null;
-            newClient.cateoriesId = vm.selectedCategoryId;
-            newClient.branchesId = vm.selectedBranchId;
+            newClient.branchId = vm.selectedBranchId;
             newClient.$create().then(
                 function (data, status) {
                     blockUI.stop();
@@ -203,6 +203,34 @@
         }
 
         blockUI.stop();
+
+
+
+        function change(user, isDeleted) { 
+            debugger;
+            var updateObj = new UserResource();
+            updateObj.userId = user.userId;
+            if (!isDeleted)
+                updateObj.isActive = (user.isActive == true ? false : true);
+            updateObj.isDeleted = user.isDeleted;
+
+            updateObj.$update().then(
+                function (data, status) { 
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    user.isActive = updateObj.isActive;
+
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+
+        }
+        vm.UpdateUser = function (user) {
+            change(user, false);
+        }
+
+
 
     }
 
