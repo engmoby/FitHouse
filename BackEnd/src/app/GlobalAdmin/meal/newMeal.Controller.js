@@ -3,41 +3,76 @@
 
 	angular
 		.module('home')
-		.controller('newMealController', ['$scope', '$translate', '$http', '$stateParams', 'appCONSTANTS', '$state', 'ToastService', 'TranslateMealResource', newMealController])
+		.controller('newMealController', ['$scope', '$translate', '$http', '$stateParams', 'appCONSTANTS', '$state', 'ToastService', 'itemsssPrepService', newMealController])
 
-	function newMealController($scope, $translate, $http, $stateParams, appCONSTANTS, $state, ToastService, TranslateMealResource) {
+	function newMealController($scope, $translate, $http, $stateParams, appCONSTANTS, $state, ToastService, itemsssPrepService) {
 		var vm = this;
-
+		vm.itemsList = itemsssPrepService;
 		vm.language = appCONSTANTS.supportedLanguage;
-
-		vm.close = function () {
-			$state.go('Meals', { categoryId: $stateParams.categoryId });
-		}
+		$scope.selectedItemList = [];
 
 		vm.isChanged = false;
+		vm.itemModel = "";
 
+		vm.close = function () {
+			$state.go('Meal');
+		}
+		$scope.sum = function (items, prop) {
+			return items.reduce(function (a, b) {
+				return a + b[prop];
+			}, 0);
+		};
+		vm.addItemToList = function (model) {
+
+			vm.carbs = $scope.sum(model, 'carbs');
+			vm.calories = $scope.sum(model, 'calories');
+			vm.protein = $scope.sum(model, 'protein');
+			vm.cost = $scope.sum(model, 'cost');
+			vm.price = $scope.sum(model, 'price');
+			vm.vat = $scope.sum(model, 'vat');
+			vm.totalPrice = $scope.sum(model, 'totalPrice');
+			$scope.selectedItemList = model;
+			calclulateWithDicscount();
+		}
+		function calclulateWithDicscount() {
+			var vatPresantage = (vm.price * vm.vat) / 100;
+			var discountPresantage = vm.price * vm.mealDiscount / 100;
+			if (vm.mealDiscount == null)
+				vm.totalPrice = vm.price + vatPresantage;
+			else
+				vm.totalPrice = vm.price + vatPresantage - discountPresantage;
+
+			console.log(vatPresantage);
+			console.log(discountPresantage);
+
+		}
 		vm.calclulate = function () {
-			var vatPresantage = vm.price * vm.vat / 100;
-			vm.totalPrice = vm.price + vatPresantage;
+			calclulateWithDicscount();
+
 		}
 		vm.addNewMeal = function () {
+			vm.sendSelected = [];
 			vm.isChanged = true;
-
 			var newMeal = new Object();
 			newMeal.mealNameDictionary = vm.mealNameDictionary;
 			newMeal.mealDescriptionDictionary = vm.mealDescriptionDictionary;
-			newMeal.categoryId = $stateParams.categoryId;
-			newMeal.mealSize = vm.mealSize;
-			newMeal.carbs = vm.carbs;
-			newMeal.calories = vm.calories;
-			newMeal.protein = vm.protein;
-			newMeal.cost = vm.cost;
-			newMeal.price = vm.price;
-			newMeal.vat = vm.vat;
-			newMeal.totalPrice = vm.totalPrice;
+
+			newMeal.mealPrice = vm.totalPrice;
+			if (vm.mealDiscount == null)
+				newMeal.mealDiscount = 0;
+			else
+				newMeal.mealDiscount = vm.mealDiscount;
+
 			newMeal.isActive = true;
-
-
+			debugger;
+			$scope.selectedItemList.forEach(element => {
+				vm.sendSelected.push(
+					{
+						itemId: element.itemId
+					}
+				);
+			});
+			newMeal.MealDetail = vm.sendSelected;
 			var model = new FormData();
 			model.append('data', JSON.stringify(newMeal));
 			model.append('file', mealImage);
@@ -50,7 +85,7 @@
 			}).then(
 				function (data, status) {
 					ToastService.show("right", "bottom", "fadeInUp", $translate.instant('mealAddSuccess'), "success");
-					$state.go('Meals', { categoryId: $stateParams.categoryId });
+					$state.go('Meal');
 					vm.isChanged = false;
 
 				},

@@ -32,7 +32,7 @@ namespace FitHouse.API.Controllers
             _itemFacade = itemFacade;
             _programDetailService = programDetailService;
         }
-        //  [AuthorizeRoles(Enums.RoleType.RestaurantAdmin)]
+        //  [AuthorizeOrders(Enums.OrderType.RestaurantAdmin)]
         [Route("api/Items", Name = "AddItem")]
         [HttpPost]
         public IHttpActionResult AddItem()
@@ -85,7 +85,7 @@ namespace FitHouse.API.Controllers
             return Ok(items);
         }
 
-        // [AuthorizeRoles(Enums.RoleType.RestaurantAdmin,Enums.RoleType.User)]
+        // [AuthorizeOrders(Enums.OrderType.RestaurantAdmin,Enums.OrderType.User)]
         [Route("api/Items/{itemId:long}", Name = "GetItem")]
         [HttpGet]
         [ResponseType(typeof(ItemModel))]
@@ -96,7 +96,7 @@ namespace FitHouse.API.Controllers
             return Ok(item);
         }
 
-        //[AuthorizeRoles(Enums.RoleType.RestaurantAdmin)]
+        //[AuthorizeOrders(Enums.OrderType.RestaurantAdmin)]
         [Route("api/Items", Name = "UpdateItem")]
         [HttpPut]
         public IHttpActionResult UpdateItem()
@@ -133,7 +133,7 @@ namespace FitHouse.API.Controllers
             return Ok();
         }
 
-        //  [AuthorizeRoles(Enums.RoleType.RestaurantAdmin)]
+        //  [AuthorizeOrders(Enums.OrderType.RestaurantAdmin)]
         [Route("api/Items/{itemId:long}", Name = "DeleteItem")]
         [HttpDelete]
         public IHttpActionResult DeleteItem(long itemId)
@@ -142,7 +142,7 @@ namespace FitHouse.API.Controllers
             return Ok();
         }
 
-        //  [AuthorizeRoles(Enums.RoleType.RestaurantAdmin)]
+        //  [AuthorizeOrders(Enums.OrderType.RestaurantAdmin)]
         [Route("api/Items/Translate", Name = "TranslateItem")]
         [HttpPut]
         public IHttpActionResult TranslateItem([FromBody] ItemModel itemModel)
@@ -153,7 +153,7 @@ namespace FitHouse.API.Controllers
 
 
 
-        //   [AuthorizeRoles(Enums.RoleType.RestaurantAdmin)]
+        //   [AuthorizeOrders(Enums.OrderType.RestaurantAdmin)]
         [Route("api/Items/{itemId:long}/Activate", Name = "ActivateItem")]
         [HttpGet]
         public IHttpActionResult ActivateItem(long itemId)
@@ -162,7 +162,7 @@ namespace FitHouse.API.Controllers
             return Ok();
         }
 
-        //  [AuthorizeRoles(Enums.RoleType.RestaurantAdmin)]
+        //  [AuthorizeOrders(Enums.OrderType.RestaurantAdmin)]
         [Route("api/Items/{itemId:long}/DeActivate", Name = "DeActivateItem")]
         [HttpGet]
         public IHttpActionResult DeActivateItem(long itemId)

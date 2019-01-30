@@ -60,8 +60,18 @@ namespace FitHouse.API
             mapperConfiguration.CreateMap<DayDto, DayModel>().ReverseMap();
 
 
+            mapperConfiguration.CreateMap<OrderModel, OrderDto>();
+            mapperConfiguration.CreateMap<OrderDto, OrderModel>();
+
+
+            mapperConfiguration.CreateMap<OrderDetailsModel, OrderDetailDto>();
+            mapperConfiguration.CreateMap<OrderDetailDto, OrderDetailsModel>();
+
+            mapperConfiguration.CreateMap<AddressModel, AddressDto>();
+            mapperConfiguration.CreateMap<AddressDto, AddressModel>();
+
             mapperConfiguration.CreateMap<MealDto, MealModel>().ReverseMap(); 
-            mapperConfiguration.CreateMap<MealDetailDto, MealModel>().ReverseMap();
+            mapperConfiguration.CreateMap<MealDetailDto, MealDetailModel>().ReverseMap();
 
             FitHouseBllConfig.RegisterMappings(mapperConfiguration);
 

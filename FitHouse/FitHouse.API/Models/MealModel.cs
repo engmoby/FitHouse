@@ -28,7 +28,7 @@ namespace FitHouse.API.Models
       
         public bool IsImageChange { get; set; } 
         public long MealDiscount { get; set; }
-        public List<MealDetailModel> MealDetail { get; set; }
+        public List<MealDetailModel> MealDetails { get; set; }
 
     }
 }

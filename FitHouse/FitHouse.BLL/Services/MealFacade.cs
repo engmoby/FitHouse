@@ -17,58 +17,65 @@ namespace FitHouse.BLL.Services
     {
         private readonly ICategoryService _categoryService;
         private readonly IMealservice _Mealservice;
-        private readonly IMealTranslationService _MealTranslationService;
+        private readonly IMealTranslationService _mealTranslationService;
         private readonly IMealDetailsService _mealDetailsService;
-        private readonly IManageStorage _manageStorage;
-        private IProgramDetailService _programDetailService;
-        public MealFacade(ICategoryService categoryService, IMealservice Mealservice, IMealTranslationService MealTranslationService, IManageStorage manageStorage,
-             IUnitOfWorkAsync unitOfWork, IProgramDetailService programDetailService, IMealDetailsService mealDetailsService) : base(unitOfWork)
+        private readonly IManageStorage _manageStorage; 
+        private readonly IOrderDetailsService _orderDetailsService;
+        public MealFacade(ICategoryService categoryService, IMealservice mealservice, IMealTranslationService mealTranslationService, IManageStorage manageStorage,
+             IUnitOfWorkAsync unitOfWork,   IMealDetailsService mealDetailsService, IOrderDetailsService orderDetailsService) : base(unitOfWork)
         {
             _categoryService = categoryService;
-            _Mealservice = Mealservice;
-            _MealTranslationService = MealTranslationService;
-            _manageStorage = manageStorage;
-            _programDetailService = programDetailService;
+            _Mealservice = mealservice;
+            _mealTranslationService = mealTranslationService;
+            _manageStorage = manageStorage; 
             _mealDetailsService = mealDetailsService;
+            _orderDetailsService = orderDetailsService;
         }
 
-        public MealFacade(ICategoryService categoryService, IMealservice Mealservice, IMealTranslationService MealTranslationService, IManageStorage manageStorage,
-               IProgramDetailService programDetailService, IMealDetailsService mealDetailsService)
+        public MealFacade(ICategoryService categoryService, IMealservice Mealservice, IMealTranslationService MealTranslationService, IManageStorage manageStorage, IMealDetailsService mealDetailsService, IOrderDetailsService orderDetailsService)
         {
             _categoryService = categoryService;
             _Mealservice = Mealservice;
-            _MealTranslationService = MealTranslationService;
-            _manageStorage = manageStorage;
-            _programDetailService = programDetailService;
+            _mealTranslationService = MealTranslationService;
+            _manageStorage = manageStorage; 
             _mealDetailsService = mealDetailsService;
+            _orderDetailsService = orderDetailsService;
         }
 
 
         public void AddMeal(MealDto MealDto, string path)
         {
-            var category = _categoryService.Find(MealDto.CategoryId);
-            if (category == null) throw new NotFoundException(ErrorCodes.CategoryNotFound);
-            if (category.IsDeleted) throw new ValidationException(ErrorCodes.CategoryDeleted);
+            //var category = _categoryService.Find(MealDto.CategoryId);
+            //if (category == null) throw new NotFoundException(ErrorCodes.CategoryNotFound);
+            //if (category.IsDeleted) throw new ValidationException(ErrorCodes.CategoryDeleted);
             ValidateMeal(MealDto);
-            var Meal = Mapper.Map<Meal>(MealDto);
-            foreach (var MealName in MealDto.MealNameDictionary)
+            var meal = Mapper.Map<Meal>(MealDto);
+            foreach (var mealName in MealDto.MealNameDictionary)
             {
-                Meal.MealTranslations.Add(new MealTranslation
+                meal.MealTranslations.Add(new MealTranslation
                 {
-                    Title = MealName.Value,
-                    Description = MealDto.MealDescriptionDictionary[MealName.Key],
-                    Language = MealName.Key.ToLower()
+                    Title = mealName.Value,
+                    Description = MealDto.MealDescriptionDictionary[mealName.Key],
+                    Language = mealName.Key.ToLower()
                 });
             }
-            Meal.MealDetails
-                .ForEach(x => _mealDetailsService.Insert(x));
-            _MealTranslationService.InsertRange(Meal.MealTranslations);
-            _Mealservice.Insert(Meal);
+            foreach (var roleper in MealDto.MealDetails)
+            {
+
+                meal.MealDetails.Add(new MealDetail
+                {
+                    ItemId = roleper.ItemId
+                });
+            }
+             
+            _mealDetailsService.InsertRange(meal.MealDetails);
+            _mealTranslationService.InsertRange(meal.MealTranslations);
+            _Mealservice.Insert(meal);
 
             SaveChanges();
             if (MealDto.Image != null)
             {
-                _manageStorage.UploadImage(path + "Meals", MealDto.Image, Meal.MealId + "-1");
+                _manageStorage.UploadImage(path + "Meals", MealDto.Image, meal.MealId + "-1");
             }
         }
 
@@ -77,30 +84,30 @@ namespace FitHouse.BLL.Services
             var Meal = _Mealservice.Find(MealId);
             if (Meal == null) throw new NotFoundException(ErrorCodes.MealNotFound);
             if (Meal.IsDeleted) throw new NotFoundException(ErrorCodes.MealDeleted);
-            var MealDto = Mapper.Map<MealDto>(Meal);
-            var MealTranslation = Meal.MealTranslations.FirstOrDefault(x => x.Language.ToLower() == language.ToLower());
-            MealDto.MealName = MealTranslation.Title;
-            MealDto.MealDescription = MealTranslation.Description;
-            return MealDto;
+            var mealDto = Mapper.Map<MealDto>(Meal);
+          //  var MealTranslation = Meal.MealTranslations.FirstOrDefault(x => x.Language.ToLower() == language.ToLower());
+            //MealDto.MealName = MealTranslation.Title;
+            //MealDto.MealDescription = MealTranslation.Description;
+            return mealDto;
         }
 
-        private void ValidateMeal(MealDto MealDto)
+        private void ValidateMeal(MealDto mealDto)
         {
-            foreach (var MealName in MealDto.MealNameDictionary)
+            foreach (var mealName in mealDto.MealNameDictionary)
             {
-                if (string.IsNullOrEmpty(MealName.Value))
+                if (string.IsNullOrEmpty(mealName.Value))
                     throw new ValidationException(ErrorCodes.EmptyMealName);
-                if (string.IsNullOrEmpty(MealDto.MealDescriptionDictionary[MealName.Key]))
+                if (string.IsNullOrEmpty(mealDto.MealDescriptionDictionary[mealName.Key]))
                     throw new ValidationException(ErrorCodes.EmptyMealDescription);
-                if (MealName.Value.Length > 100)
+                if (mealName.Value.Length > 100)
                     throw new ValidationException(ErrorCodes.MealNameExceedLength);
-                if (_MealTranslationService.CheckMealNameExist(MealName.Value, MealName.Key, MealDto.MealId)) throw new ValidationException(ErrorCodes.MealNameAlreadyExist);
+                if (_mealTranslationService.CheckMealNameExist(mealName.Value, mealName.Key, mealDto.MealId)) throw new ValidationException(ErrorCodes.MealNameAlreadyExist);
             }
         }
 
         public PagedResultsDto GetAllMeals(string language, int page, int pageSize)
         {
-            var results = _MealTranslationService.GetAllMeals(language, page, pageSize);
+            var results = _mealTranslationService.GetAllMeals(language, page, pageSize);
             return results;
         }
 
@@ -109,7 +116,7 @@ namespace FitHouse.BLL.Services
             var category = _categoryService.Find(categoryId);
             if (category == null) throw new NotFoundException(ErrorCodes.CategoryNotFound);
             if (category.IsDeleted) throw new ValidationException(ErrorCodes.CategoryDeleted);
-            var results = _MealTranslationService.GetActivatedMeals(language, page, pageSize);
+            var results = _mealTranslationService.GetActivatedMeals(language, page, pageSize);
             return results;
         }
 
@@ -136,11 +143,11 @@ namespace FitHouse.BLL.Services
 
             if (!Meal.IsActive)
             {
-                //var checkIfUsed = _programDetailService.Queryable().Where(x => x.MealId == Meal.MealId);
-                //if (checkIfUsed.Any())
-                //{
-                //    throw new ValidationException(ErrorCodes.RecordIsUsedInAnotherModule);
-                //}
+                var checkIfUsed = _orderDetailsService.Queryable().Where(x => x.MealId == Meal.MealId);
+                if (checkIfUsed.Any())
+                {
+                    throw new ValidationException(ErrorCodes.RecordIsUsedInAnotherModule);
+                }
             }
 
 
@@ -148,100 +155,107 @@ namespace FitHouse.BLL.Services
             SaveChanges();
         }
 
-        public void DeleteMeal(long MealId)
+        public void DeleteMeal(long mealId)
         {
-            var Meal = _Mealservice.Find(MealId);
-            if (Meal == null) throw new NotFoundException(ErrorCodes.MealNotFound);
-            Meal.IsDeleted = true;
+            var meal = _Mealservice.Find(mealId);
+            if (meal == null) throw new NotFoundException(ErrorCodes.MealNotFound);
+            meal.IsDeleted = true;
 
-            if (Meal.IsDeleted)
+            if (meal.IsDeleted)
             {
-                //var checkIfUsed = _programDetailService.Queryable().Where(x => x.MealId == Meal.MealId);
-                //if (checkIfUsed.Any())
-                //{
-                //    throw new ValidationException(ErrorCodes.RecordIsUsedInAnotherModule);
-                //}
+                var checkIfUsed = _orderDetailsService.Queryable().Where(x => x.MealId == meal.MealId);
+                if (checkIfUsed.Any())
+                {
+                    throw new ValidationException(ErrorCodes.RecordIsUsedInAnotherModule);
+                }
             }
 
-            Meal.IsActive = false;
-            _Mealservice.Update(Meal);
+            meal.IsActive = false;
+            _Mealservice.Update(meal);
             SaveChanges();
         }
 
-        public void UpdateMeal(MealDto MealDto, string path)
+        public void UpdateMeal(MealDto mealDto, string path)
         {
-            var Meal = _Mealservice.Find(MealDto.MealId);
-            if (Meal == null) throw new NotFoundException(ErrorCodes.MealNotFound);
-            ValidateMeal(MealDto);
+            var meal = _Mealservice.Find(mealDto.MealId);
+            if (meal == null) throw new NotFoundException(ErrorCodes.MealNotFound);
+            ValidateMeal(mealDto);
 
-            foreach (var MealName in MealDto.MealNameDictionary)
+            foreach (var mealName in mealDto.MealNameDictionary)
             {
                 var mealTranslation =
-                    Meal.MealTranslations.FirstOrDefault(x => x.Language.ToLower() == MealName.Key.ToLower());
+                    meal.MealTranslations.FirstOrDefault(x => x.Language.ToLower() == mealName.Key.ToLower());
                 if (mealTranslation == null)
                 {
-                    Meal.MealTranslations.Add(new MealTranslation
+                    meal.MealTranslations.Add(new MealTranslation
                     {
-                        Language = MealName.Key.ToLower(),
-                        Title = MealName.Value,
-                        Description = MealDto.MealDescriptionDictionary[MealName.Key]
+                        Language = mealName.Key.ToLower(),
+                        Title = mealName.Value,
+                        Description = mealDto.MealDescriptionDictionary[mealName.Key]
                     });
                 }
                 else
                 {
-                    mealTranslation.Title = MealName.Value;
-                    mealTranslation.Description = MealDto.MealDescriptionDictionary[MealName.Key];
+                    mealTranslation.Title = mealName.Value;
+                    mealTranslation.Description = mealDto.MealDescriptionDictionary[mealName.Key];
                 }
             }
-            //Meal.Calories = MealDto.Calories;
-            //Meal.Mealsize = MealDto.Mealsize;
-            //Meal.Protein = MealDto.Protein;
-            //Meal.Carbs = MealDto.Carbs;
-            //Meal.Cost = MealDto.Cost;
-            //Meal.VAT = MealDto.VAT;
-            //Meal.Price = MealDto.Price;
-            //Meal.TotalPrice = MealDto.TotalPrice;
-            _Mealservice.Update(Meal);
-            SaveChanges();
-            if (MealDto.IsImageChange)
-                _manageStorage.UploadImage(path + "\\" + "Meals", MealDto.Image, Meal.MealId + "-1");
+            var deletePermissions = new MealDetail[meal.MealDetails.Count];
+            meal.MealDetails.CopyTo(deletePermissions, 0);
 
-        }
-
-        public void TranslateMeal(MealDto MealDto, string language)
-        {
-            ValidateTranslateMeal(MealDto, language);
-            var Meal = _Mealservice.Find(MealDto.MealId);
-            if (Meal == null) throw new NotFoundException(ErrorCodes.MealNotFound);
-            var MealTranslation = Meal.MealTranslations.FirstOrDefault(x => x.Language.ToLower() == language.ToLower());
-            if (MealTranslation == null)
+            foreach (var mealRolePermission in deletePermissions)
             {
-                Meal.MealTranslations.Add(new MealTranslation
+                _mealDetailsService.Delete(mealRolePermission);
+
+            }
+            foreach (var roleper in mealDto.MealDetails)
+            {
+                meal.MealDetails.Add(new MealDetail
                 {
-                    Language = language,
-                    Title = MealDto.MealName,
-                    Description = MealDto.MealDescription
+                    ItemId = roleper.ItemId 
                 });
             }
-            else
-            {
-                MealTranslation.Title = MealDto.MealName;
-                MealTranslation.Description = MealDto.MealDescription;
-            }
-
-            _Mealservice.Update(Meal);
+            _Mealservice.Update(meal);
             SaveChanges();
+            if (mealDto.IsImageChange)
+                _manageStorage.UploadImage(path + "\\" + "Meals", mealDto.Image, meal.MealId + "-1");
+
         }
-        private void ValidateTranslateMeal(MealDto MealDto, string language)
-        {
-            if (string.IsNullOrEmpty(MealDto.MealName))
-                throw new ValidationException(ErrorCodes.EmptyMealName);
-            if (string.IsNullOrEmpty(MealDto.MealDescription))
-                throw new ValidationException(ErrorCodes.EmptyMealDescription);
-            if (MealDto.MealName.Length > 100)
-                throw new ValidationException(ErrorCodes.MealNameExceedLength);
-            if (_MealTranslationService.CheckMealNameExist(MealDto.MealName, language, MealDto.MealId))
-                throw new ValidationException(ErrorCodes.MealNameAlreadyExist);
-        }
+
+        //public void TranslateMeal(MealDto MealDto, string language)
+        //{
+        //    ValidateTranslateMeal(MealDto, language);
+        //    var Meal = _Mealservice.Find(MealDto.MealId);
+        //    if (Meal == null) throw new NotFoundException(ErrorCodes.MealNotFound);
+        //    var MealTranslation = Meal.MealTranslations.FirstOrDefault(x => x.Language.ToLower() == language.ToLower());
+        //    if (MealTranslation == null)
+        //    {
+        //        Meal.MealTranslations.Add(new MealTranslation
+        //        {
+        //            Language = language,
+        //            Title = MealDto.MealName,
+        //            Description = MealDto.MealDescription
+        //        });
+        //    }
+        //    else
+        //    {
+        //        MealTranslation.Title = MealDto.MealName;
+        //        MealTranslation.Description = MealDto.MealDescription;
+        //    }
+
+        //    _Mealservice.Update(Meal);
+        //    SaveChanges();
+        //}
+        //private void ValidateTranslateMeal(MealDto MealDto, string language)
+        //{
+        //    if (string.IsNullOrEmpty(MealDto.MealName))
+        //        throw new ValidationException(ErrorCodes.EmptyMealName);
+        //    if (string.IsNullOrEmpty(MealDto.MealDescription))
+        //        throw new ValidationException(ErrorCodes.EmptyMealDescription);
+        //    if (MealDto.MealName.Length > 100)
+        //        throw new ValidationException(ErrorCodes.MealNameExceedLength);
+        //    if (_mealTranslationService.CheckMealNameExist(MealDto.MealName, language, MealDto.MealId))
+        //        throw new ValidationException(ErrorCodes.MealNameAlreadyExist);
+        //}
     }
 }

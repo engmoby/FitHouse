@@ -4,7 +4,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '<div>\n' +
     '        <div ncy-breadcrumb></div>  \n' +
     '    <div style="margin-bottom:10px">\n' +
-    '        <button ng-click="$state.go(\'newArea\',{countryId: $stateParams.countryId,regionId: $stateParams.regionId,cityId:$stateParams.cityId});" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'AddNew\' | translate}}</button>\n' +
+    '        <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-click="$state.go(\'newArea\',{countryId: $stateParams.countryId,regionId: $stateParams.regionId,cityId:$stateParams.cityId});" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'AddNew\' | translate}}</button>\n' +
     '\n' +
     '    </div> \n' +
     '    <div ng-if="AreaList.results.length == 0">\n' +
@@ -29,7 +29,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                        <p ng-show="Area.isStatic"> Static</p>\n' +
     '                    </td> -->\n' +
     '                    <td>\n' +
-    '                        <button ng-click="$state.go(\'newBranch\',{countryId: $stateParams.countryId,regionId: $stateParams.regionId,cityId:$stateParams.cityId,areaId: Area.areaId});" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'AddNewBranch\' | translate}}</button>\n' +
+    '                        <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="Area.branches.length != 0" ng-click="$state.go(\'newBranch\',{countryId: $stateParams.countryId,regionId: $stateParams.regionId,cityId:$stateParams.cityId,areaId: Area.areaId});" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'AddNewBranch\' | translate}}</button>\n' +
     '                        <span href="javascript:void(0);" ng-click="Area.show=!Area.show;AreaCtrl.showMore($event)" ng-show="Area.branches.length != 0"\n' +
     '                              class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm child-table-expand direct-expand"><i class="material-icons md-dark pmd-sm"></i></span>\n' +
     '                    </td>\n' +
@@ -115,7 +115,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '		</form>\n' +
     '	</div>\n' +
     '	<div class="pmd-modal-action text-right">\n' +
-    '		<button ng-disabled="editTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editAreaCtrl.UpdateArea()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '		<button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="editTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editAreaCtrl.UpdateArea()">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editAreaCtrl.Close()">{{\'DiscardBtn\' | translate}}</button>\n' +
     '	</div>\n' +
     '</div>\n' +
@@ -164,8 +164,107 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '        </form>\n' +
     '    </div>\n' +
     '    <div class="pmd-modal-action text-right">\n' +
-    '        <button ng-disabled="newAreaForm.$invalid" class="btn pmd-ripple-effect btn-primary" Area="button" ng-click="newAreaCtrl.AddNewArea()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '        <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="newAreaForm.$invalid" class="btn pmd-ripple-effect btn-primary" Area="button" ng-click="newAreaCtrl.AddNewArea()">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '        <button class="btn pmd-ripple-effect btn-default" Area="button" ng-click="$state.go(\'Area\',{countryId: $stateParams.countryId,regionId: $stateParams.regionId,cityId:$stateParams.cityId});">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Branch/templates/edit.html',
+    '<div ncy-breadcrumb></div>  \n' +
+    '<div class="modal-content">\n' +
+    '	<div class="modal-header bordered">\n' +
+    '		<h2 class="pmd-card-title-text">{{\'Branch\' | translate}}</h2>\n' +
+    '	</div>\n' +
+    '	<div class="modal-body">\n' +
+    '		<form class="form-horizontal" name="editTypeForm"> \n' +
+    '                <div> \n' +
+    '                    <!-- Nav tabs -->\n' +
+    '                    <ul class="nav nav-tabs" role="tablist">\n' +
+    '                        <li role="presentation" ng-class="{\'active\':$index == 0}" ng-repeat="lang in editBranchCtrl.language">\n' +
+    '                            <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">\n' +
+    '                                {{lang.value | translate}}\n' +
+    '                            </a>\n' +
+    '                        </li> \n' +
+    '                    </ul>\n' +
+    '                    <div class="pmd-card">\n' +
+    '                        <div class="pmd-card-body">\n' +
+    '                            <!-- Tab panes -->\n' +
+    '                            <div class="tab-content">\n' +
+    '                                <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}" ng-repeat="lang in editBranchCtrl.language" id="{{lang.value}}-form">\n' +
+    '                                    <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '                                        <label for="first-name"> {{ lang.value+\'Name\' | translate}} </label>\n' +
+    '                                        <input required type="text" class="mat-input form-control" name="titleDictionary{{lang.value+\'Name\'}}" ng-model="editBranchCtrl.Branch.titleDictionary[lang.key]" ng-minlength="3" ng-maxlength="255">\n' +
+    '                                        <div ng-messages="editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error" >\n' +
+    '                                            \n' +
+    '                                            <div ng-show="editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error.required && !editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '                                            <div ng-show="(editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error.minlength || editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error.maxlength) && !editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error.required">{{\'NameLengthError255\' | translate}}</div>\n' +
+    '                                        </div>\n' +
+    '                                    </div>\n' +
+    '                                </div>\n' +
+    '                            </div> \n' +
+    '                        </div>\n' +
+    '\n' +
+    '                   \n' +
+    '                    </div>\n' +
+    '                </div> \n' +
+    ' \n' +
+    '		</form>\n' +
+    '	</div>\n' +
+    '	<div class="pmd-modal-action text-right">\n' +
+    '		<button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="editTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editBranchCtrl.UpdateBranch()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editBranchCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '	</div>\n' +
+    '</div>\n' +
+    '\n' +
+    '	\n' +
+    '');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Branch/templates/new.html',
+    '<div ncy-breadcrumb></div>  \n' +
+    '<div class="modal-content">\n' +
+    '    <div class="modal-header bordered">\n' +
+    '        <h2 class="pmd-card-title-text">{{\'Branch\' | translate}}</h2>\n' +
+    '    </div>\n' +
+    '    <div class="modal-body">\n' +
+    '        <form class="form-horizontal" name="newBranchForm"> \n' +
+    '            <div> \n' +
+    '                <!-- Nav tabs -->\n' +
+    '                <ul class="nav nav-tabs" role="tablist">\n' +
+    '                    <li role="presentation" ng-class="{\'active\':$index == 0}" ng-repeat="lang in newBranchCtrl.language">\n' +
+    '                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">\n' +
+    '                            {{lang.value | translate}}\n' +
+    '                        </a>\n' +
+    '                    </li> \n' +
+    '                </ul>\n' +
+    '                <div class="pmd-card">\n' +
+    '                    <div class="pmd-card-body">\n' +
+    '                        <!-- Tab panes -->\n' +
+    '                        <div class="tab-content">\n' +
+    '                            <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}" ng-repeat="lang in newBranchCtrl.language" id="{{lang.value}}-form">\n' +
+    '                                <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                                    <label for="first-name"> {{ lang.value+\'Name\' | translate}} </label>\n' +
+    '                                    <input required Branch="text" class="mat-input form-control" name="titleDictionary{{lang.value+\'Name\'}}" ng-model="newBranchCtrl.titleDictionary[lang.key]" ng-minlength="3" ng-maxlength="255">\n' +
+    '                                    <div ng-messages="newBranchForm.titleDictionary{{lang.value+\'Name\'}}.$error" >\n' +
+    '										\n' +
+    '                                        <div ng-show="newBranchForm.titleDictionary{{lang.value+\'Name\'}}.$error.required && !newBranchForm.titleDictionary{{lang.value+\'Name\'}}.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '                                        <div ng-show="(newBranchForm.titleDictionary{{lang.value+\'Name\'}}.$error.minlength || newBranchForm.titleDictionary{{lang.value+\'Name\'}}.$error.maxlength) && !newBranchForm.titleDictionary{{lang.value+\'Name\'}}.$error.required">{{\'NameLengthError255\' | translate}}</div>\n' +
+    '                                    </div>\n' +
+    '                                </div>\n' +
+    '                            </div>\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '            </div> \n' +
+    '        </form>\n' +
+    '    </div>\n' +
+    '    <div class="pmd-modal-action text-right">\n' +
+    '        <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="newBranchForm.$invalid" class="btn pmd-ripple-effect btn-primary" Branch="button" ng-click="newBranchCtrl.AddNewBranch()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '        <button class="btn pmd-ripple-effect btn-default" Branch="button" ng-click="newBranchCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
     '    </div>\n' +
     '</div>\n' +
     '');
@@ -176,7 +275,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '<div>\n' +
     '    <div ncy-breadcrumb></div>\n' +
     '    <div style="margin-bottom:10px">\n' +
-    '        <button ng-click="$state.go(\'newCategory\');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'AddNew\'\n' +
+    '        <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-click="$state.go(\'newCategory\');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'AddNew\'\n' +
     '            | translate}}</button>\n' +
     '\n' +
     '    </div>\n' +
@@ -264,7 +363,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '        </form>\n' +
     '    </div>\n' +
     '    <div class="pmd-modal-action text-right">\n' +
-    '        <button ng-disabled="editTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editCategoryCtrl.UpdateCategory()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '        <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="editTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editCategoryCtrl.UpdateCategory()">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '        <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editCategoryCtrl.Close()">{{\'DiscardBtn\' | translate}}</button>\n' +
     '    </div>\n' +
     '</div>\n' +
@@ -328,7 +427,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '        </form>\n' +
     '    </div>\n' +
     '    <div class="pmd-modal-action text-right">\n' +
-    '        <button ng-disabled="newCategoryForm.$invalid" class="btn pmd-ripple-effect btn-primary" Category="button" ng-click="newCategoryCtrl.AddNewCategory()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '        <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="newCategoryForm.$invalid" class="btn pmd-ripple-effect btn-primary" Category="button" ng-click="newCategoryCtrl.AddNewCategory()">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '        <button class="btn pmd-ripple-effect btn-default" Category="button" ng-click="newCategoryCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
     '    </div>\n' +
     '</div>\n' +
@@ -350,111 +449,12 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/Branch/templates/edit.html',
-    '<div ncy-breadcrumb></div>  \n' +
-    '<div class="modal-content">\n' +
-    '	<div class="modal-header bordered">\n' +
-    '		<h2 class="pmd-card-title-text">{{\'Branch\' | translate}}</h2>\n' +
-    '	</div>\n' +
-    '	<div class="modal-body">\n' +
-    '		<form class="form-horizontal" name="editTypeForm"> \n' +
-    '                <div> \n' +
-    '                    <!-- Nav tabs -->\n' +
-    '                    <ul class="nav nav-tabs" role="tablist">\n' +
-    '                        <li role="presentation" ng-class="{\'active\':$index == 0}" ng-repeat="lang in editBranchCtrl.language">\n' +
-    '                            <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">\n' +
-    '                                {{lang.value | translate}}\n' +
-    '                            </a>\n' +
-    '                        </li> \n' +
-    '                    </ul>\n' +
-    '                    <div class="pmd-card">\n' +
-    '                        <div class="pmd-card-body">\n' +
-    '                            <!-- Tab panes -->\n' +
-    '                            <div class="tab-content">\n' +
-    '                                <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}" ng-repeat="lang in editBranchCtrl.language" id="{{lang.value}}-form">\n' +
-    '                                    <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '                                        <label for="first-name"> {{ lang.value+\'Name\' | translate}} </label>\n' +
-    '                                        <input required type="text" class="mat-input form-control" name="titleDictionary{{lang.value+\'Name\'}}" ng-model="editBranchCtrl.Branch.titleDictionary[lang.key]" ng-minlength="3" ng-maxlength="255">\n' +
-    '                                        <div ng-messages="editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error" >\n' +
-    '                                            \n' +
-    '                                            <div ng-show="editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error.required && !editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
-    '                                            <div ng-show="(editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error.minlength || editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error.maxlength) && !editTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error.required">{{\'NameLengthError255\' | translate}}</div>\n' +
-    '                                        </div>\n' +
-    '                                    </div>\n' +
-    '                                </div>\n' +
-    '                            </div> \n' +
-    '                        </div>\n' +
-    '\n' +
-    '                   \n' +
-    '                    </div>\n' +
-    '                </div> \n' +
-    ' \n' +
-    '		</form>\n' +
-    '	</div>\n' +
-    '	<div class="pmd-modal-action text-right">\n' +
-    '		<button ng-disabled="editTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editBranchCtrl.UpdateBranch()">{{\'saveChangesBtn\' | translate}}</button>\n' +
-    '		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editBranchCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
-    '	</div>\n' +
-    '</div>\n' +
-    '\n' +
-    '	\n' +
-    '');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/Branch/templates/new.html',
-    '<div ncy-breadcrumb></div>  \n' +
-    '<div class="modal-content">\n' +
-    '    <div class="modal-header bordered">\n' +
-    '        <h2 class="pmd-card-title-text">{{\'Branch\' | translate}}</h2>\n' +
-    '    </div>\n' +
-    '    <div class="modal-body">\n' +
-    '        <form class="form-horizontal" name="newBranchForm"> \n' +
-    '            <div> \n' +
-    '                <!-- Nav tabs -->\n' +
-    '                <ul class="nav nav-tabs" role="tablist">\n' +
-    '                    <li role="presentation" ng-class="{\'active\':$index == 0}" ng-repeat="lang in newBranchCtrl.language">\n' +
-    '                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">\n' +
-    '                            {{lang.value | translate}}\n' +
-    '                        </a>\n' +
-    '                    </li> \n' +
-    '                </ul>\n' +
-    '                <div class="pmd-card">\n' +
-    '                    <div class="pmd-card-body">\n' +
-    '                        <!-- Tab panes -->\n' +
-    '                        <div class="tab-content">\n' +
-    '                            <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}" ng-repeat="lang in newBranchCtrl.language" id="{{lang.value}}-form">\n' +
-    '                                <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '                                    <label for="first-name"> {{ lang.value+\'Name\' | translate}} </label>\n' +
-    '                                    <input required Branch="text" class="mat-input form-control" name="titleDictionary{{lang.value+\'Name\'}}" ng-model="newBranchCtrl.titleDictionary[lang.key]" ng-minlength="3" ng-maxlength="255">\n' +
-    '                                    <div ng-messages="newBranchForm.titleDictionary{{lang.value+\'Name\'}}.$error" >\n' +
-    '										\n' +
-    '                                        <div ng-show="newBranchForm.titleDictionary{{lang.value+\'Name\'}}.$error.required && !newBranchForm.titleDictionary{{lang.value+\'Name\'}}.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
-    '                                        <div ng-show="(newBranchForm.titleDictionary{{lang.value+\'Name\'}}.$error.minlength || newBranchForm.titleDictionary{{lang.value+\'Name\'}}.$error.maxlength) && !newBranchForm.titleDictionary{{lang.value+\'Name\'}}.$error.required">{{\'NameLengthError255\' | translate}}</div>\n' +
-    '                                    </div>\n' +
-    '                                </div>\n' +
-    '                            </div>\n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '            </div> \n' +
-    '        </form>\n' +
-    '    </div>\n' +
-    '    <div class="pmd-modal-action text-right">\n' +
-    '        <button ng-disabled="newBranchForm.$invalid" class="btn pmd-ripple-effect btn-primary" Branch="button" ng-click="newBranchCtrl.AddNewBranch()">{{\'saveChangesBtn\' | translate}}</button>\n' +
-    '        <button class="btn pmd-ripple-effect btn-default" Branch="button" ng-click="newBranchCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
-    '    </div>\n' +
-    '</div>\n' +
-    '');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/City/templates/Cities.html',
     '\n' +
     '<div>\n' +
     '        <div ncy-breadcrumb></div>  \n' +
     '    <div style="margin-bottom:10px">\n' +
-    '        <button ng-click="$state.go(\'newCity\',{ countryId: $stateParams.countryId,regionId: $stateParams.regionId });" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'AddNew\' | translate}}</button>\n' +
+    '        <button  style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-click="$state.go(\'newCity\',{ countryId: $stateParams.countryId,regionId: $stateParams.regionId });" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'AddNew\' | translate}}</button>\n' +
     '        \n' +
     '    </div> \n' +
     '    <div ng-if="Cities.results.length == 0">\n' +
@@ -465,24 +465,16 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '        <table class="table pmd-table table-hover">\n' +
     '            <thead>\n' +
     '                <tr>\n' +
-    '                    <th>{{\'Name\' | translate}}</th>\n' +
-    '                    <!-- <th>{{\'status\' | translate}}</th> -->\n' +
-    '                    <!-- <th>{{\'Branch\' | translate}}</th> -->\n' +
+    '                    <th>{{\'Name\' | translate}}</th> \n' +
     '                    <th></th>\n' +
     '                </tr>\n' +
     '            </thead>\n' +
     '            <tbody>\n' +
     '                <tr ng-repeat="city in Cities.results">\n' +
-    '                    <td data-title="Name">{{city.titleDictionary[selectedLanguage]}}</td>\n' +
-    '                    \n' +
-    '                    <!-- <td>\n' +
-    '                        <p ng-show="Area.isStatic"> Static</p>\n' +
-    '                    </td> -->\n' +
+    '                    <td data-title="Name">{{city.titleDictionary[selectedLanguage]}}</td> \n' +
     '                    <td>\n' +
-    '                        <button ng-click="$state.go(\'Area\',{countryId: $stateParams.countryId,regionId: $stateParams.regionId,cityId:city.cityId});" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'viewAreas\' | translate}}</button>\n' +
-    '                        <!-- <span href="javascript:void(0);" ng-click="Area.show=!Area.show;AreaCtrl.showMore($event)" ng-show="Area.branches.length != 0"\n' +
-    '                              class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm child-table-expand direct-expand"><i class="material-icons md-dark pmd-sm"></i></span> -->\n' +
-    '                    </td>\n' +
+    '                        <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-click="$state.go(\'Area\',{countryId: $stateParams.countryId,regionId: $stateParams.regionId,cityId:city.cityId});" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'viewAreas\' | translate}}</button>\n' +
+    '                      </td>\n' +
     '                   \n' +
     '                    <td width="30%" >\n' +
     '                        <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go(\'editCity\',{countryId: $stateParams.countryId,regionId: $stateParams.regionId,cityId: city.cityId});">mode_edit</i>\n' +
@@ -542,7 +534,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '		</form>\n' +
     '	</div>\n' +
     '	<div class="pmd-modal-action text-right">\n' +
-    '		<button ng-disabled="editTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editCityCtrl.UpdateCity()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '		<button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="editTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editCityCtrl.UpdateCity()">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editCityCtrl.Close()">{{\'DiscardBtn\' | translate}}</button>\n' +
     '	</div>\n' +
     '</div>\n' +
@@ -591,7 +583,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '        </form>\n' +
     '    </div>\n' +
     '    <div class="pmd-modal-action text-right">\n' +
-    '        <button ng-disabled="newAreaForm.$invalid" class="btn pmd-ripple-effect btn-primary" Area="button" ng-click="newCityCtrl.AddNewCity()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '        <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="newAreaForm.$invalid" class="btn pmd-ripple-effect btn-primary" Area="button" ng-click="newCityCtrl.AddNewCity()">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '        <button class="btn pmd-ripple-effect btn-default" Area="button" ng-click="$state.go(\'Cities\',{countryId: $stateParams.countryId,regionId: $stateParams.regionId });">{{\'DiscardBtn\' | translate}}</button>\n' +
     '    </div>\n' +
     '</div>\n' +
@@ -604,7 +596,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '<div>\n' +
     '        \n' +
     '    <div style="margin-bottom:10px">\n' +
-    '        <button ng-click="$state.go(\'newCountry\');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'AddNew\' | translate}}</button>\n' +
+    '        <button  style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-click="$state.go(\'newCountry\');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'AddNew\' | translate}}</button>\n' +
     '\n' +
     '    </div> \n' +
     '    <div ng-if="Countries.results.length == 0">\n' +
@@ -615,24 +607,16 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '        <table class="table pmd-table table-hover">\n' +
     '            <thead>\n' +
     '                <tr>\n' +
-    '                    <th>{{\'Name\' | translate}}</th>\n' +
-    '                    <!-- <th>{{\'status\' | translate}}</th> -->\n' +
-    '                    <!-- <th>{{\'Branch\' | translate}}</th> -->\n' +
+    '                    <th>{{\'Name\' | translate}}</th> \n' +
     '                    <th></th>\n' +
     '                </tr>\n' +
     '            </thead>\n' +
     '            <tbody>\n' +
     '                <tr ng-repeat="country in Countries.results">\n' +
-    '                    <td data-title="Name">{{country.titleDictionary[selectedLanguage]}}</td>\n' +
-    '                    \n' +
-    '                    <!-- <td>\n' +
-    '                        <p ng-show="Area.isStatic"> Static</p>\n' +
-    '                    </td> -->\n' +
+    '                    <td data-title="Name">{{country.titleDictionary[selectedLanguage]}}</td> \n' +
     '                    <td>\n' +
-    '                        <button ng-click="$state.go(\'Regions\',{countryId: country.countryId});" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'viewRegions\' | translate}}</button>\n' +
-    '                        <!-- <span href="javascript:void(0);" ng-click="Area.show=!Area.show;AreaCtrl.showMore($event)" ng-show="Area.branches.length != 0"\n' +
-    '                              class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm child-table-expand direct-expand"><i class="material-icons md-dark pmd-sm"></i></span> -->\n' +
-    '                    </td>\n' +
+    '                        <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-click="$state.go(\'Regions\',{countryId: country.countryId});" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'viewRegions\' | translate}}</button>\n' +
+    '                     </td>\n' +
     '                   \n' +
     '                    <td width="30%" >\n' +
     '                        <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go(\'editCountry\',{countryId: country.countryId});">mode_edit</i>\n' +
@@ -691,7 +675,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '		</form>\n' +
     '	</div>\n' +
     '	<div class="pmd-modal-action text-right">\n' +
-    '		<button ng-disabled="editTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editCountryCtrl.UpdateCountry()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '		<button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="editTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editCountryCtrl.UpdateCountry()">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editCountryCtrl.Close()">{{\'DiscardBtn\' | translate}}</button>\n' +
     '	</div>\n' +
     '</div>\n' +
@@ -739,11 +723,203 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '        </form>\n' +
     '    </div>\n' +
     '    <div class="pmd-modal-action text-right">\n' +
-    '        <button ng-disabled="newAreaForm.$invalid" class="btn pmd-ripple-effect btn-primary" Area="button" ng-click="newCountryCtrl.AddNewCountry()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '        <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="newAreaForm.$invalid" class="btn pmd-ripple-effect btn-primary" Area="button" ng-click="newCountryCtrl.AddNewCountry()">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '        <button class="btn pmd-ripple-effect btn-default" Area="button" ng-click="$state.go(\'Countries\');">{{\'DiscardBtn\' | translate}}</button>\n' +
     '    </div>\n' +
     '</div>\n' +
     '');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Order/templates/Order.html',
+    '<div>\n' +
+    '    <div ng-if="OrderList.results.length == 0">\n' +
+    '        <span>{{\'NoOrdersAvailable\' | translate}}</span>\n' +
+    '    </div>\n' +
+    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="OrderList.results.length > 0">\n' +
+    '        <div class="table-responsive"></div>\n' +
+    '        <table class="table pmd-table table-hover">\n' +
+    '            <thead>\n' +
+    '                <tr>\n' +
+    '                    <th>{{\'Name\' | translate}}</th>\n' +
+    '                    <th>{{\'OrderCode\' | translate}}</th>\n' +
+    '                    <th>{{\'Date\' | translate}}</th>\n' +
+    '                    <th>{{\'startDate\' | translate}}</th>\n' +
+    '                    <th>{{\'Price\' | translate}}</th>\n' +
+    '                    <th>{{\'Payment\' | translate}}</th>\n' +
+    '                    <th>{{\'Delvery/Takeaway\' | translate}}</th>\n' +
+    '                    <th>{{\'Ordertype\' | translate}}</th>\n' +
+    '                    <th></th>\n' +
+    '                </tr>\n' +
+    '            </thead>\n' +
+    '            <tbody>\n' +
+    '                <tr ng-repeat="order in OrderList.results">\n' +
+    '                    <td data-title="Name">{{order.user.firstName}}{{order.user.lastName}}</td>\n' +
+    '                    <td data-title="Name">#{{order.orderCode}} </td>\n' +
+    '\n' +
+    '                    <td data-title="Name">{{order.orderDate | date : "d/MMM/yy h:mm a" }} </td>\n' +
+    '                    <td data-title="Name">{{order.orderStartDate | date : "d/MMM/yy h:mm a"}} </td>\n' +
+    '                    <td data-title="Name">\n' +
+    '\n' +
+    '                        <h4>{{ getTotal(order)}}</h4>\n' +
+    '                    </td>\n' +
+    '                    <td>\n' +
+    '                        <div class="btn-switch" ng-class="{\'btn-switch--on\':order.isPaid}" ng-model="order.isPaid"\n' +
+    '                            ng-click="UpdateOrder(order)">\n' +
+    '\n' +
+    '                            <div class="btn-switch-circle" ng-class="{\'btn-switch-circle--on\':order.isPaid}" ng-model="order.isPaid"\n' +
+    '                                ng-click="UpdateOrder(order)">\n' +
+    '                            </div>\n' +
+    '                    </td>\n' +
+    '                    <td data-title="Name">\n' +
+    '                        <img ng-if="order.isDelivery == true" src="assets\\img\\delivery.png">\n' +
+    '                        <img ng-if="order.isDelivery == false" src="assets\\img\\takeaway.png" style="width: 44px;height: 39px;">\n' +
+    '                    </td>\n' +
+    '\n' +
+    '                    <td data-title="Name">\n' +
+    '                        <img ng-if="order.type == 1" src="assets\\img\\program.png">\n' +
+    '                        <img ng-if="order.type == 2" src="assets\\img\\meal.png">\n' +
+    '                        <img ng-if="order.type == 3" src="assets\\img\\item.png">\n' +
+    '                    </td>\n' +
+    '                    <td>\n' +
+    '                        <a ng-click="goToDetails(order)" class="cursorPointer">{{\'ItemsBtn\'|\n' +
+    '                            translate}}</a>\n' +
+    '                    </td>\n' +
+    ' \n' +
+    '                </tr>\n' +
+    '            </tbody>\n' +
+    '        </table>\n' +
+    '    </div>\n' +
+    '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount" paging-action="changePage(page)"\n' +
+    '        flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">\n' +
+    '    </div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Order/templates/edit.html',
+    '<div class="modal-content">\n' +
+    '    <div class="modal-header bordered">\n' +
+    '        <h2 class="pmd-card-title-text">{{\'Order\' | translate}}</h2>\n' +
+    '    </div>\n' +
+    '    <div class="modal-body">\n' +
+    '        <form class="form-horizontal" name="editForm">\n' +
+    '            <div>\n' +
+    '                <div class="row">\n' +
+    '                   \n' +
+    '                    <div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                        <label for="first-name">{{\'orderDatelbl\' | translate}} </label>\n' +
+    '                        <input type="datetime" readonly class="mat-input form-control" name="orderDate" ng-model="editOrderCtrl.Order.orderDate"\n' +
+    '                            min="1" ng-maxlength="5">\n' +
+    '                        <div ng-messages="editForm.orderDate.$error">\n' +
+    '                            <div ng-if="editForm.orderDate.$error.required && !editForm.orderDate.$pristine">{{\'requiredErr\'\n' +
+    '                                | translate}}</div>\n' +
+    '                            <div ng-if="editForm.orderDate.$error.maxlength">{{\'orderDateLengthError\' | translate}}</div>\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '                    \n' +
+    '                    <div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                        <label for="first-name">{{\'orderDatelbl\' | translate}} </label>\n' +
+    '                        <input type="datetime" readonly class="mat-input form-control" name="orderDate" ng-model="editOrderCtrl.Order.user.lastName"\n' +
+    '                            min="1" ng-maxlength="5">\n' +
+    '                        <div ng-messages="editForm.orderDate.$error">\n' +
+    '                            <div ng-if="editForm.orderDate.$error.required && !editForm.orderDate.$pristine">{{\'requiredErr\'\n' +
+    '                                | translate}}</div>\n' +
+    '                            <div ng-if="editForm.orderDate.$error.maxlength">{{\'orderDateLengthError\' | translate}}</div>\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '                    \n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '\n' +
+    '        </form>\n' +
+    '    </div>\n' +
+    '    <div class="pmd-modal-action text-right">\n' +
+    '        <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="editForm.$invalid"\n' +
+    '            class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editOrderCtrl.UpdateType()">{{\'saveChangesBtn\'\n' +
+    '            | translate}}</button>\n' +
+    '        <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editOrderCtrl.Close()">{{\'DiscardBtn\'\n' +
+    '            | translate}}</button>\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '\n' +
+    '\n' +
+    '\n' +
+    '<script type="text/javascript">\n' +
+    '    $(document).ready(function () {\n' +
+    '        $(".select-add-tags").select2({\n' +
+    '            tags: true,\n' +
+    '            theme: "bootstrap",\n' +
+    '            insertTag: function (data, tag) {\n' +
+    '                data.push(tag);\n' +
+    '            }\n' +
+    '        });\n' +
+    '    });\n' +
+    '</script>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Order/templates/new.html',
+    '<div class="modal-content">\n' +
+    '    <div class="modal-header bordered">\n' +
+    '        <h2 class="pmd-card-title-text">{{\'NewRoleLbl\' | translate}}</h2>\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div class="modal-body">\n' +
+    '        <form class="form-horizontal" name="newTypeForm">\n' +
+    '            <div>\n' +
+    '                <!-- Nav tabs -->\n' +
+    '                <ul class="nav nav-tabs" role="tablist">\n' +
+    '                    <li role="presentation" ng-class="{\'active\':$index == 0}" ng-repeat="lang in newRoleCtrl.language">\n' +
+    '                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">\n' +
+    '                            {{lang.value | translate}}\n' +
+    '                        </a>\n' +
+    '                    </li>\n' +
+    '                </ul>\n' +
+    '                <div class="pmd-card">\n' +
+    '                    <div class="pmd-card-body">\n' +
+    '                        <!-- Tab panes -->\n' +
+    '                        <div class="tab-content">\n' +
+    '                            <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}" ng-repeat="lang in newRoleCtrl.language" id="{{lang.value}}-form">\n' +
+    '                                <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                                    <label for="first-name"> {{ lang.value+\'Name\' | translate}} </label>\n' +
+    '                                    <input required type="text" class="mat-input form-control" name="titleDictionary{{lang.value+\'Name\'}}" ng-model="newRoleCtrl.titleDictionary[lang.key]" ng-minlength="3" ng-maxlength="255">\n' +
+    '                                    <div ng-messages="newTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error">\n' +
+    '\n' +
+    '                                        <div ng-show="newTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error.required && !newTypeForm.titleDictionary{{lang.value+\'Name\'}}.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '                                        <div ng-show="(newTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error.minlength || newTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error.maxlength) && !newTypeForm.titleDictionary{{lang.value+\'Name\'}}.$error.required">{{\'NameLengthError255\' | translate}}</div>\n' +
+    '                                    </div>\n' +
+    '                                </div>\n' +
+    '\n' +
+    '\n' +
+    '                            </div>\n' +
+    '                            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                                <label for="first-name">{{\'Permission\' | translate}}</label>\n' +
+    '                                <select required style="width:100% !important" class="form-control select-with-search pmd-select2-tags" multiple\n' +
+    '                                        ng-model="newRoleCtrl.selectedPermissions" ng-options="permission as permission.titleDictionary[selectedLanguage] for permission in permissionList"></select>\n' +
+    '\n' +
+    '\n' +
+    '                            </div>\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '        </form>\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div class="pmd-modal-action text-right">\n' +
+    '        <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="newTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="newRoleCtrl.AddNewType()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '        <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="$state.go(\'Role\');">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '\n' +
+    '<script type="text/javascript">\n' +
+    '    $(document).ready(function () {\n' +
+    '        $(".select-with-search").select2({\n' +
+    '			theme: "bootstrap"\n' +
+    '		});\n' +
+    '    });\n' +
+    '</script>');
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
@@ -1099,7 +1275,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '<div>\n' +
     '    <div ncy-breadcrumb></div>\n' +
     '    <div style="margin-bottom:10px">\n' +
-    '        <button ng-click="$state.go(\'newRegion\',{ countryId: $stateParams.countryId });" class="btn pmd-ripple-effect btn-primary pmd-z-depth"\n' +
+    '        <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-click="$state.go(\'newRegion\',{ countryId: $stateParams.countryId });" class="btn pmd-ripple-effect btn-primary pmd-z-depth"\n' +
     '            type="button">{{\'AddNew\' | translate}}</button>\n' +
     '\n' +
     '    </div>\n' +
@@ -1111,26 +1287,19 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '        <table class="table pmd-table table-hover">\n' +
     '            <thead>\n' +
     '                <tr>\n' +
-    '                    <th>{{\'Name\' | translate}}</th>\n' +
-    '                    <!-- <th>{{\'status\' | translate}}</th> -->\n' +
-    '                    <!-- <th>{{\'Branch\' | translate}}</th> -->\n' +
+    '                    <th>{{\'Name\' | translate}}</th> \n' +
     '                    <th></th>\n' +
     '                </tr>\n' +
     '            </thead>\n' +
     '            <tbody>\n' +
     '                <tr ng-repeat="region in Regions.results">\n' +
     '                    <td data-title="Name">{{region.titleDictionary[selectedLanguage]}}</td>\n' +
-    '\n' +
-    '                    <!-- <td>\n' +
-    '                        <p ng-show="Area.isStatic"> Static</p>\n' +
-    '                    </td> -->\n' +
+    ' \n' +
     '                    <td>\n' +
-    '                        <button ng-click="$state.go(\'Cities\',{countryId: $stateParams.countryId,regionId: region.regionId});"\n' +
+    '                        <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-click="$state.go(\'Cities\',{countryId: $stateParams.countryId,regionId: region.regionId});"\n' +
     '                            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'viewCities\' |\n' +
     '                            translate}}</button>\n' +
-    '                        <!-- <span href="javascript:void(0);" ng-click="Area.show=!Area.show;AreaCtrl.showMore($event)" ng-show="Area.branches.length != 0"\n' +
-    '                              class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm child-table-expand direct-expand"><i class="material-icons md-dark pmd-sm"></i></span> -->\n' +
-    '                    </td>\n' +
+    '                      </td>\n' +
     '\n' +
     '                    <td width="30%">\n' +
     '                        <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go(\'editRegion\',{countryId: $stateParams.countryId ,regionId: region.regionId});">mode_edit</i>\n' +
@@ -1189,7 +1358,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '		</form>\n' +
     '	</div>\n' +
     '	<div class="pmd-modal-action text-right">\n' +
-    '		<button ng-disabled="editTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editRegionCtrl.UpdateRegion()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '		<button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="editTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editRegionCtrl.UpdateRegion()">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editRegionCtrl.Close()">{{\'DiscardBtn\' | translate}}</button>\n' +
     '	</div>\n' +
     '</div>\n' +
@@ -1239,7 +1408,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '        </form>\n' +
     '    </div>\n' +
     '    <div class="pmd-modal-action text-right">\n' +
-    '        <button ng-disabled="newAreaForm.$invalid" class="btn pmd-ripple-effect btn-primary" Area="button" ng-click="newRegionCtrl.AddNewRegion()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '        <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="newAreaForm.$invalid" class="btn pmd-ripple-effect btn-primary" Area="button" ng-click="newRegionCtrl.AddNewRegion()">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '        <button class="btn pmd-ripple-effect btn-default" Area="button" ng-click="$state.go(\'Regions\',{countryId: $stateParams.countryId });">{{\'DiscardBtn\' | translate}}</button>\n' +
     '    </div>\n' +
     '</div>\n' +
@@ -1250,7 +1419,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/Role/templates/Role.html',
     '<div>\n' +
     '    <div style="margin-bottom:10px">\n' +
-    '        <button ng-click="$state.go(\'newRole\');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'AddBtn\'\n' +
+    '        <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-click="$state.go(\'newRole\');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'AddBtn\'\n' +
     '            | translate}}</button>\n' +
     '\n' +
     '    </div>\n' +
@@ -1344,7 +1513,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '		</form>\n' +
     '	</div>\n' +
     '	<div class="pmd-modal-action text-right">\n' +
-    '		<button ng-disabled="editTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editRoleCtrl.UpdateType()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '		<button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="editTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editRoleCtrl.UpdateType()">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editRoleCtrl.Close()">{{\'DiscardBtn\' | translate}}</button>\n' +
     '	</div>\n' +
     '</div>\n' +
@@ -1414,7 +1583,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '    </div>\n' +
     '\n' +
     '    <div class="pmd-modal-action text-right">\n' +
-    '        <button ng-disabled="newTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="newRoleCtrl.AddNewType()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '        <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="newTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="newRoleCtrl.AddNewType()">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '        <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="$state.go(\'Role\');">{{\'DiscardBtn\' | translate}}</button>\n' +
     '    </div>\n' +
     '</div>\n' +
@@ -1810,374 +1979,10 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/user/templates/addUser.html',
-    '{{\'BasicInfoLbl\' | translate}}\n' +
-    '<form class="form-horizontal" name="newclientForm">\n' +
-    '\n' +
-    '    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '        <label for="first-name">{{\'FirstNameLbl\' | translate}}</label>\n' +
-    '        <input required type="text" class="mat-input form-control" name="firstName" ng-pattern="/^(\\D)+$/" ng-model="FirstName"\n' +
-    '            ng-minlength="3" ng-maxlength="255">\n' +
-    '        <div ng-messages="newclientForm.firstName.$error" class="error">\n' +
-    '            <div ng-show="newclientForm.firstName.$error.pattern">{{\'TextOnly\' | translate}}</div>\n' +
-    '            <div ng-if="newclientForm.firstName.$error.required && !newclientForm.firstName.$pristine">{{\'FirstNameLengthError\'\n' +
-    '                | translate}}</div>\n' +
-    '            <div ng-if="(newclientForm.firstName.$error.minlength || newclientForm.firstName.$error.maxlength) ">{{\'NameLengthError255\'\n' +
-    '                | translate}}</div>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '        <label for="first-name">{{\'LastNameLbl\' | translate}}</label>\n' +
-    '        <input required type="text" class="mat-input form-control" name="lastName" ng-pattern="/^(\\D)+$/" ng-model="LastName"\n' +
-    '            ng-minlength="3" ng-maxlength="255">\n' +
-    '        <div ng-messages="newclientForm.lastName.$error">\n' +
-    '            <div ng-show="newclientForm.lastName.$error.pattern">{{\'TextOnly\' | translate}}</div>\n' +
-    '            <div ng-if="newclientForm.lastName.$error.required && !newclientForm.lastName.$pristine">{{\'lastName\' |\n' +
-    '                translate}}</div>\n' +
-    '            <div ng-if="(newclientForm.lastName.$error.minlength || newclientForm.lastName.$error.maxlength)">{{\'NameLengthError255\'\n' +
-    '                | translate}}</div>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '        <label>{{\'EmailLbl\' | translate}}</label>\n' +
-    '        <input required type="text" class="mat-input form-control" name="userEmail" ng-model="Email" ng-pattern="/^\\w+([-+.\']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$/">\n' +
-    '        <span class="error" ng-show="newclientForm.userEmail.$error.pattern">{{\'WrongMail\' | translate}} </span>\n' +
-    '        <!--\n' +
-    '                            <div ng-if="!newclientForm.email.$error.required &amp;&amp;\n' +
-    '                            newclientForm.userEmail.$error.email" class="error">{{\'WrongMail\' | translate}}\n' +
-    '                            </div> -->\n' +
-    '        <div ng-messages="newclientForm.email.$error">\n' +
-    '            <div ng-if="newclientForm.userEmail.$error.required && !newclientForm.userEmail.$pristine">{{\'EmailLengthError\'\n' +
-    '                | translate}}</div>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '\n' +
-    '\n' +
-    '        <label for="first-name">{{\'phoneLbl\' | translate}}</label>\n' +
-    '        <input required type="text" class="mat-input form-control" name="phone" numbers-only ng-model="Phone"\n' +
-    '            ng-minlength="10" ng-maxlength="50">\n' +
-    '        <!-- <span class="error" ng-show="newclientForm.phone.$error.pattern">{{\'NotPhoneNumber\' | translate}}   </span> -->\n' +
-    '        <div ng-messages="newclientForm.phone.$error">\n' +
-    '            <div ng-if="newclientForm.phone.$error.required && !newclientForm.phone.$pristine">{{\'PhoneReqError\' |\n' +
-    '                translate}}</div>\n' +
-    '            <div ng-if="(newclientForm.phone.$error.minlength || newclientForm.phone.$error.maxlength)">{{\'PhoneLengthError\'\n' +
-    '                | translate}}</div>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '        <label for="first-name">{{\'UserPasswordLbl\' | translate}}</label>\n' +
-    '        <input required type="password" class="mat-input form-control" name="password" ng-model="Password" ng-minlength="8"\n' +
-    '            ng-maxlength="25">\n' +
-    '        <div ng-messages="newclientForm.password.$error">\n' +
-    '            <div ng-if="newclientForm.password.$error.required && !newclientForm.password.$pristine">{{\'requiredErr\' |\n' +
-    '                translate}}</div>\n' +
-    '            <div ng-if="(newclientForm.password.$error.minlength || newclientForm.password.$error.maxlength) && !newclientForm.password.newPassword.$error.required">Password\n' +
-    '                length must be 8-25 char.</div>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '        <label for="first-name">{{\'ConfirmPasswordLbl\' | translate}}</label>\n' +
-    '        <input required type="password" class="mat-input form-control" name="confirmPassword" ng-model="confirmPassword"\n' +
-    '            equalto="newclientForm.password">\n' +
-    '        <div ng-messages="newclientForm.confirmPassword.$error">\n' +
-    '            <div ng-if="newclientForm.confirmPassword.$error.required && !newclientForm.confirmPassword.$pristine">{{\'requiredErr\'\n' +
-    '                | translate}}</div>\n' +
-    '            <div ng-if="newclientForm.confirmPassword.$error.equalto && !newclientForm.confirmPassword.$error.required">{{\'passworddontmatch\'\n' +
-    '                | translate}}</div>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '\n' +
-    '    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '        <label for="first-name">{{\'Country\' | translate}}</label>\n' +
-    '        <select required style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="userCtrl.countryChange()"\n' +
-    '            ng-model="userCtrl.selectedCountryId" ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in userCtrl.counties">\n' +
-    '        </select>\n' +
-    '    </div>\n' +
-    '    <div ng-show=" userCtrl.selectedCountryId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '        <label for="first-name">{{\'Region\' | translate}}</label>\n' +
-    '        <select required style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="userCtrl.regionChange()"\n' +
-    '            ng-model="userCtrl.selectedRegionId" ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in userCtrl.regions">\n' +
-    '        </select>\n' +
-    '    </div>\n' +
-    '    <div ng-show=" userCtrl.selectedRegionId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '        <label for="first-name">{{\'City\' | translate}}</label>\n' +
-    '        <select ng-required="userCtrl.selectedRegionId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
-    '            ng-change="userCtrl.cityChange()" ng-model="userCtrl.selectedCityId" ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in userCtrl.cities">\n' +
-    '        </select>\n' +
-    '    </div>\n' +
-    '    <div ng-show=" userCtrl.selectedCityId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '        <label for="first-name">{{\'Area\' | translate}}</label>\n' +
-    '        <select ng-required=" userCtrl.selectedCityId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
-    '            ng-change="userCtrl.areaChange()" ng-model="userCtrl.selectedAreaId" ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in userCtrl.area">\n' +
-    '        </select>\n' +
-    '    </div>\n' +
-    '    <div ng-show=" userCtrl.selectedAreaId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '        <label for="first-name">{{\'Branch\' | translate}}</label>\n' +
-    '        <select ng-required=" userCtrl.selectedAreaId > 0 " class="form-control select-with-search pmd-select2-tags"\n' +
-    '            multiple ng-change="userCtrl.branchChange()" ng-model="userCtrl.selectedBranchId" ng-options="a.branchId as a.titleDictionary[selectedLanguage] for a in userCtrl.branchList"></select>\n' +
-    '    </div>\n' +
-    '\n' +
-    '\n' +
-    '    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '        <label> {{ \'Role\' | translate}} </label>\n' +
-    '        <select required style="width:100% !important" class="form-control select-with-search pmd-select2-tags"\n' +
-    '            multiple ng-model="userCtrl.selectedUserRoles" ng-options="role as role.titleDictionary[selectedLanguage] for role in roleList"></select>\n' +
-    '\n' +
-    '    </div>\n' +
-    '</form>\n' +
-    '\n' +
-    '<div class="pmd-modal-action text-right">\n' +
-    '    <button ng-disabled="newclientForm.$invalid  && (userCtrl.selectedAreaId <= 0 || userCtrl.selectedBranchId <= 0)" \n' +
-    '    class="btn pmd-ripple-effect btn-primary" Category="button" ng-click="AddNewclient()">{{\'saveChangesBtn\' | translate}}</button>\n' +
-    '    <button class="btn pmd-ripple-effect btn-default" Category="button" ng-click="newCategoryCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
-    '</div>\n' +
-    '<!-- \n' +
-    '<div class="pmd-modal-action text-right">\n' +
-    '    <button ng-disabled="newclientForm.$invalid  && (userCtrl.selectedAreaId <= 0 || userCtrl.selectedBranchId <= 0))"\n' +
-    '        class="btn pmd-ripple-effect btn-primary" type="button" ng-click="AddNewclient()">{{\'NextLbl\' | translate}}</button>\n' +
-    '</div> -->\n' +
-    '<script type="text/javascript">\n' +
-    '    $(document).ready(function () {\n' +
-    '        // $(".select-add-tags").select2({\n' +
-    '        //     tags: true,\n' +
-    '        //     theme: "bootstrap",\n' +
-    '        //     insertTag: function (data, tag) { \n' +
-    '        //         data.push(tag); \n' +
-    '        //     }\n' +
-    '        // });\n' +
-    '        $(".select-tags").select2({\n' +
-    '            tags: false,\n' +
-    '            theme: "bootstrap",\n' +
-    '        })\n' +
-    '\n' +
-    '        $(".select-with-search").select2({\n' +
-    '            theme: "bootstrap"\n' +
-    '        });\n' +
-    '    });\n' +
-    '</script>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/user/templates/editUser.html',
-    ' {{\'BasicInfoLbl\' | translate}}\n' +
-    '<br/>\n' +
-    '<form class="form-horizontal" name="newclientForm" autocomplete="off">\n' +
-    '    <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '        <label for="first-name">{{\'FirstNameLbl\' | translate}}</label>\n' +
-    '        <input ng-disabled="true" required type="text" class="mat-input form-control" name="firstName" ng-model="userObj.firstName" ng-minlength="3"\n' +
-    '            ng-maxlength="255">\n' +
-    '        <div ng-messages="newclientForm.firstName.$error">\n' +
-    '            <div ng-if="newclientForm.firstName.$error.required && !newclientForm.firstName.$pristine">{{\'FirstNameLengthError\' | translate}}</div>\n' +
-    '            <div ng-if="(newclientForm.firstName.$error.minlength || newclientForm.firstName.$error.maxlength) && !newclientForm.firstName.$error.required">{{\'NameLengthError255\' | translate}}</div>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '    <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '        <label for="first-name">{{\'LastNameLbl\' | translate}}</label>\n' +
-    '        <input ng-disabled="true" required type="text" class="mat-input form-control" name="lastName" ng-model="userObj.lastName" ng-minlength="3" ng-maxlength="255">\n' +
-    '        <div ng-messages="newclientForm.lastName.$error">\n' +
-    '            <div ng-if="newclientForm.lastName.$error.required && !newclientForm.lastName.$pristine">{{\'lastName\' | translate}}</div>\n' +
-    '            <div ng-if="(newclientForm.lastName.$error.minlength || newclientForm.lastName.$error.maxlength) && !newclientForm.lastName.$error.required">{{\'LastNameLengthError\' | translate}}</div>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '    <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '        <label for="first-name">{{\'EmailLbl\' | translate}}</label>\n' +
-    '\n' +
-    '        <input ng-disabled="true" required type="text" class="mat-input form-control" name="email" ng-model="userObj.email" ng-minlength="3" ng-maxlength="50">\n' +
-    '        <div ng-messages="newclientForm.email.$error">\n' +
-    '            <div ng-if="newclientForm.email.$error.required && !newclientForm.email.$pristine">{{\'lastName\' | translate}}</div>\n' +
-    '            <div ng-if="(newclientForm.email.$error.minlength || newclientForm.email.$error.maxlength) && !newclientForm.email.$error.required">{{\'LastNameLengthError\' | translate}}</div>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '    <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '        <label for="first-name">{{\'phoneLbl\' | translate}}</label>\n' +
-    '\n' +
-    '        <input ng-disabled="true" required type="text" class="mat-input form-control" numbers-only name="phone" ng-model="userObj.phone" ng-pattern="phoneNumbr"\n' +
-    '            ng-minlength="10" ng-maxlength="50">\n' +
-    '        <span class="error" ng-show="newclientForm.phone.$error.pattern">{{\'NotPhoneNumber\' | translate}} </span>\n' +
-    '        <div ng-messages="newclientForm.phone.$error">\n' +
-    '            <div ng-if="newclientForm.phone.$error.required && !newclientForm.phone.$pristine">{{\'PhoneReqError\' | translate}}</div>\n' +
-    '            <div ng-if="(newclientForm.phone.$error.minlength || newclientForm.phone.$error.maxlength)">{{\'PhoneLengthError\' | translate}}</div>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '\n' +
-    '    <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
-    '        <label for="first-name">{{\'UserPasswordLbl\' | translate}}</label>\n' +
-    '\n' +
-    '        <input required type="password" class="mat-input form-control" name="password" ng-model="userObj.password" ng-minlength="8"\n' +
-    '            ng-maxlength="25">\n' +
-    '        <div ng-messages="newclientForm.password.$error">\n' +
-    '            <div ng-if="newclientForm.password.$error.required && !newclientForm.password.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
-    '            <div ng-if="(newclientForm.password.$error.minlength || newclientForm.password.$error.maxlength) && !newclientForm.password.newPassword.$error.required">Password length must be 8-25 char.</div>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '\n' +
-    '    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '        <label for="first-name">{{\'ConfirmPasswordLbl\' | translate}}</label>\n' +
-    '        <input required type="password" class="mat-input form-control" name="confirmPassword" ng-model="userObj.confirmPassword" equalto="newclientForm.password">\n' +
-    '        <div ng-messages="newclientForm.confirmPassword.$error">\n' +
-    '            <div ng-if="newclientForm.confirmPassword.$error.required && !newclientForm.confirmPassword.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
-    '            <div ng-if="newclientForm.confirmPassword.$error.equalto && !newclientForm.confirmPassword.$error.required">{{\'passworddontmatch\' | translate}}</div>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '\n' +
-    '        <label for="first-name">{{\'UserType\' | translate}}</label>\n' +
-    '        <select required style="width:100% !important" class="form-control select-tags pmd-select2-tags" ng-model="selectedType" ng-change="editUserCtrl.resetDLL()"\n' +
-    '            ng-options="group as group.titleDictionary[selectedLanguage] for group in userTypeList track by group.userTypeId">\n' +
-    '\n' +
-    '        </select>\n' +
-    '    </div>\n' +
-    '<div ng-show="selectedType.userTypeId == 2 || selectedType.userTypeId == 4" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '        <label for="first-name">{{\'Department\' | translate}}</label>\n' +
-    '        <select ng-required="(selectedType.userTypeId == 2 || selectedType.userTypeId == 4)" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
-    '            ng-change="editUserCtrl.departmentChange()" ng-model="editUserCtrl.selectedDepartmentId" ng-options="group.departmentId as group.titleDictionary[selectedLanguage] for group in editUserCtrl.department">\n' +
-    '        </select>\n' +
-    '    </div>\n' +
-    '    <div ng-show="(selectedType.userTypeId == 2 ||selectedType.userTypeId == 4) && editUserCtrl.selectedDepartmentId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '        <label for="first-name">{{\'CategoryLbl\' | translate}}</label>\n' +
-    '        <select ng-required="(selectedType.userTypeId == 2 ||selectedType.userTypeId == 4) && editUserCtrl.selectedDepartmentId > 0" ng-change="editUserCtrl.categoryChange()" multiple\n' +
-    '            class="form-control select-with-search pmd-select2-tags" ng-model="editUserCtrl.selectedCategoryId" ng-options="a.categoryId as a.titleDictionary[selectedLanguage] for a in editUserCtrl.categoryList"></select>\n' +
-    '    </div>\n' +
-    '    <div ng-show="(selectedType.userTypeId == 3||selectedType.userTypeId == 4)" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '            <label for="first-name">{{\'Country\' | translate}}</label>\n' +
-    '            <select ng-required="(selectedType.userTypeId == 3||selectedType.userTypeId == 4)" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
-    '                ng-change="editUserCtrl.countryChange()" ng-model="editUserCtrl.selectedCountryId" ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in editUserCtrl.counties">\n' +
-    '            </select>\n' +
-    '        </div>\n' +
-    '        <div ng-show="(selectedType.userTypeId == 3||selectedType.userTypeId == 4)&& editUserCtrl.selectedCountryId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '            <label for="first-name">{{\'Region\' | translate}}</label>\n' +
-    '            <select ng-required="(selectedType.userTypeId == 3||selectedType.userTypeId == 4)&& editUserCtrl.selectedCountryId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
-    '                ng-change="editUserCtrl.regionChange()" ng-model="editUserCtrl.selectedRegionId" ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in editUserCtrl.regions">\n' +
-    '            </select>\n' +
-    '        </div>\n' +
-    '        <div ng-show="(selectedType.userTypeId == 3||selectedType.userTypeId == 4)&& editUserCtrl.selectedRegionId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                <label for="first-name">{{\'City\' | translate}}</label>\n' +
-    '                <select ng-required="(selectedType.userTypeId == 3||selectedType.userTypeId == 4)&& editUserCtrl.selectedRegionId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
-    '                    ng-change="editUserCtrl.cityChange()" ng-model="editUserCtrl.selectedCityId" ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in editUserCtrl.cities">\n' +
-    '                </select>\n' +
-    '            </div>\n' +
-    '        <div ng-show="(selectedType.userTypeId == 3||selectedType.userTypeId == 4)&& editUserCtrl.selectedCityId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                <label for="first-name">{{\'Area\' | translate}}</label>\n' +
-    '                <select ng-required="(selectedType.userTypeId == 3||selectedType.userTypeId == 4)&& editUserCtrl.selectedCityId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
-    '                    ng-change="editUserCtrl.areaChange()" ng-model="editUserCtrl.selectedAreaId" ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in editUserCtrl.area">\n' +
-    '                </select>\n' +
-    '            </div>\n' +
-    '        <div ng-show="(selectedType.userTypeId == 3 ||selectedType.userTypeId == 4)&& editUserCtrl.selectedAreaId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '            <label for="first-name">{{\'Branch\' | translate}}</label>\n' +
-    '            <select ng-required="(selectedType.userTypeId == 3||selectedType.userTypeId == 4) && editUserCtrl.selectedAreaId > 0 "\n' +
-    '                class="form-control select-with-search pmd-select2-tags" multiple ng-change="editUserCtrl.branchChange()" ng-model="editUserCtrl.selectedBranchId" \n' +
-    '                ng-options="a.branchId as a.titleDictionary[selectedLanguage] for a in editUserCtrl.branchList"></select>\n' +
-    '        </div>\n' +
-    '    <!-- <div ng-show="(selectedType.userTypeId == 3||selectedType.userTypeId == 4)" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '        <label for="first-name">{{\'Area\' | translate}}</label>\n' +
-    '        <select ng-required="(selectedType.userTypeId == 3||selectedType.userTypeId == 4)" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
-    '            ng-change="editUserCtrl.areaChange()" ng-model="editUserCtrl.selectedAreaId" ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in editUserCtrl.area">\n' +
-    '        </select>\n' +
-    '    </div>\n' +
-    '\n' +
-    '    <div ng-show="(selectedType.userTypeId == 3 ||selectedType.userTypeId == 4)&& editUserCtrl.selectedAreaId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '        <label for="first-name">{{\'Branch\' | translate}}</label>\n' +
-    '        <select ng-required="(selectedType.userTypeId == 3||selectedType.userTypeId == 4) && editUserCtrl.selectedAreaId > 0 "\n' +
-    '            class="form-control select-with-search pmd-select2-tags" multiple ng-change="editUserCtrl.branchChange()" ng-model="editUserCtrl.selectedBranchId" \n' +
-    '            ng-options="a.branchId as a.titleDictionary[selectedLanguage] for a in editUserCtrl.branchList"></select>\n' +
-    '    </div> -->\n' +
-    '    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '        \n' +
-    '        <label> {{ \'Role\' | translate}} </label>\n' +
-    '        <select required style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" multiple ng-model="editUserCtrl.selectedUserRoles"\n' +
-    '            ng-options="role as role.titleDictionary[selectedLanguage] for role in roleList"></select>\n' +
-    '\n' +
-    '    </div>\n' +
-    '</form>\n' +
-    '<div class="pmd-modal-action text-right">\n' +
-    '    <button ng-disabled="newclientForm.$invalid || !editUserCtrl.show ||\n' +
-    '    ((selectedType.userTypeId == 2 || selectedType.userTypeId == 4) && (editUserCtrl.selectedDepartmentId <= 0 || editUserCtrl.selectedCategoryId <= 0))\n' +
-    '    ||((selectedType.userTypeId == 3 || selectedType.userTypeId == 4) && (editUserCtrl.selectedAreaId <= 0 || editUserCtrl.selectedBranchId <= 0))" class="btn pmd-ripple-effect btn-primary" type="button"\n' +
-    '        ng-click="Updateclient()">{{\'Edit\' | translate}}</button>\n' +
-    '</div>\n' +
-    '\n' +
-    '\n' +
-    '<script type="text/javascript">\n' +
-    '    $(document).ready(function () {\n' +
-    '        $(".select-add-tags").select2({\n' +
-    '            tags: true,\n' +
-    '            theme: "bootstrap",\n' +
-    '            insertTag: function (data, tag) {\n' +
-    '                // Insert the tag at the end of the results\n' +
-    '                data.push(tag);\n' +
-    '                // console.log(data);\n' +
-    '            }\n' +
-    '        });\n' +
-    '        $(".select-tags").select2({\n' +
-    '            tags: false,\n' +
-    '            theme: "bootstrap",\n' +
-    '        })\n' +
-    '        \n' +
-    '        $(".select-with-search").select2({\n' +
-    '            theme: "bootstrap"\n' +
-    '        });\n' +
-    '    });\n' +
-    '</script>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/user/templates/user.html',
-    '<div>\n' +
-    '    <div style="margin-bottom:10px">\n' +
-    '        <button ng-click="$state.go(\'addUser\');" ng-disabled="userCtrl.userConsumed.consumedUsers >= userCtrl.userConsumed.maxNumUsers"\n' +
-    '            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'AddUserBtn\' | translate}}</button>\n' +
-    '\n' +
-    '    </div>\n' +
-    '    <div ng-if="userCtrl.userList.results.length == 0">\n' +
-    '        <span>{{\'NouserAvailable\' | translate}}</span>\n' +
-    '    </div>\n' +
-    '\n' +
-    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="userList.length >0">\n' +
-    '\n' +
-    '        <div class="table-responsive">\n' +
-    '            <table class="table pmd-table table-hover">\n' +
-    '                <thead>\n' +
-    '                    <tr>\n' +
-    '                        <th>{{\'userName\' | translate}}</th>\n' +
-    '                        <th>{{\'EmailLbl\' | translate}}</th>\n' +
-    '\n' +
-    '                        <th>{{\'Phone1Lbl\' | translate}}</th>\n' +
-    '                    </tr>\n' +
-    '                </thead>\n' +
-    '                <tbody>\n' +
-    '                    <tr ng-repeat="user in userList">\n' +
-    '                        <td data-title="Name" width="20%">{{user.firstName}} {{user.lastName}}</td>\n' +
-    '                        <td data-title="Name" width="20%">{{user.email}} </td>\n' +
-    '\n' +
-    '                        <td data-title="Description">{{user.phone}}</td>\n' +
-    '                        <td width="30%">\n' +
-    '                            <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go(\'editUser\', {userId: user.userId});">mode_edit</i>\n' +
-    '                            <i class="material-icons pmd-md deleteButton cursorPointer font25" ng-click="CategoryCtrl.openDeleteDialog(Category,Category.titleDictionary[selectedLanguage],Category.categoryId)">delete</i>\n' +
-    '                        </td>\n' +
-    '                        <!-- \n' +
-    '                        <td  width="15%">  \n' +
-    '                            <i class="cursorPointer" ng-click="$state.go(\'editUser\', {userId: user.userId});">{{\'Edit\' | translate}} </i>\n' +
-    '\n' +
-    '                        </td> -->\n' +
-    '                    </tr>\n' +
-    '                </tbody>\n' +
-    '            </table>\n' +
-    '        </div>\n' +
-    '\n' +
-    '    </div>\n' +
-    '   \n' +
-    '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount" paging-action="changePage(page)"\n' +
-    '        flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">\n' +
-    '    </div>\n' +
-    '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/item/templates/Item.html',
     '<div>\n' +
     '    <div style="margin-bottom:10px">\n' +
-    '        <button ng-click="$state.go(\'newItem\',{itemId: $stateParams.itemId});" class="btn pmd-ripple-effect btn-primary pmd-z-depth"\n' +
+    '        <button ng-click="$state.go(\'newItem\',{categoryId: $stateParams.categoryId});" class="btn pmd-ripple-effect btn-primary pmd-z-depth"\n' +
     '            type="button">{{\'AddItemBtn\' | translate}}</button>\n' +
     '    </div>\n' +
     '\n' +
@@ -2213,8 +2018,11 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '\n' +
     '                        </td>\n' +
     '                        <td width="10%">\n' +
-    '                            <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go(\'editItem\',{itemId:item.itemId,itemId:item.itemId});">mode_edit</i>\n' +
-    '                            <i class="material-icons pmd-md deleteButton cursorPointer font25" ng-click="itemCtrl.openDeleteItemDialog(item.itemName,item.itemId)">delete</i>\n' +
+    '                            <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go(\'editItem\',{categoryId:item.categoryId,itemId:item.itemId});">mode_edit</i>\n' +
+    '\n' +
+    '\n' +
+    '                            <!-- <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go(\'editItem\',{itemId:item.itemId,itemId:item.itemId});">mode_edit</i> -->\n' +
+    '                            <i class="material-icons pmd-md deleteButton cursorPointer font25" ng-click="itemCtrl.openDeleteDialog(item,item.itemNameDictionary[selectedLanguage],item.itemId)">delete</i>\n' +
     '                        </td>\n' +
     '                    </tr>\n' +
     '                </tbody>\n' +
@@ -2384,7 +2192,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '		</form>\n' +
     '	</div>\n' +
     '	<div class="pmd-modal-action text-right">\n' +
-    '		<button ng-disabled="newItemForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editItemCtrl.updateItem()">{{\'saveChangesBtn\'\n' +
+    '		<button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="newItemForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editItemCtrl.updateItem()">{{\'saveChangesBtn\'\n' +
     '			|\n' +
     '			translate}}</button>\n' +
     '		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editItemCtrl.close()">{{\'DiscardBtn\' |\n' +
@@ -2547,12 +2355,881 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '		</form>\n' +
     '	</div>\n' +
     '	<div class="pmd-modal-action text-right">\n' +
-    '		<button ng-disabled="newItemForm.$invalid  || newItemCtrl.isChanged" class="btn pmd-ripple-effect btn-primary" type="button"\n' +
+    '		<button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="newItemForm.$invalid  || newItemCtrl.isChanged" class="btn pmd-ripple-effect btn-primary" type="button"\n' +
     '		 ng-click="newItemCtrl.addNewItem()">{{\'saveChangesBtn\' |\n' +
     '			translate}}</button>\n' +
     '		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="newItemCtrl.close()">{{\'DiscardBtn\' |\n' +
     '			translate}}</button>\n' +
     '	</div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/meal/templates/Meal.html',
+    '<div>\n' +
+    '    <div style="margin-bottom:10px">\n' +
+    '        <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-click="$state.go(\'newMeal\',{categoryId: $stateParams.categoryId});" class="btn pmd-ripple-effect btn-primary pmd-z-depth"\n' +
+    '            type="button">{{\'AddMealBtn\' | translate}}</button>\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div ng-if="mealCtrl.meals.results.length == 0">\n' +
+    '        <span>{{\'NoMealAvailable\' | translate}}</span>\n' +
+    '    </div>\n' +
+    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="mealCtrl.meals.results.length > 0">\n' +
+    '        <div class="table-responsive">\n' +
+    '            <table class="table pmd-table table-hover">\n' +
+    '                <thead>\n' +
+    '                    <tr>\n' +
+    '                        <th>{{\'Name\' | translate}}</th>\n' +
+    '                        <th>{{\'DescriptionLbl\' | translate}}</th>\n' +
+    '                        <th>{{\'status\' | translate}}</th>\n' +
+    '                        <th></th>\n' +
+    '                    </tr>\n' +
+    '                </thead>\n' +
+    '                <tbody>\n' +
+    '                    <tr ng-repeat="meal in mealCtrl.meals.results">\n' +
+    '                        <td data-title="Name" width="15%">{{meal.mealNameDictionary[selectedLanguage] | limitTo:10}}</td>\n' +
+    '                        <td data-title="Description">{{meal.mealDescriptionDictionary[selectedLanguage] | limitTo:50}}</td>\n' +
+    '\n' +
+    '                        <td>\n' +
+    '                            <!-- <input type="checkbox" ng-model="meal.isActive" name="name" ng-click="mealCtrl.UpdateStatus(meal)"\n' +
+    '                                title="click To Update user status"> -->\n' +
+    '\n' +
+    '                            <div class="btn-switch" ng-class="{\'btn-switch--on\':meal.isActive}" ng-model="meal.isActive"\n' +
+    '                                ng-click="mealCtrl.UpdateStatus(meal)">\n' +
+    '\n' +
+    '                                <div class="btn-switch-circle" ng-class="{\'btn-switch-circle--on\':meal.isActive}"\n' +
+    '                                    ng-model="meal.isActive" ng-click="mealCtrl.UpdateStatus(meal)">\n' +
+    '                                </div>\n' +
+    '\n' +
+    '                        </td>\n' +
+    '                        <td width="10%">\n' +
+    '                                <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go(\'editMeal\',{categoryId:meal.categoryId,mealId:meal.mealId});">mode_edit</i>\n' +
+    '\n' +
+    '\n' +
+    '                            <!-- <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go(\'editMeal\',{mealId:meal.mealId,mealId:meal.mealId});">mode_edit</i> -->\n' +
+    '                            <i class="material-icons pmd-md deleteButton cursorPointer font25" ng-click="mealCtrl.openDeleteDialog(meal,meal.mealNameDictionary[selectedLanguage],meal.mealId)">delete</i>\n' +
+    '                        </td>\n' +
+    '                    </tr>\n' +
+    '                </tbody>\n' +
+    '            </table>\n' +
+    '        </div>\n' +
+    '        <div style="text-align:center;" paging page="1" page-size="10" total="mealCtrl.meals.totalCount" paging-action="mealCtrl.changePage( page)"\n' +
+    '            flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '\n' +
+    '\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/meal/templates/edit.html',
+    '<script type="text/javascript">\n' +
+    '	$(document).ready(function () {\n' +
+    '		$(".select-add-tags").select2({\n' +
+    '			tags: true,\n' +
+    '			theme: "bootstrap",\n' +
+    '			insertTag: function (data, tag) {\n' +
+    '				// Insert the tag at the end of the results\n' +
+    '				data.push(tag);\n' +
+    '			}\n' +
+    '		});\n' +
+    '	});\n' +
+    '</script>\n' +
+    '<div class="modal-content">\n' +
+    '	<div class="modal-header bordered">\n' +
+    '		<h2 class="pmd-card-title-text">{{\'UpdateMealLbl\' | translate}}</h2>\n' +
+    '	</div>\n' +
+    '	<div class="modal-body">\n' +
+    '		<form class="form-horizontal" name="newMealForm">\n' +
+    '\n' +
+    '			<div>\n' +
+    '				<ul class="nav nav-tabs" role="tablist">\n' +
+    '					<li role="presentation" ng-class="{\'active\':$index == 0}" ng-repeat="lang in editMealCtrl.language">\n' +
+    '						<a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">\n' +
+    '							{{lang.value | translate}}\n' +
+    '						</a>\n' +
+    '					</li>\n' +
+    '				</ul>\n' +
+    '				<div class="pmd-card">\n' +
+    '					<div class="pmd-card-body">\n' +
+    '						<div class="tab-content">\n' +
+    '							<div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}" ng-repeat="lang in editMealCtrl.language"\n' +
+    '							 id="{{lang.value}}-form">\n' +
+    '								<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '									<label for="first-name"> {{ lang.value+\'Name\' | translate}} </label>\n' +
+    '									<input required type="text" class="mat-input form-control" name="mealNameDictionary{{lang.value+\'Name\'}}"\n' +
+    '									 ng-model="editMealCtrl.meal.mealNameDictionary[lang.key]" ng-minlength="3" ng-maxlength="100">\n' +
+    '									<div ng-messages="newMealForm.mealNameDictionary{{lang.value+\'Name\'}}.$error">\n' +
+    '										<div ng-show="newMealForm.mealNameDictionary{{lang.value+\'Name\'}}.$error.required && !newMealForm.mealNameDictionary{{lang.value+\'Name\'}}.$pristine">{{\'requiredErr\'\n' +
+    '											| translate}}</div>\n' +
+    '										<div ng-show="(newMealForm.mealNameDictionary{{lang.value+\'Name\'}}.$error.minlength || newMealForm.mealNameDictionary{{lang.value+\'Name\'}}.$error.maxlength) && !newMealForm.mealNameDictionary{{lang.value+\'Name\'}}.$error.required">{{\'NameLengthError\'\n' +
+    '											| translate}}</div>\n' +
+    '									</div>\n' +
+    '								</div>\n' +
+    '								<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '									<label for="first-name">{{ lang.value+\'DescriptionLbl\' | translate}}</label>\n' +
+    '									<textarea required class="form-control" name="mealDescriptionDictionary{{lang.value+\'Name\'}}" ng-model="editMealCtrl.meal.mealDescriptionDictionary[lang.key]"\n' +
+    '									 ng-minlength="3" ng-maxlength="300"></textarea>\n' +
+    '									<div ng-messages="newMealForm.mealDescriptionDictionary{{lang.value+\'Name\'}}.$error">\n' +
+    '										<div ng-show="newMealForm.mealDescriptionDictionary{{lang.value+\'Name\'}}.$error.required && !newMealForm.mealDescriptionDictionary{{lang.value+\'Name\'}}.$pristine">{{\'requiredErr\'\n' +
+    '											| translate}}</div>\n' +
+    '										<div ng-show="(newMealForm.mealDescriptionDictionary{{lang.value+\'Name\'}}.$error.minlength || newMealForm.mealDescriptionDictionary{{lang.value+\'Name\'}}.$error.maxlength) && !newMealForm.mealDescriptionDictionary{{lang.value+\'Name\'}}.$error.required">{{\'DescLengthError\'\n' +
+    '											| translate}}</div>\n' +
+    '									</div>\n' +
+    '								</div>\n' +
+    '							</div>\n' +
+    '						</div>\n' +
+    '					</div>\n' +
+    '				</div>\n' +
+    '			</div>\n' +
+    '			<div class="row">\n' +
+    '				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '					<label for="first-name">{{\'SelectItems\' | translate}}</label>\n' +
+    '					<select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" multiple ng-model="editMealCtrl.itemModel"\n' +
+    '					 ng-change="editMealCtrl.addItemToList(editMealCtrl.itemModel)" ng-options="item as item.itemNameDictionary[selectedLanguage] \n' +
+    '							group by item.category.titleDictionary[selectedLanguage]\n' +
+    '							for item  in editMealCtrl.itemsList">\n' +
+    '					</select>\n' +
+    '				</div>\n' +
+    '				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '\n' +
+    '					<table class="table pmd-table table-hover">\n' +
+    '						<thead>\n' +
+    '							<tr>\n' +
+    '								<th>{{\'Name\' | translate}}</th>\n' +
+    '								<th>{{\'carb\' | translate}}</th>\n' +
+    '								<th>{{\'calories\' | translate}}</th>\n' +
+    '								<th>{{\'protein\' | translate}}</th>\n' +
+    '								<th>{{\'costlbl\' | translate}}</th>\n' +
+    '								<th>{{\'Pricelbl\' | translate}}</th>\n' +
+    '								<th>{{\'vat\' | translate}}</th>\n' +
+    '								<th>{{\'total\' | translate}}</th>\n' +
+    '								<th></th>\n' +
+    '							</tr>\n' +
+    '						</thead>\n' +
+    '						<tbody>\n' +
+    '							<tr ng-repeat="meal in editMealCtrl.itemModel">\n' +
+    '								<td data-title="Name" width="15%">{{meal.itemNameDictionary[selectedLanguage] | limitTo:10}}</td>\n' +
+    '								<td data-title="Description">{{meal.carbs}}</td>\n' +
+    '								<td data-title="Description">{{meal.calories}}</td>\n' +
+    '								<td data-title="Description">{{meal.protein}}</td>\n' +
+    '								<td data-title="Description">{{meal.cost}}</td>\n' +
+    '								<td data-title="Description">{{meal.price}}</td>\n' +
+    '								<td data-title="Description">{{meal.vat}}</td>\n' +
+    '								<td data-title="totalPrice">{{meal.totalPrice}}</td>\n' +
+    '\n' +
+    '							</tr>\n' +
+    '						</tbody>\n' +
+    '					</table>\n' +
+    '				</div>\n' +
+    '			</div>\n' +
+    '			<div class="row">\n' +
+    '\n' +
+    '				<!-- <div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '					<label for="first-name">{{\'mealSize\' | translate}} </label>\n' +
+    '					<input type="number" class="mat-input form-control" name="mealSize" ng-model="editMealCtrl.meal.mealSize" min="1"\n' +
+    '					 ng-maxlength="5">\n' +
+    '					<div ng-messages="newMealForm.mealSize.$error">\n' +
+    '						<div ng-if="newMealForm.mealSize.$error.required && !newMealForm.mealSize.$pristine">{{\'requiredErr\' |\n' +
+    '							translate}}</div>\n' +
+    '						<div ng-if="newMealForm.mealSize.$error.maxlength">{{\'mealSizeLengthError\' | translate}}</div>\n' +
+    '					</div>\n' +
+    '				</div> -->\n' +
+    '\n' +
+    '\n' +
+    '\n' +
+    '				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '					<label for="first-name">{{\'carbs\' | translate}} </label>\n' +
+    '					<input type="number" readonly class="mat-input form-control" name="carbs" ng-model="editMealCtrl.meal.carbs" min="1"\n' +
+    '					 ng-maxlength="5">\n' +
+    '					<div ng-messages="newMealForm.carbs.$error">\n' +
+    '						<div ng-if="newMealForm.carbs.$error.required && !newMealForm.carbs.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '						<div ng-if="newMealForm.carbs.$error.maxlength">{{\'carbsLengthError\' | translate}}</div>\n' +
+    '					</div>\n' +
+    '				</div>\n' +
+    '\n' +
+    '				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '					<label for="first-name">{{\'calories\' | translate}} </label>\n' +
+    '					<input type="number" readonly class="mat-input form-control" name="calories" ng-model="editMealCtrl.meal.calories"\n' +
+    '					 min="1" ng-maxlength="5">\n' +
+    '					<div ng-messages="newMealForm.calories.$error">\n' +
+    '						<div ng-if="newMealForm.calories.$error.required && !newMealForm.calories.$pristine">{{\'requiredErr\' |\n' +
+    '							translate}}</div>\n' +
+    '						<div ng-if="newMealForm.calories.$error.maxlength">{{\'caloriesLengthError\' | translate}}</div>\n' +
+    '					</div>\n' +
+    '				</div>\n' +
+    '\n' +
+    '\n' +
+    '				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed"><label\n' +
+    '					 for="first-name">{{\'protein\' | translate}} </label>\n' +
+    '					<input type="number" readonly class="mat-input form-control" name="protein" ng-model="editMealCtrl.meal.protein"\n' +
+    '					 min="1" ng-maxlength="5">\n' +
+    '					<div ng-messages="newMealForm.protein.$error">\n' +
+    '						<div ng-if="newMealForm.protein.$error.required && !newMealForm.protein.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '						<div ng-if="newMealForm.protein.$error.maxlength">{{\'proteinLengthError\' | translate}}</div>\n' +
+    '					</div>\n' +
+    '				</div>\n' +
+    '\n' +
+    '			</div>\n' +
+    '			<div class="row">\n' +
+    '				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '					<label for="first-name">{{\'costlbl\' | translate}} </label>\n' +
+    '					<input type="number" readonly class="mat-input form-control" name="cost" ng-model="editMealCtrl.meal.cost" min="1"\n' +
+    '					 ng-maxlength="5">\n' +
+    '					<div ng-messages="newMealForm.cost.$error">\n' +
+    '						<div ng-if="newMealForm.cost.$error.required && !newMealForm.cost.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '						<div ng-if="newMealForm.cost.$error.maxlength">{{\'costLengthError\' | translate}}</div>\n' +
+    '					</div>\n' +
+    '				</div>\n' +
+    '\n' +
+    '				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '					<label for="first-name">{{\'Pricelbl\' | translate}} </label>\n' +
+    '					<input type="number" readonly ng-change="editMealCtrl.calclulate()" class="mat-input form-control" name="price"\n' +
+    '					 ng-model="editMealCtrl.meal.price" min="1" ng-maxlength="5">\n' +
+    '					<div ng-messages="newMealForm.price.$error">\n' +
+    '						<div ng-if="newMealForm.price.$error.required && !newMealForm.price.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '						<div ng-if="newMealForm.price.$error.maxlength">{{\'PriceLengthError\' | translate}}</div>\n' +
+    '					</div>\n' +
+    '				</div>\n' +
+    '\n' +
+    '				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '\n' +
+    '					<label for="first-name">{{\'vat\' | translate}} </label>\n' +
+    '					<input type="number" readonly ng-change="editMealCtrl.calclulate()" class="mat-input form-control" name="vat"\n' +
+    '					 ng-model="editMealCtrl.meal.vat" min="1" ng-maxlength="5">\n' +
+    '					<div ng-messages="newMealForm.vat.$error">\n' +
+    '						<div ng-if="newMealForm.vat.$error.required && !newMealForm.vat.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '						<div ng-if="newMealForm.vat.$error.maxlength">{{\'vatLengthError\' | translate}}</div>\n' +
+    '					</div>\n' +
+    '				</div>\n' +
+    '				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '\n' +
+    '					<label for="first-name">{{\'mealDiscount\' | translate}} </label>\n' +
+    '					<input type="number" ng-change="editMealCtrl.calclulate()" class="mat-input form-control" name="mealDiscount"\n' +
+    '					 ng-model="editMealCtrl.meal.mealDiscount" min="1" ng-maxlength="5">\n' +
+    '					<div ng-messages="newMealForm.meal.mealDiscount.$error">\n' +
+    '						<div ng-if="newMealForm.meal.mealDiscount.$error.maxlength">{{\'mealDiscountLengthError\' | translate}}</div>\n' +
+    '					</div>\n' +
+    '				</div>\n' +
+    '				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '\n' +
+    '					<label for="first-name">{{\'Total\' | translate}} </label>\n' +
+    '					<input type="number" readonly class="mat-input form-control" name="totalPrice" ng-model="editMealCtrl.meal.totalPrice"\n' +
+    '					 min="1" ng-maxlength="5">\n' +
+    '					<div ng-messages="newMealForm.totalPrice.$error">\n' +
+    '						<div ng-if="newMealForm.totalPrice.$error.required && !newMealForm.totalPrice.$pristine">{{\'requiredErr\' |\n' +
+    '							translate}}</div>\n' +
+    '						<div ng-if="newMealForm.totalPrice.$error.maxlength">{{\'totalPriceLengthError\' | translate}}</div>\n' +
+    '					</div>\n' +
+    '				</div>\n' +
+    '			</div>\n' +
+    '\n' +
+    '			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '				<input id="mealImage" name="mealImage" style="display: none;" onchange="angular.element(this).scope().AddMealImage(this.files)"\n' +
+    '				 type="file">\n' +
+    '				<button ng-click="editMealCtrl.LoadUploadLogo()">{{\'UploadImageBtn\' | translate}}</button>\n' +
+    '				<span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i> {{\'RecommendedMealImage1\' | translate}}</span>\n' +
+    '				<img ng-show="editMealCtrl.meal.imageUrl != """ ng-src="{{editMealCtrl.meal.imageUrl}}" style="max-height: 200px;max-width: 200px;">\n' +
+    '\n' +
+    '			</div>\n' +
+    '\n' +
+    '\n' +
+    '		</form>\n' +
+    '	</div>\n' +
+    '	<div class="pmd-modal-action text-right">\n' +
+    '		<button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="newMealForm.$invalid"\n' +
+    '		 class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editMealCtrl.updateMeal()">{{\'saveChangesBtn\'\n' +
+    '			|\n' +
+    '			translate}}</button>\n' +
+    '		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editMealCtrl.close()">{{\'DiscardBtn\' |\n' +
+    '			translate}}</button>\n' +
+    '	</div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/meal/templates/new.html',
+    '<script type="text/javascript">\n' +
+    '	$(document).ready(function () {\n' +
+    '		$(".select-add-tags").select2({\n' +
+    '			tags: true,\n' +
+    '			theme: "bootstrap",\n' +
+    '			insertTag: function (data, tag) {\n' +
+    '				// Insert the tag at the end of the results\n' +
+    '				data.push(tag);\n' +
+    '			}\n' +
+    '		});\n' +
+    '	});\n' +
+    '</script>\n' +
+    '<div class="modal-content">\n' +
+    '	<div class="modal-header bordered">\n' +
+    '		<h2 class="pmd-card-title-text">{{\'NewMealtLbl\' | translate}}</h2>\n' +
+    '	</div>\n' +
+    '	<div class="modal-body">\n' +
+    '		<form class="form-horizontal" name="newMealForm">\n' +
+    '			<div>\n' +
+    '				<ul class="nav nav-tabs" role="tablist">\n' +
+    '					<li role="presentation" ng-class="{\'active\':$index == 0}" ng-repeat="lang in newMealCtrl.language">\n' +
+    '						<a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">\n' +
+    '							{{lang.value | translate}}\n' +
+    '						</a>\n' +
+    '					</li>\n' +
+    '				</ul>\n' +
+    '				<div class="pmd-card">\n' +
+    '					<div class="pmd-card-body">\n' +
+    '						<div class="tab-content">\n' +
+    '							<div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}" ng-repeat="lang in newMealCtrl.language"\n' +
+    '							 id="{{lang.value}}-form">\n' +
+    '								<div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '									<label for="first-name"> {{ lang.value+\'Name\' | translate}} </label>\n' +
+    '									<input required type="text" class="mat-input form-control" name="mealNameDictionary{{lang.value+\'Name\'}}"\n' +
+    '									 ng-model="newMealCtrl.mealNameDictionary[lang.key]" ng-minlength="3" ng-maxlength="100">\n' +
+    '									<div ng-messages="newMealForm.mealNameDictionary{{lang.value+\'Name\'}}.$error">\n' +
+    '										<div ng-show="newMealForm.mealNameDictionary{{lang.value+\'Name\'}}.$error.required && !newMealForm.mealNameDictionary{{lang.value+\'Name\'}}.$pristine">{{\'requiredErr\'\n' +
+    '											| translate}}</div>\n' +
+    '										<div ng-show="(newMealForm.mealNameDictionary{{lang.value+\'Name\'}}.$error.minlength || newMealForm.mealNameDictionary{{lang.value+\'Name\'}}.$error.maxlength) && !newMealForm.mealNameDictionary{{lang.value+\'Name\'}}.$error.required">{{\'NameLengthError\'\n' +
+    '											| translate}}</div>\n' +
+    '									</div>\n' +
+    '								</div>\n' +
+    '								<div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '									<label for="first-name">{{ lang.value+\'DescriptionLbl\' | translate}}</label>\n' +
+    '									<textarea required class="form-control" name="mealDescriptionDictionary{{lang.value+\'Name\'}}" ng-model="newMealCtrl.mealDescriptionDictionary[lang.key]"\n' +
+    '									 ng-minlength="3" ng-maxlength="300"></textarea>\n' +
+    '									<div ng-messages="newMealForm.mealDescriptionDictionary{{lang.value+\'Name\'}}.$error">\n' +
+    '										<div ng-show="newMealForm.mealDescriptionDictionary{{lang.value+\'Name\'}}.$error.required && !newMealForm.mealDescriptionDictionary{{lang.value+\'Name\'}}.$pristine">{{\'requiredErr\'\n' +
+    '											| translate}}</div>\n' +
+    '										<div ng-show="(newMealForm.mealDescriptionDictionary{{lang.value+\'Name\'}}.$error.minlength || newMealForm.mealDescriptionDictionary{{lang.value+\'Name\'}}.$error.maxlength) && !newMealForm.mealDescriptionDictionary{{lang.value+\'Name\'}}.$error.required">{{\'DescLengthError\'\n' +
+    '											| translate}}</div>\n' +
+    '									</div>\n' +
+    '								</div>\n' +
+    '							</div>\n' +
+    '						</div>\n' +
+    '					</div>\n' +
+    '				</div>\n' +
+    '			</div>\n' +
+    '			<div class="row">\n' +
+    '				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '					<label for="first-name">{{\'SelectItems\' | translate}}</label>\n' +
+    '					<select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" multiple ng-model="newMealCtrl.itemModel"\n' +
+    '					 ng-change="newMealCtrl.addItemToList(newMealCtrl.itemModel)" ng-options="item as item.itemNameDictionary[selectedLanguage] \n' +
+    '							group by item.category.titleDictionary[selectedLanguage]\n' +
+    '							for item  in newMealCtrl.itemsList">\n' +
+    '					</select>\n' +
+    '				</div>\n' +
+    '				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '\n' +
+    '					<table class="table pmd-table table-hover">\n' +
+    '						<thead>\n' +
+    '							<tr>\n' +
+    '								<th>{{\'Name\' | translate}}</th>\n' +
+    '								<th>{{\'carb\' | translate}}</th>\n' +
+    '								<th>{{\'calories\' | translate}}</th>\n' +
+    '								<th>{{\'protein\' | translate}}</th>\n' +
+    '								<th>{{\'costlbl\' | translate}}</th>\n' +
+    '								<th>{{\'Pricelbl\' | translate}}</th>\n' +
+    '								<th>{{\'vat\' | translate}}</th>\n' +
+    '								<th>{{\'total\' | translate}}</th>\n' +
+    '								<th></th>\n' +
+    '							</tr>\n' +
+    '						</thead>\n' +
+    '						<tbody>\n' +
+    '							<tr ng-repeat="meal in newMealCtrl.itemModel">\n' +
+    '								<td data-title="Name" width="15%">{{meal.itemNameDictionary[selectedLanguage] | limitTo:10}}</td>\n' +
+    '								<td data-title="Description">{{meal.carbs}}</td>\n' +
+    '								<td data-title="Description">{{meal.calories}}</td>\n' +
+    '								<td data-title="Description">{{meal.protein}}</td>\n' +
+    '								<td data-title="Description">{{meal.cost}}</td>\n' +
+    '								<td data-title="Description">{{meal.price}}</td>\n' +
+    '								<td data-title="Description">{{meal.vat}}</td>\n' +
+    '								<td data-title="totalPrice">{{meal.totalPrice}}</td>\n' +
+    '\n' +
+    '							</tr>\n' +
+    '						</tbody>\n' +
+    '					</table>\n' +
+    '				</div>\n' +
+    '			</div>\n' +
+    '			<div class="row">\n' +
+    '\n' +
+    '				<!-- <div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '					<label for="first-name">{{\'mealSize\' | translate}} </label>\n' +
+    '					<input type="number" class="mat-input form-control" name="mealSize" ng-model="newMealCtrl.mealSize" min="1"\n' +
+    '					 ng-maxlength="5">\n' +
+    '					<div ng-messages="newMealForm.mealSize.$error">\n' +
+    '						<div ng-if="newMealForm.mealSize.$error.required && !newMealForm.mealSize.$pristine">{{\'requiredErr\' |\n' +
+    '							translate}}</div>\n' +
+    '						<div ng-if="newMealForm.mealSize.$error.maxlength">{{\'mealSizeLengthError\' | translate}}</div>\n' +
+    '					</div>\n' +
+    '				</div> -->\n' +
+    '\n' +
+    '\n' +
+    '\n' +
+    '				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '					<label for="first-name">{{\'carbs\' | translate}} </label>\n' +
+    '					<input type="number"  readonly class="mat-input form-control" name="carbs" ng-model="newMealCtrl.carbs" min="1" ng-maxlength="5">\n' +
+    '					<div ng-messages="newMealForm.carbs.$error">\n' +
+    '						<div ng-if="newMealForm.carbs.$error.required && !newMealForm.carbs.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '						<div ng-if="newMealForm.carbs.$error.maxlength">{{\'carbsLengthError\' | translate}}</div>\n' +
+    '					</div>\n' +
+    '				</div>\n' +
+    '\n' +
+    '				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '					<label for="first-name">{{\'calories\' | translate}} </label>\n' +
+    '					<input type="number" readonly  class="mat-input form-control" name="calories" ng-model="newMealCtrl.calories" min="1"\n' +
+    '					 ng-maxlength="5">\n' +
+    '					<div ng-messages="newMealForm.calories.$error">\n' +
+    '						<div ng-if="newMealForm.calories.$error.required && !newMealForm.calories.$pristine">{{\'requiredErr\' |\n' +
+    '							translate}}</div>\n' +
+    '						<div ng-if="newMealForm.calories.$error.maxlength">{{\'caloriesLengthError\' | translate}}</div>\n' +
+    '					</div>\n' +
+    '				</div>\n' +
+    '\n' +
+    '\n' +
+    '				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed"><label\n' +
+    '					 for="first-name">{{\'protein\' | translate}} </label>\n' +
+    '					<input type="number"  readonly class="mat-input form-control" name="protein" ng-model="newMealCtrl.protein" min="1"\n' +
+    '					 ng-maxlength="5">\n' +
+    '					<div ng-messages="newMealForm.protein.$error">\n' +
+    '						<div ng-if="newMealForm.protein.$error.required && !newMealForm.protein.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '						<div ng-if="newMealForm.protein.$error.maxlength">{{\'proteinLengthError\' | translate}}</div>\n' +
+    '					</div>\n' +
+    '				</div>\n' +
+    '\n' +
+    '			</div>\n' +
+    '			<div class="row">\n' +
+    '				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '					<label for="first-name">{{\'costlbl\' | translate}} </label>\n' +
+    '					<input type="number" readonly  class="mat-input form-control" name="cost" ng-model="newMealCtrl.cost" min="1" ng-maxlength="5">\n' +
+    '					<div ng-messages="newMealForm.cost.$error">\n' +
+    '						<div ng-if="newMealForm.cost.$error.required && !newMealForm.cost.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '						<div ng-if="newMealForm.cost.$error.maxlength">{{\'costLengthError\' | translate}}</div>\n' +
+    '					</div>\n' +
+    '				</div>\n' +
+    '\n' +
+    '				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '					<label for="first-name">{{\'Pricelbl\' | translate}} </label>\n' +
+    '					<input type="number" readonly class="mat-input form-control" name="price" ng-change="newMealCtrl.calclulate()" ng-model="newMealCtrl.price"\n' +
+    '					 min="1" ng-maxlength="5">\n' +
+    '					<div ng-messages="newMealForm.price.$error">\n' +
+    '						<div ng-if="newMealForm.price.$error.required && !newMealForm.price.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '						<div ng-if="newMealForm.price.$error.maxlength">{{\'PriceLengthError\' | translate}}</div>\n' +
+    '					</div>\n' +
+    '				</div>\n' +
+    '\n' +
+    '				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '\n' +
+    '					<label for="first-name">{{\'vat\' | translate}} </label>\n' +
+    '					<input type="number" readonly ng-change="newMealCtrl.calclulate()" class="mat-input form-control" name="vat" ng-model="newMealCtrl.vat"\n' +
+    '					 min="1" ng-maxlength="5">\n' +
+    '					<div ng-messages="newMealForm.vat.$error">\n' +
+    '						<div ng-if="newMealForm.vat.$error.required && !newMealForm.vat.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '						<div ng-if="newMealForm.vat.$error.maxlength">{{\'vatLengthError\' | translate}}</div>\n' +
+    '					</div>\n' +
+    '				</div>\n' +
+    '				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '\n' +
+    '					<label for="first-name">{{\'mealDiscount\' | translate}} </label>\n' +
+    '					<input type="number" ng-change="newMealCtrl.calclulate()" class="mat-input form-control" name="mealDiscount"\n' +
+    '					 ng-model="newMealCtrl.mealDiscount" min="1" ng-maxlength="5">\n' +
+    '					<div ng-messages="newMealForm.mealDiscount.$error">\n' +
+    '						<div ng-if="newMealForm.mealDiscount.$error.maxlength">{{\'mealDiscountLengthError\' | translate}}</div>\n' +
+    '					</div>\n' +
+    '				</div>\n' +
+    '				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '\n' +
+    '					<label for="first-name">{{\'Total\' | translate}} </label>\n' +
+    '					<input type="number" readonly class="mat-input form-control" name="totalPrice" ng-model="newMealCtrl.totalPrice"\n' +
+    '					 min="1" ng-maxlength="5">\n' +
+    '					<div ng-messages="newMealForm.totalPrice.$error">\n' +
+    '						<div ng-if="newMealForm.totalPrice.$error.required && !newMealForm.totalPrice.$pristine">{{\'requiredErr\' |\n' +
+    '							translate}}</div>\n' +
+    '						<div ng-if="newMealForm.totalPrice.$error.maxlength">{{\'totalPriceLengthError\' | translate}}</div>\n' +
+    '					</div>\n' +
+    '				</div>\n' +
+    '			</div>\n' +
+    '\n' +
+    '\n' +
+    '			<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '				<input id="mealImage" name="mealImage" style="display: none;" onchange="angular.element(this).scope().AddMealImage(this.files)"\n' +
+    '				 type="file" required>\n' +
+    '				<button ng-click="newMealCtrl.LoadUploadLogo()">{{\'UploadImageBtn\' | translate}}</button>\n' +
+    '				<span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i> {{\'RecommendedMealImage1\' | translate}}</span>\n' +
+    '				<img ng-src="{{newMealCtrl.mealImage}}" style="max-height: 139px;max-width: 423px;">\n' +
+    '				<div ng-messages="newMealForm.mealImage.$error">\n' +
+    '					<div ng-if="newMealForm.mealImage.$error.required">{{\'requiredErr\' | translate}}</div>\n' +
+    '				</div>\n' +
+    '			</div>\n' +
+    '\n' +
+    '		</form>\n' +
+    '	</div>\n' +
+    '	<div class="pmd-modal-action text-right">\n' +
+    '		<button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="newMealForm.$invalid  || newMealCtrl.isChanged"\n' +
+    '		 class="btn pmd-ripple-effect btn-primary" type="button" ng-click="newMealCtrl.addNewMeal()">{{\'saveChangesBtn\' |\n' +
+    '			translate}}</button>\n' +
+    '		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="newMealCtrl.close()">{{\'DiscardBtn\' |\n' +
+    '			translate}}</button>\n' +
+    '	</div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/user/templates/addUser.html',
+    '{{\'BasicInfoLbl\' | translate}}\n' +
+    '<form class="form-horizontal" name="newclientForm">\n' +
+    '\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '        <label for="first-name">{{\'FirstNameLbl\' | translate}}</label>\n' +
+    '        <input required type="text" class="mat-input form-control" name="firstName" ng-pattern="/^(\\D)+$/" ng-model="FirstName"\n' +
+    '            ng-minlength="3" ng-maxlength="255">\n' +
+    '        <div ng-messages="newclientForm.firstName.$error" class="error">\n' +
+    '            <div ng-show="newclientForm.firstName.$error.pattern">{{\'TextOnly\' | translate}}</div>\n' +
+    '            <div ng-if="newclientForm.firstName.$error.required && !newclientForm.firstName.$pristine">{{\'FirstNameLengthError\'\n' +
+    '                | translate}}</div>\n' +
+    '            <div ng-if="(newclientForm.firstName.$error.minlength || newclientForm.firstName.$error.maxlength) ">{{\'NameLengthError255\'\n' +
+    '                | translate}}</div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '        <label for="first-name">{{\'LastNameLbl\' | translate}}</label>\n' +
+    '        <input required type="text" class="mat-input form-control" name="lastName" ng-pattern="/^(\\D)+$/" ng-model="LastName"\n' +
+    '            ng-minlength="3" ng-maxlength="255">\n' +
+    '        <div ng-messages="newclientForm.lastName.$error">\n' +
+    '            <div ng-show="newclientForm.lastName.$error.pattern">{{\'TextOnly\' | translate}}</div>\n' +
+    '            <div ng-if="newclientForm.lastName.$error.required && !newclientForm.lastName.$pristine">{{\'lastName\' |\n' +
+    '                translate}}</div>\n' +
+    '            <div ng-if="(newclientForm.lastName.$error.minlength || newclientForm.lastName.$error.maxlength)">{{\'NameLengthError255\'\n' +
+    '                | translate}}</div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '        <label>{{\'EmailLbl\' | translate}}</label>\n' +
+    '        <input required type="text" class="mat-input form-control" name="userEmail" ng-model="Email" ng-pattern="/^\\w+([-+.\']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$/">\n' +
+    '        <span class="error" ng-show="newclientForm.userEmail.$error.pattern">{{\'WrongMail\' | translate}} </span>\n' +
+    '        <!--\n' +
+    '                            <div ng-if="!newclientForm.email.$error.required &amp;&amp;\n' +
+    '                            newclientForm.userEmail.$error.email" class="error">{{\'WrongMail\' | translate}}\n' +
+    '                            </div> -->\n' +
+    '        <div ng-messages="newclientForm.email.$error">\n' +
+    '            <div ng-if="newclientForm.userEmail.$error.required && !newclientForm.userEmail.$pristine">{{\'EmailLengthError\'\n' +
+    '                | translate}}</div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '\n' +
+    '\n' +
+    '        <label for="first-name">{{\'phoneLbl\' | translate}}</label>\n' +
+    '        <input required type="text" class="mat-input form-control" name="phone" numbers-only ng-model="Phone"\n' +
+    '            ng-minlength="10" ng-maxlength="50">\n' +
+    '        <!-- <span class="error" ng-show="newclientForm.phone.$error.pattern">{{\'NotPhoneNumber\' | translate}}   </span> -->\n' +
+    '        <div ng-messages="newclientForm.phone.$error">\n' +
+    '            <div ng-if="newclientForm.phone.$error.required && !newclientForm.phone.$pristine">{{\'PhoneReqError\' |\n' +
+    '                translate}}</div>\n' +
+    '            <div ng-if="(newclientForm.phone.$error.minlength || newclientForm.phone.$error.maxlength)">{{\'PhoneLengthError\'\n' +
+    '                | translate}}</div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '        <label for="first-name">{{\'UserPasswordLbl\' | translate}}</label>\n' +
+    '        <input required type="password" class="mat-input form-control" name="password" ng-model="Password" ng-minlength="8"\n' +
+    '            ng-maxlength="25">\n' +
+    '        <div ng-messages="newclientForm.password.$error">\n' +
+    '            <div ng-if="newclientForm.password.$error.required && !newclientForm.password.$pristine">{{\'requiredErr\' |\n' +
+    '                translate}}</div>\n' +
+    '            <div ng-if="(newclientForm.password.$error.minlength || newclientForm.password.$error.maxlength) && !newclientForm.password.newPassword.$error.required">Password\n' +
+    '                length must be 8-25 char.</div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '        <label for="first-name">{{\'ConfirmPasswordLbl\' | translate}}</label>\n' +
+    '        <input required type="password" class="mat-input form-control" name="confirmPassword" ng-model="confirmPassword"\n' +
+    '            equalto="newclientForm.password">\n' +
+    '        <div ng-messages="newclientForm.confirmPassword.$error">\n' +
+    '            <div ng-if="newclientForm.confirmPassword.$error.required && !newclientForm.confirmPassword.$pristine">{{\'requiredErr\'\n' +
+    '                | translate}}</div>\n' +
+    '            <div ng-if="newclientForm.confirmPassword.$error.equalto && !newclientForm.confirmPassword.$error.required">{{\'passworddontmatch\'\n' +
+    '                | translate}}</div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'Country\' | translate}}</label>\n' +
+    '        <select required style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="userCtrl.countryChange()"\n' +
+    '            ng-model="userCtrl.selectedCountryId" ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in userCtrl.counties">\n' +
+    '        </select>\n' +
+    '    </div>\n' +
+    '    <div ng-show=" userCtrl.selectedCountryId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'Region\' | translate}}</label>\n' +
+    '        <select required style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="userCtrl.regionChange()"\n' +
+    '            ng-model="userCtrl.selectedRegionId" ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in userCtrl.regions">\n' +
+    '        </select>\n' +
+    '    </div>\n' +
+    '    <div ng-show=" userCtrl.selectedRegionId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'City\' | translate}}</label>\n' +
+    '        <select ng-required="userCtrl.selectedRegionId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
+    '            ng-change="userCtrl.cityChange()" ng-model="userCtrl.selectedCityId" ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in userCtrl.cities">\n' +
+    '        </select>\n' +
+    '    </div>\n' +
+    '    <div ng-show=" userCtrl.selectedCityId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'Area\' | translate}}</label>\n' +
+    '        <select ng-required=" userCtrl.selectedCityId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
+    '            ng-change="userCtrl.areaChange()" ng-model="userCtrl.selectedAreaId" ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in userCtrl.area">\n' +
+    '        </select>\n' +
+    '    </div>\n' +
+    '    <div ng-show=" userCtrl.selectedAreaId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'Branch\' | translate}}</label>\n' +
+    '        <select ng-required=" userCtrl.selectedAreaId > 0 " class="form-control select-with-search pmd-select2-tags"\n' +
+    '              ng-change="userCtrl.branchChange()" ng-model="userCtrl.selectedBranchId" ng-options="a.branchId as a.titleDictionary[selectedLanguage] for a in userCtrl.branchList"></select>\n' +
+    '    </div>\n' +
+    '\n' +
+    '\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label> {{ \'Role\' | translate}} </label>\n' +
+    '        <select required style="width:100% !important" class="form-control select-with-search pmd-select2-tags"\n' +
+    '            multiple ng-model="userCtrl.selectedUserRoles" ng-options="role as role.titleDictionary[selectedLanguage] for role in roleList"></select>\n' +
+    '\n' +
+    '    </div>\n' +
+    '</form>\n' +
+    '\n' +
+    '<div class="pmd-modal-action text-right">\n' +
+    '    <button  style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="newclientForm.$invalid  && (userCtrl.selectedAreaId <= 0 || userCtrl.selectedBranchId <= 0)" \n' +
+    '    class="btn pmd-ripple-effect btn-primary" type="button" ng-click="AddNewclient()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '    <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="userCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '</div>\n' +
+    '<!-- \n' +
+    '<div class="pmd-modal-action text-right">\n' +
+    '    <button ng-disabled="newclientForm.$invalid  && (userCtrl.selectedAreaId <= 0 || userCtrl.selectedBranchId <= 0))"\n' +
+    '        class="btn pmd-ripple-effect btn-primary" type="button" ng-click="AddNewclient()">{{\'NextLbl\' | translate}}</button>\n' +
+    '</div> -->\n' +
+    '<script type="text/javascript">\n' +
+    '    $(document).ready(function () {\n' +
+    '        // $(".select-add-tags").select2({\n' +
+    '        //     tags: true,\n' +
+    '        //     theme: "bootstrap",\n' +
+    '        //     insertTag: function (data, tag) { \n' +
+    '        //         data.push(tag); \n' +
+    '        //     }\n' +
+    '        // });\n' +
+    '        $(".select-tags").select2({\n' +
+    '            tags: false,\n' +
+    '            theme: "bootstrap",\n' +
+    '        })\n' +
+    '\n' +
+    '        $(".select-with-search").select2({\n' +
+    '            theme: "bootstrap"\n' +
+    '        });\n' +
+    '    });\n' +
+    '</script>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/user/templates/editUser.html',
+    '{{\'BasicInfoLbl\' | translate}}\n' +
+    '<br />\n' +
+    '<form class="form-horizontal" name="newclientForm" autocomplete="off">\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'FirstNameLbl\' | translate}}</label>\n' +
+    '        <input ng-disabled="true" required type="text" class="mat-input form-control" name="firstName" ng-model="userObj.firstName"\n' +
+    '            ng-minlength="3" ng-maxlength="255">\n' +
+    '        <div ng-messages="newclientForm.firstName.$error">\n' +
+    '            <div ng-if="newclientForm.firstName.$error.required && !newclientForm.firstName.$pristine">{{\'FirstNameLengthError\'\n' +
+    '                | translate}}</div>\n' +
+    '            <div ng-if="(newclientForm.firstName.$error.minlength || newclientForm.firstName.$error.maxlength) && !newclientForm.firstName.$error.required">{{\'NameLengthError255\'\n' +
+    '                | translate}}</div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'LastNameLbl\' | translate}}</label>\n' +
+    '        <input ng-disabled="true" required type="text" class="mat-input form-control" name="lastName" ng-model="userObj.lastName"\n' +
+    '            ng-minlength="3" ng-maxlength="255">\n' +
+    '        <div ng-messages="newclientForm.lastName.$error">\n' +
+    '            <div ng-if="newclientForm.lastName.$error.required && !newclientForm.lastName.$pristine">{{\'lastName\' |\n' +
+    '                translate}}</div>\n' +
+    '            <div ng-if="(newclientForm.lastName.$error.minlength || newclientForm.lastName.$error.maxlength) && !newclientForm.lastName.$error.required">{{\'LastNameLengthError\'\n' +
+    '                | translate}}</div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'EmailLbl\' | translate}}</label>\n' +
+    '\n' +
+    '        <input ng-disabled="true" required type="text" class="mat-input form-control" name="email" ng-model="userObj.email"\n' +
+    '            ng-minlength="3" ng-maxlength="50">\n' +
+    '        <div ng-messages="newclientForm.email.$error">\n' +
+    '            <div ng-if="newclientForm.email.$error.required && !newclientForm.email.$pristine">{{\'lastName\' |\n' +
+    '                translate}}</div>\n' +
+    '            <div ng-if="(newclientForm.email.$error.minlength || newclientForm.email.$error.maxlength) && !newclientForm.email.$error.required">{{\'LastNameLengthError\'\n' +
+    '                | translate}}</div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'phoneLbl\' | translate}}</label>\n' +
+    '\n' +
+    '        <input ng-disabled="true" required type="text" class="mat-input form-control" numbers-only name="phone"\n' +
+    '            ng-model="userObj.phone" ng-pattern="phoneNumbr" ng-minlength="10" ng-maxlength="50">\n' +
+    '        <span class="error" ng-show="newclientForm.phone.$error.pattern">{{\'NotPhoneNumber\' | translate}} </span>\n' +
+    '        <div ng-messages="newclientForm.phone.$error">\n' +
+    '            <div ng-if="newclientForm.phone.$error.required && !newclientForm.phone.$pristine">{{\'PhoneReqError\' |\n' +
+    '                translate}}</div>\n' +
+    '            <div ng-if="(newclientForm.phone.$error.minlength || newclientForm.phone.$error.maxlength)">{{\'PhoneLengthError\'\n' +
+    '                | translate}}</div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'UserPasswordLbl\' | translate}}</label>\n' +
+    '\n' +
+    '        <input required type="password" class="mat-input form-control" name="password" ng-model="userObj.password"\n' +
+    '            ng-minlength="8" ng-maxlength="25">\n' +
+    '        <div ng-messages="newclientForm.password.$error">\n' +
+    '            <div ng-if="newclientForm.password.$error.required && !newclientForm.password.$pristine">{{\'requiredErr\' |\n' +
+    '                translate}}</div>\n' +
+    '            <div ng-if="(newclientForm.password.$error.minlength || newclientForm.password.$error.maxlength) && !newclientForm.password.newPassword.$error.required">Password\n' +
+    '                length must be 8-25 char.</div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'ConfirmPasswordLbl\' | translate}}</label>\n' +
+    '        <input required type="password" class="mat-input form-control" name="confirmPassword" ng-model="userObj.confirmPassword"\n' +
+    '            equalto="newclientForm.password">\n' +
+    '        <div ng-messages="newclientForm.confirmPassword.$error">\n' +
+    '            <div ng-if="newclientForm.confirmPassword.$error.required && !newclientForm.confirmPassword.$pristine">{{\'requiredErr\'\n' +
+    '                | translate}}</div>\n' +
+    '            <div ng-if="newclientForm.confirmPassword.$error.equalto && !newclientForm.confirmPassword.$error.required">{{\'passworddontmatch\'\n' +
+    '                | translate}}</div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'Country\' | translate}}</label>\n' +
+    '        <select ng-required="(selectedType.userTypeId == 3||selectedType.userTypeId == 4)" style="width:100% !important"\n' +
+    '            class="select-tags form-control pmd-select2-tags" ng-change="editUserCtrl.countryChange()" ng-model="editUserCtrl.selectedCountryId"\n' +
+    '            ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in editUserCtrl.counties">\n' +
+    '        </select>\n' +
+    '    </div>\n' +
+    '    <div ng-show=" editUserCtrl.selectedCountryId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'Region\' | translate}}</label>\n' +
+    '        <select ng-required="(selectedType.userTypeId == 3||selectedType.userTypeId == 4)&& editUserCtrl.selectedCountryId > 0"\n' +
+    '            style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="editUserCtrl.regionChange()"\n' +
+    '            ng-model="editUserCtrl.selectedRegionId" ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in editUserCtrl.regions">\n' +
+    '        </select>\n' +
+    '    </div>\n' +
+    '    <div ng-show=" editUserCtrl.selectedRegionId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'City\' | translate}}</label>\n' +
+    '        <select ng-required="(selectedType.userTypeId == 3||selectedType.userTypeId == 4)&& editUserCtrl.selectedRegionId > 0"\n' +
+    '            style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="editUserCtrl.cityChange()"\n' +
+    '            ng-model="editUserCtrl.selectedCityId" ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in editUserCtrl.cities">\n' +
+    '        </select>\n' +
+    '    </div>\n' +
+    '    <div ng-show=" editUserCtrl.selectedCityId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'Area\' | translate}}</label>\n' +
+    '        <select ng-required="(selectedType.userTypeId == 3||selectedType.userTypeId == 4)&& editUserCtrl.selectedCityId > 0"\n' +
+    '            style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="editUserCtrl.areaChange()"\n' +
+    '            ng-model="editUserCtrl.selectedAreaId" ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in editUserCtrl.area">\n' +
+    '        </select>\n' +
+    '    </div>\n' +
+    '    <div ng-show="  editUserCtrl.selectedAreaId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'Branch\' | translate}}</label>\n' +
+    '        <select ng-required="(selectedType.userTypeId == 3||selectedType.userTypeId == 4) && editUserCtrl.selectedAreaId > 0 "\n' +
+    '            class="form-control select-with-search pmd-select2-tags" multiple ng-change="editUserCtrl.branchChange()"\n' +
+    '            ng-model="editUserCtrl.selectedBranchId" ng-options="a.branchId as a.titleDictionary[selectedLanguage] for a in editUserCtrl.branchList"></select>\n' +
+    '    </div>\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '\n' +
+    '        <label> {{ \'Role\' | translate}} </label>\n' +
+    '        <select required style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" multiple\n' +
+    '            ng-model="editUserCtrl.selectedUserRoles" ng-options="role as role.titleDictionary[selectedLanguage] for role in roleList"></select>\n' +
+    '\n' +
+    '    </div>\n' +
+    '</form>\n' +
+    '<!-- <div class="pmd-modal-action text-right">\n' +
+    '    <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="newclientForm.$invalid || !editUserCtrl.show && editUserCtrl.selectedBranchId <= 0"\n' +
+    '        class="btn pmd-ripple-effect btn-primary" type="button" ng-click="Updateclient()">{{\'Edit\' | translate}}</button>\n' +
+    '</div> -->\n' +
+    '\n' +
+    '<div class="pmd-modal-action text-right">\n' +
+    '    <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="newclientForm.$invalid || !editUserCtrl.show && editUserCtrl.selectedBranchId <= 0"\n' +
+    '        class="btn pmd-ripple-effect btn-primary" type="button" ng-click="Updateclient()">{{\'saveChangesBtn\' |\n' +
+    '        translate}}</button>\n' +
+    '    <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editUserCtrl.close()">{{\'DiscardBtn\' |\n' +
+    '        translate}}</button>\n' +
+    '</div>\n' +
+    '\n' +
+    '<script type="text/javascript">\n' +
+    '    $(document).ready(function () {\n' +
+    '        $(".select-add-tags").select2({\n' +
+    '            tags: true,\n' +
+    '            theme: "bootstrap",\n' +
+    '            insertTag: function (data, tag) {\n' +
+    '                // Insert the tag at the end of the results\n' +
+    '                data.push(tag);\n' +
+    '                // console.log(data);\n' +
+    '            }\n' +
+    '        });\n' +
+    '        $(".select-tags").select2({\n' +
+    '            tags: false,\n' +
+    '            theme: "bootstrap",\n' +
+    '        })\n' +
+    '\n' +
+    '        $(".select-with-search").select2({\n' +
+    '            theme: "bootstrap"\n' +
+    '        });\n' +
+    '    });\n' +
+    '</script>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/user/templates/user.html',
+    '<div>\n' +
+    '    <div style="margin-bottom:10px">\n' +
+    '        <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-click="$state.go(\'addUser\');"\n' +
+    '            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'AddUserBtn\' | translate}}</button>\n' +
+    '\n' +
+    '    </div>\n' +
+    '    <div ng-if="userCtrl.userList.results.length == 0">\n' +
+    '        <span>{{\'NouserAvailable\' | translate}}</span>\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="userList.length >0">\n' +
+    '\n' +
+    '        <div class="table-responsive">\n' +
+    '            <table class="table pmd-table table-hover">\n' +
+    '                <thead>\n' +
+    '                    <tr>\n' +
+    '                        <th>{{\'userName\' | translate}}</th>\n' +
+    '                        <th>{{\'EmailLbl\' | translate}}</th>\n' +
+    '                        <th>{{\'Phone1Lbl\' | translate}}</th>\n' +
+    '                        <th>{{\'Status\' | translate}}</th>\n' +
+    '                        <th></th>\n' +
+    '                    </tr>\n' +
+    '                </thead>\n' +
+    '                <tbody>\n' +
+    '                    <tr ng-repeat="user in userList">\n' +
+    '                        <td data-title="Name" width="20%">{{user.firstName}} {{user.lastName}}</td>\n' +
+    '                        <td data-title="Name" width="20%">{{user.email}} </td>\n' +
+    '\n' +
+    '                        <td data-title="Description">{{user.phone}}</td>\n' +
+    '                        <td>\n' +
+    '                            <div class="btn-switch" ng-class="{\'btn-switch--on\':user.isActive}" ng-model="user.isActive"\n' +
+    '                                ng-click="userCtrl.UpdateUser(user)">\n' +
+    '\n' +
+    '                                <div class="btn-switch-circle" ng-class="{\'btn-switch-circle--on\':user.isActive}"\n' +
+    '                                    ng-model="user.isActive" ng-click="userCtrl.UpdateUser(user)">\n' +
+    '                                </div>\n' +
+    '                        </td>\n' +
+    '                        <td width="30%">\n' +
+    '                            <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go(\'editUser\', {userId: user.userId});">mode_edit</i>\n' +
+    '                            <!-- <i class="material-icons pmd-md deleteButton cursorPointer font25" ng-click="CategoryCtrl.openDeleteDialog(Category,Category.titleDictionary[selectedLanguage],Category.categoryId)">delete</i> -->\n' +
+    '                        </td>\n' +
+    '                    </tr>\n' +
+    '                </tbody>\n' +
+    '            </table>\n' +
+    '        </div>\n' +
+    '\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount" paging-action="changePage(page)"\n' +
+    '        flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">\n' +
+    '    </div>\n' +
     '</div>');
 }]);
 
@@ -2569,25 +3246,29 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 
 angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/core/login/templates/login.html',
-    '<div class="logincard" ng-if="!isLoggedIn()">\n' +
-    '  	<div class="pmd-card card-default pmd-z-depth">\n' +
-    '		<div class="login-card">\n' +
-    '			<form ng-submit="submit(username,password)" name="loginForm">	\n' +
-    '				<div class="pmd-card-body">\n' +
-    '					<div class="alert alert-success" role="alert"> Oh snap! Change a few things up and try submitting again. </div>\n' +
+    '<div class="logincard" ng-if="!isLoggedIn()" style="margin-right: 84px;\n' +
+    'margin-left: -140px;">\n' +
+    '    <div class="pmd-card card-default pmd-z-depth">\n' +
+    '        <div class="login-card">\n' +
+    '            <form ng-submit="submit(username,password)" name="loginForm">\n' +
+    '                <div class="pmd-card-body">\n' +
+    '                    <div class="alert alert-success" role="alert"> Oh snap! Change a few things up and try submitting\n' +
+    '                        again. </div>\n' +
     '                    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
     '                        <label for="inputError1" class="control-label pmd-input-group-label">Email</label>\n' +
     '                        <div class="input-group">\n' +
     '                            <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">perm_identity</i></div>\n' +
-    '                            <input type="text" class="form-control" id="exampleInputAmount" required name="username" ng-model="username" ng-change="reset()">\n' +
+    '                            <input type="text" class="form-control" id="exampleInputAmount" required name="username"\n' +
+    '                                ng-model="username" ng-change="reset()">\n' +
     '                        </div>\n' +
     '                    </div>\n' +
-    '                    \n' +
+    '\n' +
     '                    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
     '                        <label for="inputError1" class="control-label pmd-input-group-label">Password</label>\n' +
     '                        <div class="input-group">\n' +
     '                            <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">lock_outline</i></div>\n' +
-    '                            <input required type="password" name="password" ng-model="password" ng-change="reset()" minlength="6"  class="form-control" >\n' +
+    '                            <input required type="password" name="password" ng-model="password" ng-change="reset()"\n' +
+    '                                minlength="6" class="form-control">\n' +
     '                        </div>\n' +
     '                    </div>\n' +
     '                </div>\n' +
@@ -2595,16 +3276,25 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                    <span>Incorrect username or password.</span>\n' +
     '                </div>\n' +
     '                <div ng-if="inActiveUser" class="loginFailed">\n' +
-    '                    <span>Your account is deleted.</span>\n' +
+    '                    <span>Your Account Is Disabled, Please contact to administrator.</span>\n' +
     '                </div>\n' +
-    '				<div class="pmd-card-footer card-footer-no-border card-footer-p16 text-center">\n' +
-    '					<button  type="submit" class="btn pmd-ripple-effect btn-primary btn-block">Login</button>\n' +
-    '				</div>\n' +
-    '			</form>\n' +
-    '		</div>\n' +
-    '		\n' +
-    '		\n' +
-    '	</div>\n' +
-    '</div>\n' +
-    '');
+    '                <div class="pmd-card-footer card-footer-no-border card-footer-p16 text-center">\n' +
+    '                    <button type="submit" style="color: #ffffff!important;\n' +
+    '                    background: #9A3ea6;\n' +
+    '                    border-width: 9px!important;\n' +
+    '                    border-color: #9a3ea6;\n' +
+    '                    border-radius: 100px;\n' +
+    '                    letter-spacing: 1px;\n' +
+    '                    font-size: 15px;\n' +
+    '                    font-family: \'Montserrat\',Helvetica,Arial,Lucida,sans-serif!important;\n' +
+    '                    font-weight: 500!important;\n' +
+    '                    text-transform: uppercase!important;\n' +
+    '                    background-color: #9A3ea6;" class="btn pmd-ripple-effect btn-primary btn-block">Login</button>\n' +
+    '                </div>\n' +
+    '            </form>\n' +
+    '        </div>\n' +
+    '\n' +
+    '\n' +
+    '    </div>\n' +
+    '</div>');
 }]);

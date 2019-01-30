@@ -25,6 +25,7 @@ namespace FitHouse.DAL.Entities.Model
         public long ProgramDiscount { get; set; }
         public bool IsAdmin { get; set; }
         public bool IsForClient { get; set; }
+        public decimal Price { get; set; }
         public virtual ICollection<ProgramTranslation> ProgramTranslations { get; set; }
         public virtual ICollection<ProgramDetail> ProgramDetails { get; set; }
     }

@@ -1,0 +1,62 @@
+<div>
+    <div ng-if="OrderList.results.length == 0">
+        <span>{{'NoOrdersAvailable' | translate}}</span>
+    </div>
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="OrderList.results.length > 0">
+        <div class="table-responsive"></div>
+        <table class="table pmd-table table-hover">
+            <thead>
+                <tr>
+                    <th>{{'Name' | translate}}</th>
+                    <th>{{'OrderCode' | translate}}</th>
+                    <th>{{'Date' | translate}}</th>
+                    <th>{{'startDate' | translate}}</th>
+                    <th>{{'Price' | translate}}</th>
+                    <th>{{'Payment' | translate}}</th>
+                    <th>{{'Delvery/Takeaway' | translate}}</th>
+                    <th>{{'Ordertype' | translate}}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="order in OrderList.results">
+                    <td data-title="Name">{{order.user.firstName}}{{order.user.lastName}}</td>
+                    <td data-title="Name">#{{order.orderCode}} </td>
+
+                    <td data-title="Name">{{order.orderDate | date : "d/MMM/yy h:mm a" }} </td>
+                    <td data-title="Name">{{order.orderStartDate | date : "d/MMM/yy h:mm a"}} </td>
+                    <td data-title="Name">
+
+                        <h4>{{ getTotal(order)}}</h4>
+                    </td>
+                    <td>
+                        <div class="btn-switch" ng-class="{'btn-switch--on':order.isPaid}" ng-model="order.isPaid"
+                            ng-click="UpdateOrder(order)">
+
+                            <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':order.isPaid}" ng-model="order.isPaid"
+                                ng-click="UpdateOrder(order)">
+                            </div>
+                    </td>
+                    <td data-title="Name">
+                        <img ng-if="order.isDelivery == true" src="assets\img\delivery.png">
+                        <img ng-if="order.isDelivery == false" src="assets\img\takeaway.png" style="width: 44px;height: 39px;">
+                    </td>
+
+                    <td data-title="Name">
+                        <img ng-if="order.type == 1" src="assets\img\program.png">
+                        <img ng-if="order.type == 2" src="assets\img\meal.png">
+                        <img ng-if="order.type == 3" src="assets\img\item.png">
+                    </td>
+                    <td>
+                        <a ng-click="goToDetails(order)" class="cursorPointer">{{'ItemsBtn'|
+                            translate}}</a>
+                    </td>
+ 
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount" paging-action="changePage(page)"
+        flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">
+    </div>
+</div>

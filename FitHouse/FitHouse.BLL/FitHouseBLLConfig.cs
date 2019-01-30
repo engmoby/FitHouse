@@ -99,6 +99,23 @@ namespace FitHouse.BLL
                 .ForMember(dto => dto.TitleDictionary, m => m.MapFrom(src => src.CityTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)))
                 .ForMember(dto => dto.RegionNameDictionary, m => m.MapFrom(src => src.Region.RegionTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)));
 
+            mapperConfiguration.CreateMap<MealDto, Meal>();
+            mapperConfiguration.CreateMap<Meal, MealDto>()
+                .ForMember(dto => dto.MealNameDictionary, m => m.MapFrom(src => src.MealTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)))
+                .ForMember(dto => dto.MealDescriptionDictionary, m => m.MapFrom(src => src.MealTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Description)));
+
+            mapperConfiguration.CreateMap<MealDetailDto, MealDetail>().ReverseMap();
+
+            mapperConfiguration.CreateMap<OrderDto, Order>();
+            mapperConfiguration.CreateMap<Order, OrderDto>()
+                .ForMember(x => x.OrderDetails, m => m.Ignore());
+
+            mapperConfiguration.CreateMap<OrderDetailDto, OrderDetail>();
+            mapperConfiguration.CreateMap<OrderDetail, OrderDetailDto>();
+
+            mapperConfiguration.CreateMap<AddressDto, Address>();
+            mapperConfiguration.CreateMap<Address, AddressDto>();
+
 
             Mapper.Initialize(mapperConfiguration);
         }
@@ -117,7 +134,7 @@ namespace FitHouse.BLL
                 .RegisterType<ICategoryTranslationService, CategoryTranslationService>(new PerResolveLifetimeManager())
                 .RegisterType<IItemService, ItemService>(new PerResolveLifetimeManager())
                 .RegisterType<IItemTranslationService, ItemTranslationService>(new PerResolveLifetimeManager())
-               
+
                 .RegisterType<IUserService, UserService>(new PerResolveLifetimeManager())
                 .RegisterType<IUserRoleService, UserRoleService>(new PerResolveLifetimeManager())
                 .RegisterType<IPermissionService, PermissionService>(new PerResolveLifetimeManager())
@@ -138,6 +155,13 @@ namespace FitHouse.BLL
                 .RegisterType<IProgramDetailService, ProgramDetailService>(new PerResolveLifetimeManager())
 
                 .RegisterType<IDayService, DayService>(new PerResolveLifetimeManager())
+                .RegisterType<IOrderDetailsService, OrderDetailsService>(new PerResolveLifetimeManager())
+                .RegisterType<IOrderService, OrderService>(new PerResolveLifetimeManager())
+
+
+                .RegisterType<IMealservice, Mealservice>(new PerResolveLifetimeManager())
+                .RegisterType<IMealTranslationService, MealTranslationService>(new PerResolveLifetimeManager())
+                .RegisterType<IMealDetailsService, MealDetailsService>(new PerResolveLifetimeManager())
 
 
                 ;

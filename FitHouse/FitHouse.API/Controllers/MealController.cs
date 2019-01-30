@@ -13,13 +13,11 @@ using System.Web.Script.Serialization;
 using AutoMapper;
 using FitHouse.API.Infrastructure;
 using FitHouse.API.Models;
-using FitHouse.API.Providers;
 using FitHouse.BLL.DataServices.Interfaces;
 using FitHouse.BLL.DTOs;
-using FitHouse.Common;
-using FitHouse.Common.CustomException;
-using FitHouse.BLL.Services.Interfaces;
 using FitHouse.BLL.Services;
+using FitHouse.BLL.Services.Interfaces;
+using FitHouse.Common.CustomException;
 
 namespace FitHouse.API.Controllers
 {
@@ -44,7 +42,7 @@ namespace FitHouse.API.Controllers
         }
 
 
-        //  [AuthorizeRoles(Enums.RoleType.RestaurantAdmin)]
+        //  [AuthorizeOrders(Enums.OrderType.RestaurantAdmin)]
         [Route("api/Meals", Name = "AddMeal")]
         [HttpPost]
         public IHttpActionResult AddMeal()
@@ -72,8 +70,8 @@ namespace FitHouse.API.Controllers
 
                   MealDto = Mapper.Map<MealDto>(MealModel);
 
-                MealDto.Image = new MemoryStream();
-                httpPostedFile.InputStream.CopyTo(MealDto.Image);
+                //MealDto.Image = new MemoryStream();
+                //httpPostedFile.InputStream.CopyTo(MealDto.Image);
             }
             else
             {
@@ -88,7 +86,7 @@ namespace FitHouse.API.Controllers
             return Ok();
         }
 
-        // [AuthorizeRoles(Enums.RoleType.RestaurantAdmin,Enums.RoleType.User)]
+        // [AuthorizeOrders(Enums.OrderType.RestaurantAdmin,Enums.OrderType.User)]
         [Route("api/Meals/{MealId:long}", Name = "GetMeal")]
         [HttpGet]
         [ResponseType(typeof(MealModel))]
@@ -99,7 +97,7 @@ namespace FitHouse.API.Controllers
             return Ok(Meal);
         }
 
-        //[AuthorizeRoles(Enums.RoleType.RestaurantAdmin)]
+        //[AuthorizeOrders(Enums.OrderType.RestaurantAdmin)]
         [Route("api/Meals", Name = "UpdateMeal")]
         [HttpPut]
         public IHttpActionResult UpdateMeal()
@@ -128,15 +126,15 @@ namespace FitHouse.API.Controllers
                     throw new ValidationException(ErrorCodes.InvalidImageType);
 
                 //restaurantDto.Image = (MemoryStream) restaurant.Image.InputStream;
-                MealDto.Image = new MemoryStream();
-                httpPostedFile.InputStream.CopyTo(MealDto.Image);
+                //MealDto.Image = new MemoryStream();
+                //httpPostedFile.InputStream.CopyTo(MealDto.Image);
             }
 
             _MealFacade.UpdateMeal(MealDto, HostingEnvironment.MapPath("~/Images/"));
             return Ok();
         }
 
-        //  [AuthorizeRoles(Enums.RoleType.RestaurantAdmin)]
+        //  [AuthorizeOrders(Enums.OrderType.RestaurantAdmin)]
         [Route("api/Meals/{MealId:long}", Name = "DeleteMeal")]
         [HttpDelete]
         public IHttpActionResult DeleteMeal(long MealId)
@@ -145,18 +143,18 @@ namespace FitHouse.API.Controllers
             return Ok();
         }
 
-        //  [AuthorizeRoles(Enums.RoleType.RestaurantAdmin)]
-        [Route("api/Meals/Translate", Name = "TranslateMeal")]
-        [HttpPut]
-        public IHttpActionResult TranslateMeal([FromBody] MealModel MealModel)
-        {
-            _MealFacade.TranslateMeal(Mapper.Map<MealDto>(MealModel), Language);
-            return Ok();
-        }
+        //  [AuthorizeOrders(Enums.OrderType.RestaurantAdmin)]
+        //[Route("api/Meals/Translate", Name = "TranslateMeal")]
+        //[HttpPut]
+        //public IHttpActionResult TranslateMeal([FromBody] MealModel MealModel)
+        //{
+        //    _MealFacade.TranslateMeal(Mapper.Map<MealDto>(MealModel), Language);
+        //    return Ok();
+        //}
 
 
 
-        //   [AuthorizeRoles(Enums.RoleType.RestaurantAdmin)]
+        //   [AuthorizeOrders(Enums.OrderType.RestaurantAdmin)]
         [Route("api/Meals/{MealId:long}/Activate", Name = "ActivateMeal")]
         [HttpGet]
         public IHttpActionResult ActivateMeal(long mealId)
@@ -165,7 +163,7 @@ namespace FitHouse.API.Controllers
             return Ok();
         }
 
-        //  [AuthorizeRoles(Enums.RoleType.RestaurantAdmin)]
+        //  [AuthorizeOrders(Enums.OrderType.RestaurantAdmin)]
         [Route("api/Meals/{MealId:long}/DeActivate", Name = "DeActivateMeal")]
         [HttpGet]
         public IHttpActionResult DeActivateMeal(long MealId)

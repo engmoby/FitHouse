@@ -10,7 +10,7 @@ namespace FitHouse.BLL.Services.Interfaces
         PagedResultsDto GetAllMeals(string language,   int page, int pageSize);
         void DeleteMeal(long MealId);
         void UpdateMeal(MealDto MealDto, string path); 
-        void TranslateMeal(MealDto MealDto, string language);
+       // void TranslateMeal(MealDto MealDto, string language);
         void ActivateMeal(long MealId);
         void DeActivateMeal(long MealId);
         PagedResultsDto GetActivatedMealsByCategoryId(string language, long categoryId, int page, int pageSize);  

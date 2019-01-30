@@ -2,6 +2,7 @@
 {
     using Entities.Model;
     using System.Data.Entity.Migrations;
+    using System.Linq;
 
     internal sealed class Configuration : DbMigrationsConfiguration<Entities.FitHouseContext>
     {
@@ -22,7 +23,10 @@
             //    Phone = "011435012598",
             //    Email = "admin@gmail.com"
             //});
+          //  var permisison16 = new Permission { IsDeleted = false, IsStatic = true };
 
+            //var permisison14 = new Permission { IsDeleted = false, IsStatic = true };
+            //var permisison15 = new Permission { IsDeleted = false, IsStatic = true };
             //var permisison11 = new Permission { IsDeleted = false, IsStatic = true };
 
             //var permisison12 = new Permission { IsDeleted = false, IsStatic = true };
@@ -44,6 +48,25 @@
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison9);
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison10);
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison11);
+
+
+            //var permissionTreanslation27 = new PermissionTranslation { Language = "en", Title = "Take Away", Permission = permisison16 };
+            //var permissionTreanslation28 = new PermissionTranslation { Language = "ar", Title = "تاك اواي", Permission = permisison16 };
+            //context.PermissionTranslations.AddOrUpdate(h => h.PermissionTranslationId, permissionTreanslation27);
+            //context.PermissionTranslations.AddOrUpdate(h => h.PermissionTranslationId, permissionTreanslation28);
+
+
+            //var permissionTreanslation25 = new PermissionTranslation { Language = "en", Title = "Order", Permission = permisison15 };
+            //var permissionTreanslation26 = new PermissionTranslation { Language = "ar", Title = "الطلب", Permission = permisison15 };
+            //context.PermissionTranslations.AddOrUpdate(h => h.PermissionTranslationId, permissionTreanslation25);
+            //context.PermissionTranslations.AddOrUpdate(h => h.PermissionTranslationId, permissionTreanslation26);
+
+
+            //var permissionTreanslation23 = new PermissionTranslation { Language = "en", Title = "Mael", Permission = permisison14 };
+            //var permissionTreanslation24 = new PermissionTranslation { Language = "ar", Title = "وجبات", Permission = permisison14 };
+            //context.PermissionTranslations.AddOrUpdate(h => h.PermissionTranslationId, permissionTreanslation23);
+            //context.PermissionTranslations.AddOrUpdate(h => h.PermissionTranslationId, permissionTreanslation24);
+
 
 
             //var permissionTreanslation21 =
@@ -127,23 +150,22 @@
 
 
 
-            //Role adminRole = new Role { IsDeleted = false, IsStatic = true };
+            //Role adminRole = new Role { IsDeleted = false  };
             //context.Roles.AddOrUpdate(adminRole);
             //context.RoleTranslations.AddOrUpdate(
             //    new RoleTranslation { Language = "en", Title = "admin", Role = adminRole });
             //context.RoleTranslations.AddOrUpdate(
             //    new RoleTranslation { Language = "ar", Title = "مشرف", Role = adminRole });
 
-            ////context.UserRoles.AddOrUpdate(new UserRole
-            ////{
-            ////    Role = adminRole,
-            ////    TenantId = 1,
-            ////    User = context.Users.FirstOrDefault()
-            ////});
+            //context.UserRoles.AddOrUpdate(new UserRole
+            //{
+            //    Role = adminRole, 
+            //    User = context.Users.FirstOrDefault()
+            //});
             //context.RolePermissions.AddOrUpdate(
-            //    new RolePermission { ActionId = 1, Role = adminRole, Permission = permisison1 });
+            //    new RolePermission { ActionId = 1, Role = adminRole, Permission = permisison11 });
             //context.RolePermissions.AddOrUpdate(
-            //    new RolePermission { ActionId = 1, Role = adminRole, Permission = permisison2 });
+            //    new RolePermission { ActionId = 1, Role = adminRole, Permission = permisison12 });
             //context.RolePermissions.AddOrUpdate(
             //    new RolePermission { ActionId = 1, Role = adminRole, Permission = permisison3 });
             //context.RolePermissions.AddOrUpdate(

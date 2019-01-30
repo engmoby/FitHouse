@@ -1,8 +1,9 @@
-E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.Common\bin\Debug\FitHouse.Common.dll
-E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.Common\bin\Debug\FitHouse.Common.pdb
-E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.Common\obj\Debug\FitHouse.Common.dll
-E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.Common\obj\Debug\FitHouse.Common.pdb
 E:\Projects\FitHouse\FitHouse\FitHouse.Common\bin\Debug\FitHouse.Common.dll
 E:\Projects\FitHouse\FitHouse\FitHouse.Common\bin\Debug\FitHouse.Common.pdb
 E:\Projects\FitHouse\FitHouse\FitHouse.Common\obj\Debug\FitHouse.Common.dll
 E:\Projects\FitHouse\FitHouse\FitHouse.Common\obj\Debug\FitHouse.Common.pdb
+E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.Common\bin\Debug\FitHouse.Common.dll
+E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.Common\bin\Debug\FitHouse.Common.pdb
+E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.Common\obj\Debug\FitHouse.Common.dll
+E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.Common\obj\Debug\FitHouse.Common.pdb
+E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.Common\obj\Debug\FitHouse.Common.csprojResolveAssemblyReference.cache

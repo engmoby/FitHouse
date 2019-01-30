@@ -39,7 +39,6 @@
 
 
         function change(role, isDeleted) {
-            debugger;
             var updateObj = new RoleResource();
             updateObj.RoleId = role.roleId;
             if (!isDeleted)
@@ -73,6 +72,7 @@
 
         }
         vm.openDeleteDialog = function (model, name, id) {
+            debugger;
             var modalContent = $uibModal.open({
                 templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
                 controller: 'confirmDeleteDialogController',
