@@ -12,6 +12,7 @@ namespace FitHouse.BLL.Services.Interfaces
         UserDto GetUserByAccountId(Guid userAccountId);
         UserDto EditUserInfo(UserDto userDto, int userId);
         UserDto RegisterUser(UserDto userDto, int userId);
+        UserDto ValidateByPhone(string phone);
         //void AddNewGlobalUser(AdminDto adminDto);
         //void UpdateGlobalUser(AdminDto adminDto); 
     }

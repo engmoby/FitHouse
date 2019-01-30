@@ -42,6 +42,12 @@ namespace FitHouse.BLL.DataServices
             return items;
         }
 
+        public Item GetProgamItem(long itemId)
+        {
+            var item = _repository.Query(x => x.IsDeleted != true && x.ItemId == itemId).Select().FirstOrDefault();
+            return item;
+        }
+
         //public PagedResultsDto GetlatestItemsByRestuantId(long restuantId, int page, int pageSize)
         //{
         //    var query = Queryable().Where(x => x.Category.RestaurantId == restuantId);

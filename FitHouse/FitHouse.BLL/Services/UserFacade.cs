@@ -64,6 +64,15 @@ namespace FitHouse.BLL.Services
         //{
         //    return Mapper.Map<UserDto>(_userService.Find(userId));
         //}
+
+        public UserDto ValidateByPhone(string phone)
+        {
+            var user = _userService.Query(x=>x.Phone == phone).Select().FirstOrDefault();
+            if(user == null) throw new ValidationException(ErrorCodes.UserNotFound);
+
+            return Mapper.Map<UserDto>(user);
+        }
+
         public UserDto GetUser(long userId)
         {
             if (userId == 0)
@@ -159,7 +168,7 @@ namespace FitHouse.BLL.Services
             userObj.IsActive = userDto.IsActive;
             userObj.IsDeleted = false;
             userObj.IsStatic = false;
-            userObj.IsAdmin = true;
+            userObj.IsAdmin = userDto.IsAdmin;
             userObj.CreationTime = Strings.CurrentDateTime;
             userObj.CreatorUserId = userId;
 

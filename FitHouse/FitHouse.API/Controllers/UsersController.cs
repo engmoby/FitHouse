@@ -59,8 +59,16 @@ namespace FitHouse.API.Controllers
             var reurnUser = _userFacade.GetUser(userId);
             return Ok(reurnUser);
         }
-        
-         
+
+        [Route("api/Users/ValidateByPhone", Name = "ValidateByPhone")]
+        [HttpGet]
+        public IHttpActionResult ValidateByPhone(string phone)
+        {
+            var reurnUser = Mapper.Map<UserDto>(_userFacade.ValidateByPhone(phone));
+            return Ok(reurnUser);
+        }
+
+
 
         [Route("api/Users/Register", Name = "Register")]
         [HttpPost]

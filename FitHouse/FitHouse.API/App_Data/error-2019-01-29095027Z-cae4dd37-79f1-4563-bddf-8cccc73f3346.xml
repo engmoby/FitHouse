@@ -1,0 +1,171 @@
+﻿<error errorId="cae4dd37-79f1-4563-bddf-8cccc73f3346" application="/LM/W3SVC/5/ROOT" host="DESKTOP-ELL7P09" type="System.NullReferenceException" message="Object reference not set to an instance of an object." source="FitHouse.BLL" detail="System.NullReferenceException: Object reference not set to an instance of an object.&#xD;&#xA;   at FitHouse.BLL.Services.ProgramFacade.UpdateProgramDetails(Int64 programId, Int64 dayCount, Int64 mealCount, List`1 itemss) in E:\Projects\FitHouse\FitHouse\FitHouse.BLL\Services\ProgramFacade.cs:line 61&#xD;&#xA;   at FitHouse.API.Controllers.ProgramController.UpdateProgramDetails(Int64 programId, Int64 dayCount, Int64 mealCount, List`1 items) in E:\Projects\FitHouse\FitHouse\FitHouse.API\Controllers\ProgramController.cs:line 44&#xD;&#xA;   at lambda_method(Closure , Object , Object[] )&#xD;&#xA;   at System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ActionExecutor.&lt;&gt;c__DisplayClass10.&lt;GetExecutor&gt;b__9(Object instance, Object[] methodParameters)&#xD;&#xA;   at System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ActionExecutor.Execute(Object instance, Object[] arguments)&#xD;&#xA;   at System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ExecuteAsync(HttpControllerContext controllerContext, IDictionary`2 arguments, CancellationToken cancellationToken)&#xD;&#xA;--- End of stack trace from previous location where exception was thrown ---&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)&#xD;&#xA;   at System.Web.Http.Controllers.ApiControllerActionInvoker.&lt;InvokeActionAsyncCore&gt;d__0.MoveNext()&#xD;&#xA;--- End of stack trace from previous location where exception was thrown ---&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)&#xD;&#xA;   at System.Web.Http.Controllers.ActionFilterResult.&lt;ExecuteAsync&gt;d__2.MoveNext()&#xD;&#xA;--- End of stack trace from previous location where exception was thrown ---&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)&#xD;&#xA;   at System.Web.Http.Controllers.ExceptionFilterResult.&lt;ExecuteAsync&gt;d__0.MoveNext()" user="-Admin Abdo" time="2019-01-29T09:50:27.9309828Z">
+  <serverVariables>
+    <item name="ALL_HTTP">
+      <value string="HTTP_CONNECTION:keep-alive&#xD;&#xA;HTTP_CONTENT_LENGTH:621&#xD;&#xA;HTTP_CONTENT_TYPE:application/json;charset=UTF-8&#xD;&#xA;HTTP_ACCEPT:application/json, text/plain, */*&#xD;&#xA;HTTP_ACCEPT_ENCODING:gzip, deflate, br&#xD;&#xA;HTTP_ACCEPT_LANGUAGE:en&#xD;&#xA;HTTP_AUTHORIZATION:bearer 87hvLkmprGRdfbt7YEhhwzfwi1UGlSrabFYPvsEER7iQfAP2IVECwcrFVvblHcJqc6ta5u1rRvygNrs3Gk08AvNvErbcnypVdM757IjtvuFtkc_25oeSuM8PGSFWFvGtVmFbXgzOYOdn18h2DLZ_QqArNY_a8qrfkNIjE-ScSEYSupHGR6ChB0eVmNDmmD_CPelEphZkrGKuhID-jfJwLudHZ8VNAX2bolaxMV7xPA-ejP_DpzONxLhxdMShI8kbfNkMNiItjAnUEM6T7g6Jotwsl7SAeNRTAoj25RLTFqXKH_W8mtEejLUbInoAUQTd&#xD;&#xA;HTTP_HOST:localhost:32569&#xD;&#xA;HTTP_REFERER:http://localhost:9091/&#xD;&#xA;HTTP_USER_AGENT:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36&#xD;&#xA;HTTP_ORIGIN:http://localhost:9091&#xD;&#xA;" />
+    </item>
+    <item name="ALL_RAW">
+      <value string="Connection: keep-alive&#xD;&#xA;Content-Length: 621&#xD;&#xA;Content-Type: application/json;charset=UTF-8&#xD;&#xA;Accept: application/json, text/plain, */*&#xD;&#xA;Accept-Encoding: gzip, deflate, br&#xD;&#xA;Accept-Language: en&#xD;&#xA;Authorization: bearer 87hvLkmprGRdfbt7YEhhwzfwi1UGlSrabFYPvsEER7iQfAP2IVECwcrFVvblHcJqc6ta5u1rRvygNrs3Gk08AvNvErbcnypVdM757IjtvuFtkc_25oeSuM8PGSFWFvGtVmFbXgzOYOdn18h2DLZ_QqArNY_a8qrfkNIjE-ScSEYSupHGR6ChB0eVmNDmmD_CPelEphZkrGKuhID-jfJwLudHZ8VNAX2bolaxMV7xPA-ejP_DpzONxLhxdMShI8kbfNkMNiItjAnUEM6T7g6Jotwsl7SAeNRTAoj25RLTFqXKH_W8mtEejLUbInoAUQTd&#xD;&#xA;Host: localhost:32569&#xD;&#xA;Referer: http://localhost:9091/&#xD;&#xA;User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36&#xD;&#xA;Origin: http://localhost:9091&#xD;&#xA;" />
+    </item>
+    <item name="APPL_MD_PATH">
+      <value string="/LM/W3SVC/5/ROOT" />
+    </item>
+    <item name="APPL_PHYSICAL_PATH">
+      <value string="E:\Projects\FitHouse\FitHouse\FitHouse.API\" />
+    </item>
+    <item name="AUTH_TYPE">
+      <value string="JWT" />
+    </item>
+    <item name="AUTH_USER">
+      <value string="-Admin Abdo" />
+    </item>
+    <item name="AUTH_PASSWORD">
+      <value string="*****" />
+    </item>
+    <item name="LOGON_USER">
+      <value string="-Admin Abdo" />
+    </item>
+    <item name="REMOTE_USER">
+      <value string="-Admin Abdo" />
+    </item>
+    <item name="CERT_COOKIE">
+      <value string="" />
+    </item>
+    <item name="CERT_FLAGS">
+      <value string="" />
+    </item>
+    <item name="CERT_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SERIALNUMBER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CERT_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CONTENT_LENGTH">
+      <value string="621" />
+    </item>
+    <item name="CONTENT_TYPE">
+      <value string="application/json;charset=UTF-8" />
+    </item>
+    <item name="GATEWAY_INTERFACE">
+      <value string="CGI/1.1" />
+    </item>
+    <item name="HTTPS">
+      <value string="off" />
+    </item>
+    <item name="HTTPS_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="INSTANCE_ID">
+      <value string="5" />
+    </item>
+    <item name="INSTANCE_META_PATH">
+      <value string="/LM/W3SVC/5" />
+    </item>
+    <item name="LOCAL_ADDR">
+      <value string="::1" />
+    </item>
+    <item name="PATH_INFO">
+      <value string="/api/Program/UpdateProgramDetails/4/1/1" />
+    </item>
+    <item name="PATH_TRANSLATED">
+      <value string="E:\Projects\FitHouse\FitHouse\FitHouse.API\api\Program\UpdateProgramDetails\4\1\1" />
+    </item>
+    <item name="QUERY_STRING">
+      <value string="items=%7B%22itemId%22:3,%22image%22:null,%22itemName%22:null,%22itemDescription%22:null,%22isDeleted%22:false,%22isActive%22:true,%22categoryId%22:1,%22itemSize%22:10,%22carbs%22:10,%22totalPrice%22:10,%22cost%22:10,%22price%22:10,%22calories%22:10,%22vat%22:10,%22protein%22:10,%22itemNameDictionary%22:%7B%22en%22:%22item3%22,%22ar%22:%22%D8%A7%D8%AA%D9%8A%D9%853%22%7D,%22itemDescriptionDictionary%22:%7B%22en%22:%22des3%22,%22ar%22:%22%D8%AF%D9%8A%D8%B3%D8%AA3%22%7D,%22category%22:%7B%22categoryId%22:1,%22titleDictionary%22:%7B%22en%22:%22salad%22,%22ar%22:%22adadasd%22%7D,%22isActive%22:true,%22isDeleted%22:false,%22lastModificationTime%22:null,%22lastModifierUserId%22:null,%22creationTime%22:%222019-01-20T12:44:51.447%22,%22creatorUserId%22:1,%22deletionTime%22:null,%22deleterUserId%22:null%7D,%22isImageChange%22:false%7D" />
+    </item>
+    <item name="REMOTE_ADDR">
+      <value string="::1" />
+    </item>
+    <item name="REMOTE_HOST">
+      <value string="::1" />
+    </item>
+    <item name="REMOTE_PORT">
+      <value string="41733" />
+    </item>
+    <item name="REQUEST_METHOD">
+      <value string="POST" />
+    </item>
+    <item name="SCRIPT_NAME">
+      <value string="/api/Program/UpdateProgramDetails/4/1/1" />
+    </item>
+    <item name="SERVER_NAME">
+      <value string="localhost" />
+    </item>
+    <item name="SERVER_PORT">
+      <value string="32569" />
+    </item>
+    <item name="SERVER_PORT_SECURE">
+      <value string="0" />
+    </item>
+    <item name="SERVER_PROTOCOL">
+      <value string="HTTP/1.1" />
+    </item>
+    <item name="SERVER_SOFTWARE">
+      <value string="Microsoft-IIS/10.0" />
+    </item>
+    <item name="URL">
+      <value string="/api/Program/UpdateProgramDetails/4/1/1" />
+    </item>
+    <item name="HTTP_CONNECTION">
+      <value string="keep-alive" />
+    </item>
+    <item name="HTTP_CONTENT_LENGTH">
+      <value string="621" />
+    </item>
+    <item name="HTTP_CONTENT_TYPE">
+      <value string="application/json;charset=UTF-8" />
+    </item>
+    <item name="HTTP_ACCEPT">
+      <value string="application/json, text/plain, */*" />
+    </item>
+    <item name="HTTP_ACCEPT_ENCODING">
+      <value string="gzip, deflate, br" />
+    </item>
+    <item name="HTTP_ACCEPT_LANGUAGE">
+      <value string="en" />
+    </item>
+    <item name="HTTP_AUTHORIZATION">
+      <value string="bearer 87hvLkmprGRdfbt7YEhhwzfwi1UGlSrabFYPvsEER7iQfAP2IVECwcrFVvblHcJqc6ta5u1rRvygNrs3Gk08AvNvErbcnypVdM757IjtvuFtkc_25oeSuM8PGSFWFvGtVmFbXgzOYOdn18h2DLZ_QqArNY_a8qrfkNIjE-ScSEYSupHGR6ChB0eVmNDmmD_CPelEphZkrGKuhID-jfJwLudHZ8VNAX2bolaxMV7xPA-ejP_DpzONxLhxdMShI8kbfNkMNiItjAnUEM6T7g6Jotwsl7SAeNRTAoj25RLTFqXKH_W8mtEejLUbInoAUQTd" />
+    </item>
+    <item name="HTTP_HOST">
+      <value string="localhost:32569" />
+    </item>
+    <item name="HTTP_REFERER">
+      <value string="http://localhost:9091/" />
+    </item>
+    <item name="HTTP_USER_AGENT">
+      <value string="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36" />
+    </item>
+    <item name="HTTP_ORIGIN">
+      <value string="http://localhost:9091" />
+    </item>
+  </serverVariables>
+  <queryString>
+    <item name="items">
+      <value string="{&quot;itemId&quot;:3,&quot;image&quot;:null,&quot;itemName&quot;:null,&quot;itemDescription&quot;:null,&quot;isDeleted&quot;:false,&quot;isActive&quot;:true,&quot;categoryId&quot;:1,&quot;itemSize&quot;:10,&quot;carbs&quot;:10,&quot;totalPrice&quot;:10,&quot;cost&quot;:10,&quot;price&quot;:10,&quot;calories&quot;:10,&quot;vat&quot;:10,&quot;protein&quot;:10,&quot;itemNameDictionary&quot;:{&quot;en&quot;:&quot;item3&quot;,&quot;ar&quot;:&quot;اتيم3&quot;},&quot;itemDescriptionDictionary&quot;:{&quot;en&quot;:&quot;des3&quot;,&quot;ar&quot;:&quot;ديست3&quot;},&quot;category&quot;:{&quot;categoryId&quot;:1,&quot;titleDictionary&quot;:{&quot;en&quot;:&quot;salad&quot;,&quot;ar&quot;:&quot;adadasd&quot;},&quot;isActive&quot;:true,&quot;isDeleted&quot;:false,&quot;lastModificationTime&quot;:null,&quot;lastModifierUserId&quot;:null,&quot;creationTime&quot;:&quot;2019-01-20T12:44:51.447&quot;,&quot;creatorUserId&quot;:1,&quot;deletionTime&quot;:null,&quot;deleterUserId&quot;:null},&quot;isImageChange&quot;:false}" />
+    </item>
+  </queryString>
+</error>

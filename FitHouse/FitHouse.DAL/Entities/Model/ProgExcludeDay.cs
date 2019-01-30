@@ -21,7 +21,7 @@ namespace FitHouse.DAL.Entities.Model
         [ForeignKey("Program")]
         public long ProgramId { get; set; }
         public virtual Program Program { get; set; }
-        public long IsDeleted { get; set; }
+        public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
     }
 }

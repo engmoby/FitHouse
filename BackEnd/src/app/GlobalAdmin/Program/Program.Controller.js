@@ -6,82 +6,85 @@
         .controller('ProgramController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate',
             '$state', '$localStorage',
             'authorizationService', 'appCONSTANTS',
-            'ToastService', '$stateParams', ProgramController]);
+            'ToastService', '$stateParams', 'programPrepService', 'GetProgramResource', 'UpdateProgramResource', '$uibModal', ProgramController]);
 
 
     function ProgramController($rootScope, blockUI, $scope, $filter, $translate,
         $state, $localStorage, authorizationService,
-        appCONSTANTS, ToastService, $stateParams) {
+        appCONSTANTS, ToastService, $stateParams, programPrepService, GetProgramResource, UpdateProgramResource, $uibModal) {
 
         // $('.pmd-sidebar-nav>li>a').removeClass("active")
         // $($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
 
         // blockUI.start("Loading...");
 
-         var vm = this;
-        // $scope.totalCount = AreaPrepService.totalCount;
-        // $scope.AreaList = AreaPrepService;
-        // $scope.countryName = RegionByIdPrepService.countryNameDictionary[$scope.selectedLanguage];
-        // $scope.regionName = RegionByIdPrepService.titleDictionary[$scope.selectedLanguage];
-        // $scope.cityName = CityByIdPrepService.titleDictionary[$scope.selectedLanguage];
-        // function refreshAreas() {
+        var vm = this;
+        $scope.programList = programPrepService;
 
-        //     blockUI.start("Loading...");
+        vm.UpdateProgram = function (program) {
+            change(program, false);
+        }
 
-        //     var k = AreaResource.getAllAreas({ cityId: $stateParams.cityId, page: vm.currentPage }).$promise.then(function (results) {
-        //         $scope.AreaList = results
-        //         blockUI.stop();
+        function confirmationDelete(model) {
+            model.isDeleted = true;
+            change(model, true);
 
-        //     },
-        //         function (data, status) {
-        //             blockUI.stop();
+        }
 
-        //             ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-        //         });
-        // }
-        // vm.showMore = function (element) {
-        //     $(element.currentTarget).toggleClass("child-table-collapse");
-        // }
-        // vm.currentPage = 1;
-        // $scope.changePage = function (page) {
-        //     vm.currentPage = page;
-        //     refreshAreas();
-        // }
-        // blockUI.stop();
+        function change(program, isDeleted) {
+            debugger;
+            var updateObj = new UpdateProgramResource();
+            updateObj.ProgramId = program.programId;
+            if (!isDeleted)
+                updateObj.isActive = (program.isActive == true ? false : true);
+            updateObj.isDeleted = program.isDeleted;
 
-        //Model
-        // vm.currentStep = 1;
-        // vm.steps = [
-        //     {
-        //         step: 1,
-        //         name: "Step 1",
-        //         template: "./app/GlobalAdmin/Program/templates/newStepOne.html"
-        //     },
-        //     {
-        //         step: 2,
-        //         name: "Step 2",
-        //         template: "./app/GlobalAdmin/Program/templates/newStepTwo.html"
-        //     }
-        // ];
-        // vm.user = {};
+            updateObj.$update().then(
+                function (data, status) {
+                    if (isDeleted)
+                        refreshPrograms();
 
-        // //Functions
-        // vm.gotoStep = function (newStep) {
-        //     vm.currentStep = newStep;
-        // }
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    program.isActive = updateObj.isActive;
 
-        // vm.getStepTemplate = function () {
-        //     for (var i = 0; i < vm.steps.length; i++) {
-        //         if (vm.currentStep == vm.steps[i].step) {
-        //             return vm.steps[i].template;
-        //         }
-        //     }
-        // }
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
 
-        // vm.save = function () {
-        //     //todo: save data...
-        // }
+        }
 
+        function refreshPrograms() {
+            blockUI.start("Loading...");
+
+            var k = GetProgramResource.gatAllPrograms().$promise.then(function (results) {
+                $scope.programList = results;
+
+                console.log($scope.programList);
+                blockUI.stop();
+            },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+
+        vm.openDeleteDialog = function (model, name, id) {
+            var modalContent = $uibModal.open({
+                templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
+                controller: 'confirmDeleteDialogController',
+                controllerAs: 'deleteDlCtrl',
+                resolve: {
+                    model: function () { return model },
+                    itemName: function () { return name },
+                    itemId: function () { return id },
+                    message: function () { return null },
+                    callBackFunction: function () { return confirmationDelete }
+                }
+
+            });
+        }
     }
 
 })();

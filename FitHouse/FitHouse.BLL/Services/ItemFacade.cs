@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using FitHouse.BLL.DataServices.Interfaces;
@@ -42,6 +43,26 @@ namespace FitHouse.BLL.Services
             _programDetailService = programDetailService;
         }
 
+        public List<ItemProgramDto> GetItemsById(List<ProgramDetailDto> programDetails)
+        {
+            var items = new List<ItemProgramDto>();
+            foreach (var detail in programDetails)
+            {
+               
+                //if(!items.Contains(item))
+                var itemValidation = new ItemProgramDto();
+                itemValidation = items.FirstOrDefault(x => x.ItemId == detail.ItemId);
+
+                if (itemValidation == null)
+                {
+                    var item = Mapper.Map<ItemProgramDto>(_itemService.GetProgamItem(detail.ItemId));
+                    items.Add(item);
+                }
+
+
+            }
+            return items;
+        }
 
         public void AddItem(ItemDto itemDto, string path)
         {
@@ -137,9 +158,9 @@ namespace FitHouse.BLL.Services
         {
             var item = _itemService.Find(itemId);
             if (item == null) throw new NotFoundException(ErrorCodes.CategoryNotFound);
-             
+
             item.IsActive = false;
-             
+
             if (!item.IsActive)
             {
                 var checkIfUsed = _programDetailService.Queryable().Where(x => x.ItemId == item.ItemId);
@@ -166,7 +187,7 @@ namespace FitHouse.BLL.Services
             var item = _itemService.Find(itemId);
             if (item == null) throw new NotFoundException(ErrorCodes.ItemNotFound);
             item.IsDeleted = true;
-             
+
             if (item.IsDeleted)
             {
                 var checkIfUsed = _programDetailService.Queryable().Where(x => x.ItemId == item.ItemId);

@@ -127,6 +127,7 @@
     <Compile Include="DataServices\Interfaces\ICategoryService.cs" />
     <Compile Include="DataServices\Interfaces\ICategoryTranslationService.cs" />
     <Compile Include="DataServices\Interfaces\IPermissionService.cs" />
+    <Compile Include="DataServices\Interfaces\ISettingService.cs" />
     <Compile Include="DataServices\Interfaces\IUserRoleService.cs" />
     <Compile Include="DataServices\Interfaces\IRolePermissionService.cs" />
     <Compile Include="DataServices\Interfaces\IRoleService.cs" />
@@ -144,11 +145,13 @@
     <Compile Include="DataServices\MealService.cs" />
     <Compile Include="DataServices\MealTranslationService.cs" />
     <Compile Include="DataServices\PermissionService.cs" />
+    <Compile Include="DataServices\ProgExcludeDayService.cs" />
     <Compile Include="DataServices\ProgramDetailService.cs" />
     <Compile Include="DataServices\ProgramService.cs" />
     <Compile Include="DataServices\ProgramTranslationService.cs" />
     <Compile Include="DataServices\RegionService.cs" />
     <Compile Include="DataServices\RegionTranslationService.cs" />
+    <Compile Include="DataServices\SettingService.cs" />
     <Compile Include="DataServices\UserRoleService.cs" />
     <Compile Include="DataServices\RolePermissionService.cs" />
     <Compile Include="DataServices\RoleService.cs" />
@@ -177,6 +180,7 @@
     <Compile Include="DTOs\MealDto.cs" />
     <Compile Include="DTOs\StatusDto.cs" />
     <Compile Include="DTOs\PagedResultsDto.cs" />
+    <Compile Include="DTOs\ProgExcludeDayDto.cs" />
     <Compile Include="DTOs\ProgramDetailDto.cs" />
     <Compile Include="DTOs\ProgramDto.cs" />
     <Compile Include="DTOs\ProgramTranslationDto.cs" />
@@ -213,6 +217,7 @@
     <Compile Include="Services\Interfaces\IRoleFacade.cs" />
     <Compile Include="Services\Interfaces\IAreaFacade.cs" />
     <Compile Include="Services\Interfaces\IBranchFacade.cs" />
+    <Compile Include="Services\Interfaces\ISettingFacade.cs" />
     <Compile Include="Services\Interfaces\IUserFacade.cs" />
     <Compile Include="Services\FormToMail\FormToMail.cs" />
     <Compile Include="Services\FormToMail\IFormToMail.cs" />
@@ -230,6 +235,7 @@
     <Compile Include="Services\RoleFacade.cs" />
     <Compile Include="Services\AreaFacade.cs" />
     <Compile Include="Services\BranchFacade.cs" />
+    <Compile Include="Services\SettingFacade.cs" />
     <Compile Include="Services\UserFacade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

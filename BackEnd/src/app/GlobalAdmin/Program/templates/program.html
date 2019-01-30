@@ -1,60 +1,41 @@
 <div>
-  
+    <div ncy-breadcrumb></div>
     <div style="margin-bottom:10px">
-        <button ng-click="$state.go('newProgram');"
-            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddNew' | translate}}</button>
+        <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-click="$state.go('newProgram');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddNew'
+            | translate}}</button>
 
     </div>
-
-
-    <!-- <div ng-if="AreaList.results.length == 0">
-        <span>{{'NoAreasAvailable' | translate}}</span>
+    <div ng-if="programList.results.length == 0">
+        <span>{{'NoProgramAvailable' | translate}}</span>
     </div>
-    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="AreaList.results.length > 0">
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="programList.results.length > 0">
         <div class="table-responsive"></div>
         <table class="table pmd-table table-hover">
             <thead>
                 <tr>
-                    <th>{{'Name' | translate}}</th>
-                    <th>{{'Branch' | translate}}</th>
+                    <th>{{'ProgramName' | translate}}</th>
+                    <th>{{'ProgramDescription' | translate}}</th>
+                    <th>{{'Status' | translate}}</th>
                     <th></th>
                 </tr>
             </thead>
             <tbody>
-                <tr ng-repeat-start="Area in AreaList.results">
-                    <td data-title="Name">{{Area.titleDictionary[selectedLanguage]}}</td>
+                <tr ng-repeat="program in programList.results">
+                    <td data-title="Name">{{program.programNameDictionary[selectedLanguage]}}</td>
+                    <td data-title="Name">{{program.programDescriptionDictionary[selectedLanguage]}}</td>
                     <td>
-                        <button ng-click="$state.go('newBranch',{countryId: $stateParams.countryId,regionId: $stateParams.regionId,cityId:$stateParams.cityId,areaId: Area.areaId});"
-                            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddNewBranch' | translate}}</button>
-                        <span href="javascript:void(0);" ng-click="Area.show=!Area.show;AreaCtrl.showMore($event)" ng-show="Area.branches.length != 0"
-                            class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm child-table-expand direct-expand">
-                            <i class="material-icons md-dark pmd-sm"></i>
-                        </span>
-                    </td>
+                        <div class="btn-switch" ng-class="{'btn-switch--on':program.isActive}" ng-model="program.isActive"
+                            ng-click="programCtrl.UpdateProgram(program)">
 
-                    <td width="30%" ng-show="!Area.isStatic">
-                        <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editArea',{countryId: $stateParams.countryId,regionId: $stateParams.regionId,cityId:$stateParams.cityId,areaId: Area.areaId});">mode_edit</i>
+                            <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':program.isActive}"
+                                ng-model="program.isActive" ng-click="programCtrl.UpdateProgram(program)">
+                            </div>
                     </td>
-                </tr>
-                <tr ng-repeat-end ng-show="Area.show">
-                    <td>
-                        <table class="table pmd-table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>{{'Name' | translate}}</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <tr ng-repeat="Branch in Area.branches">
-                                    <td data-title="Name">{{Branch.titleDictionary[selectedLanguage]}}</td>
-                                   
-                                    <td width="30%" ng-show="!Branch.isStatic">
-                                        <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editBranch',{countryId: $stateParams.countryId,regionId: $stateParams.regionId,cityId:$stateParams.cityId,areaId: Area.areaId,branchId: Branch.branchId});">mode_edit</i>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <td width="30%" ng-show="!program.isStatic">
+                        <a ng-click="$state.go('programDetails', {programId: program.programId});" class="cursorPointer">{{'ProgramDetails'
+                            | translate}}</a>
+                        <!-- <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editProgram',{programId: program.programId});">mode_edit</i> -->
+                        <i class="material-icons pmd-md deleteButton cursorPointer font25" ng-click="programCtrl.openDeleteDialog(program,program.titleDictionary[selectedLanguage],program.programId)">delete</i>
                     </td>
                 </tr>
             </tbody>
@@ -62,5 +43,5 @@
     </div>
     <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount" paging-action="changePage(page)"
         flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">
-    </div> -->
+    </div>
 </div>

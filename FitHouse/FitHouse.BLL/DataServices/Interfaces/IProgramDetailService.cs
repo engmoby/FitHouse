@@ -10,5 +10,6 @@ namespace FitHouse.BLL.DataServices.Interfaces
 {
     public interface IProgramDetailService : IService<ProgramDetail>
     {
+        List<ProgramDetail> GetProgramDetails(long programId);
     }
 }

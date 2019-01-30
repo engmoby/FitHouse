@@ -19,12 +19,65 @@ namespace FitHouse.BLL.Services
         private readonly IProgramService _programService;
         private readonly IProgramTranslationService _programTranslationService;
         private readonly IProgramDetailService _programDetailService;
+        private readonly  IProgExcludeDayService _progExcludeDayService;
+        private readonly  IItemService _itemService;
 
-        public ProgramFacade(IProgramService programService, IProgramDetailService programDetailService, IUnitOfWorkAsync unitOfWork, IProgramTranslationService programTranslationService) : base(unitOfWork)
+        public ProgramFacade(IProgramService programService, IItemService itemService, IProgExcludeDayService progExcludeDayService, IProgramDetailService programDetailService, IUnitOfWorkAsync unitOfWork, IProgramTranslationService programTranslationService) : base(unitOfWork)
         {
             _programService = programService;
             _programTranslationService = programTranslationService;
             _programDetailService = programDetailService;
+            _progExcludeDayService = progExcludeDayService;
+            _itemService = itemService;
+        }
+
+        public PagedResultsDto GetAllPrograms(int page, int pageSize)
+        {
+            var programs = _programService.GetAllPrograms(page, pageSize);
+            return programs;
+        }
+
+        public ProgramDto UpdateProgramDetails(long programId, long dayCount, long mealCount,
+            List<ItemProgramDto> itemss)
+        {
+
+            var program = _programService.Find(programId);
+            if(program == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
+
+            //Delete old data
+
+            var deleteuserRoles = new ProgramDetail[program.ProgramDetails.Count];
+            program.ProgramDetails.CopyTo(deleteuserRoles, 0);
+            foreach (var detail in deleteuserRoles)
+            {
+                if (detail.DayNumber == dayCount && detail.MealNumberPerDay == mealCount)
+                {
+                    _programDetailService.Delete(detail);
+                }
+
+            }
+
+            //add new data
+            var detailInfo = new List<ProgramDetail>();
+            var items = Mapper.Map<List<Item>>(itemss);
+            foreach (var item in items)
+            {
+                var det = new ProgramDetail();
+                det.DayDateTime = DateTime.Now;
+                det.DayNumber = dayCount;
+                det.IsActive = true;
+                det.IsDeleted = false;
+                det.ItemId = item.ItemId;
+                det.ProgramId = program.ProgramId;
+                det.MealNumberPerDay = mealCount;
+                detailInfo.Add(det);
+            }
+            
+            _programDetailService.InsertRange(detailInfo);
+            SaveChanges();
+
+
+            return Mapper.Map<ProgramDto>(program);
         }
 
         public ProgramDto CreateProgram(ProgramDto programDto, int userId)
@@ -43,7 +96,8 @@ namespace FitHouse.BLL.Services
                     Title = programName.Value,
 
                     Language = programName.Key,
-                    Description = programDto.ProgramDescriptionDictionary[programName.Key],
+                    Description = programDto.ProgramDescriptionDictionary[programName.Key]
+                    //ProgramId = programObj.ProgramId
                 });
             }
 
@@ -66,13 +120,28 @@ namespace FitHouse.BLL.Services
                 det.IsActive = true;
                 det.IsDeleted = false;
                 det.ItemId = detail.ItemId;
-                det.ProgramId = programObj.ProgramId;
+                //det.ProgramId = programObj.ProgramId;
                 det.MealNumberPerDay = detail.MealNumberPerDay;
                 detailInfo.Add(det);
             }
+            programObj.ProgramDetails = detailInfo;
+
+            var excludedDays = new List<ProgExcludeDay>();
+
+            foreach (var day in programDto.Days)
+            {
+                var dayByday = new ProgExcludeDay();
+                dayByday.DayId = day.DayId;
+                dayByday.IsActive = true;
+                dayByday.ProgramId = programObj.ProgramId;
+                dayByday.IsDeleted = false;
+                excludedDays.Add(dayByday);
+            }
+            _progExcludeDayService.InsertRange(excludedDays);
+            _programTranslationService.InsertRange(programObj.ProgramTranslations);
+            _programDetailService.InsertRange(programObj.ProgramDetails);
 
             _programService.Insert(programObj);
-            _programDetailService.InsertRange(detailInfo);
             SaveChanges();
             return programDto;
         }
@@ -88,5 +157,57 @@ namespace FitHouse.BLL.Services
                     throw new ValidationException(ErrorCodes.NameIsExist);
             }
         }
+
+        public ProgramDto EditProgram(ProgramDto programDto, int userId)
+        {
+            var programObj = _programService.Find(programDto.ProgramId);
+            if (programObj == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
+            ValidateProgram(programDto);
+            foreach (var programName in programDto.ProgramNameDictionary)
+            {
+                var programTranslation = programObj.ProgramTranslations.FirstOrDefault(x => x.Language.ToLower() == programName.Key.ToLower() && x.ProgramId == programDto.ProgramId);
+                if (programTranslation == null)
+                {
+                    programObj.ProgramTranslations.Add(new ProgramTranslation
+                    {
+                        Title = programName.Value,
+                        Language = programName.Key,
+                        Description = programDto.ProgramDescriptionDictionary[programName.Key]
+
+                    });
+                }
+                else
+                    programTranslation.Title = programName.Value;
+            }
+
+
+
+            //programObj.LastModificationTime = Strings.CurrentDateTime;
+            //programObj.LastModifierUserId = userId;
+            programObj.IsDeleted = programDto.IsDeleted;
+            programObj.IsActive = programDto.IsActive;
+            _programService.Update(programObj);
+            SaveChanges();
+            return programDto;
+
+        }
+
+        public ProgramDto GetProgramDetails(long programId)
+        {
+            var program = _programService.Find(programId);
+            if (program == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
+
+            //var details = _programDetailService.GetProgramDetails(program.ProgramId);
+            //program.ProgramDetails = details;
+            return Mapper.Map<ProgramDto>(program);
+        }
+
+        public List<ProgramDetailDto> GetProgramItems(long programId)
+        {
+            var details = _programDetailService.GetProgramDetails(programId);
+            
+            return Mapper.Map<List<ProgramDetailDto>>(details);
+        }
+
     }
 }

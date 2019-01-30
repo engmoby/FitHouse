@@ -1,0 +1,109 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".select-add-tags").select2({
+            tags: true,
+            theme: "bootstrap",
+            insertTag: function (data, tag) {
+                // Insert the tag at the end of the results
+                data.push(tag);
+                // console.log(data);
+            }
+        });
+
+        $(".select-tags").select2({
+            tags: false,
+            theme: "bootstrap",
+        });
+
+        $(".select-with-search").select2({
+            theme: "bootstrap"
+        });
+    });
+</script>
+
+<form class="form-horizontal" name="newCallCenterForm">
+    <div class="form-group pmd-textfield pmd-textfield-floating-label">
+        <label for="first-name">{{'FirstNameLbl' | translate}}</label>
+        <input required type="text" class="mat-input form-control" name="firstName" ng-pattern="/^(\D)+$/" ng-model="callCenterCtrl.FirstName"
+            ng-minlength="3" ng-maxlength="255">
+        <div ng-messages="newCallCenterForm.firstName.$error" class="error">
+            <div ng-show="newCallCenterForm.firstName.$error.pattern">{{'TextOnly' | translate}}</div>
+            <div ng-if="newCallCenterForm.firstName.$error.required && !newCallCenterForm.firstName.$pristine">{{'FirstNameLengthError' | translate}}</div>
+            <div ng-if="(newCallCenterForm.firstName.$error.minlength || newCallCenterForm.firstName.$error.maxlength) ">{{'NameLengthError255' | translate}}</div>
+        </div>
+    </div>
+    <div class="form-group pmd-textfield pmd-textfield-floating-label">
+        <label for="first-name">{{'LastNameLbl' | translate}}</label>
+        <input required type="text" class="mat-input form-control" name="lastName" ng-pattern="/^(\D)+$/" ng-model="callCenterCtrl.LastName"
+            ng-minlength="3" ng-maxlength="255">
+        <div ng-messages="newCallCenterForm.lastName.$error">
+            <div ng-show="newCallCenterForm.lastName.$error.pattern">{{'TextOnly' | translate}}</div>
+            <div ng-if="newCallCenterForm.lastName.$error.required && !newCallCenterForm.lastName.$pristine">{{'lastName' | translate}}
+            </div>
+            <div ng-if="(newCallCenterForm.lastName.$error.minlength || newCallCenterForm.lastName.$error.maxlength)">{{'NameLengthError255' | translate}}</div>
+        </div>
+    </div>
+    <div class="form-group pmd-textfield pmd-textfield-floating-label">
+        <label>{{'EmailLbl' | translate}}</label>
+        <input required type="text" class="mat-input form-control" name="userEmail" ng-model="callCenterCtrl.Email" ng-pattern="/^\w+([-+.']\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/">
+        <span class="error" ng-show="newCallCenterForm.userEmail.$error.pattern">{{'WrongMail' | translate}} </span>
+        <div ng-messages="newCallCenterForm.email.$error">
+            <div ng-if="newCallCenterForm.userEmail.$error.required && !newCallCenterForm.userEmail.$pristine">{{'EmailLengthError' | translate}}</div>
+        </div>
+    </div>
+    <div class="form-group pmd-textfield pmd-textfield-floating-label">
+        <label for="first-name">{{'phoneLbl' | translate}}</label>
+        <input required type="text" class="mat-input form-control" name="phone" numbers-only ng-model="callCenterCtrl.Phone" ng-minlength="10"
+            ng-maxlength="50">
+        <!-- <span class="error" ng-show="newCallCenterForm.phone.$error.pattern">{{'NotPhoneNumber' | translate}}   </span> -->
+        <div ng-messages="newCallCenterForm.phone.$error">
+            <div ng-if="newCallCenterForm.phone.$error.required && !newCallCenterForm.phone.$pristine">{{'PhoneReqError' | translate}}
+            </div>
+            <div ng-if="(newCallCenterForm.phone.$error.minlength || newCallCenterForm.phone.$error.maxlength)">{{'PhoneLengthError' | translate}}</div>
+        </div>
+    </div>
+
+    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+        <label for="first-name">{{'Country' | translate}}</label>
+        <select required style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="callCenterCtrl.countryChange()"
+            ng-model="callCenterCtrl.selectedCountryId" ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in callCenterCtrl.counties">
+        </select>
+    </div>
+    <div ng-show=" callCenterCtrl.selectedCountryId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+        <label for="first-name">{{'Region' | translate}}</label>
+        <select required style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="callCenterCtrl.regionChange()"
+            ng-model="callCenterCtrl.selectedRegionId" ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in callCenterCtrl.regions">
+        </select>
+    </div>
+    <div ng-show=" callCenterCtrl.selectedRegionId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+        <label for="first-name">{{'City' | translate}}</label>
+        <select ng-required="callCenterCtrl.selectedRegionId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"
+            ng-change="callCenterCtrl.cityChange()" ng-model="callCenterCtrl.selectedCityId" ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in callCenterCtrl.cities">
+        </select>
+    </div>
+    <div ng-show=" callCenterCtrl.selectedCityId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+        <label for="first-name">{{'Area' | translate}}</label>
+        <select ng-required=" callCenterCtrl.selectedCityId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"
+            ng-change="callCenterCtrl.areaChange()" ng-model="callCenterCtrl.selectedAreaId" ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in callCenterCtrl.area">
+        </select>
+    </div>
+    <div ng-show=" callCenterCtrl.selectedAreaId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+        <label for="first-name">{{'Branch' | translate}}</label>
+        <select ng-required=" callCenterCtrl.selectedAreaId > 0 " class="form-control select-with-search pmd-select2-tags" ng-change="callCenterCtrl.branchChange()"
+            ng-model="callCenterCtrl.selectedBranchId" ng-options="a.branchId as a.titleDictionary[selectedLanguage] for a in callCenterCtrl.branchList"></select>
+    </div>
+
+
+    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+        <label> {{ 'Role' | translate}} </label>
+        <select required style="width:100% !important" class="form-control select-with-search pmd-select2-tags" multiple ng-model="callCenterCtrl.selectedUserRoles"
+            ng-options="role as role.titleDictionary[selectedLanguage] for role in callCenterCtrl.roleList"></select>
+
+    </div>
+</form>
+
+<div class="pmd-modal-action text-right">
+    <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="newCallCenterForm.$invalid  && (callCenterCtrl.selectedAreaId <= 0 || callCenterCtrl.selectedBranchId <= 0)"
+        class="btn pmd-ripple-effect btn-primary" type="button" ng-click="callCenterCtrl.AddNewclient()">{{'saveUser' | translate}}</button>
+    <!-- <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="callCenterCtrl.close()">{{'DiscardBtn' | translate}}</button> -->
+</div>

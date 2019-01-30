@@ -10,5 +10,6 @@ namespace FitHouse.BLL.Services.Interfaces
     public interface IDayFacade
     {
         List<DayDto> GetAllDays();
+        List<DayDto> GetExcludesDays(long programId);
     }
 }

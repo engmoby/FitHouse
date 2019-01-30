@@ -1,0 +1,51 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        // $(".select-simple").select2({
+        // 	theme: "bootstrap",
+        // 	minimumResultsForSearch: Infinity,
+        // });
+        // $(".select-with-search").select2({
+        // 	theme: "bootstrap"
+        // });
+        // $(".select-tags").select2({
+        // 	tags: false,
+        // 	theme: "bootstrap",
+        // });
+        $(".select-add-tags").select2({
+            tags: true,
+            theme: "bootstrap",
+            insertTag: function (data, tag) {
+                // Insert the tag at the end of the results
+                data.push(tag);
+                // console.log(data);
+            }
+        });
+    });
+</script>
+
+
+<div class="modal-content">
+    <div class="modal-header bordered">
+        <button class="close" type="button" ng-click="editProgramMealCtrl.close()">×</button>
+        <h2 class="pmd-card-title-text">{{'UpdateProgramLbl' | translate}}</h2>
+    </div>
+
+    <div class="modal-body">
+        <form class="form-horizontal" name="editProgramDetailsForm" autocomplete="off">
+
+            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                <label for="first-name">{{'SelectItems' | translate}}</label>
+                <select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" multiple ng-model="itemList"
+                    ng-options="item as item.itemNameDictionary[selectedLanguage] 
+                    group by item.category.titleDictionary[selectedLanguage]
+                    for item  in itemsssPrepService">
+                </select>
+            </div>
+        </form>
+        <div class="pmd-modal-action text-right">
+            <button ng-disabled="editProgramDetailsForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editProgramMealCtrl.UpdateProgram()">{{'Edit' | translate}}</button>
+        </div>
+
+    </div>
+</div>

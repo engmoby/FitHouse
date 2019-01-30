@@ -3,13 +3,13 @@
 
     angular
         .module('home')
-        .controller('addProgramController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate',
+        .controller('addProgramController', ['$scope', 'blockUI', '$filter', '$translate',
             '$state', '$localStorage', 'authorizationService', 'appCONSTANTS', 'ToastService', '$stateParams',
-            'AddProgramResource', 'CategoriesPrepService', 'daysPrepService', 'itemsssPrepService', addProgramController]);
+            'AddProgramResource', 'daysPrepService', 'settingsPrepService', 'itemsssPrepService', addProgramController]);
 
 
-    function addProgramController($rootScope, blockUI, $scope, $filter, $translate, $state, $localStorage, authorizationService,
-        appCONSTANTS, ToastService, $stateParams, AddProgramResource, CategoriesPrepService, daysPrepService, itemsssPrepService) {
+    function addProgramController($scope, blockUI, $filter, $translate, $state, $localStorage, authorizationService,
+        appCONSTANTS, ToastService, $stateParams, AddProgramResource, daysPrepService, settingsPrepService, itemsssPrepService) {
 
         // $('.pmd-sidebar-nav>li>a').removeClass("active")
         // $($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
@@ -23,43 +23,68 @@
         // $scope.ProgramDescription = "";
         vm.ProgramDaysCount = 0;
         vm.MealPerDay = 0;
-        $scope.ProgramDiscount = 0;
-        $scope.IsBreakFast = false;
-        $scope.IsSnack = false;
-        $scope.ProgramPrice = 0;
-        $scope.ProgramCost = 0;
-        $scope.ProgramVAT = 0;
-        // $scope.ProgramDiscount = 0;
-        $scope.ProgramTotalPrice = 0;
+        vm.ProgramDiscount = 0;
+        vm.IsBreakFast = false;
+        vm.IsSnack = false;
+        vm.ProgramPrice = 0;
+        vm.ProgramCost = 0;
+        vm.ProgramVAT = 0;
+        // vm.ProgramDiscount = 0;
+        vm.ProgramTotalPrice = 0;
         vm.dayList = daysPrepService;
-        $scope.CategoriesPrepService = CategoriesPrepService;
+        // vm.CategoriesPrepService = CategoriesPrepService;
         $scope.itemsssPrepService = itemsssPrepService;
-        $scope.itemList = [];
+        vm.itemList = [];
         //$scope.itemModel = [];
         //$scope.variableitemmodel;
-        console.log($scope.itemList);
+        console.log(vm.itemList);
         vm.SelectedDays = [];
         vm.progCountList = [];
 
-        $scope.deletedItem = false;
+        vm.Setting = settingsPrepService;
+
+        vm.deletedItem = false;
+        $scope.discountChange = function () {
+            vm.ProgramPrice = 0;
+            vm.ProgramCost = 0;
+            vm.ProgramVAT = 0;
+            vm.ProgramTotalPrice = 0;
+            for (var i = 0; i < vm.itemList.length; i++) {
+                vm.ProgramPrice = vm.ProgramPrice + vm.itemList[i].price;
+                vm.ProgramCost = vm.ProgramCost + vm.itemList[i].cost;
+                vm.ProgramVAT = vm.ProgramVAT + vm.itemList[i].vat;
+                vm.ProgramTotalPrice = (vm.ProgramPrice + vm.ProgramVAT) - vm.ProgramDiscount;
+            }
+        }
+
         $scope.getData = function (itemModel, day, meal) {
             // debugger;
             // var allDayMeal = $scope.itemList.filter(x=>x.day == day && x.meal == meal);
-            var differntMeal = $scope.itemList.filter(x=> (x.day == day && x.meal != meal) || (x.day != day) );
-            $scope.itemList = [];
-            $scope.itemList = angular.copy(differntMeal);
+            var differntMeal = vm.itemList.filter(x => (x.dayNumber == day && x.mealNumberPerDay != meal) || (x.dayNumber != day));
+            vm.itemList = [];
+            vm.itemList = angular.copy(differntMeal);
+
             itemModel.forEach(element => {
-                element.day = day;
-                element.meal = meal;
+                element.dayNumber = day;
+                element.mealNumberPerDay = meal;
                 // element.itemModel = element;
                 //$scope.itemList=[];
-                $scope.itemList.push(element);
+                vm.itemList.push(element);
             });
 
+            console.log(vm.itemList);
 
-            
-           
-            console.log($scope.itemList);
+            vm.ProgramPrice = 0;
+            vm.ProgramCost = 0;
+            vm.ProgramVAT = 0;
+            vm.ProgramTotalPrice = 0;
+            for (var i = 0; i < vm.itemList.length; i++) {
+                vm.ProgramPrice = vm.ProgramPrice + vm.itemList[i].price;
+                vm.ProgramCost = vm.ProgramCost + vm.itemList[i].cost;
+                vm.ProgramVAT = vm.ProgramVAT + vm.itemList[i].vat;
+                vm.ProgramTotalPrice = (vm.ProgramPrice + vm.ProgramVAT) - vm.ProgramDiscount;
+            }
+
         }
         //Model
         vm.currentStep = 1;
@@ -105,6 +130,7 @@
                 }
             });
         }
+
         vm.AddNewProgram = function () {
             var newProgram = new AddProgramResource();
             newProgram.programNameDictionary = vm.titleDictionary;
@@ -112,20 +138,22 @@
             newProgram.isActive = true;
             newProgram.programDays = vm.ProgramDaysCount;
             newProgram.noOfMeals = vm.MealPerDay;
-            newProgram.isBreakfast = $scope.IsBreakFast;
-            newProgram.isSnack = $scope.IsSnack;
+            newProgram.isBreakfast = vm.IsBreakFast;
+            newProgram.isSnack = vm.IsSnack;
             newProgram.programDiscount = vm.ProgramDiscount;
             newProgram.isAdmin = true;
             newProgram.isForClient = false;
             newProgram.isDeleted = false;
+            newProgram.programDetails = vm.itemList;
+            newProgram.days = vm.SelectedDays;
             newProgram.$create().then(
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
-                    $state.go('Category');
+
 
                 },
                 function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 }
             );
         }
