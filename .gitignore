@@ -6,3 +6,7 @@
 *.ldf
 *.mdf
 *.ldf
+ 
+*.suo
+bin/
+Frameworks/
