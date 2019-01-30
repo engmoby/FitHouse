@@ -276,6 +276,7 @@
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\ProgramController.cs" />
     <Compile Include="Controllers\RegionsController.cs" />
+    <Compile Include="Controllers\SettingController.cs" />
     <Compile Include="Models\AdminModel.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
     <Compile Include="Controllers\BranchController.cs" />
@@ -303,6 +304,7 @@
     <Compile Include="Models\CategoryModel.cs" />
     <Compile Include="Models\AreaModel.cs" />
     <Compile Include="Models\PermissionModel.cs" />
+    <Compile Include="Models\SettingModel.cs" />
     <Compile Include="Models\UserRoleModel.cs" />
     <Compile Include="Models\RolePermissionModel.cs" />
     <Compile Include="Models\RoleModel.cs" />

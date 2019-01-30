@@ -13,6 +13,6 @@ namespace FitHouse.BLL.DTOs
         public string Title { get; set; }
         public string Description { get; set; }
         public long ProgramId { get; set; }
-        public ProgramDto Program { get; set; }
+        //public ProgramDto Program { get; set; }
     }
 }

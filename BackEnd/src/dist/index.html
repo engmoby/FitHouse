@@ -13,9 +13,9 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
 	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
-	<link rel="stylesheet" ng-href="bundle-{{selectedLanguage}}.css?v=530951c2071a24cf98a04f778eb77c20" />
+	<link rel="stylesheet" ng-href="bundle-{{selectedLanguage}}.css?v=3e41353b33d2b0df792a3c6374d971dc" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.1/nv.d3.min.css" />
- 
+
 
 	<style>
 		.btn-switch {
@@ -88,8 +88,9 @@
 
 </head>
 
-<body>
-	<nav class="navbar navbar-inverse navbar-fixed-top pmd-navbar pmd-z-depth" ng-show="isLoggedIn()" style="background-color: purple!important; ">
+<body style="background-position: top left;
+background-image: linear-gradient(180deg,rgba(255,255,255,0.5) 0%,rgba(243,197,52,0.13) 89%),url(https://fithouseksa.com/wp-content/uploads/2018/07/fat-running.png)!important;">
+	<nav class="navbar navbar-inverse navbar-fixed-top pmd-navbar pmd-z-depth" ng-show="isLoggedIn()" style="    background-image: linear-gradient(90deg,#9a3ea6 0%,#bc4abf 100%)!important; ">
 
 		<div class="container-fluid">
 			<div class="pmd-navbar-right-icon pull-right navigation">
@@ -98,9 +99,8 @@
 					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="width: 100%;padding-top:10px;">
 						<div class="form-group pmd-textfield pmd-textfield-floating-label">
 
-							<select class="select-simple form-control pmd-select2" ng-model="selectedLanguage" ng-change="changeLanguage(selectedLanguage)">
-								<option ng-selected="selectedLanguage == item.id" ng-repeat="item in languages" ng-value="item.id">{{item.label
-									| translate}}</option>
+							<select class="select-simple form-control pmd-select2" style="color:yellow!important;" ng-model="selectedLanguage" ng-change="changeLanguage(selectedLanguage)">
+								<option ng-selected="selectedLanguage == item.id" style="color:yellow!important;" ng-repeat="item in languages" ng-value="item.id">{{item.label | translate}}</option>
 							</select>
 						</div>
 					</div>
@@ -115,7 +115,8 @@
 					<i class="material-icons md-light">menu</i>
 				</a>
 				<a href="index.html" class="navbar-brand">
-					<img src="/assets/img/logo-os-white.png" alt="Fit House Restaurant" id="logo" data-height-percentage="84" data-actual-width="700" data-actual-height="198" style="width: 180px; "/>
+					<img src="/assets/img/logo-os-white.png" alt="Fit House Restaurant" id="logo" data-height-percentage="84" data-actual-width="700"
+					 data-actual-height="198" style="width: 180px; " />
 				</a>
 
 			</div>
@@ -135,11 +136,10 @@
 
 			<!-- User info -->
 			<li class="dropdown pmd-dropdown pmd-user-info visible-xs visible-md visible-sm visible-lg">
-				<a ng-click="logoutFlag=!logoutFlag" data-toggle="dropdown" class="btn-user dropdown-toggle media" data-sidebar="true"
-				 aria-expandedhref="javascript:void(0);">
+				<a ng-click="logoutFlag=!logoutFlag" data-toggle="dropdown" class="btn-user dropdown-toggle media" data-sidebar="true" aria-expandedhref="javascript:void(0);">
 					<div class="media-left">
 						<img src="/assets/img/fit-running.png" width="50px" alt="">
-							<!-- <img src="/assets/img/user-icon.png" alt="New User"> -->
+						<!-- <img src="/assets/img/user-icon.png" alt="New User"> -->
 						<!-- <span>{{logoutFlag}}</span> -->
 					</div>
 					<div class="media-body media-middle" ng-cloak>{{user.name}}
@@ -172,7 +172,7 @@
 			 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
 							</g>
 						</svg> -->
-						<img src="/assets/img/iconmus.png" style="    max-height: 35px;" >
+						<img src="/assets/img/iconmus.png" style="    max-height: 35px;">
 					</i>
 					<span class="media-body">{{'Role' | translate}}</span>
 				</a>
@@ -188,7 +188,7 @@
 			 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
 							</g>
 						</svg> -->
-						<img src="/assets/img/iconmus.png" style="    max-height: 35px;" >
+						<img src="/assets/img/iconmus.png" style="    max-height: 35px;">
 
 					</i>
 					<span class="media-body">{{'Branch' | translate}}</span>
@@ -205,7 +205,7 @@
 			 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
 							</g>
 						</svg> -->
-						<img src="/assets/img/iconmus.png" style="    max-height: 35px;" >
+						<img src="/assets/img/iconmus.png" style="    max-height: 35px;">
 
 					</i>
 					<span class="media-body">{{'Category' | translate}}</span>
@@ -222,29 +222,23 @@
 			 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
 							</g>
 						</svg> -->
-						<img src="/assets/img/iconmus.png" style="    max-height: 35px;" >
+						<img src="/assets/img/iconmus.png" style="    max-height: 35px;">
 
 					</i>
 					<span class="media-body">{{'users' | translate}}</span>
 				</a>
 			</li>
 
-			<li ng-show="user.PermissionId.indexOf('3') !== -1">
+			<!-- <li ng-show="user.PermissionId.indexOf('3') !== -1">
 				<a class="pmd-ripple-effect " ng-click="$state.go('Items');">
 					<i class="media-left media-middle">
-						<!-- <svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
-						 enable-background="new 287.725 407.535 19.83 18" xml:space="preserve">
-							<g>
-								<path fill="#C9C8C8" d="M307.555,407.535h-9.108v10.264h9.108V407.535z M287.725,407.535v6.232h9.109v-6.232H287.725z
-						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
-							</g>
-						</svg> -->
-						<img src="/assets/img/iconmus.png" style="    max-height: 35px;" >
-						
+					 
+						<img src="/assets/img/iconmus.png" style="    max-height: 35px;">
+
 					</i>
 					<span class="media-body" ng-cloak>{{'Item' | translate}}</span>
 				</a>
-			</li>
+			</li> -->
 			<li ng-show="user.PermissionId.indexOf('4') !== -1">
 				<a class="pmd-ripple-effect " ng-click="$state.go('Log')">
 					<i class="media-left media-middle">
@@ -255,13 +249,29 @@
 						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
 							</g>
 						</svg> -->
-						<img src="/assets/img/iconmus.png" style="    max-height: 35px;" >
+						<img src="/assets/img/iconmus.png" style="    max-height: 35px;">
 
 					</i>
 					<span class="media-body" ng-cloak>{{'Log' | translate}}</span>
 				</a>
 			</li>
 
+			<li ng-show="user.PermissionId.indexOf('13') !== -1">
+				<a class="pmd-ripple-effect " ng-click="$state.go('Meal')">
+					<i class="media-left media-middle">
+						<!-- <svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
+						 enable-background="new 287.725 407.535 19.83 18" xml:space="preserve">
+							<g>
+								<path fill="#C9C8C8" d="M307.555,407.535h-9.108v10.264h9.108V407.535z M287.725,407.535v6.232h9.109v-6.232H287.725z
+						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
+							</g>
+						</svg> -->
+						<img src="/assets/img/iconmus.png" style="    max-height: 35px;">
+
+					</i>
+					<span class="media-body" ng-cloak>{{'Meal' | translate}}</span>
+				</a>
+			</li>
 			<li ng-show="user.PermissionId.indexOf('6') !== -1">
 				<a class="pmd-ripple-effect " ng-click="$state.go('program' );">
 					<i class="media-left media-middle">
@@ -272,10 +282,19 @@
 						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
 							</g>
 						</svg> -->
-						<img src="/assets/img/iconmus.png" style="    max-height: 35px;" >
+						<img src="/assets/img/iconmus.png" style="    max-height: 35px;">
 
 					</i>
 					<span class="media-body" ng-cloak>{{'Program' | translate}}</span>
+				</a>
+			</li>
+
+			<li ng-show="user.PermissionId.indexOf('6') !== -1">
+				<a class="pmd-ripple-effect " ng-click="$state.go('callCenter' );">
+					<i class="media-left media-middle">
+						<img src="/assets/img/iconmus.png" style="    max-height: 35px;">
+					</i>
+					<span class="media-body" ng-cloak>{{'CallCenter' | translate}}</span>
 				</a>
 			</li>
 
@@ -289,7 +308,7 @@
 						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
 							</g>
 						</svg> -->
-						<img src="/assets/img/iconmus.png" style="    max-height: 35px;" >
+						<img src="/assets/img/iconmus.png" style="    max-height: 35px;">
 
 					</i>
 					<span class="media-body" ng-cloak>{{'Delivery' | translate}}</span>
@@ -305,7 +324,7 @@
 						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
 							</g>
 						</svg> -->
-						<img src="/assets/img/iconmus.png" style="    max-height: 35px;" >
+						<img src="/assets/img/iconmus.png" style="    max-height: 35px;">
 
 					</i>
 					<span class="media-body" ng-cloak>{{'DashboardLbl' | translate}}</span>
@@ -321,7 +340,7 @@
 						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
 							</g>
 						</svg> -->
-						<img src="/assets/img/iconmus.png" style="    max-height: 35px;" >
+						<img src="/assets/img/iconmus.png" style="    max-height: 35px;">
 
 					</i>
 					<span class="media-body" ng-cloak>{{'Kitchen' | translate}}</span>
@@ -330,13 +349,15 @@
 			<li ng-show="user.PermissionId.indexOf('10') !== -1">
 				<a class="pmd-ripple-effect " ng-click="$state.go('Call Center');">
 					<i class="media-left media-middle">
-						<svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
+						<!-- <svg version="1.1" x="0px" y="0px" width="19.83px" height="18px" viewBox="287.725 407.535 19.83 18"
 						 enable-background="new 287.725 407.535 19.83 18" xml:space="preserve">
 							<g>
 								<path fill="#C9C8C8" d="M307.555,407.535h-9.108v10.264h9.108V407.535z M287.725,407.535v6.232h9.109v-6.232H287.725z
 						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
 							</g>
-						</svg>
+						</svg> -->
+						<img src="/assets/img/iconmus.png" style="    max-height: 35px;">
+
 					</i>
 					<span class="media-body" ng-cloak>{{'Call Center' | translate}}</span>
 				</a>
@@ -351,7 +372,7 @@
 						 M296.834,415.271h-9.109v10.264h9.109V415.271z M307.555,419.303h-9.108v6.232h9.108V419.303z" />
 							</g>
 						</svg> -->
-						<img src="/assets/img/iconmus.png" style="    max-height: 35px;" >
+						<img src="/assets/img/iconmus.png" style="    max-height: 35px;">
 
 					</i>
 					<span class="media-body" ng-cloak>{{'Settings' | translate}}</span>
@@ -368,7 +389,7 @@
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
 
 
-	<script src="libs.js?v=530951c2071a24cf98a04f778eb77c20"></script>
+	<script src="libs.js?v=3e41353b33d2b0df792a3c6374d971dc"></script>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.1/nv.d3.min.js"></script>
@@ -378,9 +399,9 @@
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/stackblur-canvas/1.4.1/stackblur.min.js"></script>
 	<script src="http://cdn.jsdelivr.net/npm/canvg/dist/browser/canvg.min.js"></script>
 
-	<script src="core.js?v=530951c2071a24cf98a04f778eb77c20"></script>
-	<script src="app.js?v=530951c2071a24cf98a04f778eb77c20"></script>
-	<script src="templates.js?v=530951c2071a24cf98a04f778eb77c20"></script>
+	<script src="core.js?v=3e41353b33d2b0df792a3c6374d971dc"></script>
+	<script src="app.js?v=3e41353b33d2b0df792a3c6374d971dc"></script>
+	<script src="templates.js?v=3e41353b33d2b0df792a3c6374d971dc"></script>
 
 	<script src="https://rawgithub.com/McNull/angular-block-ui/bower/angular-block-ui.min.js"></script>
 	<link rel="stylesheet" href="https://rawgithub.com/McNull/angular-block-ui/bower/angular-block-ui.min.css">

@@ -43,7 +43,10 @@ namespace FitHouse.API
             mapperConfiguration.CreateMap<RolePermissionDto, PermissionModel>();
               
             mapperConfiguration.CreateMap<AdminModel, AdminDto>(); 
- 
+
+            mapperConfiguration.CreateMap<SettingModel, SettingDto>(); 
+            mapperConfiguration.CreateMap<SettingDto, SettingModel>();
+
 
             mapperConfiguration.CreateMap<CountryModel, CountryDto>();
             mapperConfiguration.CreateMap<CountryDto, CountryModel>();
@@ -54,14 +57,14 @@ namespace FitHouse.API
 
             mapperConfiguration.CreateMap<ProgramDto, ProgramModel>().ReverseMap();
             mapperConfiguration.CreateMap<ProgramTranslationDto, ProgramTranslationModel>().ReverseMap();
-            mapperConfiguration.CreateMap<ProgramDetailDto, ProgramModel>().ReverseMap();
+            mapperConfiguration.CreateMap<ProgramDetailDto, ProgramDetailModel>().ReverseMap();
             mapperConfiguration.CreateMap<CategoryProgramDto, CategoryProgramModel>().ReverseMap();
             mapperConfiguration.CreateMap<ItemProgramDto, ItemProgramModel>().ReverseMap();
             mapperConfiguration.CreateMap<DayDto, DayModel>().ReverseMap();
 
 
-            mapperConfiguration.CreateMap<MealDto, MealModel>().ReverseMap(); 
-            mapperConfiguration.CreateMap<MealDetailDto, MealModel>().ReverseMap();
+            //mapperConfiguration.CreateMap<MealDto, MealModel>().ReverseMap(); 
+            //mapperConfiguration.CreateMap<MealDetailDto, MealModel>().ReverseMap();
 
             FitHouseBllConfig.RegisterMappings(mapperConfiguration);
 

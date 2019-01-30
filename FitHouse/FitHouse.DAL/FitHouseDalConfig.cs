@@ -44,11 +44,13 @@ namespace FitHouse.DAL
                 .RegisterType<IRepositoryAsync<Program>, Repository<Program>>(new PerResolveLifetimeManager())
                 .RegisterType<IRepositoryAsync<ProgramTranslation>, Repository<ProgramTranslation>>(new PerResolveLifetimeManager())
                 .RegisterType<IRepositoryAsync<ProgramDetail>, Repository<ProgramDetail>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<ProgExcludeDay>, Repository<ProgExcludeDay>>(new PerResolveLifetimeManager())
 
                 .RegisterType<IRepositoryAsync<Meal>, Repository<Meal>>(new PerResolveLifetimeManager())
                 .RegisterType<IRepositoryAsync<MealTranslation>, Repository<MealTranslation>>(new PerResolveLifetimeManager())
                 .RegisterType<IRepositoryAsync<MealDetail>, Repository<MealDetail>>(new PerResolveLifetimeManager())
                 .RegisterType<IRepositoryAsync<Day>, Repository<Day>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<Setting>, Repository<Setting>>(new PerResolveLifetimeManager())
                 ;
 
 

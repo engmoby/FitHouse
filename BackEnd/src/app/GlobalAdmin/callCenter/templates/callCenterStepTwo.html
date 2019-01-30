@@ -1,0 +1,71 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".select-add-tags").select2({
+            tags: true,
+            theme: "bootstrap",
+            insertTag: function (data, tag) {
+                // Insert the tag at the end of the results
+                data.push(tag);
+                // console.log(data);
+            }
+        });
+
+        $(".select-tags").select2({
+            tags: false,
+            theme: "bootstrap",
+        });
+
+        $(".select-with-search").select2({
+            theme: "bootstrap"
+        });
+    });
+</script>
+
+<form class="form-horizontal" name="newCallCenterForm">
+    <br>
+    <div class="form-group pmd-textfield pmd-textfield-floating-label">
+        <label for="first-name">{{'phoneLbl' | translate}}</label>
+        <input required type="text" class="mat-input form-control" name="phone" numbers-only ng-model="callCenterCtrl.Phone" ng-minlength="10"
+            ng-maxlength="50">
+        <!-- <span class="error" ng-show="newCallCenterForm.phone.$error.pattern">{{'NotPhoneNumber' | translate}}   </span> -->
+        <div ng-messages="newCallCenterForm.phone.$error">
+            <div ng-if="newCallCenterForm.phone.$error.required && !newCallCenterForm.phone.$pristine">{{'PhoneReqError' | translate}}
+            </div>
+            <div ng-if="(newCallCenterForm.phone.$error.minlength || newCallCenterForm.phone.$error.maxlength)">{{'PhoneLengthError' | translate}}</div>
+        </div>
+        <!-- <div ng-if="callCenterCtrl.validate == false">
+            {{'NotFound' | translate}}
+        </div> -->
+    </div>
+
+    <div class="pmd-modal-action text-left">
+        <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="newCallCenterForm.$invalid"
+            class="btn pmd-ripple-effect btn-primary" type="button" ng-click="callCenterCtrl.ValidateUser()">{{'ValidateUser' | translate}}</button>
+        <!-- <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="callCenterCtrl.close()">{{'DiscardBtn' | translate}}</button> -->
+    </div>
+
+    <div>
+        <label>
+            <input type="radio" ng-model="callCenterCtrl.orderType" ng-value="item"> {{'Item' | translate}}
+        </label>
+        <br/>
+        <label>
+            <input type="radio" ng-model="callCenterCtrl.orderType" ng-value="meal"> {{'Meal' | translate}}
+        </label>
+        <br/>
+        <label>
+            <input type="radio" ng-model="callCenterCtrl.orderType" ng-value="program"> {{'Program' | translate}}
+        </label>
+        <br/>
+        <label>
+            <input type="radio" ng-model="callCenterCtrl.orderType" ng-value="customizeProgram"> {{'CustomizeProgram' | translate}}
+        </label>
+        <br/>
+    </div>
+</form>
+
+<div class="pmd-modal-action text-right">
+    <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="newCallCenterForm.$invalid  && (callCenterCtrl.selectedAreaId <= 0 || callCenterCtrl.selectedBranchId <= 0)"
+        class="btn pmd-ripple-effect btn-primary" type="button" ng-click="callCenterCtrl.MakeOrder()">{{'MakeOrder' | translate}}</button>
+    <!-- <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="callCenterCtrl.close()">{{'DiscardBtn' | translate}}</button> -->
+</div>

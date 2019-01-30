@@ -16,6 +16,11 @@ namespace FitHouse.BLL.DataServices
         {
             _repository = repository;
         }
-   
+
+        public List<ProgramDetail> GetProgramDetails(long programId)
+        {
+            var details = _repository.Query(x => x.IsDeleted != true && x.ProgramId == programId).Select().ToList();
+            return details;
+        }
     }
 }

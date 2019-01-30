@@ -15,5 +15,6 @@ namespace FitHouse.BLL.Services.Interfaces
         void DeActivateItem(long itemId);
         PagedResultsDto GetActivatedItemsByCategoryId(string language, long categoryId, int page, int pageSize);
         List<ItemProgramDto> GetAllItems();
+        List<ItemProgramDto> GetItemsById(List<ProgramDetailDto> programDetails);
     }
 }

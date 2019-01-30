@@ -11,11 +11,27 @@
                     templateUrl: './app/GlobalAdmin/Program/templates/program.html',
                     controller: 'ProgramController',
                     'controllerAs': 'programCtrl',
-                    // resolve: {
-                    //     userPrepService: userPrepService,
-                    //     RolePrepService: RolePrepService,
-                    //     CountriesPrepService: CountriesPrepService,
-                    // },
+                    resolve: {
+                        programPrepService: programPrepService
+                    },
+                    data: {
+                        permissions: {
+                            only: ['1'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
+                .state('programDetails', {
+                    url: '/programDetails/:programId',
+                    templateUrl: './app/GlobalAdmin/Program/templates/programDetails.html',
+                    controller: 'programDetailsController',
+                    'controllerAs': 'programDetailsCtrl',
+                    resolve: {
+                        progDetailsPrepService: progDetailsPrepService,
+                        itemsssPrepService: itemsssPrepService
+                    },
                     data: {
                         permissions: {
                             only: ['1'],
@@ -31,9 +47,27 @@
                     controller: 'addProgramController',
                     'controllerAs': 'addProgramCtrl',
                     resolve: {
-                        CategoriesPrepService: CategoriesPrepService,
+                        settingsPrepService: settingsPrepService,
                         daysPrepService:daysPrepService,
                         itemsssPrepService:itemsssPrepService
+                    },
+                    data: {
+                        permissions: {
+                            only: ['1'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
+                .state('callCenter', {
+                    url: '/callCenters',
+                    templateUrl: './app/GlobalAdmin/callCenter/templates/callCenter.html',
+                    controller: 'callCenterController',
+                    'controllerAs': 'callCenterCtrl',
+                    resolve: {
+                        RolePrepService: AllRolePrepService,
+                        CountriesPrepService: CountriesPrepService,
                     },
                     data: {
                         permissions: {
@@ -465,6 +499,10 @@
     // Program
 
 
+    settingsPrepService.$inject = ['GetSettingsResource']
+    function settingsPrepService(GetSettingsResource) {
+        return GetSettingsResource.getAllSettings().$promise;
+    }
 
     /*User */
     userPrepService.$inject = ['UserResource']
@@ -528,7 +566,10 @@
         return BranchResource.getBranch({ branchId: $stateParams.branchId }).$promise;
     }
 
-
+    progDetailsPrepService.$inject = ['GetProgramDetailResource', '$stateParams']
+    function progDetailsPrepService(GetProgramDetailResource, $stateParams) {
+        return GetProgramDetailResource.getProgramDetail({ programId: $stateParams.programId }).$promise;
+    }
 
     /*Category */
     CategoryPrepService.$inject = ['CategoryResource']
@@ -549,6 +590,11 @@
     daysPrepService.$inject = ['GetDaysResource']
     function daysPrepService(GetDaysResource) {
         return GetDaysResource.gatAllDays().$promise;
+    }
+
+    programPrepService.$inject = ['GetProgramResource']
+    function programPrepService(GetProgramResource) {
+        return GetProgramResource.gatAllPrograms().$promise;
     }
 
     CategoryByIdPrepService.$inject = ['CategoryResource', '$stateParams']

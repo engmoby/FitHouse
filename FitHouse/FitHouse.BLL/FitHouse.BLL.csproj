@@ -110,6 +110,7 @@
     <Compile Include="DataServices\Interfaces\IDayService.cs" />
     <Compile Include="DataServices\Interfaces\IitemService.cs" />
     <Compile Include="DataServices\Interfaces\IitemTranslationService.cs" />
+    <Compile Include="DataServices\Interfaces\IProgExcludeDayService.cs" />
     <Compile Include="DataServices\Interfaces\IProgramDetailService.cs" />
     <Compile Include="DataServices\Interfaces\IProgramService.cs" />
     <Compile Include="DataServices\Interfaces\IProgramTranslationService.cs" />
@@ -120,6 +121,7 @@
     <Compile Include="DataServices\Interfaces\ICategoryService.cs" />
     <Compile Include="DataServices\Interfaces\ICategoryTranslationService.cs" />
     <Compile Include="DataServices\Interfaces\IPermissionService.cs" />
+    <Compile Include="DataServices\Interfaces\ISettingService.cs" />
     <Compile Include="DataServices\Interfaces\IUserRoleService.cs" />
     <Compile Include="DataServices\Interfaces\IRolePermissionService.cs" />
     <Compile Include="DataServices\Interfaces\IRoleService.cs" />
@@ -134,11 +136,13 @@
     <Compile Include="DataServices\ItemService.cs" />
     <Compile Include="DataServices\ItemTranslationService.cs" />
     <Compile Include="DataServices\PermissionService.cs" />
+    <Compile Include="DataServices\ProgExcludeDayService.cs" />
     <Compile Include="DataServices\ProgramDetailService.cs" />
     <Compile Include="DataServices\ProgramService.cs" />
     <Compile Include="DataServices\ProgramTranslationService.cs" />
     <Compile Include="DataServices\RegionService.cs" />
     <Compile Include="DataServices\RegionTranslationService.cs" />
+    <Compile Include="DataServices\SettingService.cs" />
     <Compile Include="DataServices\UserRoleService.cs" />
     <Compile Include="DataServices\RolePermissionService.cs" />
     <Compile Include="DataServices\RoleService.cs" />
@@ -162,12 +166,14 @@
     <Compile Include="DTOs\ItemProgramDto.cs" />
     <Compile Include="DTOs\ItemTranslationDto.cs" />
     <Compile Include="DTOs\PagedResultsDto.cs" />
+    <Compile Include="DTOs\ProgExcludeDayDto.cs" />
     <Compile Include="DTOs\ProgramDetailDto.cs" />
     <Compile Include="DTOs\ProgramDto.cs" />
     <Compile Include="DTOs\ProgramTranslationDto.cs" />
     <Compile Include="DTOs\RefreshTokenDto.cs" />
     <Compile Include="DTOs\PermissionDto.cs" />
     <Compile Include="DTOs\RegionDto.cs" />
+    <Compile Include="DTOs\SettingDto.cs" />
     <Compile Include="DTOs\UserConsumed.cs" />
     <Compile Include="DTOs\UserRoleDto.cs" />
     <Compile Include="DTOs\RolePermissionDto.cs" />
@@ -183,6 +189,7 @@
     <Compile Include="Services\Interfaces\ICountryFacade.cs" />
     <Compile Include="Services\Interfaces\IDayFacade.cs" />
     <Compile Include="Services\Interfaces\IItemFacade.cs" />
+    <Compile Include="Services\Interfaces\IProgExcludeDayFacade.cs" />
     <Compile Include="Services\Interfaces\IProgramDetailFacade.cs" />
     <Compile Include="Services\Interfaces\IProgramFacade.cs" />
     <Compile Include="Services\Interfaces\IRegionFacade.cs" />
@@ -194,12 +201,14 @@
     <Compile Include="Services\Interfaces\IRoleFacade.cs" />
     <Compile Include="Services\Interfaces\IAreaFacade.cs" />
     <Compile Include="Services\Interfaces\IBranchFacade.cs" />
+    <Compile Include="Services\Interfaces\ISettingFacade.cs" />
     <Compile Include="Services\Interfaces\IUserFacade.cs" />
     <Compile Include="Services\FormToMail\FormToMail.cs" />
     <Compile Include="Services\FormToMail\IFormToMail.cs" />
     <Compile Include="Services\ItemFacade.cs" />
     <Compile Include="Services\ManageStorage\IManageStorage.cs" />
     <Compile Include="Services\ManageStorage\ManageStorage.cs" />
+    <Compile Include="Services\ProgExcludeDayFacade.cs" />
     <Compile Include="Services\ProgramDetailFacade.cs" />
     <Compile Include="Services\ProgramFacade.cs" />
     <Compile Include="Services\RefreshTokenFacade.cs" />
@@ -208,6 +217,7 @@
     <Compile Include="Services\RoleFacade.cs" />
     <Compile Include="Services\AreaFacade.cs" />
     <Compile Include="Services\BranchFacade.cs" />
+    <Compile Include="Services\SettingFacade.cs" />
     <Compile Include="Services\UserFacade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

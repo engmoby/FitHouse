@@ -11,5 +11,6 @@ namespace FitHouse.BLL.DataServices.Interfaces
     public interface IDayService : IService<Day>
     {
         List<Day> GetAllDays();
+        Day GetDayById(long dayId);
     }
 }

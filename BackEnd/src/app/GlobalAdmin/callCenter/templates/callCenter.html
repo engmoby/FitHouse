@@ -1,0 +1,40 @@
+<div class="modal-content">
+        <div class="modal-header bordered">
+            <h2 class="pmd-card-title-text">{{'CallCenter' | translate}}</h2>
+        </div>
+        <div class="modal-body">
+            <div class="row">
+                <div id="wizard-container">
+                    <div id="wizard-step-container">
+                        <ul ng-init="counter = 0" class="nav nav-pills nav-justified">
+                            <li ng-repeat="step in callCenterCtrl.steps" ng-class="{'active':step.step == callCenterCtrl.currentStep}">
+                                <a ng-if="selectedLanguage == 'en'" style="background-image: linear-gradient(90deg,#9a3ea6 0%,#bc4abf 100%)!important; color: yellow!important;" ng-click="callCenterCtrl.gotoStep(step.step)" href="">{{step.nameEn}} </a>
+                                <a ng-if="selectedLanguage == 'ar'" style="background-image: linear-gradient(90deg,#9a3ea6 0%,#bc4abf 100%)!important; color: yellow!important;" ng-click="callCenterCtrl.gotoStep(step.step)" href="">{{step.nameAr}} </a>
+                            </li>
+                        </ul>
+                    </div>
+    
+                    <div id="wizard-content-container">
+                        <ng-include src="callCenterCtrl.getStepTemplate()"></ng-include>
+                    </div>
+    
+                    <div id="wizard-navigation-container">
+                        <div class="pull-right">
+                            <span class="btn-group">
+                                <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="1 >= callCenterCtrl.currentStep" class="btn btn-default" name="previous" type="button" ng-click="callCenterCtrl.gotoStep(callCenterCtrl.currentStep - 1);">
+                                    <i class="fa fa-arrow-left"></i>{{'PreviousStep' | translate}}</button>
+                                <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="callCenterCtrl.currentStep >= callCenterCtrl.steps.length" class="btn btn-primary" name="next" type="button"
+                                    ng-click="callCenterCtrl.gotoStep(callCenterCtrl.currentStep + 1)">{{'NextStep' | translate}}
+                                    <i class="fa fa-arrow-right"></i>
+                                </button>
+                            </span>
+                            <!-- {{addProgramCtrl.Setting.minNoDaysPerProgram}} / {{addProgramCtrl.ProgramDaysCount}} -->
+                            <!-- <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="(addProgramCtrl.currentStep != addProgramCtrl.steps.length) || (addProgramCtrl.Setting.minNoDaysPerProgram > addProgramCtrl.ProgramDaysCount)" class="btn btn-success" name="next" type="button"
+                                ng-click="addProgramCtrl.AddNewProgram()">
+                                <i class="fa fa-floppy-o"></i>{{'Save' | translate}}</button> -->
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
