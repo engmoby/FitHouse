@@ -3,7 +3,7 @@
 		.module('core')
 		.constant('appCONSTANTS', {
 			'API_URL': 'http://localhost:32569/api/',
-			//'API_URL': 'http:192.168.1.18:80/api/',
+			//'API_URL': 'http://fithouse.azurewebsites.net/api/',
 			'defaultLanguage': 'en',
 			'supportedLanguage': {
 				'en': { 'key': 'en', 'value': 'english' },
@@ -19,7 +19,8 @@
 			success: 0,
 			warning: 1,
 			error: 2
-		}).constant('userRolesEnum', {
+		})
+		.constant('userRolesEnum', {
 			GlobalAdmin: "GlobalAdmin"
 		});
 }());

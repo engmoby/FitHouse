@@ -12,7 +12,7 @@
         RegionResource, CityResource, AreaResource) {
 
         $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[4].children[0]).addClass("active")
+        $($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
 
         var vm = this;
         blockUI.start("Loading...");
@@ -32,7 +32,7 @@
         $scope.totalCount = userPrepService.totalCount;
         $scope.userList = userPrepService.results;
         $scope.roleList = RolePrepService.results;
-        console.log(userPrepService);
+      //  console.log(userPrepService);
 
         $scope.phoneNumbr = /^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/;
         $scope.userObj = "";

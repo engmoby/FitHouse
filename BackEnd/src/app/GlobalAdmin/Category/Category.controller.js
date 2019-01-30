@@ -13,7 +13,7 @@
         $state, CategoryResource, $localStorage, authorizationService,
         appCONSTANTS, blockUI, $uibModal, ToastService) {
             $('.pmd-sidebar-nav>li>a').removeClass("active")
-            $($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
+            $($('.pmd-sidebar-nav').children()[4].children[0]).addClass("active")
 
             var vm = this;
 

@@ -8,11 +8,9 @@
 	function MealController($scope, $translate, $stateParams, appCONSTANTS, $uibModal, GetMealsResource, MealResource, mealsPrepService, ToastService, ActivateMealResource, DeactivateMealResource) {
 
 		var vm = this;
-		vm.meals = mealsPrepService;
-		console.log(vm.meals);
-		//vm.totalCount = restaurantsPrepService.totalCount;
-		//$('.pmd-sidebar-nav>li>a').removeClass("active")
-		//$($('.pmd-sidebar-nav').children()[2].children[0]).addClass("active")
+		vm.meals = mealsPrepService;  
+		$('.pmd-sidebar-nav>li>a').removeClass("active")
+		$($('.pmd-sidebar-nav').children()[5].children[0]).addClass("active")
 
 		vm.Now = $scope.getCurrentTime();
 		function refreshMeals() {
@@ -42,14 +40,15 @@
 				});
 		}
 		vm.openDeleteDialog = function (model,name, id) {
+		debugger;
 			var modalContent = $uibModal.open({
 				templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
 				controller: 'confirmDeleteDialogController',
 				controllerAs: 'deleteDlCtrl',
 				resolve: {
                     model: function () { return model },
-					mealName: function () { return name },
-					mealId: function () { return id },
+					itemName: function () { return name },
+					itemId: function () { return id },
 					message: function () { return null },
 					callBackFunction: function () { return confirmationDelete }
 				}

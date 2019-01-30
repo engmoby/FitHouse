@@ -27,6 +27,6 @@ namespace FitHouse.BLL.DTOs
         public bool IsImageChange { get; set; }
 
         public long MealDiscount { get; set; }
-        public List<MealDetailDto> MealDetail { get; set; }
+       public List<MealDetailDto> MealDetails { get; set; }
     }
 }

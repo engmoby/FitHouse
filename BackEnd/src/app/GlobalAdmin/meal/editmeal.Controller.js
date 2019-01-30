@@ -3,36 +3,50 @@
 
 	angular
 		.module('home')
-		.controller('editMealController', ['$scope', '$http', '$translate', '$stateParams', 'appCONSTANTS', '$state', 'MealResource', 'ToastService', 'mealPrepService', editMealController])
+		.controller('editMealController', ['$scope', '$filter', '$http', '$translate', '$stateParams', 'appCONSTANTS', '$state', 'MealResource', 'itemsssPrepService', 'ToastService', 'mealPrepService', editMealController])
 
-	function editMealController($scope, $http, $translate, $stateParams, appCONSTANTS, $state, MealResource, ToastService, mealPrepService) {
+	function editMealController($scope, $filter, $http, $translate, $stateParams, appCONSTANTS, $state, MealResource, itemsssPrepService, ToastService, mealPrepService) {
 		var vm = this;
 		vm.language = appCONSTANTS.supportedLanguage;
 		vm.meal = mealPrepService;
-		vm.meal.imageUrl = vm.meal.imageUrl + "?date=" + $scope.getCurrentTime();
-		console.log(vm.meal);
+		vm.itemsList = itemsssPrepService;
+		vm.itemModel = [];
+		if (vm.meal.imageUrl != null)
+			vm.meal.imageUrl = vm.meal.imageUrl + "?date=" + $scope.getCurrentTime();
 
+		var i;
+		for (i = 0; i < vm.meal.mealDetails.length; i++) {
+			var indexRate = vm.itemsList.indexOf($filter('filter')(vm.itemsList, { 'itemId': vm.meal.mealDetails[i].itemId }, true)[0]);
+			vm.itemModel.push(vm.itemsList[indexRate]);
+
+		}
+		bindItemsTocalculate(vm.itemModel);
 		vm.close = function () {
-			$state.go('Meals', { categoryId: $stateParams.categoryId });
+			$state.go('Meal');
 		}
 		vm.updateMeal = function () {
+			vm.sendSelected = [];
 			var updatedMeal = new Object();
 			updatedMeal.mealNameDictionary = vm.meal.mealNameDictionary;
 			updatedMeal.mealDescriptionDictionary = vm.meal.mealDescriptionDictionary;
-			updatedMeal.categoryId = $stateParams.categoryId;
 
 			updatedMeal.mealId = vm.meal.mealId;
 			updatedMeal.isImageChange = isMealImageChange;
 
-			updatedMeal.mealSize = vm.meal.mealSize;
-			updatedMeal.carbs = vm.meal.carbs;
-			updatedMeal.calories = vm.meal.calories;
-			updatedMeal.protein = vm.meal.protein;
-			updatedMeal.cost = vm.meal.cost;
-			updatedMeal.price = vm.meal.price;
-			updatedMeal.vat = vm.meal.vat;
-			updatedMeal.totalPrice = vm.meal.totalPrice;
+			updatedMeal.mealPrice = vm.meal.totalPrice;
+			if (vm.mealDiscount == null)
+				updatedMeal.mealDiscount = 0;
+			else
+				updatedMeal.mealDiscount = vm.meal.mealDiscount;
 
+			$scope.selectedItemList.forEach(element => {
+				vm.sendSelected.push(
+					{
+						itemId: element.itemId
+					}
+				);
+			});
+			updatedMeal.MealDetails = vm.sendSelected;
 
 			var model = new FormData();
 			model.append('data', JSON.stringify(updatedMeal));
@@ -46,12 +60,52 @@
 			}).then(
 				function (data, status) {
 					ToastService.show("right", "bottom", "fadeInUp", $translate.instant('MealUpdateSuccess'), "success");
-					$state.go('Meals', { categoryId: $stateParams.categoryId });
+					$state.go('Meal');
 				},
 				function (data, status) {
 					ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
 				}
 			);
+		}
+		$scope.sum = function (items, prop) {
+			SumItem(items, prop);
+			// return items.reduce(function (a, b) {
+			// 	return a + b[prop];
+			// }, 0);
+		};
+		function SumItem(items, prop) {
+			return items.reduce(function (a, b) {
+				return a + b[prop];
+			}, 0);
+		}
+		function bindItemsTocalculate(model) {
+
+			vm.meal.carbs = SumItem(model, 'carbs');
+			vm.meal.calories = SumItem(model, 'calories');
+			vm.meal.protein = SumItem(model, 'protein');
+			vm.meal.cost = SumItem(model, 'cost');
+			vm.meal.price = SumItem(model, 'price');
+			vm.meal.vat = SumItem(model, 'vat');
+			vm.meal.totalPrice = SumItem(model, 'totalPrice');
+			$scope.selectedItemList = model;
+			calclulateWithDicscount();
+		}
+		vm.addItemToList = function (model) {
+			bindItemsTocalculate(model)
+		}
+		function calclulateWithDicscount() {
+			var vatPresantage = (vm.meal.price * vm.meal.vat) / 100;
+			var discountPresantage = vm.meal.price * vm.meal.mealDiscount / 100;
+			if (vm.mealDiscount == null)
+				vm.meal.totalPrice = vm.meal.price + vatPresantage;
+			else
+				vm.meal.totalPrice = vm.meal.price + vatPresantage - discountPresantage;
+
+
+		}
+		vm.calclulate = function () {
+			calclulateWithDicscount();
+
 		}
 		vm.LoadUploadLogo = function () {
 			$("#mealImage").click();

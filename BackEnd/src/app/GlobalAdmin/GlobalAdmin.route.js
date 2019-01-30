@@ -455,7 +455,7 @@
                         displayName: 'meals'
                     },
                     resolve: {
-                      //  defaultmealsPrepService: defaultmealsPrepService,
+                        itemsssPrepService:itemsssPrepService
                     }
                 })
                 .state('editMeal', {
@@ -472,8 +472,44 @@
                     },
                     resolve: {
                         mealPrepService: mealPrepService,
+                        itemsssPrepService:itemsssPrepService
                     }
                 })
+ 
+                .state('Order', {
+                    url: '/Order',
+                    templateUrl: './app/GlobalAdmin/Order/templates/Order.html',
+                    controller: 'OrderController',
+                    'controllerAs': 'orderCtrl',
+                    data: {
+                        permissions: {
+                            only: ['RestaurantAdmin'],
+                            redirectTo: 'root'
+                        },
+                        displayName: 'Order'
+                    },
+                    resolve: { 
+                        ordersPrepService: ordersPrepService
+                    }
+                })
+                
+                .state('editorder', {
+                    url: '/editorder/:order',
+                    templateUrl: './app/GlobalAdmin/Order/templates/edit.html',
+                    controller: 'editOrderDialogController',
+                    'controllerAs': 'editOrderCtrl',
+                    resolve: {
+                        order: function () { return order },
+                    },
+                    data: {
+                        permissions: {
+                            only: ['3'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
 
                 .state('Dashboard', {
                     url: '/Dashboard',
@@ -639,6 +675,12 @@
         }
         else
             return null;
+    }
+
+    /*Orders */
+    ordersPrepService.$inject = ['OrdersResource', '$stateParams']
+    function ordersPrepService(OrdersResource, $stateParams) {
+        return OrdersResource.getAllOrders().$promise;
     }
 
 

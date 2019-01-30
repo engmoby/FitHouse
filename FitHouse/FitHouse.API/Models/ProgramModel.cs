@@ -15,6 +15,7 @@ namespace FitHouse.API.Models
         public bool IsBreakfast { get; set; }
         public bool IsSnack { get; set; }
         public long ProgramDiscount { get; set; }
+        public decimal Price { get; set; }
         public bool IsAdmin { get; set; }
         public bool IsForClient { get; set; }
         public Dictionary<string, string> ProgramNameDictionary { get; set; }

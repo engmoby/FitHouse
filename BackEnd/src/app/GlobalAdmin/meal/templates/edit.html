@@ -1,3 +1,15 @@
+<script type="text/javascript">
+	$(document).ready(function () {
+		$(".select-add-tags").select2({
+			tags: true,
+			theme: "bootstrap",
+			insertTag: function (data, tag) {
+				// Insert the tag at the end of the results
+				data.push(tag);
+			}
+		});
+	});
+</script>
 <div class="modal-content">
 	<div class="modal-header bordered">
 		<h2 class="pmd-card-title-text">{{'UpdateMealLbl' | translate}}</h2>
@@ -46,8 +58,49 @@
 				</div>
 			</div>
 			<div class="row">
-
 				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+					<label for="first-name">{{'SelectItems' | translate}}</label>
+					<select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" multiple ng-model="editMealCtrl.itemModel"
+					 ng-change="editMealCtrl.addItemToList(editMealCtrl.itemModel)" ng-options="item as item.itemNameDictionary[selectedLanguage] 
+							group by item.category.titleDictionary[selectedLanguage]
+							for item  in editMealCtrl.itemsList">
+					</select>
+				</div>
+				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+
+					<table class="table pmd-table table-hover">
+						<thead>
+							<tr>
+								<th>{{'Name' | translate}}</th>
+								<th>{{'carb' | translate}}</th>
+								<th>{{'calories' | translate}}</th>
+								<th>{{'protein' | translate}}</th>
+								<th>{{'costlbl' | translate}}</th>
+								<th>{{'Pricelbl' | translate}}</th>
+								<th>{{'vat' | translate}}</th>
+								<th>{{'total' | translate}}</th>
+								<th></th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr ng-repeat="meal in editMealCtrl.itemModel">
+								<td data-title="Name" width="15%">{{meal.itemNameDictionary[selectedLanguage] | limitTo:10}}</td>
+								<td data-title="Description">{{meal.carbs}}</td>
+								<td data-title="Description">{{meal.calories}}</td>
+								<td data-title="Description">{{meal.protein}}</td>
+								<td data-title="Description">{{meal.cost}}</td>
+								<td data-title="Description">{{meal.price}}</td>
+								<td data-title="Description">{{meal.vat}}</td>
+								<td data-title="totalPrice">{{meal.totalPrice}}</td>
+
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<div class="row">
+
+				<!-- <div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 					<label for="first-name">{{'mealSize' | translate}} </label>
 					<input type="number" class="mat-input form-control" name="mealSize" ng-model="editMealCtrl.meal.mealSize" min="1"
 					 ng-maxlength="5">
@@ -56,13 +109,13 @@
 							translate}}</div>
 						<div ng-if="newMealForm.mealSize.$error.maxlength">{{'mealSizeLengthError' | translate}}</div>
 					</div>
-				</div>
+				</div> -->
 
 
 
 				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 					<label for="first-name">{{'carbs' | translate}} </label>
-					<input type="number" class="mat-input form-control" name="carbs" ng-model="editMealCtrl.meal.carbs" min="1"
+					<input type="number" readonly class="mat-input form-control" name="carbs" ng-model="editMealCtrl.meal.carbs" min="1"
 					 ng-maxlength="5">
 					<div ng-messages="newMealForm.carbs.$error">
 						<div ng-if="newMealForm.carbs.$error.required && !newMealForm.carbs.$pristine">{{'requiredErr' | translate}}</div>
@@ -72,8 +125,8 @@
 
 				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 					<label for="first-name">{{'calories' | translate}} </label>
-					<input type="number" class="mat-input form-control" name="calories" ng-model="editMealCtrl.meal.calories" min="1"
-					 ng-maxlength="5">
+					<input type="number" readonly class="mat-input form-control" name="calories" ng-model="editMealCtrl.meal.calories"
+					 min="1" ng-maxlength="5">
 					<div ng-messages="newMealForm.calories.$error">
 						<div ng-if="newMealForm.calories.$error.required && !newMealForm.calories.$pristine">{{'requiredErr' |
 							translate}}</div>
@@ -84,8 +137,8 @@
 
 				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed"><label
 					 for="first-name">{{'protein' | translate}} </label>
-					<input type="number" class="mat-input form-control" name="protein" ng-model="editMealCtrl.meal.protein" min="1"
-					 ng-maxlength="5">
+					<input type="number" readonly class="mat-input form-control" name="protein" ng-model="editMealCtrl.meal.protein"
+					 min="1" ng-maxlength="5">
 					<div ng-messages="newMealForm.protein.$error">
 						<div ng-if="newMealForm.protein.$error.required && !newMealForm.protein.$pristine">{{'requiredErr' | translate}}</div>
 						<div ng-if="newMealForm.protein.$error.maxlength">{{'proteinLengthError' | translate}}</div>
@@ -96,7 +149,7 @@
 			<div class="row">
 				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 					<label for="first-name">{{'costlbl' | translate}} </label>
-					<input type="number" class="mat-input form-control" name="cost" ng-model="editMealCtrl.meal.cost" min="1"
+					<input type="number" readonly class="mat-input form-control" name="cost" ng-model="editMealCtrl.meal.cost" min="1"
 					 ng-maxlength="5">
 					<div ng-messages="newMealForm.cost.$error">
 						<div ng-if="newMealForm.cost.$error.required && !newMealForm.cost.$pristine">{{'requiredErr' | translate}}</div>
@@ -106,8 +159,8 @@
 
 				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 					<label for="first-name">{{'Pricelbl' | translate}} </label>
-					<input type="number" ng-change="editMealCtrl.calclulate()" class="mat-input form-control" name="price" ng-model="editMealCtrl.meal.price"
-					 min="1" ng-maxlength="5">
+					<input type="number" readonly ng-change="editMealCtrl.calclulate()" class="mat-input form-control" name="price"
+					 ng-model="editMealCtrl.meal.price" min="1" ng-maxlength="5">
 					<div ng-messages="newMealForm.price.$error">
 						<div ng-if="newMealForm.price.$error.required && !newMealForm.price.$pristine">{{'requiredErr' | translate}}</div>
 						<div ng-if="newMealForm.price.$error.maxlength">{{'PriceLengthError' | translate}}</div>
@@ -117,14 +170,22 @@
 				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 
 					<label for="first-name">{{'vat' | translate}} </label>
-					<input type="number" ng-change="editMealCtrl.calclulate()" class="mat-input form-control" name="vat" ng-model="editMealCtrl.meal.vat"
-					 min="1" ng-maxlength="5">
+					<input type="number" readonly ng-change="editMealCtrl.calclulate()" class="mat-input form-control" name="vat"
+					 ng-model="editMealCtrl.meal.vat" min="1" ng-maxlength="5">
 					<div ng-messages="newMealForm.vat.$error">
 						<div ng-if="newMealForm.vat.$error.required && !newMealForm.vat.$pristine">{{'requiredErr' | translate}}</div>
 						<div ng-if="newMealForm.vat.$error.maxlength">{{'vatLengthError' | translate}}</div>
 					</div>
 				</div>
+				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 
+					<label for="first-name">{{'mealDiscount' | translate}} </label>
+					<input type="number" ng-change="editMealCtrl.calclulate()" class="mat-input form-control" name="mealDiscount"
+					 ng-model="editMealCtrl.meal.mealDiscount" min="1" ng-maxlength="5">
+					<div ng-messages="newMealForm.meal.mealDiscount.$error">
+						<div ng-if="newMealForm.meal.mealDiscount.$error.maxlength">{{'mealDiscountLengthError' | translate}}</div>
+					</div>
+				</div>
 				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 
 					<label for="first-name">{{'Total' | translate}} </label>
@@ -151,7 +212,8 @@
 		</form>
 	</div>
 	<div class="pmd-modal-action text-right">
-		<button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="newMealForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editMealCtrl.updateMeal()">{{'saveChangesBtn'
+		<button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="newMealForm.$invalid"
+		 class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editMealCtrl.updateMeal()">{{'saveChangesBtn'
 			|
 			translate}}</button>
 		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editMealCtrl.close()">{{'DiscardBtn' |
