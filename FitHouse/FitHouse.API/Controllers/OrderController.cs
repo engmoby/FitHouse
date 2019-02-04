@@ -1,4 +1,4 @@
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using System.Web.Http;
 using AutoMapper;
 using FitHouse.API.Infrastructure;

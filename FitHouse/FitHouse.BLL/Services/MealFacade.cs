@@ -111,9 +111,9 @@ namespace FitHouse.BLL.Services
 
         private void ValidateMeal(MealDto mealDto)
         {
-            foreach (var mealName in mealDto.MealNameDictionary)
+            foreach (var MealName in MealDto.MealNameDictionary)
             {
-                if (string.IsNullOrEmpty(mealName.Value))
+                if (string.IsNullOrEmpty(MealName.Value))
                     throw new ValidationException(ErrorCodes.EmptyMealName);
                 if (string.IsNullOrEmpty(mealDto.MealDescriptionDictionary[mealName.Key]))
                     throw new ValidationException(ErrorCodes.EmptyMealDescription);
@@ -181,11 +181,11 @@ namespace FitHouse.BLL.Services
 
             if (meal.IsDeleted)
             {
-                var checkIfUsed = _orderDetailsService.Queryable().Where(x => x.MealId == meal.MealId);
-                if (checkIfUsed.Any())
-                {
-                    throw new ValidationException(ErrorCodes.RecordIsUsedInAnotherModule);
-                }
+                //var checkIfUsed = _programDetailService.Queryable().Where(x => x.MealId == Meal.MealId);
+                //if (checkIfUsed.Any())
+                //{
+                //    throw new ValidationException(ErrorCodes.RecordIsUsedInAnotherModule);
+                //}
             }
 
             meal.IsActive = false;
