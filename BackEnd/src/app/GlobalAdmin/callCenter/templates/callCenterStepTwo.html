@@ -45,27 +45,28 @@
     </div>
 
     <div>
+        <!-- {{callCenterCtrl.orderType.type}} -->
         <label>
-            <input type="radio" ng-model="callCenterCtrl.orderType" ng-value="item"> {{'Item' | translate}}
+            <input type="radio" ng-model="callCenterCtrl.orderType.type" value="item"> {{'Item' | translate}}
         </label>
         <br/>
         <label>
-            <input type="radio" ng-model="callCenterCtrl.orderType" ng-value="meal"> {{'Meal' | translate}}
+            <input type="radio" ng-model="callCenterCtrl.orderType.type" value="meal"> {{'Meal' | translate}}
         </label>
         <br/>
         <label>
-            <input type="radio" ng-model="callCenterCtrl.orderType" ng-value="program"> {{'Program' | translate}}
+            <input type="radio" ng-model="callCenterCtrl.orderType.type" value="program"> {{'Program' | translate}}
         </label>
         <br/>
         <label>
-            <input type="radio" ng-model="callCenterCtrl.orderType" ng-value="customizeProgram"> {{'CustomizeProgram' | translate}}
+            <input type="radio" ng-model="callCenterCtrl.orderType.type" value="customizeProgram"> {{'CustomizeProgram' | translate}}
         </label>
         <br/>
     </div>
 </form>
 
 <div class="pmd-modal-action text-right">
-    <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="newCallCenterForm.$invalid  && (callCenterCtrl.selectedAreaId <= 0 || callCenterCtrl.selectedBranchId <= 0)"
+    <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="(newCallCenterForm.$invalid) || (callCenterCtrl.flag != true)"
         class="btn pmd-ripple-effect btn-primary" type="button" ng-click="callCenterCtrl.MakeOrder()">{{'MakeOrder' | translate}}</button>
     <!-- <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="callCenterCtrl.close()">{{'DiscardBtn' | translate}}</button> -->
 </div>

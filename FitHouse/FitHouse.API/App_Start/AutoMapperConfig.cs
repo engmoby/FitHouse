@@ -70,6 +70,13 @@ namespace FitHouse.API
             mapperConfiguration.CreateMap<OrderDetailsModel, OrderDetailDto>();
             mapperConfiguration.CreateMap<OrderDetailDto, OrderDetailsModel>();
 
+            mapperConfiguration.CreateMap<OrderCallCenterModel, OrderCallCenterDto>();
+            mapperConfiguration.CreateMap<OrderCallCenterDto, OrderCallCenterModel>();
+
+
+            mapperConfiguration.CreateMap<OrderDetailsCallCenterModel, OrderDetailCallCenterDto>();
+            mapperConfiguration.CreateMap<OrderDetailCallCenterDto, OrderDetailsCallCenterModel>();
+
             mapperConfiguration.CreateMap<AddressModel, AddressDto>();
             mapperConfiguration.CreateMap<AddressDto, AddressModel>();
 

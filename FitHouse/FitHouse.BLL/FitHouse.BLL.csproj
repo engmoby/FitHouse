@@ -100,6 +100,7 @@
   <ItemGroup>
     <Compile Include="DataServices\Interfaces\IOrderService.cs" />
     <Compile Include="DataServices\Interfaces\IOrderDetailsService.cs" />
+    <Compile Include="DataServices\Interfaces\IProgExcludeDayService.cs" />
     <Compile Include="DataServices\OrderService.cs" />
     <Compile Include="DataServices\OrderDetailsService.cs" />
     <Compile Include="DataServices\CityService.cs" />
@@ -165,6 +166,8 @@
     <Compile Include="DataServices\UserService.cs" />
     <Compile Include="DTOs\AddressDto.cs" />
     <Compile Include="DTOs\AdminDto.cs" />
+    <Compile Include="DTOs\OrderCallCenterDto.cs" />
+    <Compile Include="DTOs\OrderDetailCallCenterDto.cs" />
     <Compile Include="DTOs\OrderDetailDto.cs" />
     <Compile Include="DTOs\CategoryProgramDto.cs" />
     <Compile Include="DTOs\CityDto.cs" />
@@ -178,6 +181,7 @@
     <Compile Include="DTOs\ItemTranslationDto.cs" />
     <Compile Include="DTOs\MealDetailDto.cs" />
     <Compile Include="DTOs\MealDto.cs" />
+    <Compile Include="DTOs\SettingDto.cs" />
     <Compile Include="DTOs\StatusDto.cs" />
     <Compile Include="DTOs\PagedResultsDto.cs" />
     <Compile Include="DTOs\ProgExcludeDayDto.cs" />
@@ -205,6 +209,7 @@
     <Compile Include="Services\Interfaces\IItemFacade.cs" />
     <Compile Include="Services\Interfaces\IMealDetailsFacade.cs" />
     <Compile Include="Services\Interfaces\IMealFacade.cs" />
+    <Compile Include="Services\Interfaces\IProgExcludeDayFacade.cs" />
     <Compile Include="Services\Interfaces\IProgramDetailFacade.cs" />
     <Compile Include="Services\Interfaces\IProgramFacade.cs" />
     <Compile Include="Services\Interfaces\IRegionFacade.cs" />
@@ -226,6 +231,7 @@
     <Compile Include="Services\ManageStorage\ManageStorage.cs" />
     <Compile Include="Services\MealDetailsFacade.cs" />
     <Compile Include="Services\MealFacade.cs" />
+    <Compile Include="Services\ProgExcludeDayFacade.cs" />
     <Compile Include="Services\ProgramDetailFacade.cs" />
     <Compile Include="Services\ProgramFacade.cs" />
     <Compile Include="Services\RefreshTokenFacade.cs" />

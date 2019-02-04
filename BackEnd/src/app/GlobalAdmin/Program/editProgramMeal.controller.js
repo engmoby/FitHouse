@@ -45,7 +45,7 @@
                 function (data, status) {
                     $uibModalInstance.dismiss();
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('EditedSuccessfully'), "success");
-
+                    callBackFunction();
 
                 },
                 function (data, status) {

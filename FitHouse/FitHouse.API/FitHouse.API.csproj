@@ -278,6 +278,7 @@
     <Compile Include="Controllers\ProgramController.cs" />
     <Compile Include="Controllers\RegionsController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\SettingController.cs" />
     <Compile Include="Models\AddressModel.cs" />
     <Compile Include="Models\AdminModel.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
@@ -294,6 +295,8 @@
     <Compile Include="Models\ItemProgramModel.cs" />
     <Compile Include="Models\MealDetailModel.cs" />
     <Compile Include="Models\MealModel.cs" />
+    <Compile Include="Models\OrderCallCenterModel.cs" />
+    <Compile Include="Models\OrderDetailsCallCenterModel.cs" />
     <Compile Include="Models\OrderDetailsModel.cs" />
     <Compile Include="Models\ProgramDetailModel.cs" />
     <Compile Include="Models\ProgramModel.cs" />
@@ -310,6 +313,7 @@
     <Compile Include="Models\AreaModel.cs" />
     <Compile Include="Models\PermissionModel.cs" />
     <Compile Include="Models\OrderModel.cs" />
+    <Compile Include="Models\SettingModel.cs" />
     <Compile Include="Models\UserRoleModel.cs" />
     <Compile Include="Models\RolePermissionModel.cs" />
     <Compile Include="Models\RoleModel.cs" />
