@@ -158,6 +158,7 @@ namespace FitHouse.BLL.Services
                 }
             }
 
+
             else if (orderDto.Programs.Count != 0)
             {
                 foreach (var detail in orderDto.Programs)

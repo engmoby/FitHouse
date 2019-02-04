@@ -93,7 +93,23 @@ namespace FitHouse.BLL.Services
             return mealDto;
         }
 
-        private void ValidateMeal(MealDto MealDto)
+        public List<ItemProgramDto> GetMealItems(long mealId)
+        {
+            var mealDetails = _mealDetailsService.GetMealItems(mealId);
+            if (mealDetails == null) throw new NotFoundException(ErrorCodes.MealHasNoItems);
+
+            var items = new List<ItemProgramDto>();
+            foreach (var detail in mealDetails)
+            {
+                var item = Mapper.Map<ItemProgramDto>(_itemService.GetItemById(detail.ItemId));
+                if (item == null) throw new NotFoundException(ErrorCodes.ItemNotFound);
+                items.Add(item);
+            }
+
+            return items;
+        }
+
+        private void ValidateMeal(MealDto mealDto)
         {
             foreach (var MealName in MealDto.MealNameDictionary)
             {
