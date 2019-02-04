@@ -93,27 +93,11 @@ namespace FitHouse.BLL.Services
             return mealDto;
         }
 
-        public List<ItemProgramDto> GetMealItems(long mealId)
+        private void ValidateMeal(MealDto MealDto)
         {
-            var mealDetails = _mealDetailsService.GetMealItems(mealId);
-            if (mealDetails == null) throw new NotFoundException(ErrorCodes.MealHasNoItems);
-
-            var items = new List<ItemProgramDto>();
-            foreach (var detail in mealDetails)
+            foreach (var MealName in MealDto.MealNameDictionary)
             {
-                var item = Mapper.Map<ItemProgramDto>(_itemService.GetItemById(detail.ItemId));
-                if (item == null) throw new NotFoundException(ErrorCodes.ItemNotFound);
-                items.Add(item);
-            }
-
-            return items;
-        }
-
-        private void ValidateMeal(MealDto mealDto)
-        {
-            foreach (var mealName in mealDto.MealNameDictionary)
-            {
-                if (string.IsNullOrEmpty(mealName.Value))
+                if (string.IsNullOrEmpty(MealName.Value))
                     throw new ValidationException(ErrorCodes.EmptyMealName);
                 if (string.IsNullOrEmpty(mealDto.MealDescriptionDictionary[mealName.Key]))
                     throw new ValidationException(ErrorCodes.EmptyMealDescription);
@@ -181,11 +165,11 @@ namespace FitHouse.BLL.Services
 
             if (meal.IsDeleted)
             {
-                var checkIfUsed = _orderDetailsService.Queryable().Where(x => x.MealId == meal.MealId);
-                if (checkIfUsed.Any())
-                {
-                    throw new ValidationException(ErrorCodes.RecordIsUsedInAnotherModule);
-                }
+                //var checkIfUsed = _programDetailService.Queryable().Where(x => x.MealId == Meal.MealId);
+                //if (checkIfUsed.Any())
+                //{
+                //    throw new ValidationException(ErrorCodes.RecordIsUsedInAnotherModule);
+                //}
             }
 
             meal.IsActive = false;
