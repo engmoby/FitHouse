@@ -494,12 +494,12 @@
                 })
                 
                 .state('editorder', {
-                    url: '/editorder/:order',
+                    url: '/editorder/:orderId',
                     templateUrl: './app/GlobalAdmin/Order/templates/edit.html',
                     controller: 'editOrderDialogController',
                     'controllerAs': 'editOrderCtrl',
                     resolve: {
-                        order: function () { return order },
+                        OrderByIdPrepService: OrderByIdPrepService 
                     },
                     data: {
                         permissions: {
@@ -510,6 +510,24 @@
 
                 })
 
+ 
+                .state('Delivery', {
+                    url: '/Delivery',
+                    templateUrl: './app/GlobalAdmin/Delivery/templates/Delivery.html',
+                    controller: 'DeliveryController',
+                    'controllerAs': 'deliveryCtrl',
+                    data: {
+                        permissions: {
+                            only: ['RestaurantAdmin'],
+                            redirectTo: 'root'
+                        },
+                        displayName: 'Delivery'
+                    },
+                    resolve: { 
+                        deliverysPrepService: deliverysPrepService
+                    }
+                })
+                
 
                 .state('Dashboard', {
                     url: '/Dashboard',
@@ -682,7 +700,21 @@
     function ordersPrepService(OrdersResource, $stateParams) {
         return OrdersResource.getAllOrders().$promise;
     }
+    OrderByIdPrepService.$inject = ['OrdersResource', '$stateParams']
+    function OrderByIdPrepService(OrdersResource, $stateParams) {
+        return OrdersResource.getFullOrder({ orderId: $stateParams.orderId }).$promise;
+    }
 
+
+    /*Deliverys */
+    deliverysPrepService.$inject = ['DeliverysResource', '$stateParams']
+    function deliverysPrepService(DeliverysResource, $stateParams) {
+        return DeliverysResource.getAllDeliverys().$promise;
+    }
+    DeliveryByIdPrepService.$inject = ['DeliverysResource', '$stateParams']
+    function DeliveryByIdPrepService(DeliverysResource, $stateParams) {
+        return DeliverysResource.getFullDelivery({ orderId: $stateParams.orderId }).$promise;
+    }
 
 
     CityByIdPrepService.$inject = ['CityResource', '$stateParams']

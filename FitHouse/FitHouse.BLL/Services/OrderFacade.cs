@@ -14,18 +14,21 @@ namespace FitHouse.BLL.Services
     public class OrderFacade : BaseFacade, IOrderFacade
     {
         private readonly IOrderService _orderService;
+        private readonly IProgramService _programService;
         private readonly IOrderDetailsService _orderDetailsService;
 
-        public OrderFacade(IOrderService orderService, IUnitOfWorkAsync unitOfWork, IOrderDetailsService orderDetailsService) : base(unitOfWork)
+        public OrderFacade(IOrderService orderService, IUnitOfWorkAsync unitOfWork, IOrderDetailsService orderDetailsService, IProgramService programService) : base(unitOfWork)
         {
             _orderService = orderService;
             _orderDetailsService = orderDetailsService;
+            _programService = programService;
         }
 
-        public OrderFacade(IOrderService orderService, IOrderDetailsService orderDetailsService)
+        public OrderFacade(IOrderService orderService, IOrderDetailsService orderDetailsService, IProgramService programService)
         {
             _orderService = orderService;
             _orderDetailsService = orderDetailsService;
+            _programService = programService;
         }
 
         public OrderDto GetOrder(long orderId)
@@ -44,16 +47,24 @@ namespace FitHouse.BLL.Services
 
             return afterMap;
         }
-
+        public OrderFullDto GetFullOrder(long orderId)
+        {
+            if (orderId == 0)
+                return null;
+            var getOrder = _orderService.Query(x => x.OrderId == orderId).Select().FirstOrDefault();
+            var afterMap = Mapper.Map<OrderFullDto>(getOrder);
+            return afterMap;
+        }
 
         public OrderDto EditOrder(OrderDto orderDto, int userId)
-        { 
+        {
             var orderObj = _orderService.Query(x => x.OrderId == orderDto.OrderId)
                 .Select().FirstOrDefault();
 
             if (orderObj == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
-           // orderObj = Mapper.Map<Order>(orderDto);
+            // orderObj = Mapper.Map<Order>(orderDto);
             orderObj.IsPaid = orderDto.IsPaid;
+            orderObj.OrderStartDate = orderDto.OrderStartDate ?? orderObj.OrderStartDate;
 
             //var deletePermissions = new OrderDetail[orderObj.OrderDetails.Count];
             //orderObj.OrderDetails.CopyTo(deletePermissions, 0);
@@ -76,7 +87,7 @@ namespace FitHouse.BLL.Services
             //        NotDeliverdNote = orderper.NotDeliverdNote, 
             //    });
             //}
-           // _orderDetailsService.InsertRange(orderObj.OrderDetails);
+            // _orderDetailsService.InsertRange(orderObj.OrderDetails);
             _orderService.Update(orderObj);
             SaveChanges();
             return orderDto;
@@ -86,6 +97,25 @@ namespace FitHouse.BLL.Services
         public PagedResultsDto GetAllOrders(long branchId, int page, int pageSize)
         {
             return _orderService.GetAllOrders(branchId, page, pageSize);
+        }
+        public PagedResultsDto GetAllOrdersForDelivery(long branchId, int page, int pageSize)
+        {
+            return _orderService.GetAllOrdersForDelivery(branchId, page, pageSize);
+        }
+        public List<ItemDto> GetOrderItems(long orderId, long programId)
+        {
+            var items = new List<ItemDto>();
+            if (orderId == 0)
+                return null;
+            var getOrder = _orderService.Query(x => x.OrderId == orderId).Select().FirstOrDefault();
+            var getProgram = _programService.Find(programId); 
+            foreach (var orderOrderDetail in getOrder.OrderDetails)
+            { 
+                var programDetail = getProgram.ProgramDetails.Where(x => x.DayNumber == orderOrderDetail.DayNumber).GetEnumerator().Current;
+                if (programDetail != null) items.Add(Mapper.Map<ItemDto>(programDetail.Item));
+            }
+             
+            return items;
         }
 
     }

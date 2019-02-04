@@ -1,0 +1,215 @@
+<div class="modal-content">
+    <div class="modal-header bordered">
+        <h2 class="pmd-card-title-text">{{'Order' | translate}}</h2>
+    </div>
+    <div class="modal-body">
+        <form class="form-horizontal" name="editForm">
+            <div>
+                <div class="row">
+                    <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+
+                        <br>
+                        <img ng-if="editOrderCtrl.Order.type == 0" src="assets\img\program.png" title="program">
+                        <img ng-if="editOrderCtrl.Order.type == 1" src="assets\img\meal.png" title="meal">
+                        <img ng-if="editOrderCtrl.Order.type == 2" src="assets\img\item.png" title="item">
+                    </div>
+                    <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                        <label for="regular1" class="control-label">{{'startDateLbl' | translate}}</label>
+                        <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                            <input type="text" ng-model="editOrderCtrl.Order.orderStartDate" ng-change="editOrderCtrl.changeDate"
+                                id="startdate" class="form-control" />
+                        </div>
+                    </div>
+
+                    <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                        <label for="first-name">{{'Creationdate' | translate}} </label>
+                        <label for="first-name" class="mat-input form-control">{{editOrderCtrl.Order.orderDate}}
+                        </label>
+                    </div>
+
+                    <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                        <label for="first-name">{{'username' | translate}} </label>
+                        <label for="first-name" class="mat-input form-control">{{editOrderCtrl.Order.user.firstName}}
+                            {{editOrderCtrl.Order.user.lastName}}</label>
+                    </div>
+
+                    <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                        <label>{{'orderCode' | translate}} </label>
+                        <label class="mat-input form-control"> {{editOrderCtrl.Order.orderCode}}</label>
+                    </div>
+
+
+                </div>
+                <!-- bind item list -->
+                <div class="row" ng-init="editOrderCtrl.Order.type==2" ng-show="editOrderCtrl.Order.type==2">
+                    <div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                        <label>{{'orderdetails' | translate}} </label>
+
+                        <table class="table pmd-table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>{{'Name' | translate}}</th>
+                                    <th>{{'carb' | translate}}</th>
+                                    <th>{{'calories' | translate}}</th>
+                                    <th>{{'protein' | translate}}</th>
+                                    <th>{{'costlbl' | translate}}</th>
+                                    <th>{{'Pricelbl' | translate}}</th>
+                                    <th>{{'vat' | translate}}</th>
+                                    <th>{{'total' | translate}}</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="meal in editOrderCtrl.Order.orderDetails">
+                                    <td data-title="Name" width="15%">{{meal.item.itemNameDictionary[selectedLanguage]
+                                        | limitTo:10}}</td>
+                                    <td data-title="Description">{{meal.item.carbs}}</td>
+                                    <td data-title="Description">{{meal.item.calories}}</td>
+                                    <td data-title="Description">{{meal.item.protein}}</td>
+                                    <td data-title="Description">{{meal.item.cost}}</td>
+                                    <td data-title="Description">{{meal.item.price}}</td>
+                                    <td data-title="Description">{{meal.item.vat}}</td>
+                                    <td data-title="totalPrice">{{meal.item.totalPrice}}</td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- bind meal list -->
+                <div class="row" ng-init="editOrderCtrl.Order.type==1" ng-show="editOrderCtrl.Order.type==1">
+                    <div class="col-md-6 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                        <label for="first-name">{{'orderdetails' | translate}} </label>
+                        <div class="table-responsive pmd-card pmd-z-depth">
+                            <table class="table table-mc-red pmd-table">
+                                <thead>
+                                    <tr>
+                                        <th>{{'Meal' | translate}}</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat-start="request in editOrderCtrl.Order.orderDetails" ng-style="{'background-color': request.status=='Pending'?'#f5f58a':''}">
+                                        <td data-title="Name">{{request.meal.mealNameDictionary[selectedLanguage]
+                                            | limitTo:10}}</td>
+
+                                        <td class="pmd-table-row-action">
+                                            <span href="javascript:void(0);" ng-if="request.requestDetails.length >0 || request.comment !== null || request.requestTime !== null"
+                                                ng-click="request.show=!request.show;editOrderCtrl.showMore($event)"
+                                                class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm child-table-expand direct-expand"><i
+                                                    class="material-icons md-dark pmd-sm"></i></span>
+                                        </td>
+                                    </tr>
+                                    <tr ng-repeat-end class="child-table" ng-show="request.show">
+                                        <td colspan="12">
+                                            <div class="direct-child-table" ng-if="request.meal.mealDetails.length >0">
+
+                                                <table class="table pmd-table table-hover">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>{{'Name' | translate}}</th>
+                                                            <th>{{'carb' | translate}}</th>
+                                                            <th>{{'calories' | translate}}</th>
+                                                            <th>{{'protein' | translate}}</th>
+                                                            <th>{{'costlbl' | translate}}</th>
+                                                            <th>{{'Pricelbl' | translate}}</th>
+                                                            <th>{{'vat' | translate}}</th>
+                                                            <th>{{'total' | translate}}</th>
+                                                            <th></th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr ng-repeat="meal in request.meal.mealDetails">
+                                                            <td data-title="Name" width="15%">{{meal.item.itemNameDictionary[selectedLanguage]
+                                                                | limitTo:10}}</td>
+                                                            <td data-title="Description">{{meal.item.carbs}}</td>
+                                                            <td data-title="Description">{{meal.item.calories}}</td>
+                                                            <td data-title="Description">{{meal.item.protein}}</td>
+                                                            <td data-title="Description">{{meal.item.cost}}</td>
+                                                            <td data-title="Description">{{meal.item.price}}</td>
+                                                            <td data-title="Description">{{meal.item.vat}}</td>
+                                                            <td data-title="totalPrice">{{meal.item.totalPrice}}</td>
+
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- bind Program list -->
+                <div class="row" ng-init="editOrderCtrl.Order.type==0" ng-show="editOrderCtrl.Order.type==0">
+                    <div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                        <label for="first-name">{{'orderdetails' | translate}} </label>
+                        <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                            <input readonly type="text" ng-model="editOrderCtrl.Order.orderDetails[0].program.programNameDictionary[selectedLanguage]"
+                                class="form-control" />
+                        </div>
+
+
+                    </div>
+                </div>
+
+            </div>
+
+        </form>
+    </div>
+    <div class="pmd-modal-action text-right">
+        <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="editForm.$invalid || !editOrderCtrl.dateIsValid  "
+            class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editOrderCtrl.UpdateType()">{{'saveChangesBtn'
+            | translate}}</button>
+        <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editOrderCtrl.Close()">{{'DiscardBtn'
+            | translate}}</button>
+    </div>
+</div>
+
+
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".select-add-tags").select2({
+            tags: true,
+            theme: "bootstrap",
+            insertTag: function (data, tag) {
+                data.push(tag);
+            }
+        });
+    });
+</script>
+<!-- 
+<script type="text/javascript">
+    $(function () {
+        $('#startdate').datetimepicker(
+            {
+                minDate: new Date()
+            }
+        );
+    });
+
+</script> -->
+
+
+<script type="text/javascript">
+    // $(function () {
+    //     $('#startdate').datetimepicker();
+    // });
+    $(function () {
+        $('#startdate').datetimepicker(
+            {
+                minDate: new Date()
+            }
+        ).on('dp.change', function (e) {
+            debugger;
+            angular.element(document.getElementById('startdate')).scope().dateChange();
+        });
+    });
+
+</script>

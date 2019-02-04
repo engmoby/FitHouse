@@ -1,0 +1,88 @@
+<div>
+    <div ng-if="DeliveryList.results.length == 0">
+        <span>{{'NoDeliverysAvailable' | translate}}</span>
+    </div>
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="DeliveryList.results.length > 0">
+        <div class="table-responsive"></div>
+        <table class="table pmd-table table-hover">
+            <thead>
+                <tr>
+                    <th>{{'Name' | translate}}</th>
+                    <th>{{'DeliveryCode' | translate}}</th>
+                    <th>{{'Date' | translate}}</th>
+                    <th>{{'startDate' | translate}}</th> 
+                    <th>{{'Delvery/Takeaway' | translate}}</th>
+                    <th>{{'Deliverytype' | translate}}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat-start="delivery in DeliveryList.results">
+                    <td data-title="Name">{{delivery.user.firstName}}{{delivery.user.lastName}}</td>
+                    <td data-title="Name">#{{delivery.orderCode}} </td>
+
+                    <td data-title="Name">{{delivery.orderDate | date : "d/MMM/yy h:mm a" }} </td>
+                    <td data-title="Name">{{delivery.orderStartDate | date : "d/MMM/yy h:mm a"}} </td> 
+                    <td data-title="Name">
+                        <img ng-if="delivery.isDelivery == true" src="assets\img\delivery.png" title="delivery">
+                        <img ng-if="delivery.isDelivery == false" src="assets\img\takeaway.png" title="take away" style="width: 44px;height: 39px;">
+                    </td>
+
+                    <td data-title="Name">
+                        <img ng-if="delivery.type == 0" src="assets\img\program.png" title="program">
+                        <img ng-if="delivery.type == 1" src="assets\img\meal.png" title="meal">
+                        <img ng-if="delivery.type == 2" src="assets\img\item.png" title="item">
+                    </td>
+                    <td class="pmd-table-row-action">
+                        <span href="javascript:void(0);" ng-if="delivery.orderDetails.length >0 "
+                            ng-click="request.show=!request.show;deliveryCtrl.showMore($event,delivery)"
+                            class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm child-table-expand direct-expand"><i
+                                class="material-icons md-dark pmd-sm"></i></span>
+                    </td>
+
+                </tr>
+                <tr ng-repeat-end class="child-table" ng-show="request.show">
+                    <td colspan="12">
+                        <div class="direct-child-table" ng-if="delivery.orderDetails.length >0">
+
+                            <table class="table pmd-table table-hover">
+                                <thead>
+                                    <tr>
+                                        <th>{{'Name' | translate}}</th>
+                                        <th>{{'carb' | translate}}</th>
+                                        <th>{{'calories' | translate}}</th>
+                                        <th>{{'protein' | translate}}</th>
+                                        <th>{{'costlbl' | translate}}</th>
+                                        <th>{{'Pricelbl' | translate}}</th>
+                                        <th>{{'vat' | translate}}</th>
+                                        <th>{{'total' | translate}}</th>
+                                        <th></th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr ng-repeat="meal in delivery.orderDetails">
+                                        <td data-title="Name" width="15%">{{meal.item.itemNameDictionary[selectedLanguage]
+                                            | limitTo:10}}</td>
+                                        <td data-title="Description">{{meal.item.carbs}}</td>
+                                        <td data-title="Description">{{meal.item.calories}}</td>
+                                        <td data-title="Description">{{meal.item.protein}}</td>
+                                        <td data-title="Description">{{meal.item.cost}}</td>
+                                        <td data-title="Description">{{meal.item.price}}</td>
+                                        <td data-title="Description">{{meal.item.vat}}</td>
+                                        <td data-title="totalPrice">{{meal.item.totalPrice}}</td>
+
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount" paging-action="changePage(page)"
+        flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">
+    </div>
+</div>

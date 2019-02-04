@@ -26,7 +26,7 @@ namespace FitHouse.BLL.DTOs
 
         public long AddressId { get; set; }
         public AddressDto Address { get; set; }
-
+        public decimal Price { get; set; }
         public long BranchId { get; set; }
         public BranchDto Branch { get; set; }
     }

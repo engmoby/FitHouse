@@ -66,6 +66,9 @@ namespace FitHouse.API
             mapperConfiguration.CreateMap<OrderModel, OrderDto>();
             mapperConfiguration.CreateMap<OrderDto, OrderModel>();
 
+            mapperConfiguration.CreateMap<OrderFullModel, OrderFullDto>();
+            mapperConfiguration.CreateMap<OrderFullDto, OrderFullModel>();
+
 
             mapperConfiguration.CreateMap<OrderDetailsModel, OrderDetailDto>();
             mapperConfiguration.CreateMap<OrderDetailDto, OrderDetailsModel>();

@@ -23,8 +23,9 @@
 
         $scope.totalCount = ordersPrepService.totalCount;
         $scope.OrderList = ordersPrepService;
-         console.log($scope.OrderList);
+        console.log($scope.OrderList);
         $scope.getTotal = function (order) {
+            debugger;
             var total = 0;
             if (order.type == "3") {
                 for (var i = 0; i < order.orderDetails.length; i++) {
@@ -69,7 +70,7 @@
             updateObj.OrderDetails = order.orderDetails;
             updateObj.$update().then(
                 function (data, status) {
-                    
+
 
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
                     order.isPaid = updateObj.isPaid;

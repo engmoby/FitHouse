@@ -27,6 +27,7 @@ namespace FitHouse.API.Models
 
         public long AddressId { get; set; }
         public AddressModel Address { get; set; }
+        public decimal Price { get; set; }
 
         public long BranchId { get; set; }
         public BranchModel Branch { get; set; }

@@ -24,14 +24,35 @@ namespace FitHouse.API.Controllers
         {
             var getUserInfo = _userFacade.GetUser(UserId);
             long branch = 0;
-            if (getUserInfo.BranchId != null) 
-                branch = (long)getUserInfo.BranchId; 
+            if (getUserInfo.BranchId != null)
+                branch = (long)getUserInfo.BranchId;
 
             PagedResultsDto orderObj = _orderFacade.GetAllOrders(branch, page, pagesize);
             var data = Mapper.Map<List<OrderModel>>(orderObj.Data);
             return PagedResponse("GetAllOrders", page, pagesize, orderObj.TotalCount, data);
         }
-         
+
+
+        [Route("api/Orders/GetAllOrdersForDelivery", Name = "GetAllOrdersForDelivery")]
+        [HttpGet]
+        public IHttpActionResult GetAllOrdersForDelivery(int page = Page, int pagesize = PageSize)
+        {
+            var getUserInfo = _userFacade.GetUser(UserId);
+            long branch = 0;
+            if (getUserInfo.BranchId != null)
+                branch = (long)getUserInfo.BranchId;
+
+            PagedResultsDto orderObj = _orderFacade.GetAllOrdersForDelivery(branch, page, pagesize);
+            var data = Mapper.Map<List<OrderFullModel>>(orderObj.Data);
+            return PagedResponse("GetAllOrdersForDelivery", page, pagesize, orderObj.TotalCount, data);
+        }
+        [Route("api/Orders/GetOrderItems", Name = "GetOrderItems")]
+        [HttpGet]
+        public IHttpActionResult GetOrderItems(long orderId, long programId)
+        {
+            var reurnOrder = _orderFacade.GetOrderItems(orderId, programId);
+            return Ok(reurnOrder);
+        }
         [Route("api/Orders/EditOrder", Name = "EditOrder")]
         [HttpPost]
         public IHttpActionResult EditOrder([FromBody] OrderModel orderModel)
@@ -53,9 +74,17 @@ namespace FitHouse.API.Controllers
 
         [Route("api/Orders/GetOrderById", Name = "GetOrderById")]
         [HttpGet]
-        public IHttpActionResult GetOrderById(long OrderId)
+        public IHttpActionResult GetOrderById(long orderId)
         {
-            var reurnOrder = _orderFacade.GetOrder(OrderId);
+            var reurnOrder = _orderFacade.GetOrder(orderId);
+            return Ok(reurnOrder);
+        }
+
+        [Route("api/Orders/GetFullOrderById", Name = "GetFullOrderById")]
+        [HttpGet]
+        public IHttpActionResult GetFullOrderById(long orderId)
+        {
+            var reurnOrder = _orderFacade.GetFullOrder(orderId);
             return Ok(reurnOrder);
         }
     }
