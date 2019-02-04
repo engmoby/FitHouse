@@ -21,7 +21,7 @@
         {
             Program,
             Meal,
-            Item, 
+            Item
         }
         public enum TicketStatus
         {

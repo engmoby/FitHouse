@@ -6,7 +6,10 @@
         .controller('callCenterController', ['$scope', 'blockUI', '$filter', '$translate',
             '$state', '$localStorage', 'authorizationService', 'appCONSTANTS', 'ToastService', '$stateParams'
             , 'UserResource', 'CityResource', 'AreaResource', 'RegionResource', 'RolePrepService'
-            , 'CountriesPrepService', callCenterController]);
+            , 'CountriesPrepService', callCenterController])
+
+
+        ;
 
 
     function callCenterController($scope, blockUI, $filter, $translate, $state, $localStorage, authorizationService,
@@ -23,7 +26,11 @@
 
         vm.counties = [];
         vm.userOrder;
-        vm.orderType;
+        vm.flag = false;
+        // vm.orderType;
+        vm.orderType = {
+            type: 'item'
+        };
         vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
         vm.selectedCountryId = 0;
         vm.counties = vm.counties.concat(CountriesPrepService.results)
@@ -168,49 +175,36 @@
         vm.ValidateUser = function () {
             blockUI.start("Loading...");
 
-            var k = UserResource.validate({phone:vm.Phone}).$promise.then(function (results) {
+            var k = UserResource.validate({ phone: vm.Phone }).$promise.then(function (results) {
                 vm.userOrder = results;
+                vm.flag = true;
                 ToastService.show("right", "bottom", "fadeInUp", $translate.instant('ClientFound'), "success");
                 blockUI.stop();
 
             },
-            function (data, status) {
-                blockUI.stop();
+                function (data, status) {
+                    blockUI.stop();
 
-                ToastService.show("right", "bottom", "fadeInUp", $translate.instant('ClientNotFound'), "error");
-            });
-
-            // var newClient = new UserResource();
-            // // newClient.Phone = vm.Phone;
-            // newClient.$validate({phone: vm.Phone}).$promise.then(
-            //     function (data, status) {
-            //         blockUI.stop();
-            //         vm.userOrder = data;
-            //         ToastService.show("right", "bottom", "fadeInUp", $translate.instant('ClientFound'), "success");
-
-            //         // localStorage.setItem('data', JSON.stringify(data.userId));
-            //         // $state.go('users');
-
-            //     },
-            //     function (data, status) {
-            //         blockUI.stop();
-            // ToastService.show("right", "bottom", "fadeInUp", $translate.instant('ClientNotFound'), "error");
-
-            //     }
-            // );
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('ClientNotFound'), "error");
+                });
         }
 
         vm.MakeOrder = function () {
-            if (vm.orderType == "item") {
-                $state.go('orderItems');
+            if (vm.orderType.type == "item") {
+                localStorage.setItem('ClientId', vm.userOrder.userId);
+                $state.go('orderItem');
             }
-            if (vm.orderType == "meal") {
+            else if (vm.orderType.type == "meal") {
+                localStorage.setItem('ClientId', vm.userOrder.userId);
                 $state.go('orderMeal');
             }
-            if (vm.orderType == "program") {
+
+            else if (vm.orderType.type == "program") {
+                localStorage.setItem('ClientId', vm.userOrder.userId);
                 $state.go('orderProgram');
             }
-            if (vm.orderType == "customizeProgram") {
+            else if (vm.orderType.type == "customizeProgram") {
+                localStorage.setItem('ClientId', vm.userOrder.userId);
                 $state.go('orderCustomizeProgram');
             }
         }
@@ -284,4 +278,5 @@
 
     }
 
-})();
+}
+)();

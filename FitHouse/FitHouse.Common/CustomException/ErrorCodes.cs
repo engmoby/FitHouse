@@ -8,6 +8,7 @@ namespace FitHouse.Common.CustomException
 {
     public enum ErrorCodes
     {
+        MealHasNoItems,
         ProgramNotFound,
         UserNotFound,
         UnSupportedLanguage,

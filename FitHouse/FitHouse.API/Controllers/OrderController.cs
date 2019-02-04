@@ -18,6 +18,24 @@ namespace FitHouse.API.Controllers
             _userFacade = userFacade;
         }
 
+        [Route("api/Orders/CreateOrder", Name = "CreateOrder")]
+        [HttpPost]
+        public IHttpActionResult CreateOrder([FromBody] OrderCallCenterModel orderModel)
+        {
+
+            var order = _orderFacade.CreateOrder(Mapper.Map<OrderCallCenterDto>(orderModel), UserId);
+            return Ok(order);
+        }
+
+        //[Route("api/Orders/CreateMeal", Name = "CreateMeal")]
+        //[HttpPost]
+        //public IHttpActionResult CreateMeal([FromBody] OrderCallCenterModel orderModel)
+        //{
+
+        //    var order = _orderFacade.CreateMeal(Mapper.Map<OrderCallCenterDto>(orderModel), UserId);
+        //    return Ok(order);
+        //}
+
         [Route("api/Orders/GetAllOrders", Name = "GetAllOrders")]
         [HttpGet]
         public IHttpActionResult GetAllOrders(int page = Page, int pagesize = PageSize)

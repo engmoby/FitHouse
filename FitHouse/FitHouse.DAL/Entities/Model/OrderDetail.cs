@@ -30,7 +30,7 @@ namespace FitHouse.DAL.Entities.Model
         public virtual Program Program { get; set; }
 
         public long DayNumber { get; set; } 
-        public DateTime Day { get; set; }
+        public DateTime? Day { get; set; }
 
         public virtual Enums.OrderStatus Status { get; set; }
         public string NotDeliverdNote { get; set; }

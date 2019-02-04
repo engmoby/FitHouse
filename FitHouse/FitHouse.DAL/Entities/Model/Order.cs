@@ -25,7 +25,7 @@ namespace FitHouse.DAL.Entities.Model
         public bool IsPaid { get; set; } 
         public bool IsDelivery { get; set; }
         public bool IsProgram { get; set; }
-        public DateTime PauseStart { get; set; }  
+        public DateTime? PauseStart { get; set; }  
         public string OrderCode { get; set; }
         public virtual Enums.OrderType Type { get; set; }
 
@@ -35,7 +35,7 @@ namespace FitHouse.DAL.Entities.Model
         public virtual User User { get; set; }
 
         [ForeignKey("Address")]
-        public long AddressId { get; set; }
+        public long? AddressId { get; set; }
         public virtual Address Address { get; set; }
 
         [ForeignKey("Branch")]

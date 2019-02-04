@@ -21,7 +21,7 @@ namespace FitHouse.DAL.Entities.Model
         public long ItemId { get; set; }
         public virtual Meal Meal { get; set; }
         public virtual Item Item { get; set; }
-        public long IsDeleted { get; set; }
+        public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
     }
 }

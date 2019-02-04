@@ -1,0 +1,100 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".select-add-tags").select2({
+            tags: true,
+            theme: "bootstrap",
+            insertTag: function (data, tag) {
+                // Insert the tag at the end of the results
+                data.push(tag);
+                // console.log(data);
+            }
+        });
+
+        $(".select-tags").select2({
+            tags: false,
+            theme: "bootstrap",
+        });
+
+        $(".select-with-search").select2({
+            theme: "bootstrap"
+        });
+    });
+</script> {{'CheckMealContent' | translate}}
+
+
+
+<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+    <label for="first-name">{{'SelectMeals' | translate}}</label>
+    <select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" ng-model="orderMealsCtrl.meal"
+        ng-change="orderMealsCtrl.mealSearch()" ng-options="item as item.mealNameDictionary[selectedLanguage] 
+                for item  in mealsPrepService.results">
+    </select>
+</div>
+
+<table style="background: white" ng-show="orderMealsCtrl.flag == true" class="table pmd-table table-hover">
+    <thead>
+        <tr>
+            <th>{{'ItemName' | translate}}</th>
+            <th>{{'ItemDescription' | translate}}</th>
+            <th>{{'Calories' | translate}}</th>
+            <th>{{'Protein' | translate}}</th>
+            <th>{{'Carbs' | translate}}</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="item in orderMealsCtrl.mealItemss">
+            <td data-title="Name">{{item.itemNameDictionary[selectedLanguage]}}</td>
+            <td data-title="Name">{{item.itemDescriptionDictionary[selectedLanguage]}}</td>
+            <td data-title="Name">{{item.calories}}</td>
+            <td data-title="Name">{{item.protein}}</td>
+            <td data-title="Name">{{item.carbs}}</td>
+
+        </tr>
+    </tbody>
+</table>
+
+<hr> {{'OrderMeal' | translate}}
+
+<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+    <label for="first-name">{{'SelectMeals' | translate}}</label>
+    <select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" multiple ng-model="itemModel"
+        ng-change="getData(itemModel)" ng-options="item as item.mealNameDictionary[selectedLanguage] 
+            
+            for item  in mealsPrepService.results">
+    </select>
+</div>
+
+<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+    <label for="first-name">{{'Country' | translate}}</label>
+    <select required style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="orderMealsCtrl.countryChange()"
+        ng-model="orderMealsCtrl.selectedCountryId" ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in orderMealsCtrl.counties">
+    </select>
+</div>
+<div ng-show=" orderMealsCtrl.selectedCountryId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+    <label for="first-name">{{'Region' | translate}}</label>
+    <select required style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="orderMealsCtrl.regionChange()"
+        ng-model="orderMealsCtrl.selectedRegionId" ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in orderMealsCtrl.regions">
+    </select>
+</div>
+<div ng-show=" orderMealsCtrl.selectedRegionId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+    <label for="first-name">{{'City' | translate}}</label>
+    <select ng-required="orderMealsCtrl.selectedRegionId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"
+        ng-change="orderMealsCtrl.cityChange()" ng-model="orderMealsCtrl.selectedCityId" ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in orderMealsCtrl.cities">
+    </select>
+</div>
+<div ng-show=" orderMealsCtrl.selectedCityId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+    <label for="first-name">{{'Area' | translate}}</label>
+    <select ng-required=" orderMealsCtrl.selectedCityId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"
+        ng-change="orderMealsCtrl.areaChange()" ng-model="orderMealsCtrl.selectedAreaId" ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in orderMealsCtrl.area">
+    </select>
+</div>
+<div ng-show=" orderMealsCtrl.selectedAreaId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+    <label for="first-name">{{'Branch' | translate}}</label>
+    <select ng-required=" orderMealsCtrl.selectedAreaId > 0 " class="form-control select-with-search pmd-select2-tags" ng-change="orderMealsCtrl.branchChange()"
+        ng-model="orderMealsCtrl.selectedBranchId" ng-options="a.branchId as a.titleDictionary[selectedLanguage] for a in orderMealsCtrl.branchList"></select>
+</div>
+
+<div class="pmd-modal-action text-right">
+    <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" class="btn pmd-ripple-effect btn-primary"
+        type="button" ng-click="orderMealsCtrl.Order()">{{'Order' | translate}}</button>
+</div>

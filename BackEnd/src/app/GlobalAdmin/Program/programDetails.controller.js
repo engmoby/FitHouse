@@ -22,8 +22,10 @@
 
         vm.programDetails = progDetailsPrepService;
         console.log(vm.programDetails);
+        vm.programId;
 
         vm.ShowProgramMeal = function (programId, dayCount, mealCount) {
+            vm.programId = programId;
             $uibModal.open({
                 templateUrl: './app/GlobalAdmin/Program/templates/editProgramMeal.html',
                 controller: 'editProgramMealController',
@@ -42,7 +44,7 @@
         function refreshPrograms() {
             blockUI.start("Loading...");
 
-            var k = GetProgramDetailResource.getProgramDetail().$promise.then(function (results) {
+            var k = GetProgramDetailResource.getProgramDetail({programId:vm.programId}).$promise.then(function (results) {
                 vm.programDetails = results;
                 blockUI.stop();
 

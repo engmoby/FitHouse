@@ -12,6 +12,8 @@ namespace FitHouse.BLL.DataServices.Interfaces
         List<Item> GetAllItems();
 
         Item GetProgamItem(long itemId);
+
+        Item GetItemById(long itemId);
         //List<Item> GetAllItemsByRestuantId(long restuantId);
         //PagedResultsDto GetlatestItemsByRestuantId(long restuantId, int page, int pageSize);
     }

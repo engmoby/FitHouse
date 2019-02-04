@@ -21,7 +21,8 @@ namespace FitHouse.BLL.Services
         private readonly IMealDetailsService _mealDetailsService;
         private readonly IManageStorage _manageStorage; 
         private readonly IOrderDetailsService _orderDetailsService;
-        public MealFacade(ICategoryService categoryService, IMealservice mealservice, IMealTranslationService mealTranslationService, IManageStorage manageStorage,
+        private readonly IItemService _itemService;
+        public MealFacade(ICategoryService categoryService, IItemService itemService, IMealservice mealservice, IMealTranslationService mealTranslationService, IManageStorage manageStorage,
              IUnitOfWorkAsync unitOfWork,   IMealDetailsService mealDetailsService, IOrderDetailsService orderDetailsService) : base(unitOfWork)
         {
             _categoryService = categoryService;
@@ -30,6 +31,7 @@ namespace FitHouse.BLL.Services
             _manageStorage = manageStorage; 
             _mealDetailsService = mealDetailsService;
             _orderDetailsService = orderDetailsService;
+            _itemService = itemService;
         }
 
         public MealFacade(ICategoryService categoryService, IMealservice Mealservice, IMealTranslationService MealTranslationService, IManageStorage manageStorage, IMealDetailsService mealDetailsService, IOrderDetailsService orderDetailsService)
@@ -89,6 +91,22 @@ namespace FitHouse.BLL.Services
             //MealDto.MealName = MealTranslation.Title;
             //MealDto.MealDescription = MealTranslation.Description;
             return mealDto;
+        }
+
+        public List<ItemProgramDto> GetMealItems(long mealId)
+        {
+            var mealDetails = _mealDetailsService.GetMealItems(mealId);
+            if (mealDetails == null) throw new NotFoundException(ErrorCodes.MealHasNoItems);
+
+            var items = new List<ItemProgramDto>();
+            foreach (var detail in mealDetails)
+            {
+                var item = Mapper.Map<ItemProgramDto>(_itemService.GetItemById(detail.ItemId));
+                if (item == null) throw new NotFoundException(ErrorCodes.ItemNotFound);
+                items.Add(item);
+            }
+
+            return items;
         }
 
         private void ValidateMeal(MealDto mealDto)

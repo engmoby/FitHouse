@@ -48,8 +48,8 @@
                     'controllerAs': 'addProgramCtrl',
                     resolve: {
                         settingsPrepService: settingsPrepService,
-                        daysPrepService:daysPrepService,
-                        itemsssPrepService:itemsssPrepService
+                        daysPrepService: daysPrepService,
+                        itemsssPrepService: itemsssPrepService
                     },
                     data: {
                         permissions: {
@@ -68,6 +68,80 @@
                     resolve: {
                         RolePrepService: AllRolePrepService,
                         CountriesPrepService: CountriesPrepService,
+                    },
+                    data: {
+                        permissions: {
+                            only: ['1'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
+                .state('orderItem', {
+                    url: '/orderItems',
+                    templateUrl: './app/GlobalAdmin/callCenter/templates/orderItems.html',
+                    controller: 'orderItemscontroller',
+                    'controllerAs': 'orderItemsCtrl',
+                    resolve: {
+                        itemsssPrepService: itemsssPrepService,
+                        CountriesPrepService: CountriesPrepService
+                    },
+                    data: {
+                        permissions: {
+                            only: ['1'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
+                .state('orderMeal', {
+                    url: '/orderMeals',
+                    templateUrl: './app/GlobalAdmin/callCenter/templates/orderMeals.html',
+                    controller: 'orderMealscontroller',
+                    'controllerAs': 'orderMealsCtrl',
+                    resolve: {
+                        mealsPrepService: mealsPrepService,
+                        CountriesPrepService: CountriesPrepService
+                    },
+                    data: {
+                        permissions: {
+                            only: ['1'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
+                .state('orderProgram', {
+                    url: '/orderPrograms',
+                    templateUrl: './app/GlobalAdmin/callCenter/templates/orderPrograms.html',
+                    controller: 'orderProgramscontroller',
+                    'controllerAs': 'orderProgramsCtrl',
+                    resolve: {
+                        programsPrepService: programsPrepService,
+                        CountriesPrepService: CountriesPrepService
+                    },
+                    data: {
+                        permissions: {
+                            only: ['1'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
+                .state('orderCustomizeProgram', {
+                    url: '/orderCustomizePrograms',
+                    templateUrl: './app/GlobalAdmin/callCenter/templates/orderCustomizeProgram.html',
+                    controller: 'orderCustomizeProgramcontroller',
+                    'controllerAs': 'orderCustomizeProgramCtrl',
+                    resolve: {
+                        daysPrepService: daysPrepService,
+                        settingsPrepService:settingsPrepService,
+                        itemsssPrepService:itemsssPrepService,
+                        CountriesPrepService: CountriesPrepService
                     },
                     data: {
                         permissions: {
@@ -455,7 +529,7 @@
                         displayName: 'meals'
                     },
                     resolve: {
-                        itemsssPrepService:itemsssPrepService
+                        itemsssPrepService: itemsssPrepService
                     }
                 })
                 .state('editMeal', {
@@ -472,10 +546,10 @@
                     },
                     resolve: {
                         mealPrepService: mealPrepService,
-                        itemsssPrepService:itemsssPrepService
+                        itemsssPrepService: itemsssPrepService
                     }
                 })
- 
+
                 .state('Order', {
                     url: '/Order',
                     templateUrl: './app/GlobalAdmin/Order/templates/Order.html',
@@ -488,11 +562,11 @@
                         },
                         displayName: 'Order'
                     },
-                    resolve: { 
+                    resolve: {
                         ordersPrepService: ordersPrepService
                     }
                 })
-                
+
                 .state('editorder', {
                     url: '/editorder/:order',
                     templateUrl: './app/GlobalAdmin/Order/templates/edit.html',
@@ -660,7 +734,12 @@
     /*Meals */
     mealsPrepService.$inject = ['GetMealsResource', '$stateParams']
     function mealsPrepService(GetMealsResource, $stateParams) {
-        return GetMealsResource.getAllMeals( ).$promise;
+        return GetMealsResource.getAllMeals().$promise;
+    }
+
+    programsPrepService.$inject = ['GetProgramResource', '$stateParams']
+    function programsPrepService(GetProgramResource, $stateParams) {
+        return GetProgramResource.gatAllPrograms().$promise;
     }
 
     mealPrepService.$inject = ['MealResource', '$stateParams']
@@ -671,7 +750,7 @@
     defaultMealsPrepService.$inject = ['GetMealNamesResource', '$stateParams', '$localStorage', 'appCONSTANTS']
     function defaultMealsPrepService(GetMealNamesResource, $stateParams, $localStorage, appCONSTANTS) {
         if ($localStorage.language != appCONSTANTS.defaultLanguage) {
-            return GetMealNamesResource.getAllMealNames( {lang: appCONSTANTS.defaultLanguage }).$promise;
+            return GetMealNamesResource.getAllMealNames({ lang: appCONSTANTS.defaultLanguage }).$promise;
         }
         else
             return null;

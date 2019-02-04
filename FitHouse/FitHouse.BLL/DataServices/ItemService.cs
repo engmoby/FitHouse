@@ -42,6 +42,12 @@ namespace FitHouse.BLL.DataServices
             return items;
         }
 
+        public Item GetItemById(long itemId)
+        {
+            var item = _repository.Query(x => x.ItemId == itemId && x.IsDeleted != true).Select().FirstOrDefault();
+            return item;
+        }
+
         public Item GetProgamItem(long itemId)
         {
             var item = _repository.Query(x => x.IsDeleted != true && x.ItemId == itemId).Select().FirstOrDefault();

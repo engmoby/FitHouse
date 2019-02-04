@@ -18,6 +18,14 @@ namespace FitHouse.API.Models
         public decimal Price { get; set; }
         public bool IsAdmin { get; set; }
         public bool IsForClient { get; set; }
+
+        public bool IsOrdering { get; set; }
+        public long branchId { get; set; }
+        public long? AddressId { get; set; }
+        public bool IsDelivery { get; set; }
+        public bool IsProgram { get; set; }
+        public long UserId { get; set; }
+
         public Dictionary<string, string> ProgramNameDictionary { get; set; }
         public Dictionary<string, string> ProgramDescriptionDictionary { get; set; }
         public List<ProgramDetailModel> ProgramDetails { get; set; }

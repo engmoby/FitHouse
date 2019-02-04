@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using FitHouse.BLL.DataServices.Interfaces;
@@ -15,11 +16,13 @@ namespace FitHouse.BLL.Services
     {
         private readonly IOrderService _orderService;
         private readonly IOrderDetailsService _orderDetailsService;
+        private readonly IProgramDetailService _programDetailService;
 
-        public OrderFacade(IOrderService orderService, IUnitOfWorkAsync unitOfWork, IOrderDetailsService orderDetailsService) : base(unitOfWork)
+        public OrderFacade(IOrderService orderService, IProgramDetailService programDetailService, IUnitOfWorkAsync unitOfWork, IOrderDetailsService orderDetailsService) : base(unitOfWork)
         {
             _orderService = orderService;
             _orderDetailsService = orderDetailsService;
+            _programDetailService = programDetailService;
         }
 
         public OrderFacade(IOrderService orderService, IOrderDetailsService orderDetailsService)
@@ -87,6 +90,91 @@ namespace FitHouse.BLL.Services
         {
             return _orderService.GetAllOrders(branchId, page, pageSize);
         }
+
+        public OrderCallCenterDto CreateOrder(OrderCallCenterDto orderDto, long userId)
+        {
+            var order = Mapper.Map<Order>(orderDto);
+            order.OrderDate = DateTime.Now;
+            order.OrderStartDate = null;
+            order.OrderExpiration = null;
+            order.PauseStart = null;
+           
+            order.AddressId =(orderDto.AddressId==0)? null:  orderDto.AddressId;
+            var orderDetails = new List<OrderDetail>();
+
+            if (orderDto.Items.Count != 0)
+            {
+                foreach (var detail in orderDto.Items)
+                {
+                    var orderDetail = new OrderDetail();
+                    orderDetail.ItemId = detail.ItemId;
+                    orderDetail.Day = null;
+                    orderDetails.Add(orderDetail);
+                }
+            }
+
+            else if (orderDto.Meals.Count != 0)
+            {
+                foreach (var detail in orderDto.Meals)
+                {
+                    var orderDetail = new OrderDetail();
+                    orderDetail.MealId = detail.MealId;
+                    orderDetail.Day = null;
+                    orderDetails.Add(orderDetail);
+                }
+            }
+
+
+            else if (orderDto.Programs.Count != 0)
+            {
+                foreach (var detail in orderDto.Programs)
+                {
+                    var details = _programDetailService.DistictProgramDays(detail.ProgramId);
+                    foreach (var progDetail in details)
+                    {
+                        var orderDetail = new OrderDetail();
+                        orderDetail.ProgramId = detail.ProgramId;
+                        orderDetail.Day = null;
+                        orderDetail.DayNumber = progDetail;
+                        orderDetails.Add(orderDetail);
+                    }
+                   
+                }
+            }
+
+
+            _orderDetailsService.InsertRange(orderDetails);
+            _orderService.Insert(order);
+            SaveChanges();
+
+            return orderDto;
+        }
+
+        //public OrderCallCenterDto CreateMeal(OrderCallCenterDto orderDto, long userId)
+        //{
+        //    var order = Mapper.Map<Order>(orderDto);
+        //    order.OrderDate = DateTime.Now;
+        //    order.OrderStartDate = null;
+        //    order.OrderExpiration = null;
+        //    order.PauseStart = null;
+
+        //    order.AddressId = (orderDto.AddressId == 0) ? null : orderDto.AddressId;
+        //    var orderDetails = new List<OrderDetail>();
+
+        //    foreach (var detail in orderDto.Meals)
+        //    {
+        //        var orderDetail = new OrderDetail();
+        //        orderDetail.MealId = detail.MealId;
+        //        orderDetail.Day = null;
+        //        orderDetails.Add(orderDetail);
+        //    }
+
+        //    _orderDetailsService.InsertRange(orderDetails);
+        //    _orderService.Insert(order);
+        //    SaveChanges();
+
+        //    return orderDto;
+        //}
 
     }
 }
