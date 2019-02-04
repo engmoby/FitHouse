@@ -4,12 +4,12 @@ using FitHouse.Common;
 
 namespace FitHouse.BLL.DTOs
 {
-    public class OrderDetailDto
+    public class OrderDetailCallCenterDto
     {
         public long OrderDetailId { get; set; } 
         public long OrderId { get; set; } 
         public long? ItemId { get; set; }
-        public virtual ItemDto Item { get; set; }
+        public ItemProgramDto Item { get; set; }
          
         public long? MealId { get; set; }
         public MealDto Meal { get; set; }

@@ -1,4 +1,52 @@
-(function () {
+(function() {
+    'use strict';
+
+      angular
+      .module('home')
+      .config(config)
+      .run(runBlock);
+
+      config.$inject = ['ngProgressLiteProvider'];
+    runBlock.$inject = ['$rootScope', 'ngProgressLite','$transitions','blockUI'];
+
+      function config(ngProgressLiteProvider) {
+      ngProgressLiteProvider.settings.speed = 1000;
+
+      }
+
+      function runBlock($rootScope, ngProgressLite,$transitions,blockUI) {
+
+        $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+          startProgress();
+      });
+      $transitions.onStart({}, function(transition) {
+        blockUI.start("Loading..."); 
+      });
+      $transitions.onSuccess({}, function(transition) {
+        blockUI.stop();
+      });
+      $transitions.onError({  }, function(transition) {
+        blockUI.stop();
+      });
+      var routingDoneEvents = ['$stateChangeSuccess', '$stateChangeError', '$stateNotFound'];
+
+        angular.forEach(routingDoneEvents, function(event) {
+        $rootScope.$on(event, function(event, toState, toParams, fromState, fromParams) {
+          endProgress();
+        });
+      });
+
+        function startProgress() {
+        ngProgressLite.start();
+      }
+
+        function endProgress() {
+        ngProgressLite.done();
+      }
+
+      }
+  })();
+  (function () {
     'use strict';
 
     angular
@@ -48,8 +96,8 @@
                     'controllerAs': 'addProgramCtrl',
                     resolve: {
                         settingsPrepService: settingsPrepService,
-                        daysPrepService:daysPrepService,
-                        itemsssPrepService:itemsssPrepService
+                        daysPrepService: daysPrepService,
+                        itemsssPrepService: itemsssPrepService
                     },
                     data: {
                         permissions: {
@@ -68,6 +116,80 @@
                     resolve: {
                         RolePrepService: AllRolePrepService,
                         CountriesPrepService: CountriesPrepService,
+                    },
+                    data: {
+                        permissions: {
+                            only: ['1'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
+                .state('orderItem', {
+                    url: '/orderItems',
+                    templateUrl: './app/GlobalAdmin/callCenter/templates/orderItems.html',
+                    controller: 'orderItemscontroller',
+                    'controllerAs': 'orderItemsCtrl',
+                    resolve: {
+                        itemsssPrepService: itemsssPrepService,
+                        CountriesPrepService: CountriesPrepService
+                    },
+                    data: {
+                        permissions: {
+                            only: ['1'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
+                .state('orderMeal', {
+                    url: '/orderMeals',
+                    templateUrl: './app/GlobalAdmin/callCenter/templates/orderMeals.html',
+                    controller: 'orderMealscontroller',
+                    'controllerAs': 'orderMealsCtrl',
+                    resolve: {
+                        mealsPrepService: mealsPrepService,
+                        CountriesPrepService: CountriesPrepService
+                    },
+                    data: {
+                        permissions: {
+                            only: ['1'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
+                .state('orderProgram', {
+                    url: '/orderPrograms',
+                    templateUrl: './app/GlobalAdmin/callCenter/templates/orderPrograms.html',
+                    controller: 'orderProgramscontroller',
+                    'controllerAs': 'orderProgramsCtrl',
+                    resolve: {
+                        programsPrepService: programsPrepService,
+                        CountriesPrepService: CountriesPrepService
+                    },
+                    data: {
+                        permissions: {
+                            only: ['1'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
+                .state('orderCustomizeProgram', {
+                    url: '/orderCustomizePrograms',
+                    templateUrl: './app/GlobalAdmin/callCenter/templates/orderCustomizeProgram.html',
+                    controller: 'orderCustomizeProgramcontroller',
+                    'controllerAs': 'orderCustomizeProgramCtrl',
+                    resolve: {
+                        daysPrepService: daysPrepService,
+                        settingsPrepService:settingsPrepService,
+                        itemsssPrepService:itemsssPrepService,
+                        CountriesPrepService: CountriesPrepService
                     },
                     data: {
                         permissions: {
@@ -455,7 +577,7 @@
                         displayName: 'meals'
                     },
                     resolve: {
-                        itemsssPrepService:itemsssPrepService
+                        itemsssPrepService: itemsssPrepService
                     }
                 })
                 .state('editMeal', {
@@ -472,11 +594,11 @@
                     },
                     resolve: {
                         mealPrepService: mealPrepService,
-                        itemsssPrepService:itemsssPrepService
+                        itemsssPrepService: itemsssPrepService
                     }
                 })
 
-                 .state('Order', {
+                .state('Order', {
                     url: '/Order',
                     templateUrl: './app/GlobalAdmin/Order/templates/Order.html',
                     controller: 'OrderController',
@@ -488,12 +610,12 @@
                         },
                         displayName: 'Order'
                     },
-                    resolve: { 
+                    resolve: {
                         ordersPrepService: ordersPrepService
                     }
                 })
 
-                                .state('editorder', {
+                .state('editorder', {
                     url: '/editorder/:orderId',
                     templateUrl: './app/GlobalAdmin/Order/templates/edit.html',
                     controller: 'editOrderDialogController',
@@ -677,7 +799,12 @@
 
     mealsPrepService.$inject = ['GetMealsResource', '$stateParams']
     function mealsPrepService(GetMealsResource, $stateParams) {
-        return GetMealsResource.getAllMeals( ).$promise;
+        return GetMealsResource.getAllMeals().$promise;
+    }
+
+    programsPrepService.$inject = ['GetProgramResource', '$stateParams']
+    function programsPrepService(GetProgramResource, $stateParams) {
+        return GetProgramResource.gatAllPrograms().$promise;
     }
 
     mealPrepService.$inject = ['MealResource', '$stateParams']
@@ -688,7 +815,7 @@
     defaultMealsPrepService.$inject = ['GetMealNamesResource', '$stateParams', '$localStorage', 'appCONSTANTS']
     function defaultMealsPrepService(GetMealNamesResource, $stateParams, $localStorage, appCONSTANTS) {
         if ($localStorage.language != appCONSTANTS.defaultLanguage) {
-            return GetMealNamesResource.getAllMealNames( {lang: appCONSTANTS.defaultLanguage }).$promise;
+            return GetMealNamesResource.getAllMealNames({ lang: appCONSTANTS.defaultLanguage }).$promise;
         }
         else
             return null;
@@ -744,55 +871,142 @@
     }
 
 }());
-(function() {
+(function () {
     'use strict';
 
-      angular
-      .module('home')
-      .config(config)
-      .run(runBlock);
+    angular
+        .module('home')
+        .controller('BranchController', ['$rootScope', '$scope', '$filter', '$translate',
+            '$state', 'BranchResource',   '$localStorage',
+            'authorizationService', 'appCONSTANTS',
+            'ToastService', BranchController]);
 
-      config.$inject = ['ngProgressLiteProvider'];
-    runBlock.$inject = ['$rootScope', 'ngProgressLite','$transitions','blockUI'];
 
-      function config(ngProgressLiteProvider) {
-      ngProgressLiteProvider.settings.speed = 1000;
+    function BranchController($rootScope, $scope, $filter, $translate,
+        $state, BranchResource,  $localStorage, authorizationService,
+        appCONSTANTS, ToastService) {
 
-      }
-
-      function runBlock($rootScope, ngProgressLite,$transitions,blockUI) {
-
-        $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-          startProgress();
-      });
-      $transitions.onStart({}, function(transition) {
         blockUI.start("Loading..."); 
-      });
-      $transitions.onSuccess({}, function(transition) {
-        blockUI.stop();
-      });
-      $transitions.onError({  }, function(transition) {
-        blockUI.stop();
-      });
-      var routingDoneEvents = ['$stateChangeSuccess', '$stateChangeError', '$stateNotFound'];
 
-        angular.forEach(routingDoneEvents, function(event) {
-        $rootScope.$on(event, function(event, toState, toParams, fromState, fromParams) {
-          endProgress();
-        });
-      });
+                    refreshBranchs();
 
-        function startProgress() {
-        ngProgressLite.start();
-      }
+        function refreshBranchs() {
+           blockUI.start("Loading..."); 
 
-        function endProgress() {
-        ngProgressLite.done();
-      }
+                        var k = BranchResource.getAllBranchs().$promise.then(function (results) {
+                $scope.BranchList = results;
+                blockUI.stop();
 
-      }
-  })();
-  (function () {
+                            },
+            function (data, status) {
+                blockUI.stop();
+
+                                ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+            });
+        }
+
+    }
+
+})();
+(function () {
+    angular
+      .module('home')
+        .factory('BranchResource', ['$resource', 'appCONSTANTS', BranchResource]) 
+
+    function BranchResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Branchs/', {}, {
+            getAllBranchs: { method: 'GET', url: appCONSTANTS.API_URL + 'Branchs/GetAllBranchs', useToken: true,  params: { lang: '@lang' } },
+            create: { method: 'POST', useToken: true },
+            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Branchs/EditBranch', useToken: true },
+            getBranch: { method: 'GET', url: appCONSTANTS.API_URL + 'Branchs/GetBranchById/:BranchId', useToken: true }
+        })
+    } 
+
+}());
+(function () {
+    'use strict';
+
+	    angular
+        .module('home')
+        .controller('createBranchDialogController', ['$scope', '$http', '$state', 'appCONSTANTS', '$translate',
+            'BranchResource', 'ToastService', '$stateParams', 'AreaByIdPrepService','CityByIdPrepService', 'RegionByIdPrepService', createBranchDialogController])
+
+    function createBranchDialogController($scope, $http, $state, appCONSTANTS, $translate, BranchResource,
+        ToastService, $stateParams, AreaByIdPrepService,CityByIdPrepService, RegionByIdPrepService) {
+		var vm = this;
+		vm.Area = AreaByIdPrepService;
+        vm.language = appCONSTANTS.supportedLanguage;
+        $scope.countryName = RegionByIdPrepService.countryNameDictionary[$scope.selectedLanguage];
+        $scope.regionName = RegionByIdPrepService.titleDictionary[$scope.selectedLanguage];
+        $scope.cityName = CityByIdPrepService.titleDictionary[$scope.selectedLanguage];
+        $scope.areaName = AreaByIdPrepService.titleDictionary[$scope.selectedLanguage];
+		vm.close = function(){
+		    $state.go('Area',{ countryId: $stateParams.countryId, regionId: $stateParams.regionId, cityId: $stateParams.cityId });
+		} 
+
+		 		vm.AddNewBranch = function () {
+            var newObj = new BranchResource();
+		    newObj.AreaId = vm.Area.areaId;
+            newObj.titleDictionary = vm.titleDictionary;
+            newObj.IsDeleted = false; 
+            newObj.IsStatic =false;
+            newObj.$create().then(
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success"); 
+                    $state.go('Area',{ countryId: $stateParams.countryId, regionId: $stateParams.regionId, cityId: $stateParams.cityId },{ reload: true });
+
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+
+  	}	
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('editBranchDialogController', ['$scope', '$http', '$state', 'appCONSTANTS', '$translate', 'BranchResource', 'ToastService',
+            'BranchByIdPrepService','$stateParams','AreaByIdPrepService','CityByIdPrepService', 'RegionByIdPrepService', editBranchDialogController])
+
+    function editBranchDialogController($scope, $http, $state, appCONSTANTS, $translate, BranchResource, ToastService,
+         BranchByIdPrepService,$stateParams,AreaByIdPrepService,CityByIdPrepService, RegionByIdPrepService) {
+        var vm = this;
+        vm.language = appCONSTANTS.supportedLanguage;
+        vm.Branch = BranchByIdPrepService;
+
+                $scope.countryName = RegionByIdPrepService.countryNameDictionary[$scope.selectedLanguage];
+        $scope.regionName = RegionByIdPrepService.titleDictionary[$scope.selectedLanguage];
+        $scope.cityName = CityByIdPrepService.titleDictionary[$scope.selectedLanguage];
+        $scope.areaName = AreaByIdPrepService.titleDictionary[$scope.selectedLanguage];
+
+                    vm.close = function () {
+            $state.go('Area', { countryId: $stateParams.countryId, regionId: $stateParams.regionId, cityId: $stateParams.cityId });
+        }
+        vm.UpdateBranch = function () {
+            var updateObj = new BranchResource();
+            updateObj.BranchId = vm.Branch.branchId;
+            updateObj.titleDictionary = vm.Branch.titleDictionary;
+            updateObj.IsDeleted = false;
+            updateObj.IsStatic = false;
+            updateObj.$update().then(
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+
+                    $state.go('Area', { countryId: $stateParams.countryId, regionId: $stateParams.regionId, cityId: $stateParams.cityId },{ reload: true });
+
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+    }
+}());
+(function () {
     'use strict';
 
     angular
@@ -961,141 +1175,6 @@
         blockUI.stop();
 
         	}	
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('BranchController', ['$rootScope', '$scope', '$filter', '$translate',
-            '$state', 'BranchResource',   '$localStorage',
-            'authorizationService', 'appCONSTANTS',
-            'ToastService', BranchController]);
-
-
-    function BranchController($rootScope, $scope, $filter, $translate,
-        $state, BranchResource,  $localStorage, authorizationService,
-        appCONSTANTS, ToastService) {
-
-        blockUI.start("Loading..."); 
-
-                    refreshBranchs();
-
-        function refreshBranchs() {
-           blockUI.start("Loading..."); 
-
-                        var k = BranchResource.getAllBranchs().$promise.then(function (results) {
-                $scope.BranchList = results;
-                blockUI.stop();
-
-                            },
-            function (data, status) {
-                blockUI.stop();
-
-                                ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-            });
-        }
-
-    }
-
-})();
-(function () {
-    angular
-      .module('home')
-        .factory('BranchResource', ['$resource', 'appCONSTANTS', BranchResource]) 
-
-    function BranchResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'Branchs/', {}, {
-            getAllBranchs: { method: 'GET', url: appCONSTANTS.API_URL + 'Branchs/GetAllBranchs', useToken: true,  params: { lang: '@lang' } },
-            create: { method: 'POST', useToken: true },
-            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Branchs/EditBranch', useToken: true },
-            getBranch: { method: 'GET', url: appCONSTANTS.API_URL + 'Branchs/GetBranchById/:BranchId', useToken: true }
-        })
-    } 
-
-}());
-(function () {
-    'use strict';
-
-	    angular
-        .module('home')
-        .controller('createBranchDialogController', ['$scope', '$http', '$state', 'appCONSTANTS', '$translate',
-            'BranchResource', 'ToastService', '$stateParams', 'AreaByIdPrepService','CityByIdPrepService', 'RegionByIdPrepService', createBranchDialogController])
-
-    function createBranchDialogController($scope, $http, $state, appCONSTANTS, $translate, BranchResource,
-        ToastService, $stateParams, AreaByIdPrepService,CityByIdPrepService, RegionByIdPrepService) {
-		var vm = this;
-		vm.Area = AreaByIdPrepService;
-        vm.language = appCONSTANTS.supportedLanguage;
-        $scope.countryName = RegionByIdPrepService.countryNameDictionary[$scope.selectedLanguage];
-        $scope.regionName = RegionByIdPrepService.titleDictionary[$scope.selectedLanguage];
-        $scope.cityName = CityByIdPrepService.titleDictionary[$scope.selectedLanguage];
-        $scope.areaName = AreaByIdPrepService.titleDictionary[$scope.selectedLanguage];
-		vm.close = function(){
-		    $state.go('Area',{ countryId: $stateParams.countryId, regionId: $stateParams.regionId, cityId: $stateParams.cityId });
-		} 
-
-		 		vm.AddNewBranch = function () {
-            var newObj = new BranchResource();
-		    newObj.AreaId = vm.Area.areaId;
-            newObj.titleDictionary = vm.titleDictionary;
-            newObj.IsDeleted = false; 
-            newObj.IsStatic =false;
-            newObj.$create().then(
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success"); 
-                    $state.go('Area',{ countryId: $stateParams.countryId, regionId: $stateParams.regionId, cityId: $stateParams.cityId },{ reload: true });
-
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-
-  	}	
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('editBranchDialogController', ['$scope', '$http', '$state', 'appCONSTANTS', '$translate', 'BranchResource', 'ToastService',
-            'BranchByIdPrepService','$stateParams','AreaByIdPrepService','CityByIdPrepService', 'RegionByIdPrepService', editBranchDialogController])
-
-    function editBranchDialogController($scope, $http, $state, appCONSTANTS, $translate, BranchResource, ToastService,
-         BranchByIdPrepService,$stateParams,AreaByIdPrepService,CityByIdPrepService, RegionByIdPrepService) {
-        var vm = this;
-        vm.language = appCONSTANTS.supportedLanguage;
-        vm.Branch = BranchByIdPrepService;
-
-                $scope.countryName = RegionByIdPrepService.countryNameDictionary[$scope.selectedLanguage];
-        $scope.regionName = RegionByIdPrepService.titleDictionary[$scope.selectedLanguage];
-        $scope.cityName = CityByIdPrepService.titleDictionary[$scope.selectedLanguage];
-        $scope.areaName = AreaByIdPrepService.titleDictionary[$scope.selectedLanguage];
-
-                    vm.close = function () {
-            $state.go('Area', { countryId: $stateParams.countryId, regionId: $stateParams.regionId, cityId: $stateParams.cityId });
-        }
-        vm.UpdateBranch = function () {
-            var updateObj = new BranchResource();
-            updateObj.BranchId = vm.Branch.branchId;
-            updateObj.titleDictionary = vm.Branch.titleDictionary;
-            updateObj.IsDeleted = false;
-            updateObj.IsStatic = false;
-            updateObj.$update().then(
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-
-                    $state.go('Area', { countryId: $stateParams.countryId, regionId: $stateParams.regionId, cityId: $stateParams.cityId },{ reload: true });
-
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-    }
 }());
 (function () {
     'use strict';
@@ -2318,6 +2397,251 @@
 
     angular
         .module('home')
+        .controller('RegionController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate',
+            '$state', 'RegionResource', 'RegionsPrepService',  '$stateParams', 'appCONSTANTS',
+            'ToastService','CountryByIdPrepService', RegionController]);
+
+
+    function RegionController($rootScope, blockUI, $scope, $filter, $translate,
+        $state, RegionResource, RegionsPrepService, $stateParams, appCONSTANTS, ToastService,CountryByIdPrepService) { 
+
+        $('.pmd-sidebar-nav>li>a').removeClass("active")
+        $($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
+
+        blockUI.start("Loading..."); 
+
+                    var vm = this;
+        $scope.totalCount = RegionsPrepService.totalCount;
+        $scope.Regions  = RegionsPrepService;
+        $scope.countryName = CountryByIdPrepService.titleDictionary[$scope.selectedLanguage];
+        function refreshRegions() {
+
+            blockUI.start("Loading..."); 
+
+                        var k = RegionResource.getAllRegions({countryId: $stateParams.countryId ,page:vm.currentPage}).$promise.then(function (results) { 
+                $scope.Regions = results  
+                blockUI.stop();
+
+                            },
+            function (data, status) {
+                blockUI.stop();
+
+                                ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+            });
+        }
+
+                vm.currentPage = 1;
+        $scope.changePage = function (page) {
+            vm.currentPage = page;
+            refreshRegions();
+        }
+        blockUI.stop();
+
+            }
+
+})();
+(function () {
+    angular
+      .module('home')
+        .factory('RegionResource', ['$resource', 'appCONSTANTS', RegionResource]) 
+
+    function RegionResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Regions/', {}, {
+            getAllRegions: { method: 'GET', url: appCONSTANTS.API_URL + 'Countries/:countryId/Regions', useToken: true,  params: { lang: '@lang' } },
+            create: { method: 'POST', useToken: true },
+            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Regions/EditRegion', useToken: true },
+            getRegion: { method: 'GET', url: appCONSTANTS.API_URL + 'Regions/:regionId', useToken: true },
+            getAllRegionsForUser: { method: 'GET', url: appCONSTANTS.API_URL + 'Users/:userId/Regions', useToken: true, isArray:true }
+
+                    })
+    } 
+
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .config(function ($stateProvider, $urlRouterProvider) {
+
+            $stateProvider
+                .state('Regions', {
+                    url: '/Country/:countryId/Region',
+                    templateUrl: './app/GlobalAdmin/Region/templates/Regions.html',
+                    controller: 'RegionController',
+                    'controllerAs': 'RegionCtrl',
+                    resolve: {
+                        RegionsPrepService: RegionsPrepService,
+                        CountryByIdPrepService: CountryByIdPrepService                        
+                    },
+                    data: {
+                        permissions: {
+                            only: ['4'],
+                            redirectTo: 'root'
+                        }
+                    },
+                    ncyBreadcrumb: {
+                        label: '{{countryName}}'
+                    }
+                })
+                .state('newRegion', {
+                    url: '/Country/:countryId/newRegion',
+                    templateUrl: './app/GlobalAdmin/Region/templates/new.html',
+                    controller: 'createRegionDialogController',
+                    'controllerAs': 'newRegionCtrl',
+                    resolve: {
+                        CountryByIdPrepService: CountryByIdPrepService                        
+                    },
+                    data: {
+                        permissions: {
+                            only: ['4'],
+                            redirectTo: 'root'
+                        }
+                    },
+                    ncyBreadcrumb: {
+                        label: '{{countryName}}'
+                    }
+
+                })
+                .state('editRegion', {
+                    url: '/Country/:countryId/editRegion/:regionId',
+                    templateUrl: './app/GlobalAdmin/Region/templates/edit.html',
+                    controller: 'editRegionDialogController',
+                    'controllerAs': 'editRegionCtrl',
+                    resolve: {
+                        RegionByIdPrepService: RegionByIdPrepService,
+                        CountryByIdPrepService: CountryByIdPrepService                        
+                    },
+                    data: {
+                        permissions: {
+                            only: ['4'],
+                            redirectTo: 'root'
+                        }
+                    },
+                    ncyBreadcrumb: {
+                        label: '{{countryName}}'
+                    }
+
+                })
+        });
+
+    RegionsPrepService.$inject = ['RegionResource', '$stateParams']
+    function RegionsPrepService(RegionResource, $stateParams) {
+        return RegionResource.getAllRegions({ countryId: $stateParams.countryId }).$promise;
+    }
+
+    RegionByIdPrepService.$inject = ['RegionResource', '$stateParams']
+    function RegionByIdPrepService(RegionResource, $stateParams) {
+        return RegionResource.getRegion({ regionId: $stateParams.regionId }).$promise;
+    }
+    CountryByIdPrepService.$inject = ['CountryResource', '$stateParams']
+    function CountryByIdPrepService(CountryResource, $stateParams) {
+        return CountryResource.getCountry({ countryId: $stateParams.countryId }).$promise;
+    }
+
+}());
+(function () {
+    'use strict';
+
+	    angular
+        .module('home')
+        .controller('createRegionDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
+            'RegionResource', 'ToastService', '$stateParams','CountryByIdPrepService', createRegionDialogController])
+
+    function createRegionDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, RegionResource,
+        ToastService, $stateParams,CountryByIdPrepService) {
+
+                blockUI.start("Loading..."); 
+
+            		var vm = this;
+        vm.language = appCONSTANTS.supportedLanguage;
+        $scope.countryName = CountryByIdPrepService.titleDictionary[$scope.selectedLanguage];
+
+        		vm.close = function(){
+			$state.go('Regions',{countryId: $stateParams.countryId });
+		} 
+
+		 		vm.AddNewRegion = function () {
+            blockUI.start("Loading..."); 
+
+                        var newObj = new RegionResource();
+            newObj.countryId= $stateParams.countryId;
+            newObj.titleDictionary = vm.titleDictionary; 
+            newObj.IsDeleted = false; 
+            newObj.IsStatic =false;
+            newObj.$create().then(
+                function (data, status) { 
+        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success"); 
+                    $state.go('Regions',{countryId: $stateParams.countryId },{ reload: true });
+                     blockUI.stop();        
+
+
+                },
+                function (data, status) {
+               blockUI.stop();        
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        blockUI.stop();
+
+  	}	
+}());
+(function () {
+    'use strict';
+
+	    angular
+        .module('home')
+        .controller('editRegionDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate', 'RegionResource', 'ToastService',
+            'RegionByIdPrepService','$stateParams','CountryByIdPrepService', editRegionDialogController])
+
+    function editRegionDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, RegionResource, ToastService, 
+        RegionByIdPrepService,$stateParams,CountryByIdPrepService) {
+        blockUI.start("Loading..."); 
+
+                var vm = this; 
+		vm.language = appCONSTANTS.supportedLanguage;
+        vm.Region = RegionByIdPrepService; 
+        $scope.countryName = CountryByIdPrepService.titleDictionary[$scope.selectedLanguage];
+
+                vm.Close = function () {
+            $state.go('Regions',{countryId: $stateParams.countryId });
+        }
+        vm.UpdateRegion  = function () { 
+            blockUI.start("Loading..."); 
+
+                        var updateObj = new RegionResource();
+            updateObj.regionId = vm.Region.regionId;
+            updateObj.countryId= $stateParams.countryId;
+            updateObj.titleDictionary = vm.Region.titleDictionary;
+		    updateObj.IsDeleted = false;
+		    updateObj.IsStatic = false;
+		    updateObj.$update().then(
+                function (data, status) {
+                    blockUI.stop();
+
+                                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+
+                     $state.go('Regions',{countryId: $stateParams.countryId },{ reload: true });
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+
+                                        ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        blockUI.stop();
+
+        	}	
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
         .controller('ProgramController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate',
             '$state', '$localStorage',
             'authorizationService', 'appCONSTANTS',
@@ -2639,7 +2963,7 @@
                 function (data, status) {
                     $uibModalInstance.dismiss();
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('EditedSuccessfully'), "success");
-
+                    callBackFunction();
 
                 },
                 function (data, status) {
@@ -2672,8 +2996,10 @@
 
         vm.programDetails = progDetailsPrepService;
         console.log(vm.programDetails);
+        vm.programId;
 
         vm.ShowProgramMeal = function (programId, dayCount, mealCount) {
+            vm.programId = programId;
             $uibModal.open({
                 templateUrl: './app/GlobalAdmin/Program/templates/editProgramMeal.html',
                 controller: 'editProgramMealController',
@@ -2692,7 +3018,7 @@
         function refreshPrograms() {
             blockUI.start("Loading...");
 
-            var k = GetProgramDetailResource.getProgramDetail().$promise.then(function (results) {
+            var k = GetProgramDetailResource.getProgramDetail({programId:vm.programId}).$promise.then(function (results) {
                 vm.programDetails = results;
                 blockUI.stop();
 
@@ -2708,251 +3034,6 @@
     }
 
 })();
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('RegionController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate',
-            '$state', 'RegionResource', 'RegionsPrepService',  '$stateParams', 'appCONSTANTS',
-            'ToastService','CountryByIdPrepService', RegionController]);
-
-
-    function RegionController($rootScope, blockUI, $scope, $filter, $translate,
-        $state, RegionResource, RegionsPrepService, $stateParams, appCONSTANTS, ToastService,CountryByIdPrepService) { 
-
-        $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
-
-        blockUI.start("Loading..."); 
-
-                    var vm = this;
-        $scope.totalCount = RegionsPrepService.totalCount;
-        $scope.Regions  = RegionsPrepService;
-        $scope.countryName = CountryByIdPrepService.titleDictionary[$scope.selectedLanguage];
-        function refreshRegions() {
-
-            blockUI.start("Loading..."); 
-
-                        var k = RegionResource.getAllRegions({countryId: $stateParams.countryId ,page:vm.currentPage}).$promise.then(function (results) { 
-                $scope.Regions = results  
-                blockUI.stop();
-
-                            },
-            function (data, status) {
-                blockUI.stop();
-
-                                ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-            });
-        }
-
-                vm.currentPage = 1;
-        $scope.changePage = function (page) {
-            vm.currentPage = page;
-            refreshRegions();
-        }
-        blockUI.stop();
-
-            }
-
-})();
-(function () {
-    angular
-      .module('home')
-        .factory('RegionResource', ['$resource', 'appCONSTANTS', RegionResource]) 
-
-    function RegionResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'Regions/', {}, {
-            getAllRegions: { method: 'GET', url: appCONSTANTS.API_URL + 'Countries/:countryId/Regions', useToken: true,  params: { lang: '@lang' } },
-            create: { method: 'POST', useToken: true },
-            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Regions/EditRegion', useToken: true },
-            getRegion: { method: 'GET', url: appCONSTANTS.API_URL + 'Regions/:regionId', useToken: true },
-            getAllRegionsForUser: { method: 'GET', url: appCONSTANTS.API_URL + 'Users/:userId/Regions', useToken: true, isArray:true }
-
-                    })
-    } 
-
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .config(function ($stateProvider, $urlRouterProvider) {
-
-            $stateProvider
-                .state('Regions', {
-                    url: '/Country/:countryId/Region',
-                    templateUrl: './app/GlobalAdmin/Region/templates/Regions.html',
-                    controller: 'RegionController',
-                    'controllerAs': 'RegionCtrl',
-                    resolve: {
-                        RegionsPrepService: RegionsPrepService,
-                        CountryByIdPrepService: CountryByIdPrepService                        
-                    },
-                    data: {
-                        permissions: {
-                            only: ['4'],
-                            redirectTo: 'root'
-                        }
-                    },
-                    ncyBreadcrumb: {
-                        label: '{{countryName}}'
-                    }
-                })
-                .state('newRegion', {
-                    url: '/Country/:countryId/newRegion',
-                    templateUrl: './app/GlobalAdmin/Region/templates/new.html',
-                    controller: 'createRegionDialogController',
-                    'controllerAs': 'newRegionCtrl',
-                    resolve: {
-                        CountryByIdPrepService: CountryByIdPrepService                        
-                    },
-                    data: {
-                        permissions: {
-                            only: ['4'],
-                            redirectTo: 'root'
-                        }
-                    },
-                    ncyBreadcrumb: {
-                        label: '{{countryName}}'
-                    }
-
-                })
-                .state('editRegion', {
-                    url: '/Country/:countryId/editRegion/:regionId',
-                    templateUrl: './app/GlobalAdmin/Region/templates/edit.html',
-                    controller: 'editRegionDialogController',
-                    'controllerAs': 'editRegionCtrl',
-                    resolve: {
-                        RegionByIdPrepService: RegionByIdPrepService,
-                        CountryByIdPrepService: CountryByIdPrepService                        
-                    },
-                    data: {
-                        permissions: {
-                            only: ['4'],
-                            redirectTo: 'root'
-                        }
-                    },
-                    ncyBreadcrumb: {
-                        label: '{{countryName}}'
-                    }
-
-                })
-        });
-
-    RegionsPrepService.$inject = ['RegionResource', '$stateParams']
-    function RegionsPrepService(RegionResource, $stateParams) {
-        return RegionResource.getAllRegions({ countryId: $stateParams.countryId }).$promise;
-    }
-
-    RegionByIdPrepService.$inject = ['RegionResource', '$stateParams']
-    function RegionByIdPrepService(RegionResource, $stateParams) {
-        return RegionResource.getRegion({ regionId: $stateParams.regionId }).$promise;
-    }
-    CountryByIdPrepService.$inject = ['CountryResource', '$stateParams']
-    function CountryByIdPrepService(CountryResource, $stateParams) {
-        return CountryResource.getCountry({ countryId: $stateParams.countryId }).$promise;
-    }
-
-}());
-(function () {
-    'use strict';
-
-	    angular
-        .module('home')
-        .controller('createRegionDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
-            'RegionResource', 'ToastService', '$stateParams','CountryByIdPrepService', createRegionDialogController])
-
-    function createRegionDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, RegionResource,
-        ToastService, $stateParams,CountryByIdPrepService) {
-
-                blockUI.start("Loading..."); 
-
-            		var vm = this;
-        vm.language = appCONSTANTS.supportedLanguage;
-        $scope.countryName = CountryByIdPrepService.titleDictionary[$scope.selectedLanguage];
-
-        		vm.close = function(){
-			$state.go('Regions',{countryId: $stateParams.countryId });
-		} 
-
-		 		vm.AddNewRegion = function () {
-            blockUI.start("Loading..."); 
-
-                        var newObj = new RegionResource();
-            newObj.countryId= $stateParams.countryId;
-            newObj.titleDictionary = vm.titleDictionary; 
-            newObj.IsDeleted = false; 
-            newObj.IsStatic =false;
-            newObj.$create().then(
-                function (data, status) { 
-        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success"); 
-                    $state.go('Regions',{countryId: $stateParams.countryId },{ reload: true });
-                     blockUI.stop();        
-
-
-                },
-                function (data, status) {
-               blockUI.stop();        
-
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-        blockUI.stop();
-
-  	}	
-}());
-(function () {
-    'use strict';
-
-	    angular
-        .module('home')
-        .controller('editRegionDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate', 'RegionResource', 'ToastService',
-            'RegionByIdPrepService','$stateParams','CountryByIdPrepService', editRegionDialogController])
-
-    function editRegionDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, RegionResource, ToastService, 
-        RegionByIdPrepService,$stateParams,CountryByIdPrepService) {
-        blockUI.start("Loading..."); 
-
-                var vm = this; 
-		vm.language = appCONSTANTS.supportedLanguage;
-        vm.Region = RegionByIdPrepService; 
-        $scope.countryName = CountryByIdPrepService.titleDictionary[$scope.selectedLanguage];
-
-                vm.Close = function () {
-            $state.go('Regions',{countryId: $stateParams.countryId });
-        }
-        vm.UpdateRegion  = function () { 
-            blockUI.start("Loading..."); 
-
-                        var updateObj = new RegionResource();
-            updateObj.regionId = vm.Region.regionId;
-            updateObj.countryId= $stateParams.countryId;
-            updateObj.titleDictionary = vm.Region.titleDictionary;
-		    updateObj.IsDeleted = false;
-		    updateObj.IsStatic = false;
-		    updateObj.$update().then(
-                function (data, status) {
-                    blockUI.stop();
-
-                                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-
-                     $state.go('Regions',{countryId: $stateParams.countryId },{ reload: true });
-
-                },
-                function (data, status) {
-                    blockUI.stop();
-
-                                        ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-        blockUI.stop();
-
-        	}	
-}());
 (function () {
     'use strict';
 
@@ -3201,7 +3282,10 @@
         .controller('callCenterController', ['$scope', 'blockUI', '$filter', '$translate',
             '$state', '$localStorage', 'authorizationService', 'appCONSTANTS', 'ToastService', '$stateParams'
             , 'UserResource', 'CityResource', 'AreaResource', 'RegionResource', 'RolePrepService'
-            , 'CountriesPrepService', callCenterController]);
+            , 'CountriesPrepService', callCenterController])
+
+
+        ;
 
 
     function callCenterController($scope, blockUI, $filter, $translate, $state, $localStorage, authorizationService,
@@ -3215,7 +3299,10 @@
 
         vm.counties = [];
         vm.userOrder;
-        vm.orderType;
+        vm.flag = false;
+        vm.orderType = {
+            type: 'item'
+        };
         vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
         vm.selectedCountryId = 0;
         vm.counties = vm.counties.concat(CountriesPrepService.results)
@@ -3349,34 +3436,36 @@
         vm.ValidateUser = function () {
             blockUI.start("Loading...");
 
-            var k = UserResource.validate({phone:vm.Phone}).$promise.then(function (results) {
+            var k = UserResource.validate({ phone: vm.Phone }).$promise.then(function (results) {
                 vm.userOrder = results;
+                vm.flag = true;
                 ToastService.show("right", "bottom", "fadeInUp", $translate.instant('ClientFound'), "success");
                 blockUI.stop();
 
             },
-            function (data, status) {
-                blockUI.stop();
+                function (data, status) {
+                    blockUI.stop();
 
-                ToastService.show("right", "bottom", "fadeInUp", $translate.instant('ClientNotFound'), "error");
-            });
-
-
-
-
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('ClientNotFound'), "error");
+                });
         }
 
         vm.MakeOrder = function () {
-            if (vm.orderType == "item") {
-                $state.go('orderItems');
+            if (vm.orderType.type == "item") {
+                localStorage.setItem('ClientId', vm.userOrder.userId);
+                $state.go('orderItem');
             }
-            if (vm.orderType == "meal") {
+            else if (vm.orderType.type == "meal") {
+                localStorage.setItem('ClientId', vm.userOrder.userId);
                 $state.go('orderMeal');
             }
-            if (vm.orderType == "program") {
+
+            else if (vm.orderType.type == "program") {
+                localStorage.setItem('ClientId', vm.userOrder.userId);
                 $state.go('orderProgram');
             }
-            if (vm.orderType == "customizeProgram") {
+            else if (vm.orderType.type == "customizeProgram") {
+                localStorage.setItem('ClientId', vm.userOrder.userId);
                 $state.go('orderCustomizeProgram');
             }
         }
@@ -3447,6 +3536,837 @@
         }
 
 
+    }
+
+}
+)();
+(function () {
+    angular
+        .module('home')
+        .factory('OrderResource', ['$resource', 'appCONSTANTS', OrderResource])
+
+    function OrderResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Orders', {}, {
+            createOrder: { method: 'POST', url: appCONSTANTS.API_URL + 'Orders/CreateOrder', useToken: true }, 
+            getMealItems: { method: 'GET', url: appCONSTANTS.API_URL + 'Meals/GetMealItems/:MealId', useToken: true, isArray:true },             
+        })
+    }
+
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('orderCustomizeProgramcontroller', ['$scope', 'blockUI', '$filter', '$translate',
+            '$state', '$localStorage', 'authorizationService', 'appCONSTANTS', 'ToastService', '$stateParams',
+            'AddProgramResource', 'daysPrepService', 'settingsPrepService', 'itemsssPrepService'
+            ,'RegionResource', 'CityResource', 'AreaResource', 'CountriesPrepService', orderCustomizeProgramcontroller]);
+
+
+    function orderCustomizeProgramcontroller($scope, blockUI, $filter, $translate, $state, $localStorage, authorizationService,
+        appCONSTANTS, ToastService, $stateParams, AddProgramResource, daysPrepService, settingsPrepService, itemsssPrepService
+        , RegionResource, CityResource, AreaResource, CountriesPrepService) {
+
+
+
+        var vm = this;
+        vm.language = appCONSTANTS.supportedLanguage;
+
+        vm.ProgramDaysCount = 0;
+        vm.MealPerDay = 0;
+        vm.ProgramDiscount = 0;
+        vm.IsBreakFast = false;
+        vm.IsSnack = false;
+        vm.ProgramPrice = 0;
+        vm.ProgramCost = 0;
+        vm.ProgramVAT = 0;
+        vm.ProgramTotalPrice = 0;
+        vm.dayList = daysPrepService;
+        $scope.itemsssPrepService = itemsssPrepService;
+        vm.itemList = [];
+        console.log(vm.itemList);
+        vm.SelectedDays = [];
+        vm.progCountList = [];
+
+        vm.Setting = settingsPrepService;
+
+        vm.orderType = {
+            type: 'item'
+        };
+
+        vm.counties = [];
+        vm.clientId = localStorage.getItem('ClientId');
+        vm.flag = false;
+
+        vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
+        vm.selectedCountryId = 0;
+        vm.counties = vm.counties.concat(CountriesPrepService.results)
+
+        vm.resetDLL = function () {
+            vm.counties = [];
+            vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
+            vm.selectedCountryId = 0;
+            vm.counties = vm.counties.concat(CountriesPrepService.results)
+            vm.regions = [];
+            vm.cities = [];
+            vm.area = [];
+            vm.categoryList = [];
+        }
+        vm.departmentChange = function () {
+            vm.department.splice(0, 1);
+            vm.categoryList = [];
+            vm.categoryList.push({ categoryId: 0, titleDictionary: { "en": "Select Category", "ar": "اختار الفئة" } });
+            vm.selectedCategoryId = 0;
+            vm.categoryList = vm.categoryList.concat(($filter('filter')(vm.department, { departmentId: vm.selectedDepartmentId }))[0].categories);
+        }
+        vm.categoryChange = function () {
+            for (var i = vm.categoryList.length - 1; i >= 0; i--) {
+                if (vm.categoryList[i].categoryId == 0) {
+                    vm.categoryList.splice(i, 1);
+                }
+            }
+        }
+
+        vm.countryChange = function () {
+            for (var i = vm.counties.length - 1; i >= 0; i--) {
+                if (vm.counties[i].countryId == 0) {
+                    vm.counties.splice(i, 1);
+                }
+            }
+            vm.regions = [];
+            vm.cities = [];
+            vm.area = [];
+            vm.regions.push({ regionId: 0, titleDictionary: { "en": "Select Region", "ar": "اختار اقليم" } });
+            RegionResource.getAllRegions({ countryId: vm.selectedCountryId, pageSize: 0 }).$promise.then(function (results) {
+                vm.selectedRegionId = 0;
+                vm.regions = vm.regions.concat(results.results);
+            },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+            blockUI.stop();
+        }
+        vm.regionChange = function () {
+            if (vm.selectedRegionId != undefined) {
+                for (var i = vm.regions.length - 1; i >= 0; i--) {
+                    if (vm.regions[i].regionId == 0) {
+                        vm.regions.splice(i, 1);
+                    }
+                }
+                vm.cities = [];
+                vm.area = [];
+                vm.cities.push({ cityId: 0, titleDictionary: { "en": "Select City", "ar": "اختار مدينة" } });
+                CityResource.getAllCities({ regionId: vm.selectedRegionId, pageSize: 0 }).$promise.then(function (results) {
+                    vm.selectedCityId = 0;
+                    vm.cities = vm.cities.concat(results.results);
+                },
+                    function (data, status) {
+                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                    });
+            }
+        }
+        vm.cityChange = function () {
+            if (vm.selectedCityId != undefined) {
+                for (var i = vm.cities.length - 1; i >= 0; i--) {
+                    if (vm.cities[i].cityId == 0) {
+                        vm.cities.splice(i, 1);
+                    }
+                }
+                vm.area = [];
+                vm.area.push({ areaId: 0, titleDictionary: { "en": "Select Area", "ar": "اختار منطقه" } });
+                AreaResource.getAllAreas({ cityId: vm.selectedCityId, pageSize: 0 }).$promise.then(function (results) {
+                    vm.selectedAreaId = 0;
+                    vm.area = vm.area.concat(results.results);
+                },
+                    function (data, status) {
+                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                    });
+            }
+        }
+        vm.areaChange = function () {
+            if (vm.selectedAreaId != undefined && vm.selectedAreaId > 0) {
+                for (var i = vm.area.length - 1; i >= 0; i--) {
+                    if (vm.area[i].areaId == 0) {
+                        vm.area.splice(i, 1);
+                    }
+                }
+                vm.branchList = [];
+                vm.selectedBranchId = [0];
+                vm.branchList = vm.branchList.concat(($filter('filter')(vm.area, { areaId: vm.selectedAreaId }))[0].branches);
+            }
+        }
+        vm.branchChange = function () {
+            for (var i = vm.branchList.length - 1; i >= 0; i--) {
+                if (vm.branchList[i].branchId == 0) {
+                    vm.branchList.splice(i, 1);
+                }
+            }
+        }
+
+        vm.deletedItem = false;
+        $scope.discountChange = function () {
+            vm.ProgramPrice = 0;
+            vm.ProgramCost = 0;
+            vm.ProgramVAT = 0;
+            vm.ProgramTotalPrice = 0;
+            for (var i = 0; i < vm.itemList.length; i++) {
+                vm.ProgramPrice = vm.ProgramPrice + vm.itemList[i].price;
+                vm.ProgramCost = vm.ProgramCost + vm.itemList[i].cost;
+                vm.ProgramVAT = vm.ProgramVAT + vm.itemList[i].vat;
+                vm.ProgramTotalPrice = (vm.ProgramPrice + vm.ProgramVAT) - vm.ProgramDiscount;
+            }
+        }
+
+        $scope.getData = function (itemModel, day, meal) {
+            var differntMeal = vm.itemList.filter(x => (x.dayNumber == day && x.mealNumberPerDay != meal) || (x.dayNumber != day));
+            vm.itemList = [];
+            vm.itemList = angular.copy(differntMeal);
+
+            itemModel.forEach(element => {
+                element.dayNumber = day;
+                element.mealNumberPerDay = meal;
+                vm.itemList.push(element);
+            });
+
+            console.log(vm.itemList);
+
+            vm.ProgramPrice = 0;
+            vm.ProgramCost = 0;
+            vm.ProgramVAT = 0;
+            vm.ProgramTotalPrice = 0;
+            for (var i = 0; i < vm.itemList.length; i++) {
+                vm.ProgramPrice = vm.ProgramPrice + vm.itemList[i].price;
+                vm.ProgramCost = vm.ProgramCost + vm.itemList[i].cost;
+                vm.ProgramVAT = vm.ProgramVAT + vm.itemList[i].vat;
+                vm.ProgramTotalPrice = (vm.ProgramPrice + vm.ProgramVAT) - vm.ProgramDiscount;
+            }
+
+        }
+        vm.currentStep = 1;
+        vm.steps = [
+            {
+                step: 1,
+                name: "Step 1",
+                template: "./app/GlobalAdmin/callCenter/templates/customizeStepOne.html"
+            },
+            {
+                step: 2,
+                name: "Step 2",
+                template: "./app/GlobalAdmin/callCenter/templates/customizeStepTwo.html"
+            },
+            {
+                step: 3,
+                name: "Step 3",
+                template: "./app/GlobalAdmin/callCenter/templates/customizeStepThree.html"
+            }
+        ];
+        vm.user = {};
+
+        vm.gotoStep = function (newStep) {
+            vm.currentStep = newStep;
+        }
+
+        vm.getStepTemplate = function () {
+            for (var i = 0; i < vm.steps.length; i++) {
+                if (vm.currentStep == vm.steps[i].step) {
+                    return vm.steps[i].template;
+                }
+            }
+        }
+
+        vm.showDDL = function () {
+            $(".select-add-tags").select2({
+                tags: true,
+                theme: "bootstrap",
+                insertTag: function (data, tag) {
+                    data.push(tag);
+                }
+            });
+        }
+
+        vm.AddNewProgram = function () {
+            var newProgram = new AddProgramResource();
+            newProgram.programNameDictionary = vm.titleDictionary;
+            newProgram.programDescriptionDictionary = vm.descriptionDictionary;
+            newProgram.isActive = true;
+            newProgram.programDays = vm.ProgramDaysCount;
+            newProgram.noOfMeals = vm.MealPerDay;
+            newProgram.isBreakfast = vm.IsBreakFast;
+            newProgram.isSnack = vm.IsSnack;
+            newProgram.programDiscount = vm.ProgramDiscount;
+            newProgram.isAdmin = true;
+            newProgram.isForClient = false;
+            newProgram.isDeleted = false;
+            newProgram.programDetails = vm.itemList;
+            newProgram.isOrdering = true;
+            newProgram.branchId = vm.selectedBranchId;
+            newProgram.isProgram = true;
+            newProgram.userId = vm.clientId;
+            if(vm.orderType.type == "delivery"){
+                newProgram.isDelivery = true;
+            }
+            else{
+                newProgram.isDelivery = false;
+            }
+            newProgram.isOrdering = true;
+            newProgram.days = vm.SelectedDays;
+            newProgram.$create().then(
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+
+
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+
+
+    }
+
+})();
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('orderItemscontroller', ['$scope', 'blockUI', '$filter', '$translate',
+            '$state', '$localStorage', 'authorizationService', 'appCONSTANTS', 'ToastService', '$stateParams'
+            , 'itemsssPrepService', 'RegionResource', 'CityResource', 'AreaResource', 'CountriesPrepService'
+            , 'OrderResource', orderItemscontroller]);
+
+
+    function orderItemscontroller($scope, blockUI, $filter, $translate, $state, $localStorage, authorizationService, appCONSTANTS, ToastService
+        , $stateParams, itemsssPrepService, RegionResource, CityResource, AreaResource
+        , CountriesPrepService, OrderResource) {
+
+
+
+        var vm = this;
+        vm.language = appCONSTANTS.supportedLanguage;
+
+        $scope.itemModel = [];
+        $scope.itemsssPrepService = itemsssPrepService;
+        vm.counties = [];
+        vm.clientId = localStorage.getItem('ClientId');
+
+        vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
+        vm.selectedCountryId = 0;
+        vm.counties = vm.counties.concat(CountriesPrepService.results)
+
+        vm.resetDLL = function () {
+            vm.counties = [];
+            vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
+            vm.selectedCountryId = 0;
+            vm.counties = vm.counties.concat(CountriesPrepService.results)
+            vm.regions = [];
+            vm.cities = [];
+            vm.area = [];
+            vm.categoryList = [];
+        }
+        vm.departmentChange = function () {
+            vm.department.splice(0, 1);
+            vm.categoryList = [];
+            vm.categoryList.push({ categoryId: 0, titleDictionary: { "en": "Select Category", "ar": "اختار الفئة" } });
+            vm.selectedCategoryId = 0;
+            vm.categoryList = vm.categoryList.concat(($filter('filter')(vm.department, { departmentId: vm.selectedDepartmentId }))[0].categories);
+        }
+        vm.categoryChange = function () {
+            for (var i = vm.categoryList.length - 1; i >= 0; i--) {
+                if (vm.categoryList[i].categoryId == 0) {
+                    vm.categoryList.splice(i, 1);
+                }
+            }
+        }
+
+        vm.countryChange = function () {
+            for (var i = vm.counties.length - 1; i >= 0; i--) {
+                if (vm.counties[i].countryId == 0) {
+                    vm.counties.splice(i, 1);
+                }
+            }
+            vm.regions = [];
+            vm.cities = [];
+            vm.area = [];
+            vm.regions.push({ regionId: 0, titleDictionary: { "en": "Select Region", "ar": "اختار اقليم" } });
+            RegionResource.getAllRegions({ countryId: vm.selectedCountryId, pageSize: 0 }).$promise.then(function (results) {
+                vm.selectedRegionId = 0;
+                vm.regions = vm.regions.concat(results.results);
+            },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+            blockUI.stop();
+        }
+        vm.regionChange = function () {
+            if (vm.selectedRegionId != undefined) {
+                for (var i = vm.regions.length - 1; i >= 0; i--) {
+                    if (vm.regions[i].regionId == 0) {
+                        vm.regions.splice(i, 1);
+                    }
+                }
+                vm.cities = [];
+                vm.area = [];
+                vm.cities.push({ cityId: 0, titleDictionary: { "en": "Select City", "ar": "اختار مدينة" } });
+                CityResource.getAllCities({ regionId: vm.selectedRegionId, pageSize: 0 }).$promise.then(function (results) {
+                    vm.selectedCityId = 0;
+                    vm.cities = vm.cities.concat(results.results);
+                },
+                    function (data, status) {
+                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                    });
+            }
+        }
+        vm.cityChange = function () {
+            if (vm.selectedCityId != undefined) {
+                for (var i = vm.cities.length - 1; i >= 0; i--) {
+                    if (vm.cities[i].cityId == 0) {
+                        vm.cities.splice(i, 1);
+                    }
+                }
+                vm.area = [];
+                vm.area.push({ areaId: 0, titleDictionary: { "en": "Select Area", "ar": "اختار منطقه" } });
+                AreaResource.getAllAreas({ cityId: vm.selectedCityId, pageSize: 0 }).$promise.then(function (results) {
+                    vm.selectedAreaId = 0;
+                    vm.area = vm.area.concat(results.results);
+                },
+                    function (data, status) {
+                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                    });
+            }
+        }
+        vm.areaChange = function () {
+            if (vm.selectedAreaId != undefined && vm.selectedAreaId > 0) {
+                for (var i = vm.area.length - 1; i >= 0; i--) {
+                    if (vm.area[i].areaId == 0) {
+                        vm.area.splice(i, 1);
+                    }
+                }
+                vm.branchList = [];
+                vm.selectedBranchId = [0];
+                vm.branchList = vm.branchList.concat(($filter('filter')(vm.area, { areaId: vm.selectedAreaId }))[0].branches);
+            }
+        }
+
+                vm.branchChange = function () {
+            for (var i = vm.branchList.length - 1; i >= 0; i--) {
+                if (vm.branchList[i].branchId == 0) {
+                    vm.branchList.splice(i, 1);
+                }
+            }
+        }
+
+        $scope.getData = function (itemModel) {
+            vm.itemList = [];
+            itemModel.forEach(element => {
+                vm.itemList.push(element);
+            });
+        }
+
+        vm.Order = function () {
+            blockUI.start("Loading...");
+
+            var order = new OrderResource();
+
+            order.items = vm.itemList;
+            order.isByAdmin = true;
+            order.branchId = vm.selectedBranchId;
+            order.userId = vm.clientId;
+
+            order.$createOrder().then(
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('OrderAddSuccess'), "success");
+
+                    $state.go('callCenter');
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+    }
+
+})();
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('orderMealscontroller', ['$scope', 'blockUI', '$filter', '$translate',
+            '$state', '$localStorage', 'authorizationService', 'appCONSTANTS', 'ToastService', '$stateParams'
+            , 'mealsPrepService', 'RegionResource', 'CityResource', 'AreaResource', 'CountriesPrepService'
+            , 'OrderResource', 'MealResource', orderMealscontroller]);
+
+
+    function orderMealscontroller($scope, blockUI, $filter, $translate, $state, $localStorage, authorizationService, appCONSTANTS, ToastService
+        , $stateParams, mealsPrepService, RegionResource, CityResource, AreaResource
+        , CountriesPrepService, OrderResource, MealResource) {
+
+
+
+        var vm = this;
+        vm.language = appCONSTANTS.supportedLanguage;
+
+        $scope.itemModel = [];
+        vm.meal;
+        vm.mealItemss;
+        $scope.mealsPrepService = mealsPrepService;
+        vm.counties = [];
+        vm.clientId = localStorage.getItem('ClientId');
+        vm.flag = false;
+
+        vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
+        vm.selectedCountryId = 0;
+        vm.counties = vm.counties.concat(CountriesPrepService.results)
+
+        vm.resetDLL = function () {
+            vm.counties = [];
+            vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
+            vm.selectedCountryId = 0;
+            vm.counties = vm.counties.concat(CountriesPrepService.results)
+            vm.regions = [];
+            vm.cities = [];
+            vm.area = [];
+            vm.categoryList = [];
+        }
+        vm.departmentChange = function () {
+            vm.department.splice(0, 1);
+            vm.categoryList = [];
+            vm.categoryList.push({ categoryId: 0, titleDictionary: { "en": "Select Category", "ar": "اختار الفئة" } });
+            vm.selectedCategoryId = 0;
+            vm.categoryList = vm.categoryList.concat(($filter('filter')(vm.department, { departmentId: vm.selectedDepartmentId }))[0].categories);
+        }
+        vm.categoryChange = function () {
+            for (var i = vm.categoryList.length - 1; i >= 0; i--) {
+                if (vm.categoryList[i].categoryId == 0) {
+                    vm.categoryList.splice(i, 1);
+                }
+            }
+        }
+
+        vm.countryChange = function () {
+            for (var i = vm.counties.length - 1; i >= 0; i--) {
+                if (vm.counties[i].countryId == 0) {
+                    vm.counties.splice(i, 1);
+                }
+            }
+            vm.regions = [];
+            vm.cities = [];
+            vm.area = [];
+            vm.regions.push({ regionId: 0, titleDictionary: { "en": "Select Region", "ar": "اختار اقليم" } });
+            RegionResource.getAllRegions({ countryId: vm.selectedCountryId, pageSize: 0 }).$promise.then(function (results) {
+                vm.selectedRegionId = 0;
+                vm.regions = vm.regions.concat(results.results);
+            },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+            blockUI.stop();
+        }
+        vm.regionChange = function () {
+            if (vm.selectedRegionId != undefined) {
+                for (var i = vm.regions.length - 1; i >= 0; i--) {
+                    if (vm.regions[i].regionId == 0) {
+                        vm.regions.splice(i, 1);
+                    }
+                }
+                vm.cities = [];
+                vm.area = [];
+                vm.cities.push({ cityId: 0, titleDictionary: { "en": "Select City", "ar": "اختار مدينة" } });
+                CityResource.getAllCities({ regionId: vm.selectedRegionId, pageSize: 0 }).$promise.then(function (results) {
+                    vm.selectedCityId = 0;
+                    vm.cities = vm.cities.concat(results.results);
+                },
+                    function (data, status) {
+                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                    });
+            }
+        }
+        vm.cityChange = function () {
+            if (vm.selectedCityId != undefined) {
+                for (var i = vm.cities.length - 1; i >= 0; i--) {
+                    if (vm.cities[i].cityId == 0) {
+                        vm.cities.splice(i, 1);
+                    }
+                }
+                vm.area = [];
+                vm.area.push({ areaId: 0, titleDictionary: { "en": "Select Area", "ar": "اختار منطقه" } });
+                AreaResource.getAllAreas({ cityId: vm.selectedCityId, pageSize: 0 }).$promise.then(function (results) {
+                    vm.selectedAreaId = 0;
+                    vm.area = vm.area.concat(results.results);
+                },
+                    function (data, status) {
+                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                    });
+            }
+        }
+        vm.areaChange = function () {
+            if (vm.selectedAreaId != undefined && vm.selectedAreaId > 0) {
+                for (var i = vm.area.length - 1; i >= 0; i--) {
+                    if (vm.area[i].areaId == 0) {
+                        vm.area.splice(i, 1);
+                    }
+                }
+                vm.branchList = [];
+                vm.selectedBranchId = [0];
+                vm.branchList = vm.branchList.concat(($filter('filter')(vm.area, { areaId: vm.selectedAreaId }))[0].branches);
+            }
+        }
+        vm.branchChange = function () {
+            for (var i = vm.branchList.length - 1; i >= 0; i--) {
+                if (vm.branchList[i].branchId == 0) {
+                    vm.branchList.splice(i, 1);
+                }
+            }
+        }
+
+        $scope.getData = function (itemModel) {
+            vm.itemList = [];
+            itemModel.forEach(element => {
+                vm.itemList.push(element);
+            });
+        }
+
+        vm.mealSearch = function () {
+            var k = OrderResource.getMealItems({mealId:vm.meal.mealId}).$promise.then(function (results) {
+                vm.mealItemss = results;
+                blockUI.stop();
+                vm.flag = true;
+
+            },
+            function (data, status) {
+                blockUI.stop();
+                ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+            });
+        }
+
+        vm.Order = function () {
+            blockUI.start("Loading...");
+
+            var order = new OrderResource();
+
+            order.meals = vm.itemList;
+            order.isByAdmin = true;
+            order.branchId = vm.selectedBranchId;
+            order.userId = vm.clientId;
+
+            order.$createOrder().then(
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('OrderAddSuccess'), "success");
+
+                    $state.go('callCenter');
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+    }
+
+})();
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('orderProgramscontroller', ['$scope', 'blockUI', '$filter', '$translate',
+            '$state', '$localStorage', 'authorizationService', 'appCONSTANTS', 'ToastService', '$stateParams'
+            , 'programsPrepService', 'RegionResource', 'CityResource', 'AreaResource', 'CountriesPrepService'
+            , 'OrderResource', 'GetProgramDetailResource', orderProgramscontroller]);
+
+
+    function orderProgramscontroller($scope, blockUI, $filter, $translate, $state, $localStorage, authorizationService, appCONSTANTS, ToastService
+        , $stateParams, programsPrepService, RegionResource, CityResource, AreaResource
+        , CountriesPrepService, OrderResource, GetProgramDetailResource) {
+
+
+
+        var vm = this;
+        vm.language = appCONSTANTS.supportedLanguage;
+
+        $scope.itemModel = [];
+        vm.program;
+        vm.mealItemss;
+        $scope.programsPrepService = programsPrepService;
+        vm.counties = [];
+        vm.clientId = localStorage.getItem('ClientId');
+        vm.flag = false;
+
+        vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
+        vm.selectedCountryId = 0;
+        vm.counties = vm.counties.concat(CountriesPrepService.results)
+
+        vm.resetDLL = function () {
+            vm.counties = [];
+            vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
+            vm.selectedCountryId = 0;
+            vm.counties = vm.counties.concat(CountriesPrepService.results)
+            vm.regions = [];
+            vm.cities = [];
+            vm.area = [];
+            vm.categoryList = [];
+        }
+        vm.departmentChange = function () {
+            vm.department.splice(0, 1);
+            vm.categoryList = [];
+            vm.categoryList.push({ categoryId: 0, titleDictionary: { "en": "Select Category", "ar": "اختار الفئة" } });
+            vm.selectedCategoryId = 0;
+            vm.categoryList = vm.categoryList.concat(($filter('filter')(vm.department, { departmentId: vm.selectedDepartmentId }))[0].categories);
+        }
+        vm.categoryChange = function () {
+            for (var i = vm.categoryList.length - 1; i >= 0; i--) {
+                if (vm.categoryList[i].categoryId == 0) {
+                    vm.categoryList.splice(i, 1);
+                }
+            }
+        }
+
+        vm.countryChange = function () {
+            for (var i = vm.counties.length - 1; i >= 0; i--) {
+                if (vm.counties[i].countryId == 0) {
+                    vm.counties.splice(i, 1);
+                }
+            }
+            vm.regions = [];
+            vm.cities = [];
+            vm.area = [];
+            vm.regions.push({ regionId: 0, titleDictionary: { "en": "Select Region", "ar": "اختار اقليم" } });
+            RegionResource.getAllRegions({ countryId: vm.selectedCountryId, pageSize: 0 }).$promise.then(function (results) {
+                vm.selectedRegionId = 0;
+                vm.regions = vm.regions.concat(results.results);
+            },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+            blockUI.stop();
+        }
+        vm.regionChange = function () {
+            if (vm.selectedRegionId != undefined) {
+                for (var i = vm.regions.length - 1; i >= 0; i--) {
+                    if (vm.regions[i].regionId == 0) {
+                        vm.regions.splice(i, 1);
+                    }
+                }
+                vm.cities = [];
+                vm.area = [];
+                vm.cities.push({ cityId: 0, titleDictionary: { "en": "Select City", "ar": "اختار مدينة" } });
+                CityResource.getAllCities({ regionId: vm.selectedRegionId, pageSize: 0 }).$promise.then(function (results) {
+                    vm.selectedCityId = 0;
+                    vm.cities = vm.cities.concat(results.results);
+                },
+                    function (data, status) {
+                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                    });
+            }
+        }
+        vm.cityChange = function () {
+            if (vm.selectedCityId != undefined) {
+                for (var i = vm.cities.length - 1; i >= 0; i--) {
+                    if (vm.cities[i].cityId == 0) {
+                        vm.cities.splice(i, 1);
+                    }
+                }
+                vm.area = [];
+                vm.area.push({ areaId: 0, titleDictionary: { "en": "Select Area", "ar": "اختار منطقه" } });
+                AreaResource.getAllAreas({ cityId: vm.selectedCityId, pageSize: 0 }).$promise.then(function (results) {
+                    vm.selectedAreaId = 0;
+                    vm.area = vm.area.concat(results.results);
+                },
+                    function (data, status) {
+                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                    });
+            }
+        }
+        vm.areaChange = function () {
+            if (vm.selectedAreaId != undefined && vm.selectedAreaId > 0) {
+                for (var i = vm.area.length - 1; i >= 0; i--) {
+                    if (vm.area[i].areaId == 0) {
+                        vm.area.splice(i, 1);
+                    }
+                }
+                vm.branchList = [];
+                vm.selectedBranchId = [0];
+                vm.branchList = vm.branchList.concat(($filter('filter')(vm.area, { areaId: vm.selectedAreaId }))[0].branches);
+            }
+        }
+        vm.branchChange = function () {
+            for (var i = vm.branchList.length - 1; i >= 0; i--) {
+                if (vm.branchList[i].branchId == 0) {
+                    vm.branchList.splice(i, 1);
+                }
+            }
+        }
+
+        $scope.getData = function (itemModel) {
+            vm.itemList = [];
+            itemModel.forEach(element => {
+                vm.itemList.push(element);
+            });
+        }
+
+        vm.orderType = {
+            type: 'delivery'
+          };
+
+        vm.programSearch = function () {
+            var k = GetProgramDetailResource.getProgramDetail({ programId: vm.program.programId }).$promise.then(function (results) {
+                vm.mealItemss = results;
+                console.log(vm.mealItemss);
+                blockUI.stop();
+                vm.flag = true;
+
+            },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+
+        vm.Order = function () {
+            blockUI.start("Loading...");
+
+            var order = new OrderResource();
+
+            order.programs = vm.itemList;
+            order.isByAdmin = true;
+            order.branchId = vm.selectedBranchId;
+            order.userId = vm.clientId;
+
+            if(vm.orderType.type == "delivery"){
+                order.isDelivery = true;
+            }
+            else{
+                order.isDelivery = false;
+            }
+
+            order.$createOrder().then(
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('OrderAddSuccess'), "success");
+
+                    $state.go('callCenter');
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
     }
 
 })();
@@ -4077,6 +4997,21 @@
 
 }());
 (function () {
+    angular
+      .module('home')
+      .factory('GetSettingsResource', ['$resource', 'appCONSTANTS', GetSettingsResource])
+      ;
+
+
+      function GetSettingsResource($resource, appCONSTANTS) {
+      return $resource(appCONSTANTS.API_URL + 'Setting/GetSetting', {}, {
+        getAllSettings: { method: 'GET', useToken: true}
+      })
+    }
+
+    }());
+
+    (function () {
 	'use strict';
 
 	angular
@@ -4880,21 +5815,6 @@
 	}
 }());
 (function () {
-    angular
-      .module('home')
-      .factory('GetSettingsResource', ['$resource', 'appCONSTANTS', GetSettingsResource])
-      ;
-
-
-      function GetSettingsResource($resource, appCONSTANTS) {
-      return $resource(appCONSTANTS.API_URL + 'Setting/GetSetting', {}, {
-        getAllSettings: { method: 'GET', useToken: true}
-      })
-    }
-
-    }());
-
-    (function () {
     'use strict';
 
     angular

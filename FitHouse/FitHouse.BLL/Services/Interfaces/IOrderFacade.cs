@@ -11,5 +11,7 @@ namespace FitHouse.BLL.Services.Interfaces
         PagedResultsDto GetAllOrders(long branchId, int page, int pageSize);
         PagedResultsDto GetAllOrdersForDelivery(long branchId, int page, int pageSize);
         List<ItemDto> GetOrderItems(long orderId, long programId);
+        OrderCallCenterDto CreateOrder(OrderCallCenterDto order, long userId);
+        //OrderCallCenterDto CreateMeal(OrderCallCenterDto orderDto, long userId);
     }
 }

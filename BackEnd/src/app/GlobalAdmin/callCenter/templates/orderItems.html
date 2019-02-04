@@ -1,0 +1,66 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".select-add-tags").select2({
+            tags: true,
+            theme: "bootstrap",
+            insertTag: function (data, tag) {
+                // Insert the tag at the end of the results
+                data.push(tag);
+                // console.log(data);
+            }
+        });
+
+        $(".select-tags").select2({
+            tags: false,
+            theme: "bootstrap",
+        });
+
+        $(".select-with-search").select2({
+            theme: "bootstrap"
+        });
+    });
+</script>
+
+<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+    <label for="first-name">{{'SelectItems' | translate}}</label>
+    <select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" multiple ng-model="itemModel"
+        ng-change="getData(itemModel)" ng-options="item as item.itemNameDictionary[selectedLanguage] 
+            group by item.category.titleDictionary[selectedLanguage]
+            for item  in itemsssPrepService">
+    </select>
+</div>
+
+<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+    <label for="first-name">{{'Country' | translate}}</label>
+    <select required style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="orderItemsCtrl.countryChange()"
+        ng-model="orderItemsCtrl.selectedCountryId" ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in orderItemsCtrl.counties">
+    </select>
+</div>
+<div ng-show=" orderItemsCtrl.selectedCountryId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+    <label for="first-name">{{'Region' | translate}}</label>
+    <select required style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="orderItemsCtrl.regionChange()"
+        ng-model="orderItemsCtrl.selectedRegionId" ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in orderItemsCtrl.regions">
+    </select>
+</div>
+<div ng-show=" orderItemsCtrl.selectedRegionId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+    <label for="first-name">{{'City' | translate}}</label>
+    <select ng-required="orderItemsCtrl.selectedRegionId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"
+        ng-change="orderItemsCtrl.cityChange()" ng-model="orderItemsCtrl.selectedCityId" ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in orderItemsCtrl.cities">
+    </select>
+</div>
+<div ng-show=" orderItemsCtrl.selectedCityId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+    <label for="first-name">{{'Area' | translate}}</label>
+    <select ng-required=" orderItemsCtrl.selectedCityId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"
+        ng-change="orderItemsCtrl.areaChange()" ng-model="orderItemsCtrl.selectedAreaId" ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in orderItemsCtrl.area">
+    </select>
+</div>
+<div ng-show=" orderItemsCtrl.selectedAreaId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+    <label for="first-name">{{'Branch' | translate}}</label>
+    <select ng-required=" orderItemsCtrl.selectedAreaId > 0 " class="form-control select-with-search pmd-select2-tags" ng-change="orderItemsCtrl.branchChange()"
+        ng-model="orderItemsCtrl.selectedBranchId" ng-options="a.branchId as a.titleDictionary[selectedLanguage] for a in orderItemsCtrl.branchList"></select>
+</div>
+
+<div class="pmd-modal-action text-right">
+    <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" class="btn pmd-ripple-effect btn-primary"
+        type="button" ng-click="orderItemsCtrl.Order()">{{'Order' | translate}}</button>
+</div>

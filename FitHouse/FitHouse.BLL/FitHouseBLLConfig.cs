@@ -124,6 +124,12 @@ namespace FitHouse.BLL
             mapperConfiguration.CreateMap<OrderDetailDto, OrderDetail>();
             mapperConfiguration.CreateMap<OrderDetail, OrderDetailDto>();
 
+            mapperConfiguration.CreateMap<OrderCallCenterDto, Order>();
+            mapperConfiguration.CreateMap<Order, OrderCallCenterDto>();
+
+            mapperConfiguration.CreateMap<OrderDetailCallCenterDto, OrderDetail>();
+            mapperConfiguration.CreateMap<OrderDetail, OrderDetailCallCenterDto>();
+
             mapperConfiguration.CreateMap<AddressDto, Address>();
             mapperConfiguration.CreateMap<Address, AddressDto>();
 

@@ -295,6 +295,8 @@
     <Compile Include="Models\ItemProgramModel.cs" />
     <Compile Include="Models\MealDetailModel.cs" />
     <Compile Include="Models\MealModel.cs" />
+    <Compile Include="Models\OrderCallCenterModel.cs" />
+    <Compile Include="Models\OrderDetailsCallCenterModel.cs" />
     <Compile Include="Models\OrderDetailsModel.cs" />
     <Compile Include="Models\OrderFullModel.cs" />
     <Compile Include="Models\ProgramDetailModel.cs" />

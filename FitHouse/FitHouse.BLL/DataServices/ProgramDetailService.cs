@@ -22,5 +22,11 @@ namespace FitHouse.BLL.DataServices
             var details = _repository.Query(x => x.IsDeleted != true && x.ProgramId == programId).Select().ToList();
             return details;
         }
+
+        public List<long> DistictProgramDays(long programId)
+        {
+            var details = _repository.Query(x => x.IsDeleted != true && x.ProgramId == programId).Select(x=>x.DayNumber).Distinct().ToList();
+            return details;
+        }
     }
 }

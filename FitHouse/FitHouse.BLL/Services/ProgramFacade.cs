@@ -21,14 +21,18 @@ namespace FitHouse.BLL.Services
         private readonly IProgramDetailService _programDetailService;
         private readonly  IProgExcludeDayService _progExcludeDayService;
         private readonly  IItemService _itemService;
+        private readonly  IOrderService _orderService;
+        private readonly  IOrderDetailsService _orderDetailsService;
 
-        public ProgramFacade(IProgramService programService, IItemService itemService, IProgExcludeDayService progExcludeDayService, IProgramDetailService programDetailService, IUnitOfWorkAsync unitOfWork, IProgramTranslationService programTranslationService) : base(unitOfWork)
+        public ProgramFacade(IProgramService programService, IOrderService orderService, IOrderDetailsService orderDetailsService, IItemService itemService, IProgExcludeDayService progExcludeDayService, IProgramDetailService programDetailService, IUnitOfWorkAsync unitOfWork, IProgramTranslationService programTranslationService) : base(unitOfWork)
         {
             _programService = programService;
             _programTranslationService = programTranslationService;
             _programDetailService = programDetailService;
             _progExcludeDayService = progExcludeDayService;
             _itemService = itemService;
+            _orderDetailsService = orderDetailsService;
+            _orderService = orderService;
         }
 
         public PagedResultsDto GetAllPrograms(int page, int pageSize)
@@ -82,11 +86,6 @@ namespace FitHouse.BLL.Services
 
         public ProgramDto CreateProgram(ProgramDto programDto, int userId)
         {
-            //if (GetCategory(programDto.ProgramId) != null)
-            //{
-            //    return EditCategory(programDto, userId);
-            //}
-
             ValidateProgram(programDto);
             var programObj = Mapper.Map<Program>(programDto);
             foreach (var programName in programDto.ProgramNameDictionary)
@@ -97,19 +96,9 @@ namespace FitHouse.BLL.Services
 
                     Language = programName.Key,
                     Description = programDto.ProgramDescriptionDictionary[programName.Key]
-                    //ProgramId = programObj.ProgramId
                 });
             }
-
-            //programObj.ProgramDays = programDto.ProgramDays;
-            //programObj.NoOfMeals = programDto.NoOfMeals;
-            //programObj.IsBreakfast = programDto.IsBreakfast;
-            //programObj.IsForClient = programDto.IsForClient;
-            //programObj.IsAdmin = programDto.IsAdmin;
-            //programObj.ProgramDiscount = programDto.ProgramDiscount;
-            //programObj.IsActive = true;
-            //programObj.IsDeleted = false;
-
+            
             var detailInfo = new List<ProgramDetail>();
 
             foreach (var detail in programObj.ProgramDetails)
@@ -137,11 +126,38 @@ namespace FitHouse.BLL.Services
                 dayByday.IsDeleted = false;
                 excludedDays.Add(dayByday);
             }
+
+            var orderDetails = new List<OrderDetail>();
+            var order = new Order();
+            if (programDto.IsOrdering)
+            {
+                order.BranchId = programDto.branchId;
+                order.IsByAdmin = true;
+                order.IsDelivery = programDto.IsDelivery;
+                order.IsProgram = true;
+                order.OrderDate = DateTime.Now;
+                order.UserId = programDto.UserId;
+                order.AddressId = (programDto.AddressId == 0) ? null : programDto.AddressId;
+
+               
+                for (var i = 1; i <= programDto.ProgramDays; i++)
+                {
+
+                    var orderDetail = new OrderDetail();
+                    orderDetail.OrderId = order.OrderId;
+                    orderDetail.DayNumber = i;
+                    orderDetail.ProgramId = programDto.ProgramId;
+                    orderDetails.Add(orderDetail);
+                }
+            }
+
             _progExcludeDayService.InsertRange(excludedDays);
             _programTranslationService.InsertRange(programObj.ProgramTranslations);
             _programDetailService.InsertRange(programObj.ProgramDetails);
-
             _programService.Insert(programObj);
+            _orderDetailsService.InsertRange(orderDetails);
+            _orderService.Insert(order);
+
             SaveChanges();
             return programDto;
         }

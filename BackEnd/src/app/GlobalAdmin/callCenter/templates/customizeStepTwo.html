@@ -1,0 +1,37 @@
+<!-- Inbox like Accordion -->
+
+<div ng-init="counterDay = 0; counterMeal = 0">
+    <div class="panel-group pmd-accordion pmd-accordion-inbox" id="accordion6" role="tablist" aria-multiselectable="true">
+        <div ng-repeat="n in [].constructor(orderCustomizeProgramCtrl.ProgramDaysCount)  track by $index" class="panel panel-default">
+            <div class="panel-heading" role="tab" id="headingOne">
+                <h4 class="panel-title">
+                    <a ng-init="counterDay=counterDay+1;" data-toggle="collapse" data-parent="#accordion6" ng-init="n=false" ng-click="n=!n;"
+                        aria-expanded="true" aria-controls="collapseOne6" data-expandable="false"> {{'Day' | translate}} #{{counterDay=$index+1}}
+                        <i class="material-icons md-dark pmd-sm pmd-accordion-arrow">keyboard_arrow_down</i>
+                    </a>
+                </h4>
+            </div>
+            <div ng-show="n == true" id="collapseOne6" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                <div class="panel-body">
+                    <ul>
+                        <li ng-repeat="meal in [].constructor(orderCustomizeProgramCtrl.MealPerDay)  track by $index">
+                            <h4>
+                                <a ng-init="counterMeal=counterMeal+1;" ng-click="showDetails = ! showDetails; orderCustomizeProgramCtrl.showDDL(); ">{{'Meal' | translate}} #{{counterMeal=$index+1}}</a>
+                            </h4>
+                            <div ng-show="showDetails">
+                                <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                    <label for="first-name">{{'SelectItems' | translate}}</label>
+                                    <select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" multiple ng-model="itemModel"
+                                        ng-change="getData(itemModel,counterDay,counterMeal)" ng-options="item as item.itemNameDictionary[selectedLanguage] 
+                                            group by item.category.titleDictionary[selectedLanguage]
+                                            for item  in itemsssPrepService">
+                                    </select>
+                                </div>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

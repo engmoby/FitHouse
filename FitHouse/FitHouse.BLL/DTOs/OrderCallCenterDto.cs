@@ -1,10 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
 using FitHouse.Common;
 
 namespace FitHouse.BLL.DTOs
 {
-    public class OrderDto
+    public class OrderCallCenterDto
     {
         public long OrderId { get; set; }
         public DateTime OrderDate { get; set; }
@@ -18,18 +21,20 @@ namespace FitHouse.BLL.DTOs
         public bool IsProgram { get; set; }
         public DateTime PauseStart { get; set; }
         public string OrderCode { get; set; }
-        public virtual Enums.OrderType Type { get; set; }
-        public List<OrderDetailDto> OrderDetails { get; set; }
+        public Enums.OrderType Type { get; set; }
+        public List<OrderDetailCallCenterDto> OrderDetails { get; set; }
 
         public long UserId { get; set; }
         public UserDto User { get; set; }
-        public virtual Enums.OrderStatus OrderStatus { get; set; }
 
-        public long AddressId { get; set; }
+        public long? AddressId { get; set; }
         public AddressDto Address { get; set; }
-        public decimal Price { get; set; }
+
         public long BranchId { get; set; }
         public BranchDto Branch { get; set; }
+
+        public List<ItemProgramDto> Items { get; set; }
+        public List<MealDto> Meals { get; set; }
+        public List<ProgramDto> Programs { get; set; }
     }
 }
-

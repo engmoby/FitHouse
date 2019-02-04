@@ -1,11 +1,14 @@
-﻿using System;
+﻿using FitHouse.Common;
+using System;
 using System.Collections.Generic;
-using FitHouse.Common;
+using System.Linq;
+using System.Web;
 
-namespace FitHouse.BLL.DTOs
+namespace FitHouse.API.Models
 {
-    public class OrderDto
+    public class OrderCallCenterModel
     {
+
         public long OrderId { get; set; }
         public DateTime OrderDate { get; set; }
         public DateTime? OrderExpiration { get; set; }
@@ -18,18 +21,20 @@ namespace FitHouse.BLL.DTOs
         public bool IsProgram { get; set; }
         public DateTime PauseStart { get; set; }
         public string OrderCode { get; set; }
-        public virtual Enums.OrderType Type { get; set; }
-        public List<OrderDetailDto> OrderDetails { get; set; }
+        public Enums.OrderType Type { get; set; }
+        public List<OrderDetailsCallCenterModel> OrderDetails { get; set; }
 
         public long UserId { get; set; }
-        public UserDto User { get; set; }
-        public virtual Enums.OrderStatus OrderStatus { get; set; }
+        public UserModel User { get; set; }
 
         public long AddressId { get; set; }
-        public AddressDto Address { get; set; }
-        public decimal Price { get; set; }
+        public AddressModel Address { get; set; }
+
         public long BranchId { get; set; }
-        public BranchDto Branch { get; set; }
+        public BranchModel Branch { get; set; }
+
+        public List<ItemProgramModel> Items { get; set; }
+        public List<MealModel> Meals { get; set; }
+        public List<ProgramModel> Programs { get; set; }
     }
 }
-

@@ -97,6 +97,15 @@ namespace FitHouse.API.Controllers
             return Ok(Meal);
         }
 
+        [Route("api/Meals/GetMealItems", Name = "GetMealItems")]
+        [HttpGet]
+        //[ResponseType(typeof(MealModel))]
+        public IHttpActionResult GetMealItems(long MealId)
+        {
+            var mealItems = Mapper.Map<List<ItemProgramModel>>(_MealFacade.GetMealItems(MealId));
+            return Ok(mealItems);
+        }
+
         //[AuthorizeOrders(Enums.OrderType.RestaurantAdmin)]
         [Route("api/Meals", Name = "UpdateMeal")]
         [HttpPut]

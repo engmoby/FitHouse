@@ -166,6 +166,8 @@
     <Compile Include="DataServices\UserService.cs" />
     <Compile Include="DTOs\AddressDto.cs" />
     <Compile Include="DTOs\AdminDto.cs" />
+    <Compile Include="DTOs\OrderCallCenterDto.cs" />
+    <Compile Include="DTOs\OrderDetailCallCenterDto.cs" />
     <Compile Include="DTOs\OrderDetailDto.cs" />
     <Compile Include="DTOs\CategoryProgramDto.cs" />
     <Compile Include="DTOs\CityDto.cs" />
@@ -179,7 +181,8 @@
     <Compile Include="DTOs\ItemTranslationDto.cs" />
     <Compile Include="DTOs\MealDetailDto.cs" />
     <Compile Include="DTOs\MealDto.cs" />
-    <Compile Include="DTOs\OrderFullDto.cs" />
+ 
+    <Compile Include="DTOs\OrderFullDto.cs" /> 
     <Compile Include="DTOs\SettingDto.cs" />
     <Compile Include="DTOs\StatusDto.cs" />
     <Compile Include="DTOs\PagedResultsDto.cs" />

@@ -1,0 +1,160 @@
+﻿<error errorId="453ad591-d323-4b98-8607-92d04085649e" application="/LM/W3SVC/5/ROOT" host="DESKTOP-ELL7P09" type="System.InvalidOperationException" message="The 'IsDeleted' property on 'MealDetail' could not be set to a 'System.Int64' value. You must set this property to a non-null value of type 'System.Boolean'. " source="EntityFramework" detail="AutoMapper.AutoMapperMappingException: Error mapping types.&#xD;&#xA;&#xD;&#xA;Mapping types:&#xD;&#xA;List`1 -&gt; List`1&#xD;&#xA;System.Collections.Generic.List`1[[FitHouse.DAL.Entities.Model.Meal, FitHouse.DAL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] -&gt; System.Collections.Generic.List`1[[FitHouse.BLL.DTOs.MealDto, FitHouse.BLL, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]] ---&gt; AutoMapper.AutoMapperMappingException: Error mapping types.&#xD;&#xA;&#xD;&#xA;Mapping types:&#xD;&#xA;Meal -&gt; MealDto&#xD;&#xA;FitHouse.DAL.Entities.Model.Meal -&gt; FitHouse.BLL.DTOs.MealDto&#xD;&#xA;&#xD;&#xA;Type Map configuration:&#xD;&#xA;Meal -&gt; MealDto&#xD;&#xA;FitHouse.DAL.Entities.Model.Meal -&gt; FitHouse.BLL.DTOs.MealDto&#xD;&#xA;&#xD;&#xA;Property:&#xD;&#xA;MealDetails ---&gt; System.InvalidOperationException: The 'IsDeleted' property on 'MealDetail' could not be set to a 'System.Int64' value. You must set this property to a non-null value of type 'System.Boolean'. &#xD;&#xA;   at System.Data.Entity.Core.Common.Internal.Materialization.Shaper.ErrorHandlingValueReader`1.GetValue(DbDataReader reader, Int32 ordinal)&#xD;&#xA;   at lambda_method(Closure , Shaper )&#xD;&#xA;   at System.Data.Entity.Core.Common.Internal.Materialization.Shaper.HandleEntityAppendOnly[TEntity](Func`2 constructEntityDelegate, EntityKey entityKey, EntitySet entitySet)&#xD;&#xA;   at lambda_method(Closure , Shaper )&#xD;&#xA;   at System.Data.Entity.Core.Common.Internal.Materialization.Coordinator`1.ReadNextElement(Shaper shaper)&#xD;&#xA;   at System.Data.Entity.Core.Common.Internal.Materialization.Shaper`1.SimpleEnumerator.MoveNext()&#xD;&#xA;   at System.Data.Entity.Core.Objects.DataClasses.RelatedEnd.Merge[TEntity](IEnumerable`1 collection, MergeOption mergeOption, Boolean setIsLoaded)&#xD;&#xA;   at System.Data.Entity.Core.Objects.DataClasses.EntityCollection`1.Load(List`1 collection, MergeOption mergeOption)&#xD;&#xA;   at System.Data.Entity.Core.Objects.DataClasses.EntityCollection`1.Load(MergeOption mergeOption)&#xD;&#xA;   at System.Data.Entity.Core.Objects.DataClasses.RelatedEnd.DeferredLoad()&#xD;&#xA;   at System.Data.Entity.Core.Objects.Internal.LazyLoadBehavior.LoadProperty[TItem](TItem propertyValue, String relationshipName, String targetRoleName, Boolean mustBeNull, Object wrapperObject)&#xD;&#xA;   at System.Data.Entity.Core.Objects.Internal.LazyLoadBehavior.&lt;&gt;c__DisplayClass7`2.&lt;GetInterceptorDelegate&gt;b__1(TProxy proxy, TItem item)&#xD;&#xA;   at System.Data.Entity.DynamicProxies.Meal_72F007F11FF72EB0ECD0ABE02396BBE650DFA528ED649D42DA35787B72F4BE03.get_MealDetails()&#xD;&#xA;   at lambda_method(Closure , List`1 , List`1 , ResolutionContext )&#xD;&#xA;   --- End of inner exception stack trace ---&#xD;&#xA;   at lambda_method(Closure , List`1 , List`1 , ResolutionContext )&#xD;&#xA;   --- End of inner exception stack trace ---&#xD;&#xA;   at lambda_method(Closure , List`1 , List`1 , ResolutionContext )&#xD;&#xA;   at AutoMapper.Mapper.AutoMapper.IMapper.Map[TSource,TDestination](TSource source)&#xD;&#xA;   at AutoMapper.Mapper.Map[TSource,TDestination](TSource source)&#xD;&#xA;   at FitHouse.BLL.DataServices.MealTranslationService.GetAllMeals(String language, Int32 page, Int32 pageSize) in E:\Projects\FitHouse\FitHouse\FitHouse.BLL\DataServices\MealTranslationService.cs:line 38&#xD;&#xA;   at FitHouse.BLL.Services.MealFacade.GetAllMeals(String language, Int32 page, Int32 pageSize) in E:\Projects\FitHouse\FitHouse\FitHouse.BLL\Services\MealFacade.cs:line 128&#xD;&#xA;   at FitHouse.API.Controllers.MealsController.GetAllMeals(Int32 page, Int32 pagesize) in E:\Projects\FitHouse\FitHouse\FitHouse.API\Controllers\MealController.cs:line 39&#xD;&#xA;   at lambda_method(Closure , Object , Object[] )&#xD;&#xA;   at System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ActionExecutor.&lt;&gt;c__DisplayClass10.&lt;GetExecutor&gt;b__9(Object instance, Object[] methodParameters)&#xD;&#xA;   at System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ActionExecutor.Execute(Object instance, Object[] arguments)&#xD;&#xA;   at System.Web.Http.Controllers.ReflectedHttpActionDescriptor.ExecuteAsync(HttpControllerContext controllerContext, IDictionary`2 arguments, CancellationToken cancellationToken)&#xD;&#xA;--- End of stack trace from previous location where exception was thrown ---&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)&#xD;&#xA;   at System.Web.Http.Controllers.ApiControllerActionInvoker.&lt;InvokeActionAsyncCore&gt;d__0.MoveNext()&#xD;&#xA;--- End of stack trace from previous location where exception was thrown ---&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)&#xD;&#xA;   at System.Web.Http.Controllers.ActionFilterResult.&lt;ExecuteAsync&gt;d__2.MoveNext()&#xD;&#xA;--- End of stack trace from previous location where exception was thrown ---&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.ThrowForNonSuccess(Task task)&#xD;&#xA;   at System.Runtime.CompilerServices.TaskAwaiter.HandleNonSuccessAndDebuggerNotification(Task task)&#xD;&#xA;   at System.Web.Http.Controllers.ExceptionFilterResult.&lt;ExecuteAsync&gt;d__0.MoveNext()" user="-Admin Abdo" time="2019-01-31T13:38:57.2536257Z">
+  <serverVariables>
+    <item name="ALL_HTTP">
+      <value string="HTTP_CONNECTION:keep-alive&#xD;&#xA;HTTP_ACCEPT:application/json, text/plain, */*&#xD;&#xA;HTTP_ACCEPT_ENCODING:gzip, deflate, br&#xD;&#xA;HTTP_ACCEPT_LANGUAGE:en&#xD;&#xA;HTTP_AUTHORIZATION:bearer n6IMY_Si5AB0-JbofqPiDzYXAVJwQutJYOxWbo14LHPcZ0oGFGzeuVhCo2AzRSOWgbVvUGfubTg6yeh7W5TWN5B5xXqyieoQ4ToEHIqwkp8WoYf2GTzdNo8UGPgc2hUsKZynq3QrV8I3ZADSt-CzSCmgZnVlxPndp7iEvQutJ7iH-HgrTdaC5yLdRvq9oE6fNsIrRyBGHuipf5aKRUlJ9Xf3uPEQr2qqwBVJA7GNUa9aeiqNXrc8EwyJWBZN2dAzwHxZubDooiIfqGEDjS7CsjJmzHRR3n09-rAsf7vPuOe3WIh1RcY7AHrDAmmWOrio&#xD;&#xA;HTTP_HOST:localhost:32569&#xD;&#xA;HTTP_REFERER:http://localhost:9091/&#xD;&#xA;HTTP_USER_AGENT:Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36&#xD;&#xA;HTTP_ORIGIN:http://localhost:9091&#xD;&#xA;" />
+    </item>
+    <item name="ALL_RAW">
+      <value string="Connection: keep-alive&#xD;&#xA;Accept: application/json, text/plain, */*&#xD;&#xA;Accept-Encoding: gzip, deflate, br&#xD;&#xA;Accept-Language: en&#xD;&#xA;Authorization: bearer n6IMY_Si5AB0-JbofqPiDzYXAVJwQutJYOxWbo14LHPcZ0oGFGzeuVhCo2AzRSOWgbVvUGfubTg6yeh7W5TWN5B5xXqyieoQ4ToEHIqwkp8WoYf2GTzdNo8UGPgc2hUsKZynq3QrV8I3ZADSt-CzSCmgZnVlxPndp7iEvQutJ7iH-HgrTdaC5yLdRvq9oE6fNsIrRyBGHuipf5aKRUlJ9Xf3uPEQr2qqwBVJA7GNUa9aeiqNXrc8EwyJWBZN2dAzwHxZubDooiIfqGEDjS7CsjJmzHRR3n09-rAsf7vPuOe3WIh1RcY7AHrDAmmWOrio&#xD;&#xA;Host: localhost:32569&#xD;&#xA;Referer: http://localhost:9091/&#xD;&#xA;User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36&#xD;&#xA;Origin: http://localhost:9091&#xD;&#xA;" />
+    </item>
+    <item name="APPL_MD_PATH">
+      <value string="/LM/W3SVC/5/ROOT" />
+    </item>
+    <item name="APPL_PHYSICAL_PATH">
+      <value string="E:\Projects\FitHouse\FitHouse\FitHouse.API\" />
+    </item>
+    <item name="AUTH_TYPE">
+      <value string="JWT" />
+    </item>
+    <item name="AUTH_USER">
+      <value string="-Admin Abdo" />
+    </item>
+    <item name="AUTH_PASSWORD">
+      <value string="*****" />
+    </item>
+    <item name="LOGON_USER">
+      <value string="-Admin Abdo" />
+    </item>
+    <item name="REMOTE_USER">
+      <value string="-Admin Abdo" />
+    </item>
+    <item name="CERT_COOKIE">
+      <value string="" />
+    </item>
+    <item name="CERT_FLAGS">
+      <value string="" />
+    </item>
+    <item name="CERT_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="CERT_SERIALNUMBER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="CERT_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CERT_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="CONTENT_LENGTH">
+      <value string="0" />
+    </item>
+    <item name="CONTENT_TYPE">
+      <value string="" />
+    </item>
+    <item name="GATEWAY_INTERFACE">
+      <value string="CGI/1.1" />
+    </item>
+    <item name="HTTPS">
+      <value string="off" />
+    </item>
+    <item name="HTTPS_KEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SECRETKEYSIZE">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_ISSUER">
+      <value string="" />
+    </item>
+    <item name="HTTPS_SERVER_SUBJECT">
+      <value string="" />
+    </item>
+    <item name="INSTANCE_ID">
+      <value string="5" />
+    </item>
+    <item name="INSTANCE_META_PATH">
+      <value string="/LM/W3SVC/5" />
+    </item>
+    <item name="LOCAL_ADDR">
+      <value string="::1" />
+    </item>
+    <item name="PATH_INFO">
+      <value string="/api/Meals/GetAllMeals" />
+    </item>
+    <item name="PATH_TRANSLATED">
+      <value string="E:\Projects\FitHouse\FitHouse\FitHouse.API\api\Meals\GetAllMeals" />
+    </item>
+    <item name="QUERY_STRING">
+      <value string="" />
+    </item>
+    <item name="REMOTE_ADDR">
+      <value string="::1" />
+    </item>
+    <item name="REMOTE_HOST">
+      <value string="::1" />
+    </item>
+    <item name="REMOTE_PORT">
+      <value string="26134" />
+    </item>
+    <item name="REQUEST_METHOD">
+      <value string="GET" />
+    </item>
+    <item name="SCRIPT_NAME">
+      <value string="/api/Meals/GetAllMeals" />
+    </item>
+    <item name="SERVER_NAME">
+      <value string="localhost" />
+    </item>
+    <item name="SERVER_PORT">
+      <value string="32569" />
+    </item>
+    <item name="SERVER_PORT_SECURE">
+      <value string="0" />
+    </item>
+    <item name="SERVER_PROTOCOL">
+      <value string="HTTP/1.1" />
+    </item>
+    <item name="SERVER_SOFTWARE">
+      <value string="Microsoft-IIS/10.0" />
+    </item>
+    <item name="URL">
+      <value string="/api/Meals/GetAllMeals" />
+    </item>
+    <item name="HTTP_CONNECTION">
+      <value string="keep-alive" />
+    </item>
+    <item name="HTTP_ACCEPT">
+      <value string="application/json, text/plain, */*" />
+    </item>
+    <item name="HTTP_ACCEPT_ENCODING">
+      <value string="gzip, deflate, br" />
+    </item>
+    <item name="HTTP_ACCEPT_LANGUAGE">
+      <value string="en" />
+    </item>
+    <item name="HTTP_AUTHORIZATION">
+      <value string="bearer n6IMY_Si5AB0-JbofqPiDzYXAVJwQutJYOxWbo14LHPcZ0oGFGzeuVhCo2AzRSOWgbVvUGfubTg6yeh7W5TWN5B5xXqyieoQ4ToEHIqwkp8WoYf2GTzdNo8UGPgc2hUsKZynq3QrV8I3ZADSt-CzSCmgZnVlxPndp7iEvQutJ7iH-HgrTdaC5yLdRvq9oE6fNsIrRyBGHuipf5aKRUlJ9Xf3uPEQr2qqwBVJA7GNUa9aeiqNXrc8EwyJWBZN2dAzwHxZubDooiIfqGEDjS7CsjJmzHRR3n09-rAsf7vPuOe3WIh1RcY7AHrDAmmWOrio" />
+    </item>
+    <item name="HTTP_HOST">
+      <value string="localhost:32569" />
+    </item>
+    <item name="HTTP_REFERER">
+      <value string="http://localhost:9091/" />
+    </item>
+    <item name="HTTP_USER_AGENT">
+      <value string="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/71.0.3578.98 Safari/537.36" />
+    </item>
+    <item name="HTTP_ORIGIN">
+      <value string="http://localhost:9091" />
+    </item>
+  </serverVariables>
+</error>
