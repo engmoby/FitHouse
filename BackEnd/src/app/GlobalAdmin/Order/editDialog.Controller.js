@@ -50,9 +50,6 @@
         vm.UpdateType = function () {
             blockUI.start("Loading...");
             var updateObj = new OrdersResource();
-
-            // var fromDate = $('#startdate').val().split('/')
-            // updateObj.orderStartDate = (new Date(fromDate[1] + "/" + fromDate[0] + "/" + fromDate[2])).toISOString().replace('Z', '');
             updateObj.orderStartDate = $('#startdate').val();
 
 

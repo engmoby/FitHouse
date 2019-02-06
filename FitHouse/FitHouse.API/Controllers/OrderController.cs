@@ -72,9 +72,9 @@ namespace FitHouse.API.Controllers
 
         [Route("api/Orders/GetOrderById", Name = "GetOrderById")]
         [HttpGet]
-        public IHttpActionResult GetOrderById(long OrderId)
+        public IHttpActionResult GetOrderById(long orderId)
         {
-            var reurnOrder = _orderFacade.GetOrder(OrderId);
+            var reurnOrder = _orderFacade.GetOrder(orderId);
             return Ok(reurnOrder);
         }
         [Route("api/Orders/GetAllOrdersForDelivery", Name = "GetAllOrdersForDelivery")]

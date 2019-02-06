@@ -100,16 +100,16 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/23/2018 03:44:10</publishTime>
     </File>
     <File Include="bin/FitHouse.API.dll">
-      <publishTime>02/04/2019 14:13:19</publishTime>
+      <publishTime>02/06/2019 11:00:11</publishTime>
     </File>
     <File Include="bin/FitHouse.BLL.dll">
-      <publishTime>02/04/2019 14:13:13</publishTime>
+      <publishTime>02/06/2019 11:00:06</publishTime>
     </File>
     <File Include="bin/FitHouse.Common.dll">
-      <publishTime>02/04/2019 10:54:20</publishTime>
+      <publishTime>02/06/2019 11:00:04</publishTime>
     </File>
     <File Include="bin/FitHouse.DAL.dll">
-      <publishTime>02/04/2019 14:13:12</publishTime>
+      <publishTime>02/06/2019 11:00:05</publishTime>
     </File>
     <File Include="bin/FitHouse.Resources.dll">
       <publishTime>01/30/2019 14:39:46</publishTime>
