@@ -1,7 +1,7 @@
 <div>
     <div style="margin-bottom:10px">
-        <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-click="$state.go('newMeal',{categoryId: $stateParams.categoryId});" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
-            type="button">{{'AddMealBtn' | translate}}</button>
+        <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-click="$state.go('newMeal',{categoryId: $stateParams.categoryId});"
+            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddMealBtn' | translate}}</button>
     </div>
 
     <div ng-if="mealCtrl.meals.results.length == 0">
@@ -36,7 +36,7 @@
 
                         </td>
                         <td width="10%">
-                                <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editMeal',{categoryId:meal.categoryId,mealId:meal.mealId});">mode_edit</i>
+                            <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editMeal',{categoryId:meal.categoryId,mealId:meal.mealId});">mode_edit</i>
 
 
                             <!-- <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editMeal',{mealId:meal.mealId,mealId:meal.mealId});">mode_edit</i> -->

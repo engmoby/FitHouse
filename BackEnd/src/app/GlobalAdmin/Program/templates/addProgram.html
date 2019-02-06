@@ -1,3 +1,63 @@
+
+<style>
+
+    .page-label {
+    text-align: center;
+    font-family: 'brandon_text_regularregular', serif/*rtl:prepend:"HelveticaNeueLTArabic-Roman",*/;
+    font-size: 26px;
+    position: relative;
+    top: -60px;
+    margin-bottom: 0;
+    height: 0px;
+    padding-bottom: 0;
+    margin-top: 0;
+}
+ .getting-started-nav ul {
+    font-family: 'brandon_textlight', serif /*rtl:prepend:"HelveticaNeueLTArabic-Light",*/;
+    text-align: center;
+    margin: 0;
+    padding: 0;
+    width: 60%;
+    text-align: center;
+    margin: auto;
+}
+.getting-started-nav li {
+    display: inline-block;
+    width: 20%;
+}
+.nav-seperator {
+    width: 46%;
+    height: 4px;
+    background: #2c3f52;
+    margin: auto;
+}
+.getting-started-nav li.active span {
+    background: #ea85e2 !important;
+}
+.getting-started-nav span {
+    color: #fff;
+    border-radius: 100%;
+    background: #2c3f52;
+    width: 32px;
+    height: 32px;
+    display: inline-block;
+    padding: 4px;
+    text-align: center;
+    margin-bottom: 0;
+    border: 2px solid #2c3f52;
+    position: relative;
+    top: -18px;
+}
+.getting-started-nav label {
+    color: #2c3f52;
+    text-transform: uppercase;
+    display: block;
+    position: relative;
+    top: -8px;
+}
+
+</style>
+
 <div class="modal-content">
     <div class="modal-header bordered">
         <h2 class="pmd-card-title-text">{{'ProgramLbl' | translate}}</h2>
@@ -5,31 +65,49 @@
     <div class="modal-body">
         <div class="row">
             <div id="wizard-container">
-                <div id="wizard-step-container">
-                    <ul ng-init="counter = 0" class="nav nav-pills nav-justified">
-                        <li ng-repeat="step in addProgramCtrl.steps" ng-class="{'active':step.step == addProgramCtrl.currentStep}">
-                            <a style="background-image: linear-gradient(90deg,#9a3ea6 0%,#bc4abf 100%)!important; color: yellow!important;" ng-click="addProgramCtrl.gotoStep(step.step)" href="">{{'Step' | translate}} #{{step.step}} </a>
-                        </li>
+                <div class="getting-started-nav">
+                    <ul>
+                        <h2 class="page-label">{{'LETSCREATEPROGRAM' | translate}}</h2>
+                        <div class="nav-seperator"></div>
+                        <li ng-class="{'active':addProgramCtrl.currentStep ==1}"><span>1</span><label for="">Baisc Info</label></li>
+                        <li ng-class="{'active':addProgramCtrl.currentStep ==2}"><span>2</span><label for="">Create Meal</label></li>
+                        <li ng-class="{'active':addProgramCtrl.currentStep ==3}"><span>3</span><label for="">Summary</label></li>
+                       
                     </ul>
                 </div>
+
+                <!-- <div id="wizard-step-container">
+                    <ul ng-init="counter = 0" class="nav nav-pills nav-justified">
+                        <li ng-repeat="step in addProgramCtrl.steps" ng-class="{'active':step.step == addProgramCtrl.currentStep}">
+                            <a style="background-image: linear-gradient(90deg,#9a3ea6 0%,#bc4abf 100%)!important; color: yellow!important;"
+                                ng-click="addProgramCtrl.gotoStep(step.step)" href="">{{'Step' | translate}}
+                                #{{step.step}} </a>
+                        </li>
+                    </ul>
+                </div> -->
 
                 <div id="wizard-content-container">
                     <ng-include src="addProgramCtrl.getStepTemplate()"></ng-include>
                 </div>
 
-                <div id="wizard-navigation-container">
+                <div id="wizard-navigation-container" ng-show="false">
                     <div class="pull-right">
                         <span class="btn-group">
-                            <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="1 >= addProgramCtrl.currentStep" class="btn btn-default" name="previous" type="button" ng-click="addProgramCtrl.gotoStep(addProgramCtrl.currentStep - 1)">
+                            <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;"
+                                ng-disabled="1 >= addProgramCtrl.currentStep" class="btn btn-default" name="previous"
+                                type="button" ng-click="addProgramCtrl.gotoStep(addProgramCtrl.currentStep - 1)">
                                 <i class="fa fa-arrow-left"></i>{{'PreviousStep' | translate}}</button>
-                            <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="addProgramCtrl.currentStep >= addProgramCtrl.steps.length" class="btn btn-primary" name="next" type="button"
-                                ng-click="addProgramCtrl.gotoStep(addProgramCtrl.currentStep + 1)">{{'NextStep' | translate}}
+                            <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;"
+                                ng-disabled="addProgramCtrl.currentStep >= addProgramCtrl.steps.length" class="btn btn-primary"
+                                name="next" type="button" ng-click="addProgramCtrl.gotoStep(addProgramCtrl.currentStep + 1)">{{'NextStep'
+                                | translate}}
                                 <i class="fa fa-arrow-right"></i>
                             </button>
                         </span>
                         <!-- {{addProgramCtrl.Setting.minNoDaysPerProgram}} / {{addProgramCtrl.ProgramDaysCount}} -->
-                        <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="(addProgramCtrl.currentStep != addProgramCtrl.steps.length) || (addProgramCtrl.Setting.minNoDaysPerProgram > addProgramCtrl.ProgramDaysCount)" class="btn btn-success" name="next" type="button"
-                            ng-click="addProgramCtrl.AddNewProgram()">
+                        <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;"
+                            ng-disabled="(addProgramCtrl.currentStep != addProgramCtrl.steps.length) || (addProgramCtrl.Setting.minNoDaysPerProgram > addProgramCtrl.ProgramDaysCount)"
+                            class="btn btn-success" name="next" type="button" ng-click="addProgramCtrl.AddNewProgram()">
                             <i class="fa fa-floppy-o"></i>{{'Save' | translate}}</button>
                     </div>
                 </div>

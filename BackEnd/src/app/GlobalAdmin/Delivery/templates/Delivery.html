@@ -1,0 +1,76 @@
+<div>
+    <div ng-if="DeliveryList.results.length == 0">
+        <span>{{'NoDeliverysAvailable' | translate}}</span>
+    </div>
+    {{flag}}
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="DeliveryList.results.length > 0">
+        <div class="table-responsive"></div>
+        <table class="table pmd-table table-hover">
+            <thead>
+                <tr>
+                    <th>{{'Name' | translate}}</th>
+                    <th>{{'phone' | translate}}</th>
+                    <th>{{'orderCode' | translate}}</th>
+                    <th>{{'Date' | translate}}</th>
+                    <th>{{'status' | translate}}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat-start="delivery in DeliveryList.results">
+                    <td data-title="Name">{{delivery.user.firstName}}{{delivery.user.lastName}}</td>
+                    <td data-title="Name">{{delivery.user.phone}}</td>
+                    <td data-title="Name">#{{delivery.orderCode}} </td>
+
+                    <td data-title="Name">{{delivery.orderDetails[0].day | date : "d/MMM/yy"}}
+                    </td>
+                    <td ng-if="delivery.orderDetails[0].status == '2'">
+                        <button style="background-color: #e4e5e6;color: black!important;" ng-click="deliveryCtrl.changeStatus(delivery.orderDetails[0].orderDetailId,3);"
+                            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">
+                            {{'Prepering' | translate}}</button>
+
+                    </td>
+
+                    <td ng-if="delivery.orderDetails[0].status == '3'">
+                            <button style="background-color: #e4e5e6;color: black!important;" ng-click="deliveryCtrl.changeStatus(delivery.orderDetails[0].orderDetailId,4);"
+                            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">
+                            {{'Deliverd' | translate}}</button>
+                        <button style="background-color: #e4e5e6;color: black!important;" ng-click="deliveryCtrl.changeStatus(delivery.orderDetails[0].orderDetailId,5);"
+                            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">
+                            {{'NotDeliverd' | translate}}</button>
+
+                    </td>  
+                    <td class="pmd-table-row-action">
+                        <span href="javascript:void(0);" ng-if="delivery.orderDetails.length >0 " ng-click="delivery.show=!delivery.show;deliveryCtrl.showMore($event)"
+                            class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm child-table-expand direct-expand"><i
+                                class="material-icons md-dark pmd-sm"></i></span>
+                    </td>
+
+                </tr>
+                <tr ng-repeat-end class="child-table" ng-show="delivery.show">
+                    <td colspan="12">
+                        <div style="background: white;padding: 5px;" ng-if="request.comment !== null">
+                            <h2>{{'appartmentNo'|translate}}: </h2>
+                            <span>{{delivery.address.appartmentNo}}</span>
+                        </div>
+                        <div style="background: white;padding: 5px;" ng-if="request.comment !== null">
+                            <h2>{{'floor'|translate}}: </h2>
+                            <span>{{delivery.address.floor}}</span>
+                        </div>
+                        <div style="background: white;padding: 5px;" ng-if="request.comment !== null">
+                            <h2>{{'description'|translate}}: </h2>
+                            <span>{{delivery.address.description}}</span>
+                        </div>
+                        <div style="background: white;padding: 5px;" ng-if="request.comment !== null">
+                            <h2>{{'branch'|translate}}: </h2>
+                            <span>{{delivery.branch.titleDictionary[selectedLanguage]}}</span>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount" paging-action="changePage(page)"
+        flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">
+    </div>
+</div>

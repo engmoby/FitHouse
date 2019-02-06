@@ -1015,15 +1015,14 @@ angular.module('core')
             $scope.invalidLoginInfo = false;
             $scope.inActiveUser = false;
             $scope.user = authorizationService.getUser();
-            if ($scope.user.PermissionId[0] == 1)
-                $state.go('users'); 
-            if ($scope.user.PermissionId[0] == 3)
-                $state.go('Role');
-            if ($scope.user.PermissionId[0] == 4)
-                $state.go('Area');
-             
-            if ($scope.user.PermissionId[0] == 10)
-                $state.go('Dashboard');
+            // if ($scope.user.PermissionId[0] == 1)
+            //     $state.go('users'); 
+            // if ($scope.user.PermissionId[0] == 3)
+            //     $state.go('Role');
+            // if ($scope.user.PermissionId[0] == 4)
+            //     $state.go('Category'); 
+            // if ($scope.user.PermissionId[0] == 10)
+            //     $state.go('Dashboard');
 
 
         }
