@@ -148,6 +148,7 @@
             newProgram.isDeleted = false;
             newProgram.programDetails = vm.itemList;
             newProgram.days = vm.SelectedDays;
+            newProgram.price =  vm.ProgramTotalPrice;
             newProgram.$create().then(
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");

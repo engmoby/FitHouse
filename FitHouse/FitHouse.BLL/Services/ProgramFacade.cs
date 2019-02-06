@@ -86,6 +86,7 @@ namespace FitHouse.BLL.Services
 
         public ProgramDto CreateProgram(ProgramDto programDto, int userId)
         {
+
             ValidateProgram(programDto);
             var programObj = Mapper.Map<Program>(programDto);
             foreach (var programName in programDto.ProgramNameDictionary)
