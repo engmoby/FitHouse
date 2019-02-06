@@ -60,6 +60,41 @@
 
                 })
 
+                .state('editProgram', {
+                    url: '/editPrograms/:programId',
+                    templateUrl: './app/GlobalAdmin/Program/templates/editPrograms.html',
+                    controller: 'editProgramController',
+                    'controllerAs': 'editProgramCtrl',
+                    resolve: {
+                        programByIdPrepService:programByIdPrepService
+                    },
+                    data: {
+                        permissions: {
+                            only: ['1'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
+                .state('setting', {
+                    url: '/settings',
+                    templateUrl: './app/GlobalAdmin/setting/templates/setting.html',
+                    controller: 'settingController',
+                    'controllerAs': 'settingCtrl',
+                    resolve: {
+                        settingsPrepService: settingsPrepService,
+                        BranchPrepService: BranchPrepService
+                    },
+                    data: {
+                        permissions: {
+                            only: ['1'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
                 .state('callCenter', {
                     url: '/callCenters',
                     templateUrl: './app/GlobalAdmin/callCenter/templates/callCenter.html',
@@ -139,8 +174,8 @@
                     'controllerAs': 'orderCustomizeProgramCtrl',
                     resolve: {
                         daysPrepService: daysPrepService,
-                        settingsPrepService:settingsPrepService,
-                        itemsssPrepService:itemsssPrepService,
+                        settingsPrepService: settingsPrepService,
+                        itemsssPrepService: itemsssPrepService,
                         CountriesPrepService: CountriesPrepService
                     },
                     data: {
@@ -568,12 +603,12 @@
                 })
 
                 .state('editorder', {
-                    url: '/editorder/:orderId',
+                    url: '/editorder/:order',
                     templateUrl: './app/GlobalAdmin/Order/templates/edit.html',
                     controller: 'editOrderDialogController',
                     'controllerAs': 'editOrderCtrl',
                     resolve: {
-                        OrderByIdPrepService: OrderByIdPrepService 
+                        order: function () { return order },
                     },
                     data: {
                         permissions: {
@@ -584,42 +619,6 @@
 
                 })
 
- 
-                .state('Delivery', {
-                    url: '/Delivery',
-                    templateUrl: './app/GlobalAdmin/Delivery/templates/Delivery.html',
-                    controller: 'DeliveryController',
-                    'controllerAs': 'deliveryCtrl',
-                    data: {
-                        permissions: {
-                            only: ['RestaurantAdmin'],
-                            redirectTo: 'root'
-                        },
-                        displayName: 'Delivery'
-                    },
-                    resolve: { 
-                        deliverysPrepService: deliverysPrepService
-                    }
-                })
-                
- 
-                .state('Kitchen', {
-                    url: '/Kitchen',
-                    templateUrl: './app/GlobalAdmin/Kitchen/templates/Kitchen.html',
-                    controller: 'KitchenController',
-                    'controllerAs': 'kitchenCtrl',
-                    data: {
-                        permissions: {
-                            only: ['RestaurantAdmin'],
-                            redirectTo: 'root'
-                        },
-                        displayName: 'Kitchen'
-                    },
-                    resolve: { 
-                        kitchensPrepService: kitchensPrepService
-                    }
-                })
-                
 
                 .state('Dashboard', {
                     url: '/Dashboard',
@@ -643,6 +642,12 @@
         });
 
     // Program
+
+    programByIdPrepService.$inject = ['GetProgramByIdResource', '$stateParams']
+    function programByIdPrepService(GetProgramByIdResource, $stateParams) {
+        return GetProgramByIdResource.getProgram({ programId: $stateParams.programId }).$promise;
+    }
+
 
 
     settingsPrepService.$inject = ['GetSettingsResource']
@@ -743,6 +748,11 @@
         return GetProgramResource.gatAllPrograms().$promise;
     }
 
+    // programByIdPrepService.$inject = ['GetProgramByIdResource']
+    // function programByIdPrepService(GetProgramByIdResource) {
+    //     return GetProgramByIdResource.getProgramById().$promise;
+    // }
+
     CategoryByIdPrepService.$inject = ['CategoryResource', '$stateParams']
     function CategoryByIdPrepService(CategoryResource, $stateParams) {
         return CategoryResource.getCategory({ categoryId: $stateParams.categoryId }).$promise;
@@ -797,32 +807,8 @@
     function ordersPrepService(OrdersResource, $stateParams) {
         return OrdersResource.getAllOrders().$promise;
     }
-    OrderByIdPrepService.$inject = ['OrdersResource', '$stateParams']
-    function OrderByIdPrepService(OrdersResource, $stateParams) {
-        return OrdersResource.getFullOrder({ orderId: $stateParams.orderId }).$promise;
-    }
 
 
-    /*Deliverys */
-    deliverysPrepService.$inject = ['DeliverysResource', '$stateParams']
-    function deliverysPrepService(DeliverysResource, $stateParams) {
-        return DeliverysResource.getAllDeliverys().$promise;
-    }
-    DeliveryByIdPrepService.$inject = ['DeliverysResource', '$stateParams']
-    function DeliveryByIdPrepService(DeliverysResource, $stateParams) {
-        return DeliverysResource.getFullDelivery({ orderId: $stateParams.orderId }).$promise;
-    }
-
-
-    /*Kitchens */
-    kitchensPrepService.$inject = ['kitchensResource', '$stateParams']
-    function kitchensPrepService(KitchensResource, $stateParams) {
-        return KitchensResource.getAllkitchens().$promise;
-    }
-    KitchenByIdPrepService.$inject = ['KitchensResource', '$stateParams']
-    function KitchenByIdPrepService(KitchensResource, $stateParams) {
-        return KitchensResource.getFullKitchen({ orderId: $stateParams.orderId }).$promise;
-    }
 
     CityByIdPrepService.$inject = ['CityResource', '$stateParams']
     function CityByIdPrepService(CityResource, $stateParams) {

@@ -204,7 +204,12 @@ namespace FitHouse.BLL.Services
                     });
                 }
                 else
+                {
                     programTranslation.Title = programName.Value;
+                    programTranslation.Description = programDto.ProgramDescriptionDictionary[programName.Key];
+
+                }
+
             }
 
             programObj.ProgramDiscount = programDto.ProgramDiscount;

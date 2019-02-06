@@ -25,8 +25,8 @@
         vm.editProgram = function () {
             var program = new EditProgramByIdResource();
             program.programDiscount = vm.programModel.programDiscount;
-            program.programNameDictionary = vm.programModel.titleDictionary;
-            program.programDescriptionDictionary = vm.programModel.descriptionDictionary;
+            program.programNameDictionary = vm.programModel.programNameDictionary;
+            program.programDescriptionDictionary = vm.programModel.programDescriptionDictionary;
             program.programId = vm.programModel.programId;
 
             // console.log(program);
