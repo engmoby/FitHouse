@@ -10,7 +10,9 @@
     .factory('GetDaysResource', ['$resource', 'appCONSTANTS', GetDaysResource])
     .factory('GetProgramDetailResource', ['$resource', 'appCONSTANTS', GetProgramDetailResource])
     .factory('GetProgramResource', ['$resource', 'appCONSTANTS', GetProgramResource])
+    .factory('EditProgramByIdResource', ['$resource', 'appCONSTANTS', EditProgramByIdResource])
     .factory('UpdateProgramDetailsResource', ['$resource', 'appCONSTANTS', UpdateProgramDetailsResource])
+    .factory('GetProgramByIdResource', ['$resource', 'appCONSTANTS', GetProgramByIdResource])
     ;
 
   function AddProgramResource($resource, appCONSTANTS) {
@@ -28,6 +30,12 @@
   function GetProgramResource($resource, appCONSTANTS) {
     return $resource(appCONSTANTS.API_URL + 'Program', {}, {
       gatAllPrograms: { method: 'GET', useToken: true }
+    })
+  }
+
+  function EditProgramByIdResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'Program/UpdateProgram', {}, {
+      update: { method: 'POST', useToken: true }
     })
   }
 
@@ -49,5 +57,11 @@
     })
   }
 
+  function GetProgramByIdResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'Program', {}, {
+      getProgram: { method: 'GET', url: appCONSTANTS.API_URL + 'Program/GetProgramById/:ProgramId', useToken: true },
+
+    })
+  }
 }());
 

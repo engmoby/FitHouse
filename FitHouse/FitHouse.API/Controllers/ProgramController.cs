@@ -36,6 +36,15 @@ namespace FitHouse.API.Controllers
             return Ok(program);
         }
 
+
+        [Route("api/Program/UpdateProgram", Name = "UpdateProgram")]
+        [HttpPost]
+        public IHttpActionResult UpdateProgram([FromBody] ProgramModel programModel)
+        {
+            var program = _programFacade.UpdateProgram(Mapper.Map<ProgramDto>(programModel));
+            return Ok();
+        }
+
         [Route("api/Program/UpdateProgramDetails", Name = "UpdateProgramDetails")]
         [HttpPost]
         public IHttpActionResult UpdateProgramDetails([FromBody] ProgramModel programModel)
@@ -84,6 +93,16 @@ namespace FitHouse.API.Controllers
             program.Items = items;
 
             return Ok(program);
+        }
+
+
+
+        [Route("api/Program/GetProgramById", Name = "GetProgramById")]
+        [HttpGet]
+        public IHttpActionResult GetProgramById(long programId)
+        {
+            var reurnProgram = _programFacade.GetProgramById(programId);
+            return Ok(reurnProgram);
         }
     }
 }

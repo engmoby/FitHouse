@@ -60,6 +60,41 @@
 
                 })
 
+                .state('editProgram', {
+                    url: '/editPrograms/:programId',
+                    templateUrl: './app/GlobalAdmin/Program/templates/editPrograms.html',
+                    controller: 'editProgramController',
+                    'controllerAs': 'editProgramCtrl',
+                    resolve: {
+                        programByIdPrepService:programByIdPrepService
+                    },
+                    data: {
+                        permissions: {
+                            only: ['1'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
+                .state('setting', {
+                    url: '/settings',
+                    templateUrl: './app/GlobalAdmin/setting/templates/setting.html',
+                    controller: 'settingController',
+                    'controllerAs': 'settingCtrl',
+                    resolve: {
+                        settingsPrepService: settingsPrepService,
+                        BranchPrepService: BranchPrepService
+                    },
+                    data: {
+                        permissions: {
+                            only: ['1'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
                 .state('callCenter', {
                     url: '/callCenters',
                     templateUrl: './app/GlobalAdmin/callCenter/templates/callCenter.html',
@@ -139,8 +174,8 @@
                     'controllerAs': 'orderCustomizeProgramCtrl',
                     resolve: {
                         daysPrepService: daysPrepService,
-                        settingsPrepService:settingsPrepService,
-                        itemsssPrepService:itemsssPrepService,
+                        settingsPrepService: settingsPrepService,
+                        itemsssPrepService: itemsssPrepService,
                         CountriesPrepService: CountriesPrepService
                     },
                     data: {
@@ -643,6 +678,12 @@
         });
 
 
+    programByIdPrepService.$inject = ['GetProgramByIdResource', '$stateParams']
+    function programByIdPrepService(GetProgramByIdResource, $stateParams) {
+        return GetProgramByIdResource.getProgram({ programId: $stateParams.programId }).$promise;
+    }
+
+
 
     settingsPrepService.$inject = ['GetSettingsResource']
     function settingsPrepService(GetSettingsResource) {
@@ -741,6 +782,7 @@
     function programPrepService(GetProgramResource) {
         return GetProgramResource.gatAllPrograms().$promise;
     }
+
 
     CategoryByIdPrepService.$inject = ['CategoryResource', '$stateParams']
     function CategoryByIdPrepService(CategoryResource, $stateParams) {
@@ -2742,6 +2784,9 @@
 
         var vm = this;
         $scope.programList = programPrepService;
+        vm.language = appCONSTANTS.supportedLanguage;
+        vm.programObject;
+
 
         vm.UpdateProgram = function (program) {
             change(program, false);
@@ -2751,6 +2796,12 @@
             model.isDeleted = true;
             change(model, true);
 
+        }
+
+        vm.currentPage = 1;
+        $scope.changePage = function (page) {
+            vm.currentPage = page;
+            refreshPrograms();
         }
 
         function change(program, isDeleted) {
@@ -2777,10 +2828,15 @@
 
         }
 
+
+
+
+
+
         function refreshPrograms() {
             blockUI.start("Loading...");
 
-            var k = GetProgramResource.gatAllPrograms().$promise.then(function (results) {
+            var k = GetProgramResource.gatAllPrograms({ page: vm.currentPage }).$promise.then(function (results) {
                 $scope.programList = results;
 
                 console.log($scope.programList);
@@ -2818,7 +2874,9 @@
     .factory('GetDaysResource', ['$resource', 'appCONSTANTS', GetDaysResource])
     .factory('GetProgramDetailResource', ['$resource', 'appCONSTANTS', GetProgramDetailResource])
     .factory('GetProgramResource', ['$resource', 'appCONSTANTS', GetProgramResource])
+    .factory('EditProgramByIdResource', ['$resource', 'appCONSTANTS', EditProgramByIdResource])
     .factory('UpdateProgramDetailsResource', ['$resource', 'appCONSTANTS', UpdateProgramDetailsResource])
+    .factory('GetProgramByIdResource', ['$resource', 'appCONSTANTS', GetProgramByIdResource])
     ;
 
   function AddProgramResource($resource, appCONSTANTS) {
@@ -2836,6 +2894,12 @@
   function GetProgramResource($resource, appCONSTANTS) {
     return $resource(appCONSTANTS.API_URL + 'Program', {}, {
       gatAllPrograms: { method: 'GET', useToken: true }
+    })
+  }
+
+  function EditProgramByIdResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'Program/UpdateProgram', {}, {
+      update: { method: 'POST', useToken: true }
     })
   }
 
@@ -2857,6 +2921,12 @@
     })
   }
 
+  function GetProgramByIdResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'Program', {}, {
+      getProgram: { method: 'GET', url: appCONSTANTS.API_URL + 'Program/GetProgramById/:ProgramId', useToken: true },
+
+    })
+  }
 }());
 
 (function () {
@@ -2932,10 +3002,10 @@
                 vm.ProgramPrice = vm.ProgramPrice + vm.itemList[i].price;
                 vm.ProgramCost = vm.ProgramCost + vm.itemList[i].cost;
                 vm.ProgramVAT = vm.ProgramVAT + vm.itemList[i].vat;
-                vm.ProgramTotalPrice = (vm.ProgramPrice + vm.ProgramVAT) - vm.ProgramDiscount;
+                vm.ProgramTotalPrice += vm.itemList[i].totalPrice;
             }
-
         }
+
         vm.currentStep = 1;
         vm.steps = [
             {
@@ -2993,6 +3063,7 @@
             newProgram.isDeleted = false;
             newProgram.programDetails = vm.itemList;
             newProgram.days = vm.SelectedDays;
+            newProgram.price =  vm.ProgramTotalPrice;
             newProgram.$create().then(
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
@@ -3007,6 +3078,50 @@
 
 
     }
+
+})();
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('editProgramController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate',
+            '$state', '$localStorage',
+            'authorizationService', 'appCONSTANTS',
+            'ToastService', '$stateParams','programByIdPrepService', 'EditProgramByIdResource', '$uibModal', editProgramController]);
+
+
+    function editProgramController($rootScope, blockUI, $scope, $filter, $translate,
+        $state, $localStorage, authorizationService,
+        appCONSTANTS, ToastService, $stateParams,programByIdPrepService, EditProgramByIdResource, $uibModal) {
+
+
+
+        var vm = this;
+        vm.programModel=programByIdPrepService;
+        vm.language = appCONSTANTS.supportedLanguage;
+
+            vm.editProgram = function () {
+            var program = new EditProgramByIdResource();
+            program.programDiscount = vm.programModel.programDiscount;
+            program.programNameDictionary = vm.programModel.titleDictionary;
+            program.programDescriptionDictionary = vm.programModel.descriptionDictionary;
+            program.programId = vm.programModel.programId;
+
+
+            program.$update().then(
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('EditedSuccessfully'), "success");
+
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+
+
+       }
 
 })();
 (function () {
@@ -3623,7 +3738,6 @@
             '$state', '$localStorage', 'authorizationService', 'appCONSTANTS', 'ToastService', '$stateParams'
             , 'UserResource', 'CityResource', 'AreaResource', 'RegionResource', 'RolePrepService'
             , 'CountriesPrepService', callCenterController])
-
 
         ;
 
@@ -6144,9 +6258,164 @@
 	}
 }());
 (function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('settingController', ['$rootScope', 'blockUI', '$scope', '$http',  '$filter', '$translate',
+            '$state', '$localStorage',
+            'authorizationService', 'appCONSTANTS',
+            'ToastService', '$stateParams'
+            , '$uibModal', 'settingsPrepService', 'BranchPrepService', settingController]);
+
+
+    function settingController($rootScope, blockUI, $scope, $http, $filter, $translate,
+        $state, $localStorage, authorizationService,
+        appCONSTANTS, ToastService, $stateParams, $uibModal, settingsPrepService
+        , BranchPrepService) {
+
+
+
+        var vm = this;
+        $scope.settingsPrepService = settingsPrepService;
+
+        $http.get('http://country.io/currency.json').then(function (response) {
+            $scope.currencyPrepService = response.data;
+        });
+
+        $scope.BranchPrepService = BranchPrepService;
+
+console.log("Setting");
+console.log($scope.settingsPrepService);
+console.log("Currency");
+console.log($scope.currencyPrepService);
+console.log("Branches");
+console.log($scope.BranchPrepService);
+
+
+        vm.orderType = {
+            type: 'item'
+        };
+
+        vm.currency;
+        vm.minDays;
+        vm.maxPause;
+        vm.allowPause;
+        vm.allowHistory;
+
+        vm.currentPage = 1;
+        $scope.changePage = function (page) {
+            vm.currentPage = page;
+            refreshAreas();
+        }
+
+        vm.UpdateProgram = function (program) {
+            change(program, false);
+        }
+
+
+
+        vm.UpdateSetting = function () {
+            blockUI.start("Loading...");
+
+            var setting = new UpdateSettingsResource();
+
+            if(vm.orderType.type == "none"){
+                setting.isSMS = false;
+                setting.isMail = false;
+            }
+            else if(vm.orderType.type == "sms"){
+                setting.isSMS = true;
+                setting.isMail = false;
+            }
+            else if(vm.orderType.type == "mail"){
+                setting.isSMS = false;
+                setting.isMail = true;
+            }
+            else if(vm.orderType.type == "both"){
+                setting.isSMS = true;
+                setting.isMail = true;
+            }
+
+            setting.isDeleted = false;
+            setting.isPause = vm.allowPause;
+
+            if(vm.allowPause == true){
+                setting.maxPauseDays = vm.maxPause;
+            }
+            else if(vm.allowPause == false){
+                setting.maxPauseDays = 0;
+            }
+            setting.allowHistory = vm.allowHistory;
+            setting.currencyCode = vm.currency;
+            setting.minNoDaysPerProgram = vm.minNoDaysPerProgram;
+            setting.isDeleted = false;
+            setting.isActive = true;
+
+            setting.$update().then(
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('OrderAddSuccess'), "success");
+
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+
+        function change(program, isDeleted) {
+            debugger;
+            var updateObj = new UpdateProgramResource();
+            updateObj.ProgramId = program.programId;
+            if (!isDeleted)
+                updateObj.isActive = (program.isActive == true ? false : true);
+            updateObj.isDeleted = program.isDeleted;
+
+            updateObj.$update().then(
+                function (data, status) {
+                    if (isDeleted)
+                        refreshPrograms();
+
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    program.isActive = updateObj.isActive;
+
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+
+        }
+
+        function refreshPrograms() {
+            blockUI.start("Loading...");
+
+            var k = GetProgramResource.gatAllPrograms().$promise.then(function (results) {
+                $scope.programList = results;
+
+                console.log($scope.programList);
+                blockUI.stop();
+            },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+
+
+    }
+
+})();
+(function () {
     angular
       .module('home')
       .factory('GetSettingsResource', ['$resource', 'appCONSTANTS', GetSettingsResource])
+      .factory('UpdateSettingsResource', ['$resource', 'appCONSTANTS', UpdateSettingsResource])
       ;
 
 
@@ -6155,6 +6424,12 @@
         getAllSettings: { method: 'GET', useToken: true}
       })
     }
+
+    function UpdateSettingsResource($resource, appCONSTANTS) {
+      return $resource(appCONSTANTS.API_URL + 'Setting/UpdateSetting', {}, {
+          update: { method: 'POST', useToken: true }, 
+      })
+  }
 
     }());
 

@@ -86,6 +86,7 @@ namespace FitHouse.BLL.Services
 
         public ProgramDto CreateProgram(ProgramDto programDto, int userId)
         {
+
             ValidateProgram(programDto);
             var programObj = Mapper.Map<Program>(programDto);
             foreach (var programName in programDto.ProgramNameDictionary)
@@ -176,6 +177,43 @@ namespace FitHouse.BLL.Services
             }
         }
 
+        public ProgramDto GetProgramById(ProgramDto programDto)
+        {
+            var programObj = _programService.Find(programDto.ProgramId);
+            if (programObj == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
+
+            return Mapper.Map<ProgramDto>(programObj);
+        }
+
+        public ProgramDto UpdateProgram(ProgramDto programDto)
+        {
+            var programObj = _programService.Find(programDto.ProgramId);
+            if (programObj == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
+            //ValidateProgram(programDto);
+            foreach (var programName in programDto.ProgramNameDictionary)
+            {
+                var programTranslation = programObj.ProgramTranslations.FirstOrDefault(x => x.Language.ToLower() == programName.Key.ToLower() && x.ProgramId == programDto.ProgramId);
+                if (programTranslation == null)
+                {
+                    programObj.ProgramTranslations.Add(new ProgramTranslation
+                    {
+                        Title = programName.Value,
+                        Language = programName.Key,
+                        Description = programDto.ProgramDescriptionDictionary[programName.Key]
+
+                    });
+                }
+                else
+                    programTranslation.Title = programName.Value;
+            }
+
+            programObj.ProgramDiscount = programDto.ProgramDiscount;
+
+            _programService.Update(programObj);
+            SaveChanges();
+            return programDto;
+        }
+
         public ProgramDto EditProgram(ProgramDto programDto, int userId)
         {
             var programObj = _programService.Find(programDto.ProgramId);
@@ -220,6 +258,15 @@ namespace FitHouse.BLL.Services
             return Mapper.Map<ProgramDto>(program);
         }
 
+        public ProgramDto GetProgramById(long programId)
+        {
+            var program = _programService.Find(programId);
+            if (program == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
+
+            //var details = _programDetailService.GetProgramDetails(program.ProgramId);
+            //program.ProgramDetails = details;
+            return Mapper.Map<ProgramDto>(program);
+        }
         public List<ProgramDetailDto> GetProgramItems(long programId)
         {
             var details = _programDetailService.GetProgramDetails(programId);

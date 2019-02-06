@@ -60,6 +60,41 @@
 
                 })
 
+                .state('editProgram', {
+                    url: '/editPrograms/:programId',
+                    templateUrl: './app/GlobalAdmin/Program/templates/editPrograms.html',
+                    controller: 'editProgramController',
+                    'controllerAs': 'editProgramCtrl',
+                    resolve: {
+                        programByIdPrepService:programByIdPrepService
+                    },
+                    data: {
+                        permissions: {
+                            only: ['1'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
+                .state('setting', {
+                    url: '/settings',
+                    templateUrl: './app/GlobalAdmin/setting/templates/setting.html',
+                    controller: 'settingController',
+                    'controllerAs': 'settingCtrl',
+                    resolve: {
+                        settingsPrepService: settingsPrepService,
+                        BranchPrepService: BranchPrepService
+                    },
+                    data: {
+                        permissions: {
+                            only: ['1'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
                 .state('callCenter', {
                     url: '/callCenters',
                     templateUrl: './app/GlobalAdmin/callCenter/templates/callCenter.html',
@@ -139,8 +174,8 @@
                     'controllerAs': 'orderCustomizeProgramCtrl',
                     resolve: {
                         daysPrepService: daysPrepService,
-                        settingsPrepService:settingsPrepService,
-                        itemsssPrepService:itemsssPrepService,
+                        settingsPrepService: settingsPrepService,
+                        itemsssPrepService: itemsssPrepService,
                         CountriesPrepService: CountriesPrepService
                     },
                     data: {
@@ -644,6 +679,12 @@
 
     // Program
 
+    programByIdPrepService.$inject = ['GetProgramByIdResource', '$stateParams']
+    function programByIdPrepService(GetProgramByIdResource, $stateParams) {
+        return GetProgramByIdResource.getProgram({ programId: $stateParams.programId }).$promise;
+    }
+
+
 
     settingsPrepService.$inject = ['GetSettingsResource']
     function settingsPrepService(GetSettingsResource) {
@@ -742,6 +783,11 @@
     function programPrepService(GetProgramResource) {
         return GetProgramResource.gatAllPrograms().$promise;
     }
+
+    // programByIdPrepService.$inject = ['GetProgramByIdResource']
+    // function programByIdPrepService(GetProgramByIdResource) {
+    //     return GetProgramByIdResource.getProgramById().$promise;
+    // }
 
     CategoryByIdPrepService.$inject = ['CategoryResource', '$stateParams']
     function CategoryByIdPrepService(CategoryResource, $stateParams) {

@@ -7,6 +7,7 @@ using AutoMapper;
 using FitHouse.BLL.DataServices.Interfaces;
 using FitHouse.BLL.DTOs;
 using FitHouse.BLL.Services.Interfaces;
+using FitHouse.DAL.Entities.Model;
 using Repository.Pattern.UnitOfWork;
 
 namespace FitHouse.BLL.Services
@@ -24,6 +25,16 @@ namespace FitHouse.BLL.Services
         {
             return Mapper.Map<SettingDto>(_settingService.GetSetting());
 
+        }
+
+        public SettingDto UpdateSetting(SettingDto settingDto, long userId)
+        {
+            var setting = Mapper.Map<Setting>(settingDto);
+
+            _settingService.Insert(setting);
+            SaveChanges();
+
+            return settingDto;
         }
     }
 }
