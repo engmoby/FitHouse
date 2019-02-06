@@ -23,10 +23,11 @@ namespace FitHouse.BLL.DTOs
 
         public long UserId { get; set; }
         public UserDto User { get; set; }
+        public virtual Enums.OrderStatus OrderStatus { get; set; }
 
         public long AddressId { get; set; }
         public AddressDto Address { get; set; }
-
+        public decimal Price { get; set; }
         public long BranchId { get; set; }
         public BranchDto Branch { get; set; }
     }

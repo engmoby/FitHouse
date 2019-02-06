@@ -118,6 +118,9 @@ namespace FitHouse.BLL
             mapperConfiguration.CreateMap<Order, OrderDto>()
                 .ForMember(x => x.OrderDetails, m => m.Ignore());
 
+            mapperConfiguration.CreateMap<OrderFullDto, Order>();
+            mapperConfiguration.CreateMap<Order, OrderFullDto>() ;
+
             mapperConfiguration.CreateMap<OrderDetailDto, OrderDetail>();
             mapperConfiguration.CreateMap<OrderDetail, OrderDetailDto>();
 

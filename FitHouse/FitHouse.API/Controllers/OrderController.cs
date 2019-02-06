@@ -1,6 +1,7 @@
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Web.Http;
 using AutoMapper;
+using Elmah.ContentSyndication;
 using FitHouse.API.Infrastructure;
 using FitHouse.API.Models;
 using FitHouse.BLL.DTOs;
@@ -76,6 +77,61 @@ namespace FitHouse.API.Controllers
             var reurnOrder = _orderFacade.GetOrder(OrderId);
             return Ok(reurnOrder);
         }
+        [Route("api/Orders/GetAllOrdersForDelivery", Name = "GetAllOrdersForDelivery")]
+        [HttpGet]
+        public IHttpActionResult GetAllOrdersForDelivery(int page = Page, int pagesize = PageSize)
+        {
+            var getUserInfo = _userFacade.GetUser(UserId);
+            long branch = 0;
+            if (getUserInfo.BranchId != null)
+                branch = (long)getUserInfo.BranchId;
+
+            PagedResultsDto orderObj = _orderFacade.GetAllOrdersForDelivery(branch, page, pagesize);
+            var data = Mapper.Map<List<OrderFullModel>>(orderObj.Data);
+            return PagedResponse("GetAllOrdersForDelivery", page, pagesize, orderObj.TotalCount, data);
+        }
+        [Route("api/Orders/GetAllOrdersForKitchen", Name = "GetAllOrdersForKitchen")]
+        [HttpGet]
+        public IHttpActionResult GetAllOrdersForKitchen(int page = Page, int pagesize = PageSize)
+        {
+            var getUserInfo = _userFacade.GetUser(UserId);
+            long branch = 0;
+            if (getUserInfo.BranchId != null)
+                branch = (long)getUserInfo.BranchId;
+
+            PagedResultsDto orderObj = _orderFacade.GetAllOrdersForKitchen(branch, page, pagesize);
+            var data = Mapper.Map<List<OrderFullModel>>(orderObj.Data);
+            return PagedResponse("GetAllOrdersForKitchen", page, pagesize, orderObj.TotalCount, data);
+        }
+
+        [Route("api/Orders/GetOrderItems", Name = "GetOrderItems")]
+        [HttpPost]
+        public IHttpActionResult GetOrderItems(long programId, long dayNumber)
+        {
+            var reurnOrder = _orderFacade.GetOrderItems(programId, dayNumber);
+            var data = Mapper.Map<List<ItemModel>>(reurnOrder);
+            return PagedResponse("GetOrderItems", Page,PageSize, reurnOrder.Count, data);
+
+           // return Ok(reurnOrder);
+        } 
+
+        [Route("api/Orders/GetFullOrderById", Name = "GetFullOrderById")]
+        [HttpGet]
+        public IHttpActionResult GetFullOrderById(long orderId)
+        {
+            var reurnOrder = _orderFacade.GetFullOrder(orderId);
+            return Ok(reurnOrder);
+        }
+
+
+        [Route("api/Orders/ChangeorderStatus", Name = "ChangeorderStatus")]
+        [HttpPost]
+        public IHttpActionResult ChangeorderStatus(long orderDetailsId,int status)
+        { 
+            var reurnOrder = _orderFacade.ChangeorderStatus(orderDetailsId, status);
+
+            return Ok(reurnOrder);
+        }
     }
 
-}
+} 

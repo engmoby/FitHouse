@@ -23,14 +23,8 @@
             //    Phone = "011435012598",
             //    Email = "admin@gmail.com"
             //});
-          //  var permisison16 = new Permission { IsDeleted = false, IsStatic = true };
 
-            //var permisison14 = new Permission { IsDeleted = false, IsStatic = true };
-            //var permisison15 = new Permission { IsDeleted = false, IsStatic = true };
-            //var permisison11 = new Permission { IsDeleted = false, IsStatic = true };
 
-            //var permisison12 = new Permission { IsDeleted = false, IsStatic = true };
-            //var permisison13 = new Permission { IsDeleted = false, IsStatic = true };
             //var permisison3 = new Permission { IsDeleted = false, IsStatic = true };
             //var permisison4 = new Permission { IsDeleted = false, IsStatic = true };
             //var permisison5 = new Permission { IsDeleted = false, IsStatic = true };
@@ -38,7 +32,14 @@
             //var permisison7 = new Permission { IsDeleted = false, IsStatic = true };
             //var permisison8 = new Permission { IsDeleted = false, IsStatic = true };
             //var permisison9 = new Permission { IsDeleted = false, IsStatic = true };
-            //var permisison10 = new Permission { IsDeleted = false, IsStatic = true };
+            //var permisison10 = new Permission { IsDeleted = false, IsStatic = true }; 
+            //var permisison11 = new Permission { IsDeleted = false, IsStatic = true };
+            //var permisison12 = new Permission { IsDeleted = false, IsStatic = true };
+            //var permisison13 = new Permission { IsDeleted = false, IsStatic = true }; 
+            //var permisison14 = new Permission { IsDeleted = false, IsStatic = true };
+            //var permisison15 = new Permission { IsDeleted = false, IsStatic = true };
+            //var permisison16 = new Permission { IsDeleted = false, IsStatic = true };
+
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison3);
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison4);
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison5);
@@ -48,6 +49,11 @@
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison9);
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison10);
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison11);
+            //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison12);
+            //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison13);
+            //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison14);
+            //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison15);
+            //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison16);
 
 
             //var permissionTreanslation27 = new PermissionTranslation { Language = "en", Title = "Take Away", Permission = permisison16 };
@@ -150,7 +156,7 @@
 
 
 
-            //Role adminRole = new Role { IsDeleted = false  };
+            //Role adminRole = new Role { IsDeleted = false };
             //context.Roles.AddOrUpdate(adminRole);
             //context.RoleTranslations.AddOrUpdate(
             //    new RoleTranslation { Language = "en", Title = "admin", Role = adminRole });
@@ -159,7 +165,7 @@
 
             //context.UserRoles.AddOrUpdate(new UserRole
             //{
-            //    Role = adminRole, 
+            //    Role = adminRole,
             //    User = context.Users.FirstOrDefault()
             //});
             //context.RolePermissions.AddOrUpdate(

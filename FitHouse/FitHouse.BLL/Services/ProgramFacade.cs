@@ -127,10 +127,11 @@ namespace FitHouse.BLL.Services
                 excludedDays.Add(dayByday);
             }
 
-            var orderDetails = new List<OrderDetail>();
-            var order = new Order();
+           
             if (programDto.IsOrdering)
             {
+                var orderDetails = new List<OrderDetail>();
+                var order = new Order();
                 order.BranchId = programDto.branchId;
                 order.IsByAdmin = true;
                 order.IsDelivery = programDto.IsDelivery;
@@ -149,14 +150,15 @@ namespace FitHouse.BLL.Services
                     orderDetail.ProgramId = programDto.ProgramId;
                     orderDetails.Add(orderDetail);
                 }
+
+                _orderDetailsService.InsertRange(orderDetails);
+                _orderService.Insert(order);
             }
 
             _progExcludeDayService.InsertRange(excludedDays);
             _programTranslationService.InsertRange(programObj.ProgramTranslations);
             _programDetailService.InsertRange(programObj.ProgramDetails);
             _programService.Insert(programObj);
-            _orderDetailsService.InsertRange(orderDetails);
-            _orderService.Insert(order);
 
             SaveChanges();
             return programDto;

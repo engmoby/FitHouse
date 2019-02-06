@@ -21,12 +21,14 @@ namespace FitHouse.API.Models
         public string OrderCode { get; set; }
         public virtual Enums.OrderType Type { get; set; }
         public List<OrderDetailsModel> OrderDetails { get; set; }
+        public virtual Enums.OrderStatus OrderStatus { get; set; }
 
         public long UserId { get; set; }
         public UserModel User { get; set; }
 
         public long AddressId { get; set; }
         public AddressModel Address { get; set; }
+        public decimal Price { get; set; }
 
         public long BranchId { get; set; }
         public BranchModel Branch { get; set; }

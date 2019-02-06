@@ -28,6 +28,7 @@ namespace FitHouse.DAL.Entities.Model
         public DateTime? PauseStart { get; set; }  
         public string OrderCode { get; set; }
         public virtual Enums.OrderType Type { get; set; }
+        public virtual Enums.OrderStatus OrderStatus { get; set; }
 
         public virtual ICollection<OrderDetail> OrderDetails { get; set; }
         [ForeignKey("User")]
