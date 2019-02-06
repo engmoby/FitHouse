@@ -23,7 +23,7 @@ namespace FitHouse.DAL.Entities.Model
         public DateTime ActionDateTime { get; set; }
         public bool IsSuccess { get; set; }
         public string ErrorMsg { get; set; }
-        public long RecordId { get; set; }
+        public long? RecordId { get; set; }
         public string Model { get; set; }
         public string IPAddress { get; set; }
         public string BrowserType { get; set; }

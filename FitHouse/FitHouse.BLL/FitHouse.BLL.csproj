@@ -98,6 +98,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataServices\Interfaces\ILogService.cs" />
+    <Compile Include="DataServices\LogService.cs" />
     <Compile Include="DataServices\Interfaces\IOrderService.cs" />
     <Compile Include="DataServices\Interfaces\IOrderDetailsService.cs" />
     <Compile Include="DataServices\Interfaces\IProgExcludeDayService.cs" />
@@ -164,6 +166,7 @@
     <Compile Include="DataServices\BranchTranslationService.cs" />
     <Compile Include="DataServices\RefreshTokenService.cs" />
     <Compile Include="DataServices\UserService.cs" />
+    <Compile Include="DTOs\LogDto.cs" />
     <Compile Include="DTOs\AddressDto.cs" />
     <Compile Include="DTOs\AdminDto.cs" />
     <Compile Include="DTOs\OrderCallCenterDto.cs" />
@@ -181,8 +184,7 @@
     <Compile Include="DTOs\ItemTranslationDto.cs" />
     <Compile Include="DTOs\MealDetailDto.cs" />
     <Compile Include="DTOs\MealDto.cs" />
- 
-    <Compile Include="DTOs\OrderFullDto.cs" /> 
+    <Compile Include="DTOs\OrderFullDto.cs" />
     <Compile Include="DTOs\SettingDto.cs" />
     <Compile Include="DTOs\StatusDto.cs" />
     <Compile Include="DTOs\PagedResultsDto.cs" />
@@ -202,6 +204,8 @@
     <Compile Include="DTOs\BranchDto.cs" />
     <Compile Include="DTOs\UserDto.cs" />
     <Compile Include="FitHouseBLLConfig.cs" />
+    <Compile Include="Services\Interfaces\ILogFacade.cs" />
+    <Compile Include="Services\LogFacade.cs" />
     <Compile Include="Services\CityFacade.cs" />
     <Compile Include="Services\CountryFacade.cs" />
     <Compile Include="Services\DayFacade.cs" />

@@ -82,6 +82,8 @@ namespace FitHouse.API
 
             mapperConfiguration.CreateMap<AddressModel, AddressDto>();
             mapperConfiguration.CreateMap<AddressDto, AddressModel>();
+            mapperConfiguration.CreateMap<LogModel, LogDto>();
+            mapperConfiguration.CreateMap<LogDto, LogModel>();
 
             mapperConfiguration.CreateMap<MealDto, MealModel>().ReverseMap(); 
             mapperConfiguration.CreateMap<MealDetailDto, MealDetailModel>().ReverseMap();
