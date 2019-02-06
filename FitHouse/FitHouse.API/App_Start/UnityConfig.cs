@@ -70,6 +70,7 @@ namespace FitHouse.API
                 .RegisterType<IMealDetailsFacade, MealDetailsFacade>(new PerResolveLifetimeManager())
                 .RegisterType<IOrderFacade, OrderFacade>(new PerResolveLifetimeManager())
                 .RegisterType<ISettingFacade, SettingFacade>(new PerResolveLifetimeManager())
+                .RegisterType<ILogFacade, LogFacade>(new PerResolveLifetimeManager())
 
                 ;
 

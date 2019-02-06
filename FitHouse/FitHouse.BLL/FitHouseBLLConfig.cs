@@ -133,6 +133,9 @@ namespace FitHouse.BLL
             mapperConfiguration.CreateMap<AddressDto, Address>();
             mapperConfiguration.CreateMap<Address, AddressDto>();
 
+            mapperConfiguration.CreateMap<LogDto, Log>();
+            mapperConfiguration.CreateMap<Log, LogDto>();
+
 
             Mapper.Initialize(mapperConfiguration);
         }
@@ -183,6 +186,7 @@ namespace FitHouse.BLL
 
                 .RegisterType<ISettingService, SettingService>(new PerResolveLifetimeManager())
 
+                .RegisterType<ILogService, LogService>(new PerResolveLifetimeManager())
 
                 ;
         }

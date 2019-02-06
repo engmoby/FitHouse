@@ -27,7 +27,7 @@ namespace FitHouse.API.Controllers
         [HttpGet]
         public IHttpActionResult GetAllRoles(int page = Page, int pagesize = PageSize)
         {
-            PagedResultsDto roleObj = _roleFacade.GetAllRoles(page, pagesize);
+            PagedResultsDto roleObj = _roleFacade.GetAllRoles(page, pagesize,UserId);
             var data = Mapper.Map<List<RoleModel>>(roleObj.Data);
             return PagedResponse("GetAllRoles", page, pagesize, roleObj.TotalCount, data );
         }

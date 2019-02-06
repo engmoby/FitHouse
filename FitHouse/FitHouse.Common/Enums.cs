@@ -33,15 +33,25 @@
             Meal,
             Item
         }
-        public enum TicketStatus
+        public enum Modules
         {
-            Pending,
-            Assigned,
-            InProgress,
-            Closed,
-            Rejected,
-            Reassigned,
-            Completed
-        } 
+           Role,
+           User,
+           Category,
+           Item,
+           Branch,
+           Meal,
+           Program
+        }
+        public enum Actions
+        {
+           GetAll,
+           Create,
+           Update,
+           Edit,
+           Delete,
+           Activate,
+           Deactivate
+        }
     }
 }
