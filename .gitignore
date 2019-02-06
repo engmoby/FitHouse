@@ -12,5 +12,6 @@
 bin/
 obj/
 Frameworks/
+FitHouse/FitHouse.API/App_Data/FitHouse.mdf
 FitHouse/FitHouse.API/App_Data/FitHouse_log.ldf
 *.ldf
