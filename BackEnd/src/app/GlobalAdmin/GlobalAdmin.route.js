@@ -602,6 +602,24 @@
                     }
                 })
                 
+ 
+                .state('Kitchen', {
+                    url: '/Kitchen',
+                    templateUrl: './app/GlobalAdmin/Kitchen/templates/Kitchen.html',
+                    controller: 'KitchenController',
+                    'controllerAs': 'kitchenCtrl',
+                    data: {
+                        permissions: {
+                            only: ['RestaurantAdmin'],
+                            redirectTo: 'root'
+                        },
+                        displayName: 'Kitchen'
+                    },
+                    resolve: { 
+                        kitchensPrepService: kitchensPrepService
+                    }
+                })
+                
 
                 .state('Dashboard', {
                     url: '/Dashboard',
@@ -795,6 +813,16 @@
         return DeliverysResource.getFullDelivery({ orderId: $stateParams.orderId }).$promise;
     }
 
+
+    /*Kitchens */
+    kitchensPrepService.$inject = ['kitchensResource', '$stateParams']
+    function kitchensPrepService(KitchensResource, $stateParams) {
+        return KitchensResource.getAllkitchens().$promise;
+    }
+    KitchenByIdPrepService.$inject = ['KitchensResource', '$stateParams']
+    function KitchenByIdPrepService(KitchensResource, $stateParams) {
+        return KitchensResource.getFullKitchen({ orderId: $stateParams.orderId }).$promise;
+    }
 
     CityByIdPrepService.$inject = ['CityResource', '$stateParams']
     function CityByIdPrepService(CityResource, $stateParams) {

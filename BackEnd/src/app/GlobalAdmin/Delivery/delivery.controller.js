@@ -15,19 +15,21 @@
         appCONSTANTS, ToastService, $uibModal) {
 
         $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[8].children[0]).addClass("active")
+        $($('.pmd-sidebar-nav').children()[9].children[0]).addClass("active")
 
         blockUI.start("Loading...");
 
         var vm = this;
 
-        vm.showMore = function (element, delivery) {
-            debugger;
-            blockUI.start("Loading...");
+        vm.showMore = function (element) {
+            $(element.currentTarget).toggleClass("child-table-collapse");
+        }
+        vm.changeStatus = function (orderDetailsid, status) {
+            var temp = new DeliverysResource();
+            temp.$ChangeOrderStatus({ orderDetailsId: orderDetailsid, status: status }).then(function (results) {
+                if (results = true)
+                    refreshDeliverys();
 
-            var k = DeliverysResource.GetOrderItems({ orderId: delivery.orderId, programId: delivery.orderDetails[0].programId }).$promise.then(function (results) {
-                $scope.itemList = results;
-                console.log($scope.itemList)
                 blockUI.stop();
 
             },
@@ -37,7 +39,6 @@
                     ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
                 });
 
-            $(element.currentTarget).toggleClass("child-table-collapse");
         }
         $scope.totalCount = deliverysPrepService.totalCount;
         $scope.DeliveryList = deliverysPrepService;

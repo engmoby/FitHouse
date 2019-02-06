@@ -58,6 +58,8 @@
         }
 
         $scope.getData = function (itemModel, day, meal) {
+        
+        
             // debugger;
             // var allDayMeal = $scope.itemList.filter(x=>x.day == day && x.meal == meal);
             var differntMeal = vm.itemList.filter(x => (x.dayNumber == day && x.mealNumberPerDay != meal) || (x.dayNumber != day));

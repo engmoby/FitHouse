@@ -13,8 +13,8 @@
         $state, $localStorage, authorizationService,
         appCONSTANTS, ToastService, $stateParams, programPrepService, GetProgramResource, UpdateProgramResource, $uibModal) {
 
-        // $('.pmd-sidebar-nav>li>a').removeClass("active")
-        // $($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
+        $('.pmd-sidebar-nav>li>a').removeClass("active")
+        $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
 
         // blockUI.start("Loading...");
 

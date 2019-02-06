@@ -58,7 +58,18 @@
 					</div>
 				</div>
 
-
+				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+						<label for="first-name">{{'fat' | translate}} </label>
+						<input type="number" class="mat-input form-control" name="fat" ng-model="editItemCtrl.item.fat" min="1"
+						 ng-maxlength="5">
+						<div ng-messages="newItemForm.fat.$error">
+							<div ng-if="newItemForm.fat.$error.required && !newItemForm.fat.$pristine">{{'requiredErr' |
+								translate}}</div>
+							<div ng-if="newItemForm.fat.$error.maxlength">{{'fatLengthError' | translate}}</div>
+						</div>
+					</div>
+	
+	
 
 				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 					<label for="first-name">{{'carbs' | translate}} </label>

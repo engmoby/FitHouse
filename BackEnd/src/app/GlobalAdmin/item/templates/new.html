@@ -58,6 +58,17 @@
 				</div>
 
 
+				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+					<label for="first-name">{{'fat' | translate}} </label>
+					<input type="number" class="mat-input form-control" name="fat" ng-model="newItemCtrl.fat" min="1"
+					 ng-maxlength="5">
+					<div ng-messages="newItemForm.fat.$error">
+						<div ng-if="newItemForm.fat.$error.required && !newItemForm.fat.$pristine">{{'requiredErr' |
+							translate}}</div>
+						<div ng-if="newItemForm.fat.$error.maxlength">{{'fatLengthError' | translate}}</div>
+					</div>
+				</div>
+
 
 				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 					<label for="first-name">{{'carbs' | translate}} </label>
@@ -150,8 +161,8 @@
 		</form>
 	</div>
 	<div class="pmd-modal-action text-right">
-		<button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="newItemForm.$invalid  || newItemCtrl.isChanged" class="btn pmd-ripple-effect btn-primary" type="button"
-		 ng-click="newItemCtrl.addNewItem()">{{'saveChangesBtn' |
+		<button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="newItemForm.$invalid  || newItemCtrl.isChanged"
+		 class="btn pmd-ripple-effect btn-primary" type="button" ng-click="newItemCtrl.addNewItem()">{{'saveChangesBtn' |
 			translate}}</button>
 		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="newItemCtrl.close()">{{'DiscardBtn' |
 			translate}}</button>

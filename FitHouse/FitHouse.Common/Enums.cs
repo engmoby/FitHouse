@@ -15,7 +15,8 @@
             Prepering,
             OnTheWay,
             Deliverd,
-            NotDeliverd
+            NotDeliverd,
+            KitchenFinished
         }
         public enum OrderType
         {

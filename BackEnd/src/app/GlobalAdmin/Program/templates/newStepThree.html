@@ -25,4 +25,9 @@
         <input required type="number" class="mat-input form-control" name="programTotalPrice" ng-model="addProgramCtrl.ProgramTotalPrice">
     </div>
 
+    <button style="background-color: #e4e5e6;color: black!important;"
+    ng-disabled="(addProgramCtrl.currentStep != addProgramCtrl.steps.length) || (addProgramCtrl.Setting.minNoDaysPerProgram > addProgramCtrl.ProgramDaysCount)"
+    class="btn btn-success" name="next" type="button" ng-click="addProgramCtrl.AddNewProgram()">
+    <i class="fa fa-floppy-o"></i>{{'Save' | translate}}</button>
+
 </form>

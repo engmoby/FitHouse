@@ -359,12 +359,6 @@
     <None Include="Properties\PublishProfiles\SFitHouseBackend - FTP.pubxml" />
     <None Include="Properties\PublishProfiles\SFitHouseBackend - Web Deploy.pubxml" />
     <None Include="Properties\PublishProfiles\FitHouse.pubxml" />
-    <None Include="Properties\PublishProfiles\surveyHamza.pubxml" />
-    <None Include="Properties\PublishProfiles\SurveyV2 - FTP.pubxml" />
-    <None Include="Properties\PublishProfiles\SurveyV2 - Web Deploy.pubxml" />
-    <None Include="Properties\PublishProfiles\SurveyV2-testing - FTP.pubxml" />
-    <None Include="Properties\PublishProfiles\SurveyV2-testing - Web Deploy.pubxml" />
-    <None Include="Properties\PublishProfiles\Survey_V2.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="Scripts\jquery-1.10.2.js" />
     <Content Include="Scripts\jquery-1.10.2.min.js" />

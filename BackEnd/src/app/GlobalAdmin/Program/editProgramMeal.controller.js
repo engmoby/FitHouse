@@ -13,19 +13,30 @@
         $state, $localStorage, authorizationService, appCONSTANTS, ToastService, $stateParams,
         ProgramId, DayCount, MealCount, progDetailsPrepService, itemsssPrepService,
         $uibModalInstance, callBackFunction, UpdateProgramDetailsResource) {
+        //console.log(progDetailsPrepService);
 
-        // $('.pmd-sidebar-nav>li>a').removeClass("active")
-        // $($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
-
-        // blockUI.start("Loading...");
         $scope.selectedLanguage = $localStorage.language;
         var vm = this;
         vm.language = appCONSTANTS.supportedLanguage;
 
         $scope.itemsssPrepService = itemsssPrepService;
-        $scope.itemList;
+        $scope.itemList = [];
 
-        console.log($scope.itemsssPrepService);
+        vm.listOfDetails = progDetailsPrepService.programDetails;
+        vm.testItem = vm.listOfDetails.filter(x => (x.dayNumber == DayCount && x.mealNumberPerDay == MealCount));
+        //console.log(testItem);
+
+
+        var i;
+        for (i = 0; i < vm.testItem.length; i++) {
+            var indexRate = $scope.itemsssPrepService.indexOf($filter('filter')($scope.itemsssPrepService, { 'itemId': vm.testItem[i].itemId }, true)[0]);
+            $scope.itemList.push($scope.itemsssPrepService[indexRate]);
+
+        }
+
+        // var differntMeal = vm.itemList.filter(x => (x.dayNumber == day && x.mealNumberPerDay != meal) || (x.dayNumber != day));
+
+        //  console.log($scope.itemsssPrepService);
 
         vm.close = function () {
             $uibModalInstance.dismiss();
