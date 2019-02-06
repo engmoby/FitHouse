@@ -245,6 +245,7 @@ namespace FitHouse.BLL.Services
             }
             item.Calories = itemDto.Calories;
             item.ItemSize = itemDto.ItemSize;
+            item.Fat = itemDto.Fat;
             item.Protein = itemDto.Protein;
             item.Carbs = itemDto.Carbs;
             item.Cost = itemDto.Cost;

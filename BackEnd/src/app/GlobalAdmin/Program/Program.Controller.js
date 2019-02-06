@@ -13,13 +13,16 @@
         $state, $localStorage, authorizationService,
         appCONSTANTS, ToastService, $stateParams, programPrepService, GetProgramResource, UpdateProgramResource, $uibModal) {
 
-        // $('.pmd-sidebar-nav>li>a').removeClass("active")
-        // $($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
+        $('.pmd-sidebar-nav>li>a').removeClass("active")
+        $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
 
         // blockUI.start("Loading...");
 
         var vm = this;
         $scope.programList = programPrepService;
+        vm.language = appCONSTANTS.supportedLanguage;
+        vm.programObject;
+
 
         vm.UpdateProgram = function (program) {
             change(program, false);
@@ -29,6 +32,12 @@
             model.isDeleted = true;
             change(model, true);
 
+        }
+
+        vm.currentPage = 1;
+        $scope.changePage = function (page) {
+            vm.currentPage = page;
+            refreshPrograms();
         }
 
         function change(program, isDeleted) {
@@ -55,10 +64,39 @@
 
         }
 
+        // vm.getProgram = function(programObj){
+        //     vm.programObject = programObj;
+        //     vm.ProgramDiscount = programObj.programDiscount;
+        //     vm.titleDictionary = programObj.titleDictionary;
+        //     vm.descriptionDictionary = programObj.descriptionDictionary;
+        // }
+
+        // vm.editProgram = function () {
+        //     var program = new EditProgramByIdResource();
+        //     program.programDiscount = vm.ProgramDiscount;
+        //     program.programNameDictionary = vm.titleDictionary;
+        //     program.programDescriptionDictionary = vm.descriptionDictionary;
+        //     program.programId = vm.programObject.programId;
+
+        //     // console.log(program);
+
+        //     program.$update().then(
+        //         function (data, status) {
+        //             $uibModalInstance.dismiss();
+        //             ToastService.show("right", "bottom", "fadeInUp", $translate.instant('EditedSuccessfully'), "success");
+        //             callBackFunction();
+
+        //         },
+        //         function (data, status) {
+        //             ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+        //         }
+        //     );
+        // }
+
         function refreshPrograms() {
             blockUI.start("Loading...");
 
-            var k = GetProgramResource.gatAllPrograms().$promise.then(function (results) {
+            var k = GetProgramResource.gatAllPrograms({ page: vm.currentPage }).$promise.then(function (results) {
                 $scope.programList = results;
 
                 console.log($scope.programList);

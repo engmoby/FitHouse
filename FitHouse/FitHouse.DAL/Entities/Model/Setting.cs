@@ -21,9 +21,10 @@ namespace FitHouse.DAL.Entities.Model
         public bool IsMail { get; set; }
         public bool IsPause { get; set; }
         public bool AllowHistory { get; set; }
-        [ForeignKey("Currency")]
-        public long CurrencyId { get; set; }
-        public virtual Currency Currency { get; set; }
+        public string CurrencyCode { get; set; }
+        //[ForeignKey("Currency")]
+        //public long CurrencyId { get; set; }
+        //public virtual Currency Currency { get; set; }
         public long MaxPauseDays { get; set; }
         public long MinNoDaysPerProgram { get; set; }
 

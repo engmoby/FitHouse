@@ -17,6 +17,7 @@ namespace FitHouse.API.Models
         public bool IsActive { get; set; }
         public long CategoryId { get; set; }
         public long ItemSize { get; set; }
+        public long Fat { get; set; }
         public long Carbs { get; set; }
         public decimal TotalPrice { get; set; }
         public decimal Cost { get; set; }

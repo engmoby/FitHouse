@@ -4,21 +4,23 @@
         <div ng-repeat="n in [].constructor(programDetailsCtrl.programDetails.programDays)  track by $index" class="panel panel-default">
             <div class="panel-heading" role="tab" id="headingOne">
                 <h4 class="panel-title">
-                    <a ng-init="counterDay=counterDay+1;" data-toggle="collapse" data-parent="#accordion6" ng-init="n=false" ng-click="n=!n;"
-                        aria-expanded="true" aria-controls="collapseOne6" data-expandable="false"> {{'Day' | translate}} #{{counterDay=$index+1}}
+                    <a ng-init="counterDay=counterDay+1;" data-toggle="collapse" data-parent="#accordion6" ng-init="n=false"
+                        ng-click="n=!n;" aria-expanded="true" aria-controls="collapseOne6" data-expandable="false">
+                        {{'Day' | translate}} #{{counterDay=$index+1}}
                         <i class="material-icons md-dark pmd-sm pmd-accordion-arrow">keyboard_arrow_down</i>
                     </a>
                 </h4>
             </div>
-            <div ng-show="n == true" id="collapseOne6" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+            <div ng-show="n == true" id="collapseOne6" class="panel-collapse collapse in" role="tabpanel"
+                aria-labelledby="headingOne">
                 <div class="panel-body">
                     <ul>
 
                         <li ng-repeat="meal in [].constructor(programDetailsCtrl.programDetails.noOfMeals)  track by $index">
                             <h4>
-                                <a ng-init="counterMeal=counterMeal+1;" ng-click="showDetails = ! showDetails; programDetailsCtrl.showDDL(); ">{{'Meal' | translate}} #{{counterMeal=$index+1}}</a>
-                                <i class="material-icons md-dark pmd-md cursorPointer font25" 
-                                ng-click="programDetailsCtrl.ShowProgramMeal(programDetailsCtrl.programDetails.programId, counterDay, counterMeal)">mode_edit</i>
+                                <a ng-init="counterMeal=counterMeal+1;" ng-click="showDetails = ! showDetails; programDetailsCtrl.showDDL(); ">{{'Meal'
+                                    | translate}} #{{counterMeal=$index+1}}</a>
+                                <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="programDetailsCtrl.ShowProgramMeal(programDetailsCtrl.programDetails.programId, counterDay, counterMeal)">mode_edit</i>
                                 <!-- {{programDetailsCtrl.programDetails.programId}}, {{counterDay}}, {{counterMeal}} -->
                             </h4>
                             <div ng-show="showDetails">

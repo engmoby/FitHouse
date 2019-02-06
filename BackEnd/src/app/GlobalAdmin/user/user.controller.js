@@ -176,7 +176,7 @@
             newClient.Phone = $scope.Phone;
             newClient.Password = $scope.Password;
             newClient.IsActive = true;
-            newClient.UserTypeId = $scope.selectedType.userTypeId;
+            newClient.IsAdmin = true; 
             newClient.UserRoles = vm.selectedUserRoles;
             newClient.branchId = vm.selectedBranchId;
             newClient.$create().then(

@@ -1,0 +1,74 @@
+<div>
+    <div ng-if="kitchenList.results.length == 0">
+        <span>{{'NokitchensAvailable' | translate}}</span>
+    </div>
+    {{flag}}
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="kitchenList.results.length > 0">
+        <div class="table-responsive"></div>
+        <table class="table pmd-table table-hover">
+            <thead>
+                <tr>
+                    <th>{{'orderCode' | translate}}</th>
+                    <th>{{'Date' | translate}}</th>
+                    <th>{{'status' | translate}}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat-start="kitchen in kitchenList.results">
+                    <td data-title="Name">#{{kitchen.orderCode}} </td>
+
+                    <td data-title="Name">{{kitchen.orderDetails[0].day | date : "d/MMM/yy h:mm a"}}
+                    </td>
+                    <td ng-if="kitchen.orderDetails[0].status == '2'">
+                        <button ng-click="kitchenCtrl.changeStatus(kitchen.orderDetails[0].orderDetailId,6);"
+                        style="background-color: #e4e5e6;color: black!important;" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
+                            type="button">
+                            {{'Prepering' | translate}}</button>
+
+                    </td>
+
+                    <td ng-if="kitchen.orderDetails[0].status == '3'">
+                        <button disabled style="background-color: #e4e5e6;color: black!important;"  class="btn pmd-ripple-effect btn-primary pmd-z-depth"
+                            type="button">
+                            {{'Deliverd' | translate}}</button>
+                        <button disabled style="background-color: #e4e5e6;color: black!important;" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
+                            type="button">
+                            {{'NotDeliverd' | translate}}</button>
+
+                    </td>
+                    <td class="pmd-table-row-action">
+                        <span href="javascript:void(0);" ng-if="kitchen.orderDetails.length >0 " ng-click="kitchen.show=!kitchen.show;kitchenCtrl.showMore($event,kitchen.orderDetails[0].programId,kitchen.orderDetails[0].dayNumber,kitchen)"
+                            class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm child-table-expand direct-expand"><i
+                                class="material-icons md-dark pmd-sm"></i></span>
+                    </td>
+
+                </tr>
+                <tr ng-repeat-end class="child-table" ng-show="kitchen.show">
+                    <td colspan="12">
+                        <table class="table pmd-table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>{{'Name' | translate}}</th>
+                                    <th>{{'size' | translate}}</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="item in kitchen.ItemList">
+                                    <td data-title="Name" width="15%">{{item.itemNameDictionary[selectedLanguage]}}
+                                    </td>
+                                    <td data-title="Description">{{item.itemSize}}</td>
+
+                                </tr>
+                            </tbody>
+                        </table>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount" paging-action="changePage(page)"
+        flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">
+    </div>
+</div>

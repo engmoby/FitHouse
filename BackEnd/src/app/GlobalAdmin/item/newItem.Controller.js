@@ -27,7 +27,8 @@
 			newItem.itemNameDictionary = vm.itemNameDictionary;
 			newItem.itemDescriptionDictionary = vm.itemDescriptionDictionary;
 			newItem.categoryId = $stateParams.categoryId;
-			newItem.itemSize = vm.itemSize;
+			newItem.itemSize = vm.itemSize;	
+			newItem.fat = vm.fat;
 			newItem.carbs = vm.carbs;
 			newItem.calories = vm.calories;
 			newItem.protein = vm.protein;

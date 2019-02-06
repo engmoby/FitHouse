@@ -21,6 +21,8 @@ namespace FitHouse.DAL.Entities.Model
         public long? CreatorUserId { get; set; }
         public DateTime? DeletionTime { get; set; }
         public long? DeleterUserId { get; set; } 
+        public long? DeliveryCost { get; set; } 
+        public long? DeliveryPrice { get; set; }
 
         public virtual ICollection<BranchTranslation> BranchTranslations { get; set; } 
 

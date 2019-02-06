@@ -5,9 +5,12 @@
 *.mdf
 *.ldf
 *.mdf
+
 *.ldf
  
 *.suo
 bin/
 Frameworks/
 FitHouse/FitHouse.API/App_Data/FitHouse.mdf
+FitHouse/FitHouse.API/App_Data/FitHouse_log.ldf
+*.ldf

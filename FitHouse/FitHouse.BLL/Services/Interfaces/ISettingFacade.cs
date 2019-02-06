@@ -10,5 +10,6 @@ namespace FitHouse.BLL.Services.Interfaces
     public interface ISettingFacade
     {
         SettingDto GetSetting();
+        SettingDto UpdateSetting(SettingDto settingDto, long userId);
     }
 }

@@ -58,6 +58,8 @@
         }
 
         $scope.getData = function (itemModel, day, meal) {
+        
+        
             // debugger;
             // var allDayMeal = $scope.itemList.filter(x=>x.day == day && x.meal == meal);
             var differntMeal = vm.itemList.filter(x => (x.dayNumber == day && x.mealNumberPerDay != meal) || (x.dayNumber != day));
@@ -82,10 +84,10 @@
                 vm.ProgramPrice = vm.ProgramPrice + vm.itemList[i].price;
                 vm.ProgramCost = vm.ProgramCost + vm.itemList[i].cost;
                 vm.ProgramVAT = vm.ProgramVAT + vm.itemList[i].vat;
-                vm.ProgramTotalPrice = (vm.ProgramPrice + vm.ProgramVAT) - vm.ProgramDiscount;
+                vm.ProgramTotalPrice += vm.itemList[i].totalPrice;
             }
-
         }
+        
         //Model
         vm.currentStep = 1;
         vm.steps = [
@@ -146,6 +148,7 @@
             newProgram.isDeleted = false;
             newProgram.programDetails = vm.itemList;
             newProgram.days = vm.SelectedDays;
+            newProgram.price =  vm.ProgramTotalPrice;
             newProgram.$create().then(
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");

@@ -77,32 +77,32 @@
 
     <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
         <label for="first-name">{{'Country' | translate}}</label>
-        <select required style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="userCtrl.countryChange()"
+        <select style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="userCtrl.countryChange()"
             ng-model="userCtrl.selectedCountryId" ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in userCtrl.counties">
         </select>
     </div>
     <div ng-show=" userCtrl.selectedCountryId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
         <label for="first-name">{{'Region' | translate}}</label>
-        <select required style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="userCtrl.regionChange()"
+        <select style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="userCtrl.regionChange()"
             ng-model="userCtrl.selectedRegionId" ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in userCtrl.regions">
         </select>
     </div>
     <div ng-show=" userCtrl.selectedRegionId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
         <label for="first-name">{{'City' | translate}}</label>
-        <select ng-required="userCtrl.selectedRegionId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"
-            ng-change="userCtrl.cityChange()" ng-model="userCtrl.selectedCityId" ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in userCtrl.cities">
+        <select style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="userCtrl.cityChange()"
+            ng-model="userCtrl.selectedCityId" ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in userCtrl.cities">
         </select>
     </div>
     <div ng-show=" userCtrl.selectedCityId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
         <label for="first-name">{{'Area' | translate}}</label>
-        <select ng-required=" userCtrl.selectedCityId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"
-            ng-change="userCtrl.areaChange()" ng-model="userCtrl.selectedAreaId" ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in userCtrl.area">
+        <select style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="userCtrl.areaChange()"
+            ng-model="userCtrl.selectedAreaId" ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in userCtrl.area">
         </select>
     </div>
     <div ng-show=" userCtrl.selectedAreaId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
         <label for="first-name">{{'Branch' | translate}}</label>
-        <select ng-required=" userCtrl.selectedAreaId > 0 " class="form-control select-with-search pmd-select2-tags"
-              ng-change="userCtrl.branchChange()" ng-model="userCtrl.selectedBranchId" ng-options="a.branchId as a.titleDictionary[selectedLanguage] for a in userCtrl.branchList"></select>
+        <select class="form-control select-with-search pmd-select2-tags" ng-change="userCtrl.branchChange()" ng-model="userCtrl.selectedBranchId"
+            ng-options="a.branchId as a.titleDictionary[selectedLanguage] for a in userCtrl.branchList"></select>
     </div>
 
 
@@ -115,9 +115,11 @@
 </form>
 
 <div class="pmd-modal-action text-right">
-    <button  style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="newclientForm.$invalid  && (userCtrl.selectedAreaId <= 0 || userCtrl.selectedBranchId <= 0)" 
-    class="btn pmd-ripple-effect btn-primary" type="button" ng-click="AddNewclient()">{{'saveChangesBtn' | translate}}</button>
-    <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="userCtrl.close()">{{'DiscardBtn' | translate}}</button>
+    <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="newclientForm.$invalid  || userCtrl.selectedUserRoles > 0 "
+        class="btn pmd-ripple-effect btn-primary" type="button" ng-click="AddNewclient()">{{'saveChangesBtn' |
+        translate}}</button>
+    <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="userCtrl.close()">{{'DiscardBtn' |
+        translate}}</button>
 </div>
 <!-- 
 <div class="pmd-modal-action text-right">

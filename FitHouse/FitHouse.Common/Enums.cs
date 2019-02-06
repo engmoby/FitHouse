@@ -7,7 +7,16 @@
             Client,
             GlobalAdmin
         }
-
+        public enum Days
+        {
+            Saturday,
+            Sunday,
+            Mondau,
+            Tuesday,
+            Wednesday,
+            Thursday,
+            Friday
+        }
         public enum OrderStatus
         {
             Open,
@@ -15,7 +24,8 @@
             Prepering,
             OnTheWay,
             Deliverd,
-            NotDeliverd
+            NotDeliverd,
+            KitchenFinished
         }
         public enum OrderType
         {

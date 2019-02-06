@@ -15,20 +15,25 @@ namespace FitHouse.BLL.Services
     public class OrderFacade : BaseFacade, IOrderFacade
     {
         private readonly IOrderService _orderService;
+        private readonly IItemService _itemService;
         private readonly IOrderDetailsService _orderDetailsService;
         private readonly IProgramDetailService _programDetailService;
-
-        public OrderFacade(IOrderService orderService, IProgramDetailService programDetailService, IUnitOfWorkAsync unitOfWork, IOrderDetailsService orderDetailsService) : base(unitOfWork)
+        private readonly IProgExcludeDayService _progExcludeDayService;
+        public OrderFacade(IOrderService orderService, IUnitOfWorkAsync unitOfWork,
+            IOrderDetailsService orderDetailsService, IProgramDetailService programDetailService, IItemService itemService, IProgExcludeDayService progExcludeDayService) : base(unitOfWork)
         {
             _orderService = orderService;
             _orderDetailsService = orderDetailsService;
             _programDetailService = programDetailService;
+            _itemService = itemService;
+            _progExcludeDayService = progExcludeDayService;
         }
-
-        public OrderFacade(IOrderService orderService, IOrderDetailsService orderDetailsService)
+        public OrderFacade(IOrderService orderService, IOrderDetailsService orderDetailsService, IItemService itemService, IProgExcludeDayService progExcludeDayService)
         {
             _orderService = orderService;
             _orderDetailsService = orderDetailsService;
+            _itemService = itemService;
+            _progExcludeDayService = progExcludeDayService;
         }
 
         public OrderDto GetOrder(long orderId)
@@ -47,41 +52,77 @@ namespace FitHouse.BLL.Services
 
             return afterMap;
         }
-
+        public OrderFullDto GetFullOrder(long orderId)
+        {
+            if (orderId == 0)
+                return null;
+            var getOrder = _orderService.Query(x => x.OrderId == orderId).Select().FirstOrDefault();
+            var afterMap = Mapper.Map<OrderFullDto>(getOrder);
+            return afterMap;
+        }
 
         public OrderDto EditOrder(OrderDto orderDto, int userId)
-        { 
-            var orderObj = _orderService.Query(x => x.OrderId == orderDto.OrderId)
-                .Select().FirstOrDefault();
+        {
+            var orderObj = _orderService.Query(x => x.OrderId == orderDto.OrderId).Select().FirstOrDefault();
 
             if (orderObj == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
-           // orderObj = Mapper.Map<Order>(orderDto);
             orderObj.IsPaid = orderDto.IsPaid;
+            orderObj.OrderStartDate = orderDto.OrderStartDate ?? orderObj.OrderStartDate;
 
-            //var deletePermissions = new OrderDetail[orderObj.OrderDetails.Count];
-            //orderObj.OrderDetails.CopyTo(deletePermissions, 0);
 
-            //foreach (var orderObjOrderDetail in deletePermissions)
-            //{
-            //    _orderDetailsService.Delete(orderObjOrderDetail);
+            if (orderObj.IsProgram)
+            {
+                var lastDate = orderObj.OrderStartDate;
+                var excludeDays = new List<ProgExcludeDay>();
+                foreach (var orderObjOrderDetail in orderObj.OrderDetails)
+                {
+                    if (orderObjOrderDetail.ProgramId != null)
+                        if (!excludeDays.Any())
+                            excludeDays = _progExcludeDayService.GetExcludesDays((long)orderObjOrderDetail.ProgramId).ToList();
 
-            //}
-            //foreach (var orderper in orderDto.OrderDetails)
-            //{
-            //    orderObj.OrderDetails.Add(new OrderDetail
-            //    {
-            //        ItemId = orderper.ItemId,
-            //        MealId = orderper.MealId,
-            //        ProgramId = orderper.ProgramId,
-            //        DayNumber = orderper.DayNumber,
-            //        Day = orderper.Day,
-            //        Status = orderper.Status,
-            //        NotDeliverdNote = orderper.NotDeliverdNote, 
-            //    });
-            //}
-           // _orderDetailsService.InsertRange(orderObj.OrderDetails);
+
+
+                    if (orderObjOrderDetail.DayNumber == 1)
+                    {
+                        orderObjOrderDetail.Day = lastDate;
+                        orderObjOrderDetail.Status = Enums.OrderStatus.Prepering;
+                    }
+
+                    else
+                    {
+                        lastDate = lastDate?.AddDays(1);
+                        foreach (var day in excludeDays)
+                        {
+                            if (lastDate != null && day.DayId == 1 && lastDate.Value.DayOfWeek == DayOfWeek.Saturday)
+                                lastDate = lastDate?.AddDays(1);
+
+                            if (lastDate != null && day.DayId == 2 && lastDate.Value.DayOfWeek == DayOfWeek.Sunday)
+                                lastDate = lastDate?.AddDays(1);
+
+                            if (lastDate != null && day.DayId == 3 && lastDate.Value.DayOfWeek == DayOfWeek.Monday)
+                                lastDate = lastDate?.AddDays(1);
+
+                            if (lastDate != null && day.DayId == 4 && lastDate.Value.DayOfWeek == DayOfWeek.Tuesday)
+                                lastDate = lastDate?.AddDays(1);
+
+                            if (lastDate != null && day.DayId == 5 && lastDate.Value.DayOfWeek == DayOfWeek.Wednesday)
+                                lastDate = lastDate?.AddDays(1);
+
+                            if (lastDate != null && day.DayId == 6 && lastDate.Value.DayOfWeek == DayOfWeek.Thursday)
+                                lastDate = lastDate?.AddDays(1);
+
+                            if (lastDate != null && day.DayId == 7 && lastDate.Value.DayOfWeek == DayOfWeek.Friday)
+                                lastDate = lastDate?.AddDays(1);
+                        }
+                        orderObjOrderDetail.Day = lastDate;
+                        orderObjOrderDetail.Status = Enums.OrderStatus.Prepering;
+                    }
+                }
+
+            }
             _orderService.Update(orderObj);
             SaveChanges();
+
             return orderDto;
 
         }
@@ -90,16 +131,41 @@ namespace FitHouse.BLL.Services
         {
             return _orderService.GetAllOrders(branchId, page, pageSize);
         }
+        public PagedResultsDto GetAllOrdersForDelivery(long branchId, int page, int pageSize)
+        {
+            return _orderService.GetAllOrdersForDelivery(branchId, page, pageSize);
+        }
+        public PagedResultsDto GetAllOrdersForKitchen(long branchId, int page, int pageSize)
+        {
+            return _orderService.GetAllOrdersForKitchen(branchId, page, pageSize);
+        }
+        public List<ItemDto> GetOrderItems(long programId, long dayNumber)
+        {
+            var items = new List<ItemDto>();
+            if (programId == 0)
+                return null;
+            //var getOrder = _orderService.Query(x => x.OrderId == orderId).Select().FirstOrDefault();
+            var getprogramDetail = _programDetailService.Queryable().Where(x => x.ProgramId == programId && x.DayNumber == dayNumber);
+            foreach (var programDetail in getprogramDetail)
+            {
+                var item = _itemService.Find(programDetail.ItemId);
+                if (item != null) items.Add(Mapper.Map<ItemDto>(item));
+            }
+
+            return items;
+        }
 
         public OrderCallCenterDto CreateOrder(OrderCallCenterDto orderDto, long userId)
         {
+            var rm = new Random();
             var order = Mapper.Map<Order>(orderDto);
             order.OrderDate = DateTime.Now;
             order.OrderStartDate = null;
             order.OrderExpiration = null;
             order.PauseStart = null;
-           
-            order.AddressId =(orderDto.AddressId==0)? null:  orderDto.AddressId;
+            order.OrderCode = rm.Next(10000,1000000).ToString();
+
+            order.AddressId = (orderDto.AddressId == 0) ? null : orderDto.AddressId;
             var orderDetails = new List<OrderDetail>();
 
             if (orderDto.Items.Count != 0)
@@ -138,7 +204,7 @@ namespace FitHouse.BLL.Services
                         orderDetail.DayNumber = progDetail;
                         orderDetails.Add(orderDetail);
                     }
-                   
+
                 }
             }
 
@@ -175,6 +241,50 @@ namespace FitHouse.BLL.Services
 
         //    return orderDto;
         //}
+
+        public bool ChangeorderStatus(long orderDetailsId, int status)
+        {
+            var returnValue = false;
+            try
+            {
+                var orderDetailsObj = _orderDetailsService.Query(x => x.OrderDetailId == orderDetailsId).Select().FirstOrDefault();
+
+                if (orderDetailsObj == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
+
+                var orderStatus = Enums.OrderStatus.Prepering;
+                if (status == 2)
+                    orderStatus = Enums.OrderStatus.Prepering;
+                else if (status == 3)
+                    orderStatus = Enums.OrderStatus.OnTheWay;
+                else if (status == 4)
+                    orderStatus = Enums.OrderStatus.Deliverd;
+                else if (status == 5)
+                    orderStatus = Enums.OrderStatus.NotDeliverd;
+                else if (status == 6)
+                    orderStatus = Enums.OrderStatus.KitchenFinished;
+
+                orderDetailsObj.Status = orderStatus;
+                _orderDetailsService.Update(orderDetailsObj);
+                SaveChanges();
+                returnValue = true;
+                var checkIfOrderClosed = _orderService.Find(orderDetailsObj.OrderId);
+                if (checkIfOrderClosed.OrderDetails.All(x => x.Status == Enums.OrderStatus.Deliverd))
+                {
+                    checkIfOrderClosed.OrderStatus = Enums.OrderStatus.Deliverd;
+                    _orderService.Update(checkIfOrderClosed);
+                    SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                returnValue = false;
+                Console.WriteLine(e);
+                throw;
+            }
+
+            return returnValue;
+
+        }
 
     }
 }

@@ -86,6 +86,7 @@ namespace FitHouse.BLL.Services
 
         public ProgramDto CreateProgram(ProgramDto programDto, int userId)
         {
+
             ValidateProgram(programDto);
             var programObj = Mapper.Map<Program>(programDto);
             foreach (var programName in programDto.ProgramNameDictionary)
@@ -127,10 +128,11 @@ namespace FitHouse.BLL.Services
                 excludedDays.Add(dayByday);
             }
 
-            var orderDetails = new List<OrderDetail>();
-            var order = new Order();
+           
             if (programDto.IsOrdering)
             {
+                var orderDetails = new List<OrderDetail>();
+                var order = new Order();
                 order.BranchId = programDto.branchId;
                 order.IsByAdmin = true;
                 order.IsDelivery = programDto.IsDelivery;
@@ -149,14 +151,15 @@ namespace FitHouse.BLL.Services
                     orderDetail.ProgramId = programDto.ProgramId;
                     orderDetails.Add(orderDetail);
                 }
+
+                _orderDetailsService.InsertRange(orderDetails);
+                _orderService.Insert(order);
             }
 
             _progExcludeDayService.InsertRange(excludedDays);
             _programTranslationService.InsertRange(programObj.ProgramTranslations);
             _programDetailService.InsertRange(programObj.ProgramDetails);
             _programService.Insert(programObj);
-            _orderDetailsService.InsertRange(orderDetails);
-            _orderService.Insert(order);
 
             SaveChanges();
             return programDto;
@@ -172,6 +175,43 @@ namespace FitHouse.BLL.Services
                 if (_programTranslationService.CheckNameExist(name.Value, name.Key, programDto.ProgramId))
                     throw new ValidationException(ErrorCodes.NameIsExist);
             }
+        }
+
+        public ProgramDto GetProgramById(ProgramDto programDto)
+        {
+            var programObj = _programService.Find(programDto.ProgramId);
+            if (programObj == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
+
+            return Mapper.Map<ProgramDto>(programObj);
+        }
+
+        public ProgramDto UpdateProgram(ProgramDto programDto)
+        {
+            var programObj = _programService.Find(programDto.ProgramId);
+            if (programObj == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
+            //ValidateProgram(programDto);
+            foreach (var programName in programDto.ProgramNameDictionary)
+            {
+                var programTranslation = programObj.ProgramTranslations.FirstOrDefault(x => x.Language.ToLower() == programName.Key.ToLower() && x.ProgramId == programDto.ProgramId);
+                if (programTranslation == null)
+                {
+                    programObj.ProgramTranslations.Add(new ProgramTranslation
+                    {
+                        Title = programName.Value,
+                        Language = programName.Key,
+                        Description = programDto.ProgramDescriptionDictionary[programName.Key]
+
+                    });
+                }
+                else
+                    programTranslation.Title = programName.Value;
+            }
+
+            programObj.ProgramDiscount = programDto.ProgramDiscount;
+
+            _programService.Update(programObj);
+            SaveChanges();
+            return programDto;
         }
 
         public ProgramDto EditProgram(ProgramDto programDto, int userId)
@@ -218,6 +258,15 @@ namespace FitHouse.BLL.Services
             return Mapper.Map<ProgramDto>(program);
         }
 
+        public ProgramDto GetProgramById(long programId)
+        {
+            var program = _programService.Find(programId);
+            if (program == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
+
+            //var details = _programDetailService.GetProgramDetails(program.ProgramId);
+            //program.ProgramDetails = details;
+            return Mapper.Map<ProgramDto>(program);
+        }
         public List<ProgramDetailDto> GetProgramItems(long programId)
         {
             var details = _programDetailService.GetProgramDetails(programId);

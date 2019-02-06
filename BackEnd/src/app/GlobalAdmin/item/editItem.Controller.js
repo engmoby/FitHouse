@@ -25,6 +25,7 @@
 			updatedItem.isImageChange = isItemImageChange;
 
 			updatedItem.itemSize = vm.item.itemSize;
+			updatedItem.fat = vm.item.fat;
 			updatedItem.carbs = vm.item.carbs;
 			updatedItem.calories = vm.item.calories;
 			updatedItem.protein = vm.item.protein;

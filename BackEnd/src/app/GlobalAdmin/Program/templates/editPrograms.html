@@ -1,0 +1,58 @@
+<form class="form-horizontal" name="editProgramForm">
+    <!-- {{editProgramCtrl.programObj}} -->
+     
+    <div>
+        <ul class="nav nav-tabs" role="tablist">
+            <li role="presentation" ng-class="{'active':$index == 0}" ng-repeat="lang in editProgramCtrl.language">
+                <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">
+                    {{lang.value | translate}}
+                </a>
+            </li>
+        </ul>
+        <div class="pmd-card">
+            <div class="pmd-card-body">
+                <div class="tab-content">
+                    <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}" ng-repeat="lang in editProgramCtrl.language" id="{{lang.value}}-form">
+                        <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                            <label for="first-name"> {{ lang.value+'ProgramName' | translate}} </label>
+
+                            <input required Category="text" class="mat-input form-control" name="programNameDictionary{{lang.value+'Name'}}" ng-model="editProgramCtrl.programModel.programNameDictionary[lang.key]"
+                                ng-minlength="2" ng-maxlength="255">
+                            <div ng-messages="editProgramForm.programNameDictionary{{lang.value+'Name'}}.$error">
+                                <div ng-show="editProgramForm.programNameDictionary{{lang.value+'Name'}}.$error.required && !editProgramForm.programNameDictionary{{lang.value+'Name'}}.$pristine">{{'requiredErr' | translate}}</div>
+                                <div ng-show="(editProgramForm.programNameDictionary{{lang.value+'Name'}}.$error.minlength || editProgramForm.programNameDictionary{{lang.value+'Name'}}.$error.maxlength) && !editProgramForm.programNameDictionary{{lang.value+'Name'}}.$error.required">{{'NameLengthError255' | translate}}</div>
+                            </div>
+                        </div>
+
+                        <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                            <label for="first-name"> {{ lang.value+'ProgramDescription' | translate}} </label>
+                            <input required Category="text" class="mat-input form-control" name="programDescriptionDictionary{{lang.value+'Name'}}" ng-model="editProgramCtrl.programModel.programDescriptionDictionary[lang.key]"
+                                ng-minlength="2" ng-maxlength="255">
+                            <div ng-messages="editProgramForm.programDescriptionDictionary{{lang.value+'Name'}}.$error">
+                                <div ng-show="editProgramForm.programDescriptionDictionary{{lang.value+'Name'}}.$error.required && !editProgramForm.programDescriptionDictionary{{lang.value+'Name'}}.$pristine">{{'requiredErr' | translate}}</div>
+                                <div ng-show="(editProgramForm.programDescriptionDictionary{{lang.value+'Name'}}.$error.minlength || editProgramForm.programDescriptionDictionary{{lang.value+'Name'}}.$error.maxlength) && !editProgramForm.programDescriptionDictionary{{lang.value+'Name'}}.$error.required">{{'NameLengthError255' | translate}}</div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+        <label for="first-name">{{'ProgramDiscount' | translate}}</label>
+        <input required type="number" ng-change="discountChange();" class="mat-input form-control" name="programDiscount" ng-model="editProgramCtrl.programModel.programDiscount"
+            ng-minlength="1" ng-maxlength="5">
+        <div ng-messages="editProgramForm.programDiscount.$error" class="error">
+            <div ng-if="editProgramForm.programDiscount.$error.required && !editProgramForm.programDiscount.$pristine">{{'ProgramDiscountReqError' | translate}}</div>
+            <div ng-if="(editProgramForm.programDiscount.$error.minlength || editProgramForm.programDiscount.$error.maxlength)">{{'ProgramDiscountLengthError' | translate}}</div>
+        </div>
+    </div>
+</form>
+
+<button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="editProgramForm.$invalid" class="btn btn-success" name="next" type="button"
+    ng-click="editProgramCtrl.editProgram()">
+    <i class="fa fa-floppy-o"></i>{{'Save' | translate}}</button>

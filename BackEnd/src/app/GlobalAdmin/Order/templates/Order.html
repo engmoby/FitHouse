@@ -27,7 +27,7 @@
                     <td data-title="Name">{{order.orderStartDate | date : "d/MMM/yy h:mm a"}} </td>
                     <td data-title="Name">
 
-                        <h4>{{ getTotal(order)}}</h4>
+                        <h4>{{ order.price}}</h4>
                     </td>
                     <td>
                         <div class="btn-switch" ng-class="{'btn-switch--on':order.isPaid}" ng-model="order.isPaid"
@@ -38,20 +38,20 @@
                             </div>
                     </td>
                     <td data-title="Name">
-                        <img ng-if="order.isDelivery == true" src="assets\img\delivery.png">
-                        <img ng-if="order.isDelivery == false" src="assets\img\takeaway.png" style="width: 44px;height: 39px;">
+                        <img ng-if="order.isDelivery == true" src="assets\img\delivery.png" title="delivery">
+                        <img ng-if="order.isDelivery == false" src="assets\img\takeaway.png" title="take away" style="width: 44px;height: 39px;">
                     </td>
 
                     <td data-title="Name">
-                        <img ng-if="order.type == 1" src="assets\img\program.png">
-                        <img ng-if="order.type == 2" src="assets\img\meal.png">
-                        <img ng-if="order.type == 3" src="assets\img\item.png">
+                        <img ng-if="order.type == 0" src="assets\img\program.png" title="program">
+                        <img ng-if="order.type == 1" src="assets\img\meal.png" title="meal">
+                        <img ng-if="order.type == 2" src="assets\img\item.png" title="item">
                     </td>
                     <td>
-                        <a ng-click="goToDetails(order)" class="cursorPointer">{{'ItemsBtn'|
+                        <a ng-click="$state.go('editorder', {orderId: order.orderId});" class="cursorPointer">{{'ItemsBtn'|
                             translate}}</a>
                     </td>
- 
+
                 </tr>
             </tbody>
         </table>

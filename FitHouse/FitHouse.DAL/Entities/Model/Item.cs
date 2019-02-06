@@ -26,6 +26,7 @@ namespace FitHouse.DAL.Entities.Model
         public decimal Price { get; set; }
         public long Calories { get; set; }
         public long VAT { get; set; }
+        public long Fat { get; set; }
         public long Protein { get; set; }
         public virtual ICollection<ItemTranslation> ItemTranslations { get; set; }
         public virtual Category Category { get; set; }

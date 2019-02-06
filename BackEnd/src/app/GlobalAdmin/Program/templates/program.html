@@ -1,7 +1,8 @@
 <div>
-    <div ncy-breadcrumb></div>
+    <!-- <div ncy-breadcrumb></div> -->
     <div style="margin-bottom:10px">
-        <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-click="$state.go('newProgram');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddNew'
+        <button style="background-color: #e4e5e6;color: black!important;" ng-click="$state.go('newProgram');"
+            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddNew'
             | translate}}</button>
 
     </div>
@@ -34,7 +35,7 @@
                     <td width="30%" ng-show="!program.isStatic">
                         <a ng-click="$state.go('programDetails', {programId: program.programId});" class="cursorPointer">{{'ProgramDetails'
                             | translate}}</a>
-                        <!-- <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editProgram',{programId: program.programId});">mode_edit</i> -->
+                        <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editProgram', {programId: program.programId});">mode_edit</i>
                         <i class="material-icons pmd-md deleteButton cursorPointer font25" ng-click="programCtrl.openDeleteDialog(program,program.titleDictionary[selectedLanguage],program.programId)">delete</i>
                     </td>
                 </tr>
