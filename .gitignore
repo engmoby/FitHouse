@@ -10,3 +10,4 @@
 *.suo
 bin/
 Frameworks/
+FitHouse/FitHouse.API/App_Data/FitHouse.mdf
