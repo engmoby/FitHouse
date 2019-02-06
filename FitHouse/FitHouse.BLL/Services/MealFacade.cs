@@ -111,9 +111,9 @@ namespace FitHouse.BLL.Services
 
         private void ValidateMeal(MealDto mealDto)
         {
-            foreach (var MealName in MealDto.MealNameDictionary)
+            foreach (var mealName in mealDto.MealNameDictionary)
             {
-                if (string.IsNullOrEmpty(MealName.Value))
+                if (string.IsNullOrEmpty(mealName.Value))
                     throw new ValidationException(ErrorCodes.EmptyMealName);
                 if (string.IsNullOrEmpty(mealDto.MealDescriptionDictionary[mealName.Key]))
                     throw new ValidationException(ErrorCodes.EmptyMealDescription);

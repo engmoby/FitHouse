@@ -7,6 +7,7 @@ using System.Net.Http;
 using System.Web.Http;
 using AutoMapper;
 using FitHouse.API.Models;
+using FitHouse.BLL.DTOs;
 using FitHouse.BLL.Services.Interfaces;
 
 namespace FitHouse.API.Controllers
@@ -25,6 +26,14 @@ namespace FitHouse.API.Controllers
         {
             var setting = Mapper.Map<SettingModel>(_settingFacade.GetSetting());
 
+            return Ok(setting);
+        }
+
+        [Route("api/Setting/UpdateSetting", Name = "UpdateSetting")]
+        [HttpPost]
+        public IHttpActionResult UpdateSetting([FromBody] SettingModel settingModel)
+        {
+            var setting = _settingFacade.UpdateSetting(Mapper.Map<SettingDto>(settingModel), UserId);
             return Ok(setting);
         }
 

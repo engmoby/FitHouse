@@ -8,7 +8,6 @@
             , 'UserResource', 'CityResource', 'AreaResource', 'RegionResource', 'RolePrepService'
             , 'CountriesPrepService', callCenterController])
 
-
         ;
 
 

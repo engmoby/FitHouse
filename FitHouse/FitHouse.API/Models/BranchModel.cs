@@ -14,6 +14,8 @@ namespace FitHouse.API.Models
         public DateTime? CreationTime { get; set; }
         public long? CreatorUserId { get; set; }
         public DateTime? DeletionTime { get; set; }
-        public long? DeleterUserId { get; set; } 
+        public long? DeleterUserId { get; set; }
+        public long? DeliveryCost { get; set; }
+        public long? DeliveryPrice { get; set; }
     }
 }

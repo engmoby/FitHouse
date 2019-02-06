@@ -34,7 +34,7 @@
                     <td width="30%" ng-show="!program.isStatic">
                         <a ng-click="$state.go('programDetails', {programId: program.programId});" class="cursorPointer">{{'ProgramDetails'
                             | translate}}</a>
-                        <!-- <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editProgram',{programId: program.programId});">mode_edit</i> -->
+                        <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editProgram', {programId: program.programId});">mode_edit</i>
                         <i class="material-icons pmd-md deleteButton cursorPointer font25" ng-click="programCtrl.openDeleteDialog(program,program.titleDictionary[selectedLanguage],program.programId)">delete</i>
                     </td>
                 </tr>

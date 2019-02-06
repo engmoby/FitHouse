@@ -82,10 +82,10 @@
                 vm.ProgramPrice = vm.ProgramPrice + vm.itemList[i].price;
                 vm.ProgramCost = vm.ProgramCost + vm.itemList[i].cost;
                 vm.ProgramVAT = vm.ProgramVAT + vm.itemList[i].vat;
-                vm.ProgramTotalPrice = (vm.ProgramPrice + vm.ProgramVAT) - vm.ProgramDiscount;
+                vm.ProgramTotalPrice += vm.itemList[i].totalPrice;
             }
-
         }
+        
         //Model
         vm.currentStep = 1;
         vm.steps = [
