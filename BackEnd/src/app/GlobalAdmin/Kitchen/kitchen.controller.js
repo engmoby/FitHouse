@@ -21,8 +21,8 @@
 
         var vm = this;
 
-        vm.showMore = function (element, programId, dayNumber,model) {
-            
+        vm.showMore = function (element, programId, dayNumber, model) {
+            if (model.ItemList != null) return;
             var temp = new kitchensResource();
             temp.$GetOrderItems({ programId: programId, dayNumber: dayNumber }).then(function (results) {
                 debugger;

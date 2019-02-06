@@ -16,34 +16,24 @@ namespace FitHouse.BLL.Services
     {
         private readonly IOrderService _orderService;
         private readonly IItemService _itemService;
-        private readonly IProgramService _programService;
         private readonly IOrderDetailsService _orderDetailsService;
         private readonly IProgramDetailService _programDetailService;
-
+        private readonly IProgExcludeDayService _progExcludeDayService;
         public OrderFacade(IOrderService orderService, IUnitOfWorkAsync unitOfWork,
-            IOrderDetailsService orderDetailsService, IProgramService programService, IProgramDetailService programDetailService, IItemService itemService) : base(unitOfWork)
+            IOrderDetailsService orderDetailsService, IProgramDetailService programDetailService, IItemService itemService, IProgExcludeDayService progExcludeDayService) : base(unitOfWork)
         {
             _orderService = orderService;
             _orderDetailsService = orderDetailsService;
-            _programService = programService;
             _programDetailService = programDetailService;
             _itemService = itemService;
+            _progExcludeDayService = progExcludeDayService;
         }
-
-        //public OrderFacade(IOrderService orderService, IProgramDetailService programDetailService, IUnitOfWorkAsync unitOfWork,
-        //    IOrderDetailsService orderDetailsService) : base(unitOfWork)
-        //{
-        //    _orderService = orderService;
-        //    _orderDetailsService = orderDetailsService;
-        //    _programDetailService = programDetailService;
-        //}
-
-        public OrderFacade(IOrderService orderService, IOrderDetailsService orderDetailsService, IProgramService programService, IItemService itemService)
+        public OrderFacade(IOrderService orderService, IOrderDetailsService orderDetailsService, IItemService itemService, IProgExcludeDayService progExcludeDayService)
         {
             _orderService = orderService;
             _orderDetailsService = orderDetailsService;
-            _programService = programService;
             _itemService = itemService;
+            _progExcludeDayService = progExcludeDayService;
         }
 
         public OrderDto GetOrder(long orderId)
@@ -73,38 +63,66 @@ namespace FitHouse.BLL.Services
 
         public OrderDto EditOrder(OrderDto orderDto, int userId)
         {
-            var orderObj = _orderService.Query(x => x.OrderId == orderDto.OrderId)
-                .Select().FirstOrDefault();
+            var orderObj = _orderService.Query(x => x.OrderId == orderDto.OrderId).Select().FirstOrDefault();
 
             if (orderObj == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
-            // orderObj = Mapper.Map<Order>(orderDto);
             orderObj.IsPaid = orderDto.IsPaid;
             orderObj.OrderStartDate = orderDto.OrderStartDate ?? orderObj.OrderStartDate;
 
-            //var deletePermissions = new OrderDetail[orderObj.OrderDetails.Count];
-            //orderObj.OrderDetails.CopyTo(deletePermissions, 0);
 
-            //foreach (var orderObjOrderDetail in deletePermissions)
-            //{
-            //    _orderDetailsService.Delete(orderObjOrderDetail);
+            if (orderObj.IsProgram)
+            {
+                var lastDate = orderObj.OrderStartDate;
+                var excludeDays = new List<ProgExcludeDay>();
+                foreach (var orderObjOrderDetail in orderObj.OrderDetails)
+                {
+                    if (orderObjOrderDetail.ProgramId != null)
+                        if (!excludeDays.Any())
+                            excludeDays = _progExcludeDayService.GetExcludesDays((long)orderObjOrderDetail.ProgramId).ToList();
 
-            //}
-            //foreach (var orderper in orderDto.OrderDetails)
-            //{
-            //    orderObj.OrderDetails.Add(new OrderDetail
-            //    {
-            //        ItemId = orderper.ItemId,
-            //        MealId = orderper.MealId,
-            //        ProgramId = orderper.ProgramId,
-            //        DayNumber = orderper.DayNumber,
-            //        Day = orderper.Day,
-            //        Status = orderper.Status,
-            //        NotDeliverdNote = orderper.NotDeliverdNote, 
-            //    });
-            //}
-            // _orderDetailsService.InsertRange(orderObj.OrderDetails);
+
+
+                    if (orderObjOrderDetail.DayNumber == 1)
+                    {
+                        orderObjOrderDetail.Day = lastDate;
+                        orderObjOrderDetail.Status = Enums.OrderStatus.Prepering;
+                    }
+
+                    else
+                    {
+                        lastDate = lastDate?.AddDays(1);
+                        foreach (var day in excludeDays)
+                        {
+                            if (lastDate != null && day.DayId == 1 && lastDate.Value.DayOfWeek == DayOfWeek.Saturday)
+                                lastDate = lastDate?.AddDays(1);
+
+                            if (lastDate != null && day.DayId == 2 && lastDate.Value.DayOfWeek == DayOfWeek.Sunday)
+                                lastDate = lastDate?.AddDays(1);
+
+                            if (lastDate != null && day.DayId == 3 && lastDate.Value.DayOfWeek == DayOfWeek.Monday)
+                                lastDate = lastDate?.AddDays(1);
+
+                            if (lastDate != null && day.DayId == 4 && lastDate.Value.DayOfWeek == DayOfWeek.Tuesday)
+                                lastDate = lastDate?.AddDays(1);
+
+                            if (lastDate != null && day.DayId == 5 && lastDate.Value.DayOfWeek == DayOfWeek.Wednesday)
+                                lastDate = lastDate?.AddDays(1);
+
+                            if (lastDate != null && day.DayId == 6 && lastDate.Value.DayOfWeek == DayOfWeek.Thursday)
+                                lastDate = lastDate?.AddDays(1);
+
+                            if (lastDate != null && day.DayId == 7 && lastDate.Value.DayOfWeek == DayOfWeek.Friday)
+                                lastDate = lastDate?.AddDays(1);
+                        }
+                        orderObjOrderDetail.Day = lastDate;
+                        orderObjOrderDetail.Status = Enums.OrderStatus.Prepering;
+                    }
+                }
+
+            }
             _orderService.Update(orderObj);
             SaveChanges();
+
             return orderDto;
 
         }
@@ -127,10 +145,10 @@ namespace FitHouse.BLL.Services
             if (programId == 0)
                 return null;
             //var getOrder = _orderService.Query(x => x.OrderId == orderId).Select().FirstOrDefault();
-            var getprogramDetail = _programDetailService.Queryable().Where(x=>x.ProgramId== programId && x.DayNumber==dayNumber);
+            var getprogramDetail = _programDetailService.Queryable().Where(x => x.ProgramId == programId && x.DayNumber == dayNumber);
             foreach (var programDetail in getprogramDetail)
-            { 
-                var item= _itemService.Find(programDetail.ItemId);
+            {
+                var item = _itemService.Find(programDetail.ItemId);
                 if (item != null) items.Add(Mapper.Map<ItemDto>(item));
             }
 
@@ -139,11 +157,13 @@ namespace FitHouse.BLL.Services
 
         public OrderCallCenterDto CreateOrder(OrderCallCenterDto orderDto, long userId)
         {
+            var rm = new Random();
             var order = Mapper.Map<Order>(orderDto);
             order.OrderDate = DateTime.Now;
             order.OrderStartDate = null;
             order.OrderExpiration = null;
             order.PauseStart = null;
+            order.OrderCode = rm.Next(10000,1000000).ToString();
 
             order.AddressId = (orderDto.AddressId == 0) ? null : orderDto.AddressId;
             var orderDetails = new List<OrderDetail>();

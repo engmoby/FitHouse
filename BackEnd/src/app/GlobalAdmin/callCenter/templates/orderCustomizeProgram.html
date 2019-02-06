@@ -21,16 +21,16 @@
                 <div id="wizard-navigation-container">
                     <div class="pull-right">
                         <span class="btn-group">
-                            <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="1 >= orderCustomizeProgramCtrl.currentStep"
+                            <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="1 >= orderCustomizeProgramCtrl.currentStep"
                                 class="btn btn-default" name="previous" type="button" ng-click="orderCustomizeProgramCtrl.gotoStep(orderCustomizeProgramCtrl.currentStep - 1)">
                                 <i class="fa fa-arrow-left"></i>{{'PreviousStep' | translate}}</button>
-                            <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="orderCustomizeProgramCtrl.currentStep >= orderCustomizeProgramCtrl.steps.length"
+                            <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="orderCustomizeProgramCtrl.currentStep >= orderCustomizeProgramCtrl.steps.length"
                                 class="btn btn-primary" name="next" type="button" ng-click="orderCustomizeProgramCtrl.gotoStep(orderCustomizeProgramCtrl.currentStep + 1)">{{'NextStep' | translate}}
                                 <i class="fa fa-arrow-right"></i>
                             </button>
                         </span>
                         <!-- {{orderCustomizeProgramCtrl.Setting.minNoDaysPerProgram}} / {{orderCustomizeProgramCtrl.ProgramDaysCount}} -->
-                        <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-disabled="(orderCustomizeProgramCtrl.currentStep != orderCustomizeProgramCtrl.steps.length) || (orderCustomizeProgramCtrl.Setting.minNoDaysPerProgram > orderCustomizeProgramCtrl.ProgramDaysCount)"
+                        <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="(orderCustomizeProgramCtrl.currentStep != orderCustomizeProgramCtrl.steps.length) || (orderCustomizeProgramCtrl.Setting.minNoDaysPerProgram > orderCustomizeProgramCtrl.ProgramDaysCount)"
                             class="btn btn-success" name="next" type="button" ng-click="orderCustomizeProgramCtrl.AddNewProgram()">
                             <i class="fa fa-floppy-o"></i>{{'Save' | translate}}</button>
                     </div>

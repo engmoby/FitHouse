@@ -2,7 +2,7 @@
 <div>
         <div ncy-breadcrumb></div>  
     <div style="margin-bottom:10px">
-        <button  style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-click="$state.go('newCity',{ countryId: $stateParams.countryId,regionId: $stateParams.regionId });" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddNew' | translate}}</button>
+        <button  style="background-color: #e4e5e6;color: black!important;" ng-click="$state.go('newCity',{ countryId: $stateParams.countryId,regionId: $stateParams.regionId });" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddNew' | translate}}</button>
         
     </div> 
     <div ng-if="Cities.results.length == 0">
@@ -21,7 +21,7 @@
                 <tr ng-repeat="city in Cities.results">
                     <td data-title="Name">{{city.titleDictionary[selectedLanguage]}}</td> 
                     <td>
-                        <button style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;" ng-click="$state.go('Area',{countryId: $stateParams.countryId,regionId: $stateParams.regionId,cityId:city.cityId});" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'viewAreas' | translate}}</button>
+                        <button style="background-color: #e4e5e6;color: black!important;" ng-click="$state.go('Area',{countryId: $stateParams.countryId,regionId: $stateParams.regionId,cityId:city.cityId});" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'viewAreas' | translate}}</button>
                       </td>
                    
                     <td width="30%" >
