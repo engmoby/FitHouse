@@ -153,7 +153,7 @@
                 </label>
             </div>
 
-            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <!-- <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                 <label for="first-name">{{'Country' | translate}}</label>
                 <select required style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="orderProgramsCtrl.countryChange()"
                     ng-model="orderProgramsCtrl.selectedCountryId" ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in orderProgramsCtrl.counties">
@@ -182,11 +182,11 @@
                 <select ng-required=" orderProgramsCtrl.selectedAreaId > 0 " class="form-control select-with-search pmd-select2-tags" ng-change="orderProgramsCtrl.branchChange()"
                     ng-model="orderProgramsCtrl.selectedBranchId" ng-options="a.branchId as a.titleDictionary[selectedLanguage] for a in orderProgramsCtrl.branchList"></select>
             </div>
-        </div>
+        </div> -->
     </div>
 
 
-    <div ng-show="orderProgramsCtrl.orderType.type == 'pickup'">
+    <div ng-if="orderProgramsCtrl.orderType.type == 'pickup'">
         <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
             <label for="first-name">{{'Country' | translate}}</label>
             <select required style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="orderProgramsCtrl.countryChange()"

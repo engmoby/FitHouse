@@ -19,10 +19,31 @@
             theme: "bootstrap"
         });
     });
+
+    $(function () {
+        $('#startdate').datetimepicker(
+            {
+                minDate: new Date()
+            }
+        ).on('dp.change', function (e) {
+            debugger;
+            angular.element(document.getElementById('startdate')).scope().dateChange();
+        });
+    });
 </script>
 <form class="form-horizontal" name="newProgram3Form">
 
     <br>
+
+    <div class="row">
+        <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label for="regular1" class="control-label">{{'orderPickDateTime' | translate}}</label>
+            <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                <input ng-model="orderCustomizeProgramCtrl.itemDatetime" type="text" ng-change="orderCustomizeProgramCtrl.dateChange" id="startdate"
+                    class="form-control" />
+            </div>
+        </div>
+    </div>
 
     <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
         <label for="first-name">{{'ProgramPrice' | translate}}</label>
@@ -70,7 +91,8 @@
             <div ng-repeat="address in orderCustomizeProgramCtrl.userAddresses">
                 <!-- {{orderCustomizeProgramCtrl.addresses.address}} -->
                 <label>
-                    <input ng-change="orderCustomizeProgramCtrl.addressInfo(address)" type="radio" ng-model="orderCustomizeProgramCtrl.addresses.address" value="{{address.addressId}}"> {{address.appartmentNo}}, {{address.description}}, {{'Floor' | translate}} {{address.floor}}
+                    <input ng-change="orderCustomizeProgramCtrl.addressInfo(address)" type="radio" ng-model="orderCustomizeProgramCtrl.addresses.address"
+                        value="{{address.addressId}}"> {{address.appartmentNo}}, {{address.description}}, {{'Floor' | translate}} {{address.floor}}
                     <!-- {{addressInfo}} -->
                 </label>
             </div>
@@ -105,8 +127,8 @@
         </div>
         <div ng-show=" orderCustomizeProgramCtrl.selectedAreaId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
             <label for="first-name">{{'Branch' | translate}}</label>
-            <select ng-required=" orderCustomizeProgramCtrl.selectedAreaId > 0 " class="form-control select-with-search pmd-select2-tags" ng-change="orderCustomizeProgramCtrl.branchChange()"
-                ng-model="orderCustomizeProgramCtrl.selectedBranchId" ng-options="a.branchId as a.titleDictionary[selectedLanguage] for a in orderCustomizeProgramCtrl.branchList"></select>
+            <select ng-required=" orderCustomizeProgramCtrl.selectedAreaId > 0 " class="form-control select-with-search pmd-select2-tags"
+                ng-change="orderCustomizeProgramCtrl.branchChange()" ng-model="orderCustomizeProgramCtrl.selectedBranchId" ng-options="a.branchId as a.titleDictionary[selectedLanguage] for a in orderCustomizeProgramCtrl.branchList"></select>
         </div>
 
     </div>
