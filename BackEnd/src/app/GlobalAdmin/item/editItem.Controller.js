@@ -7,9 +7,10 @@
 
 	function editItemController($scope, $http, $translate, $stateParams, appCONSTANTS, $state, ItemResource, ToastService, itemPrepService) {
 		var vm = this;
+		vm.disable = true;
 		vm.language = appCONSTANTS.supportedLanguage;
 		vm.item = itemPrepService;
-		vm.item.imageUrl = vm.item.imageUrl + "?date=" + $scope.getCurrentTime();
+		//vm.item.imageUrl = vm.item.imageUrl ;//+ "?date=" + $scope.getCurrentTime();
 		console.log(vm.item);
 
 		vm.close = function () {
@@ -24,14 +25,14 @@
 			updatedItem.itemId = vm.item.itemId;
 			updatedItem.isImageChange = isItemImageChange;
 
-			updatedItem.itemSize = vm.item.itemSize;
-			updatedItem.fat = vm.item.fat;
-			updatedItem.carbs = vm.item.carbs;
-			updatedItem.calories = vm.item.calories;
-			updatedItem.protein = vm.item.protein;
+			updatedItem.itemSize =(vm.item.itemSize == null) ? 0 : vm.item.itemSize;
+			updatedItem.fat = (vm.item.fat == null) ? 0 : vm.item.fat;
+			updatedItem.carbs = (vm.item.carbs == null) ? 0 : vm.item.carbs;
+			updatedItem.calories = (vm.item.calories == null) ? 0 : vm.item.calories;
+			updatedItem.protein = (vm.item.protein == null) ? 0 : vm.item.protein;
 			updatedItem.cost = vm.item.cost;
 			updatedItem.price = vm.item.price;
-			updatedItem.vat = vm.item.vat;
+			updatedItem.vat = (vm.item.vat == null) ? 0 : vm.item.vat;
 			updatedItem.totalPrice = vm.item.totalPrice;
 
 
@@ -67,7 +68,7 @@
 			if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {
 
 				if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
-					$scope.updatedItemForm.$dirty = true;
+					$scope.editItemForm.$dirty = true;
 					$scope.$apply(function () {
 
 						itemImage = logoFile;
@@ -100,8 +101,29 @@
 		}
 
 		vm.calclulate = function () {
-			var vatPresantage = vm.item.price * vm.item.vat / 100;
-			vm.item.totalPrice = vm.item.price + vatPresantage;
+
+			if (vm.item.price <= vm.item.cost) {
+				vm.disable = true;
+				ToastService.show("right", "bottom", "fadeInUp", $translate.instant('costandprice'), "success");
+				return;
+			} else
+				vm.disable = false;
+			if (vm.item.vat !== undefined) {
+				var vatPresantage = vm.item.price * vm.item.vat / 100;
+				vm.item.totalPrice = vm.item.price + vatPresantage;
+			}
+			else
+				vm.item.totalPrice = vm.item.price;
+
+
+
+			// if (vm.item.vat !== undefined)
+			// 	var vatPresantage = vm.item.price * vm.item.vat / 100;
+			// else
+			// 	var vatPresantage = vm.item.price;
+
+			// //var vatPresantage = vm.item.price * vm.item.vat / 100;
+			// vm.item.totalPrice = vm.item.price + vatPresantage;
 		}
 	}
 }());

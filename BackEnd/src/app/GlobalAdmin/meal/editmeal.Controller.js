@@ -15,6 +15,7 @@
 			vm.meal.imageUrl = vm.meal.imageUrl + "?date=" + $scope.getCurrentTime();
 
 		var i;
+		debugger;
 		for (i = 0; i < vm.meal.mealDetails.length; i++) {
 			var indexRate = vm.itemsList.indexOf($filter('filter')(vm.itemsList, { 'itemId': vm.meal.mealDetails[i].itemId }, true)[0]);
 			vm.itemModel.push(vm.itemsList[indexRate]);
@@ -25,6 +26,12 @@
 			$state.go('Meal');
 		}
 		vm.updateMeal = function () {
+
+			if ($scope.selectedItemList.length == 0) {
+				ToastService.show("right", "bottom", "fadeInUp", $translate.instant('mustchooseitem'), "success");
+				return
+			}
+
 			vm.sendSelected = [];
 			var updatedMeal = new Object();
 			updatedMeal.mealNameDictionary = vm.meal.mealNameDictionary;
@@ -32,9 +39,9 @@
 
 			updatedMeal.mealId = vm.meal.mealId;
 			updatedMeal.isImageChange = isMealImageChange;
-
-			updatedMeal.mealPrice = vm.meal.totalPrice;
-			if (vm.mealDiscount == null)
+debugger;
+			updatedMeal.mealPrice = vm.mealtotalDiscount;
+			if (vm.meal.mealDiscount == null)
 				updatedMeal.mealDiscount = 0;
 			else
 				updatedMeal.mealDiscount = vm.meal.mealDiscount;
@@ -87,8 +94,19 @@
 			vm.meal.price = SumItem(model, 'price');
 			vm.meal.vat = SumItem(model, 'vat');
 			vm.meal.totalPrice = SumItem(model, 'totalPrice');
+
+			debugger;
 			$scope.selectedItemList = model;
+			if ($scope.selectedItemList.length == 0) {
+				vm.mealtotalDiscount = "";
+				vm.meal.mealDiscount = "";
+			}
 			calclulateWithDicscount();
+			var discountPresantage = vm.meal.totalPrice * vm.meal.mealDiscount / 100;
+
+			vm.mealtotalDiscount = vm.meal.totalPrice - discountPresantage;
+
+
 		}
 		vm.addItemToList = function (model) {
 			bindItemsTocalculate(model)
@@ -106,6 +124,13 @@
 		vm.calclulate = function () {
 			calclulateWithDicscount();
 
+		}
+
+
+		vm.calclulateDiscount = function () {
+			var discountPresantage = vm.meal.totalPrice * vm.meal.mealDiscount / 100;
+
+			vm.mealtotalDiscount = vm.meal.totalPrice - discountPresantage;
 		}
 		vm.LoadUploadLogo = function () {
 			$("#mealImage").click();

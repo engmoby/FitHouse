@@ -92,7 +92,7 @@ namespace FitHouse.API.Controllers
         public IHttpActionResult GetItem(long itemId)
         {
             var item = Mapper.Map<ItemModel>(_itemFacade.GetItem(itemId, Language));
-            //item.ImageUrl = Url.Link("ItemImage", new { item.CategoryId, item.ItemId });
+             item.ImageUrl = Url.Link("ItemImage", new { item.CategoryId, item.ItemId });
             return Ok(item);
         }
 

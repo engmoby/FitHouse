@@ -20,9 +20,10 @@ namespace FitHouse.BLL.Services
         private readonly IItemTranslationService _itemTranslationService;
         private readonly IManageStorage _manageStorage;
         private ICategoryTranslationService _categoryTranslationService;
+        private IMealDetailsService _mealDetailsService;
         private IProgramDetailService _programDetailService;
         public ItemFacade(ICategoryService categoryService, IItemService itemService, IItemTranslationService itemTranslationService, IManageStorage manageStorage,
-              ICategoryTranslationService categoryTranslationService, IUnitOfWorkAsync unitOfWork, IProgramDetailService programDetailService) : base(unitOfWork)
+              ICategoryTranslationService categoryTranslationService, IUnitOfWorkAsync unitOfWork, IProgramDetailService programDetailService, IMealDetailsService mealDetailsService) : base(unitOfWork)
         {
             _categoryService = categoryService;
             _itemService = itemService;
@@ -30,10 +31,11 @@ namespace FitHouse.BLL.Services
             _manageStorage = manageStorage;
             _categoryTranslationService = categoryTranslationService;
             _programDetailService = programDetailService;
+            _mealDetailsService = mealDetailsService;
         }
 
         public ItemFacade(ICategoryService categoryService, IItemService itemService, IItemTranslationService itemTranslationService, IManageStorage manageStorage,
-              ICategoryTranslationService categoryTranslationService, IProgramDetailService programDetailService)
+              ICategoryTranslationService categoryTranslationService, IProgramDetailService programDetailService, IMealDetailsService mealDetailsService)
         {
             _categoryService = categoryService;
             _itemService = itemService;
@@ -41,6 +43,7 @@ namespace FitHouse.BLL.Services
             _manageStorage = manageStorage;
             _categoryTranslationService = categoryTranslationService;
             _programDetailService = programDetailService;
+            _mealDetailsService = mealDetailsService;
         }
 
         public List<ItemProgramDto> GetItemsById(List<ProgramDetailDto> programDetails)
@@ -164,10 +167,17 @@ namespace FitHouse.BLL.Services
             if (!item.IsActive)
             {
                 var checkIfUsed = _programDetailService.Queryable().Where(x => x.ItemId == item.ItemId);
-                if (checkIfUsed.Any())
-                {
+                if (checkIfUsed.Any()) 
                     throw new ValidationException(ErrorCodes.RecordIsUsedInAnotherModule);
-                }
+
+                var checkIfUsedOfMeal = _mealDetailsService.Queryable().Where(x => x.ItemId == item.ItemId);
+                if (checkIfUsedOfMeal.Any()) 
+                    throw new ValidationException(ErrorCodes.RecordIsUsedInAnotherModule);
+
+                var checkIfUsedOfProgram = _programDetailService.Queryable().Where(x => x.ItemId == item.ItemId);
+                if (checkIfUsedOfProgram.Any())
+                    throw new ValidationException(ErrorCodes.RecordIsUsedInAnotherModule);
+
             }
 
 
@@ -191,10 +201,16 @@ namespace FitHouse.BLL.Services
             if (item.IsDeleted)
             {
                 var checkIfUsed = _programDetailService.Queryable().Where(x => x.ItemId == item.ItemId);
-                if (checkIfUsed.Any())
-                {
+                if (checkIfUsed.Any()) 
                     throw new ValidationException(ErrorCodes.RecordIsUsedInAnotherModule);
-                }
+                
+                var checkIfUsedOfMeal = _mealDetailsService.Queryable().Where(x => x.ItemId == item.ItemId);
+                if (checkIfUsedOfMeal.Any())
+                    throw new ValidationException(ErrorCodes.RecordIsUsedInAnotherModule);
+
+                var checkIfUsedOfProgram = _programDetailService.Queryable().Where(x => x.ItemId == item.ItemId);
+                if (checkIfUsedOfProgram.Any())
+                    throw new ValidationException(ErrorCodes.RecordIsUsedInAnotherModule);
             }
 
             item.IsActive = false;

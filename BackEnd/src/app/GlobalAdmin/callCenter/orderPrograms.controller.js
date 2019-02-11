@@ -148,7 +148,7 @@
 
         vm.orderType = {
             type: 'delivery'
-          };
+        };
 
         vm.programSearch = function () {
             var k = GetProgramDetailResource.getProgramDetail({ programId: vm.program.programId }).$promise.then(function (results) {
@@ -171,13 +171,14 @@
 
             order.programs = vm.itemList;
             order.isByAdmin = true;
+            order.isProgram = true;
             order.branchId = vm.selectedBranchId;
             order.userId = vm.clientId;
 
-            if(vm.orderType.type == "delivery"){
+            if (vm.orderType.type == "delivery") {
                 order.isDelivery = true;
             }
-            else{
+            else {
                 order.isDelivery = false;
             }
 

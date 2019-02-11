@@ -18,9 +18,11 @@
             vm.Order.orderStartDate = vm.Order.orderStartDate + "Z";
             vm.Order.orderStartDate = $filter('date')(new Date(vm.Order.orderStartDate), "dd/MM/yyyy hh:mm a");
         }
-
-
-
+        debugger;
+        $scope.orderStatus = false;
+        if (vm.Order.orderStatus == 2) {
+            $scope.orderStatus = true;
+        }
 
         vm.Close = function () {
             $state.go('Order');
@@ -51,7 +53,10 @@
             blockUI.start("Loading...");
             var updateObj = new OrdersResource();
             updateObj.orderStartDate = $('#startdate').val();
+            if (vm.$scope) {
+                updateObj.orderStatus = "Prepering";
 
+            }
 
 
             updateObj.isPaid = vm.Order.isPaid;

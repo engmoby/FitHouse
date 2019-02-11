@@ -1,0 +1,57 @@
+<div>
+    <div ng-if="PickupList.results.length == 0">
+        <span>{{'NoPickupsAvailable' | translate}}</span>
+    </div>
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="PickupList.results.length > 0">
+        <div class="table-responsive"></div>
+        <table class="table pmd-table table-hover">
+            <thead>
+                <tr>
+                    <th>{{'Name' | translate}}</th>
+                    <th>{{'PickupCode' | translate}}</th>
+                    <th>{{'Date' | translate}}</th>
+                    <th>{{'startDate' | translate}}</th>
+                    <th>{{'Price' | translate}}</th>
+                    <th>{{'Payment' | translate}}</th>
+                    <th>{{'Ordertype' | translate}}</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr ng-repeat="pickup in PickupList.results">
+                    <td data-title="Name">{{pickup.user.firstName}}{{pickup.user.lastName}}</td>
+                    <td data-title="Name">#{{pickup.orderCode}} </td>
+
+                    <td data-title="Name">{{pickup.orderDate | date : "d/MMM/yy h:mm a" }} </td>
+                    <td data-title="Name">{{pickup.orderStartDate | date : "d/MMM/yy h:mm a"}} </td>
+                    <td data-title="Name">
+
+                        <h4>{{ pickup.price}}</h4>
+                    </td>
+                    <td>
+                        <div class="btn-switch" ng-class="{'btn-switch--on':pickup.isPaid}" ng-model="pickup.isPaid"
+                            ng-click="UpdatePickup(pickup)">
+
+                            <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':pickup.isPaid}"
+                                ng-model="pickup.isPaid" ng-click="UpdatePickup(pickup)">
+                            </div>
+                    </td>
+                    <td data-title="Name">
+                        <img ng-if="pickup.type == 0" src="assets\img\program.png" title="program">
+                        <img ng-if="pickup.type == 1" src="assets\img\meal.png" title="meal">
+                        <img ng-if="pickup.type == 2" src="assets\img\item.png" title="item">
+                    </td>
+                    <td>
+                        <a ng-click="$state.go('editorder', {orderId: pickup.orderId});"
+                            class="cursorPointer">{{'ItemsBtn'|translate}}</a>
+                    </td>
+
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"
+        paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true"
+        disabled-class="hide">
+    </div>
+</div>

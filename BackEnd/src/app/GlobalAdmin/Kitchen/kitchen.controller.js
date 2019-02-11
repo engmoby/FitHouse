@@ -15,13 +15,15 @@
         appCONSTANTS, ToastService, $uibModal) {
 
         $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[10].children[0]).addClass("active")
+        $($('.pmd-sidebar-nav').children()[11].children[0]).addClass("active")
 
         blockUI.start("Loading...");
 
         var vm = this;
 
         vm.showMore = function (element, programId, dayNumber, model) {
+          
+          debugger;
             if (model.ItemList != null) return;
             var temp = new kitchensResource();
             temp.$GetOrderItems({ programId: programId, dayNumber: dayNumber }).then(function (results) {

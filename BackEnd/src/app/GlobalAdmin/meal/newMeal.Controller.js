@@ -7,6 +7,7 @@
 
 	function newMealController($scope, $translate, $http, $stateParams, appCONSTANTS, $state, ToastService, itemsssPrepService) {
 		var vm = this;
+		vm.totalPrice = 0;
 		vm.itemsList = itemsssPrepService;
 		vm.language = appCONSTANTS.supportedLanguage;
 		$scope.selectedItemList = [];
@@ -23,7 +24,7 @@
 			}, 0);
 		};
 		vm.addItemToList = function (model) {
-
+			//	if (model != null) {
 			vm.carbs = $scope.sum(model, 'carbs');
 			vm.calories = $scope.sum(model, 'calories');
 			vm.protein = $scope.sum(model, 'protein');
@@ -31,8 +32,17 @@
 			vm.price = $scope.sum(model, 'price');
 			vm.vat = $scope.sum(model, 'vat');
 			vm.totalPrice = $scope.sum(model, 'totalPrice');
+
 			$scope.selectedItemList = model;
+			if ($scope.selectedItemList.length == 0) {
+				vm.mealtotalDiscount = "";
+				vm.mealDiscount = "";
+			}
 			calclulateWithDicscount();
+			var discountPresantage = vm.totalPrice * vm.mealDiscount / 100;
+
+			vm.mealtotalDiscount = vm.totalPrice - discountPresantage;
+			//	} 
 		}
 		function calclulateWithDicscount() {
 			var vatPresantage = (vm.price * vm.vat) / 100;
@@ -42,29 +52,38 @@
 			else
 				vm.totalPrice = vm.price + vatPresantage - discountPresantage;
 
-			console.log(vatPresantage);
-			console.log(discountPresantage);
 
 		}
 		vm.calclulate = function () {
 			calclulateWithDicscount();
 
 		}
+
+		vm.calclulateDiscount = function () {
+			var discountPresantage = vm.totalPrice * vm.mealDiscount / 100;
+
+			vm.mealtotalDiscount = vm.totalPrice - discountPresantage;
+		}
 		vm.addNewMeal = function () {
+
+			if ($scope.selectedItemList.length == 0) {
+				ToastService.show("right", "bottom", "fadeInUp", $translate.instant('mustchooseitem'), "success");
+				return
+			}
 			vm.sendSelected = [];
 			vm.isChanged = true;
 			var newMeal = new Object();
 			newMeal.mealNameDictionary = vm.mealNameDictionary;
 			newMeal.mealDescriptionDictionary = vm.mealDescriptionDictionary;
 
-			newMeal.mealPrice = vm.totalPrice;
+			newMeal.mealPrice = vm.mealtotalDiscount;
 			if (vm.mealDiscount == null)
 				newMeal.mealDiscount = 0;
 			else
 				newMeal.mealDiscount = vm.mealDiscount;
 
 			newMeal.isActive = true;
-			debugger;
+
 			$scope.selectedItemList.forEach(element => {
 				vm.sendSelected.push(
 					{
@@ -72,7 +91,7 @@
 					}
 				);
 			});
-			newMeal.MealDetail = vm.sendSelected;
+			newMeal.MealDetails = vm.sendSelected;
 			var model = new FormData();
 			model.append('data', JSON.stringify(newMeal));
 			model.append('file', mealImage);

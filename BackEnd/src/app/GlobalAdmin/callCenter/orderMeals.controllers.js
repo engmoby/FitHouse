@@ -168,6 +168,7 @@
             order.isByAdmin = true;
             order.branchId = vm.selectedBranchId;
             order.userId = vm.clientId;
+            order.type = "Meal";
 
             order.$createOrder().then(
                 function (data, status) {

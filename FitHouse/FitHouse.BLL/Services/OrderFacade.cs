@@ -68,7 +68,7 @@ namespace FitHouse.BLL.Services
             if (orderObj == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
             orderObj.IsPaid = orderDto.IsPaid;
             orderObj.OrderStartDate = orderDto.OrderStartDate ?? orderObj.OrderStartDate;
-
+            orderObj.OrderStatus = orderDto.OrderStatus;
 
             if (orderObj.IsProgram)
             {
@@ -79,9 +79,7 @@ namespace FitHouse.BLL.Services
                     if (orderObjOrderDetail.ProgramId != null)
                         if (!excludeDays.Any())
                             excludeDays = _progExcludeDayService.GetExcludesDays((long)orderObjOrderDetail.ProgramId).ToList();
-
-
-
+                     
                     if (orderObjOrderDetail.DayNumber == 1)
                     {
                         orderObjOrderDetail.Day = lastDate;
@@ -120,6 +118,19 @@ namespace FitHouse.BLL.Services
                 }
 
             }
+            else
+            {
+                foreach (var orderObjOrderDetail in orderObj.OrderDetails)
+                {
+                    orderObjOrderDetail.Day = orderObj.OrderStartDate;
+                    orderObjOrderDetail.Status = Enums.OrderStatus.Prepering;
+                }
+
+            }
+            //if (orderObj.IsPaid && orderObj)
+            //{
+                
+            //}
             _orderService.Update(orderObj);
             SaveChanges();
 
@@ -134,6 +145,10 @@ namespace FitHouse.BLL.Services
         public PagedResultsDto GetAllOrdersForDelivery(long branchId, int page, int pageSize)
         {
             return _orderService.GetAllOrdersForDelivery(branchId, page, pageSize);
+        }
+        public PagedResultsDto GetAllOrdersForPickup(long branchId, int page, int pageSize)
+        {
+            return _orderService.GetAllOrdersForPickup(branchId, page, pageSize);
         }
         public PagedResultsDto GetAllOrdersForKitchen(long branchId, int page, int pageSize)
         {

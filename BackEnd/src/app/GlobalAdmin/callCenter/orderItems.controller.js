@@ -152,7 +152,8 @@
             order.items = vm.itemList;
             order.isByAdmin = true;
             order.branchId = vm.selectedBranchId;
-            order.userId = vm.clientId;
+            order.userId = vm.clientId; 
+            order.type = "Item";
 
             order.$createOrder().then(
                 function (data, status) {

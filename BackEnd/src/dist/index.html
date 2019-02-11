@@ -14,7 +14,7 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
 	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
-	<link rel="stylesheet" ng-href="bundle-{{selectedLanguage}}.css?v=c9dd839a4fb079459d6973396a9e933f" />
+	<link rel="stylesheet" ng-href="bundle-{{selectedLanguage}}.css?v=580d81b211dd37a167fabc7cb162ac10" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.1/nv.d3.min.css" />
 
 
@@ -238,6 +238,16 @@ background-image: linear-gradient(180deg,rgba(255,255,255,0.5) 0%,rgba(243,197,5
 				</a>
 			</li>
 			
+			<li ng-show="user.PermissionId.indexOf('15') !== -1">
+				<a class="pmd-ripple-effect " ng-click="$state.go('Pickup');">
+					<i class="media-left media-middle">
+						<img src="/assets/img/iconmus.png" style="    max-height: 35px;">
+
+					</i>
+					<span class="media-body" ng-cloak>{{'Pickup' | translate}}</span>
+				</a>
+			</li>
+			
 
 			<li ng-show="user.PermissionId.indexOf('13') !== -1">
 				<a class="pmd-ripple-effect " ng-click="$state.go('callCenter' );">
@@ -297,7 +307,7 @@ background-image: linear-gradient(180deg,rgba(255,255,255,0.5) 0%,rgba(243,197,5
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
 
 
-	<script src="libs.js?v=c9dd839a4fb079459d6973396a9e933f"></script>
+	<script src="libs.js?v=580d81b211dd37a167fabc7cb162ac10"></script>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.1/nv.d3.min.js"></script>
@@ -307,9 +317,9 @@ background-image: linear-gradient(180deg,rgba(255,255,255,0.5) 0%,rgba(243,197,5
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/stackblur-canvas/1.4.1/stackblur.min.js"></script>
 	<script src="http://cdn.jsdelivr.net/npm/canvg/dist/browser/canvg.min.js"></script>
 
-	<script src="core.js?v=c9dd839a4fb079459d6973396a9e933f"></script>
-	<script src="app.js?v=c9dd839a4fb079459d6973396a9e933f"></script>
-	<script src="templates.js?v=c9dd839a4fb079459d6973396a9e933f"></script>
+	<script src="core.js?v=580d81b211dd37a167fabc7cb162ac10"></script>
+	<script src="app.js?v=580d81b211dd37a167fabc7cb162ac10"></script>
+	<script src="templates.js?v=580d81b211dd37a167fabc7cb162ac10"></script>
 
 	<script src="https://rawgithub.com/McNull/angular-block-ui/bower/angular-block-ui.min.js"></script>
 	<link rel="stylesheet" href="https://rawgithub.com/McNull/angular-block-ui/bower/angular-block-ui.min.css">
