@@ -60,8 +60,7 @@
 
 				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 					<label for="first-name">{{'fat' | translate}} </label>
-					<input type="number" class="mat-input form-control" name="fat" ng-model="newItemCtrl.fat" min="1"
-					 ng-maxlength="5">
+					<input type="number" class="mat-input form-control" name="fat" ng-model="newItemCtrl.fat" min="1" ng-maxlength="5">
 					<div ng-messages="newItemForm.fat.$error">
 						<div ng-if="newItemForm.fat.$error.required && !newItemForm.fat.$pristine">{{'requiredErr' |
 							translate}}</div>
@@ -105,7 +104,8 @@
 			<div class="row">
 				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 					<label for="first-name">{{'costlbl' | translate}} </label>
-					<input type="number" class="mat-input form-control" name="cost" ng-model="newItemCtrl.cost" min="1" ng-maxlength="5">
+					<input required type="number" class="mat-input form-control" name="cost" ng-model="newItemCtrl.cost" min="1"
+					 ng-maxlength="12">
 					<div ng-messages="newItemForm.cost.$error">
 						<div ng-if="newItemForm.cost.$error.required && !newItemForm.cost.$pristine">{{'requiredErr' | translate}}</div>
 						<div ng-if="newItemForm.cost.$error.maxlength">{{'costLengthError' | translate}}</div>
@@ -114,8 +114,8 @@
 
 				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 					<label for="first-name">{{'Pricelbl' | translate}} </label>
-					<input type="number" class="mat-input form-control" name="price" ng-change="newItemCtrl.calclulate()" ng-model="newItemCtrl.price"
-					 min="1" ng-maxlength="5">
+					<input required type="number" class="mat-input form-control" name="price" ng-change="newItemCtrl.calclulate()"
+					 ng-model="newItemCtrl.price" min="1" ng-maxlength="12">
 					<div ng-messages="newItemForm.price.$error">
 						<div ng-if="newItemForm.price.$error.required && !newItemForm.price.$pristine">{{'requiredErr' | translate}}</div>
 						<div ng-if="newItemForm.price.$error.maxlength">{{'PriceLengthError' | translate}}</div>
@@ -126,7 +126,7 @@
 
 					<label for="first-name">{{'vat' | translate}} </label>
 					<input type="number" ng-change="newItemCtrl.calclulate()" class="mat-input form-control" name="vat" ng-model="newItemCtrl.vat"
-					 min="1" ng-maxlength="5">
+					 min="1" ng-maxlength="3">
 					<div ng-messages="newItemForm.vat.$error">
 						<div ng-if="newItemForm.vat.$error.required && !newItemForm.vat.$pristine">{{'requiredErr' | translate}}</div>
 						<div ng-if="newItemForm.vat.$error.maxlength">{{'vatLengthError' | translate}}</div>
@@ -136,8 +136,8 @@
 				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 
 					<label for="first-name">{{'Total' | translate}} </label>
-					<input type="number" readonly class="mat-input form-control" name="totalPrice" ng-model="newItemCtrl.totalPrice"
-					 min="1" ng-maxlength="5">
+					<input required type="number" readonly class="mat-input form-control" name="totalPrice" ng-model="newItemCtrl.totalPrice"
+					 min="1" ng-maxlength="12">
 					<div ng-messages="newItemForm.totalPrice.$error">
 						<div ng-if="newItemForm.totalPrice.$error.required && !newItemForm.totalPrice.$pristine">{{'requiredErr' |
 							translate}}</div>
@@ -161,7 +161,7 @@
 		</form>
 	</div>
 	<div class="pmd-modal-action text-right">
-		<button style="background-color: #e4e5e6;color: black!important;" ng-disabled="newItemForm.$invalid  || newItemCtrl.isChanged"
+		<button style="background-color: #e4e5e6;color: black!important;" ng-disabled="newItemForm.$invalid || newItemCtrl.disable"
 		 class="btn pmd-ripple-effect btn-primary" type="button" ng-click="newItemCtrl.addNewItem()">{{'saveChangesBtn' |
 			translate}}</button>
 		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="newItemCtrl.close()">{{'DiscardBtn' |

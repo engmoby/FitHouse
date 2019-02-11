@@ -8,12 +8,7 @@
 			'supportedLanguage': {
 				'en': { 'key': 'en', 'value': 'english' },
 				'ar': { 'key': 'ar', 'value': 'arabic' }
-			},
-			'QuestionType': [
-				{ id: 0, text: "Checkbox" },
-				{ id: 1, text: "Rate" },
-				{ id: 2, text: "LikeDislike" }
-			]
+			}, 
 		})
 		.constant('messageTypeEnum', {
 			success: 0,

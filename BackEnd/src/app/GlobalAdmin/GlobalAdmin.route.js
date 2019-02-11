@@ -66,7 +66,7 @@
                     controller: 'editProgramController',
                     'controllerAs': 'editProgramCtrl',
                     resolve: {
-                        programByIdPrepService:programByIdPrepService
+                        programByIdPrepService: programByIdPrepService
                     },
                     data: {
                         permissions: {
@@ -601,14 +601,13 @@
                         ordersPrepService: ordersPrepService
                     }
                 })
-
                 .state('editorder', {
-                    url: '/editorder/:order',
+                    url: '/editorder/:orderId',
                     templateUrl: './app/GlobalAdmin/Order/templates/edit.html',
                     controller: 'editOrderDialogController',
                     'controllerAs': 'editOrderCtrl',
                     resolve: {
-                        order: function () { return order },
+                        OrderByIdPrepService: OrderByIdPrepService 
                     },
                     data: {
                         permissions: {
@@ -619,7 +618,75 @@
 
                 })
 
+                .state('Pickup', {
+                    url: '/Pickup',
+                    templateUrl: './app/GlobalAdmin/Pickup/templates/Pickup.html',
+                    controller: 'PickupController',
+                    'controllerAs': 'pickupCtrl',
+                    data: {
+                        permissions: {
+                            only: ['RestaurantAdmin'],
+                            redirectTo: 'root'
+                        },
+                        displayName: 'Pickup'
+                    },
+                    resolve: {
+                        pickupsPrepService: pickupsPrepService
+                    }
+                })
 
+                .state('editpickup', {
+                    url: '/editpickup/:pickup',
+                    templateUrl: './app/GlobalAdmin/Pickup/templates/edit.html',
+                    controller: 'editPickupDialogController',
+                    'controllerAs': 'editPickupCtrl',
+                    resolve: {
+                        pickup: function () { return pickup },
+                    },
+                    data: {
+                        permissions: {
+                            only: ['3'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
+                .state('Delivery', {
+                    url: '/Delivery',
+                    templateUrl: './app/GlobalAdmin/Delivery/templates/Delivery.html',
+                    controller: 'DeliveryController',
+                    'controllerAs': 'deliveryCtrl',
+                    data: {
+                        permissions: {
+                            only: ['RestaurantAdmin'],
+                            redirectTo: 'root'
+                        },
+                        displayName: 'Delivery'
+                    },
+                    resolve: { 
+                        deliverysPrepService: deliverysPrepService
+                    }
+                })
+                
+ 
+                .state('Kitchen', {
+                    url: '/Kitchen',
+                    templateUrl: './app/GlobalAdmin/Kitchen/templates/Kitchen.html',
+                    controller: 'KitchenController',
+                    'controllerAs': 'kitchenCtrl',
+                    data: {
+                        permissions: {
+                            only: ['RestaurantAdmin'],
+                            redirectTo: 'root'
+                        },
+                        displayName: 'Kitchen'
+                    },
+                    resolve: { 
+                        kitchensPrepService: kitchensPrepService
+                    }
+                })
+                
                 .state('Dashboard', {
                     url: '/Dashboard',
                     templateUrl: './app/GlobalAdmin/dashboard/templates/dashboard.html',
@@ -807,7 +874,15 @@
     function ordersPrepService(OrdersResource, $stateParams) {
         return OrdersResource.getAllOrders().$promise;
     }
-
+    OrderByIdPrepService.$inject = ['OrdersResource', '$stateParams']
+    function OrderByIdPrepService(OrdersResource, $stateParams) {
+        return OrdersResource.getFullOrder({ orderId: $stateParams.orderId }).$promise;
+    }
+    /*Pickups */
+    pickupsPrepService.$inject = ['PickupsResource', '$stateParams']
+    function pickupsPrepService(PickupsResource, $stateParams) {
+        return PickupsResource.getAllPickups().$promise;
+    }
 
 
     CityByIdPrepService.$inject = ['CityResource', '$stateParams']
@@ -837,4 +912,24 @@
         return AreaResource.getAllAreasForUser({ userId: $stateParams.userId }).$promise;
     }
 
+    /*Deliverys */
+    deliverysPrepService.$inject = ['DeliverysResource', '$stateParams']
+    function deliverysPrepService(DeliverysResource, $stateParams) {
+        return DeliverysResource.getAllDeliverys().$promise;
+    }
+    DeliveryByIdPrepService.$inject = ['DeliverysResource', '$stateParams']
+    function DeliveryByIdPrepService(DeliverysResource, $stateParams) {
+        return DeliverysResource.getFullDelivery({ orderId: $stateParams.orderId }).$promise;
+    }
+
+
+    /*Kitchens */
+    kitchensPrepService.$inject = ['kitchensResource', '$stateParams']
+    function kitchensPrepService(KitchensResource, $stateParams) {
+        return KitchensResource.getAllkitchens().$promise;
+    }
+    KitchenByIdPrepService.$inject = ['KitchensResource', '$stateParams']
+    function KitchenByIdPrepService(KitchensResource, $stateParams) {
+        return KitchensResource.getFullKitchen({ orderId: $stateParams.orderId }).$promise;
+    }
 }());

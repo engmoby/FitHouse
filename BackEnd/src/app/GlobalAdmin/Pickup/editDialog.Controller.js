@@ -3,10 +3,10 @@
 
     angular
         .module('home')
-        .controller('editOrderDialogController', ['$scope', 'OrderByIdPrepService', 'OrdersResource', 'blockUI', '$http', '$filter', '$state', 'appCONSTANTS', '$translate', 'ToastService',
-            editOrderDialogController])
+        .controller('editPickupDialogController', ['$scope', 'OrderByIdPrepService', 'OrdersResource', 'blockUI', '$http', '$filter', '$state', 'appCONSTANTS', '$translate', 'ToastService',
+        editPickupDialogController])
 
-    function editOrderDialogController($scope, OrderByIdPrepService, OrdersResource, blockUI, $http, $filter, $state, appCONSTANTS, $translate, ToastService) {
+    function editPickupDialogController($scope, OrderByIdPrepService, OrdersResource, blockUI, $http, $filter, $state, appCONSTANTS, $translate, ToastService) {
         var vm = this;
         vm.Order = OrderByIdPrepService;
         console.log(vm.Order);
@@ -50,9 +50,6 @@
         vm.UpdateType = function () {
             blockUI.start("Loading...");
             var updateObj = new OrdersResource();
-
-            // var fromDate = $('#startdate').val().split('/')
-            // updateObj.orderStartDate = (new Date(fromDate[1] + "/" + fromDate[0] + "/" + fromDate[2])).toISOString().replace('Z', '');
             updateObj.orderStartDate = $('#startdate').val();
 
 

@@ -152,25 +152,25 @@ namespace FitHouse.BLL.Services
             try
             {
                 var returnValues= _roleService.GetAllRoles(page, pageSize);
-                _log.UserId = userId;
-                _log.Action = Enums.Actions.GetAll.ToString();
-                _log.ActionDateTime = Strings.CurrentDateTime;
-                _log.EndPointName = "GetAllRoles";
-                _log.RecordId = null;
-                _log.Model= returnValues.Data.ToString();
-                _logFacade.CreateLog(_log);
+                //_log.UserId = userId;
+                //_log.Action = Enums.Actions.GetAll.ToString();
+                //_log.ActionDateTime = Strings.CurrentDateTime;
+                //_log.EndPointName = "GetAllRoles";
+                //_log.RecordId = null;
+                //_log.Model= returnValues.Data.ToString();
+                //_logFacade.CreateLog(_log);
                 return returnValues;
             }
             catch (Exception e)
             {
-                _log.UserId = userId;
-                _log.Action = Enums.Actions.GetAll.ToString();
-                _log.ActionDateTime = Strings.CurrentDateTime;
-                _log.EndPointName = "GetAllRoles";
-                _log.RecordId = null;
-                _log.IsSuccess = false;
-                _log.ErrorMsg = e.Message;
-                _logFacade.CreateLog(_log);
+                //_log.UserId = userId;
+                //_log.Action = Enums.Actions.GetAll.ToString();
+                //_log.ActionDateTime = Strings.CurrentDateTime;
+                //_log.EndPointName = "GetAllRoles";
+                //_log.RecordId = null;
+                //_log.IsSuccess = false;
+                //_log.ErrorMsg = e.Message;
+                //_logFacade.CreateLog(_log);
                 Console.WriteLine(e);
                 throw;
             }

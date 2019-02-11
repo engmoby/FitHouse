@@ -77,6 +77,7 @@ namespace FitHouse.API.Controllers
             var reurnOrder = _orderFacade.GetOrder(orderId);
             return Ok(reurnOrder);
         }
+
         [Route("api/Orders/GetAllOrdersForDelivery", Name = "GetAllOrdersForDelivery")]
         [HttpGet]
         public IHttpActionResult GetAllOrdersForDelivery(int page = Page, int pagesize = PageSize)
@@ -90,6 +91,22 @@ namespace FitHouse.API.Controllers
             var data = Mapper.Map<List<OrderFullModel>>(orderObj.Data);
             return PagedResponse("GetAllOrdersForDelivery", page, pagesize, orderObj.TotalCount, data);
         }
+
+
+        [Route("api/Orders/GetAllOrdersForPickup", Name = "GetAllOrdersForPickup")]
+        [HttpGet]
+        public IHttpActionResult GetAllOrdersForPickup(int page = Page, int pagesize = PageSize)
+        {
+            var getUserInfo = _userFacade.GetUser(UserId);
+            long branch = 0;
+            if (getUserInfo.BranchId != null)
+                branch = (long)getUserInfo.BranchId;
+
+            PagedResultsDto orderObj = _orderFacade.GetAllOrdersForPickup(branch, page, pagesize);
+            var data = Mapper.Map<List<OrderModel>>(orderObj.Data);
+            return PagedResponse("GetAllOrdersForDelivery", page, pagesize, orderObj.TotalCount, data);
+        }
+
         [Route("api/Orders/GetAllOrdersForKitchen", Name = "GetAllOrdersForKitchen")]
         [HttpGet]
         public IHttpActionResult GetAllOrdersForKitchen(int page = Page, int pagesize = PageSize)

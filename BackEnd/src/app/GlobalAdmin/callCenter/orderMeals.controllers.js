@@ -180,6 +180,7 @@
             order.branchId = vm.selectedBranchId;
             order.userId = vm.clientId;
             order.day = $('#startdate').val();
+            order.type = "Meal";
 
             order.$createOrder().then(
                 function (data, status) {

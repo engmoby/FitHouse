@@ -83,7 +83,8 @@
 
         }
         $scope.UpdateOrder = function (order) {
-            debugger; change(order);
+            debugger;
+             change(order);
         }
 
 

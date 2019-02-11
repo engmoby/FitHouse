@@ -19,16 +19,16 @@ namespace FitHouse.BLL.Services
         private readonly IMealservice _Mealservice;
         private readonly IMealTranslationService _mealTranslationService;
         private readonly IMealDetailsService _mealDetailsService;
-        private readonly IManageStorage _manageStorage; 
+        private readonly IManageStorage _manageStorage;
         private readonly IOrderDetailsService _orderDetailsService;
         private readonly IItemService _itemService;
         public MealFacade(ICategoryService categoryService, IItemService itemService, IMealservice mealservice, IMealTranslationService mealTranslationService, IManageStorage manageStorage,
-             IUnitOfWorkAsync unitOfWork,   IMealDetailsService mealDetailsService, IOrderDetailsService orderDetailsService) : base(unitOfWork)
+             IUnitOfWorkAsync unitOfWork, IMealDetailsService mealDetailsService, IOrderDetailsService orderDetailsService) : base(unitOfWork)
         {
             _categoryService = categoryService;
             _Mealservice = mealservice;
             _mealTranslationService = mealTranslationService;
-            _manageStorage = manageStorage; 
+            _manageStorage = manageStorage;
             _mealDetailsService = mealDetailsService;
             _orderDetailsService = orderDetailsService;
             _itemService = itemService;
@@ -39,7 +39,7 @@ namespace FitHouse.BLL.Services
             _categoryService = categoryService;
             _Mealservice = Mealservice;
             _mealTranslationService = MealTranslationService;
-            _manageStorage = manageStorage; 
+            _manageStorage = manageStorage;
             _mealDetailsService = mealDetailsService;
             _orderDetailsService = orderDetailsService;
         }
@@ -61,15 +61,15 @@ namespace FitHouse.BLL.Services
                     Language = mealName.Key.ToLower()
                 });
             }
-            foreach (var roleper in MealDto.MealDetails)
-            {
+            //foreach (var roleper in MealDto.MealDetails)
+            //{
 
-                meal.MealDetails.Add(new MealDetail
-                {
-                    ItemId = roleper.ItemId
-                });
-            }
-             
+            //    meal.MealDetails.Add(new MealDetail
+            //    {
+            //        ItemId = roleper.ItemId
+            //    });
+            //}
+
             _mealDetailsService.InsertRange(meal.MealDetails);
             _mealTranslationService.InsertRange(meal.MealTranslations);
             _Mealservice.Insert(meal);
@@ -81,13 +81,13 @@ namespace FitHouse.BLL.Services
             }
         }
 
-        public MealDto GetMeal(long MealId, string language)
+        public MealDto GetMeal(long mealId, string language)
         {
-            var Meal = _Mealservice.Find(MealId);
-            if (Meal == null) throw new NotFoundException(ErrorCodes.MealNotFound);
-            if (Meal.IsDeleted) throw new NotFoundException(ErrorCodes.MealDeleted);
-            var mealDto = Mapper.Map<MealDto>(Meal);
-          //  var MealTranslation = Meal.MealTranslations.FirstOrDefault(x => x.Language.ToLower() == language.ToLower());
+            var meal = _Mealservice.Query(x => x.MealId == mealId).Include(d => d.MealDetails).Select().FirstOrDefault();
+            if (meal == null) throw new NotFoundException(ErrorCodes.MealNotFound);
+            if (meal.IsDeleted) throw new NotFoundException(ErrorCodes.MealDeleted);
+            var mealDto = Mapper.Map<MealDto>(meal);
+            //  var MealTranslation = Meal.MealTranslations.FirstOrDefault(x => x.Language.ToLower() == language.ToLower());
             //MealDto.MealName = MealTranslation.Title;
             //MealDto.MealDescription = MealTranslation.Description;
             return mealDto;
@@ -230,9 +230,11 @@ namespace FitHouse.BLL.Services
             {
                 meal.MealDetails.Add(new MealDetail
                 {
-                    ItemId = roleper.ItemId 
+                    ItemId = roleper.ItemId
                 });
             }
+            meal.MealDiscount = mealDto.MealDiscount;
+            meal.MealPrice = mealDto.MealPrice;
             _Mealservice.Update(meal);
             SaveChanges();
             if (mealDto.IsImageChange)

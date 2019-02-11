@@ -7,7 +7,7 @@
 
 	function newItemController($scope, $translate, $http, $stateParams, appCONSTANTS, $state, ToastService, TranslateItemResource, defaultItemsPrepService) {
 		var vm = this;
-
+		vm.disable = true;
 		vm.language = appCONSTANTS.supportedLanguage;
 
 		vm.close = function () {
@@ -17,26 +17,37 @@
 		vm.isChanged = false;
 
 		vm.calclulate = function () {
-			var vatPresantage = vm.price * vm.vat / 100;
-			vm.totalPrice = vm.price + vatPresantage;
+			if (vm.price <= vm.cost) {
+				vm.disable = true;
+				ToastService.show("right", "bottom", "fadeInUp", $translate.instant('costandprice'), "success");
+				return;
+			} else
+				vm.disable = false;
+			if (vm.vat !== undefined) {
+				var vatPresantage = vm.price * vm.vat / 100;
+				vm.totalPrice = vm.price + vatPresantage;
+			}
+			else
+				vm.totalPrice = vm.price;
+
 		}
 		vm.addNewItem = function () {
 			vm.isChanged = true;
-
 			var newItem = new Object();
 			newItem.itemNameDictionary = vm.itemNameDictionary;
 			newItem.itemDescriptionDictionary = vm.itemDescriptionDictionary;
 			newItem.categoryId = $stateParams.categoryId;
-			newItem.itemSize = vm.itemSize;	
-			newItem.fat = vm.fat;
-			newItem.carbs = vm.carbs;
-			newItem.calories = vm.calories;
-			newItem.protein = vm.protein;
+			newItem.itemSize = (vm.itemSize == null) ? 0 : vm.itemSize;
+			newItem.fat = (vm.fat == null) ? 0 : vm.fat;
+			newItem.carbs = (vm.carbs == null) ? 0 : vm.carbs;
+			newItem.calories = (vm.calories == null) ? 0 : vm.calories;
+			newItem.protein = (vm.protein == null) ? 0 : vm.protein;
 			newItem.cost = vm.cost;
 			newItem.price = vm.price;
-			newItem.vat = vm.vat;
+			newItem.vat = (vm.vat == null) ? 0 : vm.vat;
 			newItem.totalPrice = vm.totalPrice;
 			newItem.isActive = true;
+			debugger;
 
 
 			var model = new FormData();

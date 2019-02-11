@@ -36,7 +36,7 @@ namespace FitHouse.API.Controllers
         [HttpGet]
         public IHttpActionResult GetAllMeals(int page = Page, int pagesize = PageSize)
         {
-            PagedResultsDto mealObj = _MealFacade.GetAllMeals(Language,page, pagesize);
+            PagedResultsDto mealObj = _MealFacade.GetAllMeals(Language, page, pagesize);
             var data = Mapper.Map<List<MealModel>>(mealObj.Data);
             return PagedResponse("GetAllMeals", page, pagesize, mealObj.TotalCount, data);
         }
@@ -47,7 +47,7 @@ namespace FitHouse.API.Controllers
         [HttpPost]
         public IHttpActionResult AddMeal()
         {
-            var MealDto= new MealDto();
+            var MealDto = new MealDto();
             //if (!HttpContext.Current.Request.Files.AllKeys.Any())
             //    throw new ValidationException(ErrorCodes.EmptyMealImage);
             if (HttpContext.Current.Request.Files.Count != 0)
@@ -68,10 +68,10 @@ namespace FitHouse.API.Controllers
 
 
 
-                  MealDto = Mapper.Map<MealDto>(MealModel);
+                MealDto = Mapper.Map<MealDto>(MealModel);
 
-                //MealDto.Image = new MemoryStream();
-                //httpPostedFile.InputStream.CopyTo(MealDto.Image);
+                MealDto.Image = new MemoryStream();
+                httpPostedFile.InputStream.CopyTo(MealDto.Image);
             }
             else
             {
@@ -80,8 +80,8 @@ namespace FitHouse.API.Controllers
 
                 MealDto = Mapper.Map<MealDto>(MealModel1);
             }
-               
-            
+
+
             _MealFacade.AddMeal(MealDto, HostingEnvironment.MapPath("~/Images/"));
             return Ok();
         }
@@ -135,8 +135,8 @@ namespace FitHouse.API.Controllers
                     throw new ValidationException(ErrorCodes.InvalidImageType);
 
                 //restaurantDto.Image = (MemoryStream) restaurant.Image.InputStream;
-                //MealDto.Image = new MemoryStream();
-                //httpPostedFile.InputStream.CopyTo(MealDto.Image);
+                 MealDto.Image = new MemoryStream();
+                 httpPostedFile.InputStream.CopyTo(MealDto.Image);
             }
 
             _MealFacade.UpdateMeal(MealDto, HostingEnvironment.MapPath("~/Images/"));
@@ -184,20 +184,20 @@ namespace FitHouse.API.Controllers
 
 
         [Route("api/Meal/{MealId:long}/Image", Name = "MealImage")]
-        public HttpResponseMessage GetMealImage( long MealId, string type = "orignal")
+        public HttpResponseMessage GetMealImage(long MealId, string type = "orignal")
         {
             try
             {
                 string filePath;
                 if (type == "orignal")
                 {
-                    filePath = Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\"   + "\\Meals")
+                    filePath = Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\Meals")
                         .FirstOrDefault(x => Path.GetFileName(x).Split('.')[0] == MealId + "-1" &&
                                              !Path.GetFileName(x).Contains("thumb"));
                 }
                 else
                 {
-                    filePath = Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\"   + "\\Meals")
+                    filePath = Directory.GetFiles(HostingEnvironment.MapPath("~/Images/") + "\\Meals")
                         .FirstOrDefault(x => Path.GetFileName(x).Split('.')[0] == MealId + "-1-thumbnail");
                 }
 

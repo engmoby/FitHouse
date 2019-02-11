@@ -179,7 +179,7 @@
             order.items = vm.itemList;
             order.isByAdmin = true;
             order.branchId = vm.selectedBranchId;
-            order.userId = vm.clientId;
+            // order.userId = vm.clientId;
             order.day = $('#startdate').val();
             // order. = vm.orderStartDate;
 
@@ -190,6 +190,8 @@
             // else{
             //     vm.invitationDateTime = new Date($('#invitationDateTime').data('date'));
             // }
+            order.userId = vm.clientId; 
+            order.type = "Item";
 
             order.$createOrder().then(
                 function (data, status) {
