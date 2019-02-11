@@ -1,4 +1,52 @@
-(function () {
+(function() {
+    'use strict';
+
+      angular
+      .module('home')
+      .config(config)
+      .run(runBlock);
+
+      config.$inject = ['ngProgressLiteProvider'];
+    runBlock.$inject = ['$rootScope', 'ngProgressLite','$transitions','blockUI'];
+
+      function config(ngProgressLiteProvider) {
+      ngProgressLiteProvider.settings.speed = 1000;
+
+      }
+
+      function runBlock($rootScope, ngProgressLite,$transitions,blockUI) {
+
+        $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+          startProgress();
+      });
+      $transitions.onStart({}, function(transition) {
+        blockUI.start("Loading..."); 
+      });
+      $transitions.onSuccess({}, function(transition) {
+        blockUI.stop();
+      });
+      $transitions.onError({  }, function(transition) {
+        blockUI.stop();
+      });
+      var routingDoneEvents = ['$stateChangeSuccess', '$stateChangeError', '$stateNotFound'];
+
+        angular.forEach(routingDoneEvents, function(event) {
+        $rootScope.$on(event, function(event, toState, toParams, fromState, fromParams) {
+          endProgress();
+        });
+      });
+
+        function startProgress() {
+        ngProgressLite.start();
+      }
+
+        function endProgress() {
+        ngProgressLite.done();
+      }
+
+      }
+  })();
+  (function () {
     'use strict';
 
     angular
@@ -927,55 +975,7 @@
         return KitchensResource.getFullKitchen({ orderId: $stateParams.orderId }).$promise;
     }
 }());
-(function() {
-    'use strict';
-
-      angular
-      .module('home')
-      .config(config)
-      .run(runBlock);
-
-      config.$inject = ['ngProgressLiteProvider'];
-    runBlock.$inject = ['$rootScope', 'ngProgressLite','$transitions','blockUI'];
-
-      function config(ngProgressLiteProvider) {
-      ngProgressLiteProvider.settings.speed = 1000;
-
-      }
-
-      function runBlock($rootScope, ngProgressLite,$transitions,blockUI) {
-
-        $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-          startProgress();
-      });
-      $transitions.onStart({}, function(transition) {
-        blockUI.start("Loading..."); 
-      });
-      $transitions.onSuccess({}, function(transition) {
-        blockUI.stop();
-      });
-      $transitions.onError({  }, function(transition) {
-        blockUI.stop();
-      });
-      var routingDoneEvents = ['$stateChangeSuccess', '$stateChangeError', '$stateNotFound'];
-
-        angular.forEach(routingDoneEvents, function(event) {
-        $rootScope.$on(event, function(event, toState, toParams, fromState, fromParams) {
-          endProgress();
-        });
-      });
-
-        function startProgress() {
-        ngProgressLite.start();
-      }
-
-        function endProgress() {
-        ngProgressLite.done();
-      }
-
-      }
-  })();
-  (function () {
+(function () {
     'use strict';
 
     angular
@@ -3954,6 +3954,7 @@
         vm.counties = [];
         vm.userOrder;
         vm.flag = false;
+
         vm.orderType = {
             type: 'item'
         };
@@ -4140,7 +4141,7 @@
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('ClientAddSuccess'), "success");
 
                     localStorage.setItem('data', JSON.stringify(data.userId));
-                    $state.go('users');
+                    $state.go('callCenter');
 
                 },
                 function (data, status) {
@@ -4465,7 +4466,18 @@
         }
         vm.addressInfo = function (address) {
             vm.addressDetails = address;
-         }
+        }
+
+        vm.dateIsValid = false;
+        $scope.dateChange = function () {
+            if ($('#startdate').data('date') == null || $('#startdate').data('date') == "") {
+                vm.dateIsValid = false;
+                $scope.$apply();
+            } else if (!$scope.orderItemForm.isInValid) {
+                vm.dateIsValid = true;
+                $scope.$apply();
+            }
+        }
 
         vm.AddNewProgram = function () {
             var newProgram = new AddProgramResource();
@@ -4483,6 +4495,8 @@
             newProgram.programDetails = vm.itemList;
             newProgram.price = vm.ProgramTotalPrice;
             newProgram.isOrdering = true;
+            newProgram.day = $('#startdate').val();
+
             newProgram.isProgram = true;
             newProgram.userId = vm.clientId;
             if (vm.orderType.type == "delivery") {
@@ -4539,6 +4553,19 @@
         vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
         vm.selectedCountryId = 0;
         vm.counties = vm.counties.concat(CountriesPrepService.results)
+
+        vm.dateIsValid = false;
+        $scope.dateChange = function () {
+            if ($('#startdate').data('date') == null || $('#startdate').data('date') == "") {
+                vm.dateIsValid = false;
+                $scope.$apply();
+            } else if (!$scope.orderItemForm.isInValid) {
+                vm.dateIsValid = true;
+                $scope.$apply();
+            }
+        }
+
+
 
         vm.resetDLL = function () {
             vm.counties = [];
@@ -4657,6 +4684,8 @@
             order.items = vm.itemList;
             order.isByAdmin = true;
             order.branchId = vm.selectedBranchId;
+            order.day = $('#startdate').val();
+
             order.userId = vm.clientId; 
             order.type = "Item";
 
@@ -4832,6 +4861,17 @@
             });
         }
 
+        vm.dateIsValid = false;
+        $scope.dateChange = function () {
+            if ($('#startdate').data('date') == null || $('#startdate').data('date') == "") {
+                vm.dateIsValid = false;
+                $scope.$apply();
+            } else if (!$scope.orderMealForm.isInValid) {
+                vm.dateIsValid = true;
+                $scope.$apply();
+            }
+        }
+
         vm.Order = function () {
             blockUI.start("Loading...");
 
@@ -4841,6 +4881,7 @@
             order.isByAdmin = true;
             order.branchId = vm.selectedBranchId;
             order.userId = vm.clientId;
+            order.day = $('#startdate').val();
             order.type = "Meal";
 
             order.$createOrder().then(
@@ -5000,9 +5041,7 @@
 
         $scope.getData = function (itemModel) {
             vm.itemList = [];
-            itemModel.forEach(element => {
-                vm.itemList.push(element);
-            });
+            vm.itemList.push(itemModel);
         }
 
         vm.orderType = {
@@ -5043,6 +5082,17 @@
                 });
         }
 
+        vm.dateIsValid = false;
+        $scope.dateChange = function () {
+            if ($('#startdate').data('date') == null || $('#startdate').data('date') == "") {
+                vm.dateIsValid = false;
+                $scope.$apply();
+            } else if (!$scope.orderProgramForm.isInValid) {
+                vm.dateIsValid = true;
+                $scope.$apply();
+            }
+        }
+
         vm.Order = function () {
             blockUI.start("Loading...");
 
@@ -5051,6 +5101,7 @@
             order.programs = vm.itemList;
             order.isByAdmin = true;
             order.userId = vm.clientId;
+            order.day = $('#startdate').val();
 
             if (vm.orderType.type == "delivery") {
                 order.isDelivery = true;

@@ -31,6 +31,8 @@ namespace FitHouse.API.Models
         public List<ProgramDetailModel> ProgramDetails { get; set; }
         public List<ItemProgramModel> Items { get; set; }
         public List<DayModel> Days { get; set; }
+        public DateTime Day { get; set; }
+
 
     }
 }

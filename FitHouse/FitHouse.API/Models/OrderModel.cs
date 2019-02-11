@@ -32,5 +32,6 @@ namespace FitHouse.API.Models
 
         public long BranchId { get; set; }
         public BranchModel Branch { get; set; }
+
     }
 }

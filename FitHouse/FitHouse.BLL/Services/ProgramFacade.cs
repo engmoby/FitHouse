@@ -140,10 +140,11 @@ namespace FitHouse.BLL.Services
                 order.IsProgram = true;
                 order.OrderDate = DateTime.Now;
                 order.UserId = programDto.UserId;
+                order.OrderStartDate = programDto.Day;
                 order.AddressId = (programDto.AddressId == 0) ? null : programDto.AddressId;
                 order.BranchId = programDto.branchId;
+                var lastDate = order.OrderStartDate;
 
-               
                 for (var i = 1; i <= programDto.ProgramDays; i++)
                 {
 
@@ -151,6 +152,46 @@ namespace FitHouse.BLL.Services
                     orderDetail.OrderId = order.OrderId;
                     orderDetail.DayNumber = i;
                     orderDetail.ProgramId = programDto.ProgramId;
+
+
+                    if (orderDetail.DayNumber == 1)
+                    {
+                        orderDetail.Day = lastDate;
+                        orderDetail.Status = Enums.OrderStatus.Open;
+                        //lastDate = lastDate?.AddDays(1);
+                    }
+
+                    else
+                    {
+
+                        lastDate = lastDate?.AddDays(1);
+                        foreach (var day in excludedDays)
+                        {
+                            if (lastDate != null && day.DayId == 1 && lastDate.Value.DayOfWeek == DayOfWeek.Saturday)
+                                lastDate = lastDate?.AddDays(1);
+
+                            if (lastDate != null && day.DayId == 2 && lastDate.Value.DayOfWeek == DayOfWeek.Sunday)
+                                lastDate = lastDate?.AddDays(1);
+
+                            if (lastDate != null && day.DayId == 3 && lastDate.Value.DayOfWeek == DayOfWeek.Monday)
+                                lastDate = lastDate?.AddDays(1);
+
+                            if (lastDate != null && day.DayId == 4 && lastDate.Value.DayOfWeek == DayOfWeek.Tuesday)
+                                lastDate = lastDate?.AddDays(1);
+
+                            if (lastDate != null && day.DayId == 5 && lastDate.Value.DayOfWeek == DayOfWeek.Wednesday)
+                                lastDate = lastDate?.AddDays(1);
+
+                            if (lastDate != null && day.DayId == 6 && lastDate.Value.DayOfWeek == DayOfWeek.Thursday)
+                                lastDate = lastDate?.AddDays(1);
+
+                            if (lastDate != null && day.DayId == 7 && lastDate.Value.DayOfWeek == DayOfWeek.Friday)
+                                lastDate = lastDate?.AddDays(1);
+                        }
+                        orderDetail.Day = lastDate;
+                        orderDetail.Status = Enums.OrderStatus.Open;
+                    }
+
                     orderDetails.Add(orderDetail);
                 }
 

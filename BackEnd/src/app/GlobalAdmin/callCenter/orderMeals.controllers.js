@@ -159,6 +159,17 @@
             });
         }
 
+        vm.dateIsValid = false;
+        $scope.dateChange = function () {
+            if ($('#startdate').data('date') == null || $('#startdate').data('date') == "") {
+                vm.dateIsValid = false;
+                $scope.$apply();
+            } else if (!$scope.orderMealForm.isInValid) {
+                vm.dateIsValid = true;
+                $scope.$apply();
+            }
+        }
+
         vm.Order = function () {
             blockUI.start("Loading...");
 
@@ -168,6 +179,7 @@
             order.isByAdmin = true;
             order.branchId = vm.selectedBranchId;
             order.userId = vm.clientId;
+            order.day = $('#startdate').val();
             order.type = "Meal";
 
             order.$createOrder().then(

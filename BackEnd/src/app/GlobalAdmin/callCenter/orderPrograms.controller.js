@@ -144,9 +144,10 @@
 
         $scope.getData = function (itemModel) {
             vm.itemList = [];
-            itemModel.forEach(element => {
-                vm.itemList.push(element);
-            });
+            vm.itemList.push(itemModel);
+            // itemModel.forEach(element => {
+            //     vm.itemList.push(element);
+            // });
         }
 
         vm.orderType = {
@@ -187,6 +188,17 @@
                 });
         }
 
+        vm.dateIsValid = false;
+        $scope.dateChange = function () {
+            if ($('#startdate').data('date') == null || $('#startdate').data('date') == "") {
+                vm.dateIsValid = false;
+                $scope.$apply();
+            } else if (!$scope.orderProgramForm.isInValid) {
+                vm.dateIsValid = true;
+                $scope.$apply();
+            }
+        }
+
         vm.Order = function () {
             blockUI.start("Loading...");
 
@@ -196,6 +208,7 @@
             order.isByAdmin = true;
             // order.branchId = vm.selectedBranchId;
             order.userId = vm.clientId;
+            order.day = $('#startdate').val();
 
             if (vm.orderType.type == "delivery") {
                 order.isDelivery = true;

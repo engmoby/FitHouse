@@ -36,5 +36,6 @@ namespace FitHouse.BLL.DTOs
         public List<ItemProgramDto> Items { get; set; }
         public List<MealDto> Meals { get; set; }
         public List<ProgramDto> Programs { get; set; }
+        public DateTime Day { get; set; }
     }
 }

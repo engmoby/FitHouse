@@ -533,9 +533,11 @@ angular.module('core')
         "BaiscInfo":"Baisc Info",
         "CreateMeal":"Create Meal",
         "Summary":"Summary",
+        "orderPickDateTime":"Order Date Time"
       }
 
       var ar_translations = {
+        "orderPickDateTime":"وقت الطلب",
         "Program":"البرنامج",
         "CallCenter":"خدمة العملاء",
         "FirstName":"الاسم الاول",
