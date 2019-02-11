@@ -131,6 +131,7 @@ namespace FitHouse.BLL.Services
            
             if (programDto.IsOrdering)
             {
+                programObj.IsForClient = true;
                 var orderDetails = new List<OrderDetail>();
                 var order = new Order();
                 order.BranchId = programDto.branchId;
@@ -140,6 +141,7 @@ namespace FitHouse.BLL.Services
                 order.OrderDate = DateTime.Now;
                 order.UserId = programDto.UserId;
                 order.AddressId = (programDto.AddressId == 0) ? null : programDto.AddressId;
+                order.BranchId = programDto.branchId;
 
                
                 for (var i = 1; i <= programDto.ProgramDays; i++)

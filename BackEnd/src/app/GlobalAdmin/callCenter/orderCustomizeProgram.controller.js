@@ -6,12 +6,12 @@
         .controller('orderCustomizeProgramcontroller', ['$scope', 'blockUI', '$filter', '$translate',
             '$state', '$localStorage', 'authorizationService', 'appCONSTANTS', 'ToastService', '$stateParams',
             'AddProgramResource', 'daysPrepService', 'settingsPrepService', 'itemsssPrepService'
-            ,'RegionResource', 'CityResource', 'AreaResource', 'CountriesPrepService', orderCustomizeProgramcontroller]);
+            , 'RegionResource', 'CityResource', 'AreaResource', 'CountriesPrepService', 'OrderResource', orderCustomizeProgramcontroller]);
 
 
     function orderCustomizeProgramcontroller($scope, blockUI, $filter, $translate, $state, $localStorage, authorizationService,
         appCONSTANTS, ToastService, $stateParams, AddProgramResource, daysPrepService, settingsPrepService, itemsssPrepService
-        , RegionResource, CityResource, AreaResource, CountriesPrepService) {
+        , RegionResource, CityResource, AreaResource, CountriesPrepService, OrderResource) {
 
         // $('.pmd-sidebar-nav>li>a').removeClass("active")
         // $($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
@@ -23,6 +23,8 @@
 
         // $scope.ProgramName = "";
         // $scope.ProgramDescription = "";
+        vm.daysCount = 0;
+        vm.mealsCount = 0;
         vm.ProgramDaysCount = 0;
         vm.MealPerDay = 0;
         vm.ProgramDiscount = 0;
@@ -164,6 +166,11 @@
         }
 
         vm.deletedItem = false;
+        vm.ConvertToNumber = function () {
+            vm.daysCount = parseInt(vm.ProgramDaysCount, 10);
+            vm.mealsCount = parseInt(vm.MealPerDay, 10);
+        }
+
         $scope.discountChange = function () {
             vm.ProgramPrice = 0;
             vm.ProgramCost = 0;
@@ -251,6 +258,29 @@
             });
         }
 
+        vm.orderType = {
+            type: 'delivery'
+        };
+        vm.addresses = {
+            address: 0
+        };
+
+        if (vm.orderType.type == 'delivery') {
+            var k = OrderResource.getUserAddresses({ userId: vm.clientId }).$promise.then(function (results) {
+                vm.userAddresses = results;
+                console.log(vm.userAddresses);
+                blockUI.stop();
+
+            },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+        vm.addressInfo = function (address) {
+            vm.addressDetails = address;
+         }
+
         vm.AddNewProgram = function () {
             var newProgram = new AddProgramResource();
             newProgram.programNameDictionary = vm.titleDictionary;
@@ -265,23 +295,26 @@
             newProgram.isForClient = false;
             newProgram.isDeleted = false;
             newProgram.programDetails = vm.itemList;
+            newProgram.price = vm.ProgramTotalPrice;
             newProgram.isOrdering = true;
-            newProgram.branchId = vm.selectedBranchId;
+            // newProgram.branchId = vm.selectedBranchId;
             newProgram.isProgram = true;
             newProgram.userId = vm.clientId;
-            if(vm.orderType.type == "delivery"){
+            if (vm.orderType.type == "delivery") {
                 newProgram.isDelivery = true;
+                newProgram.addressId = vm.addresses.address;
+                newProgram.branchId = vm.addressDetails.branchId;
             }
-            else{
+            else {
                 newProgram.isDelivery = false;
+                newProgram.branchId = vm.selectedBranchId;
             }
             newProgram.isOrdering = true;
             newProgram.days = vm.SelectedDays;
             newProgram.$create().then(
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
-
-
+                    $state.go('callCenter');
                 },
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");

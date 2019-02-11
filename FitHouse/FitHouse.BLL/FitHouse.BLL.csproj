@@ -98,6 +98,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataServices\AddressService.cs" />
+    <Compile Include="DataServices\Interfaces\IAddressService.cs" />
     <Compile Include="DataServices\Interfaces\ILogService.cs" />
     <Compile Include="DataServices\LogService.cs" />
     <Compile Include="DataServices\Interfaces\IOrderService.cs" />
@@ -205,6 +207,7 @@
     <Compile Include="DTOs\UserDto.cs" />
     <Compile Include="FitHouseBLLConfig.cs" />
     <Compile Include="Services\Interfaces\ILogFacade.cs" />
+    <Compile Include="Services\Interfaces\IAddressFacade.cs" />
     <Compile Include="Services\LogFacade.cs" />
     <Compile Include="Services\CityFacade.cs" />
     <Compile Include="Services\CountryFacade.cs" />
@@ -247,6 +250,7 @@
     <Compile Include="Services\RoleFacade.cs" />
     <Compile Include="Services\AreaFacade.cs" />
     <Compile Include="Services\BranchFacade.cs" />
+    <Compile Include="Services\AddressFacade.cs" />
     <Compile Include="Services\SettingFacade.cs" />
     <Compile Include="Services\UserFacade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

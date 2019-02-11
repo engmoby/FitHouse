@@ -18,6 +18,8 @@ namespace FitHouse.BLL.DTOs
         public long? CreatorUserId { get; set; }
         public DateTime? DeletionTime { get; set; }
         public long? DeleterUserId { get; set; }
+        public bool IsFees { get; set; }
+
     }
 }
 

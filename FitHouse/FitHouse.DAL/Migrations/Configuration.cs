@@ -187,6 +187,55 @@
             //context.RolePermissions.AddOrUpdate(
             //    new RolePermission { ActionId = 1, RoleId = 1, Permission = permisison11 });
 
+            //var day1 = new Day { IsDeleted = false, IsActive = true };
+            //    context.Days.AddOrUpdate(h => h.DayId, day1);
+            //context.DayTranslations.AddOrUpdate(
+            //    new DayTranslation { Language = "en", Title = "Saturday", Day = day1});
+            //context.DayTranslations.AddOrUpdate(
+            //    new DayTranslation { Language = "ar", Title = "السبت", Day = day1 });
+
+
+            //var day2 = new Day { IsDeleted = false, IsActive = true };
+            //context.Days.AddOrUpdate(h => h.DayId, day2);
+            //context.DayTranslations.AddOrUpdate(
+            //    new DayTranslation { Language = "en", Title = "Sunday", Day = day2 });
+            //context.DayTranslations.AddOrUpdate(
+            //    new DayTranslation { Language = "ar", Title = "الأحد", Day = day2 });
+
+            //var day3 = new Day { IsDeleted = false, IsActive = true };
+            //context.Days.AddOrUpdate(h => h.DayId, day3);
+            //context.DayTranslations.AddOrUpdate(
+            //    new DayTranslation { Language = "en", Title = "Monday", Day = day3 });
+            //context.DayTranslations.AddOrUpdate(
+            //    new DayTranslation { Language = "ar", Title = "الاثنين", Day = day3 });
+
+            //var day4 = new Day { IsDeleted = false, IsActive = true };
+            //context.Days.AddOrUpdate(h => h.DayId, day4);
+            //context.DayTranslations.AddOrUpdate(
+            //    new DayTranslation { Language = "en", Title = "Tuesday", Day = day4 });
+            //context.DayTranslations.AddOrUpdate(
+            //    new DayTranslation { Language = "ar", Title = "الثلاثاء", Day = day4 });
+
+            //var day5 = new Day { IsDeleted = false, IsActive = true };
+            //context.Days.AddOrUpdate(h => h.DayId, day5);
+            //context.DayTranslations.AddOrUpdate(
+            //    new DayTranslation { Language = "en", Title = "Wednesday", Day = day5 });
+            //context.DayTranslations.AddOrUpdate(
+            //    new DayTranslation { Language = "ar", Title = "الأربعاء", Day = day5 });
+
+            //var day6 = new Day { IsDeleted = false, IsActive = true };
+            //context.Days.AddOrUpdate(h => h.DayId, day6);
+            //context.DayTranslations.AddOrUpdate(
+            //    new DayTranslation { Language = "en", Title = "Thursday", Day = day6 });
+            //context.DayTranslations.AddOrUpdate(
+            //    new DayTranslation { Language = "ar", Title = "الخميس", Day = day6 });
+
+            //var day7 = new Day { IsDeleted = false, IsActive = true };
+            //context.Days.AddOrUpdate(h => h.DayId, day7);
+            //context.DayTranslations.AddOrUpdate(
+            //    new DayTranslation { Language = "en", Title = "Friday", Day = day7 });
+            //context.DayTranslations.AddOrUpdate(
+            //    new DayTranslation { Language = "ar", Title = "الجمعه", Day = day7 });
         }
     }
 

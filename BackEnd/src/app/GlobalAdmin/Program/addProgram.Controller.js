@@ -18,7 +18,8 @@
 
         var vm = this;
         vm.language = appCONSTANTS.supportedLanguage;
-
+        vm.daysCount = 0;
+        vm.mealsCount = 0;
         // $scope.ProgramName = "";
         // $scope.ProgramDescription = "";
         vm.ProgramDaysCount = 0;
@@ -37,13 +38,19 @@
         vm.itemList = [];
         //$scope.itemModel = [];
         //$scope.variableitemmodel;
-        console.log(vm.itemList);
+        // console.log(vm.itemList);
         vm.SelectedDays = [];
         vm.progCountList = [];
 
         vm.Setting = settingsPrepService;
 
         vm.deletedItem = false;
+
+        vm.ConvertToNumber = function () {
+            vm.daysCount = parseInt(vm.ProgramDaysCount, 10);
+            vm.mealsCount = parseInt(vm.MealPerDay, 10);
+        }
+
         $scope.discountChange = function () {
             vm.ProgramPrice = 0;
             vm.ProgramCost = 0;
@@ -58,8 +65,8 @@
         }
 
         $scope.getData = function (itemModel, day, meal) {
-        
-        
+
+
             // debugger;
             // var allDayMeal = $scope.itemList.filter(x=>x.day == day && x.meal == meal);
             var differntMeal = vm.itemList.filter(x => (x.dayNumber == day && x.mealNumberPerDay != meal) || (x.dayNumber != day));
@@ -74,7 +81,7 @@
                 vm.itemList.push(element);
             });
 
-            console.log(vm.itemList);
+            // console.log(vm.itemList);
 
             vm.ProgramPrice = 0;
             vm.ProgramCost = 0;
@@ -87,7 +94,7 @@
                 vm.ProgramTotalPrice += vm.itemList[i].totalPrice;
             }
         }
-        
+
         //Model
         vm.currentStep = 1;
         vm.steps = [
@@ -148,12 +155,11 @@
             newProgram.isDeleted = false;
             newProgram.programDetails = vm.itemList;
             newProgram.days = vm.SelectedDays;
-            newProgram.price =  vm.ProgramTotalPrice;
+            newProgram.price = vm.ProgramTotalPrice;
             newProgram.$create().then(
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
-
-
+                    $state.go('program');
                 },
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");

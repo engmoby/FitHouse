@@ -145,6 +145,7 @@ namespace FitHouse.BLL
             FitHouselConfig.RegisterTypes(container);
             container
                   .RegisterType<IRoleService, RoleService>(new PerResolveLifetimeManager())
+                  .RegisterType<IAddressService, AddressService>(new PerResolveLifetimeManager())
                   .RegisterType<IProgExcludeDayService, ProgExcludeDayService>(new PerResolveLifetimeManager())
                 .RegisterType<IRoleTranslationService, RoleTranslationService>(new PerResolveLifetimeManager())
                 .RegisterType<IAreaService, AreaService>(new PerResolveLifetimeManager())

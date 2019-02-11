@@ -29,6 +29,26 @@ namespace FitHouse.BLL.Services
 
         public SettingDto UpdateSetting(SettingDto settingDto, long userId)
         {
+            var setting = _settingService.Queryable().FirstOrDefault();
+            setting.IsDeleted = false;
+            setting.AllowHistory = settingDto.AllowHistory;
+            setting.CurrencyCode = settingDto.CurrencyCode;
+            setting.IsActive = settingDto.IsActive;
+            setting.IsMail = settingDto.IsMail;
+            setting.IsPause = settingDto.IsPause;
+            setting.IsSMS = settingDto.IsSMS;
+            setting.MaxPauseDays = settingDto.MaxPauseDays;
+            setting.MinNoDaysPerProgram = settingDto.MinNoDaysPerProgram;
+            
+
+            _settingService.Update(setting);
+            SaveChanges();
+
+            return settingDto;
+        }
+
+        public SettingDto AddSettings(SettingDto settingDto, long userId)
+        {
             var setting = Mapper.Map<Setting>(settingDto);
 
             _settingService.Insert(setting);

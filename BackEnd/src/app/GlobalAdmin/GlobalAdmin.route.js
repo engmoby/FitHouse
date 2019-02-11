@@ -101,8 +101,8 @@
                     controller: 'callCenterController',
                     'controllerAs': 'callCenterCtrl',
                     resolve: {
-                        RolePrepService: AllRolePrepService,
-                        CountriesPrepService: CountriesPrepService,
+                        // RolePrepService: AllRolePrepService,
+                        CountriesPrepService: CountriesPrepService
                     },
                     data: {
                         permissions: {

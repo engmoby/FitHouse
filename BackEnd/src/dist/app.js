@@ -101,8 +101,7 @@
                     controller: 'callCenterController',
                     'controllerAs': 'callCenterCtrl',
                     resolve: {
-                        RolePrepService: AllRolePrepService,
-                        CountriesPrepService: CountriesPrepService,
+                        CountriesPrepService: CountriesPrepService
                     },
                     data: {
                         permissions: {
@@ -3111,7 +3110,8 @@
 
         var vm = this;
         vm.language = appCONSTANTS.supportedLanguage;
-
+        vm.daysCount = 0;
+        vm.mealsCount = 0;
         vm.ProgramDaysCount = 0;
         vm.MealPerDay = 0;
         vm.ProgramDiscount = 0;
@@ -3124,13 +3124,18 @@
         vm.dayList = daysPrepService;
         $scope.itemsssPrepService = itemsssPrepService;
         vm.itemList = [];
-        console.log(vm.itemList);
         vm.SelectedDays = [];
         vm.progCountList = [];
 
         vm.Setting = settingsPrepService;
 
         vm.deletedItem = false;
+
+        vm.ConvertToNumber = function () {
+            vm.daysCount = parseInt(vm.ProgramDaysCount, 10);
+            vm.mealsCount = parseInt(vm.MealPerDay, 10);
+        }
+
         $scope.discountChange = function () {
             vm.ProgramPrice = 0;
             vm.ProgramCost = 0;
@@ -3157,7 +3162,6 @@
                 vm.itemList.push(element);
             });
 
-            console.log(vm.itemList);
 
             vm.ProgramPrice = 0;
             vm.ProgramCost = 0;
@@ -3228,12 +3232,11 @@
             newProgram.isDeleted = false;
             newProgram.programDetails = vm.itemList;
             newProgram.days = vm.SelectedDays;
-            newProgram.price =  vm.ProgramTotalPrice;
+            newProgram.price = vm.ProgramTotalPrice;
             newProgram.$create().then(
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
-
-
+                    $state.go('program');
                 },
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
@@ -3901,15 +3904,15 @@
         .module('home')
         .controller('callCenterController', ['$scope', 'blockUI', '$filter', '$translate',
             '$state', '$localStorage', 'authorizationService', 'appCONSTANTS', 'ToastService', '$stateParams'
-            , 'UserResource', 'CityResource', 'AreaResource', 'RegionResource', 'RolePrepService'
-            , 'CountriesPrepService', callCenterController])
+            , 'CountriesPrepService', 'UserResource', 'CityResource', 'AreaResource', 'RegionResource'
+            , callCenterController])
 
         ;
 
 
     function callCenterController($scope, blockUI, $filter, $translate, $state, $localStorage, authorizationService,
-        appCONSTANTS, ToastService, $stateParams, UserResource, CityResource, AreaResource
-        , RegionResource, RolePrepService, CountriesPrepService) {
+        appCONSTANTS, ToastService, $stateParams, CountriesPrepService, UserResource, CityResource, AreaResource
+        , RegionResource) {
 
         $('.pmd-sidebar-nav>li>a').removeClass("active")
         $($('.pmd-sidebar-nav').children()[4].children[0]).addClass("active")
@@ -3927,22 +3930,12 @@
         vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
         vm.selectedCountryId = 0;
         vm.counties = vm.counties.concat(CountriesPrepService.results)
-        vm.roleList = RolePrepService.results;
 
         $scope.phoneNumbr = /^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/;
         $scope.userObj = "";
         $scope.selectedType = "";
         $scope.userTypeList = [];
-        vm.resetDLL = function () {
-            vm.counties = [];
-            vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
-            vm.selectedCountryId = 0;
-            vm.counties = vm.counties.concat(CountriesPrepService.results)
-            vm.regions = [];
-            vm.cities = [];
-            vm.area = [];
-            vm.categoryList = [];
-        }
+
         vm.departmentChange = function () {
             vm.department.splice(0, 1);
             vm.categoryList = [];
@@ -3950,6 +3943,7 @@
             vm.selectedCategoryId = 0;
             vm.categoryList = vm.categoryList.concat(($filter('filter')(vm.department, { departmentId: vm.selectedDepartmentId }))[0].categories);
         }
+
         vm.categoryChange = function () {
             for (var i = vm.categoryList.length - 1; i >= 0; i--) {
                 if (vm.categoryList[i].categoryId == 0) {
@@ -3977,6 +3971,7 @@
                 });
             blockUI.stop();
         }
+
         vm.regionChange = function () {
             if (vm.selectedRegionId != undefined) {
                 for (var i = vm.regions.length - 1; i >= 0; i--) {
@@ -4034,11 +4029,12 @@
             }
         }
 
+
         vm.currentStep = 1;
         vm.steps = [
             {
                 step: 1,
-                nameEn: "ٌRegister User",
+                nameEn: "Register User",
                 nameAr: "تسجيل عميل",
                 template: "./app/GlobalAdmin/callCenter/templates/callCenterStepOne.html"
             },
@@ -4101,6 +4097,10 @@
             newClient.Phone = vm.Phone;
             newClient.Password = vm.Phone;
             newClient.IsActive = true;
+            newClient.floor = vm.FLoor;
+            newClient.appartmentNo = vm.AppartmentNo;
+            newClient.description  = vm.AddressDescription;
+            newClient.isAddress = true;
             newClient.UserRoles = vm.selectedUserRoles;
             newClient.branchId = vm.selectedBranchId;
             newClient.$create().then(
@@ -4170,6 +4170,7 @@
         return $resource(appCONSTANTS.API_URL + 'Orders', {}, {
             createOrder: { method: 'POST', url: appCONSTANTS.API_URL + 'Orders/CreateOrder', useToken: true }, 
             getMealItems: { method: 'GET', url: appCONSTANTS.API_URL + 'Meals/GetMealItems/:MealId', useToken: true, isArray:true },             
+            getUserAddresses: { method: 'GET', url: appCONSTANTS.API_URL + 'Address/GetUserAddresses/:userId', useToken: true, isArray:true },             
         })
     }
 
@@ -4182,18 +4183,20 @@
         .controller('orderCustomizeProgramcontroller', ['$scope', 'blockUI', '$filter', '$translate',
             '$state', '$localStorage', 'authorizationService', 'appCONSTANTS', 'ToastService', '$stateParams',
             'AddProgramResource', 'daysPrepService', 'settingsPrepService', 'itemsssPrepService'
-            ,'RegionResource', 'CityResource', 'AreaResource', 'CountriesPrepService', orderCustomizeProgramcontroller]);
+            , 'RegionResource', 'CityResource', 'AreaResource', 'CountriesPrepService', 'OrderResource', orderCustomizeProgramcontroller]);
 
 
     function orderCustomizeProgramcontroller($scope, blockUI, $filter, $translate, $state, $localStorage, authorizationService,
         appCONSTANTS, ToastService, $stateParams, AddProgramResource, daysPrepService, settingsPrepService, itemsssPrepService
-        , RegionResource, CityResource, AreaResource, CountriesPrepService) {
+        , RegionResource, CityResource, AreaResource, CountriesPrepService, OrderResource) {
 
 
 
         var vm = this;
         vm.language = appCONSTANTS.supportedLanguage;
 
+        vm.daysCount = 0;
+        vm.mealsCount = 0;
         vm.ProgramDaysCount = 0;
         vm.MealPerDay = 0;
         vm.ProgramDiscount = 0;
@@ -4326,6 +4329,11 @@
         }
 
         vm.deletedItem = false;
+        vm.ConvertToNumber = function () {
+            vm.daysCount = parseInt(vm.ProgramDaysCount, 10);
+            vm.mealsCount = parseInt(vm.MealPerDay, 10);
+        }
+
         $scope.discountChange = function () {
             vm.ProgramPrice = 0;
             vm.ProgramCost = 0;
@@ -4406,6 +4414,29 @@
             });
         }
 
+        vm.orderType = {
+            type: 'delivery'
+        };
+        vm.addresses = {
+            address: 0
+        };
+
+        if (vm.orderType.type == 'delivery') {
+            var k = OrderResource.getUserAddresses({ userId: vm.clientId }).$promise.then(function (results) {
+                vm.userAddresses = results;
+                console.log(vm.userAddresses);
+                blockUI.stop();
+
+            },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+        vm.addressInfo = function (address) {
+            vm.addressDetails = address;
+         }
+
         vm.AddNewProgram = function () {
             var newProgram = new AddProgramResource();
             newProgram.programNameDictionary = vm.titleDictionary;
@@ -4420,23 +4451,25 @@
             newProgram.isForClient = false;
             newProgram.isDeleted = false;
             newProgram.programDetails = vm.itemList;
+            newProgram.price = vm.ProgramTotalPrice;
             newProgram.isOrdering = true;
-            newProgram.branchId = vm.selectedBranchId;
             newProgram.isProgram = true;
             newProgram.userId = vm.clientId;
-            if(vm.orderType.type == "delivery"){
+            if (vm.orderType.type == "delivery") {
                 newProgram.isDelivery = true;
+                newProgram.addressId = vm.addresses.address;
+                newProgram.branchId = vm.addressDetails.branchId;
             }
-            else{
+            else {
                 newProgram.isDelivery = false;
+                newProgram.branchId = vm.selectedBranchId;
             }
             newProgram.isOrdering = true;
             newProgram.days = vm.SelectedDays;
             newProgram.$create().then(
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
-
-
+                    $state.go('callCenter');
                 },
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
@@ -4827,7 +4860,7 @@
         vm.clientId = localStorage.getItem('ClientId');
         vm.flag = false;
 
-        vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
+             vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
         vm.selectedCountryId = 0;
         vm.counties = vm.counties.concat(CountriesPrepService.results)
 
@@ -4841,6 +4874,7 @@
             vm.area = [];
             vm.categoryList = [];
         }
+
         vm.departmentChange = function () {
             vm.department.splice(0, 1);
             vm.categoryList = [];
@@ -4848,6 +4882,7 @@
             vm.selectedCategoryId = 0;
             vm.categoryList = vm.categoryList.concat(($filter('filter')(vm.department, { departmentId: vm.selectedDepartmentId }))[0].categories);
         }
+
         vm.categoryChange = function () {
             for (var i = vm.categoryList.length - 1; i >= 0; i--) {
                 if (vm.categoryList[i].categoryId == 0) {
@@ -4875,6 +4910,7 @@
                 });
             blockUI.stop();
         }
+
         vm.regionChange = function () {
             if (vm.selectedRegionId != undefined) {
                 for (var i = vm.regions.length - 1; i >= 0; i--) {
@@ -4942,6 +4978,26 @@
         vm.orderType = {
             type: 'delivery'
         };
+        vm.addresses = {
+            address: 0
+        };
+
+        if (vm.orderType.type == 'delivery') {
+            var k = OrderResource.getUserAddresses({ userId: vm.clientId }).$promise.then(function (results) {
+                vm.userAddresses = results;
+                console.log(vm.userAddresses);
+                blockUI.stop();
+
+            },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+
+        vm.addressInfo = function (address) {
+           vm.addressDetails = address;
+        }
 
         vm.programSearch = function () {
             var k = GetProgramDetailResource.getProgramDetail({ programId: vm.program.programId }).$promise.then(function (results) {
@@ -4964,15 +5020,16 @@
 
             order.programs = vm.itemList;
             order.isByAdmin = true;
-            order.isProgram = true;
-            order.branchId = vm.selectedBranchId;
             order.userId = vm.clientId;
 
             if (vm.orderType.type == "delivery") {
                 order.isDelivery = true;
+                order.addressId = vm.addresses.address;
+                order.branchId = vm.addressDetails.branchId;
             }
             else {
                 order.isDelivery = false;
+                order.branchId = vm.selectedBranchId;
             }
 
             order.$createOrder().then(
@@ -6498,36 +6555,69 @@ debugger;
 
     angular
         .module('home')
-        .controller('settingController', ['$rootScope', 'blockUI', '$scope', '$http',  '$filter', '$translate',
+        .controller('editBranchFeesController', ['$scope', 'blockUI', '$filter', '$translate',
+            '$state', '$localStorage', 'authorizationService', 'appCONSTANTS', 'ToastService', '$stateParams'
+            , 'branchFeesPrepService' , '$uibModalInstance', 'BranchResource', editBranchFeesController]);
+
+
+    function editBranchFeesController($scope, blockUI, $filter, $translate,
+        $state, $localStorage, authorizationService, appCONSTANTS, ToastService, $stateParams,
+        branchFeesPrepService, $uibModalInstance, BranchResource) {
+
+        $scope.selectedLanguage = $localStorage.language;
+        var vm = this;
+        vm.language = appCONSTANTS.supportedLanguage;
+        blockUI.stop();
+        $scope.branch = branchFeesPrepService[0];
+
+        vm.close = function () {
+            $uibModalInstance.dismiss();
+        }
+
+
+        vm.UpdateFees = function () {
+            var branch = new BranchResource();
+
+                        branch.deliveryCost = $scope.branch.deliveryCost;
+            branch.deliveryPrice = $scope.branch.deliveryPrice;
+            branch.isFees = true;
+            branch.branchId = $scope.branch.branchId;
+
+            branch.$update().then(
+                function (data, status) {
+                    $uibModalInstance.dismiss();
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('EditedSuccessfully'), "success");
+
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+    }
+
+})();
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('settingController', ['$rootScope', 'blockUI', '$scope', '$http', '$filter', '$translate',
             '$state', '$localStorage',
             'authorizationService', 'appCONSTANTS',
             'ToastService', '$stateParams'
-            , '$uibModal', 'settingsPrepService', 'BranchPrepService', settingController]);
+            , '$uibModal', 'settingsPrepService', 'BranchPrepService', 'AddSettingsResource', 'UpdateSettingsResource', settingController]);
 
 
     function settingController($rootScope, blockUI, $scope, $http, $filter, $translate,
         $state, $localStorage, authorizationService,
         appCONSTANTS, ToastService, $stateParams, $uibModal, settingsPrepService
-        , BranchPrepService) {
+        , BranchPrepService, AddSettingsResource, UpdateSettingsResource) {
 
 
 
         var vm = this;
         $scope.settingsPrepService = settingsPrepService;
-
-        $http.get('http://country.io/currency.json').then(function (response) {
-            $scope.currencyPrepService = response.data;
-        });
-
-        $scope.BranchPrepService = BranchPrepService;
-
-console.log("Setting");
-console.log($scope.settingsPrepService);
-console.log("Currency");
-console.log($scope.currencyPrepService);
-console.log("Branches");
-console.log($scope.BranchPrepService);
-
 
         vm.orderType = {
             type: 'item'
@@ -6538,6 +6628,25 @@ console.log($scope.BranchPrepService);
         vm.maxPause;
         vm.allowPause;
         vm.allowHistory;
+
+        if ($scope.settingsPrepService.isActive != undefined) {
+            if ($scope.settingsPrepService.isSMS && $scope.settingsPrepService.isMail) {
+                vm.orderType.type = "both"
+            }
+            else if ($scope.settingsPrepService.isSMS) {
+                vm.orderType.type = "sms"
+            }
+            else if ($scope.settingsPrepService.isMail) {
+                vm.orderType.type = "mail"
+            }
+            else {
+                vm.orderType.type = "none"
+            }
+
+        }
+
+
+        $scope.BranchPrepService = BranchPrepService;
 
         vm.currentPage = 1;
         $scope.changePage = function (page) {
@@ -6551,24 +6660,24 @@ console.log($scope.BranchPrepService);
 
 
 
-        vm.UpdateSetting = function () {
+        vm.AddSetting = function () {
             blockUI.start("Loading...");
 
-            var setting = new UpdateSettingsResource();
+            var setting = new AddSettingsResource();
 
-            if(vm.orderType.type == "none"){
+            if (vm.orderType.type == "none") {
                 setting.isSMS = false;
                 setting.isMail = false;
             }
-            else if(vm.orderType.type == "sms"){
+            else if (vm.orderType.type == "sms") {
                 setting.isSMS = true;
                 setting.isMail = false;
             }
-            else if(vm.orderType.type == "mail"){
+            else if (vm.orderType.type == "mail") {
                 setting.isSMS = false;
                 setting.isMail = true;
             }
-            else if(vm.orderType.type == "both"){
+            else if (vm.orderType.type == "both") {
                 setting.isSMS = true;
                 setting.isMail = true;
             }
@@ -6576,15 +6685,68 @@ console.log($scope.BranchPrepService);
             setting.isDeleted = false;
             setting.isPause = vm.allowPause;
 
-            if(vm.allowPause == true){
+            if (vm.allowPause == true) {
                 setting.maxPauseDays = vm.maxPause;
             }
-            else if(vm.allowPause == false){
+            else if (vm.allowPause == false) {
                 setting.maxPauseDays = 0;
             }
             setting.allowHistory = vm.allowHistory;
             setting.currencyCode = vm.currency;
-            setting.minNoDaysPerProgram = vm.minNoDaysPerProgram;
+            setting.minNoDaysPerProgram = vm.minDays;
+            setting.isDeleted = false;
+            setting.isActive = true;
+
+            setting.$create().then(
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('OrderAddSuccess'), "success");
+
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+
+        vm.UpdateSetting = function () {
+            blockUI.start("Loading...");
+
+            var setting = new UpdateSettingsResource();
+
+            if (vm.orderType.type == "none") {
+                setting.isSMS = false;
+                setting.isMail = false;
+            }
+            else if (vm.orderType.type == "sms") {
+                setting.isSMS = true;
+                setting.isMail = false;
+            }
+            else if (vm.orderType.type == "mail") {
+                setting.isSMS = false;
+                setting.isMail = true;
+            }
+            else if (vm.orderType.type == "both") {
+                setting.isSMS = true;
+                setting.isMail = true;
+            }
+
+            setting.isDeleted = false;
+            setting.isPause = $scope.settingsPrepService.isPause;
+
+            if (setting.isPause == true) {
+                setting.maxPauseDays = $scope.settingsPrepService.maxPauseDays;
+            }
+            else if (setting.isPause == false) {
+                setting.maxPauseDays = 0;
+            }
+            setting.allowHistory = $scope.settingsPrepService.allowHistory;
+            setting.currencyCode = $scope.settingsPrepService.currencyCode;
+            setting.minNoDaysPerProgram = $scope.settingsPrepService.minNoDaysPerProgram;
             setting.isDeleted = false;
             setting.isActive = true;
 
@@ -6602,6 +6764,20 @@ console.log($scope.BranchPrepService);
                     ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 }
             );
+        }
+
+        $scope.EditBranchDialog = function (branchIdd) {
+            blockUI.stop();
+            vm.branch = $scope.BranchPrepService.results.filter(x => x.branchId == branchIdd);
+
+            $uibModal.open({
+                templateUrl: './app/GlobalAdmin/setting/templates/editBranchFees.html',
+                controller: 'editBranchFeesController',
+                controllerAs: 'editBranchFeesCtrl',
+                resolve: {
+                    branchFeesPrepService: function () { return vm.branch; }
+                }
+            });
         }
 
         function change(program, isDeleted) {
@@ -6648,28 +6824,42 @@ console.log($scope.BranchPrepService);
 
 })();
 (function () {
-    angular
-      .module('home')
-      .factory('GetSettingsResource', ['$resource', 'appCONSTANTS', GetSettingsResource])
-      .factory('UpdateSettingsResource', ['$resource', 'appCONSTANTS', UpdateSettingsResource])
-      ;
+  angular
+    .module('home')
+    .factory('GetSettingsResource', ['$resource', 'appCONSTANTS', GetSettingsResource])
+    .factory('UpdateSettingsResource', ['$resource', 'appCONSTANTS', UpdateSettingsResource])
+    .factory('AddSettingsResource', ['$resource', 'appCONSTANTS', AddSettingsResource])
+    .factory('UpdateBranchFeesResource', ['$resource', 'appCONSTANTS', UpdateBranchFeesResource])
+    ;
 
 
-      function GetSettingsResource($resource, appCONSTANTS) {
-      return $resource(appCONSTANTS.API_URL + 'Setting/GetSetting', {}, {
-        getAllSettings: { method: 'GET', useToken: true}
-      })
-    }
-
-    function UpdateSettingsResource($resource, appCONSTANTS) {
-      return $resource(appCONSTANTS.API_URL + 'Setting/UpdateSetting', {}, {
-          update: { method: 'POST', useToken: true }, 
-      })
+  function GetSettingsResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'Setting/GetSetting', {}, {
+      getAllSettings: { method: 'GET', useToken: true }
+    })
   }
 
-    }());
+  function UpdateSettingsResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'Setting/UpdateSetting', {}, {
+      update: { method: 'POST', useToken: true },
+    })
+  }
 
-    (function () {
+  function AddSettingsResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'Setting/AddSettings', {}, {
+      create: { method: 'POST', useToken: true },
+    })
+  }
+
+  function UpdateBranchFeesResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'Branchs/UpdateBranchFees', {}, {
+      updateBranchFees: { method: 'POST', useToken: true },
+    })
+  }
+
+}());
+
+(function () {
     'use strict';
 
     angular
