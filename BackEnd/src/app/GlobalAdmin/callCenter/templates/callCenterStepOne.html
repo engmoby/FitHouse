@@ -66,7 +66,7 @@
     <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
         <label for="first-name">{{'FLoor' | translate}}</label>
         <input required type="number" class="mat-input form-control" name="floor" ng-model="callCenterCtrl.FLoor"
-            ng-minlength="1" ng-maxlength="2">
+            ng-minlength="1" ng-maxlength="4">
         <div ng-messages="newProgramForm.floor.$error" class="error">
             <div ng-if="newProgramForm.floor.$error.required && !newProgramForm.floor.$pristine">{{'ProgramDaysCountReqError' | translate}}</div>
             <div ng-if="(newProgramForm.floor.$error.minlength || newProgramForm.floor.$error.maxlength)">{{'ProgramDaysCountLengthError' | translate}}</div>
@@ -76,7 +76,7 @@
     <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
         <label for="first-name">{{'ApartmentNumber' | translate}}</label>
         <input required type="number" class="mat-input form-control" name="appartmentNo" ng-model="callCenterCtrl.AppartmentNo"
-            ng-minlength="1" ng-maxlength="2">
+            ng-minlength="1" ng-maxlength="4">
         <div ng-messages="newProgramForm.appartmentNo.$error" class="error">
             <div ng-if="newProgramForm.appartmentNo.$error.required && !newProgramForm.appartmentNo.$pristine">{{'ProgramDaysCountReqError' | translate}}</div>
             <div ng-if="(newProgramForm.appartmentNo.$error.minlength || newProgramForm.appartmentNo.$error.maxlength)">{{'ProgramDaysCountLengthError' | translate}}</div>

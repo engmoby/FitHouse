@@ -71,7 +71,7 @@ namespace FitHouse.BLL.Services
 
         public UserDto ValidateByPhone(string phone)
         {
-            var user = _userService.Query(x=>x.Phone == phone).Select().FirstOrDefault();
+            var user = _userService.Query(x=>x.Phone == phone && x.UserCode != null).Select().FirstOrDefault();
             if(user == null) throw new ValidationException(ErrorCodes.UserNotFound);
 
             return Mapper.Map<UserDto>(user);

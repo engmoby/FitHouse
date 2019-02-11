@@ -26,6 +26,7 @@
         vm.counties = [];
         vm.userOrder;
         vm.flag = false;
+       
         // vm.orderType;
         vm.orderType = {
             type: 'item'
@@ -226,7 +227,7 @@
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('ClientAddSuccess'), "success");
 
                     localStorage.setItem('data', JSON.stringify(data.userId));
-                    $state.go('users');
+                    $state.go('callCenter');
 
                 },
                 function (data, status) {

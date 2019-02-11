@@ -21,6 +21,10 @@
         var vm = this;
         vm.language = appCONSTANTS.supportedLanguage;
 
+        // var d = new Date();
+        // //var e = formatDate(d);
+        // vm.itemDateTime = formatDate(d);
+        // vm.itemDatetime;
         $scope.itemModel = [];
         $scope.itemsssPrepService = itemsssPrepService;
         vm.counties = [];
@@ -29,6 +33,29 @@
         vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
         vm.selectedCountryId = 0;
         vm.counties = vm.counties.concat(CountriesPrepService.results)
+
+        vm.dateIsValid = false;
+        $scope.dateChange = function () {
+            if ($('#startdate').data('date') == null || $('#startdate').data('date') == "") {
+                vm.dateIsValid = false;
+                $scope.$apply();
+            } else if (!$scope.orderItemForm.isInValid) {
+                vm.dateIsValid = true;
+                $scope.$apply();
+            }
+        }
+
+
+        // function formatDate(date) {
+        //     var hours = date.getHours();
+        //     var minutes = date.getMinutes();
+        //     var ampm = hours >= 12 ? 'pm' : 'am';
+        //     hours = hours % 12;
+        //     hours = hours ? hours : 12; // the hour '0' should be '12'
+        //     minutes = minutes < 10 ? '0'+minutes : minutes;
+        //     var strTime = hours + ':' + minutes + ' ' + ampm;
+        //     return date.getMonth()+1 + "/" + date.getDate() + "/" + date.getFullYear() + "  " + strTime;
+        //   }
 
         vm.resetDLL = function () {
             vm.counties = [];
@@ -153,6 +180,16 @@
             order.isByAdmin = true;
             order.branchId = vm.selectedBranchId;
             order.userId = vm.clientId;
+            order.day = $('#startdate').val();
+            // order. = vm.orderStartDate;
+
+            // var flagDate = new Date($('#invitationDateTime').data('date'));
+            // if(flagDate == 'Invalid Date'){
+            //     vm.invitationDateTime =  new Date(vm.invitationDateTime);
+            // }
+            // else{
+            //     vm.invitationDateTime = new Date($('#invitationDateTime').data('date'));
+            // }
 
             order.$createOrder().then(
                 function (data, status) {

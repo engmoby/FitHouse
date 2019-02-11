@@ -1,70 +1,4 @@
 angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/core/Delete/templates/ConfirmDeleteDialog.html',
-    '<div class="modal-content">\n' +
-    '	<div class="modal-body">{{\'deleteConfirmationLbl\' | translate}}<strong>{{deleteDlCtrl.itemName}}</strong> {{deleteDlCtrl.message}}? </div>\n' +
-    '	<div class="pmd-modal-action text-right">\n' +
-    '		<button class="btn pmd-ripple-effect btn-primary pmd-btn-flat" type="button" ng-click="deleteDlCtrl.Confirm()">{{\'deleteBtn\' | translate}}</button>\n' +
-    '		<button class="btn pmd-ripple-effect btn-default pmd-btn-flat" type="button" ng-click="deleteDlCtrl.close()">{{\'cancelBtn\' | translate}}</button>\n' +
-    '	</div>\n' +
-    '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/core/login/templates/login.html',
-    '<div class="logincard" ng-if="!isLoggedIn()" style="margin-right: 84px;\n' +
-    'margin-left: -140px;">\n' +
-    '    <div class="pmd-card card-default pmd-z-depth">\n' +
-    '        <div class="login-card">\n' +
-    '            <form ng-submit="submit(username,password)" name="loginForm">\n' +
-    '                <div class="pmd-card-body">\n' +
-    '                    <div class="alert alert-success" role="alert"> Oh snap! Change a few things up and try submitting\n' +
-    '                        again. </div>\n' +
-    '                    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '                        <label for="inputError1" class="control-label pmd-input-group-label">Email</label>\n' +
-    '                        <div class="input-group">\n' +
-    '                            <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">perm_identity</i></div>\n' +
-    '                            <input type="text" class="form-control" id="exampleInputAmount" required name="username"\n' +
-    '                                ng-model="username" ng-change="reset()">\n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
-    '\n' +
-    '                    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '                        <label for="inputError1" class="control-label pmd-input-group-label">Password</label>\n' +
-    '                        <div class="input-group">\n' +
-    '                            <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">lock_outline</i></div>\n' +
-    '                            <input required type="password" name="password" ng-model="password" ng-change="reset()"\n' +
-    '                                minlength="6" class="form-control">\n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '                <div ng-if="invalidLoginInfo" class="loginFailed">\n' +
-    '                    <span>Incorrect username or password.</span>\n' +
-    '                </div>\n' +
-    '                <div ng-if="inActiveUser" class="loginFailed">\n' +
-    '                    <span>Your Account Is Disabled, Please contact to administrator.</span>\n' +
-    '                </div>\n' +
-    '                <div class="pmd-card-footer card-footer-no-border card-footer-p16 text-center">\n' +
-    '                    <button type="submit" style="color: #ffffff!important;\n' +
-    '                    background: #9A3ea6;\n' +
-    '                    border-width: 9px!important;\n' +
-    '                    border-color: #9a3ea6;\n' +
-    '                    border-radius: 100px;\n' +
-    '                    letter-spacing: 1px;\n' +
-    '                    font-size: 15px;\n' +
-    '                    font-family: \'Montserrat\',Helvetica,Arial,Lucida,sans-serif!important;\n' +
-    '                    font-weight: 500!important;\n' +
-    '                    text-transform: uppercase!important;\n' +
-    '                    background-color: #9A3ea6;" class="btn pmd-ripple-effect btn-primary btn-block">Login</button>\n' +
-    '                </div>\n' +
-    '            </form>\n' +
-    '        </div>\n' +
-    '\n' +
-    '\n' +
-    '    </div>\n' +
-    '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/Area/templates/Area.html',
     '\n' +
     '<div>\n' +
@@ -2896,7 +2830,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
     '        <label for="first-name">{{\'FLoor\' | translate}}</label>\n' +
     '        <input required type="number" class="mat-input form-control" name="floor" ng-model="callCenterCtrl.FLoor"\n' +
-    '            ng-minlength="1" ng-maxlength="2">\n' +
+    '            ng-minlength="1" ng-maxlength="4">\n' +
     '        <div ng-messages="newProgramForm.floor.$error" class="error">\n' +
     '            <div ng-if="newProgramForm.floor.$error.required && !newProgramForm.floor.$pristine">{{\'ProgramDaysCountReqError\' | translate}}</div>\n' +
     '            <div ng-if="(newProgramForm.floor.$error.minlength || newProgramForm.floor.$error.maxlength)">{{\'ProgramDaysCountLengthError\' | translate}}</div>\n' +
@@ -2906,7 +2840,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
     '        <label for="first-name">{{\'ApartmentNumber\' | translate}}</label>\n' +
     '        <input required type="number" class="mat-input form-control" name="appartmentNo" ng-model="callCenterCtrl.AppartmentNo"\n' +
-    '            ng-minlength="1" ng-maxlength="2">\n' +
+    '            ng-minlength="1" ng-maxlength="4">\n' +
     '        <div ng-messages="newProgramForm.appartmentNo.$error" class="error">\n' +
     '            <div ng-if="newProgramForm.appartmentNo.$error.required && !newProgramForm.appartmentNo.$pristine">{{\'ProgramDaysCountReqError\' | translate}}</div>\n' +
     '            <div ng-if="(newProgramForm.appartmentNo.$error.minlength || newProgramForm.appartmentNo.$error.maxlength)">{{\'ProgramDaysCountLengthError\' | translate}}</div>\n' +
@@ -3093,66 +3027,81 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '            theme: "bootstrap"\n' +
     '        });\n' +
     '    });\n' +
+    '\n' +
+    '    $(function () {\n' +
+    '        $(\'#startdate\').datetimepicker(\n' +
+    '            {\n' +
+    '                minDate: new Date()\n' +
+    '            }\n' +
+    '        ).on(\'dp.change\', function (e) {\n' +
+    '            debugger;\n' +
+    '            angular.element(document.getElementById(\'startdate\')).scope().dateChange();\n' +
+    '        });\n' +
+    '    });\n' +
     '</script>\n' +
     '\n' +
-    '<div>\n' +
+    '<form class="form-horizontal" name="newProgramForm">\n' +
     '    <div>\n' +
-    '        <form class="form-horizontal" name="newProgramForm">\n' +
-    '            <div>\n' +
-    '                <!-- {{orderCustomizeProgramCtrl.language}} -->\n' +
-    '                <ul class="nav nav-tabs" role="tablist">\n' +
-    '                    <li role="presentation" ng-class="{\'active\':$index == 0}" ng-repeat="lang in orderCustomizeProgramCtrl.language">\n' +
-    '                        <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">\n' +
-    '                            {{lang.value | translate}}\n' +
-    '                        </a>\n' +
-    '                    </li>\n' +
-    '                </ul>\n' +
-    '                <div class="pmd-card">\n' +
-    '                    <div class="pmd-card-body">\n' +
-    '                        <div class="tab-content">\n' +
-    '                            <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}" ng-repeat="lang in orderCustomizeProgramCtrl.language" id="{{lang.value}}-form">\n' +
-    '                                <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '                                    <label for="first-name"> {{ lang.value+\'ProgramName\' | translate}} </label>\n' +
-    '                                    <input required Category="text" class="mat-input form-control" name="titleDictionary{{lang.value+\'Name\'}}" ng-model="orderCustomizeProgramCtrl.titleDictionary[lang.key]"\n' +
-    '                                        ng-minlength="2" ng-maxlength="255">\n' +
-    '                                    <div ng-messages="newProgramForm.titleDictionary{{lang.value+\'Name\'}}.$error">\n' +
-    '                                        <div ng-show="newProgramForm.titleDictionary{{lang.value+\'Name\'}}.$error.required && !newProgramForm.titleDictionary{{lang.value+\'Name\'}}.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
-    '                                        <div ng-show="(newProgramForm.titleDictionary{{lang.value+\'Name\'}}.$error.minlength || newProgramForm.titleDictionary{{lang.value+\'Name\'}}.$error.maxlength) && !newProgramForm.titleDictionary{{lang.value+\'Name\'}}.$error.required">{{\'NameLengthError255\' | translate}}</div>\n' +
-    '                                    </div>\n' +
-    '                                </div>\n' +
-    '\n' +
-    '                                <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '                                    <label for="first-name"> {{ lang.value+\'ProgramDescription\' | translate}} </label>\n' +
-    '                                    <input required Category="text" class="mat-input form-control" name="descriptionDictionary{{lang.value+\'Name\'}}" ng-model="orderCustomizeProgramCtrl.descriptionDictionary[lang.key]"\n' +
-    '                                        ng-minlength="2" ng-maxlength="255">\n' +
-    '                                    <div ng-messages="newProgramForm.descriptionDictionary{{lang.value+\'Name\'}}.$error">\n' +
-    '                                        <div ng-show="newProgramForm.descriptionDictionary{{lang.value+\'Name\'}}.$error.required && !newProgramForm.descriptionDictionary{{lang.value+\'Name\'}}.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
-    '                                        <div ng-show="(newProgramForm.descriptionDictionary{{lang.value+\'Name\'}}.$error.minlength || newProgramForm.descriptionDictionary{{lang.value+\'Name\'}}.$error.maxlength) && !newProgramForm.descriptionDictionary{{lang.value+\'Name\'}}.$error.required">{{\'NameLengthError255\' | translate}}</div>\n' +
-    '                                    </div>\n' +
-    '                                </div>\n' +
+    '        <!-- {{orderCustomizeProgramCtrl.language}} -->\n' +
+    '        <ul class="nav nav-tabs" role="tablist">\n' +
+    '            <li role="presentation" ng-class="{\'active\':$index == 0}" ng-repeat="lang in orderCustomizeProgramCtrl.language">\n' +
+    '                <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" role="tab" data-toggle="tab">\n' +
+    '                    {{lang.value | translate}}\n' +
+    '                </a>\n' +
+    '            </li>\n' +
+    '        </ul>\n' +
+    '        <div class="pmd-card">\n' +
+    '            <div class="pmd-card-body">\n' +
+    '                <div class="tab-content">\n' +
+    '                    <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}" ng-repeat="lang in orderCustomizeProgramCtrl.language"\n' +
+    '                        id="{{lang.value}}-form">\n' +
+    '                        <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                            <label for="first-name"> {{ lang.value+\'ProgramName\' | translate}} </label>\n' +
+    '                            <input required Category="text" class="mat-input form-control" name="titleDictionary{{lang.value+\'Name\'}}" ng-model="orderCustomizeProgramCtrl.titleDictionary[lang.key]"\n' +
+    '                                ng-minlength="2" ng-maxlength="255">\n' +
+    '                            <div ng-messages="newProgramForm.titleDictionary{{lang.value+\'Name\'}}.$error">\n' +
+    '                                <div ng-show="newProgramForm.titleDictionary{{lang.value+\'Name\'}}.$error.required && !newProgramForm.titleDictionary{{lang.value+\'Name\'}}.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '                                <div ng-show="(newProgramForm.titleDictionary{{lang.value+\'Name\'}}.$error.minlength || newProgramForm.titleDictionary{{lang.value+\'Name\'}}.$error.maxlength) && !newProgramForm.titleDictionary{{lang.value+\'Name\'}}.$error.required">{{\'NameLengthError255\' | translate}}</div>\n' +
     '                            </div>\n' +
+    '                        </div>\n' +
     '\n' +
+    '                        <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                            <label for="first-name"> {{ lang.value+\'ProgramDescription\' | translate}} </label>\n' +
+    '                            <input required Category="text" class="mat-input form-control" name="descriptionDictionary{{lang.value+\'Name\'}}" ng-model="orderCustomizeProgramCtrl.descriptionDictionary[lang.key]"\n' +
+    '                                ng-minlength="2" ng-maxlength="255">\n' +
+    '                            <div ng-messages="newProgramForm.descriptionDictionary{{lang.value+\'Name\'}}.$error">\n' +
+    '                                <div ng-show="newProgramForm.descriptionDictionary{{lang.value+\'Name\'}}.$error.required && !newProgramForm.descriptionDictionary{{lang.value+\'Name\'}}.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '                                <div ng-show="(newProgramForm.descriptionDictionary{{lang.value+\'Name\'}}.$error.minlength || newProgramForm.descriptionDictionary{{lang.value+\'Name\'}}.$error.maxlength) && !newProgramForm.descriptionDictionary{{lang.value+\'Name\'}}.$error.required">{{\'NameLengthError255\' | translate}}</div>\n' +
+    '                            </div>\n' +
     '                        </div>\n' +
     '                    </div>\n' +
     '\n' +
-    '                    <div class="col-md-6 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                        <label for="first-name">{{\'SelectExcludeDays\' | translate}}</label>\n' +
-    '                        <select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" multiple ng-model="orderCustomizeProgramCtrl.SelectedDays"\n' +
-    '                            ng-options="day as day.dayNameDictionary[selectedLanguage] for day in orderCustomizeProgramCtrl.dayList">\n' +
-    '                        </select>\n' +
+    '                </div>\n' +
+    '\n' +
+    '                <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                    <label for="first-name">{{\'SelectExcludeDays\' | translate}}</label>\n' +
+    '                    <select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" multiple ng-model="orderCustomizeProgramCtrl.SelectedDays"\n' +
+    '                        ng-options="day as day.dayNameDictionary[selectedLanguage] for day in orderCustomizeProgramCtrl.dayList">\n' +
+    '                    </select>\n' +
+    '                </div>\n' +
+    '\n' +
+    '                <div class="row">\n' +
+    '                    <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                        <label for="regular1" class="control-label">{{\'orderPickDateTime\' | translate}}</label>\n' +
+    '                        <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                            <input ng-model="orderCustomizeProgramCtrl.itemDatetime" type="text" ng-change="orderCustomizeProgramCtrl.dateChange" id="startdate"\n' +
+    '                                class="form-control" />\n' +
+    '                        </div>\n' +
     '                    </div>\n' +
-    '\n' +
-    '                    <br>\n' +
-    '\n' +
     '                </div>\n' +
     '            </div>\n' +
-    '\n' +
-    '            <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="newProgramForm.$invalid" class="btn pmd-ripple-effect btn-primary"\n' +
-    '                type="button" ng-click="orderCustomizeProgramCtrl.gotoStep(2)">\n' +
-    '                {{\'next\' | translate}}</button>\n' +
-    '        </form>\n' +
+    '        </div>\n' +
     '    </div>\n' +
-    '</div>\n' +
+    '    \n' +
+    '    <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="newProgramForm.$invalid" class="btn pmd-ripple-effect btn-primary"\n' +
+    '        type="button" ng-click="orderCustomizeProgramCtrl.gotoStep(2)">\n' +
+    '        {{\'next\' | translate}}</button>\n' +
+    '</form>\n' +
     '<!-- -------------------- -->\n' +
     '\n' +
     '\n' +
@@ -3662,52 +3611,83 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '        $(".select-with-search").select2({\n' +
     '            theme: "bootstrap"\n' +
     '        });\n' +
+    '\n' +
+    '        // ------\n' +
+    '\n' +
     '    });\n' +
+    '\n' +
+    '      $(function () {\n' +
+    '        $(\'#startdate\').datetimepicker(\n' +
+    '            {\n' +
+    '                minDate: new Date()\n' +
+    '            }\n' +
+    '        ).on(\'dp.change\', function (e) {\n' +
+    '            debugger;\n' +
+    '            angular.element(document.getElementById(\'startdate\')).scope().dateChange();\n' +
+    '        });\n' +
+    '    });\n' +
+    '\n' +
     '</script>\n' +
     '\n' +
-    '<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '    <label for="first-name">{{\'SelectItems\' | translate}}</label>\n' +
-    '    <select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" multiple ng-model="itemModel"\n' +
-    '        ng-change="getData(itemModel)" ng-options="item as item.itemNameDictionary[selectedLanguage] \n' +
+    '<form class="form-horizontal" name="orderItemForm">\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'SelectItems\' | translate}}</label>\n' +
+    '        <select required name="selectItems" style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" multiple\n' +
+    '            ng-model="itemModel" ng-change="getData(itemModel)" ng-options="item as item.itemNameDictionary[selectedLanguage] \n' +
     '            group by item.category.titleDictionary[selectedLanguage]\n' +
     '            for item  in itemsssPrepService">\n' +
-    '    </select>\n' +
-    '</div>\n' +
+    '        </select>\n' +
+    '        <div ng-messages="orderItemForm.selectItems.$error">\n' +
+    '            <div ng-show="orderItemForm.selectItems.$error.required && !orderItemForm.selectItems.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
+    '            <!-- <div ng-show="(orderItemForm.selectItems.$error.minlength || orderItemForm.selectItems.$error.maxlength) && !orderItemForm.selectItems.$error.required">{{\'NameLengthError255\' | translate}}</div> -->\n' +
+    '        </div>\n' +
+    '    </div>\n' +
     '\n' +
-    '<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '    <label for="first-name">{{\'Country\' | translate}}</label>\n' +
-    '    <select required style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="orderItemsCtrl.countryChange()"\n' +
-    '        ng-model="orderItemsCtrl.selectedCountryId" ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in orderItemsCtrl.counties">\n' +
-    '    </select>\n' +
-    '</div>\n' +
-    '<div ng-show=" orderItemsCtrl.selectedCountryId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '    <label for="first-name">{{\'Region\' | translate}}</label>\n' +
-    '    <select required style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="orderItemsCtrl.regionChange()"\n' +
-    '        ng-model="orderItemsCtrl.selectedRegionId" ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in orderItemsCtrl.regions">\n' +
-    '    </select>\n' +
-    '</div>\n' +
-    '<div ng-show=" orderItemsCtrl.selectedRegionId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '    <label for="first-name">{{\'City\' | translate}}</label>\n' +
-    '    <select ng-required="orderItemsCtrl.selectedRegionId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
-    '        ng-change="orderItemsCtrl.cityChange()" ng-model="orderItemsCtrl.selectedCityId" ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in orderItemsCtrl.cities">\n' +
-    '    </select>\n' +
-    '</div>\n' +
-    '<div ng-show=" orderItemsCtrl.selectedCityId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '    <label for="first-name">{{\'Area\' | translate}}</label>\n' +
-    '    <select ng-required=" orderItemsCtrl.selectedCityId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
-    '        ng-change="orderItemsCtrl.areaChange()" ng-model="orderItemsCtrl.selectedAreaId" ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in orderItemsCtrl.area">\n' +
-    '    </select>\n' +
-    '</div>\n' +
-    '<div ng-show=" orderItemsCtrl.selectedAreaId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '    <label for="first-name">{{\'Branch\' | translate}}</label>\n' +
-    '    <select ng-required=" orderItemsCtrl.selectedAreaId > 0 " class="form-control select-with-search pmd-select2-tags" ng-change="orderItemsCtrl.branchChange()"\n' +
-    '        ng-model="orderItemsCtrl.selectedBranchId" ng-options="a.branchId as a.titleDictionary[selectedLanguage] for a in orderItemsCtrl.branchList"></select>\n' +
-    '</div>\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'Country\' | translate}}</label>\n' +
+    '        <select required style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="orderItemsCtrl.countryChange()"\n' +
+    '            ng-model="orderItemsCtrl.selectedCountryId" ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in orderItemsCtrl.counties">\n' +
+    '        </select>\n' +
+    '    </div>\n' +
+    '    <div ng-show=" orderItemsCtrl.selectedCountryId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'Region\' | translate}}</label>\n' +
+    '        <select required style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="orderItemsCtrl.regionChange()"\n' +
+    '            ng-model="orderItemsCtrl.selectedRegionId" ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in orderItemsCtrl.regions">\n' +
+    '        </select>\n' +
+    '    </div>\n' +
+    '    <div ng-show=" orderItemsCtrl.selectedRegionId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'City\' | translate}}</label>\n' +
+    '        <select ng-required="orderItemsCtrl.selectedRegionId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
+    '            ng-change="orderItemsCtrl.cityChange()" ng-model="orderItemsCtrl.selectedCityId" ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in orderItemsCtrl.cities">\n' +
+    '        </select>\n' +
+    '    </div>\n' +
+    '    <div ng-show=" orderItemsCtrl.selectedCityId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'Area\' | translate}}</label>\n' +
+    '        <select ng-required=" orderItemsCtrl.selectedCityId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
+    '            ng-change="orderItemsCtrl.areaChange()" ng-model="orderItemsCtrl.selectedAreaId" ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in orderItemsCtrl.area">\n' +
+    '        </select>\n' +
+    '    </div>\n' +
+    '    <div ng-show=" orderItemsCtrl.selectedAreaId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'Branch\' | translate}}</label>\n' +
+    '        <select ng-required=" orderItemsCtrl.selectedAreaId > 0 " class="form-control select-with-search pmd-select2-tags" ng-change="orderItemsCtrl.branchChange()"\n' +
+    '            ng-model="orderItemsCtrl.selectedBranchId" ng-options="a.branchId as a.titleDictionary[selectedLanguage] for a in orderItemsCtrl.branchList"></select>\n' +
+    '    </div>\n' +
     '\n' +
-    '<div class="pmd-modal-action text-right">\n' +
-    '    <button style="background-color: #e4e5e6;color: black!important;" class="btn pmd-ripple-effect btn-primary"\n' +
-    '        type="button" ng-click="orderItemsCtrl.Order()">{{\'Order\' | translate}}</button>\n' +
-    '</div>');
+    '    <div class="row">\n' +
+    '        <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '            <label for="regular1" class="control-label">{{\'orderPickDateTime\' | translate}}</label>\n' +
+    '            <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                <input ng-model="orderItemsCtrl.itemDatetime" type="text" ng-change="orderItemsCtrl.dateChange" id="startdate" class="form-control"\n' +
+    '                />\n' +
+    '            </div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div class="pmd-modal-action text-right">\n' +
+    '        <button ng-disabled="orderItemForm.$invalid || !orderItemsCtrl.dateIsValid" style="background-color: #e4e5e6;color: black!important;" class="btn pmd-ripple-effect btn-primary"\n' +
+    '            type="button" ng-click="orderItemsCtrl.Order()">{{\'Order\' | translate}}</button>\n' +
+    '    </div>\n' +
+    '</form>');
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
@@ -3733,85 +3713,108 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '            theme: "bootstrap"\n' +
     '        });\n' +
     '    });\n' +
-    '</script> {{\'CheckMealContent\' | translate}}\n' +
+    '\n' +
+    '    $(function () {\n' +
+    '        $(\'#startdate\').datetimepicker(\n' +
+    '            {\n' +
+    '                minDate: new Date()\n' +
+    '            }\n' +
+    '        ).on(\'dp.change\', function (e) {\n' +
+    '            debugger;\n' +
+    '            angular.element(document.getElementById(\'startdate\')).scope().dateChange();\n' +
+    '        });\n' +
+    '    });\n' +
+    '\n' +
+    '</script>\n' +
     '\n' +
     '\n' +
-    '\n' +
-    '<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '    <label for="first-name">{{\'SelectMeals\' | translate}}</label>\n' +
-    '    <select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" ng-model="orderMealsCtrl.meal"\n' +
-    '        ng-change="orderMealsCtrl.mealSearch()" ng-options="item as item.mealNameDictionary[selectedLanguage] \n' +
+    '<form name="orderMealForm">\n' +
+    '    {{\'CheckMealContent\' | translate}}\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'SelectMeals\' | translate}}</label>\n' +
+    '        <select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" ng-model="orderMealsCtrl.meal"\n' +
+    '            ng-change="orderMealsCtrl.mealSearch()" ng-options="item as item.mealNameDictionary[selectedLanguage] \n' +
     '                for item  in mealsPrepService.results">\n' +
-    '    </select>\n' +
-    '</div>\n' +
+    '        </select>\n' +
+    '    </div>\n' +
     '\n' +
-    '<table style="background: white" ng-show="orderMealsCtrl.flag == true" class="table pmd-table table-hover">\n' +
-    '    <thead>\n' +
-    '        <tr>\n' +
-    '            <th>{{\'ItemName\' | translate}}</th>\n' +
-    '            <th>{{\'ItemDescription\' | translate}}</th>\n' +
-    '            <th>{{\'Calories\' | translate}}</th>\n' +
-    '            <th>{{\'Protein\' | translate}}</th>\n' +
-    '            <th>{{\'Carbs\' | translate}}</th>\n' +
-    '        </tr>\n' +
-    '    </thead>\n' +
-    '    <tbody>\n' +
-    '        <tr ng-repeat="item in orderMealsCtrl.mealItemss">\n' +
-    '            <td data-title="Name">{{item.itemNameDictionary[selectedLanguage]}}</td>\n' +
-    '            <td data-title="Name">{{item.itemDescriptionDictionary[selectedLanguage]}}</td>\n' +
-    '            <td data-title="Name">{{item.calories}}</td>\n' +
-    '            <td data-title="Name">{{item.protein}}</td>\n' +
-    '            <td data-title="Name">{{item.carbs}}</td>\n' +
+    '    <table style="background: white" ng-show="orderMealsCtrl.flag == true" class="table pmd-table table-hover">\n' +
+    '        <thead>\n' +
+    '            <tr>\n' +
+    '                <th>{{\'ItemName\' | translate}}</th>\n' +
+    '                <th>{{\'ItemDescription\' | translate}}</th>\n' +
+    '                <th>{{\'Calories\' | translate}}</th>\n' +
+    '                <th>{{\'Protein\' | translate}}</th>\n' +
+    '                <th>{{\'Carbs\' | translate}}</th>\n' +
+    '            </tr>\n' +
+    '        </thead>\n' +
+    '        <tbody>\n' +
+    '            <tr ng-repeat="item in orderMealsCtrl.mealItemss">\n' +
+    '                <td data-title="Name">{{item.itemNameDictionary[selectedLanguage]}}</td>\n' +
+    '                <td data-title="Name">{{item.itemDescriptionDictionary[selectedLanguage]}}</td>\n' +
+    '                <td data-title="Name">{{item.calories}}</td>\n' +
+    '                <td data-title="Name">{{item.protein}}</td>\n' +
+    '                <td data-title="Name">{{item.carbs}}</td>\n' +
     '\n' +
-    '        </tr>\n' +
-    '    </tbody>\n' +
-    '</table>\n' +
+    '            </tr>\n' +
+    '        </tbody>\n' +
+    '    </table>\n' +
     '\n' +
-    '<hr> {{\'OrderMeal\' | translate}}\n' +
+    '    <hr> {{\'OrderMeal\' | translate}}\n' +
     '\n' +
-    '<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '    <label for="first-name">{{\'SelectMeals\' | translate}}</label>\n' +
-    '    <select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" multiple ng-model="itemModel"\n' +
-    '        ng-change="getData(itemModel)" ng-options="item as item.mealNameDictionary[selectedLanguage] \n' +
-    '            \n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'SelectMeals\' | translate}}</label>\n' +
+    '        <select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" multiple ng-model="itemModel"\n' +
+    '            ng-change="getData(itemModel)" ng-options="item as item.mealNameDictionary[selectedLanguage]   \n' +
     '            for item  in mealsPrepService.results">\n' +
-    '    </select>\n' +
-    '</div>\n' +
+    '        </select>\n' +
+    '    </div>\n' +
     '\n' +
-    '<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '    <label for="first-name">{{\'Country\' | translate}}</label>\n' +
-    '    <select required style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="orderMealsCtrl.countryChange()"\n' +
-    '        ng-model="orderMealsCtrl.selectedCountryId" ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in orderMealsCtrl.counties">\n' +
-    '    </select>\n' +
-    '</div>\n' +
-    '<div ng-show=" orderMealsCtrl.selectedCountryId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '    <label for="first-name">{{\'Region\' | translate}}</label>\n' +
-    '    <select required style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="orderMealsCtrl.regionChange()"\n' +
-    '        ng-model="orderMealsCtrl.selectedRegionId" ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in orderMealsCtrl.regions">\n' +
-    '    </select>\n' +
-    '</div>\n' +
-    '<div ng-show=" orderMealsCtrl.selectedRegionId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '    <label for="first-name">{{\'City\' | translate}}</label>\n' +
-    '    <select ng-required="orderMealsCtrl.selectedRegionId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
-    '        ng-change="orderMealsCtrl.cityChange()" ng-model="orderMealsCtrl.selectedCityId" ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in orderMealsCtrl.cities">\n' +
-    '    </select>\n' +
-    '</div>\n' +
-    '<div ng-show=" orderMealsCtrl.selectedCityId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '    <label for="first-name">{{\'Area\' | translate}}</label>\n' +
-    '    <select ng-required=" orderMealsCtrl.selectedCityId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
-    '        ng-change="orderMealsCtrl.areaChange()" ng-model="orderMealsCtrl.selectedAreaId" ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in orderMealsCtrl.area">\n' +
-    '    </select>\n' +
-    '</div>\n' +
-    '<div ng-show=" orderMealsCtrl.selectedAreaId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '    <label for="first-name">{{\'Branch\' | translate}}</label>\n' +
-    '    <select ng-required=" orderMealsCtrl.selectedAreaId > 0 " class="form-control select-with-search pmd-select2-tags" ng-change="orderMealsCtrl.branchChange()"\n' +
-    '        ng-model="orderMealsCtrl.selectedBranchId" ng-options="a.branchId as a.titleDictionary[selectedLanguage] for a in orderMealsCtrl.branchList"></select>\n' +
-    '</div>\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'Country\' | translate}}</label>\n' +
+    '        <select required style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="orderMealsCtrl.countryChange()"\n' +
+    '            ng-model="orderMealsCtrl.selectedCountryId" ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in orderMealsCtrl.counties">\n' +
+    '        </select>\n' +
+    '    </div>\n' +
+    '    <div ng-show=" orderMealsCtrl.selectedCountryId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'Region\' | translate}}</label>\n' +
+    '        <select required style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="orderMealsCtrl.regionChange()"\n' +
+    '            ng-model="orderMealsCtrl.selectedRegionId" ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in orderMealsCtrl.regions">\n' +
+    '        </select>\n' +
+    '    </div>\n' +
+    '    <div ng-show=" orderMealsCtrl.selectedRegionId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'City\' | translate}}</label>\n' +
+    '        <select ng-required="orderMealsCtrl.selectedRegionId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
+    '            ng-change="orderMealsCtrl.cityChange()" ng-model="orderMealsCtrl.selectedCityId" ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in orderMealsCtrl.cities">\n' +
+    '        </select>\n' +
+    '    </div>\n' +
+    '    <div ng-show=" orderMealsCtrl.selectedCityId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'Area\' | translate}}</label>\n' +
+    '        <select ng-required=" orderMealsCtrl.selectedCityId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
+    '            ng-change="orderMealsCtrl.areaChange()" ng-model="orderMealsCtrl.selectedAreaId" ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in orderMealsCtrl.area">\n' +
+    '        </select>\n' +
+    '    </div>\n' +
+    '    <div ng-show=" orderMealsCtrl.selectedAreaId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'Branch\' | translate}}</label>\n' +
+    '        <select ng-required=" orderMealsCtrl.selectedAreaId > 0 " class="form-control select-with-search pmd-select2-tags" ng-change="orderMealsCtrl.branchChange()"\n' +
+    '            ng-model="orderMealsCtrl.selectedBranchId" ng-options="a.branchId as a.titleDictionary[selectedLanguage] for a in orderMealsCtrl.branchList"></select>\n' +
+    '    </div>\n' +
     '\n' +
-    '<div class="pmd-modal-action text-right">\n' +
-    '    <button style="background-color: #e4e5e6;color: black!important;" class="btn pmd-ripple-effect btn-primary"\n' +
-    '        type="button" ng-click="orderMealsCtrl.Order()">{{\'Order\' | translate}}</button>\n' +
-    '</div>');
+    '    <div class="row">\n' +
+    '        <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '            <label for="regular1" class="control-label">{{\'orderPickDateTime\' | translate}}</label>\n' +
+    '            <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                <input ng-model="orderMealsCtrl.itemDatetime" type="text" ng-change="orderMealsCtrl.dateChange" id="startdate" class="form-control"\n' +
+    '                />\n' +
+    '            </div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div class="pmd-modal-action text-right">\n' +
+    '        <button ng-disabled="orderMealForm.$invalid || !orderMealsCtrl.dateIsValid" style="background-color: #e4e5e6;color: black!important;" class="btn pmd-ripple-effect btn-primary" type="button"\n' +
+    '            ng-click="orderMealsCtrl.Order()">{{\'Order\' | translate}}</button>\n' +
+    '    </div>\n' +
+    '</form>');
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
@@ -3837,61 +3840,75 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '            theme: "bootstrap"\n' +
     '        });\n' +
     '    });\n' +
-    '</script> {{\'CheckProgramContent\' | translate}}\n' +
-    '<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '    <label for="first-name">{{\'SelectProgram\' | translate}}</label>\n' +
-    '    <!-- <select style="width:100% !important" class="form-control" ng-model="orderProgramsCtrl.program"\n' +
+    '\n' +
+    '    $(function () {\n' +
+    '        $(\'#startdate\').datetimepicker(\n' +
+    '            {\n' +
+    '                minDate: new Date()\n' +
+    '            }\n' +
+    '        ).on(\'dp.change\', function (e) {\n' +
+    '            debugger;\n' +
+    '            angular.element(document.getElementById(\'startdate\')).scope().dateChange();\n' +
+    '        });\n' +
+    '    });\n' +
+    '</script>\n' +
+    '\n' +
+    '<form name="orderProgramForm">\n' +
+    '    {{\'CheckProgramContent\' | translate}}\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'SelectProgram\' | translate}}</label>\n' +
+    '        <!-- <select style="width:100% !important" class="form-control" ng-model="orderProgramsCtrl.program"\n' +
     '        ng-change="orderProgramsCtrl.programSearch()" ng-options="program as program.programNameDictionary[selectedLanguage] for program  in programsPrepService.results">\n' +
     '    </select> -->\n' +
     '\n' +
-    '    <select style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="orderProgramsCtrl.programSearch();"\n' +
-    '        ng-model="orderProgramsCtrl.program" ng-options="program as program.programNameDictionary[selectedLanguage] for program  in programsPrepService.results">\n' +
-    '    </select>\n' +
-    '</div>\n' +
+    '        <select style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="orderProgramsCtrl.programSearch();"\n' +
+    '            ng-model="orderProgramsCtrl.program" ng-options="program as program.programNameDictionary[selectedLanguage] for program  in programsPrepService.results">\n' +
+    '        </select>\n' +
+    '    </div>\n' +
     '\n' +
-    '<div ng-if="orderProgramsCtrl.flag == true" ng-init="counterDay = 0; counterMeal = 0">\n' +
-    '    <div class="panel-group pmd-accordion pmd-accordion-inbox" id="accordion6" role="tablist" aria-multiselectable="true">\n' +
-    '        <!-- {{orderProgramsCtrl.mealItemss.programDays}} / {{orderProgramsCtrl.mealItemss.noOfMeals}} -->\n' +
-    '        <div ng-repeat="n in [].constructor(orderProgramsCtrl.mealItemss.programDays)  track by $index" class="panel panel-default">\n' +
-    '            <div class="panel-heading" role="tab" id="headingOne">\n' +
-    '                <h4 class="panel-title">\n' +
-    '                    <a ng-init="counterDay=counterDay+1;" data-toggle="collapse" data-parent="#accordion6" ng-init="n=false" ng-click="n=!n;"\n' +
-    '                        aria-expanded="true" aria-controls="collapseOne6" data-expandable="false">\n' +
-    '                        {{\'Day\' | translate}} #{{counterDay=$index+1}}\n' +
-    '                        <i class="material-icons md-dark pmd-sm pmd-accordion-arrow">keyboard_arrow_down</i>\n' +
-    '                    </a>\n' +
-    '                </h4>\n' +
-    '            </div>\n' +
-    '            <div ng-show="n == true" id="collapseOne6" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">\n' +
-    '                <div class="panel-body">\n' +
-    '                    <ul>\n' +
-    '                        <li ng-repeat="meal in [].constructor(orderProgramsCtrl.mealItemss.noOfMeals)  track by $index">\n' +
-    '                            <h4>\n' +
-    '                                <a ng-init="counterMeal=counterMeal+1;" ng-click="showDetails = ! showDetails; orderProgramsCtrl.showDDL(); ">{{\'Meal\' | translate}} #{{counterMeal=$index+1}}</a>\n' +
-    '                                <!-- <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="orderProgramsCtrl.ShowProgramMeal(orderProgramsCtrl.mealItemss.programId, counterDay, counterMeal)">mode_edit</i> -->\n' +
-    '                                <!-- {{orderProgramsCtrl.mealItemss.programId}}, {{counterDay}}, {{counterMeal}} -->\n' +
-    '                            </h4>\n' +
-    '                            <div ng-show="showDetails">\n' +
-    '                                <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                                    <label for="first-name">{{\'SelectItems\' | translate}}</label>\n' +
-    '                                    <ul>\n' +
-    '                                        <li ng-repeat="detail in orderProgramsCtrl.mealItemss.programDetails | filter:{dayNumber:counterDay, mealNumberPerDay: counterMeal} ">\n' +
-    '                                            <div ng-repeat="item in orderProgramsCtrl.mealItemss.items |filter :{itemId:detail.itemId}">\n' +
-    '                                                {{item.itemNameDictionary[selectedLanguage]}}\n' +
-    '                                            </div>\n' +
-    '                                        </li>\n' +
-    '                                    </ul>\n' +
+    '    <div ng-if="orderProgramsCtrl.flag == true" ng-init="counterDay = 0; counterMeal = 0">\n' +
+    '        <div class="panel-group pmd-accordion pmd-accordion-inbox" id="accordion6" role="tablist" aria-multiselectable="true">\n' +
+    '            <!-- {{orderProgramsCtrl.mealItemss.programDays}} / {{orderProgramsCtrl.mealItemss.noOfMeals}} -->\n' +
+    '            <div ng-repeat="n in [].constructor(orderProgramsCtrl.mealItemss.programDays)  track by $index" class="panel panel-default">\n' +
+    '                <div class="panel-heading" role="tab" id="headingOne">\n' +
+    '                    <h4 class="panel-title">\n' +
+    '                        <a ng-init="counterDay=counterDay+1;" data-toggle="collapse" data-parent="#accordion6" ng-init="n=false" ng-click="n=!n;"\n' +
+    '                            aria-expanded="true" aria-controls="collapseOne6" data-expandable="false">\n' +
+    '                            {{\'Day\' | translate}} #{{counterDay=$index+1}}\n' +
+    '                            <i class="material-icons md-dark pmd-sm pmd-accordion-arrow">keyboard_arrow_down</i>\n' +
+    '                        </a>\n' +
+    '                    </h4>\n' +
+    '                </div>\n' +
+    '                <div ng-show="n == true" id="collapseOne6" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">\n' +
+    '                    <div class="panel-body">\n' +
+    '                        <ul>\n' +
+    '                            <li ng-repeat="meal in [].constructor(orderProgramsCtrl.mealItemss.noOfMeals)  track by $index">\n' +
+    '                                <h4>\n' +
+    '                                    <a ng-init="counterMeal=counterMeal+1;" ng-click="showDetails = ! showDetails; orderProgramsCtrl.showDDL(); ">{{\'Meal\' | translate}} #{{counterMeal=$index+1}}</a>\n' +
+    '                                    <!-- <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="orderProgramsCtrl.ShowProgramMeal(orderProgramsCtrl.mealItemss.programId, counterDay, counterMeal)">mode_edit</i> -->\n' +
+    '                                    <!-- {{orderProgramsCtrl.mealItemss.programId}}, {{counterDay}}, {{counterMeal}} -->\n' +
+    '                                </h4>\n' +
+    '                                <div ng-show="showDetails">\n' +
+    '                                    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                                        <label for="first-name">{{\'SelectItems\' | translate}}</label>\n' +
+    '                                        <ul>\n' +
+    '                                            <li ng-repeat="detail in orderProgramsCtrl.mealItemss.programDetails | filter:{dayNumber:counterDay, mealNumberPerDay: counterMeal} ">\n' +
+    '                                                <div ng-repeat="item in orderProgramsCtrl.mealItemss.items |filter :{itemId:detail.itemId}">\n' +
+    '                                                    {{item.itemNameDictionary[selectedLanguage]}}\n' +
+    '                                                </div>\n' +
+    '                                            </li>\n' +
+    '                                        </ul>\n' +
+    '                                    </div>\n' +
     '                                </div>\n' +
-    '                            </div>\n' +
-    '                        </li>\n' +
-    '                    </ul>\n' +
+    '                            </li>\n' +
+    '                        </ul>\n' +
+    '                    </div>\n' +
     '                </div>\n' +
     '            </div>\n' +
     '        </div>\n' +
     '    </div>\n' +
-    '</div>\n' +
     '\n' +
-    '<!-- <table style="background: white" ng-show="orderProgramsCtrl.flag == true" class="table pmd-table table-hover">\n' +
+    '    <!-- <table style="background: white" ng-show="orderProgramsCtrl.flag == true" class="table pmd-table table-hover">\n' +
     '    <thead>\n' +
     '        <tr>\n' +
     '            <th>{{\'ItemName\' | translate}}</th>\n' +
@@ -3913,80 +3930,121 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '    </tbody>\n' +
     '</table> -->\n' +
     '\n' +
-    '<hr> {{\'OrderProgram\' | translate}}\n' +
+    '    <hr> {{\'OrderProgram\' | translate}}\n' +
     '\n' +
-    '<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '    <label for="first-name">{{\'SelectPrograms\' | translate}}</label>\n' +
-    '    <select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" multiple ng-model="itemModel"\n' +
-    '        ng-change="getData(itemModel)" ng-options="item as item.programNameDictionary[selectedLanguage]\n' +
-    '            for item  in programsPrepService.results">\n' +
-    '    </select>\n' +
-    '</div>\n' +
-    '\n' +
-    '<div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '    <label for="first-name">{{\'OrderType\' | translate}}</label>\n' +
-    '    <label>\n' +
-    '        <input type="radio" ng-model="orderProgramsCtrl.orderType.type" value="delivery"> {{\'Deivery\' | translate}}\n' +
-    '    </label>\n' +
-    '    <label style="margin-left:3em">\n' +
-    '        <input type="radio" ng-model="orderProgramsCtrl.orderType.type" value="pickup"> {{\'Pickup\' | translate}}\n' +
-    '    </label>\n' +
-    '    <br/>\n' +
-    '</div>\n' +
-    '\n' +
-    '<!-- {{orderProgramsCtrl.userAddresses.length}} -->\n' +
-    '<div ng-if="orderProgramsCtrl.orderType.type == \'delivery\'">\n' +
     '    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '        <label for="first-name">{{\'SelectAddress\' | translate}}</label>\n' +
-    '        \n' +
-    '        <div ng-repeat="address in orderProgramsCtrl.userAddresses">\n' +
-    '            <!-- {{orderProgramsCtrl.addresses.address}} -->\n' +
-    '            <label>\n' +
-    '                <input ng-change="orderProgramsCtrl.addressInfo(address)"  type="radio" ng-model="orderProgramsCtrl.addresses.address" value="{{address.addressId}}"> {{address.appartmentNo}}, {{address.description}}, {{\'Floor\' | translate}} {{address.floor}}\n' +
-    '                <!-- {{addressInfo}} -->\n' +
-    '            </label>\n' +
+    '        <label for="first-name">{{\'SelectPrograms\' | translate}}</label>\n' +
+    '        <select required style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" ng-model="itemModel"\n' +
+    '            ng-change="getData(itemModel)" ng-options="item as item.programNameDictionary[selectedLanguage]\n' +
+    '            for item  in programsPrepService.results">\n' +
+    '        </select>\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div class="row">\n' +
+    '        <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '            <label for="regular1" class="control-label">{{\'orderPickDateTime\' | translate}}</label>\n' +
+    '            <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                <input ng-model="orderProgramsCtrl.itemDatetime" type="text" ng-change="orderProgramsCtrl.dateChange" id="startdate" class="form-control"\n' +
+    '                />\n' +
+    '            </div>\n' +
     '        </div>\n' +
     '    </div>\n' +
-    '</div>\n' +
     '\n' +
-    '\n' +
-    '<div ng-show="orderProgramsCtrl.orderType.type == \'pickup\'">\n' +
     '    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '        <label for="first-name">{{\'Country\' | translate}}</label>\n' +
-    '        <select required style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="orderProgramsCtrl.countryChange()"\n' +
-    '            ng-model="orderProgramsCtrl.selectedCountryId" ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in orderProgramsCtrl.counties">\n' +
-    '        </select>\n' +
-    '    </div>\n' +
-    '    <div ng-show=" orderProgramsCtrl.selectedCountryId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '        <label for="first-name">{{\'Region\' | translate}}</label>\n' +
-    '        <select required style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="orderProgramsCtrl.regionChange()"\n' +
-    '            ng-model="orderProgramsCtrl.selectedRegionId" ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in orderProgramsCtrl.regions">\n' +
-    '        </select>\n' +
-    '    </div>\n' +
-    '    <div ng-show=" orderProgramsCtrl.selectedRegionId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '        <label for="first-name">{{\'City\' | translate}}</label>\n' +
-    '        <select ng-required="orderProgramsCtrl.selectedRegionId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
-    '            ng-change="orderProgramsCtrl.cityChange()" ng-model="orderProgramsCtrl.selectedCityId" ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in orderProgramsCtrl.cities">\n' +
-    '        </select>\n' +
-    '    </div>\n' +
-    '    <div ng-show=" orderProgramsCtrl.selectedCityId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '        <label for="first-name">{{\'Area\' | translate}}</label>\n' +
-    '        <select ng-required=" orderProgramsCtrl.selectedCityId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
-    '            ng-change="orderProgramsCtrl.areaChange()" ng-model="orderProgramsCtrl.selectedAreaId" ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in orderProgramsCtrl.area">\n' +
-    '        </select>\n' +
-    '    </div>\n' +
-    '    <div ng-show=" orderProgramsCtrl.selectedAreaId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '        <label for="first-name">{{\'Branch\' | translate}}</label>\n' +
-    '        <select ng-required=" orderProgramsCtrl.selectedAreaId > 0 " class="form-control select-with-search pmd-select2-tags" ng-change="orderProgramsCtrl.branchChange()"\n' +
-    '            ng-model="orderProgramsCtrl.selectedBranchId" ng-options="a.branchId as a.titleDictionary[selectedLanguage] for a in orderProgramsCtrl.branchList"></select>\n' +
+    '        <label for="first-name">{{\'OrderType\' | translate}}</label>\n' +
+    '        <label>\n' +
+    '            <input type="radio" ng-model="orderProgramsCtrl.orderType.type" value="delivery"> {{\'Deivery\' | translate}}\n' +
+    '        </label>\n' +
+    '        <label style="margin-left:3em">\n' +
+    '            <input type="radio" ng-model="orderProgramsCtrl.orderType.type" value="pickup"> {{\'Pickup\' | translate}}\n' +
+    '        </label>\n' +
+    '        <br/>\n' +
     '    </div>\n' +
     '\n' +
-    '</div>\n' +
+    '    <!-- {{orderProgramsCtrl.userAddresses.length}} -->\n' +
+    '    <div ng-if="orderProgramsCtrl.orderType.type == \'delivery\'">\n' +
+    '        <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '            <label for="first-name">{{\'SelectAddress\' | translate}}</label>\n' +
     '\n' +
-    '<div class="pmd-modal-action text-right">\n' +
-    '    <button style="background-color: #e4e5e6;color: black!important;" class="btn pmd-ripple-effect btn-primary" type="button"\n' +
-    '        ng-click="orderProgramsCtrl.Order()">{{\'Order\' | translate}}</button>\n' +
-    '</div>');
+    '            <div ng-repeat="address in orderProgramsCtrl.userAddresses">\n' +
+    '                <!-- {{orderProgramsCtrl.addresses.address}} -->\n' +
+    '                <label>\n' +
+    '                    <input ng-change="orderProgramsCtrl.addressInfo(address)" type="radio" ng-model="orderProgramsCtrl.addresses.address" value="{{address.addressId}}"> {{address.appartmentNo}}, {{address.description}}, {{\'Floor\' | translate}} {{address.floor}}\n' +
+    '                    <!-- {{addressInfo}} -->\n' +
+    '                </label>\n' +
+    '            </div>\n' +
+    '\n' +
+    '            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                <label for="first-name">{{\'Country\' | translate}}</label>\n' +
+    '                <select required style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="orderProgramsCtrl.countryChange()"\n' +
+    '                    ng-model="orderProgramsCtrl.selectedCountryId" ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in orderProgramsCtrl.counties">\n' +
+    '                </select>\n' +
+    '            </div>\n' +
+    '            <div ng-show=" orderProgramsCtrl.selectedCountryId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                <label for="first-name">{{\'Region\' | translate}}</label>\n' +
+    '                <select required style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="orderProgramsCtrl.regionChange()"\n' +
+    '                    ng-model="orderProgramsCtrl.selectedRegionId" ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in orderProgramsCtrl.regions">\n' +
+    '                </select>\n' +
+    '            </div>\n' +
+    '            <div ng-show=" orderProgramsCtrl.selectedRegionId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                <label for="first-name">{{\'City\' | translate}}</label>\n' +
+    '                <select ng-required="orderProgramsCtrl.selectedRegionId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
+    '                    ng-change="orderProgramsCtrl.cityChange()" ng-model="orderProgramsCtrl.selectedCityId" ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in orderProgramsCtrl.cities">\n' +
+    '                </select>\n' +
+    '            </div>\n' +
+    '            <div ng-show=" orderProgramsCtrl.selectedCityId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                <label for="first-name">{{\'Area\' | translate}}</label>\n' +
+    '                <select ng-required=" orderProgramsCtrl.selectedCityId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
+    '                    ng-change="orderProgramsCtrl.areaChange()" ng-model="orderProgramsCtrl.selectedAreaId" ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in orderProgramsCtrl.area">\n' +
+    '                </select>\n' +
+    '            </div>\n' +
+    '            <div ng-show=" orderProgramsCtrl.selectedAreaId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                <label for="first-name">{{\'Branch\' | translate}}</label>\n' +
+    '                <select ng-required=" orderProgramsCtrl.selectedAreaId > 0 " class="form-control select-with-search pmd-select2-tags" ng-change="orderProgramsCtrl.branchChange()"\n' +
+    '                    ng-model="orderProgramsCtrl.selectedBranchId" ng-options="a.branchId as a.titleDictionary[selectedLanguage] for a in orderProgramsCtrl.branchList"></select>\n' +
+    '            </div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '\n' +
+    '\n' +
+    '    <div ng-show="orderProgramsCtrl.orderType.type == \'pickup\'">\n' +
+    '        <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '            <label for="first-name">{{\'Country\' | translate}}</label>\n' +
+    '            <select required style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="orderProgramsCtrl.countryChange()"\n' +
+    '                ng-model="orderProgramsCtrl.selectedCountryId" ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in orderProgramsCtrl.counties">\n' +
+    '            </select>\n' +
+    '        </div>\n' +
+    '        <div ng-show=" orderProgramsCtrl.selectedCountryId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '            <label for="first-name">{{\'Region\' | translate}}</label>\n' +
+    '            <select required style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="orderProgramsCtrl.regionChange()"\n' +
+    '                ng-model="orderProgramsCtrl.selectedRegionId" ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in orderProgramsCtrl.regions">\n' +
+    '            </select>\n' +
+    '        </div>\n' +
+    '        <div ng-show=" orderProgramsCtrl.selectedRegionId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '            <label for="first-name">{{\'City\' | translate}}</label>\n' +
+    '            <select ng-required="orderProgramsCtrl.selectedRegionId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
+    '                ng-change="orderProgramsCtrl.cityChange()" ng-model="orderProgramsCtrl.selectedCityId" ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in orderProgramsCtrl.cities">\n' +
+    '            </select>\n' +
+    '        </div>\n' +
+    '        <div ng-show=" orderProgramsCtrl.selectedCityId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '            <label for="first-name">{{\'Area\' | translate}}</label>\n' +
+    '            <select ng-required=" orderProgramsCtrl.selectedCityId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
+    '                ng-change="orderProgramsCtrl.areaChange()" ng-model="orderProgramsCtrl.selectedAreaId" ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in orderProgramsCtrl.area">\n' +
+    '            </select>\n' +
+    '        </div>\n' +
+    '        <div ng-show=" orderProgramsCtrl.selectedAreaId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '            <label for="first-name">{{\'Branch\' | translate}}</label>\n' +
+    '            <select ng-required=" orderProgramsCtrl.selectedAreaId > 0 " class="form-control select-with-search pmd-select2-tags" ng-change="orderProgramsCtrl.branchChange()"\n' +
+    '                ng-model="orderProgramsCtrl.selectedBranchId" ng-options="a.branchId as a.titleDictionary[selectedLanguage] for a in orderProgramsCtrl.branchList"></select>\n' +
+    '        </div>\n' +
+    '\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div class="pmd-modal-action text-right">\n' +
+    '        <button ng-disabled="orderProgramForm.$invalid || !orderProgramsCtrl.dateIsValid" style="background-color: #e4e5e6;color: black!important;"\n' +
+    '            class="btn pmd-ripple-effect btn-primary" type="button" ng-click="orderProgramsCtrl.Order()">{{\'Order\' | translate}}</button>\n' +
+    '    </div>\n' +
+    '</form>');
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
@@ -5870,6 +5928,72 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '\n' +
     '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount" paging-action="changePage(page)"\n' +
     '        flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">\n' +
+    '    </div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/core/Delete/templates/ConfirmDeleteDialog.html',
+    '<div class="modal-content">\n' +
+    '	<div class="modal-body">{{\'deleteConfirmationLbl\' | translate}}<strong>{{deleteDlCtrl.itemName}}</strong> {{deleteDlCtrl.message}}? </div>\n' +
+    '	<div class="pmd-modal-action text-right">\n' +
+    '		<button class="btn pmd-ripple-effect btn-primary pmd-btn-flat" type="button" ng-click="deleteDlCtrl.Confirm()">{{\'deleteBtn\' | translate}}</button>\n' +
+    '		<button class="btn pmd-ripple-effect btn-default pmd-btn-flat" type="button" ng-click="deleteDlCtrl.close()">{{\'cancelBtn\' | translate}}</button>\n' +
+    '	</div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/core/login/templates/login.html',
+    '<div class="logincard" ng-if="!isLoggedIn()" style="margin-right: 84px;\n' +
+    'margin-left: -140px;">\n' +
+    '    <div class="pmd-card card-default pmd-z-depth">\n' +
+    '        <div class="login-card">\n' +
+    '            <form ng-submit="submit(username,password)" name="loginForm">\n' +
+    '                <div class="pmd-card-body">\n' +
+    '                    <div class="alert alert-success" role="alert"> Oh snap! Change a few things up and try submitting\n' +
+    '                        again. </div>\n' +
+    '                    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                        <label for="inputError1" class="control-label pmd-input-group-label">Email</label>\n' +
+    '                        <div class="input-group">\n' +
+    '                            <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">perm_identity</i></div>\n' +
+    '                            <input type="text" class="form-control" id="exampleInputAmount" required name="username"\n' +
+    '                                ng-model="username" ng-change="reset()">\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '\n' +
+    '                    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                        <label for="inputError1" class="control-label pmd-input-group-label">Password</label>\n' +
+    '                        <div class="input-group">\n' +
+    '                            <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">lock_outline</i></div>\n' +
+    '                            <input required type="password" name="password" ng-model="password" ng-change="reset()"\n' +
+    '                                minlength="6" class="form-control">\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '                <div ng-if="invalidLoginInfo" class="loginFailed">\n' +
+    '                    <span>Incorrect username or password.</span>\n' +
+    '                </div>\n' +
+    '                <div ng-if="inActiveUser" class="loginFailed">\n' +
+    '                    <span>Your Account Is Disabled, Please contact to administrator.</span>\n' +
+    '                </div>\n' +
+    '                <div class="pmd-card-footer card-footer-no-border card-footer-p16 text-center">\n' +
+    '                    <button type="submit" style="color: #ffffff!important;\n' +
+    '                    background: #9A3ea6;\n' +
+    '                    border-width: 9px!important;\n' +
+    '                    border-color: #9a3ea6;\n' +
+    '                    border-radius: 100px;\n' +
+    '                    letter-spacing: 1px;\n' +
+    '                    font-size: 15px;\n' +
+    '                    font-family: \'Montserrat\',Helvetica,Arial,Lucida,sans-serif!important;\n' +
+    '                    font-weight: 500!important;\n' +
+    '                    text-transform: uppercase!important;\n' +
+    '                    background-color: #9A3ea6;" class="btn pmd-ripple-effect btn-primary btn-block">Login</button>\n' +
+    '                </div>\n' +
+    '            </form>\n' +
+    '        </div>\n' +
+    '\n' +
+    '\n' +
     '    </div>\n' +
     '</div>');
 }]);

@@ -32,5 +32,7 @@ namespace FitHouse.BLL.DTOs
         //public List<ProgramTranslationDto> ProgramTranslations { get; set; }
         public List<ProgramDetailDto> ProgramDetails { get; set; }
         public List<DayDto> Days { get; set; }
+        public DateTime Day { get; set; }
+
     }
 }

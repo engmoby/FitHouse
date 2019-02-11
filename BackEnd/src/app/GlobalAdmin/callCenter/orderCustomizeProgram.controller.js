@@ -279,7 +279,18 @@
         }
         vm.addressInfo = function (address) {
             vm.addressDetails = address;
-         }
+        }
+
+        vm.dateIsValid = false;
+        $scope.dateChange = function () {
+            if ($('#startdate').data('date') == null || $('#startdate').data('date') == "") {
+                vm.dateIsValid = false;
+                $scope.$apply();
+            } else if (!$scope.orderItemForm.isInValid) {
+                vm.dateIsValid = true;
+                $scope.$apply();
+            }
+        }
 
         vm.AddNewProgram = function () {
             var newProgram = new AddProgramResource();
@@ -297,6 +308,8 @@
             newProgram.programDetails = vm.itemList;
             newProgram.price = vm.ProgramTotalPrice;
             newProgram.isOrdering = true;
+            newProgram.day = $('#startdate').val();
+
             // newProgram.branchId = vm.selectedBranchId;
             newProgram.isProgram = true;
             newProgram.userId = vm.clientId;
