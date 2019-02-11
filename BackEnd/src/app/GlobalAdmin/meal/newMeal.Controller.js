@@ -37,10 +37,15 @@
 			if ($scope.selectedItemList.length == 0) {
 				vm.mealtotalDiscount = "";
 				vm.mealDiscount = "";
+				vm.carbs = "";
+				vm.calories = "";
+				vm.protein = "";
+				vm.cost = "";
+				vm.vat = "";
+				vm.totalPrice = "";
 			}
 			calclulateWithDicscount();
 			var discountPresantage = vm.totalPrice * vm.mealDiscount / 100;
-
 			vm.mealtotalDiscount = vm.totalPrice - discountPresantage;
 			//	} 
 		}

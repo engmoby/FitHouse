@@ -26,7 +26,7 @@
         vm.counties = [];
         vm.userOrder;
         vm.flag = false;
-       
+
         // vm.orderType;
         vm.orderType = {
             type: 'item'
@@ -143,7 +143,7 @@
             }
         }
 
-       
+
         //Model
         vm.currentStep = 1;
         vm.steps = [
@@ -215,10 +215,10 @@
             newClient.IsActive = true;
             newClient.floor = vm.FLoor;
             newClient.appartmentNo = vm.AppartmentNo;
-            newClient.description  = vm.AddressDescription;
+            newClient.description = vm.AddressDescription;
             newClient.isAddress = true;
-            // newClient.UserTypeId = vm.selectedType.userTypeId;
-            newClient.UserRoles = vm.selectedUserRoles;
+            newClient.Code = 100;
+          //  newClient.UserRoles = vm.selectedUserRoles;
             newClient.branchId = vm.selectedBranchId;
             newClient.$create().then(
                 function (data, status) {
