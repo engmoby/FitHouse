@@ -79,7 +79,7 @@ namespace FitHouse.BLL.Services
                     if (orderObjOrderDetail.ProgramId != null)
                         if (!excludeDays.Any())
                             excludeDays = _progExcludeDayService.GetExcludesDays((long)orderObjOrderDetail.ProgramId).ToList();
-                     
+
                     if (orderObjOrderDetail.DayNumber == 1)
                     {
                         orderObjOrderDetail.Day = lastDate;
@@ -129,7 +129,7 @@ namespace FitHouse.BLL.Services
             }
             //if (orderObj.IsPaid && orderObj)
             //{
-                
+
             //}
             _orderService.Update(orderObj);
             SaveChanges();
@@ -154,18 +154,29 @@ namespace FitHouse.BLL.Services
         {
             return _orderService.GetAllOrdersForKitchen(branchId, page, pageSize);
         }
-        public List<ItemDto> GetOrderItems(long programId, long dayNumber)
+        public List<ItemDto> GetOrderItems(long orderId,long programId, long dayNumber)
         {
             var items = new List<ItemDto>();
             if (programId == 0)
-                return null;
-            //var getOrder = _orderService.Query(x => x.OrderId == orderId).Select().FirstOrDefault();
-            var getprogramDetail = _programDetailService.Queryable().Where(x => x.ProgramId == programId && x.DayNumber == dayNumber);
-            foreach (var programDetail in getprogramDetail)
             {
-                var item = _itemService.Find(programDetail.ItemId);
-                if (item != null) items.Add(Mapper.Map<ItemDto>(item));
+                var getOrderDetails = _orderDetailsService.Queryable().Where(x => x.OrderId == orderId);
+                foreach (var orderDetail in getOrderDetails)
+                {
+                    var item = _itemService.Find(orderDetail.ItemId);
+                    if (item != null) items.Add(Mapper.Map<ItemDto>(item));
+                }
             }
+            else
+            {
+                var getprogramDetail = _programDetailService.Queryable().Where(x => x.ProgramId == programId && x.DayNumber == dayNumber);
+                foreach (var programDetail in getprogramDetail)
+                {
+                    var item = _itemService.Find(programDetail.ItemId);
+                    if (item != null) items.Add(Mapper.Map<ItemDto>(item));
+                }
+
+            }
+            //var getOrder = _orderService.Query(x => x.OrderId == orderId).Select().FirstOrDefault();
 
             return items;
         }
@@ -178,7 +189,7 @@ namespace FitHouse.BLL.Services
             order.OrderStartDate = null;
             order.OrderExpiration = null;
             order.PauseStart = null;
-            order.OrderCode = rm.Next(10000,1000000).ToString();
+            order.OrderCode = rm.Next(10000, 1000000).ToString();
 
             order.AddressId = (orderDto.AddressId == 0) ? null : orderDto.AddressId;
             var orderDetails = new List<OrderDetail>();
@@ -257,7 +268,7 @@ namespace FitHouse.BLL.Services
         //    return orderDto;
         //}
 
-        public bool ChangeorderStatus(long orderDetailsId, int status)
+        public bool ChangeOrderDetailsStatus(long orderDetailsId, int status)
         {
             var returnValue = false;
             try
@@ -267,16 +278,24 @@ namespace FitHouse.BLL.Services
                 if (orderDetailsObj == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
 
                 var orderStatus = Enums.OrderStatus.Prepering;
-                if (status == 2)
-                    orderStatus = Enums.OrderStatus.Prepering;
-                else if (status == 3)
-                    orderStatus = Enums.OrderStatus.OnTheWay;
-                else if (status == 4)
-                    orderStatus = Enums.OrderStatus.Deliverd;
-                else if (status == 5)
-                    orderStatus = Enums.OrderStatus.NotDeliverd;
-                else if (status == 6)
-                    orderStatus = Enums.OrderStatus.KitchenFinished;
+                switch (status)
+                {
+                    case 2:
+                        orderStatus = Enums.OrderStatus.Prepering;
+                        break;
+                    case 3:
+                        orderStatus = Enums.OrderStatus.OnTheWay;
+                        break;
+                    case 4:
+                        orderStatus = Enums.OrderStatus.Deliverd;
+                        break;
+                    case 5:
+                        orderStatus = Enums.OrderStatus.NotDeliverd;
+                        break;
+                    case 6:
+                        orderStatus = Enums.OrderStatus.KitchenFinished;
+                        break;
+                }
 
                 orderDetailsObj.Status = orderStatus;
                 _orderDetailsService.Update(orderDetailsObj);
@@ -300,6 +319,62 @@ namespace FitHouse.BLL.Services
             return returnValue;
 
         }
+        public bool ChangeOrderStatus(long orderId, int status)
+        {
+            var returnValue = false;
+            try
+            {
+              //  var orderObj = _orderService.Query(x => x.OrderId== orderId).Select().FirstOrDefault();
+                var orderDetailsObj = _orderDetailsService.Queryable().Where(x => x.OrderId == orderId).ToList();
 
+                if (!orderDetailsObj.Any()) throw new NotFoundException(ErrorCodes.ProductNotFound);
+
+                var orderStatus = Enums.OrderStatus.Prepering;
+                switch (status)
+                {
+                    case 2:
+                        orderStatus = Enums.OrderStatus.Prepering;
+                        break;
+                    case 3:
+                        orderStatus = Enums.OrderStatus.OnTheWay;
+                        break;
+                    case 4:
+                        orderStatus = Enums.OrderStatus.Deliverd;
+                        break;
+                    case 5:
+                        orderStatus = Enums.OrderStatus.NotDeliverd;
+                        break;
+                    case 6:
+                        orderStatus = Enums.OrderStatus.KitchenFinished;
+                        break;
+                }
+                foreach (var orderDetail in orderDetailsObj)
+                {
+                    orderDetail.Status = orderStatus;
+                    _orderDetailsService.Update(orderDetail);
+                    SaveChanges();
+                }
+             
+                var checkIfOrderClosed = _orderService.Find(orderId);
+                if (checkIfOrderClosed.OrderDetails.All(x => x.Status == Enums.OrderStatus.Deliverd))
+                {
+                    checkIfOrderClosed.OrderStatus = Enums.OrderStatus.Deliverd;
+                    _orderService.Update(checkIfOrderClosed);
+                    SaveChanges();
+                }
+
+                returnValue = true;
+
+            }
+            catch (Exception e)
+            {
+                returnValue = false;
+                Console.WriteLine(e);
+                throw;
+            }
+
+            return returnValue;
+
+        }
     }
 }

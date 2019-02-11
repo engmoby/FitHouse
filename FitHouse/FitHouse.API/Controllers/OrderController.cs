@@ -43,14 +43,14 @@ namespace FitHouse.API.Controllers
         {
             var getUserInfo = _userFacade.GetUser(UserId);
             long branch = 0;
-            if (getUserInfo.BranchId != null) 
-                branch = (long)getUserInfo.BranchId; 
+            if (getUserInfo.BranchId != null)
+                branch = (long)getUserInfo.BranchId;
 
             PagedResultsDto orderObj = _orderFacade.GetAllOrders(branch, page, pagesize);
             var data = Mapper.Map<List<OrderModel>>(orderObj.Data);
             return PagedResponse("GetAllOrders", page, pagesize, orderObj.TotalCount, data);
         }
-         
+
         [Route("api/Orders/EditOrder", Name = "EditOrder")]
         [HttpPost]
         public IHttpActionResult EditOrder([FromBody] OrderModel orderModel)
@@ -123,14 +123,14 @@ namespace FitHouse.API.Controllers
 
         [Route("api/Orders/GetOrderItems", Name = "GetOrderItems")]
         [HttpPost]
-        public IHttpActionResult GetOrderItems(long programId, long dayNumber)
+        public IHttpActionResult GetOrderItems(long orderId, long programId, long dayNumber)
         {
-            var reurnOrder = _orderFacade.GetOrderItems(programId, dayNumber);
+            var reurnOrder = _orderFacade.GetOrderItems(orderId, programId, dayNumber);
             var data = Mapper.Map<List<ItemModel>>(reurnOrder);
-            return PagedResponse("GetOrderItems", Page,PageSize, reurnOrder.Count, data);
+            return PagedResponse("GetOrderItems", Page, PageSize, reurnOrder.Count, data);
 
-           // return Ok(reurnOrder);
-        } 
+            // return Ok(reurnOrder);
+        }
 
         [Route("api/Orders/GetFullOrderById", Name = "GetFullOrderById")]
         [HttpGet]
@@ -141,14 +141,21 @@ namespace FitHouse.API.Controllers
         }
 
 
-        [Route("api/Orders/ChangeorderStatus", Name = "ChangeorderStatus")]
+        [Route("api/Orders/ChangeOrderDetailsStatus", Name = "ChangeOrderDetailsStatus")]
         [HttpPost]
-        public IHttpActionResult ChangeorderStatus(long orderDetailsId,int status)
-        { 
-            var reurnOrder = _orderFacade.ChangeorderStatus(orderDetailsId, status);
+        public IHttpActionResult ChangeOrderDetailsStatus(long orderDetailsId, int status)
+        {
+            var reurnOrder = _orderFacade.ChangeOrderDetailsStatus(orderDetailsId, status); 
+            return Ok(reurnOrder);
+        }
 
+        [Route("api/Orders/ChangeOrderStatus", Name = "ChangeOrderStatus")]
+        [HttpPost]
+        public IHttpActionResult ChangeOrderStatus(long orderId, int status)
+        {
+            var reurnOrder = _orderFacade.ChangeOrderStatus(orderId, status);
             return Ok(reurnOrder);
         }
     }
 
-} 
+}

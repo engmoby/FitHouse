@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en" ng-app="home" ng-cloak ng-controller="homeCtrl">
 
@@ -14,7 +13,7 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
 	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
-	<link rel="stylesheet" ng-href="bundle-{{selectedLanguage}}.css?v=580d81b211dd37a167fabc7cb162ac10" />
+	<link rel="stylesheet" ng-href="bundle-{{selectedLanguage}}.css?v=b1adda7a4c4385845a8e650a1e223f61" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.1/nv.d3.min.css" />
 
 
@@ -29,6 +28,7 @@
 			border: 2px solid #F27878;
 			border-radius: 40px;
 		}
+
 		.btn-switch-circle {
 			position: absolute;
 			top: -1px;
@@ -39,33 +39,41 @@
 			background-color: #fff;
 			border-radius: 40px;
 		}
+
 		.btn-switch--on {
 			background-color: #80CDBE;
 			border: 2px solid #80CDBE;
 		}
+
 		.btn-switch-circle--on {
 			left: auto;
 			right: -1px;
 		}
+
 		.red-text {
 			background-color: #e85656 !important;
 		}
+
 		.green-text {
 			background-color: limegreen !important;
 		}
+
 		.error {
 			color: red;
 		}
+
 		.loading-pane {
 			position: absolute;
 			background: url("http://oi62.tinypic.com/2pqsuc0.jpg");
 		}
+
 		.loading-pane .spinner-image {
 			position: absolute;
 			width: 100%;
 			height: 100%;
 			background: url("http://oi58.tinypic.com/2emfu9w.jpg") center center no-repeat;
 		}
+
 		[ng\:cloak],
 		[ng-cloak],
 		[data-ng-cloak],
@@ -78,9 +86,11 @@
 
 </head>
 
-<body style="background-position: top left;
+<body
+	style="background-position: top left;
 background-image: linear-gradient(180deg,rgba(255,255,255,0.5) 0%,rgba(243,197,52,0.13) 89%),url(https://fithouseksa.com/wp-content/uploads/2018/07/fat-running.png)!important;">
-	<nav class="navbar navbar-inverse navbar-fixed-top pmd-navbar pmd-z-depth" ng-show="isLoggedIn()" style="    background-image: linear-gradient(90deg,#9a3ea6 0%,#bc4abf 100%)!important; ">
+	<nav class="navbar navbar-inverse navbar-fixed-top pmd-navbar pmd-z-depth" ng-show="isLoggedIn()"
+		style="    background-image: linear-gradient(90deg,#9a3ea6 0%,#bc4abf 100%)!important; ">
 
 		<div class="container-fluid">
 			<div class="pmd-navbar-right-icon pull-right navigation">
@@ -89,8 +99,10 @@ background-image: linear-gradient(180deg,rgba(255,255,255,0.5) 0%,rgba(243,197,5
 					<div class="col-lg-4 col-md-4 col-sm-4 col-xs-12" style="width: 100%;padding-top:10px;">
 						<div class="form-group pmd-textfield pmd-textfield-floating-label">
 
-							<select class="select-simple form-control pmd-select2" style="color:yellow!important;" ng-model="selectedLanguage" ng-change="changeLanguage(selectedLanguage)">
-								<option ng-selected="selectedLanguage == item.id" style="color:yellow!important;" ng-repeat="item in languages" ng-value="item.id">{{item.label | translate}}</option>
+							<select class="select-simple form-control pmd-select2" style="color:yellow!important;"
+								ng-model="selectedLanguage" ng-change="changeLanguage(selectedLanguage)">
+								<option ng-selected="selectedLanguage == item.id" style="color:yellow!important;"
+									ng-repeat="item in languages" ng-value="item.id">{{item.label | translate}}</option>
 							</select>
 						</div>
 					</div>
@@ -100,13 +112,15 @@ background-image: linear-gradient(180deg,rgba(255,255,255,0.5) 0%,rgba(243,197,5
 
 			<!-- Brand and toggle get grouped for better mobile display -->
 			<div class="navbar-header">
-				<a href="javascript:void(0);" class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect pull-left margin-r8 pmd-sidebar-toggle">
+				<a href="javascript:void(0);"
+					class="btn btn-sm pmd-btn-fab pmd-btn-flat pmd-ripple-effect pull-left margin-r8 pmd-sidebar-toggle">
 					<!-- <i class="material-icons">menu</i> -->
 					<i class="material-icons md-light">menu</i>
 				</a>
 				<a href="index.html" class="navbar-brand">
-					<img src="/assets/img/logo-os-white.png" alt="Fit House Restaurant" id="logo" data-height-percentage="84" data-actual-width="700"
-					 data-actual-height="198" style="width: 180px; " />
+					<img src="/assets/img/logo-os-white.png" alt="Fit House Restaurant" id="logo"
+						data-height-percentage="84" data-actual-width="700" data-actual-height="198"
+						style="width: 180px; " />
 				</a>
 
 			</div>
@@ -120,13 +134,16 @@ background-image: linear-gradient(180deg,rgba(255,255,255,0.5) 0%,rgba(243,197,5
 	<div class="pmd-sidebar-overlay"></div>
 
 	<!-- Left sidebar -->
-	<aside ng-show="isLoggedIn()" ng-cloak ng-init="logoutFlag=false" class="pmd-sidebar sidebar-default pmd-sidebar-slide-push pmd-sidebar-left pmd-sidebar-open bg-fill-darkblue sidebar-with-icons"
-	 role="navigation">
-		<ul class="nav pmd-sidebar-nav" style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;">
+	<aside ng-show="isLoggedIn()" ng-cloak ng-init="logoutFlag=false"
+		class="pmd-sidebar sidebar-default pmd-sidebar-slide-push pmd-sidebar-left pmd-sidebar-open bg-fill-darkblue sidebar-with-icons"
+		role="navigation">
+		<ul class="nav pmd-sidebar-nav"
+			style="background-image: linear-gradient(251deg,#f3c534 5%,#9a3ea6 68%)!important;">
 
 			<!-- User info -->
 			<li class="dropdown pmd-dropdown pmd-user-info visible-xs visible-md visible-sm visible-lg">
-				<a ng-click="logoutFlag=!logoutFlag" data-toggle="dropdown" class="btn-user dropdown-toggle media" data-sidebar="true" aria-expandedhref="javascript:void(0);">
+				<a ng-click="logoutFlag=!logoutFlag" data-toggle="dropdown" class="btn-user dropdown-toggle media"
+					data-sidebar="true" aria-expandedhref="javascript:void(0);">
 					<div class="media-left">
 						<img src="/assets/img/fit-running.png" width="50px" alt="">
 						<!-- <img src="/assets/img/user-icon.png" alt="New User"> -->
@@ -237,7 +254,7 @@ background-image: linear-gradient(180deg,rgba(255,255,255,0.5) 0%,rgba(243,197,5
 					<span class="media-body" ng-cloak>{{'Order' | translate}}</span>
 				</a>
 			</li>
-			
+
 			<li ng-show="user.PermissionId.indexOf('15') !== -1">
 				<a class="pmd-ripple-effect " ng-click="$state.go('Pickup');">
 					<i class="media-left media-middle">
@@ -247,7 +264,7 @@ background-image: linear-gradient(180deg,rgba(255,255,255,0.5) 0%,rgba(243,197,5
 					<span class="media-body" ng-cloak>{{'Pickup' | translate}}</span>
 				</a>
 			</li>
-			
+
 
 			<li ng-show="user.PermissionId.indexOf('13') !== -1">
 				<a class="pmd-ripple-effect " ng-click="$state.go('callCenter');">
@@ -275,8 +292,8 @@ background-image: linear-gradient(180deg,rgba(255,255,255,0.5) 0%,rgba(243,197,5
 					</i>
 					<span class="media-body" ng-cloak>{{'Kitchen' | translate}}</span>
 				</a>
-			</li> 
-
+			</li>
+<!-- 
 			<li ng-show="user.PermissionId.indexOf('7') !== -1">
 				<a class="pmd-ripple-effect " ng-click="$state.go('Log')">
 					<i class="media-left media-middle">
@@ -285,7 +302,7 @@ background-image: linear-gradient(180deg,rgba(255,255,255,0.5) 0%,rgba(243,197,5
 					</i>
 					<span class="media-body" ng-cloak>{{'Log' | translate}}</span>
 				</a>
-			</li>
+			</li> -->
 
 			<li ng-show="user.PermissionId.indexOf('14') !== -1">
 				<a class="pmd-ripple-effect " ng-click="$state.go('setting');">
@@ -307,7 +324,7 @@ background-image: linear-gradient(180deg,rgba(255,255,255,0.5) 0%,rgba(243,197,5
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
 
 
-	<script src="libs.js?v=580d81b211dd37a167fabc7cb162ac10"></script>
+	<script src="libs.js?v=b1adda7a4c4385845a8e650a1e223f61"></script>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.1/nv.d3.min.js"></script>
@@ -317,9 +334,9 @@ background-image: linear-gradient(180deg,rgba(255,255,255,0.5) 0%,rgba(243,197,5
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/stackblur-canvas/1.4.1/stackblur.min.js"></script>
 	<script src="http://cdn.jsdelivr.net/npm/canvg/dist/browser/canvg.min.js"></script>
 
-	<script src="core.js?v=580d81b211dd37a167fabc7cb162ac10"></script>
-	<script src="app.js?v=580d81b211dd37a167fabc7cb162ac10"></script>
-	<script src="templates.js?v=580d81b211dd37a167fabc7cb162ac10"></script>
+	<script src="core.js?v=b1adda7a4c4385845a8e650a1e223f61"></script>
+	<script src="app.js?v=b1adda7a4c4385845a8e650a1e223f61"></script>
+	<script src="templates.js?v=b1adda7a4c4385845a8e650a1e223f61"></script>
 
 	<script src="https://rawgithub.com/McNull/angular-block-ui/bower/angular-block-ui.min.js"></script>
 	<link rel="stylesheet" href="https://rawgithub.com/McNull/angular-block-ui/bower/angular-block-ui.min.css">

@@ -89,7 +89,7 @@ namespace FitHouse.BLL.DataServices
             //var query = Queryable().Where(x => (branchId <= 0 || x.BranchId == branchId) && x.IsPaid && x.IsDelivery && x.IsProgram &&
             //                                   x.OrderStatus == Enums.OrderStatus.Prepering).OrderByDescending(x => x.OrderId);
             var queryPogram = Queryable().Where(x => (branchId <= 0 || x.BranchId == branchId) && x.IsPaid && x.IsProgram && x.OrderStatus == Enums.OrderStatus.Prepering).OrderByDescending(x => x.OrderId);
-            var queryNotProgram = Queryable().Where(x => (branchId <= 0 || x.BranchId == branchId) && !x.IsPaid && !x.IsProgram && x.OrderStatus == Enums.OrderStatus.Prepering).OrderByDescending(x => x.OrderId);
+            var queryNotProgram = Queryable().Where(x => (branchId <= 0 || x.BranchId == branchId)   && !x.IsProgram && x.OrderStatus == Enums.OrderStatus.Prepering).OrderByDescending(x => x.OrderId);
 
 
             queryList.AddRange(queryPogram);

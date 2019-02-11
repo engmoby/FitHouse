@@ -2217,14 +2217,14 @@
     angular
         .module('home')
         .controller('KitchenController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate',
-            '$state', 'kitchensResource', 'kitchensPrepService', '$localStorage',
+            '$state', 'PickupsResource', 'kitchensResource', 'kitchensPrepService', '$localStorage',
             'authorizationService', 'appCONSTANTS',
             'ToastService', '$uibModal', KitchenController])
         ;
 
 
     function KitchenController($rootScope, blockUI, $scope, $filter, $translate,
-        $state, kitchensResource, kitchensPrepService, $localStorage, authorizationService,
+        $state, PickupsResource, kitchensResource, kitchensPrepService, $localStorage, authorizationService,
         appCONSTANTS, ToastService, $uibModal) {
 
         $('.pmd-sidebar-nav>li>a').removeClass("active")
@@ -2234,12 +2234,19 @@
 
         var vm = this;
 
-        vm.showMore = function (element, programId, dayNumber, model) {
+        vm.showMore = function (element, model) {
 
-                    debugger;
             if (model.ItemList != null) return;
+
+            var programId = 0;
+            var dayNumber = 0;
+            if (model.isProgram)
+                programId = model.orderDetails[0].programId;
+            if (model.isProgram)
+                dayNumber = model.orderDetails[0].dayNumber;
+
             var temp = new kitchensResource();
-            temp.$GetOrderItems({ programId: programId, dayNumber: dayNumber }).then(function (results) {
+            temp.$GetOrderItems({ orderId: model.orderId, programId: programId, dayNumber: dayNumber }).then(function (results) {
                 debugger;
                 model.ItemList = results.results;
                 blockUI.stop();
@@ -2254,9 +2261,37 @@
 
             $(element.currentTarget).toggleClass("child-table-collapse");
         }
-        vm.changeStatus = function (orderDetailsid, status) {
+        vm.changeStatus = function (order, status) {
+            debugger;
+            if (order.isProgram) {
+                var orderDetailsId = order.orderDetails[0].orderDetailId;
+                updateOrderDetails(orderDetailsId, status);
+            }
+            else {
+                updateOrder(order.orderId, status);
+            }
+        }
+        function updateOrder(orderId, status) {
+
+            var temp = new PickupsResource();
+            temp.$ChangeOrderStatus({ orderId: orderId, status: status }).then(function (results) {
+                if (results = true)
+                    refreshkitchens();
+
+                blockUI.stop();
+
+            },
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+
+        }
+        function updateOrderDetails(orderDetailsId, status) {
+
             var temp = new kitchensResource();
-            temp.$ChangeOrderStatus({ orderDetailsId: orderDetailsid, status: status }).then(function (results) {
+            temp.$ChangeOrderStatus({ orderDetailsId: orderDetailsId, status: status }).then(function (results) {
                 if (results = true)
                     refreshkitchens();
 
@@ -2379,7 +2414,7 @@
             getkitchen: { method: 'GET', url: appCONSTANTS.API_URL + 'Orders/GetkitchenById/:kitchenId', useToken: true } ,
             getFullkitchen: { method: 'GET', url: appCONSTANTS.API_URL + 'Orders/GetFullkitchenById/:kitchenId', useToken: true } ,  
             GetOrderItems: { method: 'POST', url: appCONSTANTS.API_URL + 'Orders/GetOrderItems/', useToken: true } ,
-            ChangeOrderStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'Orders/ChangeorderStatus/', useToken: true } 
+            ChangeOrderStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'Orders/ChangeOrderDetailsStatus/', useToken: true } 
         })
     } 
 }());
@@ -2452,6 +2487,8 @@
 
     function editOrderDialogController($scope, OrderByIdPrepService, OrdersResource, blockUI, $http, $filter, $state, appCONSTANTS, $translate, ToastService) {
         var vm = this;
+        vm.dateIsValid = false;
+
         vm.Order = OrderByIdPrepService;
         console.log(vm.Order);
         vm.language = appCONSTANTS.supportedLanguage;
@@ -2461,12 +2498,12 @@
         if (vm.Order.orderStartDate != null) {
             vm.Order.orderStartDate = vm.Order.orderStartDate + "Z";
             vm.Order.orderStartDate = $filter('date')(new Date(vm.Order.orderStartDate), "dd/MM/yyyy hh:mm a");
+            vm.dateIsValid = true;
         }
-        debugger;
         $scope.orderStatus = false;
-        if (vm.Order.orderStatus == 2) {
+        if (vm.Order.orderStatus == 2)
             $scope.orderStatus = true;
-        }
+
 
         vm.Close = function () {
             $state.go('Order');
@@ -2474,8 +2511,6 @@
         vm.showMore = function (element) {
             $(element.currentTarget).toggleClass("child-table-collapse");
         }
-
-        vm.dateIsValid = false;
         $scope.dateChange = function () {
             if ($('#startdate').data('date') == null || $('#startdate').data('date') == "") {
                 vm.dateIsValid = false;
@@ -2490,10 +2525,9 @@
             blockUI.start("Loading...");
             var updateObj = new OrdersResource();
             updateObj.orderStartDate = $('#startdate').val();
-            if (vm.$scope) {
+            debugger;
+            if ($scope.orderStatus)
                 updateObj.orderStatus = "Prepering";
-
-            }
 
 
             updateObj.isPaid = vm.Order.isPaid;
@@ -2688,29 +2722,8 @@
 
         $scope.totalCount = pickupsPrepService.totalCount;
         $scope.PickupList = pickupsPrepService;
-        console.log($scope.PickupList);
-        $scope.getTotal = function (pickup) {
-            debugger;
-            var total = 0;
-            if (pickup.type == "3") {
-                for (var i = 0; i < pickup.pickupDetails.length; i++) {
-                    var obj = pickup.pickupDetails[i];
-                    total += (obj.item.price);
-                }
-            }
-            else if (pickup.type == "2") {
-                for (var i = 0; i < pickup.pickupDetails.length; i++) {
-                    var obj = pickup.pickupDetails[i];
-                    total += (obj.meal.mealPrice);
-                }
-            }
-            else if (pickup.type == "1") {
-                total = 1500;
-            }
-            return total;
-        }
 
-        function refreshPickups() {
+           function refreshPickups() {
             blockUI.start("Loading...");
 
             var k = PickupsResource.getAllPickups({ page: vm.currentPage }).$promise.then(function (results) {
@@ -2725,26 +2738,42 @@
                 });
         }
 
+        vm.changeStatus = function (orderId, status) {
+            var temp = new PickupsResource();
+            temp.$ChangeOrderStatus({ orderId: orderId, status: status }).then(function (results) {
+                if (results = true)
+                refreshPickups();
 
-        function change(pickup) {
+                blockUI.stop();
 
+            },
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+
+        }
+
+        function change(order) { 
             var updateObj = new PickupsResource();
-            updateObj.PickupId = pickup.pickupId;
+            updateObj.OrderId = order.orderId;
 
-            updateObj.isPaid = (pickup.isPaid == true ? false : true);
-            updateObj.PickupDetails = pickup.pickupDetails;
+            updateObj.isPaid = (order.isPaid == true ? false : true);
+            updateObj.OrderDetails = order.orderDetails;
             updateObj.$update().then(
                 function (data, status) {
 
 
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    pickup.isPaid = updateObj.isPaid;
+                    order.isPaid = updateObj.isPaid;
 
                 },
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 }
             );
+
 
         }
         $scope.UpdatePickup = function (pickup) {
@@ -2791,9 +2820,10 @@
         return $resource(appCONSTANTS.API_URL + 'Pickups/', {}, {
             getAllPickups: { method: 'GET', url: appCONSTANTS.API_URL + 'Orders/GetAllOrdersForPickup', useToken: true, params: { lang: '@lang' } },
             create: { method: 'POST', useToken: true },
-            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Orders/EditPickup', useToken: true },
+            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Orders/EditOrder', useToken: true },
             getPickup: { method: 'GET', url: appCONSTANTS.API_URL + 'Orders/GetPickupById/:PickupId', useToken: true } ,
-            getFullPickup: { method: 'GET', url: appCONSTANTS.API_URL + 'Orders/GetFullPickupById/:PickupId', useToken: true }   
+            getFullPickup: { method: 'GET', url: appCONSTANTS.API_URL + 'Orders/GetFullPickupById/:PickupId', useToken: true }   ,
+            ChangeOrderStatus: { method: 'POST', url: appCONSTANTS.API_URL + 'Orders/ChangeOrderStatus/', useToken: true } 
 
         })
     } 
