@@ -23,21 +23,25 @@ namespace FitHouse.BLL.Services
         private readonly IUserRoleService _userRoleService;
         private readonly IPermissionService _permissionService;
         private readonly IRolePermissionService _rolePermissionService;
+        private readonly IAddressService _addressService;
 
-        public UserFacade(IUserService userService, IUnitOfWorkAsync unitOfWork, IUserRoleService userRoleService, IPermissionService permissionService, IRolePermissionService rolePermissionService) : base(unitOfWork)
+        public UserFacade(IUserService userService, IAddressService addressService, IUnitOfWorkAsync unitOfWork, IUserRoleService userRoleService, IPermissionService permissionService, IRolePermissionService rolePermissionService) : base(unitOfWork)
         {
             _userService = userService;
             _userRoleService = userRoleService;
             _permissionService = permissionService;
             _rolePermissionService = rolePermissionService;
+            _addressService = addressService;
         }
 
-        public UserFacade(IUserService userService, IUserRoleService userRoleService, IPermissionService permissionService, IRolePermissionService rolePermissionService)
+        public UserFacade(IUserService userService, IAddressService addressService, IUserRoleService userRoleService, IPermissionService permissionService, IRolePermissionService rolePermissionService)
         {
             _userService = userService;
             _userRoleService = userRoleService;
             _permissionService = permissionService;
             _rolePermissionService = rolePermissionService;
+            _addressService = addressService;
+
         }
 
 
@@ -171,7 +175,7 @@ namespace FitHouse.BLL.Services
             userObj.IsAdmin = userDto.IsAdmin;
             userObj.CreationTime = Strings.CurrentDateTime;
             userObj.CreatorUserId = userId;
-
+            
             foreach (var roleper in userDto.UserRoles)
             {
                 userObj.UserRoles.Add(new UserRole
@@ -200,7 +204,17 @@ namespace FitHouse.BLL.Services
             //    count++;
             //}
             //userObj.PackageId = package.PackageId;
-
+            var address = new Address();
+            if (userDto.IsAddress)
+            {
+                address.Floor = userDto.Floor;
+                address.AppartmentNo = userDto.AppartmentNo;
+                address.Description = userDto.Description;
+                address.UserId = userDto.UserId;
+                address.BranchId = userDto.BranchId;
+                _addressService.Insert(address);
+            }
+           
             _userRoleService.InsertRange(userObj.UserRoles);
             _userService.Insert(userObj);
             SaveChanges();

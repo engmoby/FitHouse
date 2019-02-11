@@ -11,5 +11,6 @@ namespace FitHouse.BLL.Services.Interfaces
     {
         SettingDto GetSetting();
         SettingDto UpdateSetting(SettingDto settingDto, long userId);
+        SettingDto AddSettings(SettingDto settingDto, long userId);
     }
 }

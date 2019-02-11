@@ -28,7 +28,7 @@
         vm.counties = [];
         vm.clientId = localStorage.getItem('ClientId');
         vm.flag = false;
-
+     
         vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
         vm.selectedCountryId = 0;
         vm.counties = vm.counties.concat(CountriesPrepService.results)
@@ -43,6 +43,7 @@
             vm.area = [];
             vm.categoryList = [];
         }
+
         vm.departmentChange = function () {
             vm.department.splice(0, 1);
             vm.categoryList = [];
@@ -50,6 +51,7 @@
             vm.selectedCategoryId = 0;
             vm.categoryList = vm.categoryList.concat(($filter('filter')(vm.department, { departmentId: vm.selectedDepartmentId }))[0].categories);
         }
+
         vm.categoryChange = function () {
             for (var i = vm.categoryList.length - 1; i >= 0; i--) {
                 if (vm.categoryList[i].categoryId == 0) {
@@ -78,6 +80,7 @@
                 });
             blockUI.stop();
         }
+
         vm.regionChange = function () {
             // vm.regions.splice(0, 1);
             if (vm.selectedRegionId != undefined) {
@@ -148,7 +151,27 @@
 
         vm.orderType = {
             type: 'delivery'
-          };
+        };
+        vm.addresses = {
+            address: 0
+        };
+
+        if (vm.orderType.type == 'delivery') {
+            var k = OrderResource.getUserAddresses({ userId: vm.clientId }).$promise.then(function (results) {
+                vm.userAddresses = results;
+                console.log(vm.userAddresses);
+                blockUI.stop();
+
+            },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+
+        vm.addressInfo = function (address) {
+           vm.addressDetails = address;
+        }
 
         vm.programSearch = function () {
             var k = GetProgramDetailResource.getProgramDetail({ programId: vm.program.programId }).$promise.then(function (results) {
@@ -171,14 +194,17 @@
 
             order.programs = vm.itemList;
             order.isByAdmin = true;
-            order.branchId = vm.selectedBranchId;
+            // order.branchId = vm.selectedBranchId;
             order.userId = vm.clientId;
 
-            if(vm.orderType.type == "delivery"){
+            if (vm.orderType.type == "delivery") {
                 order.isDelivery = true;
+                order.addressId = vm.addresses.address;
+                order.branchId = vm.addressDetails.branchId;
             }
-            else{
+            else {
                 order.isDelivery = false;
+                order.branchId = vm.selectedBranchId;
             }
 
             order.$createOrder().then(

@@ -63,24 +63,35 @@ namespace FitHouse.BLL.Services
             var branchObj = _branchService.Query(x => x.BranchId == branchDto.BranchId)
                 .Select().FirstOrDefault();
             if (branchObj == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
-            ValidateBranch(branchDto,branchDto.AreaId);
-            foreach (var branchName in branchDto.TitleDictionary)
+
+            if (branchDto.IsFees)
             {
-                var branchTranslation = branchObj.BranchTranslations.FirstOrDefault(x => x.Language.ToLower() == branchName.Key.ToLower() && x.BranchId == branchDto.BranchId);
-                if (branchTranslation == null)
-                {
-                    branchObj.BranchTranslations.Add(new BranchTranslation
-                    {
-                        Title = branchName.Value,
-                        Language = branchName.Key
-                    });
-                }
-                else
-                    branchTranslation.Title = branchName.Value;
+                branchObj.DeliveryCost = branchDto.DeliveryCost;
+                branchObj.DeliveryPrice = branchDto.DeliveryPrice;
             }
-            branchObj.LastModificationTime = Strings.CurrentDateTime;
-            branchObj.LastModifierUserId = userId;
-            branchObj.IsDeleted = branchDto.IsDeleted;
+            else
+            {
+                ValidateBranch(branchDto, branchDto.AreaId);
+                foreach (var branchName in branchDto.TitleDictionary)
+                {
+                    var branchTranslation = branchObj.BranchTranslations.FirstOrDefault(x => x.Language.ToLower() == branchName.Key.ToLower() && x.BranchId == branchDto.BranchId);
+                    if (branchTranslation == null)
+                    {
+                        branchObj.BranchTranslations.Add(new BranchTranslation
+                        {
+                            Title = branchName.Value,
+                            Language = branchName.Key
+                        });
+                    }
+                    else
+                        branchTranslation.Title = branchName.Value;
+                }
+                branchObj.LastModificationTime = Strings.CurrentDateTime;
+                branchObj.LastModifierUserId = userId;
+                branchObj.IsDeleted = branchDto.IsDeleted;
+            }
+
+            
             _branchService.Update(branchObj);
             SaveChanges();
             return branchDto;

@@ -17,5 +17,6 @@ namespace FitHouse.API.Models
         public long? DeleterUserId { get; set; }
         public long? DeliveryCost { get; set; }
         public long? DeliveryPrice { get; set; }
+        public bool IsFees { get; set; }
     }
 }

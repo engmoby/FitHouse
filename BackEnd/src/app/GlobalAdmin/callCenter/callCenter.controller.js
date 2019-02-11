@@ -5,15 +5,15 @@
         .module('home')
         .controller('callCenterController', ['$scope', 'blockUI', '$filter', '$translate',
             '$state', '$localStorage', 'authorizationService', 'appCONSTANTS', 'ToastService', '$stateParams'
-            , 'UserResource', 'CityResource', 'AreaResource', 'RegionResource', 'RolePrepService'
-            , 'CountriesPrepService', callCenterController])
+            , 'CountriesPrepService', 'UserResource', 'CityResource', 'AreaResource', 'RegionResource'
+            , callCenterController])
 
         ;
 
 
     function callCenterController($scope, blockUI, $filter, $translate, $state, $localStorage, authorizationService,
-        appCONSTANTS, ToastService, $stateParams, UserResource, CityResource, AreaResource
-        , RegionResource, RolePrepService, CountriesPrepService) {
+        appCONSTANTS, ToastService, $stateParams, CountriesPrepService, UserResource, CityResource, AreaResource
+        , RegionResource) {
 
         $('.pmd-sidebar-nav>li>a').removeClass("active")
         $($('.pmd-sidebar-nav').children()[4].children[0]).addClass("active")
@@ -37,22 +37,13 @@
         // showDDL();
         //$scope.totalCount = userPrepService.totalCount;
         // $scope.userList = userPrepService.results;
-        vm.roleList = RolePrepService.results;
+        // vm.roleList = RolePrepService.results;
 
         $scope.phoneNumbr = /^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/;
         $scope.userObj = "";
         $scope.selectedType = "";
         $scope.userTypeList = [];
-        vm.resetDLL = function () {
-            vm.counties = [];
-            vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
-            vm.selectedCountryId = 0;
-            vm.counties = vm.counties.concat(CountriesPrepService.results)
-            vm.regions = [];
-            vm.cities = [];
-            vm.area = [];
-            vm.categoryList = [];
-        }
+
         vm.departmentChange = function () {
             vm.department.splice(0, 1);
             vm.categoryList = [];
@@ -60,6 +51,7 @@
             vm.selectedCategoryId = 0;
             vm.categoryList = vm.categoryList.concat(($filter('filter')(vm.department, { departmentId: vm.selectedDepartmentId }))[0].categories);
         }
+
         vm.categoryChange = function () {
             for (var i = vm.categoryList.length - 1; i >= 0; i--) {
                 if (vm.categoryList[i].categoryId == 0) {
@@ -88,6 +80,7 @@
                 });
             blockUI.stop();
         }
+
         vm.regionChange = function () {
             // vm.regions.splice(0, 1);
             if (vm.selectedRegionId != undefined) {
@@ -149,12 +142,13 @@
             }
         }
 
+       
         //Model
         vm.currentStep = 1;
         vm.steps = [
             {
                 step: 1,
-                nameEn: "ٌRegister User",
+                nameEn: "Register User",
                 nameAr: "تسجيل عميل",
                 template: "./app/GlobalAdmin/callCenter/templates/callCenterStepOne.html"
             },
@@ -218,6 +212,10 @@
             newClient.Phone = vm.Phone;
             newClient.Password = vm.Phone;
             newClient.IsActive = true;
+            newClient.floor = vm.FLoor;
+            newClient.appartmentNo = vm.AppartmentNo;
+            newClient.description  = vm.AddressDescription;
+            newClient.isAddress = true;
             // newClient.UserTypeId = vm.selectedType.userTypeId;
             newClient.UserRoles = vm.selectedUserRoles;
             newClient.branchId = vm.selectedBranchId;

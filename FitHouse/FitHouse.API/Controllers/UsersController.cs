@@ -24,7 +24,9 @@ namespace FitHouse.API.Controllers
             _areaFacade = areaFacade; 
             _regionFacade = regionFacade;
             _cityFacade = cityFacade;
-        } 
+        }
+       
+
         [Route("api/Users", Name = "RegisterUser")]
         [HttpPost]
         public IHttpActionResult RegisterUser([FromBody] UserModel userModel)

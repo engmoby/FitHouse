@@ -279,6 +279,7 @@
     <Compile Include="Controllers\ProgramController.cs" />
     <Compile Include="Controllers\RegionsController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
+    <Compile Include="Controllers\AddressController.cs" />
     <Compile Include="Controllers\SettingController.cs" />
     <Compile Include="Models\LogModel.cs" />
     <Compile Include="Models\AddressModel.cs" />

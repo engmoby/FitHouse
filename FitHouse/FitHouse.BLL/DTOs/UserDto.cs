@@ -33,6 +33,13 @@ namespace FitHouse.BLL.DTOs
         public long? AreaId { get; set; }
         public long? CountryId { get; set; }
         public long? RegionId { get; set; }
-        public long? CityId { get; set; } 
+        public long? CityId { get; set; }
+        //public AddressDto Address { get; set; }
+        public string Floor { get; set; }
+        public string AppartmentNo { get; set; }
+        public string Description { get; set; }
+        public bool IsAddress { get; set; }
+
+
     }
 }

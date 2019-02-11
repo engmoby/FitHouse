@@ -1,4 +1,28 @@
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".select-add-tags").select2({
+            tags: true,
+            theme: "bootstrap",
+            insertTag: function (data, tag) {
+                // Insert the tag at the end of the results
+                data.push(tag);
+                // console.log(data);
+            }
+        });
+
+        $(".select-tags").select2({
+            tags: false,
+            theme: "bootstrap",
+        });
+
+        $(".select-with-search").select2({
+            theme: "bootstrap"
+        });
+    });
+</script>
 <form class="form-horizontal" name="newProgram3Form">
+
+    <br>
 
     <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
         <label for="first-name">{{'ProgramPrice' | translate}}</label>
@@ -24,5 +48,73 @@
         <label for="first-name">{{'ProgramTotalPrice' | translate}}</label>
         <input disabled type="number" class="mat-input form-control" name="programTotalPrice" ng-model="orderCustomizeProgramCtrl.ProgramTotalPrice">
     </div>
+
+    <hr>
+
+    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+        <label for="first-name">{{'OrderType' | translate}}</label>
+        <label>
+            <input type="radio" ng-model="orderCustomizeProgramCtrl.orderType.type" value="delivery"> {{'Deivery' | translate}}
+        </label>
+        <label style="margin-left:3em">
+            <input type="radio" ng-model="orderCustomizeProgramCtrl.orderType.type" value="pickup"> {{'Pickup' | translate}}
+        </label>
+        <br/>
+    </div>
+
+    <!-- {{orderCustomizeProgramCtrl.userAddresses.length}} -->
+    <div ng-if="orderCustomizeProgramCtrl.orderType.type == 'delivery'">
+        <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label for="first-name">{{'SelectAddress' | translate}}</label>
+
+            <div ng-repeat="address in orderCustomizeProgramCtrl.userAddresses">
+                <!-- {{orderCustomizeProgramCtrl.addresses.address}} -->
+                <label>
+                    <input ng-change="orderCustomizeProgramCtrl.addressInfo(address)" type="radio" ng-model="orderCustomizeProgramCtrl.addresses.address" value="{{address.addressId}}"> {{address.appartmentNo}}, {{address.description}}, {{'Floor' | translate}} {{address.floor}}
+                    <!-- {{addressInfo}} -->
+                </label>
+            </div>
+        </div>
+    </div>
+
+
+    <div ng-show="orderCustomizeProgramCtrl.orderType.type == 'pickup'">
+        <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label for="first-name">{{'Country' | translate}}</label>
+            <select required style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="orderCustomizeProgramCtrl.countryChange()"
+                ng-model="orderCustomizeProgramCtrl.selectedCountryId" ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in orderCustomizeProgramCtrl.counties">
+            </select>
+        </div>
+        <div ng-show=" orderCustomizeProgramCtrl.selectedCountryId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label for="first-name">{{'Region' | translate}}</label>
+            <select required style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="orderCustomizeProgramCtrl.regionChange()"
+                ng-model="orderCustomizeProgramCtrl.selectedRegionId" ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in orderCustomizeProgramCtrl.regions">
+            </select>
+        </div>
+        <div ng-show=" orderCustomizeProgramCtrl.selectedRegionId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label for="first-name">{{'City' | translate}}</label>
+            <select ng-required="orderCustomizeProgramCtrl.selectedRegionId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"
+                ng-change="orderCustomizeProgramCtrl.cityChange()" ng-model="orderCustomizeProgramCtrl.selectedCityId" ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in orderCustomizeProgramCtrl.cities">
+            </select>
+        </div>
+        <div ng-show=" orderCustomizeProgramCtrl.selectedCityId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label for="first-name">{{'Area' | translate}}</label>
+            <select ng-required=" orderCustomizeProgramCtrl.selectedCityId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"
+                ng-change="orderCustomizeProgramCtrl.areaChange()" ng-model="orderCustomizeProgramCtrl.selectedAreaId" ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in orderCustomizeProgramCtrl.area">
+            </select>
+        </div>
+        <div ng-show=" orderCustomizeProgramCtrl.selectedAreaId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            <label for="first-name">{{'Branch' | translate}}</label>
+            <select ng-required=" orderCustomizeProgramCtrl.selectedAreaId > 0 " class="form-control select-with-search pmd-select2-tags" ng-change="orderCustomizeProgramCtrl.branchChange()"
+                ng-model="orderCustomizeProgramCtrl.selectedBranchId" ng-options="a.branchId as a.titleDictionary[selectedLanguage] for a in orderCustomizeProgramCtrl.branchList"></select>
+        </div>
+
+    </div>
+
+
+    <!-- || (orderCustomizeProgramCtrl.Setting.minNoDaysPerProgram > orderCustomizeProgramCtrl.ProgramDaysCount) -->
+    <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="(orderCustomizeProgramCtrl.currentStep != orderCustomizeProgramCtrl.steps.length)"
+        class="btn btn-success" name="next" type="button" ng-click="orderCustomizeProgramCtrl.AddNewProgram()">
+        <i class="fa fa-floppy-o"></i>{{'Save' | translate}}</button>
 
 </form>

@@ -37,5 +37,13 @@ namespace FitHouse.API.Controllers
             return Ok(setting);
         }
 
+        [Route("api/Setting/AddSettings", Name = "AddSettings")]
+        [HttpPost]
+        public IHttpActionResult AddSettings([FromBody] SettingModel settingModel)
+        {
+            var setting = _settingFacade.AddSettings(Mapper.Map<SettingDto>(settingModel), UserId);
+            return Ok(setting);
+        }
+
     }
 }

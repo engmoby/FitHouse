@@ -1,4 +1,6 @@
-<form class="form-horizontal" name="newProgram3Form">
+  <form class="form-horizontal" name="newProgram3Form">
+
+    <br>
 
     <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
         <label for="first-name">{{'ProgramPrice' | translate}}</label>
@@ -7,12 +9,12 @@
 
     <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
         <label for="first-name">{{'ProgramCost' | translate}}</label>
-        <input required type="number" class="mat-input form-control" name="programCost" ng-model="addProgramCtrl.ProgramCost">
+        <input disabled type="number" class="mat-input form-control" name="programCost" ng-model="addProgramCtrl.ProgramCost">
     </div>
 
     <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
         <label for="first-name">{{'ProgramVAT' | translate}}</label>
-        <input required type="number" class="mat-input form-control" name="programVAT" ng-model="addProgramCtrl.ProgramVAT">
+        <input disabled type="number" class="mat-input form-control" name="programVAT" ng-model="addProgramCtrl.ProgramVAT">
     </div>
 
     <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
@@ -22,12 +24,11 @@
 
     <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
         <label for="first-name">{{'ProgramTotalPrice' | translate}}</label>
-        <input required type="number" class="mat-input form-control" name="programTotalPrice" ng-model="addProgramCtrl.ProgramTotalPrice">
+        <input disabled type="number" class="mat-input form-control" name="programTotalPrice" ng-model="addProgramCtrl.ProgramTotalPrice">
     </div>
-
-    <button style="background-color: #e4e5e6;color: black!important;"
-    ng-disabled="(addProgramCtrl.currentStep != addProgramCtrl.steps.length) || (addProgramCtrl.Setting.minNoDaysPerProgram > addProgramCtrl.ProgramDaysCount)"
-    class="btn btn-success" name="next" type="button" ng-click="addProgramCtrl.AddNewProgram()">
-    <i class="fa fa-floppy-o"></i>{{'Save' | translate}}</button>
+    <!-- || (addProgramCtrl.Setting.minNoDaysPerProgram > addProgramCtrl.ProgramDaysCount) -->
+    <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="(addProgramCtrl.currentStep != addProgramCtrl.steps.length)"
+        class="btn btn-success" name="next" type="button" ng-click="addProgramCtrl.AddNewProgram()">
+        <i class="fa fa-floppy-o"></i>{{'Save' | translate}}</button>
 
 </form>
