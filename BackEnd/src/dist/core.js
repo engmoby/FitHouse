@@ -61,8 +61,8 @@
 	angular
 		.module('core')
 		.constant('appCONSTANTS', {
-			//'API_URL': 'http://localhost:32569/api/',
-			 'API_URL': 'http://fithouse.azurewebsites.net/api/',
+			'API_URL': 'http://localhost:32569/api/',
+			// 'API_URL': 'http://fithouse.azurewebsites.net/api/',
 			'defaultLanguage': 'en',
 			'supportedLanguage': {
 				'en': { 'key': 'en', 'value': 'english' },
@@ -526,17 +526,39 @@ angular.module('core')
         "OrderProgram":"Order Program",
         "SelectPrograms":"Select Programs",
         "Pickup":"Pickup",
-        "Deivery":"Delivery",
+        "Delivery":"Delivery",
         "OrderType":"Order Type",
         "SelectAddress":"Select Address",
         "LETSCREATEPROGRAM":"Let's Create Program",
         "BaiscInfo":"Baisc Info",
         "CreateMeal":"Create Meal",
         "Summary":"Summary",
-        "orderPickDateTime":"Order Date Time"
+        "orderPickDateTime":"Order Date Time",
+        "Settings":"Settings",
+        "Kitchen":"Kitchen",
+        "calories":"calories",
+        "carbs":"carbs",
+        "fat":"fat",
+        "itemSize":"itemSize",
+        "protein":"protein",
+        "Total":"Total",
+        "costlbl":"cost",
+        "vat":"vat",
       }
 
       var ar_translations = {
+        "Kitchen":"مطبخ",
+        "calories":"سعرات حراريه",
+        "carbs":"الكربوهيدرات",
+        "fat":"دهون",
+        "itemSize":"حجم الصنف",
+        "protein":"بروتين",
+        "Total":"مجموع",
+        "costlbl":"التكلفه",
+        "vat":"الضريبه",
+        "Settings":"الإعدادات",
+        "Pickup":"امسك",
+        "Delivery":"توصيل",
         "orderPickDateTime":"وقت الطلب",
         "Program":"البرنامج",
         "CallCenter":"خدمة العملاء",

@@ -16,24 +16,27 @@ namespace FitHouse.BLL.Services
     {
         private readonly IOrderService _orderService;
         private readonly IItemService _itemService;
+        private readonly IMealservice _mealservice;
         private readonly IOrderDetailsService _orderDetailsService;
         private readonly IProgramDetailService _programDetailService;
         private readonly IProgExcludeDayService _progExcludeDayService;
         public OrderFacade(IOrderService orderService, IUnitOfWorkAsync unitOfWork,
-            IOrderDetailsService orderDetailsService, IProgramDetailService programDetailService, IItemService itemService, IProgExcludeDayService progExcludeDayService) : base(unitOfWork)
+            IOrderDetailsService orderDetailsService, IProgramDetailService programDetailService, IItemService itemService, IProgExcludeDayService progExcludeDayService, IMealservice mealservice) : base(unitOfWork)
         {
             _orderService = orderService;
             _orderDetailsService = orderDetailsService;
             _programDetailService = programDetailService;
             _itemService = itemService;
             _progExcludeDayService = progExcludeDayService;
+            _mealservice = mealservice;
         }
-        public OrderFacade(IOrderService orderService, IOrderDetailsService orderDetailsService, IItemService itemService, IProgExcludeDayService progExcludeDayService)
+        public OrderFacade(IOrderService orderService, IOrderDetailsService orderDetailsService, IItemService itemService, IProgExcludeDayService progExcludeDayService, IMealservice mealservice)
         {
             _orderService = orderService;
             _orderDetailsService = orderDetailsService;
             _itemService = itemService;
             _progExcludeDayService = progExcludeDayService;
+            _mealservice = mealservice;
         }
 
         public OrderDto GetOrder(long orderId)
@@ -154,7 +157,7 @@ namespace FitHouse.BLL.Services
         {
             return _orderService.GetAllOrdersForKitchen(branchId, page, pageSize);
         }
-        public List<ItemDto> GetOrderItems(long orderId,long programId, long dayNumber)
+        public List<ItemDto> GetOrderItems(long orderId, long programId, long dayNumber)
         {
             var items = new List<ItemDto>();
             if (programId == 0)
@@ -162,8 +165,21 @@ namespace FitHouse.BLL.Services
                 var getOrderDetails = _orderDetailsService.Queryable().Where(x => x.OrderId == orderId);
                 foreach (var orderDetail in getOrderDetails)
                 {
-                    var item = _itemService.Find(orderDetail.ItemId);
-                    if (item != null) items.Add(Mapper.Map<ItemDto>(item));
+                    if (orderDetail.Item != null)
+                    {
+                        var item = _itemService.Find(orderDetail.ItemId);
+                        if (item != null) items.Add(Mapper.Map<ItemDto>(item));
+                    }
+                    else
+                    {
+                        var meal = _mealservice.Find(orderDetail.MealId);
+                        foreach (var mealMealDetail in meal.MealDetails)
+                        {
+                            var item = _itemService.Find(mealMealDetail.ItemId);
+                            if (item != null) items.Add(Mapper.Map<ItemDto>(item));
+                        }
+
+                    }
                 }
             }
             else
@@ -205,6 +221,7 @@ namespace FitHouse.BLL.Services
                     orderDetail.ItemId = detail.ItemId;
                     orderDetail.Day = null;
                     orderDetail.Day = orderDto.Day;
+                    orderDetail.Status = Enums.OrderStatus.Prepering;
                     orderDetails.Add(orderDetail);
                 }
             }
@@ -219,6 +236,7 @@ namespace FitHouse.BLL.Services
                     orderDetail.MealId = detail.MealId;
                     orderDetail.Day = null;
                     orderDetail.Day = orderDto.Day;
+                    orderDetail.Status = Enums.OrderStatus.Prepering;
                     orderDetails.Add(orderDetail);
                 }
             }
@@ -256,7 +274,8 @@ namespace FitHouse.BLL.Services
                             //lastDate = lastDate?.AddDays(1);
                         }
 
-                        else {
+                        else
+                        {
 
                             lastDate = lastDate?.AddDays(1);
                             foreach (var day in excludeDays)
@@ -383,7 +402,7 @@ namespace FitHouse.BLL.Services
             var returnValue = false;
             try
             {
-              //  var orderObj = _orderService.Query(x => x.OrderId== orderId).Select().FirstOrDefault();
+                //  var orderObj = _orderService.Query(x => x.OrderId== orderId).Select().FirstOrDefault();
                 var orderDetailsObj = _orderDetailsService.Queryable().Where(x => x.OrderId == orderId).ToList();
 
                 if (!orderDetailsObj.Any()) throw new NotFoundException(ErrorCodes.ProductNotFound);
@@ -413,7 +432,7 @@ namespace FitHouse.BLL.Services
                     _orderDetailsService.Update(orderDetail);
                     SaveChanges();
                 }
-             
+
                 var checkIfOrderClosed = _orderService.Find(orderId);
                 if (checkIfOrderClosed.OrderDetails.All(x => x.Status == Enums.OrderStatus.Deliverd))
                 {

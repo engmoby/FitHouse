@@ -4835,7 +4835,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                <thead>\n' +
     '                    <tr>\n' +
     '                        <th>{{\'Name\' | translate}}</th>\n' +
-    '                        <th>{{\'DescriptionLbl\' | translate}}</th>\n' +
+    '                        <th>{{\'descLbl\' | translate}}</th>\n' +
     '                        <th>{{\'status\' | translate}}</th>\n' +
     '                        <th></th>\n' +
     '                    </tr>\n' +
@@ -5105,7 +5105,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '									</div>\n' +
     '								</div>\n' +
     '								<div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '									<label for="first-name">{{ lang.value+\'DescriptionLbl\' | translate}}</label>\n' +
+    '									<label for="first-name">{{ lang.value+\'descLbl\' | translate}}</label>\n' +
     '									<textarea required class="form-control" name="itemDescriptionDictionary{{lang.value+\'Name\'}}" ng-model="newItemCtrl.itemDescriptionDictionary[lang.key]"\n' +
     '									 ng-minlength="3" ng-maxlength="300"></textarea>\n' +
     '									<div ng-messages="newItemForm.itemDescriptionDictionary{{lang.value+\'Name\'}}.$error">\n' +
