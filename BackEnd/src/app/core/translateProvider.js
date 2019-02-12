@@ -291,9 +291,12 @@
         "Total":"Total",
         "costlbl":"cost",
         "vat":"vat",
+        "mealDiscount":"Meal Discount",
       }
 
       var ar_translations = {
+        "mealDiscount":"Meal Discount",
+        "vat":"vat",
         "Kitchen":"مطبخ",
         "calories":"سعرات حراريه",
         "carbs":"الكربوهيدرات",
