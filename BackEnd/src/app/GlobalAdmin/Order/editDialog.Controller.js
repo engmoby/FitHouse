@@ -8,6 +8,8 @@
 
     function editOrderDialogController($scope, OrderByIdPrepService, OrdersResource, blockUI, $http, $filter, $state, appCONSTANTS, $translate, ToastService) {
         var vm = this;
+        vm.dateIsValid = false;
+
         vm.Order = OrderByIdPrepService;
         console.log(vm.Order);
         vm.language = appCONSTANTS.supportedLanguage;
@@ -17,12 +19,12 @@
         if (vm.Order.orderStartDate != null) {
             vm.Order.orderStartDate = vm.Order.orderStartDate + "Z";
             vm.Order.orderStartDate = $filter('date')(new Date(vm.Order.orderStartDate), "dd/MM/yyyy hh:mm a");
+            vm.dateIsValid = true;
         }
-        debugger;
         $scope.orderStatus = false;
-        if (vm.Order.orderStatus == 2) {
+        if (vm.Order.orderStatus == 2)
             $scope.orderStatus = true;
-        }
+
 
         vm.Close = function () {
             $state.go('Order');
@@ -30,15 +32,6 @@
         vm.showMore = function (element) {
             $(element.currentTarget).toggleClass("child-table-collapse");
         }
-        // vm.changeDate = function () {
-        //     var isInValid = true;
-        //     if ($('#startdate').data('date') != null) {
-        //         isInValid = false
-        //     }
-        //     return isInValid;
-
-        // }
-        vm.dateIsValid = false;
         $scope.dateChange = function () {
             if ($('#startdate').data('date') == null || $('#startdate').data('date') == "") {
                 vm.dateIsValid = false;
@@ -53,10 +46,9 @@
             blockUI.start("Loading...");
             var updateObj = new OrdersResource();
             updateObj.orderStartDate = $('#startdate').val();
-            if (vm.$scope) {
+            debugger;
+            if ($scope.orderStatus)
                 updateObj.orderStatus = "Prepering";
-
-            }
 
 
             updateObj.isPaid = vm.Order.isPaid;

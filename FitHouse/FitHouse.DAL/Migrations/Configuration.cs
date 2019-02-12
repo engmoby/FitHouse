@@ -39,6 +39,7 @@
             //var permisison14 = new Permission { IsDeleted = false, IsStatic = true };
             //var permisison15 = new Permission { IsDeleted = false, IsStatic = true };
             //var permisison16 = new Permission { IsDeleted = false, IsStatic = true };
+            //var permisison17 = new Permission { IsDeleted = false, IsStatic = true };
 
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison3);
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison4);
@@ -54,6 +55,9 @@
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison14);
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison15);
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison16);
+            //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison17);
+
+
 
 
             //var permissionTreanslation27 = new PermissionTranslation { Language = "en", Title = "Take Away", Permission = permisison16 };
@@ -156,6 +160,13 @@
 
 
 
+            //var permissionTreanslation29 = new PermissionTranslation { Language = "en", Title = "PickUp", Permission = permisison17 };
+            //var permissionTreanslation30 = new PermissionTranslation { Language = "ar", Title = "Pick", Permission = permisison17 };
+            //context.PermissionTranslations.AddOrUpdate(h => h.PermissionTranslationId, permissionTreanslation29);
+            //context.PermissionTranslations.AddOrUpdate(h => h.PermissionTranslationId, permissionTreanslation30);
+
+
+
             //Role adminRole = new Role { IsDeleted = false };
             //context.Roles.AddOrUpdate(adminRole);
             //context.RoleTranslations.AddOrUpdate(
@@ -188,9 +199,9 @@
             //    new RolePermission { ActionId = 1, RoleId = 1, Permission = permisison11 });
 
             //var day1 = new Day { IsDeleted = false, IsActive = true };
-            //    context.Days.AddOrUpdate(h => h.DayId, day1);
+            //context.Days.AddOrUpdate(h => h.DayId, day1);
             //context.DayTranslations.AddOrUpdate(
-            //    new DayTranslation { Language = "en", Title = "Saturday", Day = day1});
+            //    new DayTranslation { Language = "en", Title = "Saturday", Day = day1 });
             //context.DayTranslations.AddOrUpdate(
             //    new DayTranslation { Language = "ar", Title = "السبت", Day = day1 });
 

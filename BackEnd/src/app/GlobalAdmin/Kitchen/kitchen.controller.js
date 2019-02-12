@@ -4,14 +4,14 @@
     angular
         .module('home')
         .controller('KitchenController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate',
-            '$state', 'kitchensResource', 'kitchensPrepService', '$localStorage',
+            '$state', 'PickupsResource', 'kitchensResource', 'kitchensPrepService', '$localStorage',
             'authorizationService', 'appCONSTANTS',
             'ToastService', '$uibModal', KitchenController])
         ;
 
 
     function KitchenController($rootScope, blockUI, $scope, $filter, $translate,
-        $state, kitchensResource, kitchensPrepService, $localStorage, authorizationService,
+        $state, PickupsResource, kitchensResource, kitchensPrepService, $localStorage, authorizationService,
         appCONSTANTS, ToastService, $uibModal) {
 
         $('.pmd-sidebar-nav>li>a').removeClass("active")
@@ -21,12 +21,19 @@
 
         var vm = this;
 
-        vm.showMore = function (element, programId, dayNumber, model) {
-          
-          debugger;
+        vm.showMore = function (element, model) {
+
             if (model.ItemList != null) return;
+
+            var programId = 0;
+            var dayNumber = 0;
+            if (model.isProgram)
+                programId = model.orderDetails[0].programId;
+            if (model.isProgram)
+                dayNumber = model.orderDetails[0].dayNumber;
+
             var temp = new kitchensResource();
-            temp.$GetOrderItems({ programId: programId, dayNumber: dayNumber }).then(function (results) {
+            temp.$GetOrderItems({ orderId: model.orderId, programId: programId, dayNumber: dayNumber }).then(function (results) {
                 debugger;
                 model.ItemList = results.results;
                 blockUI.stop();
@@ -41,9 +48,37 @@
 
             $(element.currentTarget).toggleClass("child-table-collapse");
         }
-        vm.changeStatus = function (orderDetailsid, status) {
+        vm.changeStatus = function (order, status) {
+            debugger;
+            if (order.isProgram) {
+                var orderDetailsId = order.orderDetails[0].orderDetailId;
+                updateOrderDetails(orderDetailsId, status);
+            }
+            else {
+                updateOrder(order.orderId, status);
+            }
+        }
+        function updateOrder(orderId, status) {
+
+            var temp = new PickupsResource();
+            temp.$ChangeOrderStatus({ orderId: orderId, status: status }).then(function (results) {
+                if (results = true)
+                    refreshkitchens();
+
+                blockUI.stop();
+
+            },
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+
+        }
+        function updateOrderDetails(orderDetailsId, status) {
+
             var temp = new kitchensResource();
-            temp.$ChangeOrderStatus({ orderDetailsId: orderDetailsid, status: status }).then(function (results) {
+            temp.$ChangeOrderStatus({ orderDetailsId: orderDetailsId, status: status }).then(function (results) {
                 if (results = true)
                     refreshkitchens();
 

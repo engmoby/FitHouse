@@ -23,28 +23,7 @@
 
         $scope.totalCount = pickupsPrepService.totalCount;
         $scope.PickupList = pickupsPrepService;
-        console.log($scope.PickupList);
-        $scope.getTotal = function (pickup) {
-            debugger;
-            var total = 0;
-            if (pickup.type == "3") {
-                for (var i = 0; i < pickup.pickupDetails.length; i++) {
-                    var obj = pickup.pickupDetails[i];
-                    total += (obj.item.price);
-                }
-            }
-            else if (pickup.type == "2") {
-                for (var i = 0; i < pickup.pickupDetails.length; i++) {
-                    var obj = pickup.pickupDetails[i];
-                    total += (obj.meal.mealPrice);
-                }
-            }
-            else if (pickup.type == "1") {
-                total = 1500;
-            }
-            return total;
-        }
-
+   
         function refreshPickups() {
             blockUI.start("Loading...");
 
@@ -60,26 +39,42 @@
                 });
         }
 
+        vm.changeStatus = function (orderId, status) {
+            var temp = new PickupsResource();
+            temp.$ChangeOrderStatus({ orderId: orderId, status: status }).then(function (results) {
+                if (results = true)
+                refreshPickups();
 
-        function change(pickup) {
+                blockUI.stop();
 
+            },
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+
+        }
+
+        function change(order) { 
             var updateObj = new PickupsResource();
-            updateObj.PickupId = pickup.pickupId;
+            updateObj.OrderId = order.orderId;
 
-            updateObj.isPaid = (pickup.isPaid == true ? false : true);
-            updateObj.PickupDetails = pickup.pickupDetails;
+            updateObj.isPaid = (order.isPaid == true ? false : true);
+            updateObj.OrderDetails = order.orderDetails;
             updateObj.$update().then(
                 function (data, status) {
 
 
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    pickup.isPaid = updateObj.isPaid;
+                    order.isPaid = updateObj.isPaid;
 
                 },
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 }
             );
+
 
         }
         $scope.UpdatePickup = function (pickup) {

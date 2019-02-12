@@ -71,8 +71,8 @@ namespace FitHouse.BLL.Services
 
         public UserDto ValidateByPhone(string phone)
         {
-            var user = _userService.Query(x=>x.Phone == phone && x.UserCode != null).Select().FirstOrDefault();
-            if(user == null) throw new ValidationException(ErrorCodes.UserNotFound);
+            var user = _userService.Query(x => x.Phone == phone && x.UserCode != null).Select().FirstOrDefault();
+            if (user == null) throw new ValidationException(ErrorCodes.UserNotFound);
 
             return Mapper.Map<UserDto>(user);
         }
@@ -100,7 +100,7 @@ namespace FitHouse.BLL.Services
                 userDto.AreaId = getUserInfo.Branch.AreaId;
                 userDto.CityId = getUserInfo.Branch.Area.CityId;
                 userDto.RegionId = getUserInfo.Branch.Area.City.RegionId;
-                userDto.CountryId = getUserInfo.Branch.Area.City.Region.CountryId; 
+                userDto.CountryId = getUserInfo.Branch.Area.City.Region.CountryId;
             }
             var afterMap = userDto;
             afterMap.UserRoles = _userRoleService.GetUserRoleById(userId);
@@ -149,33 +149,36 @@ namespace FitHouse.BLL.Services
         public UserDto RegisterUser(UserDto userDto, int userId)
         {
             if (GetUser(userDto.UserId) != null)
-            {
                 return EditUser(userDto, userId);
-            }
             if (_userService.CheckEmailDuplicated(userDto.Email))
-            {
                 throw new ValidationException(ErrorCodes.MailExist);
-            }
             if (_userService.CheckPhoneDuplicated(userDto.Phone))
-            {
                 throw new ValidationException(ErrorCodes.PhoneExist);
-            }
-
             var userObj = Mapper.Map<User>(userDto);
+
+            if (userDto.Code == 100)
+            {
+                //var lastOrDefault = _userService.Queryable().LastOrDefault();
+                //if (lastOrDefault != null)
+                //{
+                //    var getLatestCode = lastOrDefault.Code;
+                //}
+                userObj.UserCode = userDto.FirstName + userDto.Phone;
+            }
             userObj.FirstName = userDto.FirstName;
             userObj.LastName = userDto.LastName;
             userObj.Email = userDto.Email;
             userObj.Phone = userDto.Phone;
             userObj.Password = PasswordHelper.Encrypt(userDto.Password);
             userObj.CreationTime = DateTime.Now;
-            userObj.BranchId = (userDto.BranchId == 0) ? null : userDto.BranchId;
+            userObj.BranchId = userDto.BranchId == 0 ? null : userDto.BranchId;
             userObj.IsActive = userDto.IsActive;
             userObj.IsDeleted = false;
             userObj.IsStatic = false;
             userObj.IsAdmin = userDto.IsAdmin;
             userObj.CreationTime = Strings.CurrentDateTime;
             userObj.CreatorUserId = userId;
-            
+
             foreach (var roleper in userDto.UserRoles)
             {
                 userObj.UserRoles.Add(new UserRole
@@ -183,27 +186,7 @@ namespace FitHouse.BLL.Services
                     RoleId = roleper.RoleId,
                     // TenantId = tenantId
                 });
-            }
-            //Package package;
-
-            //var packages = _packageService.Query(x => x.TenantId == tenantId).Include(x => x.Users).Select().ToList();
-            //package = packages.OrderBy(x => x.Start).FirstOrDefault();
-            //int count = 1;
-            //while (true)
-            //{
-            //    if (package.MaxNumberOfUsers > package.Users.Count(x => !x.IsDeleted))
-            //    {
-            //        break;
-            //    }
-            //    //else
-            //    //{
-            //    //    consumedWaiters = consumedWaiters - package.MaxNumberOfWaiters;
-            //    //}
-
-            //    package = packages.OrderBy(x => x.Start).Skip(count).FirstOrDefault();
-            //    count++;
-            //}
-            //userObj.PackageId = package.PackageId;
+            } 
             var address = new Address();
             if (userDto.IsAddress)
             {
@@ -214,15 +197,12 @@ namespace FitHouse.BLL.Services
                 address.BranchId = userDto.BranchId;
                 _addressService.Insert(address);
             }
-           
+
             _userRoleService.InsertRange(userObj.UserRoles);
             _userService.Insert(userObj);
-            SaveChanges();
-            var admin = _userService.Query(x => x.IsStatic).Select().FirstOrDefault();
-
+            SaveChanges(); 
             return userDto;
         }
-
         public UserDto EditUserInfo(UserDto userDto, int userId)
         {
             //  var getUser = GetUser(userDto.UserId);

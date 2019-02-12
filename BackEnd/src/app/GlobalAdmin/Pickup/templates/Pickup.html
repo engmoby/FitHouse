@@ -41,9 +41,13 @@
                         <img ng-if="pickup.type == 1" src="assets\img\meal.png" title="meal">
                         <img ng-if="pickup.type == 2" src="assets\img\item.png" title="item">
                     </td>
-                    <td>
-                        <a ng-click="$state.go('editorder', {orderId: pickup.orderId});"
-                            class="cursorPointer">{{'ItemsBtn'|translate}}</a>
+                    <td ng-if="!pickup.isProgram">
+
+                        <button style="background-color: #e4e5e6;color: black!important;"
+                            ng-show="pickup.orderStatus != 4" ng-click="pickupCtrl.changeStatus(pickup.orderId,4);"
+                            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">
+                            {{'Deliverd' | translate}}</button>
+
                     </td>
 
                 </tr>

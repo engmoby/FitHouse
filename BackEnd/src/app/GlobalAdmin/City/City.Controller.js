@@ -11,8 +11,8 @@
     function CityController($rootScope, blockUI, $scope, $filter, $translate,
         $state, CityResource, CitiesPrepService, $stateParams, appCONSTANTS, ToastService,RegionByIdPrepService) { 
 
-        $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
+        // $('.pmd-sidebar-nav>li>a').removeClass("active")
+        // $($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
 
         blockUI.start("Loading..."); 
             

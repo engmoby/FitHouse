@@ -7,10 +7,9 @@
 
 	function editItemController($scope, $http, $translate, $stateParams, appCONSTANTS, $state, ItemResource, ToastService, itemPrepService) {
 		var vm = this;
-		vm.disable = true;
+		vm.disable = false;
 		vm.language = appCONSTANTS.supportedLanguage;
-		vm.item = itemPrepService;
-		//vm.item.imageUrl = vm.item.imageUrl ;//+ "?date=" + $scope.getCurrentTime();
+		vm.item = itemPrepService; 
 		console.log(vm.item);
 
 		vm.close = function () {

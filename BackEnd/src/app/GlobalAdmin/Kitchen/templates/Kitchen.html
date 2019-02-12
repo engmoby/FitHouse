@@ -21,24 +21,25 @@
                     <td data-title="Name">{{kitchen.orderDetails[0].day | date : "d/MMM/yy h:mm a"}}
                     </td>
                     <td ng-if="kitchen.orderDetails[0].status == '2'">
-                        <button ng-click="kitchenCtrl.changeStatus(kitchen.orderDetails[0].orderDetailId,6);"
-                        style="background-color: #e4e5e6;color: black!important;" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
-                            type="button">
+                        <button ng-click="kitchenCtrl.changeStatus(kitchen,6);"
+                            style="background-color: #e4e5e6;color: black!important;"
+                            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">
                             {{'Prepering' | translate}}</button>
 
                     </td>
 
                     <td ng-if="kitchen.orderDetails[0].status == '3'">
-                        <button disabled style="background-color: #e4e5e6;color: black!important;"  class="btn pmd-ripple-effect btn-primary pmd-z-depth"
-                            type="button">
+                        <button disabled style="background-color: #e4e5e6;color: black!important;"
+                            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">
                             {{'Deliverd' | translate}}</button>
-                        <button disabled style="background-color: #e4e5e6;color: black!important;" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
-                            type="button">
+                        <button disabled style="background-color: #e4e5e6;color: black!important;"
+                            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">
                             {{'NotDeliverd' | translate}}</button>
 
                     </td>
                     <td class="pmd-table-row-action">
-                        <span href="javascript:void(0);" ng-if="kitchen.orderDetails.length >0 " ng-click="kitchen.show=!kitchen.show;kitchenCtrl.showMore($event,kitchen.orderDetails[0].programId,kitchen.orderDetails[0].dayNumber,kitchen)"
+                        <span href="javascript:void(0);" ng-if="kitchen.orderDetails.length > 0 "
+                            ng-click="kitchen.show=!kitchen.show;kitchenCtrl.showMore($event,kitchen)"
                             class="btn pmd-btn-fab pmd-btn-flat pmd-ripple-effect btn-default btn-sm child-table-expand direct-expand"><i
                                 class="material-icons md-dark pmd-sm"></i></span>
                     </td>
@@ -68,7 +69,8 @@
             </tbody>
         </table>
     </div>
-    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount" paging-action="changePage(page)"
-        flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">
+    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"
+        paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true"
+        disabled-class="hide">
     </div>
 </div>
