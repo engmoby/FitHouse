@@ -189,12 +189,12 @@
         }
 
         $scope.discountChange = function () {
-            vm.ProgramPrice = 0;
-            vm.ProgramCost = 0;
-            vm.ProgramVAT = 0;
+            // vm.ProgramPrice = 0;
+            // vm.ProgramCost = 0;
+            // vm.ProgramVAT = 0;
             vm.ProgramTotalPrice = 0;
             vm.ProgramTotalPriceBefore = 0;
-            vm.totalPrice = 0;
+            // vm.totalPrice = 0;
             for (var i = 0; i < vm.itemList.length; i++) {
                 vm.ProgramPrice = vm.ProgramPrice + vm.itemList[i].price;
                 vm.ProgramCost = vm.ProgramCost + vm.itemList[i].cost;
