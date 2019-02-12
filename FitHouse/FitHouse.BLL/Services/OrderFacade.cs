@@ -252,7 +252,7 @@ namespace FitHouse.BLL.Services
                         if (orderDetail.DayNumber == 1)
                         {
                             orderDetail.Day = lastDate;
-                            orderDetail.Status = Enums.OrderStatus.Open;
+                            orderDetail.Status = Enums.OrderStatus.Prepering;
                             //lastDate = lastDate?.AddDays(1);
                         }
 
@@ -283,7 +283,7 @@ namespace FitHouse.BLL.Services
                                     lastDate = lastDate?.AddDays(1);
                             }
                             orderDetail.Day = lastDate;
-                            orderDetail.Status = Enums.OrderStatus.Open;
+                            orderDetail.Status = Enums.OrderStatus.Prepering;
                         }
 
                         orderDetails.Add(orderDetail);

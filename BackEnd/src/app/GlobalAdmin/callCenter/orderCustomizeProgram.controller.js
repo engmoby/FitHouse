@@ -294,8 +294,9 @@
 
         vm.AddNewProgram = function () {
             var newProgram = new AddProgramResource();
-            newProgram.programNameDictionary = vm.titleDictionary;
-            newProgram.programDescriptionDictionary = vm.descriptionDictionary;
+
+            // newProgram.programNameDictionary = vm.titleDictionary;
+            // newProgram.programDescriptionDictionary = vm.descriptionDictionary;
             newProgram.isActive = true;
             newProgram.programDays = vm.ProgramDaysCount;
             newProgram.noOfMeals = vm.MealPerDay;
