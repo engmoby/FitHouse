@@ -195,10 +195,12 @@
 
             else if (vm.orderType.type == "program") {
                 localStorage.setItem('ClientId', vm.userOrder.userId);
+                localStorage.setItem('BranchId', vm.userOrder.branchId);
                 $state.go('orderProgram');
             }
             else if (vm.orderType.type == "customizeProgram") {
                 localStorage.setItem('ClientId', vm.userOrder.userId);
+                localStorage.setItem('BranchId', vm.userOrder.branchId);
                 $state.go('orderCustomizeProgram');
             }
         }

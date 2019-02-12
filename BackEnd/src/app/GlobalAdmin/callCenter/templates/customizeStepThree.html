@@ -62,12 +62,22 @@
 
     <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
         <label for="first-name">{{'ProgramDiscount' | translate}}</label>
-        <input required type="number" class="mat-input form-control" name="programDiscount" ng-model="orderCustomizeProgramCtrl.ProgramDiscount">
+        <input ng-change="discountChange();" required type="number" class="mat-input form-control" name="programDiscount" ng-model="orderCustomizeProgramCtrl.ProgramDiscount">
     </div>
 
     <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-        <label for="first-name">{{'ProgramTotalPrice' | translate}}</label>
-        <input disabled type="number" class="mat-input form-control" name="programTotalPrice" ng-model="orderCustomizeProgramCtrl.ProgramTotalPrice">
+        <label for="first-name">{{'DeliveryPrice' | translate}}</label>
+        <input disabled type="number" class="mat-input form-control" name="deliveryPrice" ng-model="orderCustomizeProgramCtrl.DeliveryFees">
+    </div>
+
+    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+        <label for="first-name">{{'PriceBeforeDiscount' | translate}}</label>
+        <input disabled type="number" class="mat-input form-control" name="priceBeforeDiscount" ng-model="orderCustomizeProgramCtrl.ProgramTotalPriceBefore">
+    </div>
+
+    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+        <label for="first-name">{{'PriceAfterDiscount' | translate}}</label>
+        <input disabled type="number" class="mat-input form-control" name="priceAfterDiscount" ng-model="orderCustomizeProgramCtrl.ProgramTotalPrice">
     </div>
 
     <hr>
