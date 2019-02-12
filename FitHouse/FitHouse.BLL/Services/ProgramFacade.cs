@@ -23,8 +23,9 @@ namespace FitHouse.BLL.Services
         private readonly  IItemService _itemService;
         private readonly  IOrderService _orderService;
         private readonly  IOrderDetailsService _orderDetailsService;
+        private readonly  IUserService _userService;
 
-        public ProgramFacade(IProgramService programService, IOrderService orderService, IOrderDetailsService orderDetailsService, IItemService itemService, IProgExcludeDayService progExcludeDayService, IProgramDetailService programDetailService, IUnitOfWorkAsync unitOfWork, IProgramTranslationService programTranslationService) : base(unitOfWork)
+        public ProgramFacade(IUserService userService,IProgramService programService, IOrderService orderService, IOrderDetailsService orderDetailsService, IItemService itemService, IProgExcludeDayService progExcludeDayService, IProgramDetailService programDetailService, IUnitOfWorkAsync unitOfWork, IProgramTranslationService programTranslationService) : base(unitOfWork)
         {
             _programService = programService;
             _programTranslationService = programTranslationService;
@@ -33,6 +34,7 @@ namespace FitHouse.BLL.Services
             _itemService = itemService;
             _orderDetailsService = orderDetailsService;
             _orderService = orderService;
+            _userService = userService;
         }
 
         public PagedResultsDto GetAllPrograms(int page, int pageSize)
@@ -89,17 +91,19 @@ namespace FitHouse.BLL.Services
 
             ValidateProgram(programDto);
             var programObj = Mapper.Map<Program>(programDto);
-            foreach (var programName in programDto.ProgramNameDictionary)
+            if (!programDto.IsOrdering)
             {
-                programObj.ProgramTranslations.Add(new ProgramTranslation
+                foreach (var programName in programDto.ProgramNameDictionary)
                 {
-                    Title = programName.Value,
+                    programObj.ProgramTranslations.Add(new ProgramTranslation
+                    {
+                        Title = programName.Value,
 
-                    Language = programName.Key,
-                    Description = programDto.ProgramDescriptionDictionary[programName.Key]
-                });
+                        Language = programName.Key,
+                        Description = programDto.ProgramDescriptionDictionary[programName.Key]
+                    });
+                }
             }
-            
             var detailInfo = new List<ProgramDetail>();
 
             foreach (var detail in programObj.ProgramDetails)
@@ -131,6 +135,24 @@ namespace FitHouse.BLL.Services
            
             if (programDto.IsOrdering)
             {
+
+                var user = _userService.Query(x => x.UserId == programDto.UserId).Select().FirstOrDefault();
+                if (user == null) throw new NotFoundException(ErrorCodes.UserNotFound);
+                
+                programObj.ProgramTranslations.Add(new ProgramTranslation
+                {
+                    Title = user.FirstName+DateTime.Now,
+                    Language = "en",
+                    Description = user.FirstName + DateTime.Now
+                });
+
+                programObj.ProgramTranslations.Add(new ProgramTranslation
+                {
+                    Title = user.FirstName + DateTime.Now,
+                    Language = "ar",
+                    Description = user.FirstName + DateTime.Now
+                });
+                
                 programObj.IsForClient = true;
                 var orderDetails = new List<OrderDetail>();
                 var order = new Order();
@@ -157,7 +179,7 @@ namespace FitHouse.BLL.Services
                     if (orderDetail.DayNumber == 1)
                     {
                         orderDetail.Day = lastDate;
-                        orderDetail.Status = Enums.OrderStatus.Open;
+                        orderDetail.Status = Enums.OrderStatus.Prepering;
                         //lastDate = lastDate?.AddDays(1);
                     }
 
@@ -189,7 +211,7 @@ namespace FitHouse.BLL.Services
                                 lastDate = lastDate?.AddDays(1);
                         }
                         orderDetail.Day = lastDate;
-                        orderDetail.Status = Enums.OrderStatus.Open;
+                        orderDetail.Status = Enums.OrderStatus.Prepering;
                     }
 
                     orderDetails.Add(orderDetail);
