@@ -5118,7 +5118,8 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '									</div>\n' +
     '								</div>\n' +
     '								<div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '									<label for="first-name">{{ lang.value+\'descLbl\' | translate}}</label>\n' +
+    '									<label for="first-name">{{ lang.value+\'descLbl\n' +
+    '										\' | translate}}</label>\n' +
     '									<textarea required class="form-control" name="itemDescriptionDictionary{{lang.value+\'Name\'}}" ng-model="newItemCtrl.itemDescriptionDictionary[lang.key]"\n' +
     '									 ng-minlength="3" ng-maxlength="300"></textarea>\n' +
     '									<div ng-messages="newItemForm.itemDescriptionDictionary{{lang.value+\'Name\'}}.$error">\n' +
@@ -5264,7 +5265,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '<div>\n' +
     '    <div style="margin-bottom:10px">\n' +
     '        <button style="background-color: #e4e5e6;color: black!important;" ng-click="$state.go(\'newMeal\',{categoryId: $stateParams.categoryId});"\n' +
-    '            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'AddMealBtn\' | translate}}</button>\n' +
+    '            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'AddBtn\' | translate}}</button>\n' +
     '    </div>\n' +
     '\n' +
     '    <div ng-if="mealCtrl.meals.results.length == 0">\n' +
@@ -5276,7 +5277,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                <thead>\n' +
     '                    <tr>\n' +
     '                        <th>{{\'Name\' | translate}}</th>\n' +
-    '                        <th>{{\'DescriptionLbl\' | translate}}</th>\n' +
+    '                        <th>{{\'descLbl\' | translate}}</th>\n' +
     '                        <th>{{\'status\' | translate}}</th>\n' +
     '                        <th></th>\n' +
     '                    </tr>\n' +
@@ -5603,7 +5604,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '									</div>\n' +
     '								</div>\n' +
     '								<div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '									<label for="first-name">{{ lang.value+\'DescriptionLbl\' | translate}}</label>\n' +
+    '									<label for="first-name">{{ lang.value+\'descLbl\' | translate}}</label>\n' +
     '									<textarea required class="form-control" name="mealDescriptionDictionary{{lang.value+\'Name\'}}" ng-model="newMealCtrl.mealDescriptionDictionary[lang.key]"\n' +
     '									 ng-minlength="3" ng-maxlength="300"></textarea>\n' +
     '									<div ng-messages="newMealForm.mealDescriptionDictionary{{lang.value+\'Name\'}}.$error">\n' +
@@ -5639,7 +5640,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '								<th>{{\'costlbl\' | translate}}</th>\n' +
     '								<th>{{\'Pricelbl\' | translate}}</th>\n' +
     '								<th>{{\'vat\' | translate}}</th>\n' +
-    '								<th>{{\'total\' | translate}}</th>\n' +
+    '								<th>{{\'Total\' | translate}}</th>\n' +
     '								<th></th>\n' +
     '							</tr>\n' +
     '						</thead>\n' +
@@ -5778,7 +5779,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '				<input id="mealImage" name="mealImage" style="display: none;" onchange="angular.element(this).scope().AddMealImage(this.files)"\n' +
     '				 type="file" required>\n' +
     '				<button ng-click="newMealCtrl.LoadUploadLogo()">{{\'UploadImageBtn\' | translate}}</button>\n' +
-    '				<span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i> {{\'RecommendedMealImage1\' | translate}}</span>\n' +
+    '				<span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i> {{\'RecommendedItemImage1\' | translate}}</span>\n' +
     '				<img ng-src="{{newMealCtrl.mealImage}}" style="max-height: 139px;max-width: 423px;">\n' +
     '				<div ng-messages="newMealForm.mealImage.$error">\n' +
     '					<div ng-if="newMealForm.mealImage.$error.required">{{\'requiredErr\' | translate}}</div>\n' +

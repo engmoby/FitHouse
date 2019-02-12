@@ -41,7 +41,7 @@
 									</div>
 								</div>
 								<div class="form-group pmd-textfield pmd-textfield-floating-label">
-									<label for="first-name">{{ lang.value+'DescriptionLbl' | translate}}</label>
+									<label for="first-name">{{ lang.value+'descLbl' | translate}}</label>
 									<textarea required class="form-control" name="mealDescriptionDictionary{{lang.value+'Name'}}" ng-model="newMealCtrl.mealDescriptionDictionary[lang.key]"
 									 ng-minlength="3" ng-maxlength="300"></textarea>
 									<div ng-messages="newMealForm.mealDescriptionDictionary{{lang.value+'Name'}}.$error">
@@ -77,7 +77,7 @@
 								<th>{{'costlbl' | translate}}</th>
 								<th>{{'Pricelbl' | translate}}</th>
 								<th>{{'vat' | translate}}</th>
-								<th>{{'total' | translate}}</th>
+								<th>{{'Total' | translate}}</th>
 								<th></th>
 							</tr>
 						</thead>
@@ -216,7 +216,7 @@
 				<input id="mealImage" name="mealImage" style="display: none;" onchange="angular.element(this).scope().AddMealImage(this.files)"
 				 type="file" required>
 				<button ng-click="newMealCtrl.LoadUploadLogo()">{{'UploadImageBtn' | translate}}</button>
-				<span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i> {{'RecommendedMealImage1' | translate}}</span>
+				<span> <i class="material-icons md-dark pmd-md warrningIcon">warning</i> {{'RecommendedItemImage1' | translate}}</span>
 				<img ng-src="{{newMealCtrl.mealImage}}" style="max-height: 139px;max-width: 423px;">
 				<div ng-messages="newMealForm.mealImage.$error">
 					<div ng-if="newMealForm.mealImage.$error.required">{{'requiredErr' | translate}}</div>

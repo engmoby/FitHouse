@@ -29,7 +29,8 @@
 									</div>
 								</div>
 								<div class="form-group pmd-textfield pmd-textfield-floating-label">
-									<label for="first-name">{{ lang.value+'descLbl' | translate}}</label>
+									<label for="first-name">{{ lang.value+'descLbl
+										' | translate}}</label>
 									<textarea required class="form-control" name="itemDescriptionDictionary{{lang.value+'Name'}}" ng-model="newItemCtrl.itemDescriptionDictionary[lang.key]"
 									 ng-minlength="3" ng-maxlength="300"></textarea>
 									<div ng-messages="newItemForm.itemDescriptionDictionary{{lang.value+'Name'}}.$error">
