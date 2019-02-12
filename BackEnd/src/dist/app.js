@@ -768,6 +768,7 @@
         return GetSettingsResource.getAllSettings().$promise;
     }
 
+
     userPrepService.$inject = ['UserResource']
     function userPrepService(UserResource) {
         return UserResource.getAllUsers().$promise;
@@ -782,6 +783,7 @@
     function userConsumedPrepService(UserResource) {
         return UserResource.getUserLimit().$promise;
     }
+
 
     RolePrepService.$inject = ['RoleResource']
     function RolePrepService(RoleResource) {
@@ -800,6 +802,7 @@
     function PermissionPrepService(PermissionResource) {
         return PermissionResource.getAllPermissions({ pageSize: 20 }).$promise;
     }
+
     AreaPrepService.$inject = ['AreaResource', '$stateParams']
     function AreaPrepService(AreaResource, $stateParams) {
         return AreaResource.getAllAreas({ cityId: $stateParams.cityId }).$promise;
@@ -816,6 +819,7 @@
     }
 
 
+
     BranchPrepService.$inject = ['BranchResource']
     function BranchPrepService(BranchResource) {
         return BranchResource.getAllBranchs().$promise;
@@ -830,6 +834,7 @@
     function progDetailsPrepService(GetProgramDetailResource, $stateParams) {
         return GetProgramDetailResource.getProgramDetail({ programId: $stateParams.programId }).$promise;
     }
+
 
     CategoryPrepService.$inject = ['CategoryResource']
     function CategoryPrepService(CategoryResource) {
@@ -861,6 +866,7 @@
     function CategoryByIdPrepService(CategoryResource, $stateParams) {
         return CategoryResource.getCategory({ categoryId: $stateParams.categoryId }).$promise;
     }
+
     itemsPrepService.$inject = ['GetItemsResource', '$stateParams']
     function itemsPrepService(GetItemsResource, $stateParams) {
         return GetItemsResource.getAllItems({ CategoryId: $stateParams.categoryId }).$promise;
@@ -879,6 +885,7 @@
         else
             return null;
     }
+
 
     mealsPrepService.$inject = ['GetMealsResource', '$stateParams']
     function mealsPrepService(GetMealsResource, $stateParams) {
@@ -904,6 +911,7 @@
             return null;
     }
 
+
     ordersPrepService.$inject = ['OrdersResource', '$stateParams']
     function ordersPrepService(OrdersResource, $stateParams) {
         return OrdersResource.getAllOrders().$promise;
@@ -912,6 +920,7 @@
     function OrderByIdPrepService(OrdersResource, $stateParams) {
         return OrdersResource.getFullOrder({ orderId: $stateParams.orderId }).$promise;
     }
+
     pickupsPrepService.$inject = ['PickupsResource', '$stateParams']
     function pickupsPrepService(PickupsResource, $stateParams) {
         return PickupsResource.getAllPickups().$promise;
@@ -945,6 +954,7 @@
         return AreaResource.getAllAreasForUser({ userId: $stateParams.userId }).$promise;
     }
 
+
     deliverysPrepService.$inject = ['DeliverysResource', '$stateParams']
     function deliverysPrepService(DeliverysResource, $stateParams) {
         return DeliverysResource.getAllDeliverys().$promise;
@@ -953,6 +963,7 @@
     function DeliveryByIdPrepService(DeliverysResource, $stateParams) {
         return DeliverysResource.getFullDelivery({ orderId: $stateParams.orderId }).$promise;
     }
+
 
 
     kitchensPrepService.$inject = ['kitchensResource', '$stateParams']
@@ -6150,6 +6161,9 @@
 
 			}
 
+	angular
+		.module('home')
+		.controller('editItemController', ['$scope', '$http', '$translate', '$stateParams', 'appCONSTANTS', '$state', 'ItemResource', 'ToastService', 'itemPrepService', editItemController])
 
 		}
 
