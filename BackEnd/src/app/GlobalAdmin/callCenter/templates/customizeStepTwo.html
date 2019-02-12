@@ -9,7 +9,8 @@
             <div ng-messages="newProgramForm2.programDaysCount.$error">
                 <div ng-if="newProgramForm2.programDaysCount.$error.required && !newProgramForm2.programDaysCount.$pristine">{{'PhoneReqError' | translate}}
                 </div>
-                <div ng-if="(newProgramForm2.programDaysCount.$error.minlength || newProgramForm2.programDaysCount.$error.maxlength)">{{'PhoneLengthError' | translate}}</div>
+                <div ng-if="(newProgramForm2.programDaysCount.$error.minlength || newProgramForm2.programDaysCount.$error.maxlength)">{{'maxlength' | translate}}</div>
+                <div ng-if="orderCustomizeProgramCtrl.Setting.minNoDaysPerProgram > orderCustomizeProgramCtrl.ProgramDaysCount">{{'ProgramDaysMinValue' | translate}}</div>
             </div>
         </div>
 
@@ -77,7 +78,7 @@
         </div>
     </div>
 
-    <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="(newProgramForm2.$invalid || (orderCustomizeProgramCtrl.daysCount == 0 || orderCustomizeProgramCtrl.mealsCount == 0))"
+    <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="(newProgramForm2.$invalid || (orderCustomizeProgramCtrl.daysCount == 0 || orderCustomizeProgramCtrl.mealsCount == 0) || (orderCustomizeProgramCtrl.Setting.minNoDaysPerProgram > orderCustomizeProgramCtrl.ProgramDaysCount))"
         class="btn pmd-ripple-effect btn-primary" type="button" ng-click="orderCustomizeProgramCtrl.gotoStep(3);">
         {{'next' | translate}}</button>
 

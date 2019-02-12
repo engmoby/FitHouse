@@ -67,6 +67,7 @@ namespace FitHouse.API.Controllers
         public IHttpActionResult ValidateByPhone(string phone)
         {
             var reurnUser = Mapper.Map<UserDto>(_userFacade.ValidateByPhone(phone));
+
             return Ok(reurnUser);
         }
 

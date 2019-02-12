@@ -91,7 +91,7 @@
     </div>
     
     <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="newProgramForm.$invalid" class="btn pmd-ripple-effect btn-primary"
-        type="button" ng-click="orderCustomizeProgramCtrl.gotoStep(2)">
+        type="button" ng-click="orderCustomizeProgramCtrl.gotoStep(2); orderCustomizeProgramCtrl.GetBranchDelivery();">
         {{'next' | translate}}</button>
 </form>
 <!-- -------------------- -->

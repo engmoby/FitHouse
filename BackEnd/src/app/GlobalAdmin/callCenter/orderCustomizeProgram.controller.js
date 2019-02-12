@@ -6,12 +6,12 @@
         .controller('orderCustomizeProgramcontroller', ['$scope', 'blockUI', '$filter', '$translate',
             '$state', '$localStorage', 'authorizationService', 'appCONSTANTS', 'ToastService', '$stateParams',
             'AddProgramResource', 'daysPrepService', 'settingsPrepService', 'itemsssPrepService'
-            , 'RegionResource', 'CityResource', 'AreaResource', 'CountriesPrepService', 'OrderResource', orderCustomizeProgramcontroller]);
+            , 'RegionResource', 'CityResource', 'AreaResource', 'CountriesPrepService', 'OrderResource', 'BranchResource', orderCustomizeProgramcontroller]);
 
 
     function orderCustomizeProgramcontroller($scope, blockUI, $filter, $translate, $state, $localStorage, authorizationService,
         appCONSTANTS, ToastService, $stateParams, AddProgramResource, daysPrepService, settingsPrepService, itemsssPrepService
-        , RegionResource, CityResource, AreaResource, CountriesPrepService, OrderResource) {
+        , RegionResource, CityResource, AreaResource, CountriesPrepService, OrderResource, BranchResource) {
 
         // $('.pmd-sidebar-nav>li>a').removeClass("active")
         // $($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
@@ -53,6 +53,23 @@
 
         vm.counties = [];
         vm.clientId = localStorage.getItem('ClientId');
+        vm.branchId = localStorage.getItem('BranchId');
+
+        // GetBranchDelivery(vm.branchId);
+
+        // function GetBranchDelivery(branchId) {
+        vm.GetBranchDelivery = function () {
+            var k = BranchResource.getBranch({ branchId: vm.branchId }).$promise.then(function (results) {
+                vm.DeliveryFees = results.deliveryPrice;
+                blockUI.stop();
+
+            },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+
         vm.flag = false;
 
         vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
@@ -172,15 +189,19 @@
         }
 
         $scope.discountChange = function () {
-            vm.ProgramPrice = 0;
-            vm.ProgramCost = 0;
-            vm.ProgramVAT = 0;
+            // vm.ProgramPrice = 0;
+            // vm.ProgramCost = 0;
+            // vm.ProgramVAT = 0;
             vm.ProgramTotalPrice = 0;
+            vm.ProgramTotalPriceBefore = 0;
+            // vm.totalPrice = 0;
             for (var i = 0; i < vm.itemList.length; i++) {
                 vm.ProgramPrice = vm.ProgramPrice + vm.itemList[i].price;
                 vm.ProgramCost = vm.ProgramCost + vm.itemList[i].cost;
                 vm.ProgramVAT = vm.ProgramVAT + vm.itemList[i].vat;
-                vm.ProgramTotalPrice = (vm.ProgramPrice + vm.ProgramVAT) - vm.ProgramDiscount;
+                vm.ProgramTotalPrice = (vm.ProgramTotalPrice + vm.totalPrice + vm.DeliveryFees) - vm.ProgramDiscount;
+                vm.ProgramTotalPriceBefore = vm.ProgramTotalPriceBefore + vm.totalPrice + vm.DeliveryFees;
+  
             }
         }
 
@@ -205,11 +226,16 @@
             vm.ProgramCost = 0;
             vm.ProgramVAT = 0;
             vm.ProgramTotalPrice = 0;
+            vm.ProgramTotalPriceBefore = 0;
+            vm.totalPrice = 0;
             for (var i = 0; i < vm.itemList.length; i++) {
                 vm.ProgramPrice = vm.ProgramPrice + vm.itemList[i].price;
                 vm.ProgramCost = vm.ProgramCost + vm.itemList[i].cost;
                 vm.ProgramVAT = vm.ProgramVAT + vm.itemList[i].vat;
-                vm.ProgramTotalPrice = (vm.ProgramPrice + vm.ProgramVAT) - vm.ProgramDiscount;
+                vm.totalPrice = vm.itemList[i].totalPrice;
+                vm.ProgramTotalPrice = (vm.ProgramTotalPrice + vm.totalPrice + vm.DeliveryFees) - vm.ProgramDiscount;
+                vm.ProgramTotalPriceBefore = vm.ProgramTotalPriceBefore + vm.totalPrice + vm.DeliveryFees;
+
             }
 
         }

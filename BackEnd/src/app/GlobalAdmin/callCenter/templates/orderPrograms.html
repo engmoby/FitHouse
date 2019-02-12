@@ -189,31 +189,31 @@
     <div ng-show="orderProgramsCtrl.orderType.type == 'pickup'">
         <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
             <label for="first-name">{{'Country' | translate}}</label>
-            <select required style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="orderProgramsCtrl.countryChange()"
+            <select ng-required="orderProgramsCtrl.orderType.type == 'pickup'" style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="orderProgramsCtrl.countryChange()"
                 ng-model="orderProgramsCtrl.selectedCountryId" ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in orderProgramsCtrl.counties">
             </select>
         </div>
         <div ng-show=" orderProgramsCtrl.selectedCountryId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
             <label for="first-name">{{'Region' | translate}}</label>
-            <select required style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="orderProgramsCtrl.regionChange()"
+            <select ng-required="orderProgramsCtrl.orderType.type == 'pickup'" style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="orderProgramsCtrl.regionChange()"
                 ng-model="orderProgramsCtrl.selectedRegionId" ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in orderProgramsCtrl.regions">
             </select>
         </div>
         <div ng-show=" orderProgramsCtrl.selectedRegionId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
             <label for="first-name">{{'City' | translate}}</label>
-            <select ng-required="orderProgramsCtrl.selectedRegionId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"
+            <select ng-required="orderProgramsCtrl.selectedRegionId > 0 && orderProgramsCtrl.orderType.type == 'pickup'" style="width:100% !important" class="select-tags form-control pmd-select2-tags"
                 ng-change="orderProgramsCtrl.cityChange()" ng-model="orderProgramsCtrl.selectedCityId" ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in orderProgramsCtrl.cities">
             </select>
         </div>
         <div ng-show=" orderProgramsCtrl.selectedCityId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
             <label for="first-name">{{'Area' | translate}}</label>
-            <select ng-required=" orderProgramsCtrl.selectedCityId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"
+            <select ng-required=" orderProgramsCtrl.selectedCityId > 0 && orderProgramsCtrl.orderType.type == 'pickup'" style="width:100% !important" class="select-tags form-control pmd-select2-tags"
                 ng-change="orderProgramsCtrl.areaChange()" ng-model="orderProgramsCtrl.selectedAreaId" ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in orderProgramsCtrl.area">
             </select>
         </div>
         <div ng-show=" orderProgramsCtrl.selectedAreaId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
             <label for="first-name">{{'Branch' | translate}}</label>
-            <select ng-required=" orderProgramsCtrl.selectedAreaId > 0 " class="form-control select-with-search pmd-select2-tags" ng-change="orderProgramsCtrl.branchChange()"
+            <select ng-required=" orderProgramsCtrl.selectedAreaId > 0  && orderProgramsCtrl.orderType.type == 'pickup'" class="form-control select-with-search pmd-select2-tags" ng-change="orderProgramsCtrl.branchChange()"
                 ng-model="orderProgramsCtrl.selectedBranchId" ng-options="a.branchId as a.titleDictionary[selectedLanguage] for a in orderProgramsCtrl.branchList"></select>
         </div>
 
