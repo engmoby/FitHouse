@@ -217,7 +217,7 @@
             newClient.appartmentNo = vm.AppartmentNo;
             newClient.description = vm.AddressDescription;
             newClient.isAddress = true;
-            newClient.Code = 100;
+            newClient.code = 100;
           //  newClient.UserRoles = vm.selectedUserRoles;
             newClient.branchId = vm.selectedBranchId;
             newClient.$create().then(

@@ -174,22 +174,6 @@ E:\Projects\Survey_Version2\Operation Survey\Frameworks\Repository.Pattern.Ef6\b
 E:\Projects\Survey_Version2\Operation Survey\Frameworks\Repository.Pattern.Ef6\obj\Debug\Repository.Pattern.Ef6.csprojResolveAssemblyReference.cache
 E:\Projects\Survey_Version2\Operation Survey\Frameworks\Repository.Pattern.Ef6\obj\Debug\Repository.Pattern.Ef6.dll
 E:\Projects\Survey_Version2\Operation Survey\Frameworks\Repository.Pattern.Ef6\obj\Debug\Repository.Pattern.Ef6.pdb
-E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\bin\Debug\Repository.Pattern.Ef6.dll.config
-E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\bin\Debug\Repository.Pattern.Ef6.dll
-E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\bin\Debug\Repository.Pattern.Ef6.pdb
-E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\bin\Debug\EntityFramework.dll
-E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\bin\Debug\EntityFramework.SqlServer.dll
-E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\bin\Debug\LinqKit.dll
-E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\bin\Debug\Repository.Pattern.dll
-E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\bin\Debug\System.Net.Http.dll
-E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\bin\Debug\Repository.Pattern.pdb
-E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\bin\Debug\EntityFramework.xml
-E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\bin\Debug\EntityFramework.SqlServer.xml
-E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\bin\Debug\LinqKit.pdb
-E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\bin\Debug\LinqKit.xml
-E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\obj\Debug\Repository.Pattern.Ef6.csprojResolveAssemblyReference.cache
-E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\obj\Debug\Repository.Pattern.Ef6.dll
-E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\obj\Debug\Repository.Pattern.Ef6.pdb
 E:\Projects\FitHouse\Project\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\bin\Debug\Repository.Pattern.Ef6.dll.config
 E:\Projects\FitHouse\Project\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\bin\Debug\Repository.Pattern.Ef6.dll
 E:\Projects\FitHouse\Project\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\bin\Debug\Repository.Pattern.Ef6.pdb
@@ -206,3 +190,19 @@ E:\Projects\FitHouse\Project\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6
 E:\Projects\FitHouse\Project\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\obj\Debug\Repository.Pattern.Ef6.csprojResolveAssemblyReference.cache
 E:\Projects\FitHouse\Project\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\obj\Debug\Repository.Pattern.Ef6.dll
 E:\Projects\FitHouse\Project\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\obj\Debug\Repository.Pattern.Ef6.pdb
+E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\bin\Debug\Repository.Pattern.Ef6.dll.config
+E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\bin\Debug\Repository.Pattern.Ef6.dll
+E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\bin\Debug\Repository.Pattern.Ef6.pdb
+E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\bin\Debug\EntityFramework.dll
+E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\bin\Debug\EntityFramework.SqlServer.dll
+E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\bin\Debug\LinqKit.dll
+E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\bin\Debug\Repository.Pattern.dll
+E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\bin\Debug\System.Net.Http.dll
+E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\bin\Debug\Repository.Pattern.pdb
+E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\bin\Debug\EntityFramework.xml
+E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\bin\Debug\EntityFramework.SqlServer.xml
+E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\bin\Debug\LinqKit.pdb
+E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\bin\Debug\LinqKit.xml
+E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\obj\Debug\Repository.Pattern.Ef6.csprojResolveAssemblyReference.cache
+E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\obj\Debug\Repository.Pattern.Ef6.dll
+E:\Projects\FitHouse\FitHouse\Frameworks\Repository.Pattern.Ef6\obj\Debug\Repository.Pattern.Ef6.pdb

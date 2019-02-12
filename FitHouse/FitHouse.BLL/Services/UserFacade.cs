@@ -187,20 +187,23 @@ namespace FitHouse.BLL.Services
                     // TenantId = tenantId
                 });
             } 
+      
+
+            _userRoleService.InsertRange(userObj.UserRoles);
+           _userService.Insert(userObj);
+            SaveChanges();
             var address = new Address();
             if (userDto.IsAddress)
             {
                 address.Floor = userDto.Floor;
                 address.AppartmentNo = userDto.AppartmentNo;
                 address.Description = userDto.Description;
-                address.UserId = userDto.UserId;
+                address.UserId = userObj.UserId;
                 address.BranchId = userDto.BranchId;
                 _addressService.Insert(address);
             }
+            SaveChanges();
 
-            _userRoleService.InsertRange(userObj.UserRoles);
-            _userService.Insert(userObj);
-            SaveChanges(); 
             return userDto;
         }
         public UserDto EditUserInfo(UserDto userDto, int userId)
