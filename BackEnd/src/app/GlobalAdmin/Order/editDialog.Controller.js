@@ -14,11 +14,16 @@
         console.log(vm.Order);
         vm.language = appCONSTANTS.supportedLanguage;
 
-        vm.Order.orderDate = vm.Order.orderDate + "Z";
+        vm.Order.orderDate = vm.Order.orderDate + "Z"; 
         vm.Order.orderDate = $filter('date')(new Date(vm.Order.orderDate), "dd/MM/yyyy hh:mm a");
+        
+        vm.Order.orderStartDate = vm.Order.orderStartDate + "Z"; 
+        vm.Order.orderStartDate = $filter('date')(new Date(vm.Order.orderStartDate), "dd/MM/yyyy hh:mm a");
+      
+      debugger;
         if (vm.Order.orderStartDate != null) {
-            vm.Order.orderStartDate = vm.Order.orderStartDate + "Z";
-            vm.Order.orderStartDate = $filter('date')(new Date(vm.Order.orderStartDate), "dd/MM/yyyy hh:mm a");
+            // vm.Order.orderStartDate = vm.Order.orderStartDate + "Z";
+            // vm.Order.orderStartDate = $filter('date')(new Date(vm.Order.orderStartDate), "dd/MM/yyyy hh:mm a");
             vm.dateIsValid = true;
         }
         $scope.orderStatus = false;
