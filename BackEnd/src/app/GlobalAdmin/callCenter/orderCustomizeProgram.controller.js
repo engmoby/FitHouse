@@ -192,17 +192,18 @@
             // vm.ProgramPrice = 0;
             // vm.ProgramCost = 0;
             // vm.ProgramVAT = 0;
-            vm.ProgramTotalPrice = 0;
-            vm.ProgramTotalPriceBefore = 0;
+            // vm.ProgramTotalPrice = 0;
+            // vm.ProgramTotalPriceBefore = 0;
             // vm.totalPrice = 0;
-            for (var i = 0; i < vm.itemList.length; i++) {
-                vm.ProgramPrice = vm.ProgramPrice + vm.itemList[i].price;
-                vm.ProgramCost = vm.ProgramCost + vm.itemList[i].cost;
-                vm.ProgramVAT = vm.ProgramVAT + vm.itemList[i].vat;
-                vm.ProgramTotalPrice = (vm.ProgramTotalPrice + vm.totalPrice + vm.DeliveryFees) - vm.ProgramDiscount;
-                vm.ProgramTotalPriceBefore = vm.ProgramTotalPriceBefore + vm.totalPrice + vm.DeliveryFees;
-  
-            }
+            // for (var i = 0; i < vm.itemList.length; i++) {
+            //     vm.ProgramPrice = vm.ProgramPrice + vm.itemList[i].price;
+            //     vm.ProgramCost = vm.ProgramCost + vm.itemList[i].cost;
+            //     vm.ProgramVAT = vm.ProgramVAT + vm.itemList[i].vat;
+            //     // vm.ProgramTotalPrice = (vm.ProgramTotalPrice + vm.totalPrice + vm.DeliveryFees) - vm.ProgramDiscount;
+            //     // vm.ProgramTotalPriceBefore = vm.ProgramTotalPriceBefore + vm.totalPrice + vm.DeliveryFees;
+            // }
+            vm.ProgramTotalPrice = (vm.totalPrice + vm.DeliveryFees) - vm.ProgramDiscount;
+            vm.ProgramTotalPriceBefore = vm.totalPrice + vm.DeliveryFees;
         }
 
         $scope.getData = function (itemModel, day, meal) {
@@ -232,12 +233,13 @@
                 vm.ProgramPrice = vm.ProgramPrice + vm.itemList[i].price;
                 vm.ProgramCost = vm.ProgramCost + vm.itemList[i].cost;
                 vm.ProgramVAT = vm.ProgramVAT + vm.itemList[i].vat;
-                vm.totalPrice = vm.itemList[i].totalPrice;
-                vm.ProgramTotalPrice = (vm.ProgramTotalPrice + vm.totalPrice + vm.DeliveryFees) - vm.ProgramDiscount;
-                vm.ProgramTotalPriceBefore = vm.ProgramTotalPriceBefore + vm.totalPrice + vm.DeliveryFees;
+                vm.totalPrice += vm.itemList[i].totalPrice;
+                // vm.ProgramTotalPrice = (vm.ProgramTotalPrice + vm.totalPrice + vm.DeliveryFees) - vm.ProgramDiscount;
+                // vm.ProgramTotalPriceBefore = vm.ProgramTotalPriceBefore + vm.totalPrice + vm.DeliveryFees;
 
             }
-
+            vm.ProgramTotalPrice = (vm.totalPrice + vm.DeliveryFees) - vm.ProgramDiscount;
+            vm.ProgramTotalPriceBefore = vm.totalPrice + vm.DeliveryFees;
         }
         //Model
         vm.currentStep = 1;

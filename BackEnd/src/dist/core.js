@@ -544,10 +544,16 @@ angular.module('core')
         "Total":"Total",
         "costlbl":"cost",
         "vat":"vat",
+        "DeliveryPrice": "Delivery Price",
+        "PriceBeforeDiscount": "Price Before Discount",
+        "PriceAfterDiscount": "Price After Discount",
         "mealDiscount":"Meal Discount",
       }
 
       var ar_translations = {
+        "DeliveryPrice": "سعر  التوصيل",
+        "PriceBeforeDiscount": "سعر قبل الخصم",
+        "PriceAfterDiscount": "سعر بعد الخصم",
         "mealDiscount":"Meal Discount",
         "vat":"vat",
         "Kitchen":"مطبخ",
