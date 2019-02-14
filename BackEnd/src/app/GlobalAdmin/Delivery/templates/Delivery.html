@@ -24,10 +24,10 @@
 
                     <td data-title="Name">{{delivery.orderDetails[0].day | date : "d/MMM/yy"}}
                     </td>
-                    <td ng-if="delivery.orderDetails[0].status == '2'">
+                    <td ng-if="delivery.orderDetails[0].status == '6'">
                         <button style="background-color: #e4e5e6;color: black!important;" ng-click="deliveryCtrl.changeStatus(delivery.orderDetails[0].orderDetailId,3);"
                             class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">
-                            {{'Prepering' | translate}}</button>
+                            {{'OnTheWay' | translate}}</button>
 
                     </td>
 

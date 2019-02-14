@@ -758,10 +758,10 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '\n' +
     '                    <td data-title="Name">{{delivery.orderDetails[0].day | date : "d/MMM/yy"}}\n' +
     '                    </td>\n' +
-    '                    <td ng-if="delivery.orderDetails[0].status == \'2\'">\n' +
+    '                    <td ng-if="delivery.orderDetails[0].status == \'6\'">\n' +
     '                        <button style="background-color: #e4e5e6;color: black!important;" ng-click="deliveryCtrl.changeStatus(delivery.orderDetails[0].orderDetailId,3);"\n' +
     '                            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">\n' +
-    '                            {{\'Prepering\' | translate}}</button>\n' +
+    '                            {{\'OnTheWay\' | translate}}</button>\n' +
     '\n' +
     '                    </td>\n' +
     '\n' +
@@ -1748,7 +1748,9 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '    $(function () {\n' +
     '        $(\'#startdate\').datetimepicker(\n' +
     '            {\n' +
-    '                minDate: new Date()\n' +
+    '                minDate: new Date(),\n' +
+    '                format: \'DD/MM/YYYY HH:mm:ss\'\n' +
+    '                //  format: "DD-MM-YYYY"\n' +
     '            }\n' +
     '        ).on(\'dp.change\', function (e) {\n' +
     '            debugger;\n' +
