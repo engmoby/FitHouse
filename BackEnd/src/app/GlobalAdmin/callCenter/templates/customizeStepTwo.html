@@ -3,7 +3,7 @@
     <div class="row">
         <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
             <label for="first-name">{{'ProgramDaysCount' | translate}}</label>
-           
+
             <input ng-change="orderCustomizeProgramCtrl.ConvertToNumber();" required type="text" class="mat-input form-control" name="programDaysCount"
                 numbers-only ng-model="orderCustomizeProgramCtrl.ProgramDaysCount" minlength="1" maxlength="2">
             <div ng-messages="newProgramForm2.programDaysCount.$error">
@@ -16,8 +16,8 @@
 
         <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
             <label for="first-name">{{'MealPerDay' | translate}}</label>
-            <input ng-change="orderCustomizeProgramCtrl.ConvertToNumber();" required type="text" numbers-only class="mat-input form-control" name="mealPerDay"
-                ng-model="orderCustomizeProgramCtrl.MealPerDay" minlength="1" maxlength="2">
+            <input ng-change="orderCustomizeProgramCtrl.ConvertToNumber();" required type="text" numbers-only class="mat-input form-control"
+                name="mealPerDay" ng-model="orderCustomizeProgramCtrl.MealPerDay" minlength="1" maxlength="2">
             <div ng-messages="newProgramForm2.mealPerDay.$error" class="error">
                 <div ng-if="newProgramForm2.mealPerDay.$error.required && !newProgramForm2.mealPerDay.$pristine">{{'MealPerDayReqError' | translate}}</div>
                 <div ng-if="(newProgramForm2.mealPerDay.$error.minlength || newProgramForm2.mealPerDay.$error.maxlength)">{{'MealPerDayLengthError' | translate}}</div>
@@ -78,8 +78,21 @@
         </div>
     </div>
 
-    <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="(newProgramForm2.$invalid || (orderCustomizeProgramCtrl.daysCount == 0 || orderCustomizeProgramCtrl.mealsCount == 0) || (orderCustomizeProgramCtrl.Setting.minNoDaysPerProgram > orderCustomizeProgramCtrl.ProgramDaysCount))"
-        class="btn pmd-ripple-effect btn-primary" type="button" ng-click="orderCustomizeProgramCtrl.gotoStep(3);">
-        {{'next' | translate}}</button>
+    <div class="row">
+        <div class="col-md-9"></div>
+        <div class="col-md-1">
+            <div>
+                <button style="background-color: #e4e5e6;color: black!important;" class="btn pmd-ripple-effect btn-primary" type="button"
+                    ng-click="$state.go('callCenter');">{{'Back' | translate}}</button>
+            </div>
+        </div>
 
+        <div class="col-md-1">
+            <div>
+                <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="(newProgramForm2.$invalid || (orderCustomizeProgramCtrl.daysCount == 0 || orderCustomizeProgramCtrl.mealsCount == 0) || (orderCustomizeProgramCtrl.Setting.minNoDaysPerProgram > orderCustomizeProgramCtrl.ProgramDaysCount))"
+                    class="btn pmd-ripple-effect btn-primary" type="button" ng-click="orderCustomizeProgramCtrl.gotoStep(3);">
+                    {{'next' | translate}}</button>
+            </div>
+        </div>
+    </div>
 </form>

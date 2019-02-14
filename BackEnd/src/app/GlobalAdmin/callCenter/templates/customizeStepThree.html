@@ -145,10 +145,22 @@
 
     </div>
 
+    <div class="row">
+        <div class="col-md-9"></div>
+        <div class="col-md-1">
+            <div>
+                <button style="background-color: #e4e5e6;color: black!important;" class="btn pmd-ripple-effect btn-primary" type="button"
+                    ng-click="$state.go('callCenter');">{{'Back' | translate}}</button>
+            </div>
+        </div>
 
-    <!-- || (orderCustomizeProgramCtrl.Setting.minNoDaysPerProgram > orderCustomizeProgramCtrl.ProgramDaysCount) -->
-    <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="(orderCustomizeProgramCtrl.currentStep != orderCustomizeProgramCtrl.steps.length)"
-        class="btn btn-success" name="next" type="button" ng-click="orderCustomizeProgramCtrl.AddNewProgram()">
-        <i class="fa fa-floppy-o"></i>{{'Save' | translate}}</button>
-
+        <div class="col-md-1">
+            <div>
+                <!-- || (orderCustomizeProgramCtrl.Setting.minNoDaysPerProgram > orderCustomizeProgramCtrl.ProgramDaysCount) -->
+                <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="(orderCustomizeProgramCtrl.currentStep != orderCustomizeProgramCtrl.steps.length)"
+                    class="btn btn-success" name="next" type="button" ng-click="orderCustomizeProgramCtrl.AddNewProgram()">
+                    <i class="fa fa-floppy-o"></i>{{'Save' | translate}}</button>
+            </div>
+        </div>
+    </div>
 </form>

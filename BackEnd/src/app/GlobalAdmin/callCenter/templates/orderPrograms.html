@@ -83,8 +83,7 @@
         </div>
     </div>
 
-    <hr> 
-    {{'OrderProgram' | translate}}
+    <hr> {{'OrderProgram' | translate}}
 
     <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
         <label for="first-name">{{'SelectPrograms' | translate}}</label>
@@ -166,9 +165,22 @@
 
     </div>
 
-    <div class="pmd-modal-action text-right">
-        <button ng-disabled="orderProgramForm.$invalid || !orderProgramsCtrl.dateIsValid || orderProgramsCtrl.addressValidation == false"
-            style="background-color: #e4e5e6;color: black!important;" class="btn pmd-ripple-effect btn-primary" type="button"
-            ng-click="orderProgramsCtrl.Order()">{{'Order' | translate}}</button>
+    <div class="row">
+        <div class="col-md-9"></div>
+        <div class="col-md-1">
+            <div>
+                <button style="background-color: #e4e5e6;color: black!important;" class="btn pmd-ripple-effect btn-primary" type="button"
+                    ng-click="$state.go('callCenter');">{{'Back' | translate}}</button>
+            </div>
+        </div>
+
+        <div class="col-md-1">
+            <div>
+                <button ng-disabled="orderProgramForm.$invalid || !orderProgramsCtrl.dateIsValid || orderProgramsCtrl.addressValidation == false"
+                    style="background-color: #e4e5e6;color: black!important;" class="btn pmd-ripple-effect btn-primary" type="button"
+                    ng-click="orderProgramsCtrl.Order()">{{'Order' | translate}}</button>
+            </div>
+        </div>
     </div>
+
 </form>

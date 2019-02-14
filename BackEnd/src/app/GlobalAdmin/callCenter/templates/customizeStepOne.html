@@ -89,10 +89,24 @@
             </div>
         </div>
     </div>
-    
-    <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="newProgramForm.$invalid" class="btn pmd-ripple-effect btn-primary"
-        type="button" ng-click="orderCustomizeProgramCtrl.gotoStep(2); orderCustomizeProgramCtrl.GetBranchDelivery();">
-        {{'next' | translate}}</button>
+
+    <div class="row">
+        <div class="col-md-9"></div>
+        <div class="col-md-1">
+            <div>
+                <button style="background-color: #e4e5e6;color: black!important;" class="btn pmd-ripple-effect btn-primary" type="button"
+                    ng-click="$state.go('callCenter');">{{'Back' | translate}}</button>
+            </div>
+        </div>
+
+        <div class="col-md-1">
+            <div>
+                <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="newProgramForm.$invalid" class="btn pmd-ripple-effect btn-primary"
+                    type="button" ng-click="orderCustomizeProgramCtrl.gotoStep(2); orderCustomizeProgramCtrl.GetBranchDelivery();">
+                    {{'next' | translate}}</button>
+            </div>
+        </div>
+    </div>
 </form>
 <!-- -------------------- -->
 

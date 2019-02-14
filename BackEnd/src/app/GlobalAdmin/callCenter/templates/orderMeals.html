@@ -22,10 +22,10 @@
 
     $(function () {
         var today = new Date();
-        
+
         $('#startdate').datetimepicker(
             {
-                minDate: today.setHours(today.getHours()+1)
+                minDate: today.setHours(today.getHours() + 1)
             }
         ).on('dp.change', function (e) {
             debugger;
@@ -72,8 +72,7 @@
         </tbody>
     </table>
 
-    <hr> 
-    {{'OrderMeal' | translate}}
+    <hr> {{'OrderMeal' | translate}}
 
     <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
         <label for="first-name">{{'SelectMeals' | translate}}</label>
@@ -128,8 +127,23 @@
         </div>
     </div>
 
-    <div class="pmd-modal-action text-right">
-        <button ng-disabled="orderMealForm.$invalid || !orderMealsCtrl.dateIsValid" style="background-color: #e4e5e6;color: black!important;" class="btn pmd-ripple-effect btn-primary" type="button"
-            ng-click="orderMealsCtrl.Order()">{{'Order' | translate}}</button>
+    <div class="row">
+        <div class="col-md-9"></div>
+        <div class="col-md-1">
+            <div>
+                <button style="background-color: #e4e5e6;color: black!important;" class="btn pmd-ripple-effect btn-primary" type="button"
+                    ng-click="$state.go('callCenter');">{{'Back' | translate}}</button>
+            </div>
+        </div>
+
+        <div class="col-md-1">
+            <div>
+                <button ng-disabled="orderMealForm.$invalid || !orderMealsCtrl.dateIsValid" style="background-color: #e4e5e6;color: black!important;"
+                    class="btn pmd-ripple-effect btn-primary" type="button" ng-click="orderMealsCtrl.Order()">{{'Order' | translate}}</button>
+            </div>
+        </div>
     </div>
+
+
+
 </form>

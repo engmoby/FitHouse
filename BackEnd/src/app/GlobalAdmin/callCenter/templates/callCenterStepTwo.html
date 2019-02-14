@@ -25,7 +25,7 @@
     <br>
     <div class="form-group pmd-textfield pmd-textfield-floating-label">
         <label for="first-name">{{'phoneLbl' | translate}}</label>
-        <input required type="text" class="mat-input form-control" name="phone" numbers-only ng-model="callCenterCtrl.Phone" ng-minlength="10"
+        <input ng-change="checkValidation()" required type="text" class="mat-input form-control" name="phone" numbers-only ng-model="callCenterCtrl.Phone" ng-minlength="10"
             ng-maxlength="50">
         <!-- <span class="error" ng-show="newCallCenterForm.phone.$error.pattern">{{'NotPhoneNumber' | translate}}   </span> -->
         <div ng-messages="newCallCenterForm.phone.$error">
@@ -89,7 +89,7 @@
 </form>
 
 <div class="pmd-modal-action text-right">
-    <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="(newCallCenterForm.$invalid) || (callCenterCtrl.flag != true)"
+    <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="(newCallCenterForm.$invalid) || (flag != true)"
         class="btn pmd-ripple-effect btn-primary" type="button" ng-click="callCenterCtrl.MakeOrder()">{{'MakeOrder' | translate}}</button>
     <!-- <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="callCenterCtrl.close()">{{'DiscardBtn' | translate}}</button> -->
 </div>
