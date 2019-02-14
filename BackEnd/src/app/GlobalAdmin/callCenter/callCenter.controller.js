@@ -221,7 +221,9 @@
             newClient.isAddress = true;
             newClient.code = 100;
           //  newClient.UserRoles = vm.selectedUserRoles;
-            newClient.branchId = vm.selectedBranchId;
+            // newClient.branchId = vm.selectedBranchId;
+            newClient.branchId = vm.branchList[0].branchId;
+            vm.branchList
             newClient.$create().then(
                 function (data, status) {
                     blockUI.stop();

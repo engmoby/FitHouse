@@ -21,9 +21,11 @@
     });
 
     $(function () {
+        var today = new Date();
+        var tomorrow = new Date();
         $('#startdate').datetimepicker(
             {
-                minDate: new Date()
+                minDate: tomorrow.setDate(today.getDate() + 1)
             }
         ).on('dp.change', function (e) {
             debugger;

@@ -969,6 +969,141 @@
 
     angular
         .module('home')
+        .controller('BranchController', ['$rootScope', '$scope', '$filter', '$translate',
+            '$state', 'BranchResource',   '$localStorage',
+            'authorizationService', 'appCONSTANTS',
+            'ToastService', BranchController]);
+
+
+    function BranchController($rootScope, $scope, $filter, $translate,
+        $state, BranchResource,  $localStorage, authorizationService,
+        appCONSTANTS, ToastService) {
+
+        blockUI.start("Loading..."); 
+
+                    refreshBranchs();
+
+        function refreshBranchs() {
+           blockUI.start("Loading..."); 
+
+                        var k = BranchResource.getAllBranchs().$promise.then(function (results) {
+                $scope.BranchList = results;
+                blockUI.stop();
+
+                            },
+            function (data, status) {
+                blockUI.stop();
+
+                                ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+            });
+        }
+
+    }
+
+})();
+(function () {
+    angular
+      .module('home')
+        .factory('BranchResource', ['$resource', 'appCONSTANTS', BranchResource]) 
+
+    function BranchResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Branchs/', {}, {
+            getAllBranchs: { method: 'GET', url: appCONSTANTS.API_URL + 'Branchs/GetAllBranchs', useToken: true,  params: { lang: '@lang' } },
+            create: { method: 'POST', useToken: true },
+            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Branchs/EditBranch', useToken: true },
+            getBranch: { method: 'GET', url: appCONSTANTS.API_URL + 'Branchs/GetBranchById/:BranchId', useToken: true }
+        })
+    } 
+
+}());
+(function () {
+    'use strict';
+
+	    angular
+        .module('home')
+        .controller('createBranchDialogController', ['$scope', '$http', '$state', 'appCONSTANTS', '$translate',
+            'BranchResource', 'ToastService', '$stateParams', 'AreaByIdPrepService','CityByIdPrepService', 'RegionByIdPrepService', createBranchDialogController])
+
+    function createBranchDialogController($scope, $http, $state, appCONSTANTS, $translate, BranchResource,
+        ToastService, $stateParams, AreaByIdPrepService,CityByIdPrepService, RegionByIdPrepService) {
+		var vm = this;
+		vm.Area = AreaByIdPrepService;
+        vm.language = appCONSTANTS.supportedLanguage;
+        $scope.countryName = RegionByIdPrepService.countryNameDictionary[$scope.selectedLanguage];
+        $scope.regionName = RegionByIdPrepService.titleDictionary[$scope.selectedLanguage];
+        $scope.cityName = CityByIdPrepService.titleDictionary[$scope.selectedLanguage];
+        $scope.areaName = AreaByIdPrepService.titleDictionary[$scope.selectedLanguage];
+		vm.close = function(){
+		    $state.go('Area',{ countryId: $stateParams.countryId, regionId: $stateParams.regionId, cityId: $stateParams.cityId });
+		} 
+
+		 		vm.AddNewBranch = function () {
+            var newObj = new BranchResource();
+		    newObj.AreaId = vm.Area.areaId;
+            newObj.titleDictionary = vm.titleDictionary;
+            newObj.IsDeleted = false; 
+            newObj.IsStatic =false;
+            newObj.$create().then(
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success"); 
+                    $state.go('Area',{ countryId: $stateParams.countryId, regionId: $stateParams.regionId, cityId: $stateParams.cityId },{ reload: true });
+
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+
+  	}	
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('editBranchDialogController', ['$scope', '$http', '$state', 'appCONSTANTS', '$translate', 'BranchResource', 'ToastService',
+            'BranchByIdPrepService','$stateParams','AreaByIdPrepService','CityByIdPrepService', 'RegionByIdPrepService', editBranchDialogController])
+
+    function editBranchDialogController($scope, $http, $state, appCONSTANTS, $translate, BranchResource, ToastService,
+         BranchByIdPrepService,$stateParams,AreaByIdPrepService,CityByIdPrepService, RegionByIdPrepService) {
+        var vm = this;
+        vm.language = appCONSTANTS.supportedLanguage;
+        vm.Branch = BranchByIdPrepService;
+
+                $scope.countryName = RegionByIdPrepService.countryNameDictionary[$scope.selectedLanguage];
+        $scope.regionName = RegionByIdPrepService.titleDictionary[$scope.selectedLanguage];
+        $scope.cityName = CityByIdPrepService.titleDictionary[$scope.selectedLanguage];
+        $scope.areaName = AreaByIdPrepService.titleDictionary[$scope.selectedLanguage];
+
+                    vm.close = function () {
+            $state.go('Area', { countryId: $stateParams.countryId, regionId: $stateParams.regionId, cityId: $stateParams.cityId });
+        }
+        vm.UpdateBranch = function () {
+            var updateObj = new BranchResource();
+            updateObj.BranchId = vm.Branch.branchId;
+            updateObj.titleDictionary = vm.Branch.titleDictionary;
+            updateObj.IsDeleted = false;
+            updateObj.IsStatic = false;
+            updateObj.$update().then(
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+
+                    $state.go('Area', { countryId: $stateParams.countryId, regionId: $stateParams.regionId, cityId: $stateParams.cityId },{ reload: true });
+
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+    }
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
         .controller('AreaController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate',
             '$state', 'AreaResource', 'AreaPrepService',  '$localStorage',
             'authorizationService', 'appCONSTANTS',
@@ -1396,184 +1531,6 @@
 
     angular
         .module('home')
-        .controller('CategoryController', ['$rootScope', '$scope', '$filter', '$translate',
-            '$state', 'CategoryResource', '$localStorage',
-            'authorizationService', 'appCONSTANTS', 'blockUI', '$uibModal',
-            'ToastService', CategoryController]);
-
-
-    function CategoryController($rootScope, $scope, $filter, $translate,
-        $state, CategoryResource, $localStorage, authorizationService,
-        appCONSTANTS, blockUI, $uibModal, ToastService) {
-            $('.pmd-sidebar-nav>li>a').removeClass("active")
-            $($('.pmd-sidebar-nav').children()[4].children[0]).addClass("active")
-
-            var vm = this;
-
-        refreshCategorys();
-
-        function refreshCategorys() {
-            blockUI.start("Loading...");
-
-            var k = CategoryResource.getAllCategorys().$promise.then(function (results) {
-                $scope.CategoryList = results;
-
-                console.log($scope.CategoryList);
-                blockUI.stop();
-
-            },
-                function (data, status) {
-                    blockUI.stop();
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
-        }
-        function change(category, isDeleted) {
-            debugger;
-            var updateObj = new CategoryResource();
-            updateObj.CategoryId = category.categoryId;
-            if (!isDeleted)
-                updateObj.isActive = (category.isActive == true ? false : true);
-            updateObj.isDeleted = category.isDeleted;
-
-            updateObj.$update().then(
-                function (data, status) {
-                    if (isDeleted)
-                        refreshCategorys();
-
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    category.isActive = updateObj.isActive;
-
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-
-        }
-        vm.UpdateCategory = function (category) {
-            change(category, false);
-        }
-
-        function confirmationDelete(model) {
-            model.isDeleted = true;
-            change(model, true);
-
-        }
-        vm.openDeleteDialog = function (model, name, id) {
-            var modalContent = $uibModal.open({
-                templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
-                controller: 'confirmDeleteDialogController',
-                controllerAs: 'deleteDlCtrl',
-                resolve: {
-                    model: function () { return model },
-                    itemName: function () { return name },
-                    itemId: function () { return id },
-                    message: function () { return null },
-                    callBackFunction: function () { return confirmationDelete }
-                }
-
-            });
-        }
-
-
-    }
-
-})();
-(function () {
-    angular
-      .module('home')
-        .factory('CategoryResource', ['$resource', 'appCONSTANTS', CategoryResource]) 
-
-    function CategoryResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'Category/', {}, {
-            getAllCategorys: { method: 'GET', url: appCONSTANTS.API_URL + 'Category/GetAllCategories', useToken: true, params: { lang: '@lang' } },
-            getAllCategories: { method: 'GET', url: appCONSTANTS.API_URL + 'Category/GetAllCategs', useToken: true, params: { lang: '@lang' } , isArray:true},
-            create: { method: 'POST', useToken: true },
-            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Category/EditCategory', useToken: true },
-            getCategory: { method: 'GET', url: appCONSTANTS.API_URL + 'Category/GetCategoryById/:CategoryId', useToken: true }
-        })
-    } 
-
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('createCategoryDialogController', ['$scope', '$http', '$state', 'appCONSTANTS', '$translate',
-            'CategoryResource',  'ToastService', '$rootScope',   createCategoryDialogController])
-
-    function createCategoryDialogController($scope, $http, $state, appCONSTANTS, $translate, CategoryResource, 
-        ToastService, $rootScope ) {
-        var vm = this; 
-        vm.language = appCONSTANTS.supportedLanguage; 
-        vm.close = function () {
-            $state.go('Category');
-        }
-
-        vm.AddNewCategory = function () {
-            var newObj = new CategoryResource(); 
-            newObj.titleDictionary = vm.titleDictionary;
-            newObj.IsDeleted = false; 
-
-                       newObj.$create().then(
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
-                    $state.go('Category');
-
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-
-    }
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('editCategoryDialogController', ['$scope', '$filter', '$http', '$state', 'appCONSTANTS', '$translate',
-            'CategoryResource', 'ToastService', 'CategoryByIdPrepService', editCategoryDialogController])
-
-    function editCategoryDialogController($scope, $filter, $http, $state, appCONSTANTS, $translate, CategoryResource,
-        ToastService, CategoryByIdPrepService) {
-        var vm = this;
-        vm.language = appCONSTANTS.supportedLanguage;
-        vm.Category = CategoryByIdPrepService;
-        console.log(vm.Category);
-
-
-        vm.Close = function () {
-            $state.go('Category');
-        }
-        vm.UpdateCategory = function () {
-            var updateObj = new CategoryResource();
-            updateObj.CategoryId = vm.Category.categoryId;
-            updateObj.titleDictionary = vm.Category.titleDictionary; 
-            updateObj.IsDeleted = vm.Category.IsDeleted;
-            updateObj.isActive = vm.Category.isActive;
-            updateObj.$update().then(
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-
-                    $state.go('Category');
-
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-    }
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
         .controller('CountryController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate',
             '$state', 'CountryResource', 'CountriesPrepService',  '$localStorage', 'appCONSTANTS',
             'ToastService', CountryController]);
@@ -1793,34 +1750,85 @@
 
     angular
         .module('home')
-        .controller('BranchController', ['$rootScope', '$scope', '$filter', '$translate',
-            '$state', 'BranchResource',   '$localStorage',
-            'authorizationService', 'appCONSTANTS',
-            'ToastService', BranchController]);
+        .controller('CategoryController', ['$rootScope', '$scope', '$filter', '$translate',
+            '$state', 'CategoryResource', '$localStorage',
+            'authorizationService', 'appCONSTANTS', 'blockUI', '$uibModal',
+            'ToastService', CategoryController]);
 
 
-    function BranchController($rootScope, $scope, $filter, $translate,
-        $state, BranchResource,  $localStorage, authorizationService,
-        appCONSTANTS, ToastService) {
+    function CategoryController($rootScope, $scope, $filter, $translate,
+        $state, CategoryResource, $localStorage, authorizationService,
+        appCONSTANTS, blockUI, $uibModal, ToastService) {
+            $('.pmd-sidebar-nav>li>a').removeClass("active")
+            $($('.pmd-sidebar-nav').children()[4].children[0]).addClass("active")
 
-        blockUI.start("Loading..."); 
+            var vm = this;
 
-                    refreshBranchs();
+        refreshCategorys();
 
-        function refreshBranchs() {
-           blockUI.start("Loading..."); 
+        function refreshCategorys() {
+            blockUI.start("Loading...");
 
-                        var k = BranchResource.getAllBranchs().$promise.then(function (results) {
-                $scope.BranchList = results;
+            var k = CategoryResource.getAllCategorys().$promise.then(function (results) {
+                $scope.CategoryList = results;
+
+                console.log($scope.CategoryList);
                 blockUI.stop();
 
-                            },
-            function (data, status) {
-                blockUI.stop();
+            },
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+        function change(category, isDeleted) {
+            debugger;
+            var updateObj = new CategoryResource();
+            updateObj.CategoryId = category.categoryId;
+            if (!isDeleted)
+                updateObj.isActive = (category.isActive == true ? false : true);
+            updateObj.isDeleted = category.isDeleted;
 
-                                ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+            updateObj.$update().then(
+                function (data, status) {
+                    if (isDeleted)
+                        refreshCategorys();
+
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    category.isActive = updateObj.isActive;
+
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+
+        }
+        vm.UpdateCategory = function (category) {
+            change(category, false);
+        }
+
+        function confirmationDelete(model) {
+            model.isDeleted = true;
+            change(model, true);
+
+        }
+        vm.openDeleteDialog = function (model, name, id) {
+            var modalContent = $uibModal.open({
+                templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
+                controller: 'confirmDeleteDialogController',
+                controllerAs: 'deleteDlCtrl',
+                resolve: {
+                    model: function () { return model },
+                    itemName: function () { return name },
+                    itemId: function () { return id },
+                    message: function () { return null },
+                    callBackFunction: function () { return confirmationDelete }
+                }
+
             });
         }
+
 
     }
 
@@ -1828,14 +1836,15 @@
 (function () {
     angular
       .module('home')
-        .factory('BranchResource', ['$resource', 'appCONSTANTS', BranchResource]) 
+        .factory('CategoryResource', ['$resource', 'appCONSTANTS', CategoryResource]) 
 
-    function BranchResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'Branchs/', {}, {
-            getAllBranchs: { method: 'GET', url: appCONSTANTS.API_URL + 'Branchs/GetAllBranchs', useToken: true,  params: { lang: '@lang' } },
+    function CategoryResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Category/', {}, {
+            getAllCategorys: { method: 'GET', url: appCONSTANTS.API_URL + 'Category/GetAllCategories', useToken: true, params: { lang: '@lang' } },
+            getAllCategories: { method: 'GET', url: appCONSTANTS.API_URL + 'Category/GetAllCategs', useToken: true, params: { lang: '@lang' } , isArray:true},
             create: { method: 'POST', useToken: true },
-            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Branchs/EditBranch', useToken: true },
-            getBranch: { method: 'GET', url: appCONSTANTS.API_URL + 'Branchs/GetBranchById/:BranchId', useToken: true }
+            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Category/EditCategory', useToken: true },
+            getCategory: { method: 'GET', url: appCONSTANTS.API_URL + 'Category/GetCategoryById/:CategoryId', useToken: true }
         })
     } 
 
@@ -1843,34 +1852,28 @@
 (function () {
     'use strict';
 
-	    angular
+    angular
         .module('home')
-        .controller('createBranchDialogController', ['$scope', '$http', '$state', 'appCONSTANTS', '$translate',
-            'BranchResource', 'ToastService', '$stateParams', 'AreaByIdPrepService','CityByIdPrepService', 'RegionByIdPrepService', createBranchDialogController])
+        .controller('createCategoryDialogController', ['$scope', '$http', '$state', 'appCONSTANTS', '$translate',
+            'CategoryResource',  'ToastService', '$rootScope',   createCategoryDialogController])
 
-    function createBranchDialogController($scope, $http, $state, appCONSTANTS, $translate, BranchResource,
-        ToastService, $stateParams, AreaByIdPrepService,CityByIdPrepService, RegionByIdPrepService) {
-		var vm = this;
-		vm.Area = AreaByIdPrepService;
-        vm.language = appCONSTANTS.supportedLanguage;
-        $scope.countryName = RegionByIdPrepService.countryNameDictionary[$scope.selectedLanguage];
-        $scope.regionName = RegionByIdPrepService.titleDictionary[$scope.selectedLanguage];
-        $scope.cityName = CityByIdPrepService.titleDictionary[$scope.selectedLanguage];
-        $scope.areaName = AreaByIdPrepService.titleDictionary[$scope.selectedLanguage];
-		vm.close = function(){
-		    $state.go('Area',{ countryId: $stateParams.countryId, regionId: $stateParams.regionId, cityId: $stateParams.cityId });
-		} 
+    function createCategoryDialogController($scope, $http, $state, appCONSTANTS, $translate, CategoryResource, 
+        ToastService, $rootScope ) {
+        var vm = this; 
+        vm.language = appCONSTANTS.supportedLanguage; 
+        vm.close = function () {
+            $state.go('Category');
+        }
 
-		 		vm.AddNewBranch = function () {
-            var newObj = new BranchResource();
-		    newObj.AreaId = vm.Area.areaId;
+        vm.AddNewCategory = function () {
+            var newObj = new CategoryResource(); 
             newObj.titleDictionary = vm.titleDictionary;
             newObj.IsDeleted = false; 
-            newObj.IsStatic =false;
-            newObj.$create().then(
+
+                       newObj.$create().then(
                 function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success"); 
-                    $state.go('Area',{ countryId: $stateParams.countryId, regionId: $stateParams.regionId, cityId: $stateParams.cityId },{ reload: true });
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+                    $state.go('Category');
 
                 },
                 function (data, status) {
@@ -1879,41 +1882,38 @@
             );
         }
 
-  	}	
+    }
 }());
 (function () {
     'use strict';
 
     angular
         .module('home')
-        .controller('editBranchDialogController', ['$scope', '$http', '$state', 'appCONSTANTS', '$translate', 'BranchResource', 'ToastService',
-            'BranchByIdPrepService','$stateParams','AreaByIdPrepService','CityByIdPrepService', 'RegionByIdPrepService', editBranchDialogController])
+        .controller('editCategoryDialogController', ['$scope', '$filter', '$http', '$state', 'appCONSTANTS', '$translate',
+            'CategoryResource', 'ToastService', 'CategoryByIdPrepService', editCategoryDialogController])
 
-    function editBranchDialogController($scope, $http, $state, appCONSTANTS, $translate, BranchResource, ToastService,
-         BranchByIdPrepService,$stateParams,AreaByIdPrepService,CityByIdPrepService, RegionByIdPrepService) {
+    function editCategoryDialogController($scope, $filter, $http, $state, appCONSTANTS, $translate, CategoryResource,
+        ToastService, CategoryByIdPrepService) {
         var vm = this;
         vm.language = appCONSTANTS.supportedLanguage;
-        vm.Branch = BranchByIdPrepService;
+        vm.Category = CategoryByIdPrepService;
+        console.log(vm.Category);
 
-                $scope.countryName = RegionByIdPrepService.countryNameDictionary[$scope.selectedLanguage];
-        $scope.regionName = RegionByIdPrepService.titleDictionary[$scope.selectedLanguage];
-        $scope.cityName = CityByIdPrepService.titleDictionary[$scope.selectedLanguage];
-        $scope.areaName = AreaByIdPrepService.titleDictionary[$scope.selectedLanguage];
 
-                    vm.close = function () {
-            $state.go('Area', { countryId: $stateParams.countryId, regionId: $stateParams.regionId, cityId: $stateParams.cityId });
+        vm.Close = function () {
+            $state.go('Category');
         }
-        vm.UpdateBranch = function () {
-            var updateObj = new BranchResource();
-            updateObj.BranchId = vm.Branch.branchId;
-            updateObj.titleDictionary = vm.Branch.titleDictionary;
-            updateObj.IsDeleted = false;
-            updateObj.IsStatic = false;
+        vm.UpdateCategory = function () {
+            var updateObj = new CategoryResource();
+            updateObj.CategoryId = vm.Category.categoryId;
+            updateObj.titleDictionary = vm.Category.titleDictionary; 
+            updateObj.IsDeleted = vm.Category.IsDeleted;
+            updateObj.isActive = vm.Category.isActive;
             updateObj.$update().then(
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
 
-                    $state.go('Area', { countryId: $stateParams.countryId, regionId: $stateParams.regionId, cityId: $stateParams.cityId },{ reload: true });
+                    $state.go('Category');
 
                 },
                 function (data, status) {
@@ -3230,6 +3230,18 @@
                     data.push(tag);
                 }
             });
+
+            $(".select-tags").select2({
+                tags: false,
+                theme: "bootstrap",
+            })
+        }
+
+        vm.DaysNotValid = false;
+        vm.ValidateExcludes = function(){
+            if(vm.SelectedDays.length == 7){
+                vm.DaysNotValid = true;
+            }
         }
 
         vm.AddNewProgram = function () {
@@ -3427,6 +3439,246 @@
      }
 
 })();
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('createRoleDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
+            'RoleResource','PermissionResource', 'ToastService', '$rootScope', createRoleDialogController])
+
+    function createRoleDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, RoleResource,PermissionResource,
+        ToastService, $rootScope) {
+        var vm = this;
+        vm.language = appCONSTANTS.supportedLanguage; 
+        $scope.permissionList = [];
+        BindPermissison();
+
+        vm.close = function () {
+            $state.go('Role');
+        }
+
+        vm.AddNewType = function () {
+            blockUI.start("Loading..."); 
+
+                        var newObj = new RoleResource();
+            newObj.titleDictionary = vm.titleDictionary;
+            newObj.Permissions = vm.selectedPermissions;
+            newObj.IsDeleted = false;
+            newObj.IsStatic = false;
+            newObj.$create().then(
+                function (data, status) {
+                     blockUI.stop();
+
+                                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('productAddSuccess'), "success");
+                    $state.go('Role');
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+
+                                        ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        function BindPermissison() {
+            blockUI.start("Loading..."); 
+
+                        var k = PermissionResource.getAllPermissions({ pageSize: 20 }).$promise.then(function (results) {
+                    vm.getPageData = results;
+                    $scope.permissionList = vm.getPageData.results;
+                blockUI.stop();
+
+                                    },
+                function (data, status) {
+                blockUI.stop();
+
+                                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+    }
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('editRoleDialogController', ['$scope', 'blockUI', '$http', '$filter','$state', 'appCONSTANTS', '$translate', 'RoleResource', 'PermissionResource','PermissionPrepService', 'ToastService',
+            'RoleByIdPrepService', editRoleDialogController])
+
+    function editRoleDialogController($scope, blockUI, $http,$filter, $state, appCONSTANTS, $translate, RoleResource, PermissionResource,PermissionPrepService, ToastService, RoleByIdPrepService) {
+        var vm = this;
+        vm.language = appCONSTANTS.supportedLanguage;
+        vm.permissionList = PermissionPrepService.results;
+        vm.Role = RoleByIdPrepService;
+        console.log(vm.Role); 
+        vm.selectedPermissions = [];
+        vm.Close = function () {
+            $state.go('Role');
+        }
+        var i;
+        for (i = 0; i < vm.Role.permissions.length; i++) {
+            var indexRate = vm.permissionList.indexOf($filter('filter')(vm.permissionList, { 'permissionId': vm.Role.permissions[i].permissionId }, true)[0]);
+            vm.selectedPermissions.push(vm.permissionList[indexRate]);
+
+        }
+
+
+
+
+               vm.UpdateType = function () {
+            blockUI.start("Loading..."); 
+            console.log(vm.Role);
+            var updateObj = new RoleResource();
+            updateObj.RoleId = vm.Role.roleId;
+            updateObj.Permissions = vm.selectedPermissions;
+            updateObj.titleDictionary = vm.Role.titleDictionary;
+            updateObj.isDeleted = vm.Role.IsDeleted;
+            updateObj.isActive = vm.Role.isActive;
+            updateObj.$update().then(
+                function (data, status) {
+                blockUI.stop();
+
+                                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+
+                    $state.go('Role');
+
+                },
+                function (data, status) {
+                blockUI.stop();
+
+                                        ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+
+           }
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('RoleController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate',
+            '$state', 'RoleResource', 'RolePrepService', '$localStorage',
+            'authorizationService', 'appCONSTANTS',
+            'ToastService', '$uibModal', RoleController]);
+
+
+    function RoleController($rootScope, blockUI, $scope, $filter, $translate,
+        $state, RoleResource, RolePrepService, $localStorage, authorizationService,
+        appCONSTANTS, ToastService, $uibModal) {
+
+        $('.pmd-sidebar-nav>li>a').removeClass("active")
+        $($('.pmd-sidebar-nav').children()[1].children[0]).addClass("active")
+
+        blockUI.start("Loading...");
+
+        var vm = this;
+
+        $scope.totalCount = RolePrepService.totalCount;
+        $scope.RoleList = RolePrepService;
+        function refreshRoles() {
+            blockUI.start("Loading...");
+
+            var k = RoleResource.getAllRoles({ page: vm.currentPage }).$promise.then(function (results) {
+                $scope.RoleList = results;
+                blockUI.stop();
+
+            },
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+
+
+        function change(role, isDeleted) {
+            var updateObj = new RoleResource();
+            updateObj.RoleId = role.roleId;
+            if (!isDeleted)
+                updateObj.isActive = (role.isActive == true ? false : true);
+            updateObj.isDeleted = role.isDeleted;
+
+            updateObj.$update().then(
+                function (data, status) {
+            debugger;
+
+            if (isDeleted)
+                        refreshRoles();
+
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    role.isActive = updateObj.isActive;
+
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+
+        }
+        vm.UpdateRole = function (role) {
+            change(role, false);
+        }
+
+        function confirmationDelete(model) {
+            model.isDeleted = true;
+            change(model, true);
+
+        }
+        vm.openDeleteDialog = function (model, name, id) {
+            debugger;
+            var modalContent = $uibModal.open({
+                templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
+                controller: 'confirmDeleteDialogController',
+                controllerAs: 'deleteDlCtrl',
+                resolve: {
+                    model: function () { return model },
+                    itemName: function () { return name },
+                    itemId: function () { return id },
+                    message: function () { return null },
+                    callBackFunction: function () { return confirmationDelete }
+                }
+
+            });
+        }
+
+
+        vm.currentPage = 1;
+        $scope.changePage = function (page) {
+            vm.currentPage = page;
+            refreshRoles();
+        }
+        blockUI.stop();
+
+    }
+
+})();(function () {
+    angular
+      .module('home')
+        .factory('RoleResource', ['$resource', 'appCONSTANTS', RoleResource])
+        .factory('PermissionResource', ['$resource', 'appCONSTANTS', PermissionResource])
+
+    function RoleResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Roles/', {}, {
+            getAllRoles: { method: 'GET', url: appCONSTANTS.API_URL + 'Roles/GetAllRoles', useToken: true, params: { lang: '@lang' } },
+            create: { method: 'POST', useToken: true },
+            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Roles/EditRole', useToken: true },
+            getRole: { method: 'GET', url: appCONSTANTS.API_URL + 'Roles/GetRoleById/:RoleId', useToken: true }  
+
+        })
+    }
+    function PermissionResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Permissions/', {}, {
+            getAllPermissions: { method: 'GET', url: appCONSTANTS.API_URL + 'Permissions/GetAllPermissions', useToken: true, params: { lang: '@lang' } },
+            create: { method: 'POST', useToken: true },
+            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Permissions/EditRole', useToken: true },
+            getRole: { method: 'GET', url: appCONSTANTS.API_URL + 'Permissions/GetRoleById/:RoleId', useToken: true }
+
+        })
+    }
+}());
 (function () {
     'use strict';
 
@@ -3675,246 +3927,6 @@
 
     angular
         .module('home')
-        .controller('createRoleDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
-            'RoleResource','PermissionResource', 'ToastService', '$rootScope', createRoleDialogController])
-
-    function createRoleDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, RoleResource,PermissionResource,
-        ToastService, $rootScope) {
-        var vm = this;
-        vm.language = appCONSTANTS.supportedLanguage; 
-        $scope.permissionList = [];
-        BindPermissison();
-
-        vm.close = function () {
-            $state.go('Role');
-        }
-
-        vm.AddNewType = function () {
-            blockUI.start("Loading..."); 
-
-                        var newObj = new RoleResource();
-            newObj.titleDictionary = vm.titleDictionary;
-            newObj.Permissions = vm.selectedPermissions;
-            newObj.IsDeleted = false;
-            newObj.IsStatic = false;
-            newObj.$create().then(
-                function (data, status) {
-                     blockUI.stop();
-
-                                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('productAddSuccess'), "success");
-                    $state.go('Role');
-
-                },
-                function (data, status) {
-                    blockUI.stop();
-
-                                        ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-        function BindPermissison() {
-            blockUI.start("Loading..."); 
-
-                        var k = PermissionResource.getAllPermissions({ pageSize: 20 }).$promise.then(function (results) {
-                    vm.getPageData = results;
-                    $scope.permissionList = vm.getPageData.results;
-                blockUI.stop();
-
-                                    },
-                function (data, status) {
-                blockUI.stop();
-
-                                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
-        }
-    }
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('editRoleDialogController', ['$scope', 'blockUI', '$http', '$filter','$state', 'appCONSTANTS', '$translate', 'RoleResource', 'PermissionResource','PermissionPrepService', 'ToastService',
-            'RoleByIdPrepService', editRoleDialogController])
-
-    function editRoleDialogController($scope, blockUI, $http,$filter, $state, appCONSTANTS, $translate, RoleResource, PermissionResource,PermissionPrepService, ToastService, RoleByIdPrepService) {
-        var vm = this;
-        vm.language = appCONSTANTS.supportedLanguage;
-        vm.permissionList = PermissionPrepService.results;
-        vm.Role = RoleByIdPrepService;
-        console.log(vm.Role); 
-        vm.selectedPermissions = [];
-        vm.Close = function () {
-            $state.go('Role');
-        }
-        var i;
-        for (i = 0; i < vm.Role.permissions.length; i++) {
-            var indexRate = vm.permissionList.indexOf($filter('filter')(vm.permissionList, { 'permissionId': vm.Role.permissions[i].permissionId }, true)[0]);
-            vm.selectedPermissions.push(vm.permissionList[indexRate]);
-
-        }
-
-
-
-
-               vm.UpdateType = function () {
-            blockUI.start("Loading..."); 
-            console.log(vm.Role);
-            var updateObj = new RoleResource();
-            updateObj.RoleId = vm.Role.roleId;
-            updateObj.Permissions = vm.selectedPermissions;
-            updateObj.titleDictionary = vm.Role.titleDictionary;
-            updateObj.isDeleted = vm.Role.IsDeleted;
-            updateObj.isActive = vm.Role.isActive;
-            updateObj.$update().then(
-                function (data, status) {
-                blockUI.stop();
-
-                                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-
-                    $state.go('Role');
-
-                },
-                function (data, status) {
-                blockUI.stop();
-
-                                        ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-
-           }
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('RoleController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate',
-            '$state', 'RoleResource', 'RolePrepService', '$localStorage',
-            'authorizationService', 'appCONSTANTS',
-            'ToastService', '$uibModal', RoleController]);
-
-
-    function RoleController($rootScope, blockUI, $scope, $filter, $translate,
-        $state, RoleResource, RolePrepService, $localStorage, authorizationService,
-        appCONSTANTS, ToastService, $uibModal) {
-
-        $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[1].children[0]).addClass("active")
-
-        blockUI.start("Loading...");
-
-        var vm = this;
-
-        $scope.totalCount = RolePrepService.totalCount;
-        $scope.RoleList = RolePrepService;
-        function refreshRoles() {
-            blockUI.start("Loading...");
-
-            var k = RoleResource.getAllRoles({ page: vm.currentPage }).$promise.then(function (results) {
-                $scope.RoleList = results;
-                blockUI.stop();
-
-            },
-                function (data, status) {
-                    blockUI.stop();
-
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
-        }
-
-
-        function change(role, isDeleted) {
-            var updateObj = new RoleResource();
-            updateObj.RoleId = role.roleId;
-            if (!isDeleted)
-                updateObj.isActive = (role.isActive == true ? false : true);
-            updateObj.isDeleted = role.isDeleted;
-
-            updateObj.$update().then(
-                function (data, status) {
-            debugger;
-
-            if (isDeleted)
-                        refreshRoles();
-
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    role.isActive = updateObj.isActive;
-
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-
-        }
-        vm.UpdateRole = function (role) {
-            change(role, false);
-        }
-
-        function confirmationDelete(model) {
-            model.isDeleted = true;
-            change(model, true);
-
-        }
-        vm.openDeleteDialog = function (model, name, id) {
-            debugger;
-            var modalContent = $uibModal.open({
-                templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
-                controller: 'confirmDeleteDialogController',
-                controllerAs: 'deleteDlCtrl',
-                resolve: {
-                    model: function () { return model },
-                    itemName: function () { return name },
-                    itemId: function () { return id },
-                    message: function () { return null },
-                    callBackFunction: function () { return confirmationDelete }
-                }
-
-            });
-        }
-
-
-        vm.currentPage = 1;
-        $scope.changePage = function (page) {
-            vm.currentPage = page;
-            refreshRoles();
-        }
-        blockUI.stop();
-
-    }
-
-})();(function () {
-    angular
-      .module('home')
-        .factory('RoleResource', ['$resource', 'appCONSTANTS', RoleResource])
-        .factory('PermissionResource', ['$resource', 'appCONSTANTS', PermissionResource])
-
-    function RoleResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'Roles/', {}, {
-            getAllRoles: { method: 'GET', url: appCONSTANTS.API_URL + 'Roles/GetAllRoles', useToken: true, params: { lang: '@lang' } },
-            create: { method: 'POST', useToken: true },
-            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Roles/EditRole', useToken: true },
-            getRole: { method: 'GET', url: appCONSTANTS.API_URL + 'Roles/GetRoleById/:RoleId', useToken: true }  
-
-        })
-    }
-    function PermissionResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'Permissions/', {}, {
-            getAllPermissions: { method: 'GET', url: appCONSTANTS.API_URL + 'Permissions/GetAllPermissions', useToken: true, params: { lang: '@lang' } },
-            create: { method: 'POST', useToken: true },
-            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Permissions/EditRole', useToken: true },
-            getRole: { method: 'GET', url: appCONSTANTS.API_URL + 'Permissions/GetRoleById/:RoleId', useToken: true }
-
-        })
-    }
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
         .controller('callCenterController', ['$scope', 'blockUI', '$filter', '$translate',
             '$state', '$localStorage', 'authorizationService', 'appCONSTANTS', 'ToastService', '$stateParams'
             , 'CountriesPrepService', 'UserResource', 'CityResource', 'AreaResource', 'RegionResource'
@@ -4118,7 +4130,8 @@
             newClient.description = vm.AddressDescription;
             newClient.isAddress = true;
             newClient.code = 100;
-            newClient.branchId = vm.selectedBranchId;
+            newClient.branchId = vm.branchList[0].branchId;
+            vm.branchList
             newClient.$create().then(
                 function (data, status) {
                     blockUI.stop();
@@ -4836,12 +4849,16 @@
             }
         }
 
+        vm.TotalPrice = 0;
         $scope.getData = function (itemModel) {
             vm.itemList = [];
             itemModel.forEach(element => {
                 vm.itemList.push(element);
+                vm.TotalPrice += element.totalPrice;
             });
-        }
+
+
+                    }
 
         vm.mealSearch = function () {
             var k = OrderResource.getMealItems({mealId:vm.meal.mealId}).$promise.then(function (results) {
@@ -5034,9 +5051,11 @@
             }
         }
 
+        vm.TotalPrice = 0;
         $scope.getData = function (itemModel) {
             vm.itemList = [];
             vm.itemList.push(itemModel);
+            vm.TotalPrice += itemModel.price;
         }
 
         vm.orderType = {
@@ -5059,8 +5078,10 @@
                 });
         }
 
+        vm.addressValidation = false;
         vm.addressInfo = function (address) {
            vm.addressDetails = address;
+           vm.addressValidation = true;
         }
 
         vm.programSearch = function () {
@@ -5088,7 +5109,9 @@
             }
         }
 
-        vm.Order = function () {
+
+
+                vm.Order = function () {
             blockUI.start("Loading...");
 
             var order = new OrderResource();

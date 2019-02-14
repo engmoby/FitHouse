@@ -142,9 +142,11 @@
             }
         }
 
+        vm.TotalPrice = 0;
         $scope.getData = function (itemModel) {
             vm.itemList = [];
             vm.itemList.push(itemModel);
+            vm.TotalPrice += itemModel.price;
             // itemModel.forEach(element => {
             //     vm.itemList.push(element);
             // });
@@ -170,8 +172,10 @@
                 });
         }
 
+        vm.addressValidation = false;
         vm.addressInfo = function (address) {
            vm.addressDetails = address;
+           vm.addressValidation = true;
         }
 
         vm.programSearch = function () {
@@ -198,6 +202,8 @@
                 $scope.$apply();
             }
         }
+
+        
 
         vm.Order = function () {
             blockUI.start("Loading...");

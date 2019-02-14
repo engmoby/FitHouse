@@ -139,11 +139,15 @@
             }
         }
 
+        vm.TotalPrice = 0;
         $scope.getData = function (itemModel) {
             vm.itemList = [];
             itemModel.forEach(element => {
                 vm.itemList.push(element);
+                vm.TotalPrice += element.totalPrice;
             });
+
+            
         }
 
         vm.mealSearch = function () {

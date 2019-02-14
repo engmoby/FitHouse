@@ -62,7 +62,7 @@
 		.module('core')
 		.constant('appCONSTANTS', {
 			'API_URL': 'http://localhost:32569/api/',
-			//  'API_URL': 'http://fithouse.azurewebsites.net/api/',
+			// 'API_URL': 'http://fithouse.azurewebsites.net/api/',
 			'defaultLanguage': 'en',
 			'supportedLanguage': {
 				'en': { 'key': 'en', 'value': 'english' },
@@ -547,12 +547,15 @@ angular.module('core')
         "DeliveryPrice": "Delivery Price",
         "PriceBeforeDiscount": "Price Before Discount",
         "PriceAfterDiscount": "Price After Discount",
+        "mealDiscount":"Meal Discount",
       }
 
       var ar_translations = {
         "DeliveryPrice": "سعر  التوصيل",
         "PriceBeforeDiscount": "سعر قبل الخصم",
         "PriceAfterDiscount": "سعر بعد الخصم",
+        "mealDiscount":"Meal Discount",
+        "vat":"vat",
         "Kitchen":"مطبخ",
         "calories":"سعرات حراريه",
         "carbs":"الكربوهيدرات",

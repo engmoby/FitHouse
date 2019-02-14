@@ -21,9 +21,11 @@
     });
 
     $(function () {
+        var today = new Date();
+        
         $('#startdate').datetimepicker(
             {
-                minDate: new Date()
+                minDate: today.setHours(today.getHours()+1)
             }
         ).on('dp.change', function (e) {
             debugger;
@@ -52,6 +54,8 @@
                 <th>{{'Calories' | translate}}</th>
                 <th>{{'Protein' | translate}}</th>
                 <th>{{'Carbs' | translate}}</th>
+                <th>{{'Fats' | translate}}</th>
+                <th>{{'Size' | translate}}</th>
             </tr>
         </thead>
         <tbody>
@@ -61,12 +65,15 @@
                 <td data-title="Name">{{item.calories}}</td>
                 <td data-title="Name">{{item.protein}}</td>
                 <td data-title="Name">{{item.carbs}}</td>
+                <td data-title="Name">{{item.fat}}</td>
+                <td data-title="Name">{{item.itemSize}}</td>
 
             </tr>
         </tbody>
     </table>
 
-    <hr> {{'OrderMeal' | translate}}
+    <hr> 
+    {{'OrderMeal' | translate}}
 
     <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
         <label for="first-name">{{'SelectMeals' | translate}}</label>
@@ -74,6 +81,11 @@
             ng-change="getData(itemModel)" ng-options="item as item.mealNameDictionary[selectedLanguage]   
             for item  in mealsPrepService.results">
         </select>
+    </div>
+
+    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+        <label for="first-name">{{'TotalPrice' | translate}}</label>
+        <input disabled type="number" class="mat-input form-control" name="priceAfterDiscount" ng-model="orderMealsCtrl.TotalPrice">
     </div>
 
     <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">

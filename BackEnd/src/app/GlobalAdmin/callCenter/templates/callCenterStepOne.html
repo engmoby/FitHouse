@@ -22,7 +22,7 @@
 </script>
    
 
-   
+
 <form class="form-horizontal" name="newCallCenterForm">
     <div class="form-group pmd-textfield pmd-textfield-floating-label">
         <label for="first-name">{{'FirstNameLbl' | translate}}</label>
@@ -121,12 +121,11 @@
             ng-change="callCenterCtrl.areaChange()" ng-model="callCenterCtrl.selectedAreaId" ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in callCenterCtrl.area">
         </select>
     </div>
-    <div ng-show=" callCenterCtrl.selectedAreaId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+    <!-- <div ng-show=" callCenterCtrl.selectedAreaId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
         <label for="first-name">{{'Branch' | translate}}</label>
         <select ng-required=" callCenterCtrl.selectedAreaId > 0 " class="form-control select-with-search pmd-select2-tags" ng-change="callCenterCtrl.branchChange()"
             ng-model="callCenterCtrl.selectedBranchId" ng-options="a.branchId as a.titleDictionary[selectedLanguage] for a in callCenterCtrl.branchList"></select>
-    </div>
-
+    </div> -->
 
     <!-- <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
         <label> {{ 'Role' | translate}} </label>
@@ -137,7 +136,7 @@
 </form>
 
 <div class="pmd-modal-action text-right">
-    <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="newCallCenterForm.$invalid  || (callCenterCtrl.selectedAreaId <= 0 || callCenterCtrl.selectedBranchId <= 0)"
+    <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="newCallCenterForm.$invalid  || callCenterCtrl.selectedAreaId <= 0"
         class="btn pmd-ripple-effect btn-primary" type="button" ng-click="callCenterCtrl.AddNewclient()">{{'saveUser' | translate}}</button>
     <!-- <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="callCenterCtrl.close()">{{'DiscardBtn' | translate}}</button> -->
 </div>

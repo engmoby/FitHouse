@@ -78,7 +78,7 @@
                                 <div ng-show="showDetails">
                                     <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                                         <label for="first-name">{{'SelectItems' | translate}}</label>
-                                        <select required name="ddl{{counterDay}}{{counterMeal}}" style="width:100% !important" class="form-control select-add-tags pmd-select2-tags"
+                                        <select required name="ddl{{counterDay}}{{counterMeal}}" style="width:100% !important" class="select-tags form-control pmd-select2-tags"
                                             multiple ng-model="itemModel" ng-change="getData(itemModel,counterDay,counterMeal)"
                                             ng-options="item as item.itemNameDictionary[selectedLanguage] 
                                         group by item.category.titleDictionary[selectedLanguage]

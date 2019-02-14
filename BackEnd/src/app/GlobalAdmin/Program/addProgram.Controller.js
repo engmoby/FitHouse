@@ -138,6 +138,18 @@
                     data.push(tag);
                 }
             });
+
+            $(".select-tags").select2({
+                tags: false,
+                theme: "bootstrap",
+            })
+        }
+
+        vm.DaysNotValid = false;
+        vm.ValidateExcludes = function(){
+            if(vm.SelectedDays.length == 7){
+                vm.DaysNotValid = true;
+            }
         }
 
         vm.AddNewProgram = function () {
