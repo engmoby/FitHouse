@@ -20,8 +20,8 @@ namespace FitHouse.BLL.DataServices
         public PagedResultsDto GetAllPrograms(int page, int pageSize)
         {
             PagedResultsDto results = new PagedResultsDto();
-            results.TotalCount = _repository.Queryable().Count(x => !x.IsDeleted);
-            results.Data = Mapper.Map<List<Program>, List<ProgramDto>>(_repository.Query(x => !x.IsDeleted).Select().OrderBy(x => x.ProgramId).Skip((page - 1) * pageSize)
+            results.TotalCount = _repository.Queryable().Count(x => !x.IsDeleted && !x.IsForClient);
+            results.Data = Mapper.Map<List<Program>, List<ProgramDto>>(_repository.Query(x => !x.IsDeleted && !x.IsForClient).Select().OrderBy(x => x.ProgramId).Skip((page - 1) * pageSize)
                 .Take(pageSize).ToList());
             return results;
         }

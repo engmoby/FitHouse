@@ -52,16 +52,18 @@
         }
 
         $scope.discountChange = function () {
-            vm.ProgramPrice = 0;
-            vm.ProgramCost = 0;
-            vm.ProgramVAT = 0;
-            vm.ProgramTotalPrice = 0;
-            for (var i = 0; i < vm.itemList.length; i++) {
-                vm.ProgramPrice = vm.ProgramPrice + vm.itemList[i].price;
-                vm.ProgramCost = vm.ProgramCost + vm.itemList[i].cost;
-                vm.ProgramVAT = vm.ProgramVAT + vm.itemList[i].vat;
-                vm.ProgramTotalPrice = (vm.ProgramPrice + vm.ProgramVAT) - vm.ProgramDiscount;
-            }
+            // vm.ProgramPrice = 0;
+            // vm.ProgramCost = 0;
+            // vm.ProgramVAT = 0;
+            // vm.ProgramTotalPrice = 0;
+            // for (var i = 0; i < vm.itemList.length; i++) {
+            //     vm.ProgramPrice = vm.ProgramPrice + vm.itemList[i].price;
+            //     vm.ProgramCost = vm.ProgramCost + vm.itemList[i].cost;
+            //     vm.ProgramVAT = vm.ProgramVAT + vm.itemList[i].vat;
+            //     vm.ProgramTotalPrice = (vm.ProgramPrice + vm.ProgramVAT) - vm.ProgramDiscount;
+            // }
+            vm.ProgramTotalPrice = vm.totalPrice - (vm.totalPrice * (vm.ProgramDiscount/100));
+            vm.ProgramTotalPriceBefore = vm.totalPrice;
         }
 
         $scope.getData = function (itemModel, day, meal) {
@@ -87,13 +89,18 @@
             vm.ProgramCost = 0;
             vm.ProgramVAT = 0;
             vm.ProgramTotalPrice = 0;
+            vm.ProgramTotalPriceBefore = 0;
+            vm.totalPrice = 0;
             for (var i = 0; i < vm.itemList.length; i++) {
                 vm.ProgramPrice = vm.ProgramPrice + vm.itemList[i].price;
                 vm.ProgramCost = vm.ProgramCost + vm.itemList[i].cost;
                 vm.ProgramVAT = vm.ProgramVAT + vm.itemList[i].vat;
-                vm.ProgramTotalPrice += vm.itemList[i].totalPrice;
+                vm.totalPrice += vm.itemList[i].totalPrice;
             }
+            vm.ProgramTotalPrice = vm.totalPrice - (vm.totalPrice * (vm.ProgramDiscount/100));
+            vm.ProgramTotalPriceBefore = vm.totalPrice;
         }
+       
 
         //Model
         vm.currentStep = 1;
@@ -146,8 +153,8 @@
         }
 
         vm.DaysNotValid = false;
-        vm.ValidateExcludes = function(){
-            if(vm.SelectedDays.length == 7){
+        vm.ValidateExcludes = function () {
+            if (vm.SelectedDays.length == 7) {
                 vm.DaysNotValid = true;
             }
         }

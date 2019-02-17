@@ -33,37 +33,44 @@
                 </ul>
                 <div class="pmd-card">
                     <div class="pmd-card-body">
-                        <div class="tab-content">
-                            <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}" ng-repeat="lang in addProgramCtrl.language" id="{{lang.value}}-form">
-                                <div class="form-group pmd-textfield pmd-textfield-floating-label">
-                                    <label for="first-name"> {{ lang.value+'ProgramName' | translate}} </label>
-                                    <input required Category="text" class="mat-input form-control" name="titleDictionary{{lang.value+'Name'}}" ng-model="addProgramCtrl.titleDictionary[lang.key]"
-                                        ng-minlength="2" ng-maxlength="255">
-                                    <div ng-messages="newProgramFormStepOne.titleDictionary{{lang.value+'Name'}}.$error">
-                                        <div ng-show="newProgramFormStepOne.titleDictionary{{lang.value+'Name'}}.$error.required && !newProgramFormStepOne.titleDictionary{{lang.value+'Name'}}.$pristine">{{'requiredErr' | translate}}</div>
-                                        <div ng-show="(newProgramFormStepOne.titleDictionary{{lang.value+'Name'}}.$error.minlength || newProgramFormStepOne.titleDictionary{{lang.value+'Name'}}.$error.maxlength) && !newProgramFormStepOne.titleDictionary{{lang.value+'Name'}}.$error.required">{{'NameLengthError255' | translate}}</div>
-                                    </div>
-                                </div>
+                        <div class="row">
+                            <div class="col-md-12">
+                                <div class="tab-content">
 
-                                <div class="form-group pmd-textfield pmd-textfield-floating-label">
-                                    <label for="first-name"> {{ lang.value+'ProgramDescription' | translate}} </label>
-                                    <input required Category="text" class="mat-input form-control" name="descriptionDictionary{{lang.value+'Name'}}" ng-model="addProgramCtrl.descriptionDictionary[lang.key]"
-                                        ng-minlength="2" ng-maxlength="255">
-                                    <div ng-messages="newProgramFormStepOne.descriptionDictionary{{lang.value+'Name'}}.$error">
-                                        <div ng-show="newProgramFormStepOne.descriptionDictionary{{lang.value+'Name'}}.$error.required && !newProgramFormStepOne.descriptionDictionary{{lang.value+'Name'}}.$pristine">{{'requiredErr' | translate}}</div>
-                                        <div ng-show="(newProgramFormStepOne.descriptionDictionary{{lang.value+'Name'}}.$error.minlength || newProgramFormStepOne.descriptionDictionary{{lang.value+'Name'}}.$error.maxlength) && !newProgramFormStepOne.descriptionDictionary{{lang.value+'Name'}}.$error.required">{{'NameLengthError255' | translate}}</div>
+                                    <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}" ng-repeat="lang in addProgramCtrl.language" id="{{lang.value}}-form">
+                                        <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                                            <label for="first-name"> {{ lang.value+'ProgramName' | translate}} </label>
+                                            <input required Category="text" class="mat-input form-control" name="titleDictionary{{lang.value+'Name'}}" ng-model="addProgramCtrl.titleDictionary[lang.key]"
+                                                ng-minlength="2" ng-maxlength="255">
+                                            <div ng-messages="newProgramFormStepOne.titleDictionary{{lang.value+'Name'}}.$error">
+                                                <div ng-show="newProgramFormStepOne.titleDictionary{{lang.value+'Name'}}.$error.required && !newProgramFormStepOne.titleDictionary{{lang.value+'Name'}}.$pristine">{{'requiredErr' | translate}}</div>
+                                                <div ng-show="(newProgramFormStepOne.titleDictionary{{lang.value+'Name'}}.$error.minlength || newProgramFormStepOne.titleDictionary{{lang.value+'Name'}}.$error.maxlength) && !newProgramFormStepOne.titleDictionary{{lang.value+'Name'}}.$error.required">{{'NameLengthError255' | translate}}</div>
+                                            </div>
+                                        </div>
+
+                                        <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                                            <label for="first-name"> {{ lang.value+'ProgramDescription' | translate}} </label>
+                                            <input required Category="text" class="mat-input form-control" name="descriptionDictionary{{lang.value+'Name'}}" ng-model="addProgramCtrl.descriptionDictionary[lang.key]"
+                                                ng-minlength="2" ng-maxlength="255">
+                                            <div ng-messages="newProgramFormStepOne.descriptionDictionary{{lang.value+'Name'}}.$error">
+                                                <div ng-show="newProgramFormStepOne.descriptionDictionary{{lang.value+'Name'}}.$error.required && !newProgramFormStepOne.descriptionDictionary{{lang.value+'Name'}}.$pristine">{{'requiredErr' | translate}}</div>
+                                                <div ng-show="(newProgramFormStepOne.descriptionDictionary{{lang.value+'Name'}}.$error.minlength || newProgramFormStepOne.descriptionDictionary{{lang.value+'Name'}}.$error.maxlength) && !newProgramFormStepOne.descriptionDictionary{{lang.value+'Name'}}.$error.required">{{'NameLengthError255' | translate}}</div>
+                                            </div>
+                                        </div>
                                     </div>
+
                                 </div>
                             </div>
-
                         </div>
                     </div>
 
-                    <div class="col-md-6 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-                        <label for="first-name">{{'SelectExcludeDays' | translate}}</label>
-                        <select ng-change="addProgramCtrl.ValidateExcludes()" style="width:100% !important" class="form-control select-tags pmd-select2-tags" multiple ng-model="addProgramCtrl.SelectedDays"
-                            ng-options="day as day.dayNameDictionary[selectedLanguage] for day in addProgramCtrl.dayList">
-                        </select>
+                    <div class="row">
+                        <div class="col-md-6 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                            <label for="first-name">{{'SelectExcludeDays' | translate}}</label>
+                            <select ng-change="addProgramCtrl.ValidateExcludes()" style="width:100% !important" class="form-control select-tags pmd-select2-tags"
+                                multiple ng-model="addProgramCtrl.SelectedDays" ng-options="day as day.dayNameDictionary[selectedLanguage] for day in addProgramCtrl.dayList">
+                            </select>
+                        </div>
                     </div>
 
                     <br>
@@ -71,9 +78,14 @@
                 </div>
             </div>
 
-            <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="newProgramFormStepOne.$invalid || addProgramCtrl.DaysNotValid == true" class="btn pmd-ripple-effect btn-primary"
-                type="button" ng-click="addProgramCtrl.gotoStep(2)">
-                {{'next' | translate}}</button>
+            <div class="row">
+                <div class="col-md-10"></div>
+                <div class="col-md-2">
+                    <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="newProgramFormStepOne.$invalid || addProgramCtrl.DaysNotValid == true"
+                        class="btn pmd-ripple-effect btn-primary" type="button" ng-click="addProgramCtrl.gotoStep(2)">
+                        {{'next' | translate}}</button>
+                </div>
+            </div>
         </form>
     </div>
 </div>

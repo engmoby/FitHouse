@@ -25,7 +25,7 @@
 
         vm.counties = [];
         vm.userOrder;
-        vm.flag = false;
+        $scope.flag = false;
 
         // vm.orderType;
         vm.orderType = {
@@ -145,7 +145,7 @@
 
 
         //Model
-        vm.currentStep = 1;
+        vm.currentStep = 2;
         vm.steps = [
             {
                 step: 1,
@@ -154,6 +154,7 @@
                 template: "./app/GlobalAdmin/callCenter/templates/callCenterStepOne.html"
             },
             {
+                step: 2,
                 nameEn: "Order",
                 nameAr: "طلب",
                 template: "./app/GlobalAdmin/callCenter/templates/callCenterStepTwo.html"
@@ -166,12 +167,15 @@
             vm.currentStep = newStep;
         }
 
+        vm.Phone = localStorage.getItem('Phone');
+
         vm.ValidateUser = function () {
             blockUI.start("Loading...");
 
             var k = UserResource.validate({ phone: vm.Phone }).$promise.then(function (results) {
                 vm.userOrder = results;
-                vm.flag = true;
+                $scope.flag = true;
+                localStorage.setItem('Phone', vm.Phone);
                 ToastService.show("right", "bottom", "fadeInUp", $translate.instant('ClientFound'), "success");
                 blockUI.stop();
 
@@ -182,7 +186,11 @@
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('ClientNotFound'), "error");
                 });
         }
-
+        $scope.checkValidation = function(){
+            $scope.flag = false;
+        }
+        
+        
         vm.MakeOrder = function () {
             if (vm.orderType.type == "item") {
                 localStorage.setItem('ClientId', vm.userOrder.userId);

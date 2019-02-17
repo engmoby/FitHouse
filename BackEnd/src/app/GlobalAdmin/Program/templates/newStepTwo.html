@@ -1,12 +1,12 @@
 <!-- Inbox like Accordion -->
 <form name="stepTwoProgramForm">
     <div class="row">
-        <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+        <div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
             <label for="first-name">{{'ProgramDaysCount' | translate}}</label>
             <!-- <input required type="text" numbers-only class="mat-input form-control" name="programDaysCount" ng-model="addProgramCtrl.ProgramDaysCount"
                 ng-minlength="1" ng-maxlength="2"> -->
-            <input ng-change="addProgramCtrl.ConvertToNumber();" required type="text" class="mat-input form-control" name="programDaysCount" numbers-only ng-model="addProgramCtrl.ProgramDaysCount"
-                minlength="1" maxlength="2">
+            <input ng-change="addProgramCtrl.ConvertToNumber();" required type="text" class="mat-input form-control" name="programDaysCount"
+                numbers-only ng-model="addProgramCtrl.ProgramDaysCount" minlength="1" maxlength="2">
             <div ng-messages="stepTwoProgramForm.programDaysCount.$error">
                 <div ng-if="stepTwoProgramForm.programDaysCount.$error.required && !stepTwoProgramForm.programDaysCount.$pristine">{{'PhoneReqError' | translate}}
                 </div>
@@ -14,85 +14,72 @@
             </div>
         </div>
 
-        <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+        <div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
             <label for="first-name">{{'MealPerDay' | translate}}</label>
-            <input ng-change="addProgramCtrl.ConvertToNumber();" required type="text" numbers-only class="mat-input form-control" name="mealPerDay" ng-model="addProgramCtrl.MealPerDay"
-                minlength="1" maxlength="2">
+            <input ng-change="addProgramCtrl.ConvertToNumber();" required type="text" numbers-only class="mat-input form-control" name="mealPerDay"
+                ng-model="addProgramCtrl.MealPerDay" minlength="1" maxlength="2">
             <div ng-messages="stepTwoProgramForm.mealPerDay.$error" class="error">
                 <div ng-if="stepTwoProgramForm.mealPerDay.$error.required && !stepTwoProgramForm.mealPerDay.$pristine">{{'MealPerDayReqError' | translate}}</div>
                 <div ng-if="(stepTwoProgramForm.mealPerDay.$error.minlength || stepTwoProgramForm.mealPerDay.$error.maxlength)">{{'MealPerDayLengthError' | translate}}</div>
             </div>
         </div>
-        <!-- <div class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-            <label for="first-name">{{'ProgramDiscount' | translate}}</label>
-            <input required type="number" ng-change="discountChange();" class="mat-input form-control" name="programDiscount"
-                ng-model="addProgramCtrl.ProgramDiscount" ng-minlength="1" ng-maxlength="5">
-            <div ng-messages="stepTwoProgramForm.programDiscount.$error" class="error">
-                <div ng-if="stepTwoProgramForm.programDiscount.$error.required && !stepTwoProgramForm.programDiscount.$pristine">{{'ProgramDiscountReqError'
-                    | translate}}</div>
-                <div ng-if="(stepTwoProgramForm.programDiscount.$error.minlength || stepTwoProgramForm.programDiscount.$error.maxlength)">{{'ProgramDiscountLengthError'
-                    | translate}}</div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-9">
+            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                <label for="first-name">{{'Breakfast' | translate}}
+                    <input type="checkbox" ng-model="addProgramCtrl.IsBreakFast">
+                </label>
+                <br />
+                <label for="first-name">{{'Snack' | translate}}
+                    <input type="checkbox" ng-model="addProgramCtrl.IsSnack">
+                </label>
             </div>
         </div>
-
-        <div class="col-md-6 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-            <label for="first-name">{{'SelectExcludeDays' | translate}}</label>
-            <select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" multiple
-                ng-model="addProgramCtrl.SelectedDays" ng-options="day as day.dayNameDictionary[selectedLanguage] for day in addProgramCtrl.dayList">
-
-            </select>
-        </div> -->
-
     </div>
 
-
-    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-        <label for="first-name">{{'Breakfast' | translate}}
-            <input type="checkbox" ng-model="addProgramCtrl.IsBreakFast">
-        </label>
-        <br />
-        <label for="first-name">{{'Snack' | translate}}
-            <input type="checkbox" ng-model="addProgramCtrl.IsSnack">
-        </label>
-    </div>
-
-    <div ng-init="counterDay = 0; counterMeal = 0">
-        <div class="panel-group pmd-accordion pmd-accordion-inbox" id="accordion6" role="tablist" aria-multiselectable="true">
-            <div ng-repeat="n in [].constructor(addProgramCtrl.daysCount)  track by $index" class="panel panel-default">
-                <div class="panel-heading" role="tab" id="headingOne">
-                    <h4 class="panel-title">
-                        <a ng-init="counterDay=counterDay+1;" data-toggle="collapse" data-parent="#accordion6" ng-init="n=false" ng-click="n=!n;"
-                            aria-expanded="true" aria-controls="collapseOne6" data-expandable="false">
-                            {{'Day' | translate}} #{{counterDay=$index+1}}
-                            <i class="material-icons md-dark pmd-sm pmd-accordion-arrow">keyboard_arrow_down</i>
-                        </a>
-                    </h4>
-                </div>
-                <div ng-show="n == true" id="collapseOne6" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                    <div class="panel-body">
-                        <ul>
-                            <li ng-repeat="meal in [].constructor(addProgramCtrl.mealsCount)  track by $index">
-                                <h4>
-                                    <a ng-init="counterMeal=counterMeal+1;" ng-click="showDetails = ! showDetails; addProgramCtrl.showDDL(); ">{{'Meal' | translate}} #{{counterMeal=$index+1}}</a>
-                                </h4>
-                                <div ng-show="showDetails">
-                                    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-                                        <label for="first-name">{{'SelectItems' | translate}}</label>
-                                        <select required name="ddl{{counterDay}}{{counterMeal}}" style="width:100% !important" class="select-tags form-control pmd-select2-tags"
-                                            multiple ng-model="itemModel" ng-change="getData(itemModel,counterDay,counterMeal)"
-                                            ng-options="item as item.itemNameDictionary[selectedLanguage] 
+    <div class="row">
+        <div class="col-md-12">
+            <div ng-init="counterDay = 0; counterMeal = 0">
+                <div class="panel-group pmd-accordion pmd-accordion-inbox" id="accordion6" role="tablist" aria-multiselectable="true">
+                    <div ng-repeat="n in [].constructor(addProgramCtrl.daysCount)  track by $index" class="panel panel-default">
+                        <div class="panel-heading" role="tab" id="headingOne">
+                            <h4 class="panel-title">
+                                <a ng-init="counterDay=counterDay+1;" data-toggle="collapse" data-parent="#accordion6" ng-init="n=false" ng-click="n=!n;"
+                                    aria-expanded="true" aria-controls="collapseOne6" data-expandable="false">
+                                    {{'Day' | translate}} #{{counterDay=$index+1}}
+                                    <i class="material-icons md-dark pmd-sm pmd-accordion-arrow">keyboard_arrow_down</i>
+                                </a>
+                            </h4>
+                        </div>
+                        <div ng-show="n == true" id="collapseOne6" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                            <div class="panel-body">
+                                <ul>
+                                    <li ng-repeat="meal in [].constructor(addProgramCtrl.mealsCount)  track by $index">
+                                        <h4>
+                                            <a ng-init="counterMeal=counterMeal+1;" ng-click="showDetails = ! showDetails; addProgramCtrl.showDDL(); ">{{'Meal' | translate}} #{{counterMeal=$index+1}}</a>
+                                        </h4>
+                                        <div ng-show="showDetails">
+                                            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                                <label for="first-name">{{'SelectItems' | translate}}</label>
+                                                <select required name="ddl{{counterDay}}{{counterMeal}}" style="width:100% !important" class="select-tags form-control pmd-select2-tags"
+                                                    multiple ng-model="itemModel" ng-change="getData(itemModel,counterDay,counterMeal)"
+                                                    ng-options="item as item.itemNameDictionary[selectedLanguage] 
                                         group by item.category.titleDictionary[selectedLanguage]
                                         for item  in itemsssPrepService">
-                                        </select>
-                                        <div ng-messages="stepTwoProgramForm.ddl{{counterDay}}{{counterMeal}}.$error">
+                                                </select>
+                                                <div ng-messages="stepTwoProgramForm.ddl{{counterDay}}{{counterMeal}}.$error">
 
-                                            <div ng-show="stepTwoProgramForm.ddl{{counterDay}}{{counterMeal}}.$error.required && !stepTwoProgramForm.ddl{{counterDay}}{{counterMeal}}.$pristine">{{'requiredErr' | translate}}</div>
-                                            <div ng-show="(stepTwoProgramForm.ddl{{counterDay}}{{counterMeal}}.$error.minlength || stepTwoProgramForm.ddl{{counterDay}}{{counterMeal}}.$error.maxlength) && !stepTwoProgramForm.ddl{{counterDay}}{{counterMeal}}.$error.required">{{'NameLengthError255' | translate}}</div>
+                                                    <div ng-show="stepTwoProgramForm.ddl{{counterDay}}{{counterMeal}}.$error.required && !stepTwoProgramForm.ddl{{counterDay}}{{counterMeal}}.$pristine">{{'requiredErr' | translate}}</div>
+                                                    <div ng-show="(stepTwoProgramForm.ddl{{counterDay}}{{counterMeal}}.$error.minlength || stepTwoProgramForm.ddl{{counterDay}}{{counterMeal}}.$error.maxlength) && !stepTwoProgramForm.ddl{{counterDay}}{{counterMeal}}.$error.required">{{'NameLengthError255' | translate}}</div>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
-                            </li>
-                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -101,22 +88,12 @@
 
     <!-- {{stepTwoProgramForm.$invalid}} {{addProgramCtrl.daysCount == 0}} {{addProgramCtrl.mealsCount == 0}} 
     /{{stepTwoProgramForm.$invalid || (addProgramCtrl.daysCount == 0 || addProgramCtrl.mealsCount == 0)}} -->
-    <button style="background-color: #e4e5e6;color: black!important;" 
-    ng-disabled="(stepTwoProgramForm.$invalid || (addProgramCtrl.daysCount == 0 || addProgramCtrl.mealsCount == 0))"
-        class="btn pmd-ripple-effect btn-primary" type="button" ng-click="addProgramCtrl.gotoStep(3);">
-        {{'next' | translate}}</button>
-
+    <div class="row">
+        <div class="col-md-10"></div>
+        <div class="col-md-2">
+            <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="(stepTwoProgramForm.$invalid || (addProgramCtrl.daysCount == 0 || addProgramCtrl.mealsCount == 0))"
+                class="btn pmd-ripple-effect btn-primary" type="button" ng-click="addProgramCtrl.gotoStep(3);">
+                {{'next' | translate}}</button>
+        </div>
+    </div>
 </form>
-<!-- 
-<script type="text/javascript">
-    $(document).ready(function () {
-        $(".select-add-tags").select2({
-            tags: true,
-            theme: "bootstrap",
-            insertTag: function (data, tag) {
-                // Insert the tag at the end of the results
-                data.push(tag);
-            }
-        });
-    });
-</script> -->

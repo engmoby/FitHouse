@@ -202,7 +202,7 @@
             //     // vm.ProgramTotalPrice = (vm.ProgramTotalPrice + vm.totalPrice + vm.DeliveryFees) - vm.ProgramDiscount;
             //     // vm.ProgramTotalPriceBefore = vm.ProgramTotalPriceBefore + vm.totalPrice + vm.DeliveryFees;
             // }
-            vm.ProgramTotalPrice = (vm.totalPrice + vm.DeliveryFees) - vm.ProgramDiscount;
+            vm.ProgramTotalPrice = (vm.totalPrice + vm.DeliveryFees) - (vm.totalPrice * (vm.ProgramDiscount/100));
             vm.ProgramTotalPriceBefore = vm.totalPrice + vm.DeliveryFees;
         }
 
@@ -238,7 +238,7 @@
                 // vm.ProgramTotalPriceBefore = vm.ProgramTotalPriceBefore + vm.totalPrice + vm.DeliveryFees;
 
             }
-            vm.ProgramTotalPrice = (vm.totalPrice + vm.DeliveryFees) - vm.ProgramDiscount;
+            vm.ProgramTotalPrice = (vm.totalPrice + vm.DeliveryFees) - (vm.totalPrice * (vm.ProgramDiscount/100));
             vm.ProgramTotalPriceBefore = vm.totalPrice + vm.DeliveryFees;
         }
         //Model
