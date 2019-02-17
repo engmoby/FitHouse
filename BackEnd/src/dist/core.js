@@ -62,7 +62,7 @@
 		.module('core')
 		.constant('appCONSTANTS', {
 			'API_URL': 'http://localhost:32569/api/',
-			// 'API_URL': 'http://fithouse.azurewebsites.net/api/',
+		//	 'API_URL': 'http://fithouse.azurewebsites.net/api/',
 			'defaultLanguage': 'en',
 			'supportedLanguage': {
 				'en': { 'key': 'en', 'value': 'english' },

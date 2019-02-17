@@ -39,7 +39,7 @@
 
 			updatedMeal.mealId = vm.meal.mealId;
 			updatedMeal.isImageChange = isMealImageChange;
-debugger;
+			debugger;
 			updatedMeal.mealPrice = vm.mealtotalDiscount;
 			if (vm.meal.mealDiscount == null)
 				updatedMeal.mealDiscount = 0;
@@ -139,13 +139,13 @@ debugger;
 		var isMealImageChange = false;
 		$scope.AddMealImage = function (element) {
 			var logoFile = element[0];
-
+debugger;
 			var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
 
 			if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {
 
 				if (allowedImageTypes.indexOf(logoFile.type) !== -1) {
-					$scope.updatedMealForm.$dirty = true;
+					$scope.editMealForm.$dirty = true;
 					$scope.$apply(function () {
 
 						mealImage = logoFile;

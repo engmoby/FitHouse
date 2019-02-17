@@ -1,7 +1,8 @@
 <div>
     <div ncy-breadcrumb></div>
     <div style="margin-bottom:10px">
-        <button style="background-color: #e4e5e6;color: black!important;" ng-click="$state.go('newCategory');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddNew'
+        <button style="background-color: #e4e5e6;color: black!important;" ng-click="$state.go('newCategory');"
+            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddNew'
             | translate}}</button>
 
     </div>
@@ -22,8 +23,8 @@
                 <tr ng-repeat="Category in CategoryList.results">
                     <td data-title="Name">{{Category.titleDictionary[selectedLanguage]}}</td>
                     <td>
-                        <div class="btn-switch" ng-class="{'btn-switch--on':Category.isActive}" ng-model="Category.isActive"
-                            ng-click="CategoryCtrl.UpdateCategory(Category)">
+                        <div class="btn-switch" ng-class="{'btn-switch--on':Category.isActive}"
+                            ng-model="Category.isActive" ng-click="CategoryCtrl.UpdateCategory(Category)">
 
                             <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':Category.isActive}"
                                 ng-model="Category.isActive" ng-click="CategoryCtrl.UpdateCategory(Category)">
@@ -32,14 +33,18 @@
                     <td width="30%" ng-show="!Category.isStatic">
                         <a ng-click="$state.go('Items', {categoryId: Category.categoryId});" class="cursorPointer">{{'ItemsBtn'
                             | translate}}</a>
-                        <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editCategory',{categoryId: Category.categoryId});">mode_edit</i>
-                        <i class="material-icons pmd-md deleteButton cursorPointer font25" ng-click="CategoryCtrl.openDeleteDialog(Category,Category.titleDictionary[selectedLanguage],Category.categoryId)">delete</i>
+                        <i class="material-icons md-dark pmd-md cursorPointer font25"
+                            ng-click="$state.go('editCategory',{categoryId: Category.categoryId});">mode_edit</i>
+                        <i class="material-icons pmd-md deleteButton cursorPointer font25"
+                            ng-click="CategoryCtrl.openDeleteDialog(Category,Category.titleDictionary[selectedLanguage],Category.categoryId)">delete</i>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount" paging-action="changePage(page)"
-        flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">
+
+    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"
+        paging-action="CategoryCtrl.changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true"
+        disabled-class="hide">
     </div>
 </div>

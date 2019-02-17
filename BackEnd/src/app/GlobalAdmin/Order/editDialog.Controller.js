@@ -50,7 +50,7 @@
         vm.UpdateType = function () {
             blockUI.start("Loading...");
             var updateObj = new OrdersResource();
-            updateObj.orderStartDate = $('#startdate').val();
+            updateObj.OrderStartDate = $('#startdate').val();
             debugger;
             if ($scope.orderStatus)
                 updateObj.orderStatus = "Prepering";

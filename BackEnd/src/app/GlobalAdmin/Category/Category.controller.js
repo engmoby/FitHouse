@@ -5,24 +5,26 @@
         .module('home')
         .controller('CategoryController', ['$rootScope', '$scope', '$filter', '$translate',
             '$state', 'CategoryResource', '$localStorage',
-            'authorizationService', 'appCONSTANTS', 'blockUI', '$uibModal',
+            'authorizationService', 'appCONSTANTS', 'blockUI', '$uibModal', 'CategoryPrepService',
             'ToastService', CategoryController]);
 
 
     function CategoryController($rootScope, $scope, $filter, $translate,
         $state, CategoryResource, $localStorage, authorizationService,
-        appCONSTANTS, blockUI, $uibModal, ToastService) {
-            $('.pmd-sidebar-nav>li>a').removeClass("active")
-            $($('.pmd-sidebar-nav').children()[4].children[0]).addClass("active")
-
-            var vm = this;
-
-        refreshCategorys();
-
+        appCONSTANTS, blockUI, $uibModal, CategoryPrepService, ToastService) {
+        $('.pmd-sidebar-nav>li>a').removeClass("active")
+        $($('.pmd-sidebar-nav').children()[4].children[0]).addClass("active")
+        debugger;
+        var vm = this;
+        vm.currentPage = 1;
+        $scope.totalCount = CategoryPrepService.totalCount;
+        $scope.CategoryList = CategoryPrepService;
+        console.log(CategoryPrepService);
+ 
         function refreshCategorys() {
             blockUI.start("Loading...");
 
-            var k = CategoryResource.getAllCategorys().$promise.then(function (results) {
+            var k = CategoryResource.getAllCategorys({ page: vm.currentPage }).$promise.then(function (results) {
                 $scope.CategoryList = results;
 
                 console.log($scope.CategoryList);
@@ -82,6 +84,10 @@
             });
         }
 
+        vm.changePage = function (page) {
+            vm.currentPage = page;
+            refreshCategorys();
+        }
 
     }
 

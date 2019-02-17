@@ -206,7 +206,7 @@
 
 					<label for="first-name">{{'mealtotalDiscount' | translate}} </label>
 					<input type="number" ng-change="editMealCtrl.calclulatetotalDiscount()" class="mat-input form-control" name="mealtotalDiscount"
-					 ng-model="editMealCtrl.mealtotalDiscount" min="1" ng-maxlength="5">
+					 ng-model="editMealCtrl.mealtotalDiscount" min="1" ng-maxlength="12">
 					<div ng-messages="editMealForm.mealtotalDiscount.$error">
 						<div ng-if="editMealForm.mealtotalDiscount.$error.maxlength">{{'mealtotalDiscountLengthError' | translate}}</div>
 					</div>

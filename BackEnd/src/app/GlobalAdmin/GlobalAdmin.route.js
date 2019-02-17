@@ -607,7 +607,7 @@
                     controller: 'editOrderDialogController',
                     'controllerAs': 'editOrderCtrl',
                     resolve: {
-                        OrderByIdPrepService: OrderByIdPrepService 
+                        OrderByIdPrepService: OrderByIdPrepService
                     },
                     data: {
                         permissions: {
@@ -664,12 +664,12 @@
                         },
                         displayName: 'Delivery'
                     },
-                    resolve: { 
+                    resolve: {
                         deliverysPrepService: deliverysPrepService
                     }
                 })
-                
- 
+
+
                 .state('Kitchen', {
                     url: '/Kitchen',
                     templateUrl: './app/GlobalAdmin/Kitchen/templates/Kitchen.html',
@@ -682,11 +682,11 @@
                         },
                         displayName: 'Kitchen'
                     },
-                    resolve: { 
+                    resolve: {
                         kitchensPrepService: kitchensPrepService
                     }
                 })
-                
+
                 .state('Dashboard', {
                     url: '/Dashboard',
                     templateUrl: './app/GlobalAdmin/dashboard/templates/dashboard.html',

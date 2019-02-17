@@ -23,7 +23,7 @@ namespace FitHouse.BLL.DataServices
             var query = Queryable().Where(x => branchId <= 0 || x.BranchId == branchId).OrderByDescending(x => x.OrderId);
             PagedResultsDto results = new PagedResultsDto();
             results.TotalCount = query.Select(x => x).Count();
-            var data = query.OrderByDescending(x => x.OrderId).ToList();
+            var data = query.OrderByDescending(x => x.OrderId).Skip((page - 1) * pageSize).Take(pageSize).ToList();
             var orderDto = new List<OrderDto>();
 
             //  orderDto = Mapper.Map<List<Order>, List<OrderDto>>(data);
