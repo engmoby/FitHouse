@@ -214,7 +214,7 @@
 
                     resolve: {
                         userPrepService: userPrepService,
-                        RolePrepService: AllRolePrepService,
+                        RolePrepService: AllActivateRolePrepService,
                         CountriesPrepService: CountriesPrepService,
 
                     },
@@ -747,6 +747,12 @@
     function AllRolePrepService(RoleResource) {
         return RoleResource.getAllRoles({ pageSize: 0 }).$promise;
     }
+
+    AllActivateRolePrepService.$inject = ['RoleResource']
+    function AllActivateRolePrepService(RoleResource) {
+        return RoleResource.getAllActivateRoles({ pageSize: 0 }).$promise;
+    }
+
     RoleByIdPrepService.$inject = ['RoleResource', '$stateParams']
     function RoleByIdPrepService(RoleResource, $stateParams) {
         return RoleResource.getRole({ roleId: $stateParams.roleId }).$promise;

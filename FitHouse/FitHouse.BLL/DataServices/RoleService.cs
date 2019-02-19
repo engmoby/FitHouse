@@ -29,5 +29,18 @@ namespace FitHouse.BLL.DataServices
             return results;
         }
 
+        public PagedResultsDto GetAllActivateRoles(int page, int pageSize)
+        {
+            var query = Queryable().Where(x => !x.IsDeleted && x.IsActive).OrderBy(x => x.RoleId);
+            PagedResultsDto results = new PagedResultsDto();
+            results.TotalCount = query.Select(x => x).Count();
+            var data = pageSize > 0
+                ? query.OrderBy(x => x.RoleId).Skip((page - 1) * pageSize).Take(pageSize).ToList()
+                : query.OrderBy(x => x.RoleId).ToList();
+            results.Data = Mapper.Map<List<Role>, List<RoleDto>>(data);
+
+            return results;
+        }
+
     }
 }

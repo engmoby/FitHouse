@@ -3,8 +3,8 @@
 <form class="form-horizontal" name="newclientForm" autocomplete="off">
     <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">
         <label for="first-name">{{'FirstNameLbl' | translate}}</label>
-        <input ng-disabled="true" required type="text" class="mat-input form-control" name="firstName" ng-model="userObj.firstName"
-            ng-minlength="3" ng-maxlength="255">
+        <input required type="text" class="mat-input form-control" name="firstName" ng-model="userObj.firstName"
+            minlength="3" maxlength="255">
         <div ng-messages="newclientForm.firstName.$error">
             <div ng-if="newclientForm.firstName.$error.required && !newclientForm.firstName.$pristine">{{'FirstNameLengthError'
                 | translate}}</div>
@@ -14,8 +14,8 @@
     </div>
     <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">
         <label for="first-name">{{'LastNameLbl' | translate}}</label>
-        <input ng-disabled="true" required type="text" class="mat-input form-control" name="lastName" ng-model="userObj.lastName"
-            ng-minlength="3" ng-maxlength="255">
+        <input required type="text" class="mat-input form-control" name="lastName" ng-model="userObj.lastName"
+            minlength="3" maxlength="255">
         <div ng-messages="newclientForm.lastName.$error">
             <div ng-if="newclientForm.lastName.$error.required && !newclientForm.lastName.$pristine">{{'lastName' |
                 translate}}</div>
@@ -38,7 +38,7 @@
     <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">
         <label for="first-name">{{'phoneLbl' | translate}}</label>
 
-        <input ng-disabled="true" required type="text" class="mat-input form-control" numbers-only name="phone"
+        <input required type="text" class="mat-input form-control" numbers-only name="phone"
             ng-model="userObj.phone" ng-pattern="phoneNumbr" ng-minlength="10" ng-maxlength="50">
         <span class="error" ng-show="newclientForm.phone.$error.pattern">{{'NotPhoneNumber' | translate}} </span>
         <div ng-messages="newclientForm.phone.$error">
@@ -98,7 +98,7 @@
         <label for="first-name">{{'Area' | translate}}</label>
         <select ng-required="(selectedType.userTypeId == 3||selectedType.userTypeId == 4)&& editUserCtrl.selectedCityId > 0"
             style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="editUserCtrl.areaChange()"
-            ng-model="editUserCtrl.selectedAreaId" ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in editUserCtrl.area">
+            ng-model="editUserCtrl.selectedAreaId" ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in editUserCtrl.areaList">
         </select>
     </div>
     <div ng-show="  editUserCtrl.selectedAreaId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">

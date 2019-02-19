@@ -32,6 +32,15 @@ namespace FitHouse.API.Controllers
             return PagedResponse("GetAllRoles", page, pagesize, roleObj.TotalCount, data );
         }
 
+        [Route("api/Roles/GetAllActivateRoles", Name = "GetAllGetAllActivateRolesRoles")]
+        [HttpGet]
+        public IHttpActionResult GetAllActivateRoles(int page = Page, int pagesize = PageSize)
+        {
+            PagedResultsDto roleObj = _roleFacade.GetAllActivateRoles(page, pagesize, UserId);
+            var data = Mapper.Map<List<RoleModel>>(roleObj.Data);
+            return PagedResponse("GetAllRoles", page, pagesize, roleObj.TotalCount, data);
+        }
+
 
         [Route("api/Roles", Name = "CreateRole")]
         [HttpPost]

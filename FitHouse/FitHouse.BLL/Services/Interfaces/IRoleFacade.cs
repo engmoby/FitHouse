@@ -8,5 +8,6 @@ namespace FitHouse.BLL.Services.Interfaces
         RoleDto CreateRole(RoleDto userDto, int userId);
         RoleDto EditRole(RoleDto userDto, int userId);
         PagedResultsDto GetAllRoles(int page, int pageSize, long userId);
+        PagedResultsDto GetAllActivateRoles(int page, int pageSize, long userId);
     }
 }

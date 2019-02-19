@@ -21,7 +21,10 @@
         <div class="col-md-6">
             <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                 <label for="first-name">{{'ProgramDiscount' | translate}}</label>
-                <input ng-change="discountChange();" required type="number" class="mat-input form-control" name="programDiscount" ng-model="addProgramCtrl.ProgramDiscount">
+                <input minlength="1" maxlength="3" ng-change="discountChange();" type="number" class="mat-input form-control" name="programDiscount" ng-model="addProgramCtrl.ProgramDiscount">
+            </div>
+            <div ng-messages="newProgram3Form.programDiscount.$error" class="error">
+                <div ng-if="(newProgram3Form.programDiscount.$error.minlength || newProgram3Form.programDiscount.$error.maxlength)">{{'programDiscountLengthError' | translate}}</div>
             </div>
         </div>
     </div>

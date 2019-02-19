@@ -170,9 +170,9 @@
 
 					<label for="first-name">{{'vat' | translate}} </label>
 					<input type="number" readonly ng-change="newMealCtrl.calclulate()" class="mat-input form-control" name="vat"
-					 ng-model="newMealCtrl.vat" min="1" ng-maxlength="3">
+					 ng-model="newMealCtrl.vat" minlength="1" maxlength="3">
 					<div ng-messages="newMealForm.vat.$error">
-						<div ng-if="newMealForm.vat.$error.required && !newMealForm.vat.$pristine">{{'requiredErr' | translate}}</div>
+						<!-- <div ng-if="newMealForm.vat.$error.required && !newMealForm.vat.$pristine">{{'requiredErr' | translate}}</div> -->
 						<div ng-if="newMealForm.vat.$error.maxlength">{{'vatLengthError' | translate}}</div>
 					</div>
 				</div>
@@ -193,18 +193,19 @@
 
 					<label for="first-name">{{'mealDiscount' | translate}} </label>
 					<input type="number" ng-change="newMealCtrl.calclulateDiscount()" class="mat-input form-control" name="mealDiscount"
-					 ng-model="newMealCtrl.mealDiscount" min="1" ng-maxlength="3">
+					 ng-model="newMealCtrl.mealDiscount" minlength="1" maxlength="3">
 					<div ng-messages="newMealForm.mealDiscount.$error">
-						<div ng-if="newMealForm.mealDiscount.$error.maxlength">{{'mealDiscountLengthError' | translate}}</div>
+						<div ng-if="(newMealForm.mealDiscount.$error.minlength || newMealForm.mealDiscount.$error.maxlength)">{{'mealDiscountLengthError' | translate}}</div>										
 					</div>
+					
 				</div>
 
 
 				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 
 					<label for="first-name">{{'mealtotalDiscount' | translate}} </label>
-					<input type="number" ng-change="newMealCtrl.calclulatetotalDiscount()" class="mat-input form-control" name="mealtotalDiscount"
-					 ng-model="newMealCtrl.mealtotalDiscount" min="1" ng-maxlength="12">
+					<input disabled type="number" ng-change="newMealCtrl.calclulatetotalDiscount()" class="mat-input form-control" name="mealtotalDiscount"
+					 ng-model="newMealCtrl.mealtotalDiscount" minlength="1" maxlength="12">
 					<div ng-messages="newMealForm.mealtotalDiscount.$error">
 						<div ng-if="newMealForm.mealtotalDiscount.$error.maxlength">{{'mealtotalDiscountLengthError' | translate}}</div>
 					</div>

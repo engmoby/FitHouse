@@ -30,8 +30,8 @@
             blockUI.start("Loading..."); 
             console.log(vm.Role);
             var updateObj = new RoleResource();
-            updateObj.RoleId = vm.Role.roleId;
-            updateObj.Permissions = vm.selectedPermissions;
+            updateObj.roleId = vm.Role.roleId;
+            updateObj.permissions = vm.selectedPermissions;
             updateObj.titleDictionary = vm.Role.titleDictionary;
             updateObj.isDeleted = vm.Role.IsDeleted;
             updateObj.isActive = vm.Role.isActive;

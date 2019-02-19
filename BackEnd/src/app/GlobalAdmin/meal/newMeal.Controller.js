@@ -8,6 +8,8 @@
 	function newMealController($scope, $translate, $http, $stateParams, appCONSTANTS, $state, ToastService, itemsssPrepService) {
 		var vm = this;
 		vm.totalPrice = 0;
+		vm.mealDiscount = 0;
+
 		vm.itemsList = itemsssPrepService;
 		vm.language = appCONSTANTS.supportedLanguage;
 		$scope.selectedItemList = [];
@@ -52,24 +54,42 @@
 		function calclulateWithDicscount() {
 			var vatPresantage = (vm.price * vm.vat) / 100;
 			var discountPresantage = vm.price * vm.mealDiscount / 100;
-			if (vm.mealDiscount == null)
+			if (vm.mealDiscount == null) {
 				vm.totalPrice = vm.price + vatPresantage;
-			else
+				vm.mealtotalDiscount = vm.totalPrice;
+			}
+			else {
 				vm.totalPrice = vm.price + vatPresantage - discountPresantage;
-
-
+				vm.mealtotalDiscount = vm.totalPrice;
+			}
+			if (vm.vat == "") {
+				vm.vat = 0;
+			}
 		}
 		vm.calclulate = function () {
 			calclulateWithDicscount();
 
 		}
 
+		vm.flag = false;
 		vm.calclulateDiscount = function () {
-			var discountPresantage = vm.totalPrice * vm.mealDiscount / 100;
 
-			vm.mealtotalDiscount = vm.totalPrice - discountPresantage;
+			if (vm.mealtotalDiscount == "" || vm.mealtotalDiscount == null || vm.mealtotalDiscount == 0) {
+				vm.mealtotalDiscount = vm.totalPrice;
+				vm.mealDiscount = 0;
+				vm.flag = true;
+
+			}
+			else {
+				var discountPresantage = vm.totalPrice * vm.mealDiscount / 100;
+				vm.mealtotalDiscount = vm.totalPrice - discountPresantage;
+			}
+
+
 		}
 		vm.addNewMeal = function () {
+
+
 
 			if ($scope.selectedItemList.length == 0) {
 				ToastService.show("right", "bottom", "fadeInUp", $translate.instant('mustchooseitem'), "success");
@@ -81,11 +101,22 @@
 			newMeal.mealNameDictionary = vm.mealNameDictionary;
 			newMeal.mealDescriptionDictionary = vm.mealDescriptionDictionary;
 
-			newMeal.mealPrice = vm.mealtotalDiscount;
+			if (vm.flag == true || vm.mealtotalDiscount == NaN) {
+				newMeal.mealPrice = vm.totalPrice;
+			}
+			else {
+				newMeal.mealPrice = vm.mealtotalDiscount;
+			}
+
 			if (vm.mealDiscount == null)
 				newMeal.mealDiscount = 0;
 			else
 				newMeal.mealDiscount = vm.mealDiscount;
+
+			// if (vm.mealDiscount == "") {
+			// 	newMeal.mealDiscount = 0;
+			// 	newMeal.totalPrice = vm.totalPrice;
+			// }
 
 			newMeal.isActive = true;
 
