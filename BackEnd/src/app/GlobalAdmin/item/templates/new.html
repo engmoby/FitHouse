@@ -120,6 +120,7 @@
 					<div ng-messages="newItemForm.price.$error">
 						<div ng-if="newItemForm.price.$error.required && !newItemForm.price.$pristine">{{'requiredErr' | translate}}</div>
 						<div ng-if="newItemForm.price.$error.maxlength">{{'PriceLengthError' | translate}}</div>
+						<div ng-if="newItemCtrl.price < newItemCtrl.cost">{{'PriceShouldbeMoreThanCost' | translate}}</div>
 					</div>
 				</div>
 
@@ -162,7 +163,7 @@
 		</form>
 	</div>
 	<div class="pmd-modal-action text-right">
-		<button style="background-color: #e4e5e6;color: black!important;" ng-disabled="newItemForm.$invalid || newItemCtrl.disable"
+		<button style="background-color: #e4e5e6;color: black!important;" ng-disabled="newItemForm.$invalid || newItemCtrl.disable || (newItemCtrl.price < newItemCtrl.cost)"
 		 class="btn pmd-ripple-effect btn-primary" type="button" ng-click="newItemCtrl.addNewItem()">{{'saveChangesBtn' |
 			translate}}</button>
 		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="newItemCtrl.close()">{{'DiscardBtn' |

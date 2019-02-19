@@ -191,12 +191,11 @@
 				</div>
 
 				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-
 					<label for="first-name">{{'mealDiscount' | translate}} </label>
 					<input type="number" ng-change="editMealCtrl.calclulateDiscount()" class="mat-input form-control" name="mealDiscount"
-					 ng-model="editMealCtrl.meal.mealDiscount" min="1" ng-maxlength="3">
+					 ng-model="editMealCtrl.meal.mealDiscount" minlength="1" ng-maxlength="3">
 					<div ng-messages="editMealForm.meal.mealDiscount.$error">
-						<div ng-if="editMealForm.meal.mealDiscount.$error.maxlength">{{'mealDiscountLengthError' | translate}}</div>
+						<div ng-if="(editMealForm.mealDiscount.$error.minlength || editMealForm.mealDiscount.$error.maxlength)">{{'mealDiscountLengthError' | translate}}</div>					
 					</div>
 				</div>
 
@@ -206,7 +205,7 @@
 
 					<label for="first-name">{{'mealtotalDiscount' | translate}} </label>
 					<input type="number" ng-change="editMealCtrl.calclulatetotalDiscount()" class="mat-input form-control" name="mealtotalDiscount"
-					 ng-model="editMealCtrl.mealtotalDiscount" min="1" ng-maxlength="12">
+					 ng-model="editMealCtrl.mealtotalDiscount" minlength="1" maxlength="12">
 					<div ng-messages="editMealForm.mealtotalDiscount.$error">
 						<div ng-if="editMealForm.mealtotalDiscount.$error.maxlength">{{'mealtotalDiscountLengthError' | translate}}</div>
 					</div>

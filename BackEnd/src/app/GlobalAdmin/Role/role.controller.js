@@ -39,15 +39,17 @@
 
 
         function change(role, isDeleted) {
+            debugger;
             var updateObj = new RoleResource();
             updateObj.RoleId = role.roleId;
             if (!isDeleted)
                 updateObj.isActive = (role.isActive == true ? false : true);
             updateObj.isDeleted = role.isDeleted;
+            updateObj.permissions = role.permissions;
+            updateObj.ischange = true;
 
             updateObj.$update().then(
                 function (data, status) {
-            debugger;
 
             if (isDeleted)
                         refreshRoles();

@@ -39,18 +39,18 @@
 
         $scope.Updateclient = function () {
             blockUI.start("Loading...");
-
+            debugger;
             vm.show = false;
             var newClient = new UserResource();
-            newClient.UserId = $scope.userObj.userId;
+            newClient.userId = $scope.userObj.userId;
             newClient.firstName = $scope.userObj.firstName;
             newClient.lastName = $scope.userObj.lastName;
-            newClient.Phone = $scope.userObj.phone;
-            newClient.Email = $scope.userObj.email;
-            newClient.Password = $scope.userObj.password;
-            newClient.IsActive = true;
-            newClient.UserRoles = vm.selectedUserRoles;
-            newClient.branchId = 1;//vm.selectedBranchId;
+            newClient.phone = $scope.userObj.phone;
+            newClient.email = $scope.userObj.email;
+            newClient.password = $scope.userObj.password;
+            newClient.isActive = true;
+            newClient.userRoles = vm.selectedUserRoles;
+            newClient.branchId = vm.selectedBranchId;//1;
             newClient.$update().then(
                 function (data, status) {
                     blockUI.stop();
@@ -110,7 +110,7 @@
             vm.branchList.push(vm.selectedBranch);
 
 
-            RegionResource.getAllRegions({ countryId: vm.selectedCountry.countryId, pageSize: 0 }).$promise.then(function (results) {
+            RegionResource.getAllRegions({ countryId: $scope.userObj.countryId, pageSize: 0 }).$promise.then(function (results) {
 
                 vm.regions = vm.regions.concat(results.results);
 
@@ -156,6 +156,7 @@
         vm.regionChange = function () {
             funcregionChange();
         }
+
         function funcCityChange() {
 
             if (vm.selectedCity.cityId != undefined) {

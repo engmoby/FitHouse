@@ -69,7 +69,7 @@ namespace FitHouse.BLL.Services
             //        ItemId = roleper.ItemId
             //    });
             //}
-
+            
             _mealDetailsService.InsertRange(meal.MealDetails);
             _mealTranslationService.InsertRange(meal.MealTranslations);
             _Mealservice.Insert(meal);

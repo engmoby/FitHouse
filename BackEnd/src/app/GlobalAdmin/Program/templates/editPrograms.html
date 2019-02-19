@@ -45,7 +45,7 @@
     <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
         <label for="first-name">{{'ProgramDiscount' | translate}}</label>
         <input required type="number" ng-change="discountChange();" class="mat-input form-control" name="programDiscount" ng-model="editProgramCtrl.programModel.programDiscount"
-            ng-minlength="1" ng-maxlength="5">
+            minlength="1" maxlength="5">
         <div ng-messages="editProgramForm.programDiscount.$error" class="error">
             <div ng-if="editProgramForm.programDiscount.$error.required && !editProgramForm.programDiscount.$pristine">{{'ProgramDiscountReqError' | translate}}</div>
             <div ng-if="(editProgramForm.programDiscount.$error.minlength || editProgramForm.programDiscount.$error.maxlength)">{{'ProgramDiscountLengthError' | translate}}</div>

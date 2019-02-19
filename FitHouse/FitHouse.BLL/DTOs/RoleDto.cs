@@ -16,7 +16,9 @@ namespace FitHouse.BLL.DTOs
         public long? CreatorUserId { get; set; }
         public DateTime? DeletionTime { get; set; }
         public long? DeleterUserId { get; set; }
-       public List<RolePermissionDto> Permissions { get; set; }
+        public bool Ischange { get; set; }
+
+        public List<RolePermissionDto> Permissions { get; set; }
         //public List<RolePermissionDto> RolePermissions { get; set; }
     }
 }

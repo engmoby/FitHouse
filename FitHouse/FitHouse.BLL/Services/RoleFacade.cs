@@ -97,7 +97,10 @@ namespace FitHouse.BLL.Services
 
         public RoleDto EditRole(RoleDto roleDto, int userId)
         {
-            //var roleObj = _roleService.Find(roleDto.RoleId);
+            var role = new Role();
+            if (roleDto.Ischange)
+                role = _roleService.Find(roleDto.RoleId);
+
             if (roleDto.TitleDictionary.Any(name => _typeTranslationService.CheckNameExist(name.Key, name.Value, roleDto.RoleId)))
             {
                 throw new ValidationException(ErrorCodes.NameIsExist);
@@ -121,21 +124,41 @@ namespace FitHouse.BLL.Services
                 else
                     roleTranslation.Title = roleName.Value;
             }
-            var deletePermissions = new RolePermission[roleObj.RolePermissions.Count];
-            roleObj.RolePermissions.CopyTo(deletePermissions, 0);
+           
 
-            foreach (var roleObjRolePermission in deletePermissions)
-            {
-                _rolePermissionService.Delete(roleObjRolePermission);
+         
 
-            }
-            foreach (var roleper in roleDto.Permissions)
+            if (roleDto.Ischange)
             {
-                roleObj.RolePermissions.Add(new RolePermission
+                foreach (var roleper in role.RolePermissions.ToList())
                 {
-                    PermissionId = roleper.PermissionId,
-                    ActionId = 1,
-                });
+                    roleObj.RolePermissions.Add(new RolePermission
+                    {
+                        PermissionId = roleper.PermissionId,
+                        ActionId = 1,
+                    });
+                }
+            }
+            else
+            {
+                var deletePermissions = new RolePermission[roleObj.RolePermissions.Count];
+                roleObj.RolePermissions.CopyTo(deletePermissions, 0);
+
+                foreach (var roleObjRolePermission in deletePermissions)
+                {
+                    _rolePermissionService.Delete(roleObjRolePermission);
+
+                }
+
+                foreach (var roleper in roleDto.Permissions)
+                {
+                    roleObj.RolePermissions.Add(new RolePermission
+                    {
+                        PermissionId = roleper.PermissionId,
+                        ActionId = 1,
+                    });
+                }
+
             }
             roleObj.IsActive = roleDto.IsActive;
             roleObj.LastModificationTime = Strings.CurrentDateTime;
@@ -152,6 +175,35 @@ namespace FitHouse.BLL.Services
             try
             {
                 var returnValues= _roleService.GetAllRoles(page, pageSize);
+                //_log.UserId = userId;
+                //_log.Action = Enums.Actions.GetAll.ToString();
+                //_log.ActionDateTime = Strings.CurrentDateTime;
+                //_log.EndPointName = "GetAllRoles";
+                //_log.RecordId = null;
+                //_log.Model= returnValues.Data.ToString();
+                //_logFacade.CreateLog(_log);
+                return returnValues;
+            }
+            catch (Exception e)
+            {
+                //_log.UserId = userId;
+                //_log.Action = Enums.Actions.GetAll.ToString();
+                //_log.ActionDateTime = Strings.CurrentDateTime;
+                //_log.EndPointName = "GetAllRoles";
+                //_log.RecordId = null;
+                //_log.IsSuccess = false;
+                //_log.ErrorMsg = e.Message;
+                //_logFacade.CreateLog(_log);
+                Console.WriteLine(e);
+                throw;
+            }
+        }
+
+        public PagedResultsDto GetAllActivateRoles(int page, int pageSize, long userId)
+        {
+            try
+            {
+                var returnValues = _roleService.GetAllActivateRoles(page, pageSize);
                 //_log.UserId = userId;
                 //_log.Action = Enums.Actions.GetAll.ToString();
                 //_log.ActionDateTime = Strings.CurrentDateTime;
