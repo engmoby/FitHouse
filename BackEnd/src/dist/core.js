@@ -584,9 +584,16 @@ angular.module('core')
         "DeliveryFees":"Delivery Fees",
         "branchName":"Branch Name",
         "DeliveryCost":"Delivery Cost",
+        "deleteConfirmationLbl":"Are you sure you want to delete: ",
+        "deleteBtn": "Delete",
+        "cancelBtn": "Cancel",
+
       }
 
       var ar_translations = {
+        "deleteBtn": "مسح",
+        "cancelBtn": "الغاء",
+        "deleteConfirmationLbl":"هل أنت متأكد من أنك تريد مسح: ",
         "ClientFound":"العميل غير موجود",
         "ClientNotFound":"العميل موجود",
         "NoDeliverysAvailable":"لا يوجد دليفيري متاح",
