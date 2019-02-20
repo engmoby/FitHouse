@@ -139,7 +139,7 @@
 				data: model
 			}).then(
 				function (data, status) {
-					ToastService.show("right", "bottom", "fadeInUp", $translate.instant('mealAddSuccess'), "success");
+					ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
 					$state.go('Meal');
 					vm.isChanged = false;
 

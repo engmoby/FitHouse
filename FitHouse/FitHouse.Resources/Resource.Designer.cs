@@ -61,11 +61,92 @@ namespace FitHouse.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Category Not Found.
+        /// </summary>
+        public static string CategoryNotFound {
+            get {
+                return ResourceManager.GetString("CategoryNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Empty Item Description.
+        /// </summary>
+        public static string EmptyItemDescription {
+            get {
+                return ResourceManager.GetString("EmptyItemDescription", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Empty Item Name.
+        /// </summary>
+        public static string EmptyItemName {
+            get {
+                return ResourceManager.GetString("EmptyItemName", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Item Deleted.
+        /// </summary>
+        public static string ItemDeleted {
+            get {
+                return ResourceManager.GetString("ItemDeleted", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Item Is Not Translated.
+        /// </summary>
+        public static string ItemIsNotTranslated {
+            get {
+                return ResourceManager.GetString("ItemIsNotTranslated", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Item Name Exceed Length.
+        /// </summary>
+        public static string ItemNameExceedLength {
+            get {
+                return ResourceManager.GetString("ItemNameExceedLength", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Item Not Found.
+        /// </summary>
+        public static string ItemNotFound {
+            get {
+                return ResourceManager.GetString("ItemNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to Email Is Already Exist.
         /// </summary>
         public static string MailExist {
             get {
                 return ResourceManager.GetString("MailExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Meal Has No Items.
+        /// </summary>
+        public static string MealHasNoItems {
+            get {
+                return ResourceManager.GetString("MealHasNoItems", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Menu Name Exceed Length.
+        /// </summary>
+        public static string MenuNameExceedLength {
+            get {
+                return ResourceManager.GetString("MenuNameExceedLength", resourceCulture);
             }
         }
         
@@ -106,11 +187,47 @@ namespace FitHouse.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Product Not Found.
+        /// </summary>
+        public static string ProductNotFound {
+            get {
+                return ResourceManager.GetString("ProductNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Program Not Found.
+        /// </summary>
+        public static string ProgramNotFound {
+            get {
+                return ResourceManager.GetString("ProgramNotFound", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This Record Is Used In Another Module.
         /// </summary>
         public static string RecordIsUsedInAnotherModule {
             get {
                 return ResourceManager.GetString("RecordIsUsedInAnotherModule", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to UnSupported Language.
+        /// </summary>
+        public static string UnSupportedLanguage {
+            get {
+                return ResourceManager.GetString("UnSupportedLanguage", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to User Not Found.
+        /// </summary>
+        public static string UserNotFound {
+            get {
+                return ResourceManager.GetString("UserNotFound", resourceCulture);
             }
         }
         

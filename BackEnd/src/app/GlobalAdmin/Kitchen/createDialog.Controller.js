@@ -29,7 +29,7 @@
                 function (data, status) {
                      blockUI.stop();
                     
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('productAddSuccess'), "success");
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
                     $state.go('Role');
 
                 },

@@ -12,7 +12,7 @@
                     <!-- <th>{{'phone' | translate}}</th> -->
                     <th>{{'orderCode' | translate}}</th>
                     <th>{{'Date' | translate}}</th>
-                    <th>{{'status' | translate}}</th>
+                    <th>{{'Status' | translate}}</th>
                     <th></th>
                 </tr>
             </thead>
@@ -54,7 +54,7 @@
                 <tr ng-repeat-end class="child-table" ng-show="delivery.show">
                     <td colspan="12">
                         <div style="background: white;padding: 5px;" ng-if="request.comment !== null">
-                            <h2>{{'phone'|translate}}: </h2>
+                            <h2>{{'phoneLbl'|translate}}: </h2>
                             <span>{{delivery.user.phone}}</span>
                         </div>
                         <div style="background: white;padding: 5px;" ng-if="request.comment !== null">
@@ -62,7 +62,7 @@
                             <span>{{delivery.address.appartmentNo}}</span>
                         </div>
                         <div style="background: white;padding: 5px;" ng-if="request.comment !== null">
-                            <h2>{{'floor'|translate}}: </h2>
+                            <h2>{{'FLoor'|translate}}: </h2>
                             <span>{{delivery.address.floor}}</span>
                         </div>
                         <div style="background: white;padding: 5px;" ng-if="request.comment !== null">
@@ -70,7 +70,7 @@
                             <span>{{delivery.address.description}}</span>
                         </div>
                         <div style="background: white;padding: 5px;" ng-if="request.comment !== null">
-                            <h2>{{'branch'|translate}}: </h2>
+                            <h2>{{'Branch'|translate}}: </h2>
                             <span>{{delivery.branch.titleDictionary[selectedLanguage]}}</span>
                         </div>
                     </td>

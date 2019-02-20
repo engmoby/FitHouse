@@ -197,7 +197,7 @@
                 function (data, status) {
                     blockUI.stop();
 
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('OrderAddSuccess'), "success");
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
 
                     // localStorage.setItem('data', JSON.stringify(data.userId));
                     $state.go('callCenter');

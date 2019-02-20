@@ -32,7 +32,7 @@
 			debugger;
 			MealResource.deleteMeal({ mealId: meal.mealId }).$promise.then(function (results) {
 		debugger;
-		ToastService.show("right", "bottom", "fadeInUp", $translate.instant('mealDeleteSuccess'), "success");
+		ToastService.show("right", "bottom", "fadeInUp", $translate.instant('DeletedSuccessfully'), "success");
 				refreshMeals();
 			},
 				function (data, status) {

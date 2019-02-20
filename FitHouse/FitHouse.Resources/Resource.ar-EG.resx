@@ -117,14 +117,50 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CategoryNotFound" xml:space="preserve">
+    <value>القسم غير موجود</value>
+  </data>
+  <data name="EmptyItemDescription" xml:space="preserve">
+    <value>تفاصيل العنصر فارغه</value>
+  </data>
+  <data name="EmptyItemName" xml:space="preserve">
+    <value>اسم العنصر فارغ</value>
+  </data>
+  <data name="ItemDeleted" xml:space="preserve">
+    <value>العنصر اتمسح</value>
+  </data>
+  <data name="ItemIsNotTranslated" xml:space="preserve">
+    <value>العنصر غير مترجم</value>
+  </data>
+  <data name="ItemNameExceedLength" xml:space="preserve">
+    <value>اسم العنصر تخطي المتاح</value>
+  </data>
+  <data name="ItemNotFound" xml:space="preserve">
+    <value>العنصر غير موجود</value>
+  </data>
   <data name="MailExist" xml:space="preserve">
     <value>البريد الالكتروني موجود بالفعل</value>
+  </data>
+  <data name="MealHasNoItems" xml:space="preserve">
+    <value>الوجية ليس لديها عناصر</value>
+  </data>
+  <data name="MenuNameExceedLength" xml:space="preserve">
+    <value>اسم القائمه تخطي المسموح</value>
+  </data>
+  <data name="NameIsExist" xml:space="preserve">
+    <value>الاسم موجود</value>
   </data>
   <data name="PackageExpired" xml:space="preserve">
     <value>.انتهت صلاحية حسابك، يرجى الاتصال بالمشرف</value>
   </data>
   <data name="PhoneExist" xml:space="preserve">
     <value>رقم الهاتف موجود بالفعل</value>
+  </data>
+  <data name="ProductNotFound" xml:space="preserve">
+    <value>المنتج غير موجود</value>
+  </data>
+  <data name="ProgramNotFound" xml:space="preserve">
+    <value>البرنامج غير موجود</value>
   </data>
   <data name="RecordIsExist" xml:space="preserve">
     <value>موجود بالفعل</value>
@@ -134,6 +170,12 @@
   </data>
   <data name="String1" xml:space="preserve">
     <value>.حسابك لم يفعل، يرجى الاتصال بالمشرف</value>
+  </data>
+  <data name="UnSupportedLanguage" xml:space="preserve">
+    <value>لغه غير مفعله</value>
+  </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>العميل غير موجود</value>
   </data>
   <data name="YourAccountIsDisabled" xml:space="preserve">
     <value>حسابك معطل ، يرجى الاتصال بالمسؤول</value>

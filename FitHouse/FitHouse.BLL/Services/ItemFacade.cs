@@ -146,7 +146,7 @@ namespace FitHouse.BLL.Services
         public void ActivateItem(long itemId)
         {
             var item = _itemService.Find(itemId);
-            if (item == null) throw new NotFoundException(ErrorCodes.MenuNotFound);
+            if (item == null) throw new NotFoundException(ErrorCodes.ItemNotFound);
             if (Strings.SupportedLanguages.Any(x => !item.ItemTranslations.Select(m => m.Language.ToLower())
                 .Contains(x.ToLower())))
                 throw new ValidationException(ErrorCodes.ItemIsNotTranslated);

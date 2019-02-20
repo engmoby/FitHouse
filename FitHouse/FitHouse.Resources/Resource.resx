@@ -117,8 +117,35 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="CategoryNotFound" xml:space="preserve">
+    <value>Category Not Found</value>
+  </data>
+  <data name="EmptyItemDescription" xml:space="preserve">
+    <value>Empty Item Description</value>
+  </data>
+  <data name="EmptyItemName" xml:space="preserve">
+    <value>Empty Item Name</value>
+  </data>
+  <data name="ItemDeleted" xml:space="preserve">
+    <value>Item Deleted</value>
+  </data>
+  <data name="ItemIsNotTranslated" xml:space="preserve">
+    <value>Item Is Not Translated</value>
+  </data>
+  <data name="ItemNameExceedLength" xml:space="preserve">
+    <value>Item Name Exceed Length</value>
+  </data>
+  <data name="ItemNotFound" xml:space="preserve">
+    <value>Item Not Found</value>
+  </data>
   <data name="MailExist" xml:space="preserve">
     <value>Email Is Already Exist</value>
+  </data>
+  <data name="MealHasNoItems" xml:space="preserve">
+    <value>Meal Has No Items</value>
+  </data>
+  <data name="MenuNameExceedLength" xml:space="preserve">
+    <value>Menu Name Exceed Length</value>
   </data>
   <data name="NameIsExist" xml:space="preserve">
     <value>Name Is Exist</value>
@@ -132,8 +159,20 @@
   <data name="PhoneExist" xml:space="preserve">
     <value>Phone Is Already Exist</value>
   </data>
+  <data name="ProductNotFound" xml:space="preserve">
+    <value>Product Not Found</value>
+  </data>
+  <data name="ProgramNotFound" xml:space="preserve">
+    <value>Program Not Found</value>
+  </data>
   <data name="RecordIsUsedInAnotherModule" xml:space="preserve">
     <value>This Record Is Used In Another Module</value>
+  </data>
+  <data name="UnSupportedLanguage" xml:space="preserve">
+    <value>UnSupported Language</value>
+  </data>
+  <data name="UserNotFound" xml:space="preserve">
+    <value>User Not Found</value>
   </data>
   <data name="YourAccountIsDisabled" xml:space="preserve">
     <value>Your Account Is Disabled, Please contact to administrator</value>
