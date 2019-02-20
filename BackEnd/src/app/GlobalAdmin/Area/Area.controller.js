@@ -19,7 +19,9 @@
         blockUI.start("Loading..."); 
             
         var vm = this;
-        $scope.totalCount = AreaPrepService.totalCount;
+        $scope.totalCount = AreaPrepService.totalCount;  
+
+        
         $scope.AreaList = AreaPrepService;
         console.log($scope.AreaList);
         $scope.countryName = RegionByIdPrepService.countryNameDictionary[$scope.selectedLanguage];
