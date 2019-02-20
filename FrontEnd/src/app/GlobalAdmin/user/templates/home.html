@@ -8,11 +8,8 @@
 				<!--TYPOGRAPHY SECTION-->
 				<div class="col-md-6">
 					<div class="book-title">
-						<h2>Check Availability</h2>
-						<p>It is a long established fact that a reader will be distracted by the readable content of a
-							page when looking at its layout. The point of using Lorem Ipsum is that it has a
-							more-or-less normal distribution of letters, as opposed to using 'Content here, content
-							here', making it look like readable English.</p>
+						<h2>{{'customiseProgram' | translate}}</h2>
+						<p>{{'DescribeCustomiseProgram' | translate}}</p>
 					</div>
 				</div>
 				<div class="col-md-6">
@@ -21,54 +18,33 @@
 							<div class="row">
 								<div class="input-field col s6">
 									<input type="text" class="validate">
-									<label>Full Name</label>
+									<label>{{'ProgramName' | translate}}</label>
 								</div>
 								<div class="input-field col s6">
 									<input type="text" class="validate">
-									<label>Email</label>
+									<label>{{'ProgramDescription' | translate}}</label>
 								</div>
 							</div>
 							<div class="row">
-								<div class="input-field col s6">
-									<input type="text" class="validate">
-									<label>Phone</label>
-								</div>
-								<div class="input-field col s6">
-									<input type="text" class="validate">
-									<label>Mobile</label>
-								</div>
-							</div>
-							<div class="row">
-								<div class="input-field col s6">
-									<input type="text" class="validate">
-									<label>City</label>
-								</div>
-								<div class="input-field col s6">
-									<input type="text" class="validate">
-									<label>Country</label>
-								</div>
-							</div>
-							<div class="row">
-								<div class="input-field col s6">
-									<select>
-										<option value="" disabled selected>No of adults</option>
-										<option value="1">1</option>
-										<option value="2">2</option>
-										<option value="3">3</option>
-										<option value="1">4</option>
-									</select>
-								</div>
-								<div class="input-field col s6">
-									<select>
-										<option value="" disabled selected>No of childrens</option>
-										<option value="1">1</option>
-										<option value="2">2</option>
-										<option value="3">3</option>
-										<option value="1">4</option>
+								<div class="input-field col s12">
+									<!-- <input type="text" class="validate"> -->
+									<label>{{'SelectExcludeDays' | translate}}</label>
+									<select ng-change="addProgramCtrl.ValidateExcludes()" style="width:100% !important" class="form-control select-tags pmd-select2-tags"
+									 multiple ng-model="addProgramCtrl.SelectedDays" ng-options="day as day.dayNameDictionary[selectedLanguage] for day in addProgramCtrl.dayList">
 									</select>
 								</div>
 							</div>
 							<div class="row">
+								<div class="input-field col s6">
+									<input type="text" class="validate">
+									<label>{{'MealPerDay' | translate}}</label>
+								</div>
+								<div class="input-field col s6">
+									<input type="text" class="validate">
+									<label>{{'ProgramDaysCount' | translate}}</label>
+								</div>
+							</div>
+							<!-- <div class="row">
 								<div class="input-field col s6">
 									<input type="text" id="from" name="from">
 									<label for="from">Check In</label>
@@ -77,16 +53,16 @@
 									<input type="text" id="to" name="to">
 									<label for="to">Check Out</label>
 								</div>
-							</div>
-							<div class="row">
+							</div> -->
+							<!-- <div class="row">
 								<div class="input-field col s12">
 									<textarea id="textarea1" class="materialize-textarea" data-length="120"></textarea>
 									<label>Message</label>
 								</div>
-							</div>
+							</div> -->
 							<div class="row">
 								<div class="input-field col s12">
-									<input type="submit" value="submit" class="form-btn"> </div>
+									<input type="submit"  class="form-btn"> </div>
 							</div>
 						</form>
 					</div>
@@ -101,14 +77,13 @@
 		<div class="container">
 			<div class="row">
 				<div class="hom1-title">
-					<h2>Our Hotel Rooms</h2>
+					<h2>{{'Meals' | translate}}</h2>
 					<div class="head-title">
 						<div class="hl-1"></div>
 						<div class="hl-2"></div>
 						<div class="hl-3"></div>
 					</div>
-					<p>Aenean euismod sem porta est consectetur posuere. Praesent nisi velit, porttitor ut imperdiet a,
-						pellentesque id mi.</p>
+					<p>{{'MealsDescription' | translate}}</p>
 				</div>
 			</div>
 			<div class="row">
@@ -117,24 +92,29 @@
 					<div class="col-md-4">
 						<div class="to-ho-hotel-con">
 							<div class="to-ho-hotel-con-1">
-								<div class="hom-hot-av-tic"> Available Tickets: 42 </div> <img src="images/room/3.jpg"
-									alt="">
+								<div class="hom-hot-av-tic"> Available Tickets: 42 </div>
+								<img src="https://fithouseksa.com/wp-content/uploads/2018/07/fat-running.png" alt="">
 							</div>
 							<div class="to-ho-hotel-con-23">
-								<div class="to-ho-hotel-con-2"> <a href="all-rooms.html">
+								<div class="to-ho-hotel-con-2">
+									<a href="all-rooms.html">
 										<h4>Master Room</h4>
-									</a> </div>
+									</a>
+								</div>
 								<div class="to-ho-hotel-con-3">
 									<ul>
 										<li>City: illunois,united states
-											<div class="dir-rat-star ho-hot-rat-star"> Rating: <i class="fa fa-star"
-													aria-hidden="true"></i><i class="fa fa-star"
-													aria-hidden="true"></i><i class="fa fa-star"
-													aria-hidden="true"></i><i class="fa fa-star"
-													aria-hidden="true"></i><i class="fa fa-star-o"
-													aria-hidden="true"></i> </div>
+											<div class="dir-rat-star ho-hot-rat-star"> Rating:
+												<i class="fa fa-star" aria-hidden="true"></i>
+												<i class="fa fa-star" aria-hidden="true"></i>
+												<i class="fa fa-star" aria-hidden="true"></i>
+												<i class="fa fa-star" aria-hidden="true"></i>
+												<i class="fa fa-star-o" aria-hidden="true"></i>
+											</div>
 										</li>
-										<li><span class="ho-hot-pri-dis">$720</span><span class="ho-hot-pri">$420</span>
+										<li>
+											<span class="ho-hot-pri-dis">$720</span>
+											<span class="ho-hot-pri">$420</span>
 										</li>
 									</ul>
 								</div>
@@ -145,24 +125,29 @@
 					<div class="col-md-4">
 						<div class="to-ho-hotel-con">
 							<div class="to-ho-hotel-con-1">
-								<div class="hom-hot-av-tic"> Available Tickets: 520 </div> <img src="images/room/1.jpg"
-									alt="">
+								<div class="hom-hot-av-tic"> Available Tickets: 520 </div>
+								<img src="images/room/1.jpg" alt="">
 							</div>
 							<div class="to-ho-hotel-con-23">
-								<div class="to-ho-hotel-con-2"> <a href="all-rooms.html">
+								<div class="to-ho-hotel-con-2">
+									<a href="all-rooms.html">
 										<h4>Mini-Suite</h4>
-									</a> </div>
+									</a>
+								</div>
 								<div class="to-ho-hotel-con-3">
 									<ul>
 										<li>City: illunois,united states
-											<div class="dir-rat-star ho-hot-rat-star"> Rating: <i class="fa fa-star"
-													aria-hidden="true"></i><i class="fa fa-star"
-													aria-hidden="true"></i><i class="fa fa-star"
-													aria-hidden="true"></i><i class="fa fa-star"
-													aria-hidden="true"></i><i class="fa fa-star-o"
-													aria-hidden="true"></i> </div>
+											<div class="dir-rat-star ho-hot-rat-star"> Rating:
+												<i class="fa fa-star" aria-hidden="true"></i>
+												<i class="fa fa-star" aria-hidden="true"></i>
+												<i class="fa fa-star" aria-hidden="true"></i>
+												<i class="fa fa-star" aria-hidden="true"></i>
+												<i class="fa fa-star-o" aria-hidden="true"></i>
+											</div>
 										</li>
-										<li><span class="ho-hot-pri-dis">$840</span><span class="ho-hot-pri">$540</span>
+										<li>
+											<span class="ho-hot-pri-dis">$840</span>
+											<span class="ho-hot-pri">$540</span>
 										</li>
 									</ul>
 								</div>
@@ -173,24 +158,29 @@
 					<div class="col-md-4">
 						<div class="to-ho-hotel-con">
 							<div class="to-ho-hotel-con-1">
-								<div class="hom-hot-av-tic"> Available Tickets: 92 </div> <img src="images/room/2.jpg"
-									alt="">
+								<div class="hom-hot-av-tic"> Available Tickets: 92 </div>
+								<img src="images/room/2.jpg" alt="">
 							</div>
 							<div class="to-ho-hotel-con-23">
-								<div class="to-ho-hotel-con-2"> <a href="all-rooms.html">
+								<div class="to-ho-hotel-con-2">
+									<a href="all-rooms.html">
 										<h4>Ultra Deluxe</h4>
-									</a> </div>
+									</a>
+								</div>
 								<div class="to-ho-hotel-con-3">
 									<ul>
 										<li>City: illunois,united states
-											<div class="dir-rat-star ho-hot-rat-star"> Rating: <i class="fa fa-star"
-													aria-hidden="true"></i><i class="fa fa-star"
-													aria-hidden="true"></i><i class="fa fa-star"
-													aria-hidden="true"></i><i class="fa fa-star"
-													aria-hidden="true"></i><i class="fa fa-star-o"
-													aria-hidden="true"></i> </div>
+											<div class="dir-rat-star ho-hot-rat-star"> Rating:
+												<i class="fa fa-star" aria-hidden="true"></i>
+												<i class="fa fa-star" aria-hidden="true"></i>
+												<i class="fa fa-star" aria-hidden="true"></i>
+												<i class="fa fa-star" aria-hidden="true"></i>
+												<i class="fa fa-star-o" aria-hidden="true"></i>
+											</div>
 										</li>
-										<li><span class="ho-hot-pri-dis">$680</span><span class="ho-hot-pri">$380</span>
+										<li>
+											<span class="ho-hot-pri-dis">$680</span>
+											<span class="ho-hot-pri">$380</span>
 										</li>
 									</ul>
 								</div>
@@ -201,24 +191,29 @@
 					<div class="col-md-4">
 						<div class="to-ho-hotel-con">
 							<div class="to-ho-hotel-con-1">
-								<div class="hom-hot-av-tic"> Available Tickets: 42 </div> <img src="images/room/4.jpg"
-									alt="">
+								<div class="hom-hot-av-tic"> Available Tickets: 42 </div>
+								<img src="images/room/4.jpg" alt="">
 							</div>
 							<div class="to-ho-hotel-con-23">
-								<div class="to-ho-hotel-con-2"> <a href="all-rooms.html">
+								<div class="to-ho-hotel-con-2">
+									<a href="all-rooms.html">
 										<h4>Luxury Room</h4>
-									</a> </div>
+									</a>
+								</div>
 								<div class="to-ho-hotel-con-3">
 									<ul>
 										<li>City: illunois,united states
-											<div class="dir-rat-star ho-hot-rat-star"> Rating: <i class="fa fa-star"
-													aria-hidden="true"></i><i class="fa fa-star"
-													aria-hidden="true"></i><i class="fa fa-star"
-													aria-hidden="true"></i><i class="fa fa-star"
-													aria-hidden="true"></i><i class="fa fa-star-o"
-													aria-hidden="true"></i> </div>
+											<div class="dir-rat-star ho-hot-rat-star"> Rating:
+												<i class="fa fa-star" aria-hidden="true"></i>
+												<i class="fa fa-star" aria-hidden="true"></i>
+												<i class="fa fa-star" aria-hidden="true"></i>
+												<i class="fa fa-star" aria-hidden="true"></i>
+												<i class="fa fa-star-o" aria-hidden="true"></i>
+											</div>
 										</li>
-										<li><span class="ho-hot-pri-dis">$720</span><span class="ho-hot-pri">$420</span>
+										<li>
+											<span class="ho-hot-pri-dis">$720</span>
+											<span class="ho-hot-pri">$420</span>
 										</li>
 									</ul>
 								</div>
@@ -229,24 +224,29 @@
 					<div class="col-md-4">
 						<div class="to-ho-hotel-con">
 							<div class="to-ho-hotel-con-1">
-								<div class="hom-hot-av-tic"> Available Tickets: 520 </div> <img src="images/room/5.jpg"
-									alt="">
+								<div class="hom-hot-av-tic"> Available Tickets: 520 </div>
+								<img src="images/room/5.jpg" alt="">
 							</div>
 							<div class="to-ho-hotel-con-23">
-								<div class="to-ho-hotel-con-2"> <a href="all-rooms.html">
+								<div class="to-ho-hotel-con-2">
+									<a href="all-rooms.html">
 										<h4>Premium Room</h4>
-									</a> </div>
+									</a>
+								</div>
 								<div class="to-ho-hotel-con-3">
 									<ul>
 										<li>City: illunois,united states
-											<div class="dir-rat-star ho-hot-rat-star"> Rating: <i class="fa fa-star"
-													aria-hidden="true"></i><i class="fa fa-star"
-													aria-hidden="true"></i><i class="fa fa-star"
-													aria-hidden="true"></i><i class="fa fa-star"
-													aria-hidden="true"></i><i class="fa fa-star-o"
-													aria-hidden="true"></i> </div>
+											<div class="dir-rat-star ho-hot-rat-star"> Rating:
+												<i class="fa fa-star" aria-hidden="true"></i>
+												<i class="fa fa-star" aria-hidden="true"></i>
+												<i class="fa fa-star" aria-hidden="true"></i>
+												<i class="fa fa-star" aria-hidden="true"></i>
+												<i class="fa fa-star-o" aria-hidden="true"></i>
+											</div>
 										</li>
-										<li><span class="ho-hot-pri-dis">$840</span><span class="ho-hot-pri">$540</span>
+										<li>
+											<span class="ho-hot-pri-dis">$840</span>
+											<span class="ho-hot-pri">$540</span>
 										</li>
 									</ul>
 								</div>
@@ -257,24 +257,29 @@
 					<div class="col-md-4">
 						<div class="to-ho-hotel-con">
 							<div class="to-ho-hotel-con-1">
-								<div class="hom-hot-av-tic"> Available Tickets: 92 </div> <img src="images/room/6.jpg"
-									alt="">
+								<div class="hom-hot-av-tic"> Available Tickets: 92 </div>
+								<img src="images/room/6.jpg" alt="">
 							</div>
 							<div class="to-ho-hotel-con-23">
-								<div class="to-ho-hotel-con-2"> <a href="all-rooms.html">
+								<div class="to-ho-hotel-con-2">
+									<a href="all-rooms.html">
 										<h4>Normal Room</h4>
-									</a> </div>
+									</a>
+								</div>
 								<div class="to-ho-hotel-con-3">
 									<ul>
 										<li>City: illunois,united states
-											<div class="dir-rat-star ho-hot-rat-star"> Rating: <i class="fa fa-star"
-													aria-hidden="true"></i><i class="fa fa-star"
-													aria-hidden="true"></i><i class="fa fa-star"
-													aria-hidden="true"></i><i class="fa fa-star"
-													aria-hidden="true"></i><i class="fa fa-star-o"
-													aria-hidden="true"></i> </div>
+											<div class="dir-rat-star ho-hot-rat-star"> Rating:
+												<i class="fa fa-star" aria-hidden="true"></i>
+												<i class="fa fa-star" aria-hidden="true"></i>
+												<i class="fa fa-star" aria-hidden="true"></i>
+												<i class="fa fa-star" aria-hidden="true"></i>
+												<i class="fa fa-star-o" aria-hidden="true"></i>
+											</div>
 										</li>
-										<li><span class="ho-hot-pri-dis">$680</span><span class="ho-hot-pri">$380</span>
+										<li>
+											<span class="ho-hot-pri-dis">$680</span>
+											<span class="ho-hot-pri">$380</span>
 										</li>
 									</ul>
 								</div>
@@ -292,28 +297,35 @@
 		<div class="container">
 			<div class="row">
 				<div class="page-head">
-					<h2>Room Types</h2>
+					<h2>{{'Programs' | translate}}</h2>
 					<div class="head-title">
 						<div class="hl-1"></div>
 						<div class="hl-2"></div>
 						<div class="hl-3"></div>
 					</div>
-					<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt
-						ut laoreet.</p>
+					<p>{{'ProgramsDescription' | translate}}</p>
 				</div>
 				<!--ROOM SECTION-->
 				<div class="room">
-					<div class="ribbon ribbon-top-left"><span>Featured</span>
+					<div class="ribbon ribbon-top-left">
+						<span>Featured</span>
 					</div>
 					<!--ROOM IMAGE-->
-					<div class="r1 r-com"><img src="images/room/1.jpg" alt="" />
+					<div class="r1 r-com">
+						<img src="images/room/1.jpg" alt="" />
 					</div>
 					<!--ROOM RATING-->
 					<div class="r2 r-com">
 						<h4>Master Suite</h4>
-						<div class="r2-ratt"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-								class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <img
-								src="images/h-trip.png" alt="" /> <span>Excellent 4.5 / 5</span> </div>
+						<div class="r2-ratt">
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<img src="images/h-trip.png" alt="" />
+							<span>Excellent 4.5 / 5</span>
+						</div>
 						<ul>
 							<li>Max Adult : 3</li>
 							<li>Max Child : 1</li>
@@ -334,30 +346,41 @@
 					<!--ROOM PRICE-->
 					<div class="r4 r-com">
 						<p>Price for 1 night</p>
-						<p><span class="room-price-1">5000</span> <span class="room-price">$: 7000</span>
+						<p>
+							<span class="room-price-1">5000</span>
+							<span class="room-price">$: 7000</span>
 						</p>
 						<p>Non Refundable</p>
 					</div>
 					<!--ROOM BOOKING BUTTON-->
 					<div class="r5 r-com">
 						<div class="r2-available">Available</div>
-						<p>Price for 1 night</p> <a href="room-details-block.html" class="inn-room-book">Book</a>
+						<p>Price for 1 night</p>
+						<a href="room-details-block.html" class="inn-room-book">Book</a>
 					</div>
 				</div>
 				<!--END ROOM SECTION-->
 				<!--ROOM SECTION-->
 				<div class="room">
-					<div class="ribbon ribbon-top-left"><span>Featured</span>
+					<div class="ribbon ribbon-top-left">
+						<span>Featured</span>
 					</div>
 					<!--ROOM IMAGE-->
-					<div class="r1 r-com"><img src="images/room/2.jpg" alt="" />
+					<div class="r1 r-com">
+						<img src="images/room/2.jpg" alt="" />
 					</div>
 					<!--ROOM RATING-->
 					<div class="r2 r-com">
 						<h4>Mini Suite</h4>
-						<div class="r2-ratt"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-								class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <img
-								src="images/h-trip.png" alt="" /> <span>Excellent 4.2 / 5</span> </div>
+						<div class="r2-ratt">
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star-o"></i>
+							<img src="images/h-trip.png" alt="" />
+							<span>Excellent 4.2 / 5</span>
+						</div>
 						<ul>
 							<li>Max Adult : 2</li>
 							<li>Max Child : 2</li>
@@ -378,14 +401,17 @@
 					<!--ROOM PRICE-->
 					<div class="r4 r-com">
 						<p>Price for 1 night</p>
-						<p><span class="room-price-1">4000</span> <span class="room-price">$: 4500</span>
+						<p>
+							<span class="room-price-1">4000</span>
+							<span class="room-price">$: 4500</span>
 						</p>
 						<p>Non Refundable</p>
 					</div>
 					<!--ROOM BOOKING BUTTON-->
 					<div class="r5 r-com">
 						<div class="r2-available">Available</div>
-						<p>Price for 1 night</p> <a href="room-details.html" class="inn-room-book">Book</a>
+						<p>Price for 1 night</p>
+						<a href="room-details.html" class="inn-room-book">Book</a>
 					</div>
 				</div>
 				<!--END ROOM SECTION-->
@@ -394,14 +420,21 @@
 					<!--<div class="ribbon ribbon-top-left"><span>Featured</span></div>
 							-->
 					<!--ROOM IMAGE-->
-					<div class="r1 r-com"><img src="images/room/3.jpg" alt="" />
+					<div class="r1 r-com">
+						<img src="images/room/3.jpg" alt="" />
 					</div>
 					<!--ROOM RATING-->
 					<div class="r2 r-com">
 						<h4>Ultra Deluxe</h4>
-						<div class="r2-ratt"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-								class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <img
-								src="images/h-trip.png" alt="" /> <span>Excellent 3.9 / 5</span> </div>
+						<div class="r2-ratt">
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star-o"></i>
+							<img src="images/h-trip.png" alt="" />
+							<span>Excellent 3.9 / 5</span>
+						</div>
 						<ul>
 							<li>Max Adult : 4</li>
 							<li>Max Child : 2</li>
@@ -422,14 +455,17 @@
 					<!--ROOM PRICE-->
 					<div class="r4 r-com">
 						<p>Price for 1 night</p>
-						<p><span class="room-price-1">3500</span> <span class="room-price">$: 4000</span>
+						<p>
+							<span class="room-price-1">3500</span>
+							<span class="room-price">$: 4000</span>
 						</p>
 						<p>Non Refundable</p>
 					</div>
 					<!--ROOM BOOKING BUTTON-->
 					<div class="r5 r-com">
 						<div class="r2-available">Available</div>
-						<p>Price for 1 night</p> <a href="room-details-1.html" class="inn-room-book">Book</a>
+						<p>Price for 1 night</p>
+						<a href="room-details-1.html" class="inn-room-book">Book</a>
 					</div>
 				</div>
 				<!--END ROOM SECTION-->
@@ -437,14 +473,21 @@
 				<div class="room">
 					<!--<div class="ribbon ribbon-top-left"><span>Best Room</span></div>-->
 					<!--ROOM IMAGE-->
-					<div class="r1 r-com"><img src="images/room/4.jpg" alt="" />
+					<div class="r1 r-com">
+						<img src="images/room/4.jpg" alt="" />
 					</div>
 					<!--ROOM RATING-->
 					<div class="r2 r-com">
 						<h4>Luxury Room</h4>
-						<div class="r2-ratt"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-								class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <img
-								src="images/h-trip.png" alt="" /> <span>Excellent 4.0 / 5</span> </div>
+						<div class="r2-ratt">
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star-o"></i>
+							<img src="images/h-trip.png" alt="" />
+							<span>Excellent 4.0 / 5</span>
+						</div>
 						<ul>
 							<li>Max Adult : 5</li>
 							<li>Max Child : 2</li>
@@ -465,30 +508,41 @@
 					<!--ROOM PRICE-->
 					<div class="r4 r-com">
 						<p>Price for 1 night</p>
-						<p><span class="room-price-1">3000</span> <span class="room-price">$: 3500</span>
+						<p>
+							<span class="room-price-1">3000</span>
+							<span class="room-price">$: 3500</span>
 						</p>
 						<p>Non Refundable</p>
 					</div>
 					<!--ROOM BOOKING BUTTON-->
 					<div class="r5 r-com">
 						<div class="r2-available">Available</div>
-						<p>Price for 1 night</p> <a href="room-details.html" class="inn-room-book">Book</a>
+						<p>Price for 1 night</p>
+						<a href="room-details.html" class="inn-room-book">Book</a>
 					</div>
 				</div>
 				<!--END ROOM SECTION-->
 				<!--ROOM SECTION-->
 				<div class="room">
-					<div class="ribbon ribbon-top-left"><span>Special</span>
+					<div class="ribbon ribbon-top-left">
+						<span>Special</span>
 					</div>
 					<!--ROOM IMAGE-->
-					<div class="r1 r-com"><img src="images/room/5.jpg" alt="" />
+					<div class="r1 r-com">
+						<img src="images/room/5.jpg" alt="" />
 					</div>
 					<!--ROOM RATING-->
 					<div class="r2 r-com">
 						<h4>Premium Room</h4>
-						<div class="r2-ratt"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-								class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <img
-								src="images/h-trip.png" alt="" /> <span>Excellent 4.5 / 5</span> </div>
+						<div class="r2-ratt">
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star-o"></i>
+							<img src="images/h-trip.png" alt="" />
+							<span>Excellent 4.5 / 5</span>
+						</div>
 						<ul>
 							<li>Max Adult : 5</li>
 							<li>Max Child : 2</li>
@@ -509,14 +563,17 @@
 					<!--ROOM PRICE-->
 					<div class="r4 r-com">
 						<p>Price for 1 night</p>
-						<p><span class="room-price-1">4000</span> <span class="room-price">$: 5000</span>
+						<p>
+							<span class="room-price-1">4000</span>
+							<span class="room-price">$: 5000</span>
 						</p>
 						<p>Non Refundable</p>
 					</div>
 					<!--ROOM BOOKING BUTTON-->
 					<div class="r5 r-com">
 						<div class="r2-available">Available</div>
-						<p>Price for 1 night</p> <a href="room-details-block.html" class="inn-room-book">Book</a>
+						<p>Price for 1 night</p>
+						<a href="room-details-block.html" class="inn-room-book">Book</a>
 					</div>
 				</div>
 				<!--END ROOM SECTION-->
@@ -524,14 +581,21 @@
 				<div class="room">
 					<!--<div class="ribbon ribbon-top-left"><span>Featured</span></div>-->
 					<!--ROOM IMAGE-->
-					<div class="r1 r-com"><img src="images/room/6.jpg" alt="" />
+					<div class="r1 r-com">
+						<img src="images/room/6.jpg" alt="" />
 					</div>
 					<!--ROOM RATING-->
 					<div class="r2 r-com">
 						<h4>Normal Room</h4>
-						<div class="r2-ratt"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i
-								class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <img
-								src="images/h-trip.png" alt="" /> <span>Excellent 3.5 / 5</span> </div>
+						<div class="r2-ratt">
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star-o"></i>
+							<img src="images/h-trip.png" alt="" />
+							<span>Excellent 3.5 / 5</span>
+						</div>
 						<ul>
 							<li>Max Adult : 4</li>
 							<li>Max Child : 4</li>
@@ -552,14 +616,17 @@
 					<!--ROOM PRICE-->
 					<div class="r4 r-com">
 						<p>Price for 1 night</p>
-						<p><span class="room-price-1">2000</span> <span class="room-price">$: 2500</span>
+						<p>
+							<span class="room-price-1">2000</span>
+							<span class="room-price">$: 2500</span>
 						</p>
 						<p>Non Refundable</p>
 					</div>
 					<!--ROOM BOOKING BUTTON-->
 					<div class="r5 r-com">
 						<div class="r2-available">Available</div>
-						<p>Price for 1 night</p> <a href="room-details.html" class="inn-room-book">Book</a>
+						<p>Price for 1 night</p>
+						<a href="room-details.html" class="inn-room-book">Book</a>
 					</div>
 				</div>
 				<!--END ROOM SECTION-->
@@ -568,49 +635,69 @@
 	</div>
 	<!--TOP SECTION-->
 	<!--TOP SECTION-->
-	<div class="offer">
+	<!-- <div class="offer">
 		<div class="container">
 			<div class="row">
 				<div class="col-md-6">
-					<div class="offer-l"> <span class="ol-1"></span> <span class="ol-2"><i class="fa fa-star"></i><i
-								class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
-								class="fa fa-star"></i></span> <span class="ol-4">Standardized Budget Rooms</span> <span
-							class="ol-3"></span> <span class="ol-5">$99/-</span>
+					<div class="offer-l">
+						<span class="ol-1"></span>
+						<span class="ol-2">
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+						</span>
+						<span class="ol-4">Standardized Budget Rooms</span>
+						<span class="ol-3"></span>
+						<span class="ol-5">$99/-</span>
 						<ul>
 							<li>
-								<a href="#!" class="waves-effect waves-light btn-large offer-btn"><img
-										src="images/icon/dis1.png" alt="">
-								</a><span>Free WiFi</span>
+								<a href="#!" class="waves-effect waves-light btn-large offer-btn">
+									<img src="images/icon/dis1.png" alt="">
+								</a>
+								<span>Free WiFi</span>
 							</li>
 							<li>
-								<a href="#!" class="waves-effect waves-light btn-large offer-btn"><img
-										src="images/icon/h2.png" alt=""> </a><span>Breakfast</span>
+								<a href="#!" class="waves-effect waves-light btn-large offer-btn">
+									<img src="images/icon/h2.png" alt=""> </a>
+								<span>Breakfast</span>
 							</li>
 							<li>
-								<a href="#!" class="waves-effect waves-light btn-large offer-btn"><img
-										src="images/icon/dis3.png" alt=""> </a><span>Pool</span>
+								<a href="#!" class="waves-effect waves-light btn-large offer-btn">
+									<img src="images/icon/dis3.png" alt=""> </a>
+								<span>Pool</span>
 							</li>
 							<li>
-								<a href="#!" class="waves-effect waves-light btn-large offer-btn"><img
-										src="images/icon/dis4.png" alt=""> </a><span>Television</span>
+								<a href="#!" class="waves-effect waves-light btn-large offer-btn">
+									<img src="images/icon/dis4.png" alt=""> </a>
+								<span>Television</span>
 							</li>
 							<li>
-								<a href="#!" class="waves-effect waves-light btn-large offer-btn"><img
-										src="images/icon/dis5.png" alt=""> </a><span>GYM</span>
+								<a href="#!" class="waves-effect waves-light btn-large offer-btn">
+									<img src="images/icon/dis5.png" alt=""> </a>
+								<span>GYM</span>
 							</li>
 						</ul>
 					</div>
 				</div>
 				<div class="col-md-6">
 					<div class="offer-r">
-						<div class="or-1"> <span class="or-11">go</span> <span class="or-12">Stays</span> </div>
-						<div class="or-2"> <span class="or-21">Get</span> <span class="or-22">70%</span> <span
-								class="or-23">Off</span> <span class="or-24">use code: RG5481WERQ</span> <span
-								class="or-25"></span> </div>
+						<div class="or-1">
+							<span class="or-11">go</span>
+							<span class="or-12">Stays</span>
+						</div>
+						<div class="or-2">
+							<span class="or-21">Get</span>
+							<span class="or-22">70%</span>
+							<span class="or-23">Off</span>
+							<span class="or-24">use code: RG5481WERQ</span>
+							<span class="or-25"></span>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
-	</div>
+	</div> -->
 </section>
 <!--END HEADER SECTION-->

@@ -142,11 +142,8 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '				<!--TYPOGRAPHY SECTION-->\n' +
     '				<div class="col-md-6">\n' +
     '					<div class="book-title">\n' +
-    '						<h2>Check Availability</h2>\n' +
-    '						<p>It is a long established fact that a reader will be distracted by the readable content of a\n' +
-    '							page when looking at its layout. The point of using Lorem Ipsum is that it has a\n' +
-    '							more-or-less normal distribution of letters, as opposed to using \'Content here, content\n' +
-    '							here\', making it look like readable English.</p>\n' +
+    '						<h2>{{\'customiseProgram\' | translate}}</h2>\n' +
+    '						<p>{{\'DescribeCustomiseProgram\' | translate}}</p>\n' +
     '					</div>\n' +
     '				</div>\n' +
     '				<div class="col-md-6">\n' +
@@ -155,54 +152,33 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '							<div class="row">\n' +
     '								<div class="input-field col s6">\n' +
     '									<input type="text" class="validate">\n' +
-    '									<label>Full Name</label>\n' +
+    '									<label>{{\'ProgramName\' | translate}}</label>\n' +
     '								</div>\n' +
     '								<div class="input-field col s6">\n' +
     '									<input type="text" class="validate">\n' +
-    '									<label>Email</label>\n' +
+    '									<label>{{\'ProgramDescription\' | translate}}</label>\n' +
     '								</div>\n' +
     '							</div>\n' +
     '							<div class="row">\n' +
-    '								<div class="input-field col s6">\n' +
-    '									<input type="text" class="validate">\n' +
-    '									<label>Phone</label>\n' +
-    '								</div>\n' +
-    '								<div class="input-field col s6">\n' +
-    '									<input type="text" class="validate">\n' +
-    '									<label>Mobile</label>\n' +
-    '								</div>\n' +
-    '							</div>\n' +
-    '							<div class="row">\n' +
-    '								<div class="input-field col s6">\n' +
-    '									<input type="text" class="validate">\n' +
-    '									<label>City</label>\n' +
-    '								</div>\n' +
-    '								<div class="input-field col s6">\n' +
-    '									<input type="text" class="validate">\n' +
-    '									<label>Country</label>\n' +
-    '								</div>\n' +
-    '							</div>\n' +
-    '							<div class="row">\n' +
-    '								<div class="input-field col s6">\n' +
-    '									<select>\n' +
-    '										<option value="" disabled selected>No of adults</option>\n' +
-    '										<option value="1">1</option>\n' +
-    '										<option value="2">2</option>\n' +
-    '										<option value="3">3</option>\n' +
-    '										<option value="1">4</option>\n' +
-    '									</select>\n' +
-    '								</div>\n' +
-    '								<div class="input-field col s6">\n' +
-    '									<select>\n' +
-    '										<option value="" disabled selected>No of childrens</option>\n' +
-    '										<option value="1">1</option>\n' +
-    '										<option value="2">2</option>\n' +
-    '										<option value="3">3</option>\n' +
-    '										<option value="1">4</option>\n' +
+    '								<div class="input-field col s12">\n' +
+    '									<!-- <input type="text" class="validate"> -->\n' +
+    '									<label>{{\'SelectExcludeDays\' | translate}}</label>\n' +
+    '									<select ng-change="addProgramCtrl.ValidateExcludes()" style="width:100% !important" class="form-control select-tags pmd-select2-tags"\n' +
+    '									 multiple ng-model="addProgramCtrl.SelectedDays" ng-options="day as day.dayNameDictionary[selectedLanguage] for day in addProgramCtrl.dayList">\n' +
     '									</select>\n' +
     '								</div>\n' +
     '							</div>\n' +
     '							<div class="row">\n' +
+    '								<div class="input-field col s6">\n' +
+    '									<input type="text" class="validate">\n' +
+    '									<label>{{\'MealPerDay\' | translate}}</label>\n' +
+    '								</div>\n' +
+    '								<div class="input-field col s6">\n' +
+    '									<input type="text" class="validate">\n' +
+    '									<label>{{\'ProgramDaysCount\' | translate}}</label>\n' +
+    '								</div>\n' +
+    '							</div>\n' +
+    '							<!-- <div class="row">\n' +
     '								<div class="input-field col s6">\n' +
     '									<input type="text" id="from" name="from">\n' +
     '									<label for="from">Check In</label>\n' +
@@ -211,16 +187,16 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '									<input type="text" id="to" name="to">\n' +
     '									<label for="to">Check Out</label>\n' +
     '								</div>\n' +
-    '							</div>\n' +
-    '							<div class="row">\n' +
+    '							</div> -->\n' +
+    '							<!-- <div class="row">\n' +
     '								<div class="input-field col s12">\n' +
     '									<textarea id="textarea1" class="materialize-textarea" data-length="120"></textarea>\n' +
     '									<label>Message</label>\n' +
     '								</div>\n' +
-    '							</div>\n' +
+    '							</div> -->\n' +
     '							<div class="row">\n' +
     '								<div class="input-field col s12">\n' +
-    '									<input type="submit" value="submit" class="form-btn"> </div>\n' +
+    '									<input type="submit"  class="form-btn"> </div>\n' +
     '							</div>\n' +
     '						</form>\n' +
     '					</div>\n' +
@@ -235,14 +211,13 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '		<div class="container">\n' +
     '			<div class="row">\n' +
     '				<div class="hom1-title">\n' +
-    '					<h2>Our Hotel Rooms</h2>\n' +
+    '					<h2>{{\'Meals\' | translate}}</h2>\n' +
     '					<div class="head-title">\n' +
     '						<div class="hl-1"></div>\n' +
     '						<div class="hl-2"></div>\n' +
     '						<div class="hl-3"></div>\n' +
     '					</div>\n' +
-    '					<p>Aenean euismod sem porta est consectetur posuere. Praesent nisi velit, porttitor ut imperdiet a,\n' +
-    '						pellentesque id mi.</p>\n' +
+    '					<p>{{\'MealsDescription\' | translate}}</p>\n' +
     '				</div>\n' +
     '			</div>\n' +
     '			<div class="row">\n' +
@@ -251,24 +226,29 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '					<div class="col-md-4">\n' +
     '						<div class="to-ho-hotel-con">\n' +
     '							<div class="to-ho-hotel-con-1">\n' +
-    '								<div class="hom-hot-av-tic"> Available Tickets: 42 </div> <img src="images/room/3.jpg"\n' +
-    '									alt="">\n' +
+    '								<div class="hom-hot-av-tic"> Available Tickets: 42 </div>\n' +
+    '								<img src="https://fithouseksa.com/wp-content/uploads/2018/07/fat-running.png" alt="">\n' +
     '							</div>\n' +
     '							<div class="to-ho-hotel-con-23">\n' +
-    '								<div class="to-ho-hotel-con-2"> <a href="all-rooms.html">\n' +
+    '								<div class="to-ho-hotel-con-2">\n' +
+    '									<a href="all-rooms.html">\n' +
     '										<h4>Master Room</h4>\n' +
-    '									</a> </div>\n' +
+    '									</a>\n' +
+    '								</div>\n' +
     '								<div class="to-ho-hotel-con-3">\n' +
     '									<ul>\n' +
     '										<li>City: illunois,united states\n' +
-    '											<div class="dir-rat-star ho-hot-rat-star"> Rating: <i class="fa fa-star"\n' +
-    '													aria-hidden="true"></i><i class="fa fa-star"\n' +
-    '													aria-hidden="true"></i><i class="fa fa-star"\n' +
-    '													aria-hidden="true"></i><i class="fa fa-star"\n' +
-    '													aria-hidden="true"></i><i class="fa fa-star-o"\n' +
-    '													aria-hidden="true"></i> </div>\n' +
+    '											<div class="dir-rat-star ho-hot-rat-star"> Rating:\n' +
+    '												<i class="fa fa-star" aria-hidden="true"></i>\n' +
+    '												<i class="fa fa-star" aria-hidden="true"></i>\n' +
+    '												<i class="fa fa-star" aria-hidden="true"></i>\n' +
+    '												<i class="fa fa-star" aria-hidden="true"></i>\n' +
+    '												<i class="fa fa-star-o" aria-hidden="true"></i>\n' +
+    '											</div>\n' +
     '										</li>\n' +
-    '										<li><span class="ho-hot-pri-dis">$720</span><span class="ho-hot-pri">$420</span>\n' +
+    '										<li>\n' +
+    '											<span class="ho-hot-pri-dis">$720</span>\n' +
+    '											<span class="ho-hot-pri">$420</span>\n' +
     '										</li>\n' +
     '									</ul>\n' +
     '								</div>\n' +
@@ -279,24 +259,29 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '					<div class="col-md-4">\n' +
     '						<div class="to-ho-hotel-con">\n' +
     '							<div class="to-ho-hotel-con-1">\n' +
-    '								<div class="hom-hot-av-tic"> Available Tickets: 520 </div> <img src="images/room/1.jpg"\n' +
-    '									alt="">\n' +
+    '								<div class="hom-hot-av-tic"> Available Tickets: 520 </div>\n' +
+    '								<img src="images/room/1.jpg" alt="">\n' +
     '							</div>\n' +
     '							<div class="to-ho-hotel-con-23">\n' +
-    '								<div class="to-ho-hotel-con-2"> <a href="all-rooms.html">\n' +
+    '								<div class="to-ho-hotel-con-2">\n' +
+    '									<a href="all-rooms.html">\n' +
     '										<h4>Mini-Suite</h4>\n' +
-    '									</a> </div>\n' +
+    '									</a>\n' +
+    '								</div>\n' +
     '								<div class="to-ho-hotel-con-3">\n' +
     '									<ul>\n' +
     '										<li>City: illunois,united states\n' +
-    '											<div class="dir-rat-star ho-hot-rat-star"> Rating: <i class="fa fa-star"\n' +
-    '													aria-hidden="true"></i><i class="fa fa-star"\n' +
-    '													aria-hidden="true"></i><i class="fa fa-star"\n' +
-    '													aria-hidden="true"></i><i class="fa fa-star"\n' +
-    '													aria-hidden="true"></i><i class="fa fa-star-o"\n' +
-    '													aria-hidden="true"></i> </div>\n' +
+    '											<div class="dir-rat-star ho-hot-rat-star"> Rating:\n' +
+    '												<i class="fa fa-star" aria-hidden="true"></i>\n' +
+    '												<i class="fa fa-star" aria-hidden="true"></i>\n' +
+    '												<i class="fa fa-star" aria-hidden="true"></i>\n' +
+    '												<i class="fa fa-star" aria-hidden="true"></i>\n' +
+    '												<i class="fa fa-star-o" aria-hidden="true"></i>\n' +
+    '											</div>\n' +
     '										</li>\n' +
-    '										<li><span class="ho-hot-pri-dis">$840</span><span class="ho-hot-pri">$540</span>\n' +
+    '										<li>\n' +
+    '											<span class="ho-hot-pri-dis">$840</span>\n' +
+    '											<span class="ho-hot-pri">$540</span>\n' +
     '										</li>\n' +
     '									</ul>\n' +
     '								</div>\n' +
@@ -307,24 +292,29 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '					<div class="col-md-4">\n' +
     '						<div class="to-ho-hotel-con">\n' +
     '							<div class="to-ho-hotel-con-1">\n' +
-    '								<div class="hom-hot-av-tic"> Available Tickets: 92 </div> <img src="images/room/2.jpg"\n' +
-    '									alt="">\n' +
+    '								<div class="hom-hot-av-tic"> Available Tickets: 92 </div>\n' +
+    '								<img src="images/room/2.jpg" alt="">\n' +
     '							</div>\n' +
     '							<div class="to-ho-hotel-con-23">\n' +
-    '								<div class="to-ho-hotel-con-2"> <a href="all-rooms.html">\n' +
+    '								<div class="to-ho-hotel-con-2">\n' +
+    '									<a href="all-rooms.html">\n' +
     '										<h4>Ultra Deluxe</h4>\n' +
-    '									</a> </div>\n' +
+    '									</a>\n' +
+    '								</div>\n' +
     '								<div class="to-ho-hotel-con-3">\n' +
     '									<ul>\n' +
     '										<li>City: illunois,united states\n' +
-    '											<div class="dir-rat-star ho-hot-rat-star"> Rating: <i class="fa fa-star"\n' +
-    '													aria-hidden="true"></i><i class="fa fa-star"\n' +
-    '													aria-hidden="true"></i><i class="fa fa-star"\n' +
-    '													aria-hidden="true"></i><i class="fa fa-star"\n' +
-    '													aria-hidden="true"></i><i class="fa fa-star-o"\n' +
-    '													aria-hidden="true"></i> </div>\n' +
+    '											<div class="dir-rat-star ho-hot-rat-star"> Rating:\n' +
+    '												<i class="fa fa-star" aria-hidden="true"></i>\n' +
+    '												<i class="fa fa-star" aria-hidden="true"></i>\n' +
+    '												<i class="fa fa-star" aria-hidden="true"></i>\n' +
+    '												<i class="fa fa-star" aria-hidden="true"></i>\n' +
+    '												<i class="fa fa-star-o" aria-hidden="true"></i>\n' +
+    '											</div>\n' +
     '										</li>\n' +
-    '										<li><span class="ho-hot-pri-dis">$680</span><span class="ho-hot-pri">$380</span>\n' +
+    '										<li>\n' +
+    '											<span class="ho-hot-pri-dis">$680</span>\n' +
+    '											<span class="ho-hot-pri">$380</span>\n' +
     '										</li>\n' +
     '									</ul>\n' +
     '								</div>\n' +
@@ -335,24 +325,29 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '					<div class="col-md-4">\n' +
     '						<div class="to-ho-hotel-con">\n' +
     '							<div class="to-ho-hotel-con-1">\n' +
-    '								<div class="hom-hot-av-tic"> Available Tickets: 42 </div> <img src="images/room/4.jpg"\n' +
-    '									alt="">\n' +
+    '								<div class="hom-hot-av-tic"> Available Tickets: 42 </div>\n' +
+    '								<img src="images/room/4.jpg" alt="">\n' +
     '							</div>\n' +
     '							<div class="to-ho-hotel-con-23">\n' +
-    '								<div class="to-ho-hotel-con-2"> <a href="all-rooms.html">\n' +
+    '								<div class="to-ho-hotel-con-2">\n' +
+    '									<a href="all-rooms.html">\n' +
     '										<h4>Luxury Room</h4>\n' +
-    '									</a> </div>\n' +
+    '									</a>\n' +
+    '								</div>\n' +
     '								<div class="to-ho-hotel-con-3">\n' +
     '									<ul>\n' +
     '										<li>City: illunois,united states\n' +
-    '											<div class="dir-rat-star ho-hot-rat-star"> Rating: <i class="fa fa-star"\n' +
-    '													aria-hidden="true"></i><i class="fa fa-star"\n' +
-    '													aria-hidden="true"></i><i class="fa fa-star"\n' +
-    '													aria-hidden="true"></i><i class="fa fa-star"\n' +
-    '													aria-hidden="true"></i><i class="fa fa-star-o"\n' +
-    '													aria-hidden="true"></i> </div>\n' +
+    '											<div class="dir-rat-star ho-hot-rat-star"> Rating:\n' +
+    '												<i class="fa fa-star" aria-hidden="true"></i>\n' +
+    '												<i class="fa fa-star" aria-hidden="true"></i>\n' +
+    '												<i class="fa fa-star" aria-hidden="true"></i>\n' +
+    '												<i class="fa fa-star" aria-hidden="true"></i>\n' +
+    '												<i class="fa fa-star-o" aria-hidden="true"></i>\n' +
+    '											</div>\n' +
     '										</li>\n' +
-    '										<li><span class="ho-hot-pri-dis">$720</span><span class="ho-hot-pri">$420</span>\n' +
+    '										<li>\n' +
+    '											<span class="ho-hot-pri-dis">$720</span>\n' +
+    '											<span class="ho-hot-pri">$420</span>\n' +
     '										</li>\n' +
     '									</ul>\n' +
     '								</div>\n' +
@@ -363,24 +358,29 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '					<div class="col-md-4">\n' +
     '						<div class="to-ho-hotel-con">\n' +
     '							<div class="to-ho-hotel-con-1">\n' +
-    '								<div class="hom-hot-av-tic"> Available Tickets: 520 </div> <img src="images/room/5.jpg"\n' +
-    '									alt="">\n' +
+    '								<div class="hom-hot-av-tic"> Available Tickets: 520 </div>\n' +
+    '								<img src="images/room/5.jpg" alt="">\n' +
     '							</div>\n' +
     '							<div class="to-ho-hotel-con-23">\n' +
-    '								<div class="to-ho-hotel-con-2"> <a href="all-rooms.html">\n' +
+    '								<div class="to-ho-hotel-con-2">\n' +
+    '									<a href="all-rooms.html">\n' +
     '										<h4>Premium Room</h4>\n' +
-    '									</a> </div>\n' +
+    '									</a>\n' +
+    '								</div>\n' +
     '								<div class="to-ho-hotel-con-3">\n' +
     '									<ul>\n' +
     '										<li>City: illunois,united states\n' +
-    '											<div class="dir-rat-star ho-hot-rat-star"> Rating: <i class="fa fa-star"\n' +
-    '													aria-hidden="true"></i><i class="fa fa-star"\n' +
-    '													aria-hidden="true"></i><i class="fa fa-star"\n' +
-    '													aria-hidden="true"></i><i class="fa fa-star"\n' +
-    '													aria-hidden="true"></i><i class="fa fa-star-o"\n' +
-    '													aria-hidden="true"></i> </div>\n' +
+    '											<div class="dir-rat-star ho-hot-rat-star"> Rating:\n' +
+    '												<i class="fa fa-star" aria-hidden="true"></i>\n' +
+    '												<i class="fa fa-star" aria-hidden="true"></i>\n' +
+    '												<i class="fa fa-star" aria-hidden="true"></i>\n' +
+    '												<i class="fa fa-star" aria-hidden="true"></i>\n' +
+    '												<i class="fa fa-star-o" aria-hidden="true"></i>\n' +
+    '											</div>\n' +
     '										</li>\n' +
-    '										<li><span class="ho-hot-pri-dis">$840</span><span class="ho-hot-pri">$540</span>\n' +
+    '										<li>\n' +
+    '											<span class="ho-hot-pri-dis">$840</span>\n' +
+    '											<span class="ho-hot-pri">$540</span>\n' +
     '										</li>\n' +
     '									</ul>\n' +
     '								</div>\n' +
@@ -391,24 +391,29 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '					<div class="col-md-4">\n' +
     '						<div class="to-ho-hotel-con">\n' +
     '							<div class="to-ho-hotel-con-1">\n' +
-    '								<div class="hom-hot-av-tic"> Available Tickets: 92 </div> <img src="images/room/6.jpg"\n' +
-    '									alt="">\n' +
+    '								<div class="hom-hot-av-tic"> Available Tickets: 92 </div>\n' +
+    '								<img src="images/room/6.jpg" alt="">\n' +
     '							</div>\n' +
     '							<div class="to-ho-hotel-con-23">\n' +
-    '								<div class="to-ho-hotel-con-2"> <a href="all-rooms.html">\n' +
+    '								<div class="to-ho-hotel-con-2">\n' +
+    '									<a href="all-rooms.html">\n' +
     '										<h4>Normal Room</h4>\n' +
-    '									</a> </div>\n' +
+    '									</a>\n' +
+    '								</div>\n' +
     '								<div class="to-ho-hotel-con-3">\n' +
     '									<ul>\n' +
     '										<li>City: illunois,united states\n' +
-    '											<div class="dir-rat-star ho-hot-rat-star"> Rating: <i class="fa fa-star"\n' +
-    '													aria-hidden="true"></i><i class="fa fa-star"\n' +
-    '													aria-hidden="true"></i><i class="fa fa-star"\n' +
-    '													aria-hidden="true"></i><i class="fa fa-star"\n' +
-    '													aria-hidden="true"></i><i class="fa fa-star-o"\n' +
-    '													aria-hidden="true"></i> </div>\n' +
+    '											<div class="dir-rat-star ho-hot-rat-star"> Rating:\n' +
+    '												<i class="fa fa-star" aria-hidden="true"></i>\n' +
+    '												<i class="fa fa-star" aria-hidden="true"></i>\n' +
+    '												<i class="fa fa-star" aria-hidden="true"></i>\n' +
+    '												<i class="fa fa-star" aria-hidden="true"></i>\n' +
+    '												<i class="fa fa-star-o" aria-hidden="true"></i>\n' +
+    '											</div>\n' +
     '										</li>\n' +
-    '										<li><span class="ho-hot-pri-dis">$680</span><span class="ho-hot-pri">$380</span>\n' +
+    '										<li>\n' +
+    '											<span class="ho-hot-pri-dis">$680</span>\n' +
+    '											<span class="ho-hot-pri">$380</span>\n' +
     '										</li>\n' +
     '									</ul>\n' +
     '								</div>\n' +
@@ -426,28 +431,35 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '		<div class="container">\n' +
     '			<div class="row">\n' +
     '				<div class="page-head">\n' +
-    '					<h2>Room Types</h2>\n' +
+    '					<h2>{{\'Programs\' | translate}}</h2>\n' +
     '					<div class="head-title">\n' +
     '						<div class="hl-1"></div>\n' +
     '						<div class="hl-2"></div>\n' +
     '						<div class="hl-3"></div>\n' +
     '					</div>\n' +
-    '					<p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt\n' +
-    '						ut laoreet.</p>\n' +
+    '					<p>{{\'ProgramsDescription\' | translate}}</p>\n' +
     '				</div>\n' +
     '				<!--ROOM SECTION-->\n' +
     '				<div class="room">\n' +
-    '					<div class="ribbon ribbon-top-left"><span>Featured</span>\n' +
+    '					<div class="ribbon ribbon-top-left">\n' +
+    '						<span>Featured</span>\n' +
     '					</div>\n' +
     '					<!--ROOM IMAGE-->\n' +
-    '					<div class="r1 r-com"><img src="images/room/1.jpg" alt="" />\n' +
+    '					<div class="r1 r-com">\n' +
+    '						<img src="images/room/1.jpg" alt="" />\n' +
     '					</div>\n' +
     '					<!--ROOM RATING-->\n' +
     '					<div class="r2 r-com">\n' +
     '						<h4>Master Suite</h4>\n' +
-    '						<div class="r2-ratt"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i\n' +
-    '								class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <img\n' +
-    '								src="images/h-trip.png" alt="" /> <span>Excellent 4.5 / 5</span> </div>\n' +
+    '						<div class="r2-ratt">\n' +
+    '							<i class="fa fa-star"></i>\n' +
+    '							<i class="fa fa-star"></i>\n' +
+    '							<i class="fa fa-star"></i>\n' +
+    '							<i class="fa fa-star"></i>\n' +
+    '							<i class="fa fa-star"></i>\n' +
+    '							<img src="images/h-trip.png" alt="" />\n' +
+    '							<span>Excellent 4.5 / 5</span>\n' +
+    '						</div>\n' +
     '						<ul>\n' +
     '							<li>Max Adult : 3</li>\n' +
     '							<li>Max Child : 1</li>\n' +
@@ -468,30 +480,41 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '					<!--ROOM PRICE-->\n' +
     '					<div class="r4 r-com">\n' +
     '						<p>Price for 1 night</p>\n' +
-    '						<p><span class="room-price-1">5000</span> <span class="room-price">$: 7000</span>\n' +
+    '						<p>\n' +
+    '							<span class="room-price-1">5000</span>\n' +
+    '							<span class="room-price">$: 7000</span>\n' +
     '						</p>\n' +
     '						<p>Non Refundable</p>\n' +
     '					</div>\n' +
     '					<!--ROOM BOOKING BUTTON-->\n' +
     '					<div class="r5 r-com">\n' +
     '						<div class="r2-available">Available</div>\n' +
-    '						<p>Price for 1 night</p> <a href="room-details-block.html" class="inn-room-book">Book</a>\n' +
+    '						<p>Price for 1 night</p>\n' +
+    '						<a href="room-details-block.html" class="inn-room-book">Book</a>\n' +
     '					</div>\n' +
     '				</div>\n' +
     '				<!--END ROOM SECTION-->\n' +
     '				<!--ROOM SECTION-->\n' +
     '				<div class="room">\n' +
-    '					<div class="ribbon ribbon-top-left"><span>Featured</span>\n' +
+    '					<div class="ribbon ribbon-top-left">\n' +
+    '						<span>Featured</span>\n' +
     '					</div>\n' +
     '					<!--ROOM IMAGE-->\n' +
-    '					<div class="r1 r-com"><img src="images/room/2.jpg" alt="" />\n' +
+    '					<div class="r1 r-com">\n' +
+    '						<img src="images/room/2.jpg" alt="" />\n' +
     '					</div>\n' +
     '					<!--ROOM RATING-->\n' +
     '					<div class="r2 r-com">\n' +
     '						<h4>Mini Suite</h4>\n' +
-    '						<div class="r2-ratt"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i\n' +
-    '								class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <img\n' +
-    '								src="images/h-trip.png" alt="" /> <span>Excellent 4.2 / 5</span> </div>\n' +
+    '						<div class="r2-ratt">\n' +
+    '							<i class="fa fa-star"></i>\n' +
+    '							<i class="fa fa-star"></i>\n' +
+    '							<i class="fa fa-star"></i>\n' +
+    '							<i class="fa fa-star"></i>\n' +
+    '							<i class="fa fa-star-o"></i>\n' +
+    '							<img src="images/h-trip.png" alt="" />\n' +
+    '							<span>Excellent 4.2 / 5</span>\n' +
+    '						</div>\n' +
     '						<ul>\n' +
     '							<li>Max Adult : 2</li>\n' +
     '							<li>Max Child : 2</li>\n' +
@@ -512,14 +535,17 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '					<!--ROOM PRICE-->\n' +
     '					<div class="r4 r-com">\n' +
     '						<p>Price for 1 night</p>\n' +
-    '						<p><span class="room-price-1">4000</span> <span class="room-price">$: 4500</span>\n' +
+    '						<p>\n' +
+    '							<span class="room-price-1">4000</span>\n' +
+    '							<span class="room-price">$: 4500</span>\n' +
     '						</p>\n' +
     '						<p>Non Refundable</p>\n' +
     '					</div>\n' +
     '					<!--ROOM BOOKING BUTTON-->\n' +
     '					<div class="r5 r-com">\n' +
     '						<div class="r2-available">Available</div>\n' +
-    '						<p>Price for 1 night</p> <a href="room-details.html" class="inn-room-book">Book</a>\n' +
+    '						<p>Price for 1 night</p>\n' +
+    '						<a href="room-details.html" class="inn-room-book">Book</a>\n' +
     '					</div>\n' +
     '				</div>\n' +
     '				<!--END ROOM SECTION-->\n' +
@@ -528,14 +554,21 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '					<!--<div class="ribbon ribbon-top-left"><span>Featured</span></div>\n' +
     '							-->\n' +
     '					<!--ROOM IMAGE-->\n' +
-    '					<div class="r1 r-com"><img src="images/room/3.jpg" alt="" />\n' +
+    '					<div class="r1 r-com">\n' +
+    '						<img src="images/room/3.jpg" alt="" />\n' +
     '					</div>\n' +
     '					<!--ROOM RATING-->\n' +
     '					<div class="r2 r-com">\n' +
     '						<h4>Ultra Deluxe</h4>\n' +
-    '						<div class="r2-ratt"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i\n' +
-    '								class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <img\n' +
-    '								src="images/h-trip.png" alt="" /> <span>Excellent 3.9 / 5</span> </div>\n' +
+    '						<div class="r2-ratt">\n' +
+    '							<i class="fa fa-star"></i>\n' +
+    '							<i class="fa fa-star"></i>\n' +
+    '							<i class="fa fa-star"></i>\n' +
+    '							<i class="fa fa-star"></i>\n' +
+    '							<i class="fa fa-star-o"></i>\n' +
+    '							<img src="images/h-trip.png" alt="" />\n' +
+    '							<span>Excellent 3.9 / 5</span>\n' +
+    '						</div>\n' +
     '						<ul>\n' +
     '							<li>Max Adult : 4</li>\n' +
     '							<li>Max Child : 2</li>\n' +
@@ -556,14 +589,17 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '					<!--ROOM PRICE-->\n' +
     '					<div class="r4 r-com">\n' +
     '						<p>Price for 1 night</p>\n' +
-    '						<p><span class="room-price-1">3500</span> <span class="room-price">$: 4000</span>\n' +
+    '						<p>\n' +
+    '							<span class="room-price-1">3500</span>\n' +
+    '							<span class="room-price">$: 4000</span>\n' +
     '						</p>\n' +
     '						<p>Non Refundable</p>\n' +
     '					</div>\n' +
     '					<!--ROOM BOOKING BUTTON-->\n' +
     '					<div class="r5 r-com">\n' +
     '						<div class="r2-available">Available</div>\n' +
-    '						<p>Price for 1 night</p> <a href="room-details-1.html" class="inn-room-book">Book</a>\n' +
+    '						<p>Price for 1 night</p>\n' +
+    '						<a href="room-details-1.html" class="inn-room-book">Book</a>\n' +
     '					</div>\n' +
     '				</div>\n' +
     '				<!--END ROOM SECTION-->\n' +
@@ -571,14 +607,21 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '				<div class="room">\n' +
     '					<!--<div class="ribbon ribbon-top-left"><span>Best Room</span></div>-->\n' +
     '					<!--ROOM IMAGE-->\n' +
-    '					<div class="r1 r-com"><img src="images/room/4.jpg" alt="" />\n' +
+    '					<div class="r1 r-com">\n' +
+    '						<img src="images/room/4.jpg" alt="" />\n' +
     '					</div>\n' +
     '					<!--ROOM RATING-->\n' +
     '					<div class="r2 r-com">\n' +
     '						<h4>Luxury Room</h4>\n' +
-    '						<div class="r2-ratt"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i\n' +
-    '								class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <img\n' +
-    '								src="images/h-trip.png" alt="" /> <span>Excellent 4.0 / 5</span> </div>\n' +
+    '						<div class="r2-ratt">\n' +
+    '							<i class="fa fa-star"></i>\n' +
+    '							<i class="fa fa-star"></i>\n' +
+    '							<i class="fa fa-star"></i>\n' +
+    '							<i class="fa fa-star"></i>\n' +
+    '							<i class="fa fa-star-o"></i>\n' +
+    '							<img src="images/h-trip.png" alt="" />\n' +
+    '							<span>Excellent 4.0 / 5</span>\n' +
+    '						</div>\n' +
     '						<ul>\n' +
     '							<li>Max Adult : 5</li>\n' +
     '							<li>Max Child : 2</li>\n' +
@@ -599,30 +642,41 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '					<!--ROOM PRICE-->\n' +
     '					<div class="r4 r-com">\n' +
     '						<p>Price for 1 night</p>\n' +
-    '						<p><span class="room-price-1">3000</span> <span class="room-price">$: 3500</span>\n' +
+    '						<p>\n' +
+    '							<span class="room-price-1">3000</span>\n' +
+    '							<span class="room-price">$: 3500</span>\n' +
     '						</p>\n' +
     '						<p>Non Refundable</p>\n' +
     '					</div>\n' +
     '					<!--ROOM BOOKING BUTTON-->\n' +
     '					<div class="r5 r-com">\n' +
     '						<div class="r2-available">Available</div>\n' +
-    '						<p>Price for 1 night</p> <a href="room-details.html" class="inn-room-book">Book</a>\n' +
+    '						<p>Price for 1 night</p>\n' +
+    '						<a href="room-details.html" class="inn-room-book">Book</a>\n' +
     '					</div>\n' +
     '				</div>\n' +
     '				<!--END ROOM SECTION-->\n' +
     '				<!--ROOM SECTION-->\n' +
     '				<div class="room">\n' +
-    '					<div class="ribbon ribbon-top-left"><span>Special</span>\n' +
+    '					<div class="ribbon ribbon-top-left">\n' +
+    '						<span>Special</span>\n' +
     '					</div>\n' +
     '					<!--ROOM IMAGE-->\n' +
-    '					<div class="r1 r-com"><img src="images/room/5.jpg" alt="" />\n' +
+    '					<div class="r1 r-com">\n' +
+    '						<img src="images/room/5.jpg" alt="" />\n' +
     '					</div>\n' +
     '					<!--ROOM RATING-->\n' +
     '					<div class="r2 r-com">\n' +
     '						<h4>Premium Room</h4>\n' +
-    '						<div class="r2-ratt"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i\n' +
-    '								class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <img\n' +
-    '								src="images/h-trip.png" alt="" /> <span>Excellent 4.5 / 5</span> </div>\n' +
+    '						<div class="r2-ratt">\n' +
+    '							<i class="fa fa-star"></i>\n' +
+    '							<i class="fa fa-star"></i>\n' +
+    '							<i class="fa fa-star"></i>\n' +
+    '							<i class="fa fa-star"></i>\n' +
+    '							<i class="fa fa-star-o"></i>\n' +
+    '							<img src="images/h-trip.png" alt="" />\n' +
+    '							<span>Excellent 4.5 / 5</span>\n' +
+    '						</div>\n' +
     '						<ul>\n' +
     '							<li>Max Adult : 5</li>\n' +
     '							<li>Max Child : 2</li>\n' +
@@ -643,14 +697,17 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '					<!--ROOM PRICE-->\n' +
     '					<div class="r4 r-com">\n' +
     '						<p>Price for 1 night</p>\n' +
-    '						<p><span class="room-price-1">4000</span> <span class="room-price">$: 5000</span>\n' +
+    '						<p>\n' +
+    '							<span class="room-price-1">4000</span>\n' +
+    '							<span class="room-price">$: 5000</span>\n' +
     '						</p>\n' +
     '						<p>Non Refundable</p>\n' +
     '					</div>\n' +
     '					<!--ROOM BOOKING BUTTON-->\n' +
     '					<div class="r5 r-com">\n' +
     '						<div class="r2-available">Available</div>\n' +
-    '						<p>Price for 1 night</p> <a href="room-details-block.html" class="inn-room-book">Book</a>\n' +
+    '						<p>Price for 1 night</p>\n' +
+    '						<a href="room-details-block.html" class="inn-room-book">Book</a>\n' +
     '					</div>\n' +
     '				</div>\n' +
     '				<!--END ROOM SECTION-->\n' +
@@ -658,14 +715,21 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '				<div class="room">\n' +
     '					<!--<div class="ribbon ribbon-top-left"><span>Featured</span></div>-->\n' +
     '					<!--ROOM IMAGE-->\n' +
-    '					<div class="r1 r-com"><img src="images/room/6.jpg" alt="" />\n' +
+    '					<div class="r1 r-com">\n' +
+    '						<img src="images/room/6.jpg" alt="" />\n' +
     '					</div>\n' +
     '					<!--ROOM RATING-->\n' +
     '					<div class="r2 r-com">\n' +
     '						<h4>Normal Room</h4>\n' +
-    '						<div class="r2-ratt"> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i\n' +
-    '								class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star-o"></i> <img\n' +
-    '								src="images/h-trip.png" alt="" /> <span>Excellent 3.5 / 5</span> </div>\n' +
+    '						<div class="r2-ratt">\n' +
+    '							<i class="fa fa-star"></i>\n' +
+    '							<i class="fa fa-star"></i>\n' +
+    '							<i class="fa fa-star"></i>\n' +
+    '							<i class="fa fa-star"></i>\n' +
+    '							<i class="fa fa-star-o"></i>\n' +
+    '							<img src="images/h-trip.png" alt="" />\n' +
+    '							<span>Excellent 3.5 / 5</span>\n' +
+    '						</div>\n' +
     '						<ul>\n' +
     '							<li>Max Adult : 4</li>\n' +
     '							<li>Max Child : 4</li>\n' +
@@ -686,14 +750,17 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '					<!--ROOM PRICE-->\n' +
     '					<div class="r4 r-com">\n' +
     '						<p>Price for 1 night</p>\n' +
-    '						<p><span class="room-price-1">2000</span> <span class="room-price">$: 2500</span>\n' +
+    '						<p>\n' +
+    '							<span class="room-price-1">2000</span>\n' +
+    '							<span class="room-price">$: 2500</span>\n' +
     '						</p>\n' +
     '						<p>Non Refundable</p>\n' +
     '					</div>\n' +
     '					<!--ROOM BOOKING BUTTON-->\n' +
     '					<div class="r5 r-com">\n' +
     '						<div class="r2-available">Available</div>\n' +
-    '						<p>Price for 1 night</p> <a href="room-details.html" class="inn-room-book">Book</a>\n' +
+    '						<p>Price for 1 night</p>\n' +
+    '						<a href="room-details.html" class="inn-room-book">Book</a>\n' +
     '					</div>\n' +
     '				</div>\n' +
     '				<!--END ROOM SECTION-->\n' +
@@ -702,50 +769,70 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '	</div>\n' +
     '	<!--TOP SECTION-->\n' +
     '	<!--TOP SECTION-->\n' +
-    '	<div class="offer">\n' +
+    '	<!-- <div class="offer">\n' +
     '		<div class="container">\n' +
     '			<div class="row">\n' +
     '				<div class="col-md-6">\n' +
-    '					<div class="offer-l"> <span class="ol-1"></span> <span class="ol-2"><i class="fa fa-star"></i><i\n' +
-    '								class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i\n' +
-    '								class="fa fa-star"></i></span> <span class="ol-4">Standardized Budget Rooms</span> <span\n' +
-    '							class="ol-3"></span> <span class="ol-5">$99/-</span>\n' +
+    '					<div class="offer-l">\n' +
+    '						<span class="ol-1"></span>\n' +
+    '						<span class="ol-2">\n' +
+    '							<i class="fa fa-star"></i>\n' +
+    '							<i class="fa fa-star"></i>\n' +
+    '							<i class="fa fa-star"></i>\n' +
+    '							<i class="fa fa-star"></i>\n' +
+    '							<i class="fa fa-star"></i>\n' +
+    '						</span>\n' +
+    '						<span class="ol-4">Standardized Budget Rooms</span>\n' +
+    '						<span class="ol-3"></span>\n' +
+    '						<span class="ol-5">$99/-</span>\n' +
     '						<ul>\n' +
     '							<li>\n' +
-    '								<a href="#!" class="waves-effect waves-light btn-large offer-btn"><img\n' +
-    '										src="images/icon/dis1.png" alt="">\n' +
-    '								</a><span>Free WiFi</span>\n' +
+    '								<a href="#!" class="waves-effect waves-light btn-large offer-btn">\n' +
+    '									<img src="images/icon/dis1.png" alt="">\n' +
+    '								</a>\n' +
+    '								<span>Free WiFi</span>\n' +
     '							</li>\n' +
     '							<li>\n' +
-    '								<a href="#!" class="waves-effect waves-light btn-large offer-btn"><img\n' +
-    '										src="images/icon/h2.png" alt=""> </a><span>Breakfast</span>\n' +
+    '								<a href="#!" class="waves-effect waves-light btn-large offer-btn">\n' +
+    '									<img src="images/icon/h2.png" alt=""> </a>\n' +
+    '								<span>Breakfast</span>\n' +
     '							</li>\n' +
     '							<li>\n' +
-    '								<a href="#!" class="waves-effect waves-light btn-large offer-btn"><img\n' +
-    '										src="images/icon/dis3.png" alt=""> </a><span>Pool</span>\n' +
+    '								<a href="#!" class="waves-effect waves-light btn-large offer-btn">\n' +
+    '									<img src="images/icon/dis3.png" alt=""> </a>\n' +
+    '								<span>Pool</span>\n' +
     '							</li>\n' +
     '							<li>\n' +
-    '								<a href="#!" class="waves-effect waves-light btn-large offer-btn"><img\n' +
-    '										src="images/icon/dis4.png" alt=""> </a><span>Television</span>\n' +
+    '								<a href="#!" class="waves-effect waves-light btn-large offer-btn">\n' +
+    '									<img src="images/icon/dis4.png" alt=""> </a>\n' +
+    '								<span>Television</span>\n' +
     '							</li>\n' +
     '							<li>\n' +
-    '								<a href="#!" class="waves-effect waves-light btn-large offer-btn"><img\n' +
-    '										src="images/icon/dis5.png" alt=""> </a><span>GYM</span>\n' +
+    '								<a href="#!" class="waves-effect waves-light btn-large offer-btn">\n' +
+    '									<img src="images/icon/dis5.png" alt=""> </a>\n' +
+    '								<span>GYM</span>\n' +
     '							</li>\n' +
     '						</ul>\n' +
     '					</div>\n' +
     '				</div>\n' +
     '				<div class="col-md-6">\n' +
     '					<div class="offer-r">\n' +
-    '						<div class="or-1"> <span class="or-11">go</span> <span class="or-12">Stays</span> </div>\n' +
-    '						<div class="or-2"> <span class="or-21">Get</span> <span class="or-22">70%</span> <span\n' +
-    '								class="or-23">Off</span> <span class="or-24">use code: RG5481WERQ</span> <span\n' +
-    '								class="or-25"></span> </div>\n' +
+    '						<div class="or-1">\n' +
+    '							<span class="or-11">go</span>\n' +
+    '							<span class="or-12">Stays</span>\n' +
+    '						</div>\n' +
+    '						<div class="or-2">\n' +
+    '							<span class="or-21">Get</span>\n' +
+    '							<span class="or-22">70%</span>\n' +
+    '							<span class="or-23">Off</span>\n' +
+    '							<span class="or-24">use code: RG5481WERQ</span>\n' +
+    '							<span class="or-25"></span>\n' +
+    '						</div>\n' +
     '					</div>\n' +
     '				</div>\n' +
     '			</div>\n' +
     '		</div>\n' +
-    '	</div>\n' +
+    '	</div> -->\n' +
     '</section>\n' +
     '<!--END HEADER SECTION-->');
 }]);
