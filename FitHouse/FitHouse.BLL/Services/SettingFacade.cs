@@ -30,6 +30,7 @@ namespace FitHouse.BLL.Services
         public SettingDto UpdateSetting(SettingDto settingDto, long userId)
         {
             var setting = _settingService.Queryable().FirstOrDefault();
+
             setting.IsDeleted = false;
             setting.AllowHistory = settingDto.AllowHistory;
             setting.CurrencyCode = settingDto.CurrencyCode;
