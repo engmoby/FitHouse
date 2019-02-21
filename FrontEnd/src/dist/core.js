@@ -51,21 +51,21 @@
 
       
 }());
-;(function() {
+;(function () {
 	angular
 		.module('core')
-		.constant('appCONSTANTS', { 
-			'API_URL': 'http://mezab-al-rahma.azurewebsites.net/api/',
-			// 'API_URL': 'http://localhost:3152/api/',
-			'defaultLanguage':'en'
+		.constant('appCONSTANTS', {
+			'API_URL': 'http://localhost:32569/api/',
+			// 'API_URL': 'http://fithouse.azurewebsites.net/api/',
+			'defaultLanguage': 'en'
 		})
 		.constant('messageTypeEnum', {
 			success: 0,
 			warning: 1,
 			error: 2
 		}).constant('userRolesEnum', {
-			GlobalAdmin:"GlobalAdmin"
-    });
+			GlobalAdmin: "GlobalAdmin"
+		});
 }());;(function() {
     'use strict';
 
@@ -113,13 +113,38 @@
         "ContactUs": "Contact Us",
         "Language": "Language",
         "customiseProgram": "Customise Program",
-        "DescribeCustomiseProgram":"Describe Customise Program as client want",
-
+        "DescribeCustomiseProgram": "Describe Customise Program as client want",
+        "ProgramName": "Program Name",
+        "ProgramDescription": "Program Description",
+        "SelectExcludeDays": "Select Excluded Days",
+        "MealPerDay": "No of meals/day",
+        "ProgramDaysCount": "Program Days",
+        "Meals": "Meals",
+        "MealsDescription": "Meals Description as user want",
+        "Programs": "Programs",
+        "ProgramsDescription": "Programs Description",
+        "Program": "Program",
+        "ProgramDays": "Program Days",
+        "NonRefundable": "Non-Refundable",
 
       }
 
       var ar_translations = {
-        "DescribeCustomiseProgram":"Describe Customise Program as client want",
+
+        "ProgramName": "اسم البرنامج",
+        "ProgramDescription": "وصف البرنامج",
+        "SelectExcludeDays": "اختر الأيام المستثيه",
+        "MealPerDay": "عدد الوجبات في اليوم",
+        "ProgramDaysCount": "عدد ايام البرنامج",
+        "Meals": "الوجبات",
+        "MealsDescription": "وصف الوجبات",
+        "Programs": "البرامج",
+        "ProgramsDescription": "وصف البرامج",
+        "Program": "برنامج",
+        "ProgramDays": "عدد ايام البرنامج",
+        "NonRefundable": "غير قابل للاسترداد",
+
+        "DescribeCustomiseProgram": "Describe Customise Program as client want",
         "customiseProgram": "انشاء برنامج",
         "Email": "البريد الالكتروني: ",
         "WhatsApp": "واتس اب: ",

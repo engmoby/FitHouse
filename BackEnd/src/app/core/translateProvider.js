@@ -334,7 +334,7 @@
         "deleteConfirmationLbl":"Are you sure you want to delete: ",
         "deleteBtn": "Delete",
         "cancelBtn": "Cancel",
-
+        
       }
 
       var ar_translations = {

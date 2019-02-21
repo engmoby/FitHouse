@@ -1,4 +1,5 @@
 ﻿<!--HEADER SECTION-->
+<!-- <form name="edithomeForm"> -->
 <section class="main" ng-style="style()">
 	<!--TOP SECTION-->
 	<!--Check Availability SECTION-->
@@ -14,16 +15,34 @@
 				</div>
 				<div class="col-md-6">
 					<div class="book-form inn-com-form">
-						<form class="col s12">
+						<form name="cutomizeProgram" class="col s12">
 							<div class="row">
 								<div class="input-field col s6">
-									<input type="text" class="validate">
+									<input required type="text" class="validate" name="programName" ng-model="programName" minlength="1" maxlength="50">
 									<label>{{'ProgramName' | translate}}</label>
 								</div>
 								<div class="input-field col s6">
-									<input type="text" class="validate">
+									<input required type="text" class="validate" name="programDescription" ng-model="programDescription" minlength="1" maxlength="50">
 									<label>{{'ProgramDescription' | translate}}</label>
 								</div>
+							</div>
+
+							<div class="row">
+								<div class="input-field col s6">
+									<div ng-messages="cutomizeProgram.programName.$error">
+										<div ng-if="cutomizeProgram.programName.$error.required && !cutomizeProgram.programName.$pristine">{{'requiredField' | translate}}
+										</div>
+										<div ng-if="(cutomizeProgram.programName.$error.minlength || cutomizeProgram.programName.$error.maxlength)">{{'minMaxLengthText' | translate}}</div>
+									</div>
+								</div>
+								<div class="input-field col s6">
+									<div ng-messages="cutomizeProgram.programDescription.$error">
+										<div ng-if="cutomizeProgram.programDescription.$error.required && !cutomizeProgram.programDescription.$pristine">{{'requiredField' | translate}}
+										</div>
+										<div ng-if="(cutomizeProgram.programDescription.$error.minlength || cutomizeProgram.programDescription.$error.maxlength)">{{'minMaxLengthText' | translate}}</div>
+									</div>
+								</div>
+
 							</div>
 							<div class="row">
 								<div class="input-field col s12">
@@ -36,33 +55,72 @@
 							</div>
 							<div class="row">
 								<div class="input-field col s6">
-									<input type="text" class="validate">
+									<input required numbers-only type="text" class="validate" name="mealPerDay" ng-model="mealPerDay" minlength="1" maxlength="2">
 									<label>{{'MealPerDay' | translate}}</label>
 								</div>
 								<div class="input-field col s6">
-									<input type="text" class="validate">
+									<input required numbers-only type="text" class="validate" name="programDaysCount" ng-model="programDaysCount" minlength="1" maxlength="2">
 									<label>{{'ProgramDaysCount' | translate}}</label>
+									<div ng-show="settingsPrepService.minNoDaysPerProgram > programDaysCount">
+										<p>{{'minAllowedDays= ' | translate}} {{settingsPrepService.minNoDaysPerProgram}}</p>
+									</div>
 								</div>
 							</div>
-							<!-- <div class="row">
+							<div class="row">
 								<div class="input-field col s6">
-									<input type="text" id="from" name="from">
-									<label for="from">Check In</label>
+									<div ng-messages="cutomizeProgram.mealPerDay.$error">
+										<div ng-if="cutomizeProgram.mealPerDay.$error.required && !cutomizeProgram.mealPerDay.$pristine">{{'requiredField' | translate}}
+										</div>
+										<div ng-if="(cutomizeProgram.mealPerDay.$error.minlength || cutomizeProgram.mealPerDay.$error.maxlength)">{{'minMaxLengthNum' | translate}}</div>
+										<div ng-if="1 > mealPerDay">{{'minMealsIsOne' | translate}}</div>
+									</div>
 								</div>
 								<div class="input-field col s6">
-									<input type="text" id="to" name="to">
-									<label for="to">Check Out</label>
+									<div ng-messages="cutomizeProgram.programDaysCount.$error">
+										<div ng-if="cutomizeProgram.programDaysCount.$error.required && !cutomizeProgram.programDaysCount.$pristine">{{'requiredField' | translate}}
+										</div>
+										<div ng-if="(cutomizeProgram.programDaysCount.$error.minlength || cutomizeProgram.programDaysCount.$error.maxlength)">{{'minMaxLengthNum' | translate}}</div>
+									</div>
 								</div>
-							</div> -->
-							<!-- <div class="row">
-								<div class="input-field col s12">
-									<textarea id="textarea1" class="materialize-textarea" data-length="120"></textarea>
-									<label>Message</label>
-								</div>
-							</div> -->
+
+							</div>
+							
+							<!-- <div class="col-md-6">
+									<div class="head-typo typo-com collap-expand form-ch-box">
+										<h2>Checkboxes</h2>
+										<p>It is a long established fact that a reader will be distracted by the readable content of a page when looking at its layout</p>
+										<form action="#">
+											<p>
+												<input type="checkbox" id="test5" />
+												<label for="test5">Red</label>
+											</p>
+											<p>
+												<input type="checkbox" id="test6" checked="checked" />
+												<label for="test6">Yellow</label>
+											</p>
+											<p>
+												<input type="checkbox" class="filled-in" id="filled-in-box" checked="checked" />
+												<label for="filled-in-box">Filled in</label>
+											</p>
+											<p>
+												<input type="checkbox" id="indeterminate-checkbox" />
+												<label for="indeterminate-checkbox">Indeterminate Style</label>
+											</p>
+											<p>
+												<input type="checkbox" id="test7" checked="checked" disabled="disabled" />
+												<label for="test7">Green</label>
+											</p>
+											<p>
+												<input type="checkbox" id="test8" disabled="disabled" />
+												<label for="test8">Brown</label>
+											</p>
+										</form>
+									</div>
+								</div> -->
 							<div class="row">
 								<div class="input-field col s12">
-									<input type="submit"  class="form-btn"> </div>
+									<input ng-disabled="cutomizeProgram.$invalid  || settingsPrepService.minNoDaysPerProgram > programDaysCount" type="submit" class="form-btn" ng-click="submitCustomise()">
+								</div>
 							</div>
 						</form>
 					</div>
@@ -89,199 +147,36 @@
 			<div class="row">
 				<div class="to-ho-hotel">
 					<!-- HOTEL GRID -->
-					<div class="col-md-4">
-						<div class="to-ho-hotel-con">
-							<div class="to-ho-hotel-con-1">
-								<div class="hom-hot-av-tic"> Available Tickets: 42 </div>
-								<img src="https://fithouseksa.com/wp-content/uploads/2018/07/fat-running.png" alt="">
-							</div>
-							<div class="to-ho-hotel-con-23">
-								<div class="to-ho-hotel-con-2">
-									<a href="all-rooms.html">
-										<h4>Master Room</h4>
-									</a>
+					<div ng-repeat="n in [] | range:6">
+						<div ng-if="mealsPrepService[n] != undefined" class="col-md-4">
+							<div class="to-ho-hotel-con">
+								<div class="to-ho-hotel-con-1">
+									<div class="hom-hot-av-tic"> Available Tickets: 42 </div>
+									<img src="https://fithouseksa.com/wp-content/uploads/2018/07/Grilled-steak.png" alt="">
 								</div>
-								<div class="to-ho-hotel-con-3">
-									<ul>
-										<li>City: illunois,united states
-											<div class="dir-rat-star ho-hot-rat-star"> Rating:
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star-o" aria-hidden="true"></i>
-											</div>
-										</li>
-										<li>
-											<span class="ho-hot-pri-dis">$720</span>
-											<span class="ho-hot-pri">$420</span>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- HOTEL GRID -->
-					<div class="col-md-4">
-						<div class="to-ho-hotel-con">
-							<div class="to-ho-hotel-con-1">
-								<div class="hom-hot-av-tic"> Available Tickets: 520 </div>
-								<img src="images/room/1.jpg" alt="">
-							</div>
-							<div class="to-ho-hotel-con-23">
-								<div class="to-ho-hotel-con-2">
-									<a href="all-rooms.html">
-										<h4>Mini-Suite</h4>
-									</a>
-								</div>
-								<div class="to-ho-hotel-con-3">
-									<ul>
-										<li>City: illunois,united states
-											<div class="dir-rat-star ho-hot-rat-star"> Rating:
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star-o" aria-hidden="true"></i>
-											</div>
-										</li>
-										<li>
-											<span class="ho-hot-pri-dis">$840</span>
-											<span class="ho-hot-pri">$540</span>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- HOTEL GRID -->
-					<div class="col-md-4">
-						<div class="to-ho-hotel-con">
-							<div class="to-ho-hotel-con-1">
-								<div class="hom-hot-av-tic"> Available Tickets: 92 </div>
-								<img src="images/room/2.jpg" alt="">
-							</div>
-							<div class="to-ho-hotel-con-23">
-								<div class="to-ho-hotel-con-2">
-									<a href="all-rooms.html">
-										<h4>Ultra Deluxe</h4>
-									</a>
-								</div>
-								<div class="to-ho-hotel-con-3">
-									<ul>
-										<li>City: illunois,united states
-											<div class="dir-rat-star ho-hot-rat-star"> Rating:
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star-o" aria-hidden="true"></i>
-											</div>
-										</li>
-										<li>
-											<span class="ho-hot-pri-dis">$680</span>
-											<span class="ho-hot-pri">$380</span>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- HOTEL GRID -->
-					<div class="col-md-4">
-						<div class="to-ho-hotel-con">
-							<div class="to-ho-hotel-con-1">
-								<div class="hom-hot-av-tic"> Available Tickets: 42 </div>
-								<img src="images/room/4.jpg" alt="">
-							</div>
-							<div class="to-ho-hotel-con-23">
-								<div class="to-ho-hotel-con-2">
-									<a href="all-rooms.html">
-										<h4>Luxury Room</h4>
-									</a>
-								</div>
-								<div class="to-ho-hotel-con-3">
-									<ul>
-										<li>City: illunois,united states
-											<div class="dir-rat-star ho-hot-rat-star"> Rating:
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star-o" aria-hidden="true"></i>
-											</div>
-										</li>
-										<li>
-											<span class="ho-hot-pri-dis">$720</span>
-											<span class="ho-hot-pri">$420</span>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- HOTEL GRID -->
-					<div class="col-md-4">
-						<div class="to-ho-hotel-con">
-							<div class="to-ho-hotel-con-1">
-								<div class="hom-hot-av-tic"> Available Tickets: 520 </div>
-								<img src="images/room/5.jpg" alt="">
-							</div>
-							<div class="to-ho-hotel-con-23">
-								<div class="to-ho-hotel-con-2">
-									<a href="all-rooms.html">
-										<h4>Premium Room</h4>
-									</a>
-								</div>
-								<div class="to-ho-hotel-con-3">
-									<ul>
-										<li>City: illunois,united states
-											<div class="dir-rat-star ho-hot-rat-star"> Rating:
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star-o" aria-hidden="true"></i>
-											</div>
-										</li>
-										<li>
-											<span class="ho-hot-pri-dis">$840</span>
-											<span class="ho-hot-pri">$540</span>
-										</li>
-									</ul>
-								</div>
-							</div>
-						</div>
-					</div>
-					<!-- HOTEL GRID -->
-					<div class="col-md-4">
-						<div class="to-ho-hotel-con">
-							<div class="to-ho-hotel-con-1">
-								<div class="hom-hot-av-tic"> Available Tickets: 92 </div>
-								<img src="images/room/6.jpg" alt="">
-							</div>
-							<div class="to-ho-hotel-con-23">
-								<div class="to-ho-hotel-con-2">
-									<a href="all-rooms.html">
-										<h4>Normal Room</h4>
-									</a>
-								</div>
-								<div class="to-ho-hotel-con-3">
-									<ul>
-										<li>City: illunois,united states
-											<div class="dir-rat-star ho-hot-rat-star"> Rating:
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star" aria-hidden="true"></i>
-												<i class="fa fa-star-o" aria-hidden="true"></i>
-											</div>
-										</li>
-										<li>
-											<span class="ho-hot-pri-dis">$680</span>
-											<span class="ho-hot-pri">$380</span>
-										</li>
-									</ul>
+								<div class="to-ho-hotel-con-23">
+									<div class="to-ho-hotel-con-2">
+										<a href="all-rooms.html">
+											<h4>{{mealsPrepService[n].mealNameDictionary[selectedLanguage]}}</h4>
+										</a>
+									</div>
+									<div class="to-ho-hotel-con-3">
+										<ul>
+											<li>{{mealsPrepService[n].mealDescriptionDictionary[selectedLanguage]}}
+												<div class="dir-rat-star ho-hot-rat-star"> Rating:
+													<i class="fa fa-star" aria-hidden="true"></i>
+													<i class="fa fa-star" aria-hidden="true"></i>
+													<i class="fa fa-star" aria-hidden="true"></i>
+													<i class="fa fa-star" aria-hidden="true"></i>
+													<i class="fa fa-star-o" aria-hidden="true"></i>
+												</div>
+											</li>
+											<li>
+												<span class="ho-hot-pri-dis"></span>
+												<span class="ho-hot-pri">{{mealsPrepService[n].mealPrice}}</span>
+											</li>
+										</ul>
+									</div>
 								</div>
 							</div>
 						</div>
@@ -306,330 +201,63 @@
 					<p>{{'ProgramsDescription' | translate}}</p>
 				</div>
 				<!--ROOM SECTION-->
-				<div class="room">
-					<div class="ribbon ribbon-top-left">
-						<span>Featured</span>
-					</div>
-					<!--ROOM IMAGE-->
-					<div class="r1 r-com">
-						<img src="images/room/1.jpg" alt="" />
-					</div>
-					<!--ROOM RATING-->
-					<div class="r2 r-com">
-						<h4>Master Suite</h4>
-						<div class="r2-ratt">
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<img src="images/h-trip.png" alt="" />
-							<span>Excellent 4.5 / 5</span>
+				<div ng-repeat="n in [] | range:6">
+					<div ng-if="programPrepService[n] != undefined" class="room">
+						<div class="ribbon ribbon-top-left">
+							<span>{{'Program' | translate}}</span>
 						</div>
-						<ul>
-							<li>Max Adult : 3</li>
-							<li>Max Child : 1</li>
-							<li></li>
-							<li></li>
-						</ul>
-					</div>
-					<!--ROOM AMINITIES-->
-					<div class="r3 r-com">
-						<ul>
-							<li>Ironing facilities</li>
-							<li>Tea/Coffee maker</li>
-							<li>Air conditioning</li>
-							<li>Flat-screen TV</li>
-							<li>Wake-up service</li>
-						</ul>
-					</div>
-					<!--ROOM PRICE-->
-					<div class="r4 r-com">
-						<p>Price for 1 night</p>
-						<p>
-							<span class="room-price-1">5000</span>
-							<span class="room-price">$: 7000</span>
-						</p>
-						<p>Non Refundable</p>
-					</div>
-					<!--ROOM BOOKING BUTTON-->
-					<div class="r5 r-com">
-						<div class="r2-available">Available</div>
-						<p>Price for 1 night</p>
-						<a href="room-details-block.html" class="inn-room-book">Book</a>
-					</div>
-				</div>
-				<!--END ROOM SECTION-->
-				<!--ROOM SECTION-->
-				<div class="room">
-					<div class="ribbon ribbon-top-left">
-						<span>Featured</span>
-					</div>
-					<!--ROOM IMAGE-->
-					<div class="r1 r-com">
-						<img src="images/room/2.jpg" alt="" />
-					</div>
-					<!--ROOM RATING-->
-					<div class="r2 r-com">
-						<h4>Mini Suite</h4>
-						<div class="r2-ratt">
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star-o"></i>
-							<img src="images/h-trip.png" alt="" />
-							<span>Excellent 4.2 / 5</span>
+						<!--ROOM IMAGE-->
+						<div class="r1 r-com">
+							<img src="https://fithouseksa.com/wp-content/uploads/2018/07/fithouse-icons6.png" alt="" />
 						</div>
-						<ul>
-							<li>Max Adult : 2</li>
-							<li>Max Child : 2</li>
-							<li></li>
-							<li></li>
-						</ul>
-					</div>
-					<!--ROOM AMINITIES-->
-					<div class="r3 r-com">
-						<ul>
-							<li>Ironing facilities</li>
-							<li>Tea/Coffee maker</li>
-							<li>Air conditioning</li>
-							<li>Flat-screen TV</li>
-							<li>Wake-up service</li>
-						</ul>
-					</div>
-					<!--ROOM PRICE-->
-					<div class="r4 r-com">
-						<p>Price for 1 night</p>
-						<p>
-							<span class="room-price-1">4000</span>
-							<span class="room-price">$: 4500</span>
-						</p>
-						<p>Non Refundable</p>
-					</div>
-					<!--ROOM BOOKING BUTTON-->
-					<div class="r5 r-com">
-						<div class="r2-available">Available</div>
-						<p>Price for 1 night</p>
-						<a href="room-details.html" class="inn-room-book">Book</a>
-					</div>
-				</div>
-				<!--END ROOM SECTION-->
-				<!--ROOM SECTION-->
-				<div class="room">
-					<!--<div class="ribbon ribbon-top-left"><span>Featured</span></div>
-							-->
-					<!--ROOM IMAGE-->
-					<div class="r1 r-com">
-						<img src="images/room/3.jpg" alt="" />
-					</div>
-					<!--ROOM RATING-->
-					<div class="r2 r-com">
-						<h4>Ultra Deluxe</h4>
-						<div class="r2-ratt">
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star-o"></i>
-							<img src="images/h-trip.png" alt="" />
-							<span>Excellent 3.9 / 5</span>
+						<!--ROOM RATING-->
+						<div class="r2 r-com">
+							<h4>{{programPrepService[n].programNameDictionary[selectedLanguage]}}</h4>
+							<div class="r2-ratt">
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<i class="fa fa-star"></i>
+								<img src="images/h-trip.png" alt="" />
+								<br>
+								<span>{{programPrepService[n].programDescriptionDictionary[selectedLanguage]}}</span>
+							</div>
+							<ul>
+								<li></li>
+								<li></li>
+								<li></li>
+								<li></li>
+							</ul>
 						</div>
-						<ul>
-							<li>Max Adult : 4</li>
-							<li>Max Child : 2</li>
-							<li></li>
-							<li></li>
-						</ul>
-					</div>
-					<!--ROOM AMINITIES-->
-					<div class="r3 r-com">
-						<ul>
-							<li>Ironing facilities</li>
-							<li>Tea/Coffee maker</li>
-							<li>Air conditioning</li>
-							<li>Flat-screen TV</li>
-							<li>Wake-up service</li>
-						</ul>
-					</div>
-					<!--ROOM PRICE-->
-					<div class="r4 r-com">
-						<p>Price for 1 night</p>
-						<p>
-							<span class="room-price-1">3500</span>
-							<span class="room-price">$: 4000</span>
-						</p>
-						<p>Non Refundable</p>
-					</div>
-					<!--ROOM BOOKING BUTTON-->
-					<div class="r5 r-com">
-						<div class="r2-available">Available</div>
-						<p>Price for 1 night</p>
-						<a href="room-details-1.html" class="inn-room-book">Book</a>
-					</div>
-				</div>
-				<!--END ROOM SECTION-->
-				<!--ROOM SECTION-->
-				<div class="room">
-					<!--<div class="ribbon ribbon-top-left"><span>Best Room</span></div>-->
-					<!--ROOM IMAGE-->
-					<div class="r1 r-com">
-						<img src="images/room/4.jpg" alt="" />
-					</div>
-					<!--ROOM RATING-->
-					<div class="r2 r-com">
-						<h4>Luxury Room</h4>
-						<div class="r2-ratt">
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star-o"></i>
-							<img src="images/h-trip.png" alt="" />
-							<span>Excellent 4.0 / 5</span>
+						<!--ROOM AMINITIES-->
+						<div class="r3 r-com">
+							<ul>
+								<li>{{'ProgramDays' | translate}}: {{programPrepService[n].programDays}}</li>
+								<li>{{'MealPerDay' | translate}}: {{programPrepService[n].noOfMeals}}</li>
+								<li></li>
+								<li></li>
+								<li></li>
+							</ul>
 						</div>
-						<ul>
-							<li>Max Adult : 5</li>
-							<li>Max Child : 2</li>
-							<li></li>
-							<li></li>
-						</ul>
-					</div>
-					<!--ROOM AMINITIES-->
-					<div class="r3 r-com">
-						<ul>
-							<li>Ironing facilities</li>
-							<li>Tea/Coffee maker</li>
-							<li>Air conditioning</li>
-							<li>Flat-screen TV</li>
-							<li>Wake-up service</li>
-						</ul>
-					</div>
-					<!--ROOM PRICE-->
-					<div class="r4 r-com">
-						<p>Price for 1 night</p>
-						<p>
-							<span class="room-price-1">3000</span>
-							<span class="room-price">$: 3500</span>
-						</p>
-						<p>Non Refundable</p>
-					</div>
-					<!--ROOM BOOKING BUTTON-->
-					<div class="r5 r-com">
-						<div class="r2-available">Available</div>
-						<p>Price for 1 night</p>
-						<a href="room-details.html" class="inn-room-book">Book</a>
-					</div>
-				</div>
-				<!--END ROOM SECTION-->
-				<!--ROOM SECTION-->
-				<div class="room">
-					<div class="ribbon ribbon-top-left">
-						<span>Special</span>
-					</div>
-					<!--ROOM IMAGE-->
-					<div class="r1 r-com">
-						<img src="images/room/5.jpg" alt="" />
-					</div>
-					<!--ROOM RATING-->
-					<div class="r2 r-com">
-						<h4>Premium Room</h4>
-						<div class="r2-ratt">
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star-o"></i>
-							<img src="images/h-trip.png" alt="" />
-							<span>Excellent 4.5 / 5</span>
+						<!--ROOM PRICE-->
+						<div class="r4 r-com">
+							<p></p>
+							<p>
+								<span class="room-price-1">{{programPrepService[n].price}}</span>
+								<span class="room-price"></span>
+							</p>
+							<p>{{'NonRefundable' | translate}}</p>
 						</div>
-						<ul>
-							<li>Max Adult : 5</li>
-							<li>Max Child : 2</li>
-							<li></li>
-							<li></li>
-						</ul>
-					</div>
-					<!--ROOM AMINITIES-->
-					<div class="r3 r-com">
-						<ul>
-							<li>Ironing facilities</li>
-							<li>Tea/Coffee maker</li>
-							<li>Air conditioning</li>
-							<li>Flat-screen TV</li>
-							<li>Wake-up service</li>
-						</ul>
-					</div>
-					<!--ROOM PRICE-->
-					<div class="r4 r-com">
-						<p>Price for 1 night</p>
-						<p>
-							<span class="room-price-1">4000</span>
-							<span class="room-price">$: 5000</span>
-						</p>
-						<p>Non Refundable</p>
-					</div>
-					<!--ROOM BOOKING BUTTON-->
-					<div class="r5 r-com">
-						<div class="r2-available">Available</div>
-						<p>Price for 1 night</p>
-						<a href="room-details-block.html" class="inn-room-book">Book</a>
-					</div>
-				</div>
-				<!--END ROOM SECTION-->
-				<!--ROOM SECTION-->
-				<div class="room">
-					<!--<div class="ribbon ribbon-top-left"><span>Featured</span></div>-->
-					<!--ROOM IMAGE-->
-					<div class="r1 r-com">
-						<img src="images/room/6.jpg" alt="" />
-					</div>
-					<!--ROOM RATING-->
-					<div class="r2 r-com">
-						<h4>Normal Room</h4>
-						<div class="r2-ratt">
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star"></i>
-							<i class="fa fa-star-o"></i>
-							<img src="images/h-trip.png" alt="" />
-							<span>Excellent 3.5 / 5</span>
+						<!--ROOM BOOKING BUTTON-->
+						<div class="r5 r-com">
+							<div class="r2-available">Available</div>
+							<p></p>
+							<a href="room-details-block.html" class="inn-room-book">Book</a>
 						</div>
-						<ul>
-							<li>Max Adult : 4</li>
-							<li>Max Child : 4</li>
-							<li></li>
-							<li></li>
-						</ul>
 					</div>
-					<!--ROOM AMINITIES-->
-					<div class="r3 r-com">
-						<ul>
-							<li>Ironing facilities</li>
-							<li>Tea/Coffee maker</li>
-							<li>Air conditioning</li>
-							<li>Flat-screen TV</li>
-							<li>Wake-up service</li>
-						</ul>
-					</div>
-					<!--ROOM PRICE-->
-					<div class="r4 r-com">
-						<p>Price for 1 night</p>
-						<p>
-							<span class="room-price-1">2000</span>
-							<span class="room-price">$: 2500</span>
-						</p>
-						<p>Non Refundable</p>
-					</div>
-					<!--ROOM BOOKING BUTTON-->
-					<div class="r5 r-com">
-						<div class="r2-available">Available</div>
-						<p>Price for 1 night</p>
-						<a href="room-details.html" class="inn-room-book">Book</a>
-					</div>
+					<!--END ROOM SECTION-->
 				</div>
-				<!--END ROOM SECTION-->
 			</div>
 		</div>
 	</div>
@@ -700,4 +328,5 @@
 		</div>
 	</div> -->
 </section>
+<!-- </form> -->
 <!--END HEADER SECTION-->

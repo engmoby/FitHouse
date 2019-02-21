@@ -1,86 +1,99 @@
-(function() {
+(function () {
     'use strict';
 
     angular
         .module('home')
-        .config(function($stateProvider, $urlRouterProvider) {
+        .config(function ($stateProvider, $urlRouterProvider) {
 
             $stateProvider
-              .state('aboutUs', {
-					url: '/aboutUs',
+                .state('aboutUs', {
+                    url: '/aboutUs',
                     templateUrl: './app/GlobalAdmin/user/templates/about-us.html',
                     controller: 'aboutUsController',
                     'controllerAs': 'aboutUsCtrl',
-                    resolve:{
-                        aboutUsPrepService:aboutUsPrepService,
-                        contactUsPrepService:contactUsPrepService,
-                        homePrepService:homePrepService
+                    resolve: {
+                        aboutUsPrepService: aboutUsPrepService,
+                        contactUsPrepService: contactUsPrepService,
+                        homePrepService: homePrepService
                     }
 
 
-                                                  })
+                })
 
                 .state('contactUs', {
-					url: '/contactUs',
+                    url: '/contactUs',
                     templateUrl: './app/GlobalAdmin/user/templates/contact-us.html',
                     controller: 'contactUsController',
                     'controllerAs': 'contactUsCtrl',
-                    resolve:{
-                        contactUsPrepService:contactUsPrepService,
-                        homePrepService:homePrepService
+                    resolve: {
+                        contactUsPrepService: contactUsPrepService,
+                        homePrepService: homePrepService
                     }
                 })
 
                 .state('home', {
-					url: '/home',
+                    url: '/home',
                     templateUrl: './app/GlobalAdmin/user/templates/home.html',
                     controller: 'homeController',
                     'controllerAs': 'homeCtrl',
-                    resolve:{
-                        homePrepService:homePrepService,
-                        contactUsPrepService:contactUsPrepService,
-                        homePrepService:homePrepService
+                    resolve: {
+                        mealsPrepService: mealsPrepService,
+                        programPrepService: programPrepService,
+                        settingsPrepService: settingsPrepService
                     }
                 })
 
                 .state('leadership', {
-					url: '/leadership',
+                    url: '/leadership',
                     templateUrl: './app/GlobalAdmin/user/templates/leadership.html',
                     controller: 'leadershipController',
                     'controllerAs': 'leadershipCtrl',
-                    resolve:{
-                        leadershipPrepService:leadershipPrepService,
-                        contactUsPrepService:contactUsPrepService,
-                        homePrepService:homePrepService
+                    resolve: {
+                        leadershipPrepService: leadershipPrepService,
+                        contactUsPrepService: contactUsPrepService,
+                        homePrepService: homePrepService
                     }
                 })
         });
 
+    settingsPrepService.$inject = ['GetSettingsResource']
+    function settingsPrepService(GetSettingsResource) {
+        return GetSettingsResource.getAllSettings().$promise;
+    }
 
+    mealsPrepService.$inject = ['GetMealsResource', '$stateParams']
+    function mealsPrepService(GetMealsResource, $stateParams) {
+        return GetMealsResource.getAllMeals().$promise;
+    }
 
-               aboutUsPrepService.$inject = ['AboutUsResource']
+    programPrepService.$inject = ['GetProgramResource']
+    function programPrepService(GetProgramResource) {
+        return GetProgramResource.gatAllPrograms().$promise;
+    }
 
-                function aboutUsPrepService(AboutUsResource) {
-            return AboutUsResource.getAboutUs().$promise;
-        }
+    aboutUsPrepService.$inject = ['AboutUsResource']
 
-        contactUsPrepService.$inject = ['ContactUsResource']
+    function aboutUsPrepService(AboutUsResource) {
+        return AboutUsResource.getAboutUs().$promise;
+    }
 
-                function contactUsPrepService(ContactUsResource) {
-            return ContactUsResource.getContactUs().$promise;
-        }
+    contactUsPrepService.$inject = ['ContactUsResource']
 
-        homePrepService.$inject = ['HomeResource']
+    function contactUsPrepService(ContactUsResource) {
+        return ContactUsResource.getContactUs().$promise;
+    }
 
-                function homePrepService(HomeResource) {
-            return HomeResource.getHome().$promise;
-        }
+    homePrepService.$inject = ['HomeResource']
 
-        leadershipPrepService.$inject = ['LeadershipResource']
+    function homePrepService(HomeResource) {
+        return HomeResource.getHome().$promise;
+    }
 
-                function leadershipPrepService(LeadershipResource) {
-            return LeadershipResource.getLeadership().$promise;
-        }
+    leadershipPrepService.$inject = ['LeadershipResource']
+
+    function leadershipPrepService(LeadershipResource) {
+        return LeadershipResource.getLeadership().$promise;
+    }
 
 }());
 (function() {
@@ -159,29 +172,48 @@
 (function () {
     'use strict';
 
-	    angular
+    angular
         .module('home')
-        .controller('homeController', ['$scope','$stateParams','$translate', 'appCONSTANTS', 'homePrepService', 'contactUsPrepService',  homeController])
+        .filter('range', function () {
+            return function (input, total) {
+                total = parseInt(total);
 
-    function homeController($scope,$stateParams,$translate , appCONSTANTS, homePrepService, contactUsPrepService){
+                for (var i = 0; i < total; i++) {
+                    input.push(i);
+                }
 
-                $scope.home = homePrepService;
-        $scope.contactUs = contactUsPrepService;
+                return input;
+            }
+        })
+        .controller('homeController', ['$scope', '$stateParams', '$translate', 'appCONSTANTS', 'mealsPrepService', 'programPrepService', 'settingsPrepService', homeController])
 
-        $scope.style = function() {
-            return { 
+    function homeController($scope, $stateParams, $translate, appCONSTANTS, mealsPrepService, programPrepService, settingsPrepService) {
+
+        $scope.mealsPrepService = mealsPrepService.results;
+        $scope.programPrepService = programPrepService.results;
+        $scope.settingsPrepService = settingsPrepService;
+
+        $scope.submitCustomise = function(){
+            localStorage.setItem('programName', $scope.programName);
+            localStorage.setItem('programDescription', $scope.programDescription);
+            localStorage.setItem('mealPerDay', $scope.mealPerDay);
+            localStorage.setItem('programDaysCount', $scope.programDaysCount);
+        }
+
+        $scope.style = function () {
+            return {
                 'background': 'url(https://fithouseksa.com/wp-content/uploads/2018/07/fat-running.png) no-repeat',
-                'background-attachment' : 'fixed',
-                'background-size' : 'cover',
+                'background-attachment': 'fixed',
+                'background-size': 'cover',
                 'width': '100%',
                 'width': '100%'
             };
-         }
+        }
 
-	}
+    }
 
-	}
-());
+}
+    ());
 (function () {
     'use strict';
 
@@ -201,38 +233,62 @@
 
 	}
 ());
-(function() {
-    angular
-      .module('home')
-      .factory('AboutUsResource', ['$resource', 'appCONSTANTS', AboutUsResource])
-      .factory('ContactUsResource', ['$resource', 'appCONSTANTS', ContactUsResource])
-      .factory('HomeResource', ['$resource', 'appCONSTANTS', HomeResource])
-      .factory('LeadershipResource', ['$resource', 'appCONSTANTS', LeadershipResource])
-     ;
+(function () {
+  angular
+    .module('home')
+    .factory('AboutUsResource', ['$resource', 'appCONSTANTS', AboutUsResource])
+    .factory('ContactUsResource', ['$resource', 'appCONSTANTS', ContactUsResource])
+    .factory('HomeResource', ['$resource', 'appCONSTANTS', HomeResource])
+    .factory('LeadershipResource', ['$resource', 'appCONSTANTS', LeadershipResource])
+    .factory('GetMealsResource', ['$resource', 'appCONSTANTS', GetMealsResource])
+    .factory('GetSettingsResource', ['$resource', 'appCONSTANTS', GetSettingsResource])
+    .factory('GetProgramResource', ['$resource', 'appCONSTANTS', GetProgramResource])
+    ;
 
-      function AboutUsResource($resource, appCONSTANTS) {
-      return $resource(appCONSTANTS.API_URL + 'AboutUs', {}, { 
-        getAboutUs: { method: 'GET',useToken: true}
-      })
-    }
 
-        function ContactUsResource($resource, appCONSTANTS) {
-      return $resource(appCONSTANTS.API_URL + 'ContactUs', {}, { 
-        getContactUs: { method: 'GET',useToken: true}
-      })
-    }
+      function GetSettingsResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'Setting/GetSetting', {}, {
+      getAllSettings: { method: 'GET', useToken: true }
+    })
+  }
 
-    function HomeResource($resource, appCONSTANTS) {
-      return $resource(appCONSTANTS.API_URL + 'Home', {}, { 
-        getHome: { method: 'GET',useToken: true}
-      })
-    }
+  function AboutUsResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'AboutUs', {}, {
+      getAboutUs: { method: 'GET', useToken: true }
+    })
+  }
 
-    function LeadershipResource($resource, appCONSTANTS) {
-      return $resource(appCONSTANTS.API_URL + 'OurTeams', {}, { 
-        getLeadership: { method: 'GET',useToken: true, isArray:true}
-      })
-    }
+  function GetProgramResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'Program', {}, {
+      gatAllPrograms: { method: 'GET', useToken: true }
+    })
+  }
 
-        }());
+
+  function ContactUsResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'ContactUs', {}, {
+      getContactUs: { method: 'GET', useToken: true }
+    })
+  }
+
+  function HomeResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'Home', {}, {
+      getHome: { method: 'GET', useToken: true }
+    })
+  }
+
+  function LeadershipResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'OurTeams', {}, {
+      getLeadership: { method: 'GET', useToken: true, isArray: true }
+    })
+  }
+
+  function GetMealsResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'Meals/GetAllMeals', {}, {
+      getAllMeals: { method: 'GET', useToken: true, params: { lang: '@lang' } },
+    })
+  }
+
+
+}());
 
