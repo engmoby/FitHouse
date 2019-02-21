@@ -65,6 +65,7 @@ var paths = {
     // './assets/js/html5shiv.js',
     './assets/js/jquery.mixitup.min.js',
     './assets/js/custom.js',
+    // './assets/js/bootstrap-datetimepicker.js',
     // './assets/js/respond.min.js',
 
     //   './node_modules/lodash/lodash.min.js',
@@ -84,7 +85,12 @@ var paths = {
     //    './node_modules/ngprogress-lite/ngprogress-lite.min.js',
     //    './node_modules/angular-translate/dist/angular-translate.min.js',
     //    './node_modules/angular-ui-event/dist/event.min.js',
+
+    './node_modules/propellerkit/dist/js/bootstrap.min.js',
     './node_modules/select2/dist/js/select2.full.min.js',
+    './assets/js/moment-with-locales.js',
+    './assets/js/bootstrap-datetimepicker.js'
+
   ],
   //  sass: {
   //    main: './src/assets/scss/app.scss',
@@ -99,7 +105,7 @@ var paths = {
   css: [
 
     './assets/css/*.css',
-    './node_modules/select2/dist/css/select2.min.css', 
+    './node_modules/select2/dist/css/select2.min.css',
     './node_modules/select2-bootstrap-theme/dist/select2-bootstrap.min.css',
   ],
   cssAR: [
@@ -109,7 +115,7 @@ var paths = {
     // './node_modules/propellerkit/dist/css/bootstrap.min.css',
     // './node_modules/propellerkit/dist/css/propeller.min.css',
     './node_modules/select2/dist/css/select2.min.css',
-      './node_modules/select2-bootstrap-theme/dist/select2-bootstrap.min.css',
+    './node_modules/select2-bootstrap-theme/dist/select2-bootstrap.min.css',
     // './assets/cssAR/*.css',
 
     // './node_modules/ngprogress-lite/ngprogress-lite.css',

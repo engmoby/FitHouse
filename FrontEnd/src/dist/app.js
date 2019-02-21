@@ -6,31 +6,6 @@
         .config(function ($stateProvider, $urlRouterProvider) {
 
             $stateProvider
-                .state('aboutUs', {
-                    url: '/aboutUs',
-                    templateUrl: './app/GlobalAdmin/user/templates/about-us.html',
-                    controller: 'aboutUsController',
-                    'controllerAs': 'aboutUsCtrl',
-                    resolve: {
-                        aboutUsPrepService: aboutUsPrepService,
-                        contactUsPrepService: contactUsPrepService,
-                        homePrepService: homePrepService
-                    }
-
-
-                })
-
-                .state('contactUs', {
-                    url: '/contactUs',
-                    templateUrl: './app/GlobalAdmin/user/templates/contact-us.html',
-                    controller: 'contactUsController',
-                    'controllerAs': 'contactUsCtrl',
-                    resolve: {
-                        contactUsPrepService: contactUsPrepService,
-                        homePrepService: homePrepService
-                    }
-                })
-
                 .state('home', {
                     url: '/home',
                     templateUrl: './app/GlobalAdmin/user/templates/home.html',
@@ -39,38 +14,20 @@
                     resolve: {
                         mealsPrepService: mealsPrepService,
                         programPrepService: programPrepService,
-                        settingsPrepService: settingsPrepService
+                        settingsPrepService: settingsPrepService,
+                        daysPrepService:daysPrepService
                     }
                 })
-
-                .state('leadership', {
-                    url: '/leadership',
-                    templateUrl: './app/GlobalAdmin/user/templates/leadership.html',
-                    controller: 'leadershipController',
-                    'controllerAs': 'leadershipCtrl',
-                    resolve: {
-                        leadershipPrepService: leadershipPrepService,
-                        contactUsPrepService: contactUsPrepService,
-                        homePrepService: homePrepService
-                    }
-                })
-
-
-                .state('Custom', {
-                    url: '/Custom',
-                    templateUrl: './app/GlobalAdmin/customProgram/templates/Custom.html',
-                    controller: 'CustomController',
-                    'controllerAs': 'CustomCtrl',
-                    resolve: {
-                        itemsPrepService: itemsPrepService
-                    }
-                })
-
         });
 
     settingsPrepService.$inject = ['GetSettingsResource']
     function settingsPrepService(GetSettingsResource) {
         return GetSettingsResource.getAllSettings().$promise;
+    }
+
+    daysPrepService.$inject = ['GetDaysResource']
+    function daysPrepService(GetDaysResource) {
+        return GetDaysResource.gatAllDays().$promise;
     }
 
     mealsPrepService.$inject = ['GetMealsResource', '$stateParams']
@@ -81,30 +38,6 @@
     programPrepService.$inject = ['GetProgramResource']
     function programPrepService(GetProgramResource) {
         return GetProgramResource.gatAllPrograms().$promise;
-    }
-
-    aboutUsPrepService.$inject = ['AboutUsResource']
-
-    function aboutUsPrepService(AboutUsResource) {
-        return AboutUsResource.getAboutUs().$promise;
-    }
-
-    contactUsPrepService.$inject = ['ContactUsResource']
-
-    function contactUsPrepService(ContactUsResource) {
-        return ContactUsResource.getContactUs().$promise;
-    }
-
-    homePrepService.$inject = ['HomeResource']
-
-    function homePrepService(HomeResource) {
-        return HomeResource.getHome().$promise;
-    }
-
-    leadershipPrepService.$inject = ['LeadershipResource']
-
-    function leadershipPrepService(LeadershipResource) {
-        return LeadershipResource.getLeadership().$promise;
     }
 
 }());
@@ -296,19 +229,35 @@
                 return input;
             }
         })
-        .controller('homeController', ['$scope', '$stateParams', '$translate', 'appCONSTANTS', 'mealsPrepService', 'programPrepService', 'settingsPrepService', homeController])
+        .controller('homeController', ['$scope', '$stateParams', '$translate', 'appCONSTANTS', 'mealsPrepService', 'programPrepService', 'settingsPrepService'
+            , 'daysPrepService', homeController])
 
-    function homeController($scope, $stateParams, $translate, appCONSTANTS, mealsPrepService, programPrepService, settingsPrepService) {
+    function homeController($scope, $stateParams, $translate, appCONSTANTS, mealsPrepService, programPrepService
+        , settingsPrepService, daysPrepService) {
 
         $scope.mealsPrepService = mealsPrepService.results;
         $scope.programPrepService = programPrepService.results;
         $scope.settingsPrepService = settingsPrepService;
+        $scope.dayList = daysPrepService;
 
-        $scope.submitCustomise = function(){
-            localStorage.setItem('programName', $scope.programName);
-            localStorage.setItem('programDescription', $scope.programDescription);
+        $scope.isSnack = false;
+        $scope.isBreakFast = false;
+
+        $scope.submitCustomise = function () {
             localStorage.setItem('mealPerDay', $scope.mealPerDay);
             localStorage.setItem('programDaysCount', $scope.programDaysCount);
+            localStorage.setItem('dayList', $scope.SelectedDays);
+            localStorage.setItem('isBreakFast', $scope.isBreakFast);
+            localStorage.setItem('isSnack', $scope.isSnack);
+            localStorage.setItem('itemDatetime', $scope.itemDatetime);
+        }
+
+        $scope.bookMeal = function (meal) {
+            localStorage.setItem('meal', meal);
+        }
+
+        $scope.bookProgram = function (program) {
+            localStorage.setItem('program', program);
         }
 
         $scope.style = function () {
@@ -354,10 +303,19 @@
     .factory('GetMealsResource', ['$resource', 'appCONSTANTS', GetMealsResource])
     .factory('GetSettingsResource', ['$resource', 'appCONSTANTS', GetSettingsResource])
     .factory('GetProgramResource', ['$resource', 'appCONSTANTS', GetProgramResource])
+    .factory('GetDaysResource', ['$resource', 'appCONSTANTS', GetDaysResource])
+
     ;
 
 
-      function GetSettingsResource($resource, appCONSTANTS) {
+
+  function GetDaysResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'Day/GetAllDays', {}, {
+      gatAllDays: { method: 'GET', useToken: true, isArray: true }
+    })
+  }
+
+  function GetSettingsResource($resource, appCONSTANTS) {
     return $resource(appCONSTANTS.API_URL + 'Setting/GetSetting', {}, {
       getAllSettings: { method: 'GET', useToken: true }
     })

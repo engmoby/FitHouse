@@ -116,7 +116,7 @@
         "DescribeCustomiseProgram": "Describe Customise Program as client want",
         "ProgramName": "Program Name",
         "ProgramDescription": "Program Description",
-        "SelectExcludeDays": "Select Excluded Days",
+        "SelectExcludeDays": "Excluded Days",
         "MealPerDay": "No of meals/day",
         "ProgramDaysCount": "Program Days",
         "Meals": "Meals",
@@ -133,7 +133,7 @@
 
         "ProgramName": "اسم البرنامج",
         "ProgramDescription": "وصف البرنامج",
-        "SelectExcludeDays": "اختر الأيام المستثيه",
+        "SelectExcludeDays": "الأيام المستثيه",
         "MealPerDay": "عدد الوجبات في اليوم",
         "ProgramDaysCount": "عدد ايام البرنامج",
         "Meals": "الوجبات",

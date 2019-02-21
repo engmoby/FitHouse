@@ -14,19 +14,37 @@
                 return input;
             }
         })
-        .controller('homeController', ['$scope', '$stateParams', '$translate', 'appCONSTANTS', 'mealsPrepService', 'programPrepService', 'settingsPrepService', homeController])
+        .controller('homeController', ['$scope', '$stateParams', '$translate', 'appCONSTANTS', 'mealsPrepService', 'programPrepService', 'settingsPrepService'
+            , 'daysPrepService', homeController])
 
-    function homeController($scope, $stateParams, $translate, appCONSTANTS, mealsPrepService, programPrepService, settingsPrepService) {
+    function homeController($scope, $stateParams, $translate, appCONSTANTS, mealsPrepService, programPrepService
+        , settingsPrepService, daysPrepService) {
 
         $scope.mealsPrepService = mealsPrepService.results;
         $scope.programPrepService = programPrepService.results;
         $scope.settingsPrepService = settingsPrepService;
+        $scope.dayList = daysPrepService;
 
-        $scope.submitCustomise = function(){
-            localStorage.setItem('programName', $scope.programName);
-            localStorage.setItem('programDescription', $scope.programDescription);
+        $scope.isSnack = false;
+        $scope.isBreakFast = false;
+
+        $scope.submitCustomise = function () {
+            // localStorage.setItem('programName', $scope.programName);
+            // localStorage.setItem('programDescription', $scope.programDescription);
             localStorage.setItem('mealPerDay', $scope.mealPerDay);
             localStorage.setItem('programDaysCount', $scope.programDaysCount);
+            localStorage.setItem('dayList', $scope.SelectedDays);
+            localStorage.setItem('isBreakFast', $scope.isBreakFast);
+            localStorage.setItem('isSnack', $scope.isSnack);
+            localStorage.setItem('itemDatetime', $scope.itemDatetime);
+        }
+
+        $scope.bookMeal = function (meal) {
+            localStorage.setItem('meal', meal);
+        }
+
+        $scope.bookProgram = function (program) {
+            localStorage.setItem('program', program);
         }
 
         $scope.style = function () {
