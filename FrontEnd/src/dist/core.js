@@ -55,8 +55,8 @@
 	angular
 		.module('core')
 		.constant('appCONSTANTS', { 
-			'API_URL': 'http://mezab-al-rahma.azurewebsites.net/api/',
-			// 'API_URL': 'http://localhost:3152/api/',
+			//'API_URL': 'http://mezab-al-rahma.azurewebsites.net/api/',
+			 'API_URL': 'http://localhost:32569/api/',
 			'defaultLanguage':'en'
 		})
 		.constant('messageTypeEnum', {
@@ -239,13 +239,13 @@
    
         var vm=this;
 
-        var contactUs = ContactUsResource.getContactUs().$promise.then(function(results) {
-             $scope.contactUsHome = results;
+        // var contactUs = ContactUsResource.getContactUs().$promise.then(function(results) {
+        //      $scope.contactUsHome = results;
         
-        },
-        function(data, status) {
-            ToastService.show("right","bottom","fadeInUp",$translate.instant('NoData'),"error");
-        });
+        // },
+        // function(data, status) {
+        //    ToastService.show("right","bottom","fadeInUp",$translate.instant('NoData'),"error");
+        // });
     
 
 		$scope.languages = [{

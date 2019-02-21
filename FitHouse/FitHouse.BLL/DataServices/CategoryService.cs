@@ -18,7 +18,7 @@ namespace FitHouse.BLL.DataServices
 
         public PagedResultsDto GetAllCategorys(int page, int pageSize)
         {
-            var query = Queryable().Where(x => !x.IsDeleted  ).OrderBy(x => x.CategoryId);
+            var query = Queryable().Where(x => !x.IsDeleted).OrderBy(x => x.CategoryId);
             PagedResultsDto results = new PagedResultsDto();
             results.TotalCount = query.Select(x => x).Count();
             var getList = query.OrderBy(x => x.CategoryId).Skip((page - 1) * pageSize).Take(pageSize).ToList();
@@ -29,7 +29,7 @@ namespace FitHouse.BLL.DataServices
 
         public List<Category> GetAllCategs()
         {
-            var categories = _repository.Query(x => x.IsDeleted != true).Select().ToList();
+            var categories = _repository.Query(x => !x.IsDeleted && x.IsActive).Select().ToList();
             return categories;
         }
     }

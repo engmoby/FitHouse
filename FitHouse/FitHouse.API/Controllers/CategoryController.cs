@@ -16,11 +16,11 @@ using FitHouse.Common.CustomException;
 namespace FitHouse.API.Controllers
 {
     public class CategoryController : BaseApiController
-    { 
+    {
         private readonly ICategoryFacade _categoryFacade;
         private readonly ItemFacade _itemFacade;
         private readonly IMealDetailsService _mealDetailsService;
-        private ICategoryService _categoryService;
+        private readonly ICategoryService _categoryService;
         private readonly IProgramDetailService _programDetailService;
         public CategoryController(ICategoryFacade categoryFacade, ItemFacade itemFacade, ICategoryService categoryService, IMealDetailsService mealDetailsService, IProgramDetailService programDetailService)
         {
@@ -37,7 +37,7 @@ namespace FitHouse.API.Controllers
         {
             PagedResultsDto categoryObj = _categoryFacade.GetAllCategorys(page, pagesize);
             var data = Mapper.Map<List<CategoryModel>>(categoryObj.Data);
-            return PagedResponse("GetAllCategories", page, pagesize, categoryObj.TotalCount, data );
+            return PagedResponse("GetAllCategories", page, pagesize, categoryObj.TotalCount, data);
         }
 
         [Route("api/Category/GetAllCategs", Name = "GetAllCategs")]
@@ -54,7 +54,7 @@ namespace FitHouse.API.Controllers
         public IHttpActionResult CreateCategory([FromBody] CategoryModel categoryModel)
         {
 
-            var reurnCategory = _categoryFacade.CreateCategory(Mapper.Map<CategoryDto>(categoryModel),UserId);
+            var reurnCategory = _categoryFacade.CreateCategory(Mapper.Map<CategoryDto>(categoryModel), UserId);
 
             return Ok(reurnCategory);
         }
@@ -108,7 +108,7 @@ namespace FitHouse.API.Controllers
         {
             PagedResultsDto items;
             //items = UserRole == Enums.RoleType.RestaurantAdmin.ToString() ? _itemFacade.GetAllItemsByCategoryId(Language, categoryId, page, pagesize) : _itemFacade.GetActivatedItemsByCategoryId(Language, categoryId, page, pagesize);
-            items = _itemFacade.GetAllItemsByCategoryId(Language, categoryId, page, pagesize); 
+            items = _itemFacade.GetAllItemsByCategoryId(Language, categoryId, page, pagesize);
             var data = Mapper.Map<List<ItemModel>>(items.Data);
             foreach (var item in data)
             {
@@ -117,7 +117,22 @@ namespace FitHouse.API.Controllers
             return PagedResponse("GetAllItemsForCategory", page, pagesize, items.TotalCount, data);
         }
 
-       
+
+        [Route("api/Categories/{categoryId:long}/GetAllActiveItems", Name = "GetAllActiveItems")]
+        [HttpGet]
+        [ResponseType(typeof(List<ItemModel>))]
+        public IHttpActionResult GetAllActiveItems(long categoryId, int page = Page, int pagesize = PageSize)
+        {
+            PagedResultsDto items;
+           items = _itemFacade.GetActivatedItemsByCategoryId(Language, categoryId, page, pagesize);
+            var data = Mapper.Map<List<ItemModel>>(items.Data);
+            foreach (var item in data)
+            {
+                item.ImageUrl = Url.Link("ItemImage", new { item.CategoryId, item.ItemId });
+            }
+            return PagedResponse("GetAllActiveItems", page, pagesize, items.TotalCount, data);
+        }
+
 
     }
 
