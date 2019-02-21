@@ -14,19 +14,20 @@
                 return input;
             }
         })
-        .controller('homeController', ['$scope', '$stateParams', '$translate', 'appCONSTANTS', 'mealsPrepService', 'programPrepService', 'settingsPrepService', homeController])
+        .controller('homeController', ['$scope', '$stateParams', '$translate', '$state', 'appCONSTANTS', 'mealsPrepService', 'programPrepService', 'settingsPrepService', homeController])
 
-    function homeController($scope, $stateParams, $translate, appCONSTANTS, mealsPrepService, programPrepService, settingsPrepService) {
+    function homeController($scope, $stateParams, $translate, $state, appCONSTANTS, mealsPrepService, programPrepService, settingsPrepService) {
 
         $scope.mealsPrepService = mealsPrepService.results;
         $scope.programPrepService = programPrepService.results;
         $scope.settingsPrepService = settingsPrepService;
 
-        $scope.submitCustomise = function(){
+        $scope.submitCustomise = function () {
             localStorage.setItem('programName', $scope.programName);
             localStorage.setItem('programDescription', $scope.programDescription);
             localStorage.setItem('mealPerDay', $scope.mealPerDay);
             localStorage.setItem('programDaysCount', $scope.programDaysCount);
+            $state.go('Custom');
         }
 
         $scope.style = function () {

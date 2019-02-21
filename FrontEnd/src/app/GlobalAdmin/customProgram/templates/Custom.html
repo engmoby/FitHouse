@@ -44,20 +44,20 @@
                             aria-multiselectable="true">
                             <div ng-repeat="n in [].constructor(CustomCtrl.daysCount)  track by $index"
                                 class="panel panel-default">
-                                <a ng-init="counterDay=counterDay+1;" data-toggle="collapse" data-parent="#accordion6"
-                                    ng-init="n=false"
-                                    ng-click="n=!n;showDetails = ! showDetails; CustomCtrl.showDDL(); "
-                                    aria-expanded="true" aria-controls="collapseOne6" data-expandable="false">
-                                    <div class="panel-heading" role="tab" id="headingOne">
+                                <div class="panel-heading" role="tab" id="headingOne">
+                                    <a ng-init="counterDay=counterDay+1;" data-toggle="collapse"
+                                        data-parent="#accordion6" ng-init="n=false"
+                                        ng-click="n=!n;showDetails = ! showDetails; CustomCtrl.showDDL(); "
+                                        aria-expanded="true" aria-controls="collapseOne6" data-expandable="false">
                                         <h4 class="panel-title">
 
                                             {{'Day' | translate}} : {{counterDay=$index+1}}
                                             <!-- <i class="material-icons md-dark pmd-sm pmd-accordion-arrow">keyboard_arrow_down</i> -->
 
                                         </h4>
+                                    </a>
+                                </div>
 
-                                    </div>
-                                </a>
                                 <div ng-show="n == true" id="collapseOne6" class="panel-collapse collapse in"
                                     role="tabpanel" aria-labelledby="headingOne">
                                     <div class="panel-body">
@@ -120,36 +120,7 @@
                                                                 class="menu-item">{{meal.itemDescriptionDictionary[selectedLanguage] | limitTo:10}}</span>
                                                         </div>
                                                     </div>
-                                                    <!-- <table class="table pmd-table table-hover">
-                                                        <thead>
-                                                            <tr>
-                                                                <th>{{'Name' | translate}}</th>
-                                                                <th>{{'carb' | translate}}</th>
-                                                                <th>{{'calories' | translate}}</th>
-                                                                <th>{{'protein' | translate}}</th>
-                                                                <th>{{'costlbl' | translate}}</th>
-                                                                <th>{{'Pricelbl' | translate}}</th>
-                                                                <th>{{'vat' | translate}}</th>
-                                                                <th>{{'Total' | translate}}</th>
-                                                                <th></th>
-                                                            </tr>
-                                                        </thead>
-                                                        <tbody>
-                                                            <tr ng-repeat="meal in itemModel">
-                                                                <td data-title="Name" width="15%">
-                                                                    {{meal.itemNameDictionary[selectedLanguage] | limitTo:10}}
-                                                                </td>
-                                                                <td data-title="Description">{{meal.carbs}}</td>
-                                                                <td data-title="Description">{{meal.calories}}</td>
-                                                                <td data-title="Description">{{meal.protein}}</td>
-                                                                <td data-title="Description">{{meal.cost}}</td>
-                                                                <td data-title="Description">{{meal.price}}</td>
-                                                                <td data-title="Description">{{meal.vat}}</td>
-                                                                <td data-title="totalPrice">{{meal.totalPrice}}</td>
 
-                                                            </tr>
-                                                        </tbody>
-                                                    </table> -->
                                                 </div>
                                             </li>
                                         </ul>
@@ -159,6 +130,117 @@
                         </div>
                     </div>
 
+                </div>
+                <div class="head-typo typo-com collap-expand">
+                    <h4>Address</h4>
+                    <div class="col-md-6">
+                        <div class="head-typo typo-com collap-expand book-form inn-com-form">
+                            <form class="col s12">
+                                <!-- <div class="row">
+                                    <div class="input-field col s6">
+                                        <input required type="number" class="mat-input form-control" name="floor"
+                                            ng-model="CustomCtrl.FLoor" ng-minlength="1" ng-maxlength="4">
+                                        <div ng-messages="stepTwoProgramForm.floor.$error" class="error">
+                                            <div
+                                                ng-if="stepTwoProgramForm.floor.$error.required && !stepTwoProgramForm.floor.$pristine">
+                                                {{'ProgramDaysCountReqError' | translate}}</div>
+                                            <div
+                                                ng-if="(stepTwoProgramForm.floor.$error.minlength || stepTwoProgramForm.floor.$error.maxlength)">
+                                                {{'ProgramDaysCountLengthError' | translate}}</div>
+                                        </div>
+                                        <label>{{'FLoor' | translate}}</label>
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <input required type="number" class="mat-input form-control" name="appartmentNo"
+                                            ng-model="CustomCtrl.AppartmentNo" ng-minlength="1" ng-maxlength="4">
+                                        <div ng-messages="stepTwoProgramForm.appartmentNo.$error" class="error">
+                                            <div
+                                                ng-if="stepTwoProgramForm.appartmentNo.$error.required && !stepTwoProgramForm.appartmentNo.$pristine">
+                                                {{'ProgramDaysCountReqError' | translate}}</div>
+                                            <div
+                                                ng-if="(stepTwoProgramForm.appartmentNo.$error.minlength || stepTwoProgramForm.appartmentNo.$error.maxlength)">
+                                                {{'ProgramDaysCountLengthError' | translate}}</div>
+                                        </div>
+                                        <label>{{'ApartmentNumber' | translate}}</label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s12">
+                                        <textarea required type="text" class="materialize-textarea"
+                                            name="addressDescription" ng-model="CustomCtrl.AddressDescription"
+                                            ng-minlength="3" ng-maxlength="255"></textarea>
+                                        <div ng-messages="stepTwoProgramForm.addressDescription.$error">
+                                             <div
+                                                ng-if="stepTwoProgramForm.addressDescription.$error.required && !stepTwoProgramForm.addressDescription.$pristine">
+                                                {{'lastName' | translate}}
+                                            </div>
+                                            <div
+                                                ng-if="(stepTwoProgramForm.addressDescription.$error.minlength || stepTwoProgramForm.addressDescription.$error.maxlength)">
+                                                {{'NameLengthError255' | translate}}</div>
+                                        </div> 
+                                        <label>{{'AddressDescription' | translate}}</label>
+                                    </div>
+                                </div> -->
+                                <p>
+									<input name="group1" type="radio" id="test1" />
+									<label for="test1">Red</label>
+								</p>
+								<p>
+									<input name="group1" type="radio" id="test2" />
+									<label for="test2">Yellow</label>
+                                </p>
+                                
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <select required style="width:100% !important"
+                                            class="select-tags form-control pmd-select2-tags"
+                                            ng-change="CustomCtrl.countryChange()"
+                                            ng-model="CustomCtrl.selectedCountryId"
+                                            ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in CustomCtrl.counties">
+                                        </select>
+                                        <!-- <label>{{'Country' | translate}}</label> -->
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <select required style="width:100% !important"
+                                            class="select-tags form-control pmd-select2-tags"
+                                            ng-change="CustomCtrl.regionChange()" ng-model="CustomCtrl.selectedRegionId"
+                                            ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in CustomCtrl.regions">
+                                        </select>
+                                        <!-- <label>{{'Region' | translate}}</label> -->
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="input-field col s6">
+                                        <select ng-required="CustomCtrl.selectedRegionId > 0"
+                                            style="width:100% !important"
+                                            class="select-tags form-control pmd-select2-tags"
+                                            ng-change="CustomCtrl.cityChange()" ng-model="CustomCtrl.selectedCityId"
+                                            ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in CustomCtrl.cities">
+                                        </select>
+                                        <!-- <label>{{'City' | translate}}</label> -->
+                                    </div>
+                                    <div class="input-field col s6">
+                                        <select ng-required=" CustomCtrl.selectedCityId > 0"
+                                            style="width:100% !important"
+                                            class="select-tags form-control pmd-select2-tags"
+                                            ng-change="CustomCtrl.areaChange()" ng-model="CustomCtrl.selectedAreaId"
+                                            ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in CustomCtrl.area">
+                                        </select>
+                                        <!-- <label>{{'Area' | translate}}</label> -->
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-10"></div>
+                    <div class="col-md-2">
+                        <button style="background-color: #e4e5e6;color: black!important;"
+                            ng-disabled="(stepTwoProgramForm.$invalid || (CustomCtrl.daysCount == 0 || CustomCtrl.mealsCount == 0))"
+                            class="btn pmd-ripple-effect btn-primary" type="button" ng-click="CustomCtrl.gotoStep();">
+                            {{'next' | translate}}</button>
+                    </div>
                 </div>
             </form>
 

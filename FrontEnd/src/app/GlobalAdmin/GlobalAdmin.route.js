@@ -6,30 +6,6 @@
         .config(function ($stateProvider, $urlRouterProvider) {
 
             $stateProvider
-                .state('aboutUs', {
-                    url: '/aboutUs',
-                    templateUrl: './app/GlobalAdmin/user/templates/about-us.html',
-                    controller: 'aboutUsController',
-                    'controllerAs': 'aboutUsCtrl',
-                    resolve: {
-                        aboutUsPrepService: aboutUsPrepService,
-                        contactUsPrepService: contactUsPrepService,
-                        homePrepService: homePrepService
-                    }
-
-
-                })
-
-                .state('contactUs', {
-                    url: '/contactUs',
-                    templateUrl: './app/GlobalAdmin/user/templates/contact-us.html',
-                    controller: 'contactUsController',
-                    'controllerAs': 'contactUsCtrl',
-                    resolve: {
-                        contactUsPrepService: contactUsPrepService,
-                        homePrepService: homePrepService
-                    }
-                })
 
                 .state('home', {
                     url: '/home',
@@ -43,23 +19,42 @@
                     }
                 })
 
-                .state('leadership', {
-                    url: '/leadership',
-                    templateUrl: './app/GlobalAdmin/user/templates/leadership.html',
-                    controller: 'leadershipController',
-                    'controllerAs': 'leadershipCtrl',
+
+                .state('Custom', {
+                    url: '/Custom',
+                    templateUrl: './app/GlobalAdmin/customProgram/templates/Custom.html',
+                    controller: 'CustomController',
+                    'controllerAs': 'CustomCtrl',
                     resolve: {
-                        leadershipPrepService: leadershipPrepService,
-                        contactUsPrepService: contactUsPrepService,
-                        homePrepService: homePrepService
+                        itemsPrepService: itemsPrepService,
+                        CountriesPrepService: CountriesPrepService
+                    }
+                })
+                .state('Summary', {
+                    url: '/Summary',
+                    templateUrl: './app/GlobalAdmin/customProgram/templates/Summary.html',
+                    controller: 'CustomController',
+                    'controllerAs': 'CustomCtrl' ,
+                    resolve: {
+                        itemsPrepService: itemsPrepService,
+                        CountriesPrepService: CountriesPrepService
                     }
                 })
 
         });
 
-    settingsPrepService.$inject = ['GetSettingsResource']
-    function settingsPrepService(GetSettingsResource) {
-        return GetSettingsResource.getAllSettings().$promise;
+    /*Custom Program */
+    CategoreisPrepService.$inject = ['CustomsResourceCategories']
+    function CategoreisPrepService(CustomsResourceCategories) {
+        return CustomsResourceCategories.getAllCategories().$promise;
+    }
+    itemsPrepService.$inject = ['GetItemsResource']
+    function itemsPrepService(GetItemsResource) {
+        return GetItemsResource.getAllItemsCategorized().$promise;
+    }
+    CountriesPrepService.$inject = ['CountryResource']
+    function CountriesPrepService(CountryResource) {
+        return CountryResource.getAllCountries({ pageSize: 0 }).$promise;
     }
 
     mealsPrepService.$inject = ['GetMealsResource', '$stateParams']
@@ -71,29 +66,8 @@
     function programPrepService(GetProgramResource) {
         return GetProgramResource.gatAllPrograms().$promise;
     }
-
-    aboutUsPrepService.$inject = ['AboutUsResource']
-
-    function aboutUsPrepService(AboutUsResource) {
-        return AboutUsResource.getAboutUs().$promise;
+    settingsPrepService.$inject = ['GetSettingsResource']
+    function settingsPrepService(GetSettingsResource) {
+        return GetSettingsResource.getAllSettings().$promise;
     }
-
-    contactUsPrepService.$inject = ['ContactUsResource']
-
-    function contactUsPrepService(ContactUsResource) {
-        return ContactUsResource.getContactUs().$promise;
-    }
-
-    homePrepService.$inject = ['HomeResource']
-
-    function homePrepService(HomeResource) {
-        return HomeResource.getHome().$promise;
-    }
-
-    leadershipPrepService.$inject = ['LeadershipResource']
-
-    function leadershipPrepService(LeadershipResource) {
-        return LeadershipResource.getLeadership().$promise;
-    }
-
 }());
