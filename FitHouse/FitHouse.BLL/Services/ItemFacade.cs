@@ -133,7 +133,15 @@ namespace FitHouse.BLL.Services
             //results.IsParentTranslated = language == Strings.DefaultLanguage || _categoryTranslationService.CheckCategoryByLanguage(categoryId, language);
             return results;
         }
-
+        public PagedResultsDto GetAllActiveItemsByCategoryId(string language, long categoryId, int page, int pageSize)
+        {
+            var category = _categoryService.Find(categoryId);
+            if (category == null) throw new NotFoundException(ErrorCodes.CategoryNotFound);
+            if (category.IsDeleted) throw new ValidationException(ErrorCodes.CategoryDeleted);
+            var results = _itemTranslationService.GetAllItemsByCategoryId(language, categoryId, page, pageSize);
+            //results.IsParentTranslated = language == Strings.DefaultLanguage || _categoryTranslationService.CheckCategoryByLanguage(categoryId, language);
+            return results;
+        }
         public PagedResultsDto GetActivatedItemsByCategoryId(string language, long categoryId, int page, int pageSize)
         {
             var category = _categoryService.Find(categoryId);

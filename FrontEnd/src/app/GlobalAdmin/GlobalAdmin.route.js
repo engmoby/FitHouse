@@ -54,6 +54,7 @@
                         homePrepService: homePrepService
                     }
                 })
+
         });
 
     settingsPrepService.$inject = ['GetSettingsResource']
