@@ -6,7 +6,6 @@
         .config(function ($stateProvider, $urlRouterProvider) {
 
             $stateProvider
-
                 .state('home', {
                     url: '/home',
                     templateUrl: './app/GlobalAdmin/user/templates/home.html',
@@ -15,7 +14,8 @@
                     resolve: {
                         mealsPrepService: mealsPrepService,
                         programPrepService: programPrepService,
-                        settingsPrepService: settingsPrepService
+                        settingsPrepService: settingsPrepService,
+                        daysPrepService:daysPrepService
                     }
                 })
 
@@ -55,6 +55,11 @@
     CountriesPrepService.$inject = ['CountryResource']
     function CountriesPrepService(CountryResource) {
         return CountryResource.getAllCountries({ pageSize: 0 }).$promise;
+    }
+
+    daysPrepService.$inject = ['GetDaysResource']
+    function daysPrepService(GetDaysResource) {
+        return GetDaysResource.gatAllDays().$promise;
     }
 
     mealsPrepService.$inject = ['GetMealsResource', '$stateParams']

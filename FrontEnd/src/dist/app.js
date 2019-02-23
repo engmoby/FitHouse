@@ -6,7 +6,6 @@
         .config(function ($stateProvider, $urlRouterProvider) {
 
             $stateProvider
-
                 .state('home', {
                     url: '/home',
                     templateUrl: './app/GlobalAdmin/user/templates/home.html',
@@ -54,6 +53,11 @@
     CountriesPrepService.$inject = ['CountryResource']
     function CountriesPrepService(CountryResource) {
         return CountryResource.getAllCountries({ pageSize: 0 }).$promise;
+    }
+
+    daysPrepService.$inject = ['GetDaysResource']
+    function daysPrepService(GetDaysResource) {
+        return GetDaysResource.gatAllDays().$promise;
     }
 
     mealsPrepService.$inject = ['GetMealsResource', '$stateParams']
@@ -447,6 +451,10 @@
         $scope.mealsPrepService = mealsPrepService.results;
         $scope.programPrepService = programPrepService.results;
         $scope.settingsPrepService = settingsPrepService;
+        $scope.dayList = daysPrepService;
+
+        $scope.isSnack = false;
+        $scope.isBreakFast = false;
 
         $scope.submitCustomise = function () {
             localStorage.setItem('programName', $scope.programName);
@@ -499,10 +507,19 @@
     .factory('GetMealsResource', ['$resource', 'appCONSTANTS', GetMealsResource])
     .factory('GetSettingsResource', ['$resource', 'appCONSTANTS', GetSettingsResource])
     .factory('GetProgramResource', ['$resource', 'appCONSTANTS', GetProgramResource])
+    .factory('GetDaysResource', ['$resource', 'appCONSTANTS', GetDaysResource])
+
     ;
 
 
-      function GetSettingsResource($resource, appCONSTANTS) {
+
+  function GetDaysResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'Day/GetAllDays', {}, {
+      gatAllDays: { method: 'GET', useToken: true, isArray: true }
+    })
+  }
+
+  function GetSettingsResource($resource, appCONSTANTS) {
     return $resource(appCONSTANTS.API_URL + 'Setting/GetSetting', {}, {
       getAllSettings: { method: 'GET', useToken: true }
     })

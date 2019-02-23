@@ -8,9 +8,18 @@
     .factory('GetMealsResource', ['$resource', 'appCONSTANTS', GetMealsResource])
     .factory('GetSettingsResource', ['$resource', 'appCONSTANTS', GetSettingsResource])
     .factory('GetProgramResource', ['$resource', 'appCONSTANTS', GetProgramResource])
+    .factory('GetDaysResource', ['$resource', 'appCONSTANTS', GetDaysResource])
+
     ;
 
-    
+
+
+  function GetDaysResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'Day/GetAllDays', {}, {
+      gatAllDays: { method: 'GET', useToken: true, isArray: true }
+    })
+  }
+
   function GetSettingsResource($resource, appCONSTANTS) {
     return $resource(appCONSTANTS.API_URL + 'Setting/GetSetting', {}, {
       getAllSettings: { method: 'GET', useToken: true }
