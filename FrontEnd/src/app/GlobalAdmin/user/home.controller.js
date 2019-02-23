@@ -37,6 +37,7 @@
             localStorage.setItem('isBreakFast', $scope.isBreakFast);
             localStorage.setItem('isSnack', $scope.isSnack);
             localStorage.setItem('itemDatetime', $scope.itemDatetime);
+            $state.go('Custom');
         }
 
         $scope.bookMeal = function (meal) {
