@@ -182,40 +182,6 @@
 (function () {
     'use strict';
 
-	    angular
-        .module('home')
-        .controller('aboutUsController', ['$scope', 'homePrepService','$stateParams','$translate', 'appCONSTANTS','ToastService', 'aboutUsPrepService', 'contactUsPrepService',  aboutUsController])
-
-    function aboutUsController($scope, homePrepService,$stateParams ,$translate , appCONSTANTS, ToastService, aboutUsPrepService, contactUsPrepService){
-
-                $scope.aboutUs = aboutUsPrepService;
-        $scope.contactUs = contactUsPrepService;
-        $scope.home = homePrepService;
-
-
-	}
-
-	}
-());
-(function () {
-    'use strict';
-
-	    angular
-        .module('home')
-        .controller('contactUsController', ['$scope', 'homePrepService', '$stateParams', '$sce','$translate', 'appCONSTANTS', 'contactUsPrepService',  contactUsController])
-
-    function contactUsController($scope, homePrepService, $stateParams, $sce,$translate , appCONSTANTS, contactUsPrepService){
-
-                $scope.contactUs = contactUsPrepService;
-        $scope.hotelLocationUrl = $sce.trustAsResourceUrl($scope.contactUs.location);
-        $scope.home = homePrepService;
-	}
-
-	}
-());
-(function () {
-    'use strict';
-
     angular
         .module('home')
         .filter('range', function () {
@@ -253,11 +219,8 @@
         }
 
         $scope.bookMeal = function (meal) {
-            localStorage.setItem('meal', meal);
         }
-
         $scope.bookProgram = function (program) {
-            localStorage.setItem('program', program);
         }
 
         $scope.style = function () {
@@ -274,25 +237,6 @@
 
 }
     ());
-(function () {
-    'use strict';
-
-	    angular
-        .module('home')
-        .controller('leadershipController', ['$scope', 'homePrepService','$stateParams','$translate', 'appCONSTANTS','ToastService', 'leadershipPrepService', 'contactUsPrepService',  leadershipController])
-
-    function leadershipController($scope, homePrepService,$stateParams ,$translate , appCONSTANTS, ToastService, leadershipPrepService, contactUsPrepService){
-
-                $scope.leadership = leadershipPrepService;
-        $scope.contactUs = contactUsPrepService;
-        $scope.home = homePrepService;
-
-
-
-        					}
-
-	}
-());
 (function () {
   angular
     .module('home')
