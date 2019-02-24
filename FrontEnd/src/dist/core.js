@@ -1,22 +1,22 @@
-(function() {
+(function () {
     'use strict';
 
     angular
-    .module('core', [
-    		'ngResource',
-        'ui.router',
-        //'ngMaterial',
-        'ngStorage',
-        // 'permission',
-        // 'bw.paging',
-        //'angular-progress-arc',
-        // 'ui.event',
-        'ngProgressLite',
-        // 'ui.bootstrap',
-        'pascalprecht.translate',
-        // 'textAngular',
-        // 'blockUI'
-    ]);
+        .module('core', [
+            'ngResource',
+            'ui.router',
+            //'ngMaterial',
+            'ngStorage',
+            // 'permission',
+            // 'bw.paging',
+            //'angular-progress-arc',
+            // 'ui.event',
+            'ngProgressLite',
+            // 'ui.bootstrap',
+            'pascalprecht.translate', 
+            // 'textAngular',
+            // 'blockUI'
+        ]);
 }());
 ;(function() {
   'use strict';
@@ -56,7 +56,8 @@
 		.module('core')
 		.constant('appCONSTANTS', {
 			'API_URL': 'http://localhost:32569/api/',
-			// 'API_URL': 'http://fithouse.azurewebsites.net/api/',
+			//'API_URL': 'http://fithouse.azurewebsites.net/api/',
+
 			'defaultLanguage': 'en'
 		})
 		.constant('messageTypeEnum', {

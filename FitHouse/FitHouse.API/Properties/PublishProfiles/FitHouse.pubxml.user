@@ -79,7 +79,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/23/2018 03:44:10</publishTime>
     </File>
     <File Include="bin/ar-EG/FitHouse.Resources.resources.dll">
-      <publishTime>02/17/2019 10:33:13</publishTime>
+      <publishTime>02/20/2019 11:01:28</publishTime>
     </File>
     <File Include="bin/AutoMapper.dll">
       <publishTime>07/23/2018 03:44:10</publishTime>
@@ -100,10 +100,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/23/2018 03:44:10</publishTime>
     </File>
     <File Include="bin/FitHouse.API.dll">
-      <publishTime>02/17/2019 10:59:10</publishTime>
+      <publishTime>02/21/2019 10:58:03</publishTime>
     </File>
     <File Include="bin/FitHouse.BLL.dll">
-      <publishTime>02/17/2019 10:33:11</publishTime>
+      <publishTime>02/21/2019 10:57:57</publishTime>
     </File>
     <File Include="bin/FitHouse.Common.dll">
       <publishTime>02/17/2019 10:33:09</publishTime>
@@ -112,7 +112,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>02/17/2019 10:33:11</publishTime>
     </File>
     <File Include="bin/FitHouse.Resources.dll">
-      <publishTime>02/17/2019 10:33:13</publishTime>
+      <publishTime>02/20/2019 11:01:28</publishTime>
     </File>
     <File Include="bin/ImageFileCache.WPF.dll">
       <publishTime>07/23/2018 03:44:10</publishTime>
@@ -367,7 +367,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/23/2018 03:44:10</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>02/13/2019 10:54:14</publishTime>
+      <publishTime>02/20/2019 11:00:53</publishTime>
     </File>
   </ItemGroup>
 </Project>

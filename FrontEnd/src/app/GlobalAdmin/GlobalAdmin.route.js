@@ -18,11 +18,43 @@
                         daysPrepService:daysPrepService
                     }
                 })
+
+
+                .state('Custom', {
+                    url: '/Custom',
+                    templateUrl: './app/GlobalAdmin/customProgram/templates/Custom.html',
+                    controller: 'CustomController',
+                    'controllerAs': 'CustomCtrl',
+                    resolve: {
+                        itemsPrepService: itemsPrepService,
+                        CountriesPrepService: CountriesPrepService
+                    }
+                })
+                .state('Summary', {
+                    url: '/Summary',
+                    templateUrl: './app/GlobalAdmin/customProgram/templates/Summary.html',
+                    controller: 'CustomController',
+                    'controllerAs': 'CustomCtrl' ,
+                    resolve: {
+                        itemsPrepService: itemsPrepService,
+                        CountriesPrepService: CountriesPrepService
+                    }
+                })
+
         });
 
-    settingsPrepService.$inject = ['GetSettingsResource']
-    function settingsPrepService(GetSettingsResource) {
-        return GetSettingsResource.getAllSettings().$promise;
+    /*Custom Program */
+    CategoreisPrepService.$inject = ['CustomsResourceCategories']
+    function CategoreisPrepService(CustomsResourceCategories) {
+        return CustomsResourceCategories.getAllCategories().$promise;
+    }
+    itemsPrepService.$inject = ['GetItemsResource']
+    function itemsPrepService(GetItemsResource) {
+        return GetItemsResource.getAllItemsCategorized().$promise;
+    }
+    CountriesPrepService.$inject = ['CountryResource']
+    function CountriesPrepService(CountryResource) {
+        return CountryResource.getAllCountries({ pageSize: 0 }).$promise;
     }
 
     daysPrepService.$inject = ['GetDaysResource']
@@ -39,5 +71,8 @@
     function programPrepService(GetProgramResource) {
         return GetProgramResource.gatAllPrograms().$promise;
     }
-
+    settingsPrepService.$inject = ['GetSettingsResource']
+    function settingsPrepService(GetSettingsResource) {
+        return GetSettingsResource.getAllSettings().$promise;
+    }
 }());
