@@ -9,7 +9,8 @@ namespace FitHouse.BLL.Services.Interfaces
 {
     public interface IProgramFacade
     {
-        ProgramDto CreateProgram(ProgramDto programDto, int userId);
+        //ProgramDto CreateProgram(ProgramDto programDto, int userId);
+        OrderDto CreateProgram(ProgramDto programDto, int userId);
         PagedResultsDto GetAllPrograms(int page, int pageSize);
         ProgramDto EditProgram(ProgramDto programDto, int userId);
         ProgramDto GetProgramDetails(long programId);

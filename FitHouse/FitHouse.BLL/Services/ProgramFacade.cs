@@ -86,7 +86,8 @@ namespace FitHouse.BLL.Services
             return Mapper.Map<ProgramDto>(program);
         }
 
-        public ProgramDto CreateProgram(ProgramDto programDto, int userId)
+        //public ProgramDto CreateProgram(ProgramDto programDto, int userId)
+        public OrderDto CreateProgram(ProgramDto programDto, int userId)
         {
 
             ValidateProgram(programDto);
@@ -132,7 +133,8 @@ namespace FitHouse.BLL.Services
                 excludedDays.Add(dayByday);
             }
 
-           
+            var orderDetails = new List<OrderDetail>();
+            var order = new Order();
             if (programDto.IsOrdering)
             {
 
@@ -154,8 +156,7 @@ namespace FitHouse.BLL.Services
                 });
                 
                 programObj.IsForClient = true;
-                var orderDetails = new List<OrderDetail>();
-                var order = new Order();
+              
                 order.BranchId = programDto.branchId;
                 order.IsByAdmin = true;
                 order.IsDelivery = programDto.IsDelivery;
@@ -227,9 +228,10 @@ namespace FitHouse.BLL.Services
             _programTranslationService.InsertRange(programObj.ProgramTranslations);
             _programDetailService.InsertRange(programObj.ProgramDetails);
             _programService.Insert(programObj);
-
+            var orderDto= new OrderDto();
+            orderDto = Mapper.Map<OrderDto>(order);
             SaveChanges();
-            return programDto;
+            return orderDto;
         }
 
         private void ValidateProgram(ProgramDto programDto)

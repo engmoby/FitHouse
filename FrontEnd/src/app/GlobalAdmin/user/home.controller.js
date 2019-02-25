@@ -14,16 +14,17 @@
                 return input;
             }
         })
-        .controller('homeController', ['$scope', '$stateParams', '$translate', 'appCONSTANTS', 'mealsPrepService', 'programPrepService', 'settingsPrepService'
+        .controller('homeController', ['$scope', '$state', '$stateParams', '$translate', 'appCONSTANTS', 'mealsPrepService', 'programPrepService', 'settingsPrepService'
             , 'daysPrepService', homeController])
 
-    function homeController($scope, $stateParams, $translate, appCONSTANTS, mealsPrepService, programPrepService
+    function homeController($scope, $state, $stateParams, $translate, appCONSTANTS, mealsPrepService, programPrepService
         , settingsPrepService, daysPrepService) {
 
         $scope.mealsPrepService = mealsPrepService.results;
         $scope.programPrepService = programPrepService.results;
         $scope.settingsPrepService = settingsPrepService;
         $scope.dayList = daysPrepService;
+		$scope.SelectedDays = [];
 
         $scope.isSnack = false;
         $scope.isBreakFast = false;
@@ -33,10 +34,12 @@
             // localStorage.setItem('programDescription', $scope.programDescription);
             localStorage.setItem('mealPerDay', $scope.mealPerDay);
             localStorage.setItem('programDaysCount', $scope.programDaysCount);
-            localStorage.setItem('dayList', $scope.SelectedDays);
+            localStorage.setItem('dayList', JSON.stringify($scope.SelectedDays));
             localStorage.setItem('isBreakFast', $scope.isBreakFast);
             localStorage.setItem('isSnack', $scope.isSnack);
             localStorage.setItem('itemDatetime', $scope.itemDatetime);
+            /*add here the disacount value*/
+            localStorage.setItem('ProgramDiscount', 0);
             $state.go('Custom');
         }
 

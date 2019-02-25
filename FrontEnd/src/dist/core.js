@@ -259,9 +259,9 @@
 
     angular
         .module('home')
-        .controller('homeCtrl', ['$rootScope','$translate', '$scope', 'appCONSTANTS',  '$state','ContactUsResource', '$localStorage', homeCtrl])
+        .controller('homeCtrl', ['$rootScope','$translate', '$scope', 'appCONSTANTS',  '$state',  '$localStorage', homeCtrl])
        
-    function homeCtrl($rootScope, $translate, $scope, appCONSTANTS, $state, ContactUsResource, $localStorage) {
+    function homeCtrl($rootScope, $translate, $scope, appCONSTANTS, $state,  $localStorage) {
    
         var vm=this;
 
