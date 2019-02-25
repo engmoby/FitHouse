@@ -44,11 +44,10 @@
         }
 
         $scope.bookMeal = function (meal) {
-            localStorage.setItem('meal', meal);
+            // navigate to anothet page
         }
-
         $scope.bookProgram = function (program) {
-            localStorage.setItem('program', program);
+            // navigate to anothet page
         }
 
         $scope.style = function () {
