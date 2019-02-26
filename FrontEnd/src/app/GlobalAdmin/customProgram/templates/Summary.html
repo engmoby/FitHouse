@@ -41,19 +41,29 @@
 								<div id="menu1" class="tab-pane fade in active tab-space">
 									<div class="hp-main-overview">
 										<ul>
-											<li>Order Code: <span>#</span>
+											<li>Order Code: <span>#{{CustomCtrl.order.orderCode}}</span>
 											</li>
-											<li>Price: <span>Max four Persons</span>
+											<li>Price: <span>{{CustomCtrl.order.price}}</span>
 											</li>
-											<li>Type : <span>800 sq. feet</span>
+											<li>Type :
+												<span>{{CustomCtrl.order.isDelivery ? 'Delivery' : 'PickUp'}}</span>
+
 											</li>
-											<li>No. of Days : <span>Sea or Garden view</span>
+											<li>No. of Days : <span>{{CustomCtrl.daysCount}}</span>
 											</li>
-											<li>No. of Meals Per Day : <span>Available per request</span>
+											<li>No. of Meals Per Day : <span>{{CustomCtrl.mealsCount}}</span>
 											</li>
-											<li>Start Date : <span>Balcony</span>
+											<li>Start Date : <span>{{CustomCtrl.startDate}}</span>
 											</li>
-											<li>Status : <span class="ov-yes">Yes</span>
+											<li>Status :
+												<span
+													class="ov-yes">{{CustomCtrl.order.orderStatus ? 'Waiting' : 'Open'}}</span>
+
+												<!-- <span class="ov-yes" ng-if="{{CustomCtrl.order.type ==0}}">
+													Open
+												</span> -->
+
+												<!-- <span class="ov-yes">{{CustomCtrl.order.price}}</span> -->
 											</li>
 										</ul>
 									</div>

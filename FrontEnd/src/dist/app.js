@@ -190,29 +190,27 @@
 
 	angular
 		.module('home')
-		.controller('CustomController', ['$scope', '$filter', '$state', '$translate', 'RegionResource', 'CityResource',
-		 'AreaResource', 'CountriesPrepService', 'CustomsResourceItems', 'CustomResource', 'itemsPrepService', 'ToastService', CustomController])
+		.controller('CustomController', ['$scope', '$filter', '$state', 'UserAddressesResource', '$translate', 'RegionResource', 'CityResource',
+			'AreaResource', 'CountriesPrepService', 'CustomResource', 'itemsPrepService', 'ToastService', CustomController])
 
-	function CustomController($scope, $filter, $state, $translate, RegionResource, CityResource, AreaResource, CountriesPrepService, 
-		CustomsResourceItems, CustomResource, itemsPrepService, ToastService) {
+	function CustomController($scope, $filter, $state, UserAddressesResource, $translate, RegionResource, CityResource, AreaResource, CountriesPrepService,
+		CustomResource, itemsPrepService, ToastService) {
 
 		var vm = this;
 		vm.ItemCategorized = itemsPrepService;
 		vm.itemList = [];
 		vm.counties = [];
+		vm.validate = false;
+		vm.ProgramDiscount = JSON.parse(localStorage.getItem("ProgramDiscount"));
 		vm.daysCount = JSON.parse(localStorage.getItem("programDaysCount"));
 		vm.mealsCount = JSON.parse(localStorage.getItem("mealPerDay"));
-		vm.IsBreakFast = JSON.parse(localStorage.getItem("IsBreakFast"));
-		vm.IsSnack = JSON.parse(localStorage.getItem("IsSnack"));
-		vm.startDate = JSON.parse(localStorage.getItem("startDate"));
+		vm.IsBreakFast = JSON.parse(localStorage.getItem("isBreakFast"));
+		vm.SelectedDays = JSON.parse(localStorage.getItem("dayList"));
+		vm.IsSnack = JSON.parse(localStorage.getItem("isSnack"));
+		vm.startDate = localStorage.getItem("itemDatetime");
 		var user = JSON.parse(localStorage.getItem("ngStorage-authInfo"));
 		vm.clientId = user.UserId;
-
-		vm.gotoStep = function () {
-			console.log(vm.itemList);
-			localStorage.setItem('Program', JSON.stringify(vm.itemList));
-			$state.go('Summary');
-		}
+		vm.order = JSON.parse(localStorage.getItem("OrderSummary"));
 		$scope.getData = function (itemModel, day, meal) {
 			debugger;
 			var differntMeal = $filter('filter')(vm.itemList, x => (x.dayNumber == day && x.mealNumberPerDay != meal) || (x.dayNumber != day));
@@ -236,13 +234,15 @@
 				vm.ProgramVAT = vm.ProgramVAT + vm.itemList[i].vat;
 				vm.totalPrice += vm.itemList[i].totalPrice;
 			}
+
+			debugger;
 			vm.ProgramTotalPrice = vm.totalPrice - (vm.totalPrice * (vm.ProgramDiscount / 100));
 			vm.ProgramTotalPriceBefore = vm.totalPrice;
 
 		}
 
 		vm.AddNewProgram = function () {
-			var newProgram = new CustomResource(); 
+			var newProgram = new CustomResource();
 			newProgram.isActive = true;
 			newProgram.programDays = vm.daysCount;
 			newProgram.noOfMeals = vm.mealsCount;
@@ -258,19 +258,20 @@
 			newProgram.day = vm.startDate;
 			newProgram.isProgram = true;
 			newProgram.userId = vm.clientId;
+			newProgram.days = vm.SelectedDays;
 			if (vm.orderType.type == "delivery") {
 				newProgram.isDelivery = true;
-				newProgram.addressId = 9;
-				newProgram.branchId = 1;
+				newProgram.addressId = vm.addresses.address;
+				newProgram.branchId = vm.addressDetails.branchId;
 			}
 			else {
 				newProgram.isDelivery = false;
-				newProgram.branchId =1;
+				newProgram.branchId = vm.selectedBranchId;
 			}
-
-			newProgram.days = vm.SelectedDays;
 			newProgram.$create().then(
 				function (data, status) {
+					debugger;
+					localStorage.setItem('OrderSummary', JSON.stringify(data));
 					$state.go('Summary');
 				},
 				function (data, status) {
@@ -311,110 +312,141 @@
 			})
 		}
 		vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
-        vm.selectedCountryId = 0;
-        vm.counties = vm.counties.concat(CountriesPrepService.results)
+		vm.selectedCountryId = 0;
+		vm.counties = vm.counties.concat(CountriesPrepService.results)
 
-        vm.resetDLL = function () {
-            vm.counties = [];
-            vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
-            vm.selectedCountryId = 0;
-            vm.counties = vm.counties.concat(CountriesPrepService.results)
-            vm.regions = [];
-            vm.cities = [];
-            vm.area = []; 
-        } 
+		vm.resetDLL = function () {
+			vm.counties = [];
+			vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
+			vm.selectedCountryId = 0;
+			vm.counties = vm.counties.concat(CountriesPrepService.results)
+			vm.regions = [];
+			vm.cities = [];
+			vm.area = [];
+		}
 
-        vm.countryChange = function () {
-            for (var i = vm.counties.length - 1; i >= 0; i--) {
-                if (vm.counties[i].countryId == 0) {
-                    vm.counties.splice(i, 1);
-                }
-            }
-            vm.regions = [];
-            vm.cities = [];
-            vm.area = [];
-            vm.regions.push({ regionId: 0, titleDictionary: { "en": "Select Region", "ar": "اختار اقليم" } });
-            RegionResource.getAllRegions({ countryId: vm.selectedCountryId, pageSize: 0 }).$promise.then(function (results) {
-                vm.selectedRegionId = 0;
-                vm.regions = vm.regions.concat(results.results);
-            },
-                function (data, status) {
-                });
-        }
-        vm.regionChange = function () { 
-            if (vm.selectedRegionId != undefined) {
-                for (var i = vm.regions.length - 1; i >= 0; i--) {
-                    if (vm.regions[i].regionId == 0) {
-                        vm.regions.splice(i, 1);
-                    }
-                }
-                vm.cities = [];
-                vm.area = [];
-                vm.cities.push({ cityId: 0, titleDictionary: { "en": "Select City", "ar": "اختار مدينة" } });
-                CityResource.getAllCities({ regionId: vm.selectedRegionId, pageSize: 0 }).$promise.then(function (results) {
-                    vm.selectedCityId = 0;
-                    vm.cities = vm.cities.concat(results.results);
-                },
-                    function (data, status) {
-                    });
-            }
-        }
-        vm.cityChange = function () { 
-            if (vm.selectedCityId != undefined) {
-                for (var i = vm.cities.length - 1; i >= 0; i--) {
-                    if (vm.cities[i].cityId == 0) {
-                        vm.cities.splice(i, 1);
-                    }
-                }
-                vm.area = [];
-                vm.area.push({ areaId: 0, titleDictionary: { "en": "Select Area", "ar": "اختار منطقه" } });
-                AreaResource.getAllAreas({ cityId: vm.selectedCityId, pageSize: 0 }).$promise.then(function (results) {
-                    vm.selectedAreaId = 0;
-                    vm.area = vm.area.concat(results.results);
-                },
-                    function (data, status) {
-                    });
-            }
-        }
-        vm.areaChange = function () { 
-            if (vm.selectedAreaId != undefined && vm.selectedAreaId > 0) {
-                for (var i = vm.area.length - 1; i >= 0; i--) {
-                    if (vm.area[i].areaId == 0) {
-                        vm.area.splice(i, 1);
-                    }
-                }
-                vm.branchList = [];
-                vm.selectedBranchId = [0];
-                vm.branchList = vm.branchList.concat(($filter('filter')(vm.area, { areaId: vm.selectedAreaId }))[0].branches);
+		vm.countryChange = function () {
+			for (var i = vm.counties.length - 1; i >= 0; i--) {
+				if (vm.counties[i].countryId == 0) {
+					vm.counties.splice(i, 1);
+				}
 			}
-			console.log( vm.branchList)
-        }
-        vm.branchChange = function () {
-            for (var i = vm.branchList.length - 1; i >= 0; i--) {
-                if (vm.branchList[i].branchId == 0) {
-                    vm.branchList.splice(i, 1);
-                }
-            }
+			vm.regions = [];
+			vm.cities = [];
+			vm.area = [];
+			vm.regions.push({ regionId: 0, titleDictionary: { "en": "Select Region", "ar": "اختار اقليم" } });
+			RegionResource.getAllRegions({ countryId: vm.selectedCountryId, pageSize: 0 }).$promise.then(function (results) {
+				vm.selectedRegionId = 0;
+				vm.regions = vm.regions.concat(results.results);
+			},
+				function (data, status) {
+				});
+		}
+		vm.regionChange = function () {
+			if (vm.selectedRegionId != undefined) {
+				for (var i = vm.regions.length - 1; i >= 0; i--) {
+					if (vm.regions[i].regionId == 0) {
+						vm.regions.splice(i, 1);
+					}
+				}
+				vm.cities = [];
+				vm.area = [];
+				vm.cities.push({ cityId: 0, titleDictionary: { "en": "Select City", "ar": "اختار مدينة" } });
+				CityResource.getAllCities({ regionId: vm.selectedRegionId, pageSize: 0 }).$promise.then(function (results) {
+					vm.selectedCityId = 0;
+					vm.cities = vm.cities.concat(results.results);
+				},
+					function (data, status) {
+					});
+			}
+		}
+		vm.cityChange = function () {
+			if (vm.selectedCityId != undefined) {
+				for (var i = vm.cities.length - 1; i >= 0; i--) {
+					if (vm.cities[i].cityId == 0) {
+						vm.cities.splice(i, 1);
+					}
+				}
+				vm.area = [];
+				vm.area.push({ areaId: 0, titleDictionary: { "en": "Select Area", "ar": "اختار منطقه" } });
+				AreaResource.getAllAreas({ cityId: vm.selectedCityId, pageSize: 0 }).$promise.then(function (results) {
+				debugger;
+					vm.selectedAreaId = 0;
+					vm.area = vm.area.concat(results.results);
+				},
+					function (data, status) {
+					});
+			}
+		}
+		vm.areaChange = function () {
+			if (vm.selectedAreaId != undefined && vm.selectedAreaId > 0) {
+				for (var i = vm.area.length - 1; i >= 0; i--) {
+					if (vm.area[i].areaId == 0) {
+						vm.area.splice(i, 1);
+					}
+				}
+				vm.branchList = [];
+				vm.selectedBranchId = [0];
+				vm.branchList = vm.branchList.concat(($filter('filter')(vm.area, { areaId: vm.selectedAreaId }))[0].branches);
+			} 
+		}
+		vm.branchChange = function () {
+			for (var i = vm.branchList.length - 1; i >= 0; i--) {
+				if (vm.branchList[i].branchId == 0) {
+					vm.branchList.splice(i, 1);
+				}
+			}
 		}
 		vm.GetBranchDelivery = function () {
-            var k = BranchResource.getBranch({ branchId: vm.branchId }).$promise.then(function (results) {
-                vm.DeliveryFees = results.deliveryPrice;
+			var k = BranchResource.getBranch({ branchId: vm.branchId }).$promise.then(function (results) {
+				vm.DeliveryFees = results.deliveryPrice;
 
-            },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
-        }
+			},
+				function (data, status) {
+					ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+				});
+		}
+
+		vm.orderType = {
+			type: 'delivery'
+		};
+		vm.addresses = {
+			address: 0
+		};
+		vm.changeOrderType = function () {
+			debugger;
+			if (vm.orderType.type == 'delivery' || vm.orderType.type == 'true') {
+				vm.orderType.type = 'pickup'
+
+			} else {
+				vm.orderType.type = 'delivery'
+
+			}
+
+
+		}
+		if (vm.orderType.type == 'delivery') {
+			var k = UserAddressesResource.getUserAddresses({ userId: vm.clientId }).$promise.then(function (results) {
+				vm.userAddresses = results;
+				console.log(vm.userAddresses);
+
+			},
+				function (data, status) {
+					ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+				});
+		}
+		vm.addressInfo = function (address) {
+			vm.addressDetails = address;
+		}
 	}
 
 }());
 (function () {
   angular
     .module('home')
-    .factory('CustomResource', ['$resource', 'appCONSTANTS', CustomResource])
-    .factory('CustomsResourceCategories', ['$resource', 'appCONSTANTS', CustomsResourceCategories])
+    .factory('CustomResource', ['$resource', 'appCONSTANTS', CustomResource]) 
     .factory('GetItemsResource', ['$resource', 'appCONSTANTS', GetItemsResource])
-    .factory('CustomsResourceItems', ['$resource', 'appCONSTANTS', CustomsResourceItems])
+    .factory('UserAddressesResource', ['$resource', 'appCONSTANTS', UserAddressesResource])
     .factory('CountryResource', ['$resource', 'appCONSTANTS', CountryResource])
     .factory('RegionResource', ['$resource', 'appCONSTANTS', RegionResource])
     .factory('CityResource', ['$resource', 'appCONSTANTS', CityResource])
@@ -444,6 +476,11 @@
     })
   }
 
+  function UserAddressesResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'Orders', {}, { 
+      getUserAddresses: { method: 'GET', url: appCONSTANTS.API_URL + 'Address/GetUserAddresses/:userId', useToken: true, isArray:true },             
+    })
+  }
   function CountryResource($resource, appCONSTANTS) {
     return $resource(appCONSTANTS.API_URL + 'Countries/', {}, {
       getAllCountries: { method: 'GET', url: appCONSTANTS.API_URL + 'Countries/GetAllCountries', useToken: true, params: { lang: '@lang' } },
@@ -1082,6 +1119,7 @@
         $scope.programPrepService = programPrepService.results;
         $scope.settingsPrepService = settingsPrepService;
         $scope.dayList = daysPrepService;
+		$scope.SelectedDays = [];
 
         $scope.isSnack = false;
         $scope.isBreakFast = false;
@@ -1089,7 +1127,7 @@
         $scope.submitCustomise = function () {
             localStorage.setItem('mealPerDay', $scope.mealPerDay);
             localStorage.setItem('programDaysCount', $scope.programDaysCount);
-            localStorage.setItem('dayList', $scope.SelectedDays);
+            localStorage.setItem('dayList', JSON.stringify($scope.SelectedDays));
             localStorage.setItem('isBreakFast', $scope.isBreakFast);
             localStorage.setItem('isSnack', $scope.isSnack);
             localStorage.setItem('itemDatetime', $scope.itemDatetime);
@@ -1097,7 +1135,9 @@
         }
 
         $scope.bookMeal = function (meal) {
+            localStorage.setItem('meal', meal);
         }
+
         $scope.bookProgram = function (program) {
         }
 

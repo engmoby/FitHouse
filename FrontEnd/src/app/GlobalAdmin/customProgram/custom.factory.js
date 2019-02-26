@@ -1,10 +1,9 @@
 (function () {
   angular
     .module('home')
-    .factory('CustomResource', ['$resource', 'appCONSTANTS', CustomResource])
-    .factory('CustomsResourceCategories', ['$resource', 'appCONSTANTS', CustomsResourceCategories])
+    .factory('CustomResource', ['$resource', 'appCONSTANTS', CustomResource]) 
     .factory('GetItemsResource', ['$resource', 'appCONSTANTS', GetItemsResource])
-    .factory('CustomsResourceItems', ['$resource', 'appCONSTANTS', CustomsResourceItems])
+    .factory('UserAddressesResource', ['$resource', 'appCONSTANTS', UserAddressesResource])
     .factory('CountryResource', ['$resource', 'appCONSTANTS', CountryResource])
     .factory('RegionResource', ['$resource', 'appCONSTANTS', RegionResource])
     .factory('CityResource', ['$resource', 'appCONSTANTS', CityResource])
@@ -34,6 +33,11 @@
     })
   }
 
+  function UserAddressesResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'Orders', {}, { 
+      getUserAddresses: { method: 'GET', url: appCONSTANTS.API_URL + 'Address/GetUserAddresses/:userId', useToken: true, isArray:true },             
+    })
+  }
   function CountryResource($resource, appCONSTANTS) {
     return $resource(appCONSTANTS.API_URL + 'Countries/', {}, {
       getAllCountries: { method: 'GET', url: appCONSTANTS.API_URL + 'Countries/GetAllCountries', useToken: true, params: { lang: '@lang' } },
