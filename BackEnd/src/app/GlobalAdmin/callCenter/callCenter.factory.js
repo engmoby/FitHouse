@@ -2,6 +2,7 @@
     angular
         .module('home')
         .factory('OrderResource', ['$resource', 'appCONSTANTS', OrderResource])
+        ;
 
     function OrderResource($resource, appCONSTANTS) {
         return $resource(appCONSTANTS.API_URL + 'Orders', {}, {

@@ -21,6 +21,7 @@ namespace FitHouse.API.Models
         public decimal Cost { get; set; }
         public decimal Price { get; set; }
         public long Calories { get; set; }
+        public long Fat { get; set; }
         public long VAT { get; set; }
         public long Protein { get; set; }
         public Dictionary<string, string> ItemNameDictionary { get; set; }
