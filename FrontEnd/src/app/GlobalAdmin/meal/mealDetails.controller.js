@@ -3,31 +3,32 @@
 
     angular
         .module('home')
-        .controller('programDetailsController', ['$scope', '$stateParams', '$translate', 'appCONSTANTS'
-            , '$filter', 'progDetailsPrepService', 'itemsssPrepService', 'OrderResource'
-            , 'RegionResource', 'CityResource', 'AreaResource', 'CountriesPrepService', programDetailsController])
+        .controller('mealDetailsController', ['$scope', '$stateParams', '$translate', 'appCONSTANTS'
+            , '$filter', 'mealPrepService', 'itemsssPrepService', 'OrderResource'
+            , 'RegionResource', 'CityResource', 'AreaResource', 'CountriesPrepService', mealDetailsController])
 
-    function programDetailsController($scope, $stateParams, $translate, appCONSTANTS
-        , $filter, progDetailsPrepService
+    function mealDetailsController($scope, $stateParams, $translate, appCONSTANTS
+        , $filter, mealPrepService
         , itemsssPrepService, OrderResource, RegionResource, CityResource, AreaResource
         , CountriesPrepService) {
 
-        $scope.progDetailsPrepService = progDetailsPrepService;
+        $scope.mealPrepService = mealPrepService;
         $scope.itemsssPrepService = itemsssPrepService;
         $scope.clientId = localStorage.getItem('ClientId');
 
         $scope.counties = [];
-
         $scope.fats = 0;
         $scope.carbs = 0;
         $scope.protein = 0;
         $scope.calories = 0;
 
-        for (var i = 0; i < $scope.progDetailsPrepService.items.length; i++) {
-            $scope.fats += $scope.progDetailsPrepService.items[i].fat;
-            $scope.carbs += $scope.progDetailsPrepService.items[i].carbs;
-            $scope.protein += $scope.progDetailsPrepService.items[i].protein;
-            $scope.calories += $scope.progDetailsPrepService.items[i].calories;
+        for (var i = 0; i < $scope.mealPrepService.mealDetails.length; i++) {
+            var differntItem = $scope.itemsssPrepService.filter(x => (x.itemId == $scope.mealPrepService.mealDetails[i].itemId));
+
+            $scope.fats += differntItem[0].fat;
+            $scope.carbs += differntItem[0].carbs;
+            $scope.protein += differntItem[0].protein;
+            $scope.calories += differntItem[0].calories;
         }
 
         $scope.style = function () {
@@ -196,35 +197,27 @@
 
             var order = new OrderResource();
 
-            order.program = $scope.progDetailsPrepService;
-            order.isByAdmin = false;
-            // order.branchId = $scope.selectedBranchId;
+            order.meal = $scope.mealPrepService;
+            order.isByAdmin = true;
+            order.branchId = $scope.selectedBranchId;
             order.userId = $scope.clientId;
             order.day = $('#startdate').val();
-
-            if ($scope.orderType.type == "delivery") {
-                order.isDelivery = true;
-                order.addressId = $scope.addresses.address;
-                order.branchId = $scope.addressDetails.branchId;
-            }
-            else {
-                order.isDelivery = false;
-                order.branchId = $scope.selectedBranchId;
-            }
+            order.type = "Meal";
 
             order.$createOrder().then(
                 function (data, status) {
-                    blockUI.stop();
+                    // blockUI.stop();
 
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+                    // ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
 
-                    $state.go('callCenter');
+                    // localStorage.setItem('data', JSON.stringify(data.userId));
+                    $state.go('meals');
 
                 },
                 function (data, status) {
-                    blockUI.stop();
+                    // blockUI.stop();
 
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                    // ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 }
             );
         }

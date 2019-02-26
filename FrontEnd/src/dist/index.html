@@ -23,9 +23,8 @@
             <div class="mm-inn">
                 <div class="mm-logo">
                     <a href="index.html">
-                        <img src="/assets/img/logo-os-white.png" alt="Fit House Restaurant" id="logo"
-                            data-height-percentage="84" data-actual-width="700" data-actual-height="198"
-                            style="width: 180px; " />
+                        <img src="/assets/img/logo-os-white.png" alt="Fit House Restaurant" id="logo" data-height-percentage="84" data-actual-width="700"
+                            data-actual-height="198" style="width: 180px; " />
                     </a>
                 </div>
 
@@ -33,9 +32,11 @@
 
                     <ul>
                         </li>
-                        <li><a ng-click="$state.go('aboutUs');">{{'AboutUs' | translate}}</a>
+                        <li>
+                            <a ng-click="$state.go('aboutUs');">{{'AboutUs' | translate}}</a>
                         </li>
-                        <li><a ng-click="$state.go('leadership');">{{'Leadership' | translate}}</a>
+                        <li>
+                            <a ng-click="$state.go('program');">{{'Programs' | translate}}</a>
                         </li>
                     </ul>
                 </div>
@@ -50,15 +51,16 @@
                 <div class="row">
                     <div class="top-bar" ng-show="isLoggedIn()" ng-cloak ng-init="logoutFlag=false">
                         <ul>
-                            <li><a ng-click="$state.go('aboutUs');"
-                                    style="cursor: pointer;">{{'AboutUs' | translate}}</a>
+                            <li>
+                                <a ng-click="$state.go('aboutUs');" style="cursor: pointer;">{{'AboutUs' | translate}}</a>
                             </li>
-                            <li><a ng-click="$state.go('contactUs');"
-                                    style="cursor: pointer;">{{'ContactUs' | translate}}</a>
+                            <li>
+                                <a ng-click="$state.go('contactUs');" style="cursor: pointer;">{{'ContactUs' | translate}}</a>
                             </li>
-                            <li><a class='dropdown-button' href='#'
-                                    data-activates='dropdown2'>{{'Language' | translate}} <i
-                                        class="fa fa-angle-down"></i></a>
+                            <li>
+                                <a class='dropdown-button' href='#' data-activates='dropdown2'>{{'Language' | translate}}
+                                    <i class="fa fa-angle-down"></i>
+                                </a>
                             </li>
                             <li><a ng-click="logout()" style="cursor: pointer;">{{'logoutBtn' | translate}}</a>
                             </li>
@@ -69,9 +71,11 @@
                     <div class="all-drop-down">
                         <!-- Dropdown Structure -->
                         <ul id='dropdown2' class='dropdown-content drop-con-man'>
-                            <li><a ng-click="changeLanguage('en')">English</a>
+                            <li>
+                                <a ng-click="changeLanguage('en')">English</a>
                             </li>
-                            <li><a ng-click="changeLanguage('ar')">عربي</a>
+                            <li>
+                                <a ng-click="changeLanguage('ar')">عربي</a>
                             </li>
                         </ul>
 
@@ -79,9 +83,9 @@
                 </div>
                 <div class="row">
                     <div class="logo">
-                        <a href="index.html"> <img src="/assets/img/logo-os-white.png" alt="Fit House Restaurant"
-                                id="logo" data-height-percentage="84" data-actual-width="700" data-actual-height="198"
-                                style="width: 180px; " />
+                        <a href="index.html">
+                            <img src="/assets/img/logo-os-white.png" alt="Fit House Restaurant" id="logo" data-height-percentage="84"
+                                data-actual-width="700" data-actual-height="198" style="width: 180px; " />
                         </a>
                     </div>
                     <div class="menu-bar" ng-show="isLoggedIn()" ng-cloak ng-init="logoutFlag=false">
@@ -91,6 +95,14 @@
                             </li>
                             <li><a ng-click="$state.go('addUser');"
                                     style="cursor: pointer;">{{'Leadership' | translate}}</a>
+                            <li>
+                                <a ng-click="$state.go('home');" style="cursor: pointer;" class='dropdown-button' data-activates='drop-home'>{{'Home'| translate}}</a>
+                            </li>
+                            <li>
+                                <a ng-click="$state.go('program');" style="cursor: pointer;">{{'Programs' | translate}}</a>
+                            </li>
+                            <li>
+                                <a ng-click="$state.go('meal');" style="cursor: pointer;">{{'Meals' | translate}}</a>
                             </li>
                         </ul>
                     </div>
@@ -107,14 +119,20 @@
                 <div class="row">
                     <div class="foot-com foot-1">
                         <ul>
-                            <li><a ng-show="contactUsHome.showFacebook == true" ng-href="{{contactUsHome.facebookLink}}"
-                                    target="_blank"><i class="fa fa-facebook" aria-hidden="true"></i></a>
+                            <li>
+                                <a ng-show="contactUsHome.showFacebook == true" ng-href="{{contactUsHome.facebookLink}}" target="_blank">
+                                    <i class="fa fa-facebook" aria-hidden="true"></i>
+                                </a>
                             </li>
-                            <li><a ng-show="contactUsHome.showGmail == true" ng-href="{{contactUsHome.gmailLink}}"
-                                    target="_blank"><i class="fa fa-google-plus" aria-hidden="true"></i></a>
+                            <li>
+                                <a ng-show="contactUsHome.showGmail == true" ng-href="{{contactUsHome.gmailLink}}" target="_blank">
+                                    <i class="fa fa-google-plus" aria-hidden="true"></i>
+                                </a>
                             </li>
-                            <li><a ng-show="contactUsHome.showTwitter == true" ng-href="{{contactUsHome.twitterLink}}"
-                                    target="_blank"><i class="fa fa-twitter" aria-hidden="true"></i></a>
+                            <li>
+                                <a ng-show="contactUsHome.showTwitter == true" ng-href="{{contactUsHome.twitterLink}}" target="_blank">
+                                    <i class="fa fa-twitter" aria-hidden="true"></i>
+                                </a>
                             </li>
                         </ul>
                     </div>
@@ -134,12 +152,10 @@
             </div>
         </div>
     </section>
-    <script src="libs.js?v=03d8edf7d13026d3e00ec2a6297c0ffe"></script>
-    <script src="core.js?v=03d8edf7d13026d3e00ec2a6297c0ffe"></script>
-    <script src="app.js?v=03d8edf7d13026d3e00ec2a6297c0ffe"></script>
-    <script src="templates.js?v=03d8edf7d13026d3e00ec2a6297c0ffe"></script>
-    <script src="https://rawgithub.com/McNull/angular-block-ui/bower/angular-block-ui.min.js"></script>
-    <link rel="stylesheet" href="https://rawgithub.com/McNull/angular-block-ui/bower/angular-block-ui.min.css">
+    <script src="libs.js?v=86e5fcbfdcf95659af990f4cfcba1578"></script>
+    <script src="core.js?v=86e5fcbfdcf95659af990f4cfcba1578"></script>
+    <script src="app.js?v=86e5fcbfdcf95659af990f4cfcba1578"></script>
+    <script src="templates.js?v=86e5fcbfdcf95659af990f4cfcba1578"></script>
 
 </body>
 

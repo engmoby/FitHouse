@@ -25,67 +25,7 @@
     <!--TOP SECTION-->
     <div class="hp-banner">
         <img src="images/detailed-banner.jpg" alt=""> </div>
-    <!--END HOTEL ROOMS-->
-    <!--CHECK AVAILABILITY FORM-->
-    <!-- <div class="check-available">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="inn-com-form">
-                        <form class="col s12">
-                            <div class="row">
-                                <div class="col s12 avail-title">
-                                    <h4>Check Availability</h4>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="input-field col s12 m4 l2">
-                                    <select>
-                                        <option value="" disabled selected>Select Room</option>
-                                        <option value="1">Master Suite</option>
-                                        <option value="2">Mini-Suite</option>
-                                        <option value="3">Ultra Deluxe</option>
-                                        <option value="4">Luxury</option>
-                                        <option value="5">Premium </option>
-                                        <option value="6">Normal</option>
-                                    </select>
-                                </div>
-                                <div class="input-field col s12 m4 l2">
-                                    <select>
-                                        <option value="" disabled selected>No of adults</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="1">4</option>
-                                    </select>
-                                </div>
-                                <div class="input-field col s12 m4 l2">
-                                    <select>
-                                        <option value="" disabled selected>No of childrens</option>
-                                        <option value="1">1</option>
-                                        <option value="2">2</option>
-                                        <option value="3">3</option>
-                                        <option value="1">4</option>
-                                    </select>
-                                </div>
-                                <div class="input-field col s12 m4 l2">
-                                    <input type="text" id="from" name="from">
-                                    <label for="from">Arrival Date</label>
-                                </div>
-                                <div class="input-field col s12 m4 l2">
-                                    <input type="text" id="to" name="to">
-                                    <label for="to">Departure Date</label>
-                                </div>
-                                <div class="input-field col s12 m4 l2">
-                                    <input type="submit" value="submit" class="form-btn"> </div>
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div> -->
-    <!--END CHECK AVAILABILITY FORM-->
+
     <div class="hom-com">
         <div class="container">
             <div class="row">
@@ -94,22 +34,22 @@
                         <div class="hp-section">
                             <div class="hp-sub-tit">
                                 <h4>
-                                    <span>{{progDetailsPrepService.programNameDictionary[selectedLanguage]}}</span>
+                                    <span>{{mealPrepService.mealNameDictionary[selectedLanguage]}}</span>
                                 </h4>
 
                             </div>
                             <div class="hp-amini detai-2p">
-                                <p>{{progDetailsPrepService.programDescriptionDictionary[selectedLanguage]}}</p>
+                                <p>{{mealPrepService.mealDescriptionDictionary[selectedLanguage]}}</p>
                             </div>
                         </div>
 
                         <div class="hp-section">
                             <div class="hp-sub-tit">
                                 <h4>
-                                    <span>{{'ProgramDetails' | translate}}</span>
+                                    <span>{{'MealDetails' | translate}}</span>
                                 </h4>
                                 <!-- <p>Aliquam id tempor sem. Cras molestie risus et lobortis congue. Donec id est consectetur,
-                                    cursus tellus at, mattis lacus.</p> -->
+                                        cursus tellus at, mattis lacus.</p> -->
                             </div>
                             <div class="hp-over">
                                 <ul class="nav nav-tabs hp-over-nav">
@@ -134,53 +74,23 @@
                                 </ul>
                                 <div class="tab-content">
                                     <div id="home" class="tab-pane fade in active tab-space">
-                                        <div ng-init="counterDay = 0; counterMeal = 0">
-                                            <div class="panel-group pmd-accordion pmd-accordion-inbox" id="accordion6" role="tablist" aria-multiselectable="true">
-                                                <div ng-repeat="n in [].constructor(progDetailsPrepService.programDays)  track by $index" class="panel panel-default">
-                                                    <div class="panel-heading" role="tab" id="headingOne">
-                                                        <h4 class="panel-title">
-                                                            <a ng-init="counterDay=counterDay+1;" data-toggle="collapse" data-parent="#accordion6" ng-init="n=false" ng-click="n=!n;"
-                                                                aria-expanded="true" aria-controls="collapseOne6" data-expandable="false">
-                                                                {{'Day' | translate}} #{{counterDay=$index+1}}
-                                                                <i class="material-icons md-dark pmd-sm pmd-accordion-arrow">keyboard_arrow_down</i>
-                                                            </a>
-                                                        </h4>
+                                        <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                            <label for="first-name">{{'Items' | translate}}</label>
+                                            <ul>
+                                                <li ng-repeat="detail in mealPrepService.mealDetails">
+                                                    <!-- {{detail}} -->
+                                                    <div class="res-menu">
+                                                        <!-- {{item.itemNameDictionary[selectedLanguage]}} -->
+                                                        <img src="/assets/img/meal.jpeg" alt="" />
+                                                        <h3> {{detail.item.itemNameDictionary[selectedLanguage]}}
+                                                            <span>{{detail.item.price}}</span>
+                                                        </h3>
+                                                        <span class="menu-item">{{detail.item.itemDescriptionDictionary[selectedLanguage] }}</span>
+                                                        <!-- | limitTo:10 -->
                                                     </div>
-                                                    <div ng-show="n == true" id="collapseOne6" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
-                                                        <div class="panel-body">
-                                                            <ul>
 
-                                                                <li ng-repeat="meal in [].constructor(progDetailsPrepService.noOfMeals)  track by $index">
-                                                                    <h4>
-                                                                        <a ng-init="counterMeal=counterMeal+1;" ng-click="showDetails = ! showDetails;">{{'Meal' | translate}} #{{counterMeal=$index+1}}</a>
-                                                                        <!-- <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="progDetailsPrepService.ShowProgramMeal(progDetailsPrepService.programDetails.programId, counterDay, counterMeal)">mode_edit</i> -->
-                                                                    </h4>
-                                                                    <div ng-show="showDetails">
-                                                                        <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-                                                                            <label for="first-name">{{'Items' | translate}}</label>
-                                                                            <ul>
-                                                                                <li ng-repeat="detail in progDetailsPrepService.programDetails | filter:{dayNumber:counterDay, mealNumberPerDay: counterMeal} ">
-                                                                                    <div class="res-menu" ng-repeat="item in progDetailsPrepService.items |filter :{itemId:detail.itemId}">
-                                                                                        <!-- {{item.itemNameDictionary[selectedLanguage]}} -->
-                                                                                        <img src="/assets/img/meal.jpeg" alt="" />
-                                                                                        <h3> {{item.itemNameDictionary[selectedLanguage]
-                                                                                            | limitTo:10}}
-                                                                                            <span>{{item.price}}</span>
-                                                                                        </h3>
-                                                                                        <span class="menu-item">{{item.itemDescriptionDictionary[selectedLanguage]
-                                                                                            | limitTo:10}}</span>
-                                                                                    </div>
-
-                                                                                </li>
-                                                                            </ul>
-                                                                        </div>
-                                                                    </div>
-                                                                </li>
-                                                            </ul>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
+                                                </li>
+                                            </ul>
                                         </div>
                                     </div>
                                     <div id="menu1" class="tab-pane fade tab-space">
@@ -199,7 +109,7 @@
                                                     <span>{{calories}}</span>
                                                 </li>
                                                 <li>{{'TotalPrice' | translate}}:
-                                                    <span>{{progDetailsPrepService.price}}</span>
+                                                    <span>{{mealPrepService.mealPrice}}</span>
                                                 </li>
                                             </ul>
                                         </div>
@@ -209,8 +119,8 @@
                                             <!-- {{itemDatetime}} -->
                                             <div class="col-md-6">
                                                 <h5>{{'OrderDate' | translate}}</h5>
-                                                <input name="itemDatetime" required ng-model="itemDatetime" type="text" id="startdate" 
-                                                class="form-control" ng-change="dateChange();" />
+                                                <input name="itemDatetime" required ng-model="itemDatetime" type="text" id="startdate" class="form-control" ng-change="dateChange();"
+                                                />
                                             </div>
 
 
@@ -239,9 +149,9 @@
                                                                             {{'Floor' | translate}} {{address.floor}}</label>
                                                                     </p>
                                                                     <!-- <label>
-                                                                        <input ng-change="addressInfo(address)" type="radio" ng-model="addresses.address" value="{{address.addressId}}"> {{address.appartmentNo}}, {{address.description}},
-                                                                        {{'Floor' | translate}} {{address.floor}}
-                                                                    </label> -->
+                                                                            <input ng-change="addressInfo(address)" type="radio" ng-model="addresses.address" value="{{address.addressId}}"> {{address.appartmentNo}}, {{address.description}},
+                                                                            {{'Floor' | translate}} {{address.floor}}
+                                                                        </label> -->
                                                                 </div>
                                                             </div>
                                                         </div>
@@ -288,7 +198,7 @@
                                                 </div>
 
                                                 <div class="input-field col s12 m4 l2">
-                                                    <input type="submit" value="submit" class="form-btn" ng-click="Order()" ng-disabled="orderForm.$invalid || || addressValidation == false" >
+                                                    <input type="submit" value="submit" class="form-btn" ng-click="Order()" ng-disabled="orderForm.$invalid || || addressValidation == false">
                                                     <!-- ng-disabled="orderForm.$invalid || !dateIsValid || addressValidation == false" -->
                                                 </div>
                                             </div>

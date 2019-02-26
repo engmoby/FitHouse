@@ -98,8 +98,8 @@
                                                             ng-model="itemModel"
                                                             ng-change="getData(itemModel,counterDay,counterMeal);CustomCtrl.addItemToList(itemModel)"
                                                             ng-options="item as item.itemNameDictionary[selectedLanguage] 
-                                            group by item.category.titleDictionary[selectedLanguage]
-                                            for item  in CustomCtrl.ItemCategorized">
+                                                                        group by item.category.titleDictionary[selectedLanguage]
+                                                                        for item  in CustomCtrl.ItemCategorized">
                                                         </select>
                                                         <div
                                                             ng-messages="stepTwoProgramForm.ddl{{counterDay}}{{counterMeal}}.$error">

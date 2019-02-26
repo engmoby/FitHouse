@@ -3,12 +3,12 @@
 
     angular
         .module('home')
-        .controller('programController', ['$scope', '$stateParams', '$translate', 'appCONSTANTS', 'programPrepService'
-            , programController])
+        .controller('mealController', ['$scope', '$stateParams', '$translate', 'appCONSTANTS', 'mealsPrepService'
+            , mealController])
 
-    function programController($scope, $stateParams, $translate, appCONSTANTS, programPrepService) {
+    function mealController($scope, $stateParams, $translate, appCONSTANTS, mealsPrepService) {
 
-        $scope.programPrepService = programPrepService.results;
+        $scope.mealsPrepService = mealsPrepService.results;
 
         $scope.style = function () {
             return {

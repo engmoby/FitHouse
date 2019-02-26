@@ -241,6 +241,18 @@ namespace FitHouse.BLL.Services
                 }
             }
 
+            else if (orderDto.Meal != null)
+            {
+                order.OrderStatus = Enums.OrderStatus.Prepering;
+                order.OrderStartDate = orderDto.Day;
+                    var orderDetail = new OrderDetail();
+                    orderDetail.MealId = orderDto.Meal.MealId;
+                    orderDetail.Day = null;
+                    orderDetail.Day = orderDto.Day;
+                    orderDetail.Status = Enums.OrderStatus.Prepering;
+                    orderDetails.Add(orderDetail);
+            }
+
 
             else if (orderDto.Programs.Count != 0)
             {
@@ -310,6 +322,75 @@ namespace FitHouse.BLL.Services
                     }
 
                 }
+            }
+
+            else if (orderDto.Program != null)
+            {
+                order.IsProgram = true;
+                order.OrderStartDate = orderDto.Day;
+
+               
+                    var details = _programDetailService.DistictProgramDays(orderDto.Program.ProgramId);
+                    var lastDate = order.OrderStartDate;
+                    var excludeDays = new List<ProgExcludeDay>();
+                    foreach (var progDetail in details)
+                    {
+                        var orderDetail = new OrderDetail();
+                        orderDetail.ProgramId = orderDto.Program.ProgramId;
+                        orderDetail.Day = null;
+                        orderDetail.DayNumber = progDetail;
+                        //orderDetail.Day = orderDto.Day;
+
+                        //----
+
+                        if (orderDetail.ProgramId != null)
+                            if (!excludeDays.Any())
+                                excludeDays = _progExcludeDayService.GetExcludesDays((long)orderDetail.ProgramId).ToList();
+
+
+                        if (orderDetail.DayNumber == 1)
+                        {
+                            orderDetail.Day = lastDate;
+                            orderDetail.Status = Enums.OrderStatus.Prepering;
+                            //lastDate = lastDate?.AddDays(1);
+                        }
+
+                        else
+                        {
+
+                            lastDate = lastDate?.AddDays(1);
+                            foreach (var day in excludeDays)
+                            {
+                                if (lastDate != null && day.DayId == 1 && lastDate.Value.DayOfWeek == DayOfWeek.Saturday)
+                                    lastDate = lastDate?.AddDays(1);
+
+                                if (lastDate != null && day.DayId == 2 && lastDate.Value.DayOfWeek == DayOfWeek.Sunday)
+                                    lastDate = lastDate?.AddDays(1);
+
+                                if (lastDate != null && day.DayId == 3 && lastDate.Value.DayOfWeek == DayOfWeek.Monday)
+                                    lastDate = lastDate?.AddDays(1);
+
+                                if (lastDate != null && day.DayId == 4 && lastDate.Value.DayOfWeek == DayOfWeek.Tuesday)
+                                    lastDate = lastDate?.AddDays(1);
+
+                                if (lastDate != null && day.DayId == 5 && lastDate.Value.DayOfWeek == DayOfWeek.Wednesday)
+                                    lastDate = lastDate?.AddDays(1);
+
+                                if (lastDate != null && day.DayId == 6 && lastDate.Value.DayOfWeek == DayOfWeek.Thursday)
+                                    lastDate = lastDate?.AddDays(1);
+
+                                if (lastDate != null && day.DayId == 7 && lastDate.Value.DayOfWeek == DayOfWeek.Friday)
+                                    lastDate = lastDate?.AddDays(1);
+                            }
+                            orderDetail.Day = lastDate;
+                            orderDetail.Status = Enums.OrderStatus.Prepering;
+                        }
+
+                        orderDetails.Add(orderDetail);
+
+                    }
+
+                
             }
 
 
