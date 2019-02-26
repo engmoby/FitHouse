@@ -6,20 +6,29 @@
         .config(function ($stateProvider, $urlRouterProvider) {
 
             $stateProvider
-                .state('home', {
-                    url: '/home',
+                .state('homePage', {
+                    url: '/homePage',
                     templateUrl: './app/GlobalAdmin/user/templates/home.html',
-                    controller: 'homeController',
-                    'controllerAs': 'homeCtrl',
+                    controller: 'homePageController',
+                    'controllerAs': 'homePageCtrl',
                     resolve: {
                         mealsPrepService: mealsPrepService,
                         programPrepService: programPrepService,
                         settingsPrepService: settingsPrepService,
-                        daysPrepService:daysPrepService
+                        daysPrepService: daysPrepService
                     }
                 })
 
+                .state('addUser', {
+                    url: '/addUser',
+                    templateUrl: './app/GlobalAdmin/register/templates/addUser.html',
+                    controller: 'userController',
+                    'controllerAs': 'userCtrl', 
+                    resolve: { 
+                          CountriesPrepService: CountriesPrepService,
 
+                    } 
+                })
                 .state('Custom', {
                     url: '/Custom',
                     templateUrl: './app/GlobalAdmin/customProgram/templates/Custom.html',
@@ -34,7 +43,7 @@
                     url: '/Summary',
                     templateUrl: './app/GlobalAdmin/customProgram/templates/Summary.html',
                     controller: 'CustomController',
-                    'controllerAs': 'CustomCtrl' ,
+                    'controllerAs': 'CustomCtrl',
                     resolve: {
                         itemsPrepService: itemsPrepService,
                         CountriesPrepService: CountriesPrepService
@@ -75,4 +84,10 @@
     function settingsPrepService(GetSettingsResource) {
         return GetSettingsResource.getAllSettings().$promise;
     }
+ 
+     /*User */ 
+     CountriesPrepService.$inject = ['CountryResource']
+     function CountriesPrepService(CountryResource) {
+         return CountryResource.getAllCountries({ pageSize: 0 }).$promise;
+     }
 }());

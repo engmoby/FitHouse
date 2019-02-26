@@ -15,6 +15,7 @@ namespace FitHouse.API.Models
         public bool IsByAdmin { get; set; }
         public bool IsPaused { get; set; }
         public bool IsPaid { get; set; }
+        public decimal OrderPrice { get; set; }
         public bool IsDelivery { get; set; }
         public bool IsProgram { get; set; }
         public DateTime PauseStart { get; set; }

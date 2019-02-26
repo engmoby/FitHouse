@@ -6,20 +6,29 @@
         .config(function ($stateProvider, $urlRouterProvider) {
 
             $stateProvider
-                .state('home', {
-                    url: '/home',
+                .state('homePage', {
+                    url: '/homePage',
                     templateUrl: './app/GlobalAdmin/user/templates/home.html',
-                    controller: 'homeController',
-                    'controllerAs': 'homeCtrl',
+                    controller: 'homePageController',
+                    'controllerAs': 'homePageCtrl',
                     resolve: {
                         mealsPrepService: mealsPrepService,
                         programPrepService: programPrepService,
                         settingsPrepService: settingsPrepService,
-                        daysPrepService:daysPrepService
+                        daysPrepService: daysPrepService
                     }
                 })
 
+                .state('addUser', {
+                    url: '/addUser',
+                    templateUrl: './app/GlobalAdmin/register/templates/addUser.html',
+                    controller: 'userController',
+                    'controllerAs': 'userCtrl', 
+                    resolve: { 
+                          CountriesPrepService: CountriesPrepService,
 
+                    } 
+                })
                 .state('Custom', {
                     url: '/Custom',
                     templateUrl: './app/GlobalAdmin/customProgram/templates/Custom.html',
@@ -34,7 +43,7 @@
                     url: '/Summary',
                     templateUrl: './app/GlobalAdmin/customProgram/templates/Summary.html',
                     controller: 'CustomController',
-                    'controllerAs': 'CustomCtrl' ,
+                    'controllerAs': 'CustomCtrl',
                     resolve: {
                         itemsPrepService: itemsPrepService,
                         CountriesPrepService: CountriesPrepService
@@ -74,55 +83,69 @@
     function settingsPrepService(GetSettingsResource) {
         return GetSettingsResource.getAllSettings().$promise;
     }
+
+     CountriesPrepService.$inject = ['CountryResource']
+     function CountriesPrepService(CountryResource) {
+         return CountryResource.getAllCountries({ pageSize: 0 }).$promise;
+     }
 }());
 (function() {
-    'use strict';
+  'use strict';
 
-      angular
-      .module('home')
-      .config(config)
-      .run(runBlock);
+  angular
+    .module('home')
+    .config(config)
+    .run(runBlock);
 
-      config.$inject = ['ngProgressLiteProvider'];
-    runBlock.$inject = ['$rootScope', 'ngProgressLite' ];
+  config.$inject = ['ngProgressLiteProvider'];
+  runBlock.$inject = ['$rootScope', 'ngProgressLite','$transitions','blockUI'];
 
-      function config(ngProgressLiteProvider) {
-      ngProgressLiteProvider.settings.speed = 1000;
+  function config(ngProgressLiteProvider) {
+    ngProgressLiteProvider.settings.speed = 1000;
 
-      }
+  }
 
-      function runBlock($rootScope, ngProgressLite ) {
+  function runBlock($rootScope, ngProgressLite,$transitions,blockUI) {
 
-        $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-          startProgress();
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+        startProgress();
+    });
+    $transitions.onStart({}, function(transition) {
+      blockUI.start("Loading..."); 
+    });
+    $transitions.onSuccess({}, function(transition) {
+      blockUI.stop();
+    });
+    $transitions.onError({  }, function(transition) {
+      blockUI.stop();
+    });
+    var routingDoneEvents = ['$stateChangeSuccess', '$stateChangeError', '$stateNotFound'];
+
+    angular.forEach(routingDoneEvents, function(event) {
+      $rootScope.$on(event, function(event, toState, toParams, fromState, fromParams) {
+        endProgress();
       });
-      var routingDoneEvents = ['$stateChangeSuccess', '$stateChangeError', '$stateNotFound'];
+    });
 
-        angular.forEach(routingDoneEvents, function(event) {
-        $rootScope.$on(event, function(event, toState, toParams, fromState, fromParams) {
-          endProgress();
-        });
-      });
+    function startProgress() {
+      ngProgressLite.start();
+    }
 
-        function startProgress() {
-        ngProgressLite.start();
-      }
+    function endProgress() {
+      ngProgressLite.done();
+    }
 
-        function endProgress() {
-        ngProgressLite.done();
-      }
-
-      }
-  })();
-  (function () {
+  }
+})();
+(function () {
 	'use strict';
 
 	angular
 		.module('home')
-		.controller('CustomController', ['$scope', '$filter', '$state', 'UserAddressesResource', '$translate', 'RegionResource', 'CityResource',
+		.controller('CustomController', ['$scope', '$filter', '$state', 'UserAddressesResource', 'BranchResource', '$translate', 'RegionResource', 'CityResource',
 			'AreaResource', 'CountriesPrepService', 'CustomResource', 'itemsPrepService', 'ToastService', CustomController])
 
-	function CustomController($scope, $filter, $state, UserAddressesResource, $translate, RegionResource, CityResource, AreaResource, CountriesPrepService,
+	function CustomController($scope, $filter, $state, UserAddressesResource, BranchResource, $translate, RegionResource, CityResource, AreaResource, CountriesPrepService,
 		CustomResource, itemsPrepService, ToastService) {
 
 		var vm = this;
@@ -140,8 +163,10 @@
 		var user = JSON.parse(localStorage.getItem("ngStorage-authInfo"));
 		vm.clientId = user.UserId;
 		vm.order = JSON.parse(localStorage.getItem("OrderSummary"));
+		vm.Total = 0;
+
 		$scope.getData = function (itemModel, day, meal) {
-			debugger;
+
 			var differntMeal = $filter('filter')(vm.itemList, x => (x.dayNumber == day && x.mealNumberPerDay != meal) || (x.dayNumber != day));
 			vm.itemList = [];
 			vm.itemList = angular.copy(differntMeal);
@@ -163,10 +188,9 @@
 				vm.ProgramVAT = vm.ProgramVAT + vm.itemList[i].vat;
 				vm.totalPrice += vm.itemList[i].totalPrice;
 			}
-
-			debugger;
 			vm.ProgramTotalPrice = vm.totalPrice - (vm.totalPrice * (vm.ProgramDiscount / 100));
 			vm.ProgramTotalPriceBefore = vm.totalPrice;
+
 
 		}
 
@@ -182,7 +206,7 @@
 			newProgram.isForClient = false;
 			newProgram.isDeleted = false;
 			newProgram.programDetails = vm.itemList;
-			newProgram.price = vm.ProgramTotalPrice;
+			newProgram.price = vm.ProgramTotalPrice + vm.DeliveryFees;
 			newProgram.isOrdering = true;
 			newProgram.day = vm.startDate;
 			newProgram.isProgram = true;
@@ -211,14 +235,17 @@
 
 		vm.addItemToList = function (model) {
 			debugger;
-			vm.carbs = $scope.sum(model, 'carbs');
-			vm.calories = $scope.sum(model, 'calories');
-			vm.protein = $scope.sum(model, 'protein');
-			vm.fat = $scope.sum(model, 'fat');
-			vm.price = $scope.sum(model, 'price');
+			var modelList = [];
+			modelList = model;
 
-			$scope.selectedItemList = model;
+			modelList.forEach(element => {
+				vm.carbs = (element.carbs == null) ? 0 : $scope.sum(model, 'carbs');
+				vm.calories = (element.calories == null) ? 0 : $scope.sum(model, 'calories');
+				vm.protein = (element.protein == null) ? 0 : $scope.sum(model, 'protein');
+				vm.fat = (element.fat == null) ? 0 : $scope.sum(model, 'fat');
 
+				$scope.selectedItemList = model;
+			});
 		}
 		$scope.sum = function (items, prop) {
 			return items.reduce(function (a, b) {
@@ -299,7 +326,7 @@
 				vm.area = [];
 				vm.area.push({ areaId: 0, titleDictionary: { "en": "Select Area", "ar": "اختار منطقه" } });
 				AreaResource.getAllAreas({ cityId: vm.selectedCityId, pageSize: 0 }).$promise.then(function (results) {
-				debugger;
+					debugger;
 					vm.selectedAreaId = 0;
 					vm.area = vm.area.concat(results.results);
 				},
@@ -308,6 +335,7 @@
 			}
 		}
 		vm.areaChange = function () {
+			debugger;
 			if (vm.selectedAreaId != undefined && vm.selectedAreaId > 0) {
 				for (var i = vm.area.length - 1; i >= 0; i--) {
 					if (vm.area[i].areaId == 0) {
@@ -317,7 +345,7 @@
 				vm.branchList = [];
 				vm.selectedBranchId = [0];
 				vm.branchList = vm.branchList.concat(($filter('filter')(vm.area, { areaId: vm.selectedAreaId }))[0].branches);
-			} 
+			}
 		}
 		vm.branchChange = function () {
 			for (var i = vm.branchList.length - 1; i >= 0; i--) {
@@ -325,9 +353,11 @@
 					vm.branchList.splice(i, 1);
 				}
 			}
+			vm.DeliveryFees = 0;
+			vm.Total = vm.ProgramTotalPrice + vm.DeliveryFees;
 		}
-		vm.GetBranchDelivery = function () {
-			var k = BranchResource.getBranch({ branchId: vm.branchId }).$promise.then(function (results) {
+		function GetBranchDelivery() {
+			var k = BranchResource.getBranch({ branchId: vm.selectedBranchId }).$promise.then(function (results) {
 				vm.DeliveryFees = results.deliveryPrice;
 
 			},
@@ -343,7 +373,6 @@
 			address: 0
 		};
 		vm.changeOrderType = function () {
-			debugger;
 			if (vm.orderType.type == 'delivery' || vm.orderType.type == 'true') {
 				vm.orderType.type = 'pickup'
 
@@ -357,7 +386,6 @@
 		if (vm.orderType.type == 'delivery') {
 			var k = UserAddressesResource.getUserAddresses({ userId: vm.clientId }).$promise.then(function (results) {
 				vm.userAddresses = results;
-				console.log(vm.userAddresses);
 
 			},
 				function (data, status) {
@@ -366,6 +394,10 @@
 		}
 		vm.addressInfo = function (address) {
 			vm.addressDetails = address;
+			vm.selectedBranchId = vm.addressDetails.branchId;
+			GetBranchDelivery();
+			debugger;
+			vm.Total = vm.ProgramTotalPrice + vm.DeliveryFees;
 		}
 	}
 
@@ -380,6 +412,7 @@
     .factory('RegionResource', ['$resource', 'appCONSTANTS', RegionResource])
     .factory('CityResource', ['$resource', 'appCONSTANTS', CityResource])
     .factory('AreaResource', ['$resource', 'appCONSTANTS', AreaResource])
+    .factory('BranchResource', ['$resource', 'appCONSTANTS', BranchResource]) 
     ;
 
   function CustomResource($resource, appCONSTANTS) {
@@ -431,6 +464,432 @@
       getAllAreas: { method: 'GET', url: appCONSTANTS.API_URL + 'Cities/:cityId/Areas/GetAllAreas', useToken: true, params: { lang: '@lang' } },
     })
   }
+  function BranchResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'Branchs/', {}, { 
+        getBranch: { method: 'GET', url: appCONSTANTS.API_URL + 'Branchs/GetBranchById/:BranchId', useToken: true }
+    })
+} 
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('editUserController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate', '$state', 'UserResource',
+            'RoleResource', 'RolePrepService', '$localStorage', 'authorizationService', 'appCONSTANTS', 'EditUserPrepService',
+            'ToastService', 'CountriesPrepService',
+            'RegionResource', 'CityResource', 'AreaResource', editUserController]);
+
+
+    function editUserController($rootScope, blockUI, $scope, $filter, $translate, $state, UserResource,
+        RoleResource, RolePrepService, $localStorage, authorizationService, appCONSTANTS, EditUserPrepService, ToastService,
+        CountriesPrepService, RegionResource, CityResource, AreaResource) {
+
+        blockUI.start("Loading...");
+
+        $scope.isPaneShown = true;
+        $scope.$emit('LOAD')
+        var vm = this;
+        vm.close = function () {
+            $state.go('users');
+        }
+
+        vm.show = true;
+        $scope.roleList = RolePrepService.results;
+        vm.selectedUserRoles = [];
+        $scope.userObj = EditUserPrepService;
+        $scope.userObj.confirmPassword = $scope.userObj.password;
+        console.log($scope.userObj);
+        init();
+        var i;
+        for (i = 0; i < $scope.userObj.userRoles.length; i++) {
+            var indexRate = $scope.roleList.indexOf($filter('filter')($scope.roleList, { 'roleId': $scope.userObj.userRoles[i].roleId }, true)[0]);
+            vm.selectedUserRoles.push($scope.roleList[indexRate]);
+
+        }
+
+
+        $scope.Updateclient = function () {
+            blockUI.start("Loading...");
+            debugger;
+            vm.show = false;
+            var newClient = new UserResource();
+            newClient.userId = $scope.userObj.userId;
+            newClient.firstName = $scope.userObj.firstName;
+            newClient.lastName = $scope.userObj.lastName;
+            newClient.phone = $scope.userObj.phone;
+            newClient.email = $scope.userObj.email;
+            newClient.password = $scope.userObj.password;
+            newClient.isActive = true;
+            newClient.userRoles = vm.selectedUserRoles;
+            newClient.branchId = vm.selectedBranchId;
+            newClient.$update().then(
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    vm.show = true;
+                    localStorage.setItem('data', JSON.stringify(data.userId));
+                    $state.go('users');
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        blockUI.stop();
+
+
+        function init() {
+            vm.counties = [];
+            vm.counties.push(vm.selectedCountry);
+            vm.counties = vm.counties.concat(CountriesPrepService.results)
+            vm.regions = [];
+            vm.regions.push(vm.selectedRegion);
+            vm.cities = [];
+            vm.cities.push(vm.selectedCity);
+            vm.areaList = [];
+            vm.areaList.push(vm.selectedArea);
+            vm.branchList = [];
+            vm.branchList.push(vm.selectedBranch);
+            debugger;
+
+
+        }
+        function funcCountryChange() {
+            vm.selectedRegion = { regionId: 0, titleDictionary: { "en-us": "All Regions", "ar-eg": "كل الأقاليم" } };
+            vm.selectedCity = { cityId: 0, titleDictionary: { "en-us": "All Cities", "ar-eg": "كل المدن" } };
+            vm.selectedArea = { areaId: 0, titleDictionary: { "en-us": "All Areas", "ar-eg": "كل المناطق" } };
+            vm.regions = [];
+            vm.cities = [vm.selectedCity];
+            vm.areaList = [vm.selectedArea];
+            vm.regions.push(vm.selectedRegion);
+
+            vm.branchList = [];
+            vm.selectedBranch = { branchId: 0, titleDictionary: { "en-us": "All Branches", "ar-eg": "كل الفروع" } };
+            vm.branchList.push(vm.selectedBranch);
+
+
+            RegionResource.getAllRegions({ countryId: $scope.userObj.countryId, pageSize: 0 }).$promise.then(function (results) {
+
+                vm.regions = vm.regions.concat(results.results);
+
+                var indexregion = vm.regions.indexOf($filter('filter')(vm.regions, { 'regionId': $scope.userObj.regionId }, true)[0]);
+                vm.selectedRegion = vm.regions[indexregion];
+                funcregionChange();
+            },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+
+
+        vm.countryChange = function () {
+            funcCountryChange();
+        }
+        function funcregionChange() {
+            if (vm.selectedRegion.regionId != undefined) {
+                vm.cities = [];
+                vm.areaList = [];
+                vm.selectedCity = { cityId: 0, titleDictionary: { "en-us": "All Cities", "ar-eg": "كل المدن" } };
+                vm.selectedArea = { areaId: 0, titleDictionary: { "en-us": "All Areas", "ar-eg": "كل المناطق" } };
+                vm.cities.push(vm.selectedCity);
+                vm.areaList = [vm.selectedArea];
+
+                vm.branchList = [];
+                vm.selectedBranch = { branchId: 0, titleDictionary: { "en-us": "All Branches", "ar-eg": "كل الفروع" } };
+                vm.branchList.push(vm.selectedBranch);
+                CityResource.getAllCities({ regionId: vm.selectedRegion.regionId, pageSize: 0 }).$promise.then(function (results) {
+
+                    vm.cities = vm.cities.concat(results.results);
+
+                    var indexcity = vm.cities.indexOf($filter('filter')(vm.cities, { 'cityId': $scope.userObj.cityId }, true)[0]);
+                    vm.selectedCity = vm.cities[indexcity];
+                    funcCityChange();
+                },
+                    function (data, status) {
+                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                    });
+            }
+        }
+        vm.regionChange = function () {
+            funcregionChange();
+        }
+
+        function funcCityChange() {
+
+            if (vm.selectedCity.cityId != undefined) {
+                vm.areaList = [];
+                vm.selectedArea = { areaId: 0, titleDictionary: { "en-us": "All Areas", "ar-eg": "كل المناطق" } };
+                vm.areaList.push(vm.selectedArea);
+
+                vm.branchList = [];
+                vm.selectedBranch = { branchId: 0, titleDictionary: { "en-us": "All Branches", "ar-eg": "كل الفروع" } };
+                vm.branchList.push(vm.selectedBranch);
+                AreaResource.getAllAreas({ cityId: vm.selectedCity.cityId, pageSize: 0 }).$promise.then(function (results) {
+                    vm.areaList = vm.areaList.concat(results.results);
+
+                    var indexarea = vm.areaList.indexOf($filter('filter')(vm.areaList, { 'areaId': $scope.userObj.areaId }, true)[0]);
+                    vm.selectedArea = vm.areaList[indexarea];
+                    funcAreaChange();
+
+                },
+                    function (data, status) {
+                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                    });
+            }
+        }
+        vm.cityChange = function () {
+            funcCityChange();
+        }
+        function funcAreaChange() {
+            vm.branchList = [];
+            vm.selectedBranch = { branchId: 0, titleDictionary: { "en-us": "All Branches", "ar-eg": "كل الفروع" } };
+            vm.branchList.push(vm.selectedBranch);
+            if (vm.selectedArea.areaId > 0)
+                vm.branchList = vm.branchList.concat(vm.selectedArea.branches);
+
+
+            var indexbranch = vm.branchList.indexOf($filter('filter')(vm.branchList, { 'branchId': $scope.userObj.branchId }, true)[0]);
+            vm.selectedBranch = vm.branchList[indexbranch];
+
+        }
+        vm.areaChange = function () {
+            funcAreaChange();
+        }
+    }
+
+})();(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('userController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate', '$state', 'UserResource',
+            '$localStorage', 'authorizationService', 'appCONSTANTS',
+            'ToastService', 'CountriesPrepService', 'RegionResource', 'CityResource', 'AreaResource', userController]);
+
+    function userController($rootScope, blockUI, $scope, $filter, $translate, $state, UserResource, $localStorage, authorizationService, appCONSTANTS, ToastService, CountriesPrepService,
+        RegionResource, CityResource, AreaResource) {
+
+                   var vm = this;
+        blockUI.start("Loading...");
+        vm.close = function () {
+            $state.go('users');
+        } 
+        vm.counties = [];
+        vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
+        vm.selectedCountryId = 0;
+        vm.counties = vm.counties.concat(CountriesPrepService.results)
+
+         $scope.phoneNumbr = /^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/;
+        $scope.userObj = "";
+        $scope.selectedType = ""; 
+        vm.resetDLL = function () { 
+            vm.counties = [];
+            vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
+            vm.selectedCountryId = 0;
+            vm.counties = vm.counties.concat(CountriesPrepService.results)
+            vm.regions = [];
+            vm.cities = [];
+            vm.area = [];
+            vm.categoryList = [];
+        }
+        vm.departmentChange = function () {
+            vm.department.splice(0, 1);
+            vm.categoryList = [];
+            vm.categoryList.push({ categoryId: 0, titleDictionary: { "en": "Select Category", "ar": "اختار الفئة" } });
+            vm.selectedCategoryId = 0;
+            vm.categoryList = vm.categoryList.concat(($filter('filter')(vm.department, { departmentId: vm.selectedDepartmentId }))[0].categories);
+        }
+        vm.categoryChange = function () {
+            for (var i = vm.categoryList.length - 1; i >= 0; i--) {
+                if (vm.categoryList[i].categoryId == 0) {
+                    vm.categoryList.splice(i, 1);
+                }
+            }
+        }
+
+        vm.countryChange = function () {
+            for (var i = vm.counties.length - 1; i >= 0; i--) {
+                if (vm.counties[i].countryId == 0) {
+                    vm.counties.splice(i, 1);
+                }
+            }
+            vm.regions = [];
+            vm.cities = [];
+            vm.area = [];
+            vm.regions.push({ regionId: 0, titleDictionary: { "en": "Select Region", "ar": "اختار اقليم" } });
+            RegionResource.getAllRegions({ countryId: vm.selectedCountryId, pageSize: 0 }).$promise.then(function (results) {
+                vm.selectedRegionId = 0;
+                vm.regions = vm.regions.concat(results.results);
+            },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+            blockUI.stop();
+        }
+        vm.regionChange = function () {
+            if (vm.selectedRegionId != undefined) {
+                for (var i = vm.regions.length - 1; i >= 0; i--) {
+                    if (vm.regions[i].regionId == 0) {
+                        vm.regions.splice(i, 1);
+                    }
+                }
+                vm.cities = [];
+                vm.area = [];
+                vm.cities.push({ cityId: 0, titleDictionary: { "en": "Select City", "ar": "اختار مدينة" } });
+                CityResource.getAllCities({ regionId: vm.selectedRegionId, pageSize: 0 }).$promise.then(function (results) {
+                    vm.selectedCityId = 0;
+                    vm.cities = vm.cities.concat(results.results);
+                },
+                    function (data, status) {
+                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                    });
+            }
+        }
+        vm.cityChange = function () {
+            if (vm.selectedCityId != undefined) {
+                for (var i = vm.cities.length - 1; i >= 0; i--) {
+                    if (vm.cities[i].cityId == 0) {
+                        vm.cities.splice(i, 1);
+                    }
+                }
+                vm.area = [];
+                vm.area.push({ areaId: 0, titleDictionary: { "en": "Select Area", "ar": "اختار منطقه" } });
+                AreaResource.getAllAreas({ cityId: vm.selectedCityId, pageSize: 0 }).$promise.then(function (results) {
+                    vm.selectedAreaId = 0;
+                    vm.area = vm.area.concat(results.results);
+                },
+                    function (data, status) {
+                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                    });
+            }
+        }
+        vm.areaChange = function () {
+            if (vm.selectedAreaId != undefined && vm.selectedAreaId > 0) {
+                for (var i = vm.area.length - 1; i >= 0; i--) {
+                    if (vm.area[i].areaId == 0) {
+                        vm.area.splice(i, 1);
+                    }
+                }
+                vm.branchList = [];
+                vm.selectedBranchId = [0];
+                vm.branchList = vm.branchList.concat(($filter('filter')(vm.area, { areaId: vm.selectedAreaId }))[0].branches);
+            }
+        }
+        vm.branchChange = function () {
+            for (var i = vm.branchList.length - 1; i >= 0; i--) {
+                if (vm.branchList[i].branchId == 0) {
+                    vm.branchList.splice(i, 1);
+                }
+            }
+        }
+        function refreshUsers() {
+            blockUI.start("Loading...");
+
+            var k = UserResource.getAllUsers({ page: vm.currentPage }).$promise.then(function (results) {
+                vm.getPageData = results;
+                $scope.userList = vm.getPageData.results;
+                console.log($scope.userList);
+                blockUI.stop();
+
+            },
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+
+
+        $scope.AddNewclient = function () {
+            blockUI.start("Loading...");
+
+            var newClient = new UserResource();
+            newClient.FirstName = $scope.FirstName;
+            newClient.LastName = $scope.LastName;
+            newClient.Email = $scope.Email;
+            newClient.Phone = $scope.Phone;
+            newClient.Password = $scope.Password;
+            newClient.IsActive = true;
+            newClient.IsAdmin = true;
+            newClient.UserRoles = vm.selectedUserRoles;
+            newClient.branchId = vm.selectedBranchId;
+            newClient.$create().then(
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('ClientAddSuccess'), "success");
+
+                    localStorage.setItem('data', JSON.stringify(data.userId));
+                    $state.go('users');
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        vm.currentPage = 1;
+        $scope.changePage = function (page) {
+            vm.currentPage = page;
+            refreshUsers();
+        }
+
+        blockUI.stop();
+
+
+
+        function change(user, isDeleted) {
+            debugger;
+            var updateObj = new UserResource();
+            updateObj.userId = user.userId;
+            if (!isDeleted)
+                updateObj.isActive = (user.isActive == true ? false : true);
+            updateObj.isDeleted = user.isDeleted;
+
+            updateObj.$update().then(
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    user.isActive = updateObj.isActive;
+
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+
+        }
+        vm.UpdateUser = function (user) {
+            change(user, false);
+        }
+
+
+
+    }
+
+}());(function () {
+    angular
+        .module('home')
+        .factory('UserResource', ['$resource', 'appCONSTANTS', UserResource])
+
+    function UserResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Users/', {}, {
+            getAllUsers: { method: 'GET', url: appCONSTANTS.API_URL + 'Users/GetAllUsers', useToken: true, params: { lang: '@lang' } },
+            create: { method: 'POST', useToken: true },
+            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Users/EditRegisterUser', useToken: true },
+            getUser: { method: 'GET', url: appCONSTANTS.API_URL + 'Users/GetUserById/:UserId', useToken: true }, 
+            validate: { method: 'GET', url: appCONSTANTS.API_URL + 'Users/ValidateByPhone/:Phone', useToken: true }, 
+            getUserDepartments: { method: 'GET', url: appCONSTANTS.API_URL + 'Users/Departments', useToken: true },
+            getUserArea: { method: 'GET', url: appCONSTANTS.API_URL + 'Users/Area', useToken: true },
+        })
+    }
+
 }());
 (function () {
     'use strict';
@@ -448,10 +907,10 @@
                 return input;
             }
         })
-        .controller('homeController', ['$scope', '$state', '$stateParams', '$translate', 'appCONSTANTS', 'mealsPrepService', 'programPrepService', 'settingsPrepService'
-            , 'daysPrepService', homeController])
+        .controller('homePageController', ['$scope', '$state', '$stateParams', '$translate', 'appCONSTANTS', 'mealsPrepService', 'programPrepService', 'settingsPrepService'
+            , 'daysPrepService', homePageController])
 
-    function homeController($scope, $state, $stateParams, $translate, appCONSTANTS, mealsPrepService, programPrepService
+    function homePageController($scope, $state, $stateParams, $translate, appCONSTANTS, mealsPrepService, programPrepService
         , settingsPrepService, daysPrepService) {
 
         $scope.mealsPrepService = mealsPrepService.results;
@@ -475,11 +934,8 @@
         }
 
         $scope.bookMeal = function (meal) {
-            localStorage.setItem('meal', meal);
         }
-
         $scope.bookProgram = function (program) {
-            localStorage.setItem('program', program);
         }
 
         $scope.style = function () {

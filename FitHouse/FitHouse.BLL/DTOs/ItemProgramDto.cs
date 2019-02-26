@@ -20,6 +20,7 @@ namespace FitHouse.BLL.DTOs
         public long Carbs { get; set; }
         public decimal TotalPrice { get; set; }
         public decimal Cost { get; set; }
+        public long Fat { get; set; }
         public decimal Price { get; set; }
         public long Calories { get; set; }
         public long VAT { get; set; }

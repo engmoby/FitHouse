@@ -89,6 +89,20 @@
 <body
 	style="background-position: top left;
 background-image: linear-gradient(180deg,rgba(255,255,255,0.5) 0%,rgba(243,197,52,0.13) 89%),url(https://fithouseksa.com/wp-content/uploads/2018/07/fat-running.png)!important;">
+	
+	<li ng-repeat="detail in mealPrepService.mealDetails} ">
+		<div class="res-menu" ng-repeat="item in itemsssPrepService |filter :{itemId:detail.itemId}">
+			{{itemsssPrepService |filter :{itemId:detail.itemId}}}
+			<!-- {{item.itemNameDictionary[selectedLanguage]}} -->
+			<img src="/assets/img/meal.jpeg" alt="" />
+			<h3> {{item.itemNameDictionary[selectedLanguage]}}
+				<span>{{item.price}}</span>
+			</h3>
+			<span class="menu-item">{{item.itemDescriptionDictionary[selectedLanguage] }}</span>
+			<!-- | limitTo:10 -->
+		</div>
+
+	</li>
 	<nav class="navbar navbar-inverse navbar-fixed-top pmd-navbar pmd-z-depth" ng-show="isLoggedIn()"
 		style="    background-image: linear-gradient(90deg,#9a3ea6 0%,#bc4abf 100%)!important; ">
 

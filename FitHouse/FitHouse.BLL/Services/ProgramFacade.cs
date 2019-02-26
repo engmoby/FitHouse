@@ -229,7 +229,9 @@ namespace FitHouse.BLL.Services
             _programDetailService.InsertRange(programObj.ProgramDetails);
             _programService.Insert(programObj);
             var orderDto= new OrderDto();
+          
             orderDto = Mapper.Map<OrderDto>(order);
+            orderDto.OrderPrice = programDto.Price;
             SaveChanges();
             return orderDto;
         }

@@ -40,20 +40,21 @@
 <section class="main" ng-style="style()">
 	<!--TOP SECTION-->
 	<!--Check Availability SECTION-->
-	<div class="inn-body-section inn-booking">
-		<div class="container">
-			<div class="row">
-				<!--TYPOGRAPHY SECTION-->
-				<div class="col-md-6">
-					<div class="book-title">
-						<h2>{{'customiseProgram' | translate}}</h2>
-						<p>{{'DescribeCustomiseProgram' | translate}}</p>
-					</div>
+</section>
+<div class="inn-body-section inn-booking">
+	<div class="container">
+		<div class="row">
+			<!--TYPOGRAPHY SECTION-->
+			<div class="col-md-6">
+				<div class="book-title">
+					<h2>{{'customiseProgram' | translate}}</h2>
+					<p>{{'DescribeCustomiseProgram' | translate}}</p>
 				</div>
-				<div class="col-md-6">
-					<div class="book-form inn-com-form">
-						<form name="cutomizeProgram" class="col s12">
-							<!-- <div class="row">
+			</div>
+			<div class="col-md-6">
+				<div class="book-form inn-com-form">
+					<form name="cutomizeProgram" class="col s12">
+						<!-- <div class="row">
 								<div class="input-field col s6">
 									<input required type="text" class="validate" name="programName" ng-model="programName" minlength="1" maxlength="50">
 									<label>{{'ProgramName' | translate}}</label>
@@ -64,243 +65,312 @@
 								</div>
 							</div> -->
 
-							<div class="row">
-								<div class="input-field col s6">
-									<div ng-messages="cutomizeProgram.programName.$error">
-										<div ng-if="cutomizeProgram.programName.$error.required && !cutomizeProgram.programName.$pristine">{{'requiredField' | translate}}
-										</div>
-										<div ng-if="(cutomizeProgram.programName.$error.minlength || cutomizeProgram.programName.$error.maxlength)">{{'minMaxLengthText' | translate}}</div>
+						<div class="row">
+							<div class="input-field col s6">
+								<div ng-messages="cutomizeProgram.programName.$error">
+									<div
+										ng-if="cutomizeProgram.programName.$error.required && !cutomizeProgram.programName.$pristine">
+										{{'requiredField' | translate}}
 									</div>
+									<div
+										ng-if="(cutomizeProgram.programName.$error.minlength || cutomizeProgram.programName.$error.maxlength)">
+										{{'minMaxLengthText' | translate}}</div>
 								</div>
-								<div class="input-field col s6">
-									<div ng-messages="cutomizeProgram.programDescription.$error">
-										<div ng-if="cutomizeProgram.programDescription.$error.required && !cutomizeProgram.programDescription.$pristine">{{'requiredField' | translate}}
-										</div>
-										<div ng-if="(cutomizeProgram.programDescription.$error.minlength || cutomizeProgram.programDescription.$error.maxlength)">{{'minMaxLengthText' | translate}}</div>
-									</div>
-								</div>
-
 							</div>
-							<div class="row">
-								<div class="input-field col s6">
-									<input required numbers-only type="text" class="validate" name="mealPerDay" ng-model="mealPerDay" minlength="1" maxlength="2">
-									<label>{{'MealPerDay' | translate}}</label>
-								</div>
-								<div class="input-field col s6">
-									<input required numbers-only type="text" class="validate" name="programDaysCount" ng-model="programDaysCount" minlength="1"
-									 maxlength="2">
-									<label>{{'ProgramDaysCount' | translate}}</label>
-									<div ng-show="settingsPrepService.minNoDaysPerProgram > programDaysCount">
-										<p>{{'minAllowedDays= ' | translate}} {{settingsPrepService.minNoDaysPerProgram}}</p>
+							<div class="input-field col s6">
+								<div ng-messages="cutomizeProgram.programDescription.$error">
+									<div
+										ng-if="cutomizeProgram.programDescription.$error.required && !cutomizeProgram.programDescription.$pristine">
+										{{'requiredField' | translate}}
 									</div>
+									<div
+										ng-if="(cutomizeProgram.programDescription.$error.minlength || cutomizeProgram.programDescription.$error.maxlength)">
+										{{'minMaxLengthText' | translate}}</div>
 								</div>
 							</div>
 
-							<div class="row">
-								<div class="input-field col s6">
-									<div ng-messages="cutomizeProgram.mealPerDay.$error">
-										<div ng-if="cutomizeProgram.mealPerDay.$error.required && !cutomizeProgram.mealPerDay.$pristine">{{'requiredField' | translate}}
-										</div>
-										<div ng-if="(cutomizeProgram.mealPerDay.$error.minlength || cutomizeProgram.mealPerDay.$error.maxlength)">{{'minMaxLengthNum' | translate}}</div>
-										<div ng-if="1 > mealPerDay">{{'minMealsIsOne' | translate}}</div>
-									</div>
-								</div>
-								<div class="input-field col s6">
-									<div ng-messages="cutomizeProgram.programDaysCount.$error">
-										<div ng-if="cutomizeProgram.programDaysCount.$error.required && !cutomizeProgram.programDaysCount.$pristine">{{'requiredField' | translate}}
-										</div>
-										<div ng-if="(cutomizeProgram.programDaysCount.$error.minlength || cutomizeProgram.programDaysCount.$error.maxlength)">{{'minMaxLengthNum' | translate}}</div>
-									</div>
-								</div>
-
+						</div>
+						<div class="row">
+							<div class="input-field col s6">
+								<input required numbers-only type="text" class="validate" name="mealPerDay"
+									ng-model="mealPerDay" minlength="1" maxlength="2">
+								<label>{{'MealPerDay' | translate}}</label>
 							</div>
-
-							<div class="row">
-								<div class="input-field col s5">
-									<label>{{'SelectExcludeDays' | translate}}</label>
-								</div>
-								<div class="input-field col s7">
-									<!-- <input type="text" class="validate"> -->
-									<select style="width:100% !important" class="form-control select-tags pmd-select2-tags" multiple ng-model="SelectedDays"
-									 ng-options="day as day.dayNameDictionary[selectedLanguage] for day in dayList">
-									</select>
-								</div>
-							</div>
-
-							<div class="row">
-								<div class="col s6">
-									<p>
-										<input type="checkbox" id="test5" ng-model="isBreakFast" />
-										<label for="test5">{{'IsBreakFast' | translate}}</label>
-									</p>
-								</div>
-								<div class="col s6">
-									<p>
-										<input type="checkbox" id="test6" ng-model="isSnack" />
-										<label for="test6">{{'IsSnack' | translate}}</label>
-									</p>
-								</div>
-							</div>
-							<div class="row">
-								<div class="input-field col s12">
-									<input name="itemDatetime" required ng-model="itemDatetime" type="text" id="startdate" class="form-control" />
-									<label for="from">Check In</label>
-								</div>
-							</div>
-							<div class="row">
-								<div class="col s6">
-									<div ng-messages="cutomizeProgram.itemDatetime.$error">
-										<div ng-if="cutomizeProgram.itemDatetime.$error.required && !cutomizeProgram.itemDatetime.$pristine">{{'requiredField' | translate}}</div>
-									</div>
-								</div>
-							</div>
-							<div class="row">
-								<div class="input-field col s12">
-									<input ng-disabled="cutomizeProgram.$invalid  || settingsPrepService.minNoDaysPerProgram > programDaysCount" type="submit"
-									 class="form-btn" ng-click="submitCustomise()">
-								</div>
-							</div>
-
-						</form>
-					</div>
-				</div>
-				<!--END TYPOGRAPHY SECTION-->
-			</div>
-		</div>
-	</div>
-	<!--End Check Availability SECTION-->
-	<!--HOTEL ROOMS SECTION-->
-	<div class="hom1 hom-com pad-bot-40">
-		<div class="container">
-			<div class="row">
-				<div class="hom1-title">
-					<h2>{{'Meals' | translate}}</h2>
-					<div class="head-title">
-						<div class="hl-1"></div>
-						<div class="hl-2"></div>
-						<div class="hl-3"></div>
-					</div>
-					<p>{{'MealsDescription' | translate}}</p>
-				</div>
-			</div>
-			<div class="row">
-				<div class="to-ho-hotel">
-					<!-- HOTEL GRID -->
-					<div ng-repeat="n in [] | range:6">
-						<div ng-if="mealsPrepService[n] != undefined" class="col-md-4">
-							<div class="to-ho-hotel-con">
-								<div class="to-ho-hotel-con-1">
-									<div class="hom-hot-av-tic" style="cursor: pointer !important;" ng-click="bookMeal(mealsPrepService[n]);">{{'Book' | translate}}</div>
-									<img src="https://fithouseksa.com/wp-content/uploads/2018/07/Grilled-steak.png" alt="">
-								</div>
-								<div class="to-ho-hotel-con-23">
-									<div class="to-ho-hotel-con-2">
-										<a>
-											<h4>{{mealsPrepService[n].mealNameDictionary[selectedLanguage]}}</h4>
-										</a>
-									</div>
-									<div class="to-ho-hotel-con-3">
-										<ul>
-											<li>{{mealsPrepService[n].mealDescriptionDictionary[selectedLanguage]}}
-												<div class="dir-rat-star ho-hot-rat-star"> Rating:
-													<i class="fa fa-star" aria-hidden="true"></i>
-													<i class="fa fa-star" aria-hidden="true"></i>
-													<i class="fa fa-star" aria-hidden="true"></i>
-													<i class="fa fa-star" aria-hidden="true"></i>
-													<i class="fa fa-star-o" aria-hidden="true"></i>
-												</div>
-											</li>
-											<li>
-												<span class="ho-hot-pri-dis"></span>
-												<span class="ho-hot-pri">{{mealsPrepService[n].mealPrice}}</span>
-											</li>
-										</ul>
-									</div>
+							<div class="input-field col s6">
+								<input required numbers-only type="text" class="validate" name="programDaysCount"
+									ng-model="programDaysCount" minlength="1" maxlength="2">
+								<label>{{'ProgramDaysCount' | translate}}</label>
+								<div ng-show="settingsPrepService.minNoDaysPerProgram > programDaysCount">
+									<p>{{'minAllowedDays= ' | translate}}
+										{{settingsPrepService.minNoDaysPerProgram}}</p>
 								</div>
 							</div>
 						</div>
-					</div>
+
+						<div class="row">
+							<div class="input-field col s6">
+								<div ng-messages="cutomizeProgram.mealPerDay.$error">
+									<div
+										ng-if="cutomizeProgram.mealPerDay.$error.required && !cutomizeProgram.mealPerDay.$pristine">
+										{{'requiredField' | translate}}
+									</div>
+									<div
+										ng-if="(cutomizeProgram.mealPerDay.$error.minlength || cutomizeProgram.mealPerDay.$error.maxlength)">
+										{{'minMaxLengthNum' | translate}}</div>
+									<div ng-if="1 > mealPerDay">{{'minMealsIsOne' | translate}}</div>
+								</div>
+							</div>
+							<div class="input-field col s6">
+								<div ng-messages="cutomizeProgram.programDaysCount.$error">
+									<div
+										ng-if="cutomizeProgram.programDaysCount.$error.required && !cutomizeProgram.programDaysCount.$pristine">
+										{{'requiredField' | translate}}
+									</div>
+									<div
+										ng-if="(cutomizeProgram.programDaysCount.$error.minlength || cutomizeProgram.programDaysCount.$error.maxlength)">
+										{{'minMaxLengthNum' | translate}}</div>
+								</div>
+							</div>
+
+						</div>
+
+						<div class="row">
+							<!-- <div class="input-field col s6">
+								
+							</div> -->
+							<label>{{'SelectExcludeDays' | translate}}</label>
+
+							<div class="input-field col s12">
+								<select style="width:100% !important" class="form-control select-tags pmd-select2-tags"
+									multiple ng-model="SelectedDays"
+									ng-options="day as day.dayNameDictionary[selectedLanguage] for day in dayList">
+								</select>
+							</div>
+						</div>
+
+						<div class="row">
+							<div class="col s6">
+								<p>
+									<input type="checkbox" id="test5" ng-model="isBreakFast" />
+									<label for="test5">{{'IsBreakFast' | translate}}</label>
+								</p>
+							</div>
+							<div class="col s6">
+								<p>
+									<input type="checkbox" id="test6" ng-model="isSnack" />
+									<label for="test6">{{'IsSnack' | translate}}</label>
+								</p>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12">
+								<input name="itemDatetime" required ng-model="itemDatetime" type="text" id="startdate"
+									class="form-control" />
+								<label for="from">Check In</label>
+							</div>
+						</div>
+						<div class="row">
+							<div class="col s6">
+								<div ng-messages="cutomizeProgram.itemDatetime.$error">
+									<div
+										ng-if="cutomizeProgram.itemDatetime.$error.required && !cutomizeProgram.itemDatetime.$pristine">
+										{{'requiredField' | translate}}</div>
+								</div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="input-field col s12">
+								<input
+									ng-disabled="cutomizeProgram.$invalid  || settingsPrepService.minNoDaysPerProgram > programDaysCount"
+									type="submit" class="form-btn" ng-click="submitCustomise()">
+							</div>
+						</div>
+
+					</form>
 				</div>
 			</div>
+			<!--END TYPOGRAPHY SECTION-->
 		</div>
 	</div>
-	<!--END HOTEL ROOMS-->
-
-	<!--TOP SECTION-->
-	<div class="inn-body-section pad-bot-55">
-		<div class="container">
-			<div class="row">
-				<div class="page-head">
-					<h2>{{'Programs' | translate}}</h2>
-					<div class="head-title">
-						<div class="hl-1"></div>
-						<div class="hl-2"></div>
-						<div class="hl-3"></div>
-					</div>
-					<p>{{'ProgramsDescription' | translate}}</p>
+</div>
+<!--End Check Availability SECTION-->
+<!--HOTEL ROOMS SECTION-->
+<div class="hom1 hom-com pad-bot-40">
+	<div class="container">
+		<div class="row">
+			<div class="hom1-title">
+				<h2>{{'Meals' | translate}}</h2>
+				<div class="head-title">
+					<div class="hl-1"></div>
+					<div class="hl-2"></div>
+					<div class="hl-3"></div>
 				</div>
-				<!--ROOM SECTION-->
+				<p>{{'MealsDescription' | translate}}</p>
+			</div>
+		</div>
+		<div class="row">
+			<div class="to-ho-hotel">
+				<!-- HOTEL GRID -->
 				<div ng-repeat="n in [] | range:6">
-					<div ng-if="programPrepService[n] != undefined" class="room">
-						<div class="ribbon ribbon-top-left">
-							<span>{{'Program' | translate}}</span>
-						</div>
-						<!--ROOM IMAGE-->
-						<div class="r1 r-com">
-							<img src="https://fithouseksa.com/wp-content/uploads/2018/07/fithouse-icons6.png" alt="" />
-						</div>
-						<!--ROOM RATING-->
-						<div class="r2 r-com">
-							<h4>{{programPrepService[n].programNameDictionary[selectedLanguage]}}</h4>
-							<div class="r2-ratt">
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<img src="images/h-trip.png" alt="" />
-								<br>
-								<span>{{programPrepService[n].programDescriptionDictionary[selectedLanguage]}}</span>
+					<div ng-if="mealsPrepService[n] != undefined" class="col-md-4">
+						<div class="to-ho-hotel-con">
+							<div class="to-ho-hotel-con-1">
+								<div class="hom-hot-av-tic" style="cursor: pointer !important;"
+									ng-click="bookMeal(mealsPrepService[n]);">{{'Book' | translate}}</div>
+								<img src="https://fithouseksa.com/wp-content/uploads/2018/07/Grilled-steak.png" alt="">
 							</div>
-							<ul>
-								<li></li>
-								<li></li>
-								<li></li>
-								<li></li>
-							</ul>
-						</div>
-						<!--ROOM AMINITIES-->
-						<div class="r3 r-com">
-							<ul>
-								<li>{{'ProgramDays' | translate}}: {{programPrepService[n].programDays}}</li>
-								<li>{{'MealPerDay' | translate}}: {{programPrepService[n].noOfMeals}}</li>
-								<li></li>
-								<li></li>
-								<li></li>
-							</ul>
-						</div>
-						<!--ROOM PRICE-->
-						<div class="r4 r-com">
-							<p></p>
-							<p>
-								<span class="room-price-1">{{programPrepService[n].price}}</span>
-								<span class="room-price"></span>
-							</p>
-							<p>{{'NonRefundable' | translate}}</p>
-						</div>
-						<!--ROOM BOOKING BUTTON-->
-						<div class="r5 r-com">
-							<div class="r2-available">Available</div>
-							<p></p>
-							<a style="cursor: pointer !important;" ng-click="bookProgram(programPrepService[n]);" class="inn-room-book">{{'Book' | translate}}</a>
+							<div class="to-ho-hotel-con-23">
+								<div class="to-ho-hotel-con-2">
+									<a>
+										<h4>{{mealsPrepService[n].mealNameDictionary[selectedLanguage]}}</h4>
+									</a>
+								</div>
+								<div class="to-ho-hotel-con-3">
+									<ul>
+										<li>{{mealsPrepService[n].mealDescriptionDictionary[selectedLanguage]}}
+											<div class="dir-rat-star ho-hot-rat-star"> Rating:
+												<i class="fa fa-star" aria-hidden="true"></i>
+												<i class="fa fa-star" aria-hidden="true"></i>
+												<i class="fa fa-star" aria-hidden="true"></i>
+												<i class="fa fa-star" aria-hidden="true"></i>
+												<i class="fa fa-star-o" aria-hidden="true"></i>
+											</div>
+										</li>
+										<li>
+											<span class="ho-hot-pri-dis"></span>
+											<span class="ho-hot-pri">{{mealsPrepService[n].mealPrice}}</span>
+										</li>
+									</ul>
+								</div>
+							</div>
 						</div>
 					</div>
-					<!--END ROOM SECTION-->
 				</div>
 			</div>
 		</div>
 	</div>
+</div>
+<!--END HOTEL ROOMS-->
+<div class="offer">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-6">
+				<div class="offer-l"> <span class="ol-1"></span> <span class="ol-2"><i class="fa fa-star"></i><i
+							class="fa fa-star"></i><i class="fa fa-star"></i><i class="fa fa-star"></i><i
+							class="fa fa-star"></i></span> <span class="ol-4">Standardized Budget Rooms</span> <span
+						class="ol-3"></span> <span class="ol-5">$99/-</span>
+					<ul>
+						<li>
+							<a href="#!" class="waves-effect waves-light btn-large offer-btn"><img
+									src="images/icon/dis1.png" alt="">
+							</a><span>Free WiFi</span>
+						</li>
+						<li>
+							<a href="#!" class="waves-effect waves-light btn-large offer-btn"><img
+									src="images/icon/h2.png" alt=""> </a><span>Breakfast</span>
+						</li>
+						<li>
+							<a href="#!" class="waves-effect waves-light btn-large offer-btn"><img
+									src="images/icon/dis3.png" alt=""> </a><span>Pool</span>
+						</li>
+						<li>
+							<a href="#!" class="waves-effect waves-light btn-large offer-btn"><img
+									src="images/icon/dis4.png" alt=""> </a><span>Television</span>
+						</li>
+						<li>
+							<a href="#!" class="waves-effect waves-light btn-large offer-btn"><img
+									src="images/icon/dis5.png" alt=""> </a><span>GYM</span>
+						</li>
+					</ul>
+				</div>
+			</div>
+			<div class="col-md-6">
+				<div class="offer-r">
+					<div class="or-1"> <span class="or-11">go</span> <span class="or-12">Stays</span> </div>
+					<div class="or-2"> <span class="or-21">Get</span> <span class="or-22">70%</span> <span
+							class="or-23">Off</span> <span class="or-24">use code: RG5481WERQ</span> <span
+							class="or-25"></span> </div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--TOP SECTION-->
+<div class="inn-body-section pad-bot-55">
+	<div class="container">
+		<div class="row">
+			<div class="page-head">
+				<h2>{{'Programs' | translate}}</h2>
+				<div class="head-title">
+					<div class="hl-1"></div>
+					<div class="hl-2"></div>
+					<div class="hl-3"></div>
+				</div>
+				<p>{{'ProgramsDescription' | translate}}</p>
+			</div>
+			<!--ROOM SECTION-->
+			<div ng-repeat="n in [] | range:6">
+				<div ng-if="programPrepService[n] != undefined" class="room">
+					<div class="ribbon ribbon-top-left">
+						<span>{{'Program' | translate}}</span>
+					</div>
+					<!--ROOM IMAGE-->
+					<div class="r1 r-com">
+						<img src="https://fithouseksa.com/wp-content/uploads/2018/07/fithouse-icons6.png" alt="" />
+					</div>
+					<!--ROOM RATING-->
+					<div class="r2 r-com">
+						<h4>{{programPrepService[n].programNameDictionary[selectedLanguage]}}</h4>
+						<div class="r2-ratt">
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<i class="fa fa-star"></i>
+							<img src="images/h-trip.png" alt="" />
+							<br>
+							<span>{{programPrepService[n].programDescriptionDictionary[selectedLanguage]}}</span>
+						</div>
+						<ul>
+							<li></li>
+							<li></li>
+							<li></li>
+							<li></li>
+						</ul>
+					</div>
+					<!--ROOM AMINITIES-->
+					<div class="r3 r-com">
+						<ul>
+							<li>{{'ProgramDays' | translate}}: {{programPrepService[n].programDays}}</li>
+							<li>{{'MealPerDay' | translate}}: {{programPrepService[n].noOfMeals}}</li>
+							<li></li>
+							<li></li>
+							<li></li>
+						</ul>
+					</div>
+					<!--ROOM PRICE-->
+					<div class="r4 r-com">
+						<p></p>
+						<p>
+							<span class="room-price-1">{{programPrepService[n].price}}</span>
+							<span class="room-price"></span>
+						</p>
+						<p>{{'NonRefundable' | translate}}</p>
+					</div>
+					<!--ROOM BOOKING BUTTON-->
+					<div class="r5 r-com">
+						<div class="r2-available">Available</div>
+						<p></p>
+						<a style="cursor: pointer !important;" ng-click="bookProgram(programPrepService[n]);"
+							class="inn-room-book">{{'Book' | translate}}</a>
+					</div>
+				</div>
+				<!--END ROOM SECTION-->
+			</div>
+		</div>
+	</div>
+</div>
 
-</section>
+
 <!-- </form> -->
 <!--END HEADER SECTION-->
