@@ -39,5 +39,6 @@ namespace FitHouse.BLL.DTOs
         public List<ProgramDto> Programs { get; set; }
         public ProgramDto Program { get; set; }
         public DateTime Day { get; set; }
+        public decimal Price { get; set; }
     }
 }

@@ -54,26 +54,26 @@
                             <div class="hp-over">
                                 <ul class="nav nav-tabs hp-over-nav">
                                     <li class="active">
-                                        <a data-toggle="tab" href="#home">
+                                        <a data-toggle="tab"style="cursor: pointer" ng-click="showDetails();">
                                             <img src="images/icon/a9.png" alt="">
                                             <span class="tab-hide">{{'Details' | translate}}</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a data-toggle="tab" href="#menu1">
+                                        <a data-toggle="tab" style="cursor: pointer" ng-click="showSummary();">
                                             <img src="images/icon/a8.png" alt="">
                                             <span class="tab-hide">{{'Summary' | translate}}</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a data-toggle="tab" href="#menu2">
+                                        <a data-toggle="tab" style="cursor: pointer" ng-click="showOrder();">
                                             <img src="images/icon/a8.png" alt="">
                                             <span class="tab-hide">{{'Order' | translate}}</span>
                                         </a>
                                     </li>
                                 </ul>
                                 <div class="tab-content">
-                                    <div id="home" class="tab-pane fade in active tab-space">
+                                    <div ng-if="showDet == true" id="home" class="tab-pane fade in active tab-space">
                                         <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                                             <label for="first-name">{{'Items' | translate}}</label>
                                             <ul>
@@ -93,7 +93,7 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <div id="menu1" class="tab-pane fade tab-space">
+                                    <div ng-if="showSum == true" id="menu1" class="tab-pane fade in active tab-space">
                                         <div class="hp-main-overview">
                                             <ul>
                                                 <li>{{'Fats' | translate}}:
@@ -114,7 +114,7 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <div id="menu2" class="tab-pane fade tab-space">
+                                    <div ng-if="showOrd == true" id="menu2" class="tab-pane fade in active tab-space">
                                         <form name="orderForm">
                                             <!-- {{itemDatetime}} -->
                                             <div class="col-md-6">

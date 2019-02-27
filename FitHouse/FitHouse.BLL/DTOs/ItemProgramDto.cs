@@ -25,7 +25,7 @@ namespace FitHouse.BLL.DTOs
         public long Calories { get; set; }
         public long VAT { get; set; }
         public long Protein { get; set; }
-        public long Fat { get; set; }
+        //public long Fat { get; set; }
         public Dictionary<string, string> ItemNameDictionary { get; set; }
         public Dictionary<string, string> ItemDescriptionDictionary { get; set; }
         public CategoryProgramDto Category { get; set; }

@@ -31,6 +31,7 @@ namespace FitHouse.BLL.DTOs
 
         public long BranchId { get; set; }
         public BranchDto Branch { get; set; }
+        public decimal Price { get; set; }
     }
 }
 

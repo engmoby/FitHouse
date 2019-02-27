@@ -14,7 +14,8 @@
                     <p>{{'ProgramsDescription' | translate}}</p>
                 </div>
                 <!--ROOM SECTION-->
-                <div ng-repeat="Program in programPrepService" class="room">
+                <div style="cursor: pointer !important;" ng-click="$state.go('programDetails', {programId: Program.programId});" ng-repeat="Program in programPrepService" class="room">
+                
                     <div class="ribbon ribbon-top-left">
                         <span>{{'Program' | translate}}</span>
                     </div>

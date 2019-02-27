@@ -14,7 +14,7 @@
                         <p>{{'MealsDescription' | translate}}</p>
                     </div>
                     <!--ROOM SECTION-->
-                    <div ng-repeat="Meal in mealsPrepService" class="room">
+                    <div ng-click="$state.go('mealDetails', {mealId: Meal.mealId});" style="cursor: pointer !important;" ng-repeat="Meal in mealsPrepService" class="room">
                         <div class="ribbon ribbon-top-left">
                             <span>{{'Meal' | translate}}</span>
                         </div>
@@ -26,11 +26,11 @@
                         <div class="r2 r-com">
                             <h4>{{Meal.mealDescriptionDictionary[selectedLanguage]}}</h4>
                             <div class="r2-ratt">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
+                                <i ></i>
+                                <i ></i>
+                                <i ></i>
+                                <i ></i>
+                                <i ></i>
                                 <img src="images/h-trip.png" alt="" />
                                 <span></span>
                             </div>

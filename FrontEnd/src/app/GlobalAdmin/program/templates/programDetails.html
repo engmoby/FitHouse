@@ -114,26 +114,26 @@
                             <div class="hp-over">
                                 <ul class="nav nav-tabs hp-over-nav">
                                     <li class="active">
-                                        <a data-toggle="tab" href="#home">
+                                        <a data-toggle="tab" style="cursor: pointer" ng-click="showDetails();">
                                             <img src="images/icon/a9.png" alt="">
                                             <span class="tab-hide">{{'Details' | translate}}</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a data-toggle="tab" href="#menu1">
+                                        <a data-toggle="tab" style="cursor: pointer" ng-click="showSummary();">
                                             <img src="images/icon/a8.png" alt="">
                                             <span class="tab-hide">{{'Summary' | translate}}</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a data-toggle="tab" href="#menu2">
+                                        <a data-toggle="tab" style="cursor: pointer" ng-click="showOrder();">
                                             <img src="images/icon/a8.png" alt="">
                                             <span class="tab-hide">{{'Order' | translate}}</span>
                                         </a>
                                     </li>
                                 </ul>
                                 <div class="tab-content">
-                                    <div id="home" class="tab-pane fade in active tab-space">
+                                    <div ng-if="showDet == true" id="home" class="tab-pane fade in active tab-space">
                                         <div ng-init="counterDay = 0; counterMeal = 0">
                                             <div class="panel-group pmd-accordion pmd-accordion-inbox" id="accordion6" role="tablist" aria-multiselectable="true">
                                                 <div ng-repeat="n in [].constructor(progDetailsPrepService.programDays)  track by $index" class="panel panel-default">
@@ -183,7 +183,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div id="menu1" class="tab-pane fade tab-space">
+                                    <div ng-if="showSum == true" id="menu1" class="tab-pane fade in active tab-space">
                                         <div class="hp-main-overview">
                                             <ul>
                                                 <li>{{'Fats' | translate}}:
@@ -204,7 +204,7 @@
                                             </ul>
                                         </div>
                                     </div>
-                                    <div id="menu2" class="tab-pane fade tab-space">
+                                    <div ng-if="showOrd == true" id="menu2" class="tab-pane fade in active tab-space">
                                         <form name="orderForm">
                                             <!-- {{itemDatetime}} -->
                                             <div class="col-md-6">

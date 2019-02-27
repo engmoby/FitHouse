@@ -41,6 +41,28 @@
             };
         }
 
+        $scope.showDet = true;
+        $scope.showSum = false;
+        $scope.showOrd = false;
+
+        $scope.showDetails = function () {
+            $scope.showDet = true;
+            $scope.showSum = false;
+            $scope.showOrd = false;
+        }
+
+        $scope.showSummary = function () {
+            $scope.showDet = false;
+            $scope.showSum = true;
+            $scope.showOrd = false;
+        }
+
+        $scope.showOrder = function () {
+            $scope.showDet = false;
+            $scope.showSum = false;
+            $scope.showOrd = true;
+        }
+
         $scope.orderType = {
             type: 'delivery'
         };
