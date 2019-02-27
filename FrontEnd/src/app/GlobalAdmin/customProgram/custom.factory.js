@@ -8,6 +8,7 @@
     .factory('RegionResource', ['$resource', 'appCONSTANTS', RegionResource])
     .factory('CityResource', ['$resource', 'appCONSTANTS', CityResource])
     .factory('AreaResource', ['$resource', 'appCONSTANTS', AreaResource])
+    .factory('BranchResource', ['$resource', 'appCONSTANTS', BranchResource]) 
     ;
 
   function CustomResource($resource, appCONSTANTS) {
@@ -59,4 +60,9 @@
       getAllAreas: { method: 'GET', url: appCONSTANTS.API_URL + 'Cities/:cityId/Areas/GetAllAreas', useToken: true, params: { lang: '@lang' } },
     })
   }
+  function BranchResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'Branchs/', {}, { 
+        getBranch: { method: 'GET', url: appCONSTANTS.API_URL + 'Branchs/GetBranchById/:BranchId', useToken: true }
+    })
+} 
 }());

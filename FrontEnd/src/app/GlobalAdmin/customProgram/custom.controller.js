@@ -3,10 +3,10 @@
 
 	angular
 		.module('home')
-		.controller('CustomController', ['$scope', '$filter', '$state', 'UserAddressesResource', '$translate', 'RegionResource', 'CityResource',
+		.controller('CustomController', ['$scope', '$filter', '$state', 'UserAddressesResource', 'BranchResource', '$translate', 'RegionResource', 'CityResource',
 			'AreaResource', 'CountriesPrepService', 'CustomResource', 'itemsPrepService', 'ToastService', CustomController])
 
-	function CustomController($scope, $filter, $state, UserAddressesResource, $translate, RegionResource, CityResource, AreaResource, CountriesPrepService,
+	function CustomController($scope, $filter, $state, UserAddressesResource, BranchResource, $translate, RegionResource, CityResource, AreaResource, CountriesPrepService,
 		CustomResource, itemsPrepService, ToastService) {
 
 		var vm = this;
@@ -24,13 +24,10 @@
 		var user = JSON.parse(localStorage.getItem("ngStorage-authInfo"));
 		vm.clientId = user.UserId;
 		vm.order = JSON.parse(localStorage.getItem("OrderSummary"));
-		// vm.gotoStep = function () {
-		// 	console.log(vm.itemList);
-		// 	localStorage.setItem('Program', JSON.stringify(vm.itemList));
-		// 	$state.go('Summary');
-		// }
+		vm.Total = 0;
+
 		$scope.getData = function (itemModel, day, meal) {
-			debugger;
+
 			var differntMeal = $filter('filter')(vm.itemList, x => (x.dayNumber == day && x.mealNumberPerDay != meal) || (x.dayNumber != day));
 			//var differntMeal = vm.itemList.filter(x => (x.dayNumber == day && x.mealNumberPerDay != meal) || (x.dayNumber != day));
 			vm.itemList = [];
@@ -53,10 +50,11 @@
 				vm.ProgramVAT = vm.ProgramVAT + vm.itemList[i].vat;
 				vm.totalPrice += vm.itemList[i].totalPrice;
 			}
-
-			debugger;
 			vm.ProgramTotalPrice = vm.totalPrice - (vm.totalPrice * (vm.ProgramDiscount / 100));
 			vm.ProgramTotalPriceBefore = vm.totalPrice;
+
+			// vm.ProgramTotalPrice = (vm.totalPrice + vm.DeliveryFees) - (vm.totalPrice * (vm.ProgramDiscount / 100));
+			// vm.ProgramTotalPriceBefore = vm.totalPrice + vm.DeliveryFees;
 
 		}
 
@@ -72,7 +70,7 @@
 			newProgram.isForClient = false;
 			newProgram.isDeleted = false;
 			newProgram.programDetails = vm.itemList;
-			newProgram.price = vm.ProgramTotalPrice;
+			newProgram.price = vm.ProgramTotalPrice + vm.DeliveryFees;
 			newProgram.isOrdering = true;
 			newProgram.day = vm.startDate;
 			newProgram.isProgram = true;
@@ -100,18 +98,22 @@
 			);
 		}
 
-		/* helper method*/
+		/* helper methods */
 
 		vm.addItemToList = function (model) {
 			debugger;
-			vm.carbs = $scope.sum(model, 'carbs');
-			vm.calories = $scope.sum(model, 'calories');
-			vm.protein = $scope.sum(model, 'protein');
-			vm.fat = $scope.sum(model, 'fat');
-			vm.price = $scope.sum(model, 'price');
+			var modelList = [];
+			modelList = model;
 
-			$scope.selectedItemList = model;
+			modelList.forEach(element => {
+				vm.carbs = (element.carbs == null) ? 0 : $scope.sum(model, 'carbs');
+				vm.calories = (element.calories == null) ? 0 : $scope.sum(model, 'calories');
+				vm.protein = (element.protein == null) ? 0 : $scope.sum(model, 'protein');
+				vm.fat = (element.fat == null) ? 0 : $scope.sum(model, 'fat');
+				//vm.price = $scope.sum(model, 'price');
 
+				$scope.selectedItemList = model;
+			});
 			//console.log($scope.selectedItemList);
 		}
 		$scope.sum = function (items, prop) {
@@ -198,7 +200,7 @@
 				vm.area = [];
 				vm.area.push({ areaId: 0, titleDictionary: { "en": "Select Area", "ar": "اختار منطقه" } });
 				AreaResource.getAllAreas({ cityId: vm.selectedCityId, pageSize: 0 }).$promise.then(function (results) {
-				debugger;
+					debugger;
 					vm.selectedAreaId = 0;
 					vm.area = vm.area.concat(results.results);
 				},
@@ -208,6 +210,7 @@
 			}
 		}
 		vm.areaChange = function () {
+			debugger;
 			if (vm.selectedAreaId != undefined && vm.selectedAreaId > 0) {
 				for (var i = vm.area.length - 1; i >= 0; i--) {
 					if (vm.area[i].areaId == 0) {
@@ -218,7 +221,7 @@
 				// vm.branchList.push({ branchId: 0, titleDictionary: { "en": "Select Branch", "ar": "اختار فرع" } });
 				vm.selectedBranchId = [0];
 				vm.branchList = vm.branchList.concat(($filter('filter')(vm.area, { areaId: vm.selectedAreaId }))[0].branches);
-			} 
+			}
 		}
 		vm.branchChange = function () {
 			for (var i = vm.branchList.length - 1; i >= 0; i--) {
@@ -226,9 +229,12 @@
 					vm.branchList.splice(i, 1);
 				}
 			}
+			vm.DeliveryFees = 0;
+			vm.Total = vm.ProgramTotalPrice + vm.DeliveryFees;
+			//GetBranchDelivery();
 		}
-		vm.GetBranchDelivery = function () {
-			var k = BranchResource.getBranch({ branchId: vm.branchId }).$promise.then(function (results) {
+		function GetBranchDelivery() {
+			var k = BranchResource.getBranch({ branchId: vm.selectedBranchId }).$promise.then(function (results) {
 				vm.DeliveryFees = results.deliveryPrice;
 				// blockUI.stop();
 
@@ -246,7 +252,6 @@
 			address: 0
 		};
 		vm.changeOrderType = function () {
-			debugger;
 			if (vm.orderType.type == 'delivery' || vm.orderType.type == 'true') {
 				vm.orderType.type = 'pickup'
 				// if (CustomCtrl.selectedCityId > 0)
@@ -262,7 +267,7 @@
 		if (vm.orderType.type == 'delivery') {
 			var k = UserAddressesResource.getUserAddresses({ userId: vm.clientId }).$promise.then(function (results) {
 				vm.userAddresses = results;
-				console.log(vm.userAddresses);
+				//console.log(vm.userAddresses);
 				//blockUI.stop();
 
 			},
@@ -273,6 +278,10 @@
 		}
 		vm.addressInfo = function (address) {
 			vm.addressDetails = address;
+			vm.selectedBranchId = vm.addressDetails.branchId;
+			GetBranchDelivery();
+			debugger;
+			vm.Total = vm.ProgramTotalPrice + vm.DeliveryFees;
 		}
 	}
 

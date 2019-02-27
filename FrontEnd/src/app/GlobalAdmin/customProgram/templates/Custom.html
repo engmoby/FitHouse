@@ -35,10 +35,9 @@
                 <div class="head-typo typo-com collap-expand">
                     <h4>Days</h4>
                     <span>carbs: {{CustomCtrl.carbs}}</span>
-                    <span>carbs: {{CustomCtrl.fat}}</span>
+                    <span>fat: {{CustomCtrl.fat}}</span>
                     <span>calories: {{CustomCtrl.calories}}</span>
                     <span>protein: {{CustomCtrl.protein}}</span>
-                    <span>cost: {{CustomCtrl.cost}}</span>
                     <div ng-init="counterDay = 0; counterMeal = 0">
                         <div class="panel-group pmd-accordion pmd-accordion-inbox" id="accordion6" role="tablist"
                             aria-multiselectable="true">
@@ -130,7 +129,7 @@
                 </div>
                 <div class="head-typo typo-com collap-expand">
                     <h4>Address</h4>
-                    <div class="col-md-6">
+                    <div class="col-md-12">
                         <div class="head-typo typo-com collap-expand book-form inn-com-form">
                             <!-- Switch -->
                             <!-- <div class="switch">
@@ -140,9 +139,43 @@
                                     <span class="lever"></span>
                                     {{'PickUp' | translate}} </label>
                             </div> -->
-                            {{CustomCtrl.orderType.type}}
+                            <div class="col-md-12">
+                                <h5>{{'OrderType' | translate}}</h5>
+                                <p>
+                                    <input ng-model="CustomCtrl.orderType.type" name="group1" type="radio" id="test1"
+                                        value="delivery" />
+                                    <label for="test1">{{'Delivery' | translate}}</label>
+                                </p>
+                                <p>
+                                    <input ng-model="CustomCtrl.orderType.type" name="group1" type="radio" id="test2"
+                                        value="pickup" />
+                                    <label for="test2">{{'PickUp' | translate}}</label>
+                                </p>
 
-                            <p>
+                                <!--    <div ng-if="CustomCtrl.orderType.type == 'delivery'" class="row form-group">
+                                    <div class="col-md-6">
+                                        <div>
+                                            <div
+                                                class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                                <label for="first-name">{{'SelectAddress' | translate}}</label>
+                                             
+                                                <div ng-repeat="address in userAddresses">
+
+
+                                                    <input ng-change="addressInfo(address)" name="group2" type="radio"
+                                                        id="test{{address.addressId}}" ng-model="addresses.address"
+                                                        value="{{address.addressId}}" />
+                                                    <label for="test{{address.addressId}}">{{address.appartmentNo}},
+                                                        {{address.description}},
+                                                        {{'Floor' | translate}} {{address.floor}}</label>
+ 
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                 <p>
                                 <input name="group1" ng-click="CustomCtrl.changeOrderType()"
                                     ng-model="CustomCtrl.orderType.type" type="radio" id="test1" />
                                 <label for="test1">{{'Delivery' | translate}}</label>
@@ -151,101 +184,105 @@
                                 <input name="group1" ng-click="CustomCtrl.changeOrderType()"
                                     ng-model="CustomCtrl.orderType.type" type="radio" id="test2" />
                                 <label for="test2">{{'PickUp' | translate}}</label>
-                            </p>
-                            <div class="row" ng-if="CustomCtrl.orderType.type == 'delivery'">
-                                <div class="col-md-6">
-                                    <div>
-                                        <div
-                                            class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-                                            <label for="first-name">{{'SelectAddress' | translate}}</label>
+                            </p> -->
+                                <div class="row" ng-if="CustomCtrl.orderType.type == 'delivery'">
+                                    <div class="col-md-6">
+                                        <div>
+                                            <div
+                                                class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                                <label for="first-name">{{'SelectAddress' | translate}}</label>
 
-                                            <div ng-repeat="address in CustomCtrl.userAddresses">
-                                                <label>
-                                                    <input name="group2" ng-change="CustomCtrl.addressInfo(address)"
-                                                        type="radio" ng-model="CustomCtrl.addresses.address"
-                                                        value="{{address.addressId}}"
-                                                        ng-required="CustomCtrl.orderType.type == 'delivery'">
-                                                    <label for="addressRadio{{address.addressId}}">
-                                                        {{'appartmentNo' | translate}}: {{address.appartmentNo}}
-                                                        <br> {{'Floor' | translate}} : {{address.floor}}
-                                                        <br> {{'appartmentNo' | translate}} :
-                                                        {{address.description}}
+                                                <div ng-repeat="address in CustomCtrl.userAddresses">
+                                                    <label>
+                                                        <input name="group3" ng-change="CustomCtrl.addressInfo(address)"
+                                                            type="radio" ng-model="CustomCtrl.addresses.address"
+                                                            value="{{address.addressId}}"
+                                                            ng-required="CustomCtrl.orderType.type == 'delivery'">
+                                                        <label for="addressRadio{{address.addressId}}">
+                                                            {{'appartmentNo' | translate}}: {{address.appartmentNo}}
+                                                            <br> {{'Floor' | translate}} : {{address.floor}}
+                                                            <br> {{'appartmentNo' | translate}} :
+                                                            {{address.description}}
+                                                        </label>
                                                     </label>
-                                                </label>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div ng-show="CustomCtrl.orderType.type == 'pickup'">
-                                <div class="row">
-                                    <div class="input-field col s6">
-                                        <select style="width:100% !important"
-                                            ng-required="CustomCtrl.orderType.type == 'pickup'"
-                                            class=" select-tags form-control pmd-select2-tags" name="country"
-                                            ng-change="CustomCtrl.countryChange()"
-                                            ng-model="CustomCtrl.selectedCountryId"
-                                            ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in CustomCtrl.counties">
-                                        </select>
-                                        <span ng-show='stepTwoProgramForm.country.$error.required'>
-                                            Email must be valid.
-                                        </span>
+                                <div ng-show="CustomCtrl.orderType.type == 'pickup'">
+                                    <div class="row">
+                                        <div class="input-field col s6">
+                                            <select style="width:100% !important"
+                                                ng-required="CustomCtrl.orderType.type == 'pickup'"
+                                                class=" select-tags form-control pmd-select2-tags" name="country"
+                                                ng-change="CustomCtrl.countryChange()"
+                                                ng-model="CustomCtrl.selectedCountryId"
+                                                ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in CustomCtrl.counties">
+                                            </select>
+                                            <span ng-show='stepTwoProgramForm.country.$error.required'>
+                                                required
+                                            </span>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <select style="width:100% !important"
+                                                ng-required="CustomCtrl.orderType.type == 'pickup' || CustomCtrl.selectedCountryId > 0"
+                                                class="select-tags form-control pmd-select2-tags"
+                                                ng-change="CustomCtrl.regionChange()"
+                                                ng-model="CustomCtrl.selectedRegionId"
+                                                ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in CustomCtrl.regions">
+                                            </select>
+                                        </div>
                                     </div>
-                                    <div class="input-field col s6">
-                                        <select style="width:100% !important"
-                                            ng-required="CustomCtrl.orderType.type == 'pickup' || CustomCtrl.selectedCountryId > 0"
-                                            class="select-tags form-control pmd-select2-tags"
-                                            ng-change="CustomCtrl.regionChange()" ng-model="CustomCtrl.selectedRegionId"
-                                            ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in CustomCtrl.regions">
-                                        </select>
-                                    </div>
-                                </div>
-                                <div class="row">
-                                    <div class="input-field col s6">
-                                        <select
-                                            ng-required="CustomCtrl.orderType.type == 'pickup'  || CustomCtrl.selectedRegionId > 0"
-                                            style="width:100% !important"
-                                            class="select-tags form-control pmd-select2-tags"
-                                            ng-change="CustomCtrl.cityChange()" ng-model="CustomCtrl.selectedCityId"
-                                            ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in CustomCtrl.cities">
-                                        </select>
-                                    </div>
-                                    <div class="input-field col s6">
-                                        <select
-                                            ng-required="CustomCtrl.orderType.type == 'pickup' || CustomCtrl.selectedCityId > 0"
-                                            style="width:100% !important"
-                                            class="select-tags form-control pmd-select2-tags"
-                                            ng-change="CustomCtrl.areaChange()" ng-model="CustomCtrl.selectedAreaId"
-                                            ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in CustomCtrl.area">
-                                        </select>
-                                    </div>
-                                    <div class="input-field col s6">
+                                    <div class="row">
+                                        <div class="input-field col s6">
+                                            <select
+                                                ng-required="CustomCtrl.orderType.type == 'pickup'  || CustomCtrl.selectedRegionId > 0"
+                                                style="width:100% !important"
+                                                class="select-tags form-control pmd-select2-tags"
+                                                ng-change="CustomCtrl.cityChange()" ng-model="CustomCtrl.selectedCityId"
+                                                ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in CustomCtrl.cities">
+                                            </select>
+                                        </div>
+                                        <div class="input-field col s6">
+                                            <select
+                                                ng-required="CustomCtrl.orderType.type == 'pickup' || CustomCtrl.selectedCityId > 0"
+                                                style="width:100% !important"
+                                                class="select-tags form-control pmd-select2-tags"
+                                                ng-change="CustomCtrl.areaChange()" ng-model="CustomCtrl.selectedAreaId"
+                                                ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in CustomCtrl.area">
+                                            </select>
+                                        </div>
+                                        <div class="input-field col s6">
                                             <select
                                                 ng-required="CustomCtrl.orderType.type == 'pickup' || CustomCtrl.selectedAreaId > 0"
                                                 style="width:100% !important"
                                                 class="select-tags form-control pmd-select2-tags"
-                                                ng-change="CustomCtrl.branchChange()" ng-model="CustomCtrl.selectedBranchId"
+                                                ng-change="CustomCtrl.branchChange()"
+                                                ng-model="CustomCtrl.selectedBranchId"
                                                 ng-options="group.branchId as group.titleDictionary[selectedLanguage] for group in CustomCtrl.branchList">
                                             </select>
                                         </div>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-10"></div>
-                    <div class="col-md-2">
-                        {{ CustomCtrl.selectedAreaId}}
-                        {{stepTwoProgramForm.$invalid}}
-                        <button style="background-color: #e4e5e6;color: black!important;"
-                            ng-disabled="stepTwoProgramForm.$invalid || CustomCtrl.selectedAreaId <= 0"
-                            class="btn pmd-ripple-effect btn-primary" type="button"
-                            ng-click="CustomCtrl.AddNewProgram();">
-                            {{'next' | translate}}</button>
+                    <div class="row">
+                        <div class="col-md-10"></div>
+                        <div class="col-md-4">
+                            Program Price:{{ CustomCtrl.ProgramTotalPrice}}
+                            <br> Delivery:{{ CustomCtrl.DeliveryFees}}
+                            <br>Total :{{ CustomCtrl.Total}}
+                            <br>
+                            <button style="background-color: #e4e5e6;color: black!important;"
+                                ng-disabled="stepTwoProgramForm.$invalid || CustomCtrl.selectedBranchId <= 0"
+                                class="btn pmd-ripple-effect btn-primary" type="button"
+                                ng-click="CustomCtrl.AddNewProgram();">
+                                {{'next' | translate}}</button>
+                        </div>
                     </div>
-                </div>
             </form>
 
 

@@ -10,6 +10,7 @@ namespace FitHouse.BLL.DTOs
         public DateTime OrderDate { get; set; }
         public DateTime? OrderExpiration { get; set; }
         public DateTime? OrderStartDate { get; set; }
+        public decimal OrderPrice { get; set; }
 
         public bool IsByAdmin { get; set; }
         public bool IsPaused { get; set; }

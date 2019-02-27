@@ -5,7 +5,11 @@
 			'API_URL': 'http://localhost:32569/api/',
 			//'API_URL': 'http://fithouse.azurewebsites.net/api/',
 
-			'defaultLanguage': 'en'
+			'defaultLanguage': 'en',
+			'supportedLanguage': {
+				'en': { 'key': 'en', 'value': 'english' },
+				'ar': { 'key': 'ar', 'value': 'arabic' }
+			},
 		})
 		.constant('messageTypeEnum', {
 			success: 0,

@@ -9,9 +9,33 @@
 
             // main views
             $stateProvider
-                .state('root', {
-                    url: '/homes',
-                    templateUrl: './app/GlobalAdmin/user/templates/home.html'
+              .state('root', {
+                    url: '/',
+               
+                    controller: 'loginController',
+                   
+                    data: {
+                       permissions: {
+                          
+                        }
+                    },
+                 
+                })
+                
+                // .state('addUser', {
+                //     url: '/addUser',
+                //     templateUrl: './app/GlobalAdmin/register/templates/addUser.html',
+                //     controller: 'userController',
+                //     'controllerAs': 'userCtrl', 
+                //     resolve: { 
+                //           CountriesPrepService: CountriesPrepService,
+
+                //     } 
+                // })
+                .state('login', {
+                    url: '/login',
+                    templateUrl: './app/core/login/templates/login.html',
+                    'controller': 'loginController'
                 })
                 .state('403', {
                     url: '/403',
@@ -27,4 +51,9 @@
                 })
         });
     
+     /*User */ 
+     CountriesPrepService.$inject = ['CountryResource']
+     function CountriesPrepService(CountryResource) {
+         return CountryResource.getAllCountries({ pageSize: 0 }).$promise;
+     }
 }());

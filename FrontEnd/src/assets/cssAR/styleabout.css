@@ -171,7 +171,7 @@ th {
 /*-------------------------------------------------*/
 
 .main {
-    background: url(../images/slide2.jpg) no-repeat;
+    background: url(/assets/images/slide2.jpg) no-repeat;
     background-attachment: fixed;
     background-size: cover;
     width: 100%;
@@ -410,7 +410,7 @@ th {
     padding-bottom: 80px;
 }
 .inn-detail {
-    background: url(../images/h-detail.jpg) no-repeat;
+    background: url(/assets/images/h-detail.jpg) no-repeat;
     background-attachment: fixed;
     background-size: 40%;
 }
@@ -561,7 +561,7 @@ td {} .inn-com p {} .inn-com-form {} .inn-com-form form {
     margin-bottom: 0px;
 }
 .r-com ul li {
-    background: url('../images/h-check.png') no-repeat left center;
+    background: url('/assets/images/h-check.png') no-repeat left center;
     background-size: 10px;
     padding-left: 20px;
     line-height: 28px;
@@ -915,7 +915,7 @@ td {} .inn-com p {} .inn-com-form {} .inn-com-form form {
     /* border-right: 1px solid #dedede; */
     
     list-style-type: none;
-    background: url(../images/icon/arrow.png) no-repeat center left;
+    background: url(/assets/images/icon/arrow.png) no-repeat center left;
     background-size: 10px;
 }
 #drop-page li a {} #drop-page li a:hover {
@@ -929,7 +929,7 @@ td {} .inn-com p {} .inn-com-form {} .inn-com-form form {
 /*-------------------------------------------------*/
 
 .inn-booking {
-    background: url(../images/slide2.jpg) no-repeat;
+    background: url(/assets/images/slide2.jpg) no-repeat;
     background-attachment: fixed;
     background-size: cover;
     width: 100%;
@@ -1091,7 +1091,7 @@ td {} .inn-com p {} .inn-com-form {} .inn-com-form form {
     margin-top: 72px;
     position: relative;
     overflow: hidden;
-    background: url('../images/inn-bg.jpg') no-repeat;
+    background: url('/assets/images/inn-bg.jpg') no-repeat;
     background-size: cover;
     color: #b4b4b4;
     padding: 35px 0px;
@@ -1121,7 +1121,7 @@ td {} .inn-com p {} .inn-com-form {} .inn-com-form form {
     float: right;
     display: inline-block;
     padding-right: 14px;
-    background: url('../images/bread.png') no-repeat center right;
+    background: url('/assets/images/bread.png') no-repeat center right;
     background-size: 10px;
 }
 .inn-banner ul li a {
@@ -1566,7 +1566,7 @@ td {} .inn-com p {} .inn-com-form {} .inn-com-form form {
     font-size: 18px;
 }
 .inn-hotel-1 {
-    background: url(../images/hotel/bg.jpg) no-repeat;
+    background: url(/assets/images/hotel/bg.jpg) no-repeat;
     background-attachment: fixed;
     background-size: 40%;
 }
@@ -1588,7 +1588,7 @@ td {} .inn-com p {} .inn-com-form {} .inn-com-form form {
 .log-in-pop-left {
     float: left;
     width: 40%;
-    background: url('../images/login.jpg') no-repeat center center;
+    background: url('/assets/images/login.jpg') no-repeat center center;
     padding: 11% 6%;
     color: #fff;
     height: 100%;
@@ -1737,7 +1737,7 @@ td {} .inn-com p {} .inn-com-form {} .inn-com-form form {
 }
 .db-left-1 {
     padding: 116px 50px 30px 50px;
-    background: url('../images/user.jpg') no-repeat center center;
+    background: url('/assets/images/user.jpg') no-repeat center center;
     background-size: cover;
     position: relative;
     /* overflow: hidden; */
@@ -1874,7 +1874,7 @@ td {} .inn-com p {} .inn-com-form {} .inn-com-form form {
 }
 .db-cent-1 {
     padding: 116px 50px 30px 50px;
-    background: url(../images/slide2.jpg) no-repeat center center;
+    background: url(/assets/images/slide2.jpg) no-repeat center center;
     background-size: cover;
     position: relative;
 }
@@ -2291,7 +2291,7 @@ td {} .inn-com p {} .inn-com-form {} .inn-com-form form {
     background-size: 12px;
 }
 .ui-datepicker-next {
-    background: url('../images/right-arrow.png') no-repeat center center;
+    background: url('/assets/images/right-arrow.png') no-repeat center center;
     background-size: 12px;
 }
 /* Icons
@@ -2739,7 +2739,7 @@ a.ui-button:active,
 /* =  HOME PAGE OFFER
 /*-------------------------------------------------*/
 .offer {
-    background: url(../images/offer-bg.jpg) no-repeat;
+    background: url(/assets/images/offer-bg.jpg) no-repeat;
     background-attachment: fixed;
     background-size: cover;
     width: 100%;
@@ -3338,7 +3338,7 @@ footer ul.two-columns li {
 }
 footer ul li {
     list-style-type: none;
-    background: url(../images/h-check.png) no-repeat center left;
+    background: url(/assets/images/h-check.png) no-repeat center left;
     padding: 0px 10px 0px 15px;
     background-size: 9px;
     line-height: 25px;
@@ -3899,7 +3899,7 @@ footer ul li a {
     font-weight: 600;
     font-family: 'Quicksand', sans-serif;
     font-size: 15px;
-    background: url('../images/checked.png') no-repeat left center;
+    background: url('/assets/images/checked.png') no-repeat left center;
     background-size: 14px;
     padding-left: 35px;
     padding-right: 35px;
@@ -4282,7 +4282,7 @@ footer ul li a {
 /*  STAR RATING
 /*-------------------------------------------------------*/
 form .stars {
-    background: url("../images/stars.png") repeat-x 0 0;
+    background: url("/assets/images/stars.png") repeat-x 0 0;
     width: 150px;
 }
 form .stars input[type="radio"] {
@@ -4343,7 +4343,7 @@ form .stars span {
     top: 0;
     left: 0;
     height: 30px;
-    background: url("../images/stars.png") repeat-x 0 -60px;
+    background: url("/assets/images/stars.png") repeat-x 0 -60px;
     -webkit-transition: -webkit-width 0.5s;
     -moz-transition: -moz-width 0.5s;
     -ms-transition: -ms-width 0.5s;
@@ -4501,7 +4501,7 @@ form .stars label:before {
 }
 .footer-block ul li {
     list-style-type: none;
-    background: url(../images/h-check-block.png) no-repeat center left;
+    background: url(/assets/images/h-check-block.png) no-repeat center left;
     padding-left: 24px;
     background-size: 9px;
     line-height: 25px;

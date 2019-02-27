@@ -14,10 +14,10 @@
                 return input;
             }
         })
-        .controller('homeController', ['$scope', '$state', '$stateParams', '$translate', 'appCONSTANTS', 'mealsPrepService', 'programPrepService', 'settingsPrepService'
-            , 'daysPrepService', homeController])
+        .controller('homePageController', ['$scope', '$state', '$stateParams', '$translate', 'appCONSTANTS', 'mealsPrepService', 'programPrepService', 'settingsPrepService'
+            , 'daysPrepService', homePageController])
 
-    function homeController($scope, $state, $stateParams, $translate, appCONSTANTS, mealsPrepService, programPrepService
+    function homePageController($scope, $state, $stateParams, $translate, appCONSTANTS, mealsPrepService, programPrepService
         , settingsPrepService, daysPrepService) {
 
         $scope.mealsPrepService = mealsPrepService.results;
