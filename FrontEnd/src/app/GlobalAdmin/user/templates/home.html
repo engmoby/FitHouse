@@ -53,17 +53,6 @@
 				<div class="col-md-6">
 					<div class="book-form inn-com-form">
 						<form name="cutomizeProgram" class="col s12">
-							<!-- <div class="row">
-								<div class="input-field col s6">
-									<input required type="text" class="validate" name="programName" ng-model="programName" minlength="1" maxlength="50">
-									<label>{{'ProgramName' | translate}}</label>
-								</div>
-								<div class="input-field col s6">
-									<input required type="text" class="validate" name="programDescription" ng-model="programDescription" minlength="1" maxlength="50">
-									<label>{{'ProgramDescription' | translate}}</label>
-								</div>
-							</div> -->
-
 							<div class="row">
 								<div class="input-field col s6">
 									<div ng-messages="cutomizeProgram.programName.$error">
@@ -187,27 +176,30 @@
 				<div class="to-ho-hotel">
 					<!-- HOTEL GRID -->
 					<div ng-repeat="n in [] | range:6">
-						<div ng-if="mealsPrepService[n] != undefined" class="col-md-4">
+
+
+						<div ng-click="$state.go('mealDetails', {mealId: mealsPrepService[n].mealId});" style="cursor: pointer !important;" ng-if="mealsPrepService[n] != undefined"
+						 class="col-md-4">
 							<div class="to-ho-hotel-con">
 								<div class="to-ho-hotel-con-1">
-									<div class="hom-hot-av-tic" style="cursor: pointer !important;" ng-click="bookMeal(mealsPrepService[n]);">{{'Book' | translate}}</div>
+									<!-- {{mealsPrepService[n].mealId}} -->
 									<img src="https://fithouseksa.com/wp-content/uploads/2018/07/Grilled-steak.png" alt="">
 								</div>
 								<div class="to-ho-hotel-con-23">
 									<div class="to-ho-hotel-con-2">
 										<a>
-											<h4>{{mealsPrepService[n].mealNameDictionary[selectedLanguage]}}</h4>
+											<h4>{{mealsPrepService[n].mealNameDictionary[selectedLanguage] | limitTo:10}}</h4>
 										</a>
 									</div>
 									<div class="to-ho-hotel-con-3">
 										<ul>
-											<li>{{mealsPrepService[n].mealDescriptionDictionary[selectedLanguage]}}
-												<div class="dir-rat-star ho-hot-rat-star"> Rating:
-													<i class="fa fa-star" aria-hidden="true"></i>
-													<i class="fa fa-star" aria-hidden="true"></i>
-													<i class="fa fa-star" aria-hidden="true"></i>
-													<i class="fa fa-star" aria-hidden="true"></i>
-													<i class="fa fa-star-o" aria-hidden="true"></i>
+											<li>{{mealsPrepService[n].mealDescriptionDictionary[selectedLanguage] | limitTo:10}}
+												<div class="dir-rat-star ho-hot-rat-star">
+													<i aria-hidden="true"></i>
+													<i aria-hidden="true"></i>
+													<i aria-hidden="true"></i>
+													<i aria-hidden="true"></i>
+													<i aria-hidden="true"></i>
 												</div>
 											</li>
 											<li>
@@ -241,7 +233,8 @@
 				</div>
 				<!--ROOM SECTION-->
 				<div ng-repeat="n in [] | range:6">
-					<div ng-if="programPrepService[n] != undefined" class="room">
+					<div style="cursor: pointer !important;" ng-click="$state.go('programDetails', {programId: programPrepService[n].programId});"
+					 ng-if="programPrepService[n] != undefined" class="room">
 						<div class="ribbon ribbon-top-left">
 							<span>{{'Program' | translate}}</span>
 						</div>
@@ -251,16 +244,16 @@
 						</div>
 						<!--ROOM RATING-->
 						<div class="r2 r-com">
-							<h4>{{programPrepService[n].programNameDictionary[selectedLanguage]}}</h4>
+							<h4>{{programPrepService[n].programNameDictionary[selectedLanguage] | limitTo:10}}}</h4>
 							<div class="r2-ratt">
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
-								<i class="fa fa-star"></i>
+								<i ></i>
+								<i ></i>
+								<i ></i>
+								<i ></i>
+								<i ></i>
 								<img src="images/h-trip.png" alt="" />
 								<br>
-								<span>{{programPrepService[n].programDescriptionDictionary[selectedLanguage]}}</span>
+								<span>{{programPrepService[n].programDescriptionDictionary[selectedLanguage] | limitTo:10}}</span>
 							</div>
 							<ul>
 								<li></li>
@@ -292,7 +285,8 @@
 						<div class="r5 r-com">
 							<div class="r2-available">Available</div>
 							<p></p>
-							<a style="cursor: pointer !important;" ng-click="bookProgram(programPrepService[n]);" class="inn-room-book">{{'Book' | translate}}</a>
+							<a style="cursor: pointer !important;" ng-click="$state.go('programDetails', {programId: programPrepService[n].programId});"
+							 class="inn-room-book">{{'Book' | translate}}</a>
 						</div>
 					</div>
 					<!--END ROOM SECTION-->
