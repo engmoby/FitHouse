@@ -37,10 +37,9 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                <div class="head-typo typo-com collap-expand">\n' +
     '                    <h4>Days</h4>\n' +
     '                    <span>carbs: {{CustomCtrl.carbs}}</span>\n' +
-    '                    <span>carbs: {{CustomCtrl.fat}}</span>\n' +
+    '                    <span>fat: {{CustomCtrl.fat}}</span>\n' +
     '                    <span>calories: {{CustomCtrl.calories}}</span>\n' +
     '                    <span>protein: {{CustomCtrl.protein}}</span>\n' +
-    '                    <span>cost: {{CustomCtrl.cost}}</span>\n' +
     '                    <div ng-init="counterDay = 0; counterMeal = 0">\n' +
     '                        <div class="panel-group pmd-accordion pmd-accordion-inbox" id="accordion6" role="tablist"\n' +
     '                            aria-multiselectable="true">\n' +
@@ -132,7 +131,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                </div>\n' +
     '                <div class="head-typo typo-com collap-expand">\n' +
     '                    <h4>Address</h4>\n' +
-    '                    <div class="col-md-6">\n' +
+    '                    <div class="col-md-12">\n' +
     '                        <div class="head-typo typo-com collap-expand book-form inn-com-form">\n' +
     '                            <!-- Switch -->\n' +
     '                            <!-- <div class="switch">\n' +
@@ -142,9 +141,43 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                    <span class="lever"></span>\n' +
     '                                    {{\'PickUp\' | translate}} </label>\n' +
     '                            </div> -->\n' +
-    '                            {{CustomCtrl.orderType.type}}\n' +
+    '                            <div class="col-md-12">\n' +
+    '                                <h5>{{\'OrderType\' | translate}}</h5>\n' +
+    '                                <p>\n' +
+    '                                    <input ng-model="CustomCtrl.orderType.type" name="group1" type="radio" id="test1"\n' +
+    '                                        value="delivery" />\n' +
+    '                                    <label for="test1">{{\'Delivery\' | translate}}</label>\n' +
+    '                                </p>\n' +
+    '                                <p>\n' +
+    '                                    <input ng-model="CustomCtrl.orderType.type" name="group1" type="radio" id="test2"\n' +
+    '                                        value="pickup" />\n' +
+    '                                    <label for="test2">{{\'PickUp\' | translate}}</label>\n' +
+    '                                </p>\n' +
     '\n' +
-    '                            <p>\n' +
+    '                                <!--    <div ng-if="CustomCtrl.orderType.type == \'delivery\'" class="row form-group">\n' +
+    '                                    <div class="col-md-6">\n' +
+    '                                        <div>\n' +
+    '                                            <div\n' +
+    '                                                class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                                                <label for="first-name">{{\'SelectAddress\' | translate}}</label>\n' +
+    '                                             \n' +
+    '                                                <div ng-repeat="address in userAddresses">\n' +
+    '\n' +
+    '\n' +
+    '                                                    <input ng-change="addressInfo(address)" name="group2" type="radio"\n' +
+    '                                                        id="test{{address.addressId}}" ng-model="addresses.address"\n' +
+    '                                                        value="{{address.addressId}}" />\n' +
+    '                                                    <label for="test{{address.addressId}}">{{address.appartmentNo}},\n' +
+    '                                                        {{address.description}},\n' +
+    '                                                        {{\'Floor\' | translate}} {{address.floor}}</label>\n' +
+    ' \n' +
+    '                                                </div>\n' +
+    '                                            </div>\n' +
+    '                                        </div>\n' +
+    '                                    </div>\n' +
+    '                                </div>\n' +
+    '\n' +
+    '                                 <p>\n' +
     '                                <input name="group1" ng-click="CustomCtrl.changeOrderType()"\n' +
     '                                    ng-model="CustomCtrl.orderType.type" type="radio" id="test1" />\n' +
     '                                <label for="test1">{{\'Delivery\' | translate}}</label>\n' +
@@ -153,101 +186,105 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                <input name="group1" ng-click="CustomCtrl.changeOrderType()"\n' +
     '                                    ng-model="CustomCtrl.orderType.type" type="radio" id="test2" />\n' +
     '                                <label for="test2">{{\'PickUp\' | translate}}</label>\n' +
-    '                            </p>\n' +
-    '                            <div class="row" ng-if="CustomCtrl.orderType.type == \'delivery\'">\n' +
-    '                                <div class="col-md-6">\n' +
-    '                                    <div>\n' +
-    '                                        <div\n' +
-    '                                            class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                                            <label for="first-name">{{\'SelectAddress\' | translate}}</label>\n' +
+    '                            </p> -->\n' +
+    '                                <div class="row" ng-if="CustomCtrl.orderType.type == \'delivery\'">\n' +
+    '                                    <div class="col-md-6">\n' +
+    '                                        <div>\n' +
+    '                                            <div\n' +
+    '                                                class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                                                <label for="first-name">{{\'SelectAddress\' | translate}}</label>\n' +
     '\n' +
-    '                                            <div ng-repeat="address in CustomCtrl.userAddresses">\n' +
-    '                                                <label>\n' +
-    '                                                    <input name="group2" ng-change="CustomCtrl.addressInfo(address)"\n' +
-    '                                                        type="radio" ng-model="CustomCtrl.addresses.address"\n' +
-    '                                                        value="{{address.addressId}}"\n' +
-    '                                                        ng-required="CustomCtrl.orderType.type == \'delivery\'">\n' +
-    '                                                    <label for="addressRadio{{address.addressId}}">\n' +
-    '                                                        {{\'appartmentNo\' | translate}}: {{address.appartmentNo}}\n' +
-    '                                                        <br> {{\'Floor\' | translate}} : {{address.floor}}\n' +
-    '                                                        <br> {{\'appartmentNo\' | translate}} :\n' +
-    '                                                        {{address.description}}\n' +
+    '                                                <div ng-repeat="address in CustomCtrl.userAddresses">\n' +
+    '                                                    <label>\n' +
+    '                                                        <input name="group3" ng-change="CustomCtrl.addressInfo(address)"\n' +
+    '                                                            type="radio" ng-model="CustomCtrl.addresses.address"\n' +
+    '                                                            value="{{address.addressId}}"\n' +
+    '                                                            ng-required="CustomCtrl.orderType.type == \'delivery\'">\n' +
+    '                                                        <label for="addressRadio{{address.addressId}}">\n' +
+    '                                                            {{\'appartmentNo\' | translate}}: {{address.appartmentNo}}\n' +
+    '                                                            <br> {{\'Floor\' | translate}} : {{address.floor}}\n' +
+    '                                                            <br> {{\'appartmentNo\' | translate}} :\n' +
+    '                                                            {{address.description}}\n' +
+    '                                                        </label>\n' +
     '                                                    </label>\n' +
-    '                                                </label>\n' +
+    '                                                </div>\n' +
     '                                            </div>\n' +
     '                                        </div>\n' +
     '                                    </div>\n' +
     '                                </div>\n' +
-    '                            </div>\n' +
     '\n' +
-    '                            <div ng-show="CustomCtrl.orderType.type == \'pickup\'">\n' +
-    '                                <div class="row">\n' +
-    '                                    <div class="input-field col s6">\n' +
-    '                                        <select style="width:100% !important"\n' +
-    '                                            ng-required="CustomCtrl.orderType.type == \'pickup\'"\n' +
-    '                                            class=" select-tags form-control pmd-select2-tags" name="country"\n' +
-    '                                            ng-change="CustomCtrl.countryChange()"\n' +
-    '                                            ng-model="CustomCtrl.selectedCountryId"\n' +
-    '                                            ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in CustomCtrl.counties">\n' +
-    '                                        </select>\n' +
-    '                                        <span ng-show=\'stepTwoProgramForm.country.$error.required\'>\n' +
-    '                                            Email must be valid.\n' +
-    '                                        </span>\n' +
+    '                                <div ng-show="CustomCtrl.orderType.type == \'pickup\'">\n' +
+    '                                    <div class="row">\n' +
+    '                                        <div class="input-field col s6">\n' +
+    '                                            <select style="width:100% !important"\n' +
+    '                                                ng-required="CustomCtrl.orderType.type == \'pickup\'"\n' +
+    '                                                class=" select-tags form-control pmd-select2-tags" name="country"\n' +
+    '                                                ng-change="CustomCtrl.countryChange()"\n' +
+    '                                                ng-model="CustomCtrl.selectedCountryId"\n' +
+    '                                                ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in CustomCtrl.counties">\n' +
+    '                                            </select>\n' +
+    '                                            <span ng-show=\'stepTwoProgramForm.country.$error.required\'>\n' +
+    '                                                required\n' +
+    '                                            </span>\n' +
+    '                                        </div>\n' +
+    '                                        <div class="input-field col s6">\n' +
+    '                                            <select style="width:100% !important"\n' +
+    '                                                ng-required="CustomCtrl.orderType.type == \'pickup\' || CustomCtrl.selectedCountryId > 0"\n' +
+    '                                                class="select-tags form-control pmd-select2-tags"\n' +
+    '                                                ng-change="CustomCtrl.regionChange()"\n' +
+    '                                                ng-model="CustomCtrl.selectedRegionId"\n' +
+    '                                                ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in CustomCtrl.regions">\n' +
+    '                                            </select>\n' +
+    '                                        </div>\n' +
     '                                    </div>\n' +
-    '                                    <div class="input-field col s6">\n' +
-    '                                        <select style="width:100% !important"\n' +
-    '                                            ng-required="CustomCtrl.orderType.type == \'pickup\' || CustomCtrl.selectedCountryId > 0"\n' +
-    '                                            class="select-tags form-control pmd-select2-tags"\n' +
-    '                                            ng-change="CustomCtrl.regionChange()" ng-model="CustomCtrl.selectedRegionId"\n' +
-    '                                            ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in CustomCtrl.regions">\n' +
-    '                                        </select>\n' +
-    '                                    </div>\n' +
-    '                                </div>\n' +
-    '                                <div class="row">\n' +
-    '                                    <div class="input-field col s6">\n' +
-    '                                        <select\n' +
-    '                                            ng-required="CustomCtrl.orderType.type == \'pickup\'  || CustomCtrl.selectedRegionId > 0"\n' +
-    '                                            style="width:100% !important"\n' +
-    '                                            class="select-tags form-control pmd-select2-tags"\n' +
-    '                                            ng-change="CustomCtrl.cityChange()" ng-model="CustomCtrl.selectedCityId"\n' +
-    '                                            ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in CustomCtrl.cities">\n' +
-    '                                        </select>\n' +
-    '                                    </div>\n' +
-    '                                    <div class="input-field col s6">\n' +
-    '                                        <select\n' +
-    '                                            ng-required="CustomCtrl.orderType.type == \'pickup\' || CustomCtrl.selectedCityId > 0"\n' +
-    '                                            style="width:100% !important"\n' +
-    '                                            class="select-tags form-control pmd-select2-tags"\n' +
-    '                                            ng-change="CustomCtrl.areaChange()" ng-model="CustomCtrl.selectedAreaId"\n' +
-    '                                            ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in CustomCtrl.area">\n' +
-    '                                        </select>\n' +
-    '                                    </div>\n' +
-    '                                    <div class="input-field col s6">\n' +
+    '                                    <div class="row">\n' +
+    '                                        <div class="input-field col s6">\n' +
+    '                                            <select\n' +
+    '                                                ng-required="CustomCtrl.orderType.type == \'pickup\'  || CustomCtrl.selectedRegionId > 0"\n' +
+    '                                                style="width:100% !important"\n' +
+    '                                                class="select-tags form-control pmd-select2-tags"\n' +
+    '                                                ng-change="CustomCtrl.cityChange()" ng-model="CustomCtrl.selectedCityId"\n' +
+    '                                                ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in CustomCtrl.cities">\n' +
+    '                                            </select>\n' +
+    '                                        </div>\n' +
+    '                                        <div class="input-field col s6">\n' +
+    '                                            <select\n' +
+    '                                                ng-required="CustomCtrl.orderType.type == \'pickup\' || CustomCtrl.selectedCityId > 0"\n' +
+    '                                                style="width:100% !important"\n' +
+    '                                                class="select-tags form-control pmd-select2-tags"\n' +
+    '                                                ng-change="CustomCtrl.areaChange()" ng-model="CustomCtrl.selectedAreaId"\n' +
+    '                                                ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in CustomCtrl.area">\n' +
+    '                                            </select>\n' +
+    '                                        </div>\n' +
+    '                                        <div class="input-field col s6">\n' +
     '                                            <select\n' +
     '                                                ng-required="CustomCtrl.orderType.type == \'pickup\' || CustomCtrl.selectedAreaId > 0"\n' +
     '                                                style="width:100% !important"\n' +
     '                                                class="select-tags form-control pmd-select2-tags"\n' +
-    '                                                ng-change="CustomCtrl.branchChange()" ng-model="CustomCtrl.selectedBranchId"\n' +
+    '                                                ng-change="CustomCtrl.branchChange()"\n' +
+    '                                                ng-model="CustomCtrl.selectedBranchId"\n' +
     '                                                ng-options="group.branchId as group.titleDictionary[selectedLanguage] for group in CustomCtrl.branchList">\n' +
     '                                            </select>\n' +
     '                                        </div>\n' +
+    '                                    </div>\n' +
     '                                </div>\n' +
     '                            </div>\n' +
     '                        </div>\n' +
     '                    </div>\n' +
-    '                </div>\n' +
-    '                <div class="row">\n' +
-    '                    <div class="col-md-10"></div>\n' +
-    '                    <div class="col-md-2">\n' +
-    '                        {{ CustomCtrl.selectedAreaId}}\n' +
-    '                        {{stepTwoProgramForm.$invalid}}\n' +
-    '                        <button style="background-color: #e4e5e6;color: black!important;"\n' +
-    '                            ng-disabled="stepTwoProgramForm.$invalid || CustomCtrl.selectedAreaId <= 0"\n' +
-    '                            class="btn pmd-ripple-effect btn-primary" type="button"\n' +
-    '                            ng-click="CustomCtrl.AddNewProgram();">\n' +
-    '                            {{\'next\' | translate}}</button>\n' +
+    '                    <div class="row">\n' +
+    '                        <div class="col-md-10"></div>\n' +
+    '                        <div class="col-md-4">\n' +
+    '                            Program Price:{{ CustomCtrl.ProgramTotalPrice}}\n' +
+    '                            <br> Delivery:{{ CustomCtrl.DeliveryFees}}\n' +
+    '                            <br>Total :{{ CustomCtrl.Total}}\n' +
+    '                            <br>\n' +
+    '                            <button style="background-color: #e4e5e6;color: black!important;"\n' +
+    '                                ng-disabled="stepTwoProgramForm.$invalid || CustomCtrl.selectedBranchId <= 0"\n' +
+    '                                class="btn pmd-ripple-effect btn-primary" type="button"\n' +
+    '                                ng-click="CustomCtrl.AddNewProgram();">\n' +
+    '                                {{\'next\' | translate}}</button>\n' +
+    '                        </div>\n' +
     '                    </div>\n' +
-    '                </div>\n' +
     '            </form>\n' +
     '\n' +
     '\n' +
@@ -306,7 +343,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '										<ul>\n' +
     '											<li>Order Code: <span>#{{CustomCtrl.order.orderCode}}</span>\n' +
     '											</li>\n' +
-    '											<li>Price: <span>{{CustomCtrl.order.price}}</span>\n' +
+    '											<li>Price: <span>{{CustomCtrl.order.orderPrice}}</span>\n' +
     '											</li>\n' +
     '											<li>Type :\n' +
     '												<span>{{CustomCtrl.order.isDelivery ? \'Delivery\' : \'PickUp\'}}</span>\n' +
@@ -1053,6 +1090,382 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/register/templates/addUser.html',
+    '{{\'BasicInfoLbl\' | translate}}\n' +
+    '<form class="form-horizontal" name="newclientForm">\n' +
+    '\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '        <label for="first-name">{{\'FirstNameLbl\' | translate}}</label>\n' +
+    '        <input required type="text" class="mat-input form-control" name="firstName"  \n' +
+    '            ng-model="FirstName" ng-minlength="3" ng-maxlength="255">\n' +
+    '        <div ng-messages="newclientForm.firstName.$error" class="error">\n' +
+    '            <div ng-show="newclientForm.firstName.$error.pattern">{{\'TextOnly\' | translate}}</div>\n' +
+    '            <div ng-if="newclientForm.firstName.$error.required && !newclientForm.firstName.$pristine">{{\'FirstNameLengthError\'\n' +
+    '                | translate}}</div>\n' +
+    '            <div ng-if="(newclientForm.firstName.$error.minlength || newclientForm.firstName.$error.maxlength) ">{{\'NameLengthError255\'\n' +
+    '                | translate}}</div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '        <label for="first-name">{{\'LastNameLbl\' | translate}}</label>\n' +
+    '        <input required type="text" class="mat-input form-control" name="lastName"  \n' +
+    '            ng-model="LastName" ng-minlength="3" ng-maxlength="255">\n' +
+    '        <div ng-messages="newclientForm.lastName.$error">\n' +
+    '            <div ng-show="newclientForm.lastName.$error.pattern">{{\'TextOnly\' | translate}}</div>\n' +
+    '            <div ng-if="newclientForm.lastName.$error.required && !newclientForm.lastName.$pristine">{{\'lastName\' |\n' +
+    '                translate}}</div>\n' +
+    '            <div ng-if="(newclientForm.lastName.$error.minlength || newclientForm.lastName.$error.maxlength)">{{\'NameLengthError255\'\n' +
+    '                | translate}}</div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '        <label>{{\'EmailLbl\' | translate}}</label>\n' +
+    '        <input required type="text" class="mat-input form-control" name="userEmail" ng-model="Email"\n' +
+    '            ng-pattern="/^\\w+([-+.\']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$/">\n' +
+    '        <span class="error" ng-show="newclientForm.userEmail.$error.pattern">{{\'WrongMail\' | translate}} </span>\n' +
+    '        <!--\n' +
+    '                            <div ng-if="!newclientForm.email.$error.required &amp;&amp;\n' +
+    '                            newclientForm.userEmail.$error.email" class="error">{{\'WrongMail\' | translate}}\n' +
+    '                            </div> -->\n' +
+    '        <div ng-messages="newclientForm.email.$error">\n' +
+    '            <div ng-if="newclientForm.userEmail.$error.required && !newclientForm.userEmail.$pristine">{{\'EmailLengthError\'\n' +
+    '                | translate}}</div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '\n' +
+    '\n' +
+    '        <label for="first-name">{{\'phoneLbl\' | translate}}</label>\n' +
+    '        <input required type="text" class="mat-input form-control" name="phone" numbers-only ng-model="Phone"\n' +
+    '            ng-minlength="10" ng-maxlength="50">\n' +
+    '        <!-- <span class="error" ng-show="newclientForm.phone.$error.pattern">{{\'NotPhoneNumber\' | translate}}   </span> -->\n' +
+    '        <div ng-messages="newclientForm.phone.$error">\n' +
+    '            <div ng-if="newclientForm.phone.$error.required && !newclientForm.phone.$pristine">{{\'PhoneReqError\' |\n' +
+    '                translate}}</div>\n' +
+    '            <div ng-if="(newclientForm.phone.$error.minlength || newclientForm.phone.$error.maxlength)">{{\'PhoneLengthError\'\n' +
+    '                | translate}}</div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '        <label for="first-name">{{\'UserPasswordLbl\' | translate}}</label>\n' +
+    '        <input required type="password" class="mat-input form-control" name="password" ng-model="Password"\n' +
+    '            ng-minlength="8" ng-maxlength="25">\n' +
+    '        <div ng-messages="newclientForm.password.$error">\n' +
+    '            <div ng-if="newclientForm.password.$error.required && !newclientForm.password.$pristine">{{\'requiredErr\' |\n' +
+    '                translate}}</div>\n' +
+    '            <div\n' +
+    '                ng-if="(newclientForm.password.$error.minlength || newclientForm.password.$error.maxlength) && !newclientForm.password.newPassword.$error.required">\n' +
+    '                Password\n' +
+    '                length must be 8-25 char.</div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '        <label for="first-name">{{\'ConfirmPasswordLbl\' | translate}}</label>\n' +
+    '        <input required type="password" class="mat-input form-control" name="confirmPassword" ng-model="confirmPassword"\n' +
+    '            equalto="newclientForm.password">\n' +
+    '        <div ng-messages="newclientForm.confirmPassword.$error">\n' +
+    '            <div ng-if="newclientForm.confirmPassword.$error.required && !newclientForm.confirmPassword.$pristine">{{\'requiredErr\'\n' +
+    '                | translate}}</div>\n' +
+    '            <div ng-if="newclientForm.confirmPassword.$error.equalto && !newclientForm.confirmPassword.$error.required">{{\'passworddontmatch\'\n' +
+    '                | translate}}</div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'Country\' | translate}}</label>\n' +
+    '        <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
+    '            ng-change="userCtrl.countryChange()" ng-model="userCtrl.selectedCountryId"\n' +
+    '            ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in userCtrl.counties">\n' +
+    '        </select>\n' +
+    '    </div>\n' +
+    '    <div ng-show=" userCtrl.selectedCountryId > 0"\n' +
+    '        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'Region\' | translate}}</label>\n' +
+    '        <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
+    '            ng-change="userCtrl.regionChange()" ng-model="userCtrl.selectedRegionId"\n' +
+    '            ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in userCtrl.regions">\n' +
+    '        </select>\n' +
+    '    </div>\n' +
+    '    <div ng-show=" userCtrl.selectedRegionId > 0"\n' +
+    '        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'City\' | translate}}</label>\n' +
+    '        <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
+    '            ng-change="userCtrl.cityChange()" ng-model="userCtrl.selectedCityId"\n' +
+    '            ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in userCtrl.cities">\n' +
+    '        </select>\n' +
+    '    </div>\n' +
+    '    <div ng-show=" userCtrl.selectedCityId > 0"\n' +
+    '        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'Area\' | translate}}</label>\n' +
+    '        <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
+    '            ng-change="userCtrl.areaChange()" ng-model="userCtrl.selectedAreaId"\n' +
+    '            ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in userCtrl.area">\n' +
+    '        </select>\n' +
+    '    </div>\n' +
+    '    <div ng-show=" userCtrl.selectedAreaId > 0"\n' +
+    '        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'Branch\' | translate}}</label>\n' +
+    '        <select class="form-control select-with-search pmd-select2-tags" ng-change="userCtrl.branchChange()"\n' +
+    '            ng-model="userCtrl.selectedBranchId"\n' +
+    '            ng-options="a.branchId as a.titleDictionary[selectedLanguage] for a in userCtrl.branchList"></select>\n' +
+    '    </div>\n' +
+    '\n' +
+    '\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label> {{ \'Role\' | translate}} </label>\n' +
+    '        <select required style="width:100% !important" class="form-control select-with-search pmd-select2-tags" multiple\n' +
+    '            ng-model="userCtrl.selectedUserRoles"\n' +
+    '            ng-options="role as role.titleDictionary[selectedLanguage] for role in roleList"></select>\n' +
+    '\n' +
+    '    </div>\n' +
+    '</form>\n' +
+    '\n' +
+    '<div class="pmd-modal-action text-right">\n' +
+    '    <button style="background-color: #e4e5e6;color: black!important;"\n' +
+    '        ng-disabled="newclientForm.$invalid  || userCtrl.selectedUserRoles > 0 "\n' +
+    '        class="btn pmd-ripple-effect btn-primary" type="button" ng-click="AddNewclient()">{{\'saveChangesBtn\' |\n' +
+    '        translate}}</button>\n' +
+    '    <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="userCtrl.close()">{{\'DiscardBtn\' |\n' +
+    '        translate}}</button>\n' +
+    '</div>\n' +
+    '<!-- \n' +
+    '<div class="pmd-modal-action text-right">\n' +
+    '    <button ng-disabled="newclientForm.$invalid  && (userCtrl.selectedAreaId <= 0 || userCtrl.selectedBranchId <= 0))"\n' +
+    '        class="btn pmd-ripple-effect btn-primary" type="button" ng-click="AddNewclient()">{{\'NextLbl\' | translate}}</button>\n' +
+    '</div> -->\n' +
+    '<script type="text/javascript">\n' +
+    '    $(document).ready(function () {\n' +
+    '        // $(".select-add-tags").select2({\n' +
+    '        //     tags: true,\n' +
+    '        //     theme: "bootstrap",\n' +
+    '        //     insertTag: function (data, tag) { \n' +
+    '        //         data.push(tag); \n' +
+    '        //     }\n' +
+    '        // });\n' +
+    '        $(".select-tags").select2({\n' +
+    '            tags: false,\n' +
+    '            theme: "bootstrap",\n' +
+    '        })\n' +
+    '\n' +
+    '        $(".select-with-search").select2({\n' +
+    '            theme: "bootstrap"\n' +
+    '        });\n' +
+    '    });\n' +
+    '</script>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/register/templates/editUser.html',
+    '{{\'BasicInfoLbl\' | translate}}\n' +
+    '<br />\n' +
+    '<form class="form-horizontal" name="newclientForm" autocomplete="off">\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'FirstNameLbl\' | translate}}</label>\n' +
+    '        <input required type="text" class="mat-input form-control" name="firstName" ng-model="userObj.firstName"\n' +
+    '            minlength="3" maxlength="255">\n' +
+    '        <div ng-messages="newclientForm.firstName.$error">\n' +
+    '            <div ng-if="newclientForm.firstName.$error.required && !newclientForm.firstName.$pristine">{{\'FirstNameLengthError\'\n' +
+    '                | translate}}</div>\n' +
+    '            <div ng-if="(newclientForm.firstName.$error.minlength || newclientForm.firstName.$error.maxlength) && !newclientForm.firstName.$error.required">{{\'NameLengthError255\'\n' +
+    '                | translate}}</div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'LastNameLbl\' | translate}}</label>\n' +
+    '        <input required type="text" class="mat-input form-control" name="lastName" ng-model="userObj.lastName"\n' +
+    '            minlength="3" maxlength="255">\n' +
+    '        <div ng-messages="newclientForm.lastName.$error">\n' +
+    '            <div ng-if="newclientForm.lastName.$error.required && !newclientForm.lastName.$pristine">{{\'lastName\' |\n' +
+    '                translate}}</div>\n' +
+    '            <div ng-if="(newclientForm.lastName.$error.minlength || newclientForm.lastName.$error.maxlength) && !newclientForm.lastName.$error.required">{{\'LastNameLengthError\'\n' +
+    '                | translate}}</div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'EmailLbl\' | translate}}</label>\n' +
+    '\n' +
+    '        <input ng-disabled="true" required type="text" class="mat-input form-control" name="email" ng-model="userObj.email"\n' +
+    '            ng-minlength="3" ng-maxlength="50">\n' +
+    '        <div ng-messages="newclientForm.email.$error">\n' +
+    '            <div ng-if="newclientForm.email.$error.required && !newclientForm.email.$pristine">{{\'lastName\' |\n' +
+    '                translate}}</div>\n' +
+    '            <div ng-if="(newclientForm.email.$error.minlength || newclientForm.email.$error.maxlength) && !newclientForm.email.$error.required">{{\'LastNameLengthError\'\n' +
+    '                | translate}}</div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'phoneLbl\' | translate}}</label>\n' +
+    '\n' +
+    '        <input required type="text" class="mat-input form-control" numbers-only name="phone"\n' +
+    '            ng-model="userObj.phone" ng-pattern="phoneNumbr" ng-minlength="10" ng-maxlength="50">\n' +
+    '        <span class="error" ng-show="newclientForm.phone.$error.pattern">{{\'NotPhoneNumber\' | translate}} </span>\n' +
+    '        <div ng-messages="newclientForm.phone.$error">\n' +
+    '            <div ng-if="newclientForm.phone.$error.required && !newclientForm.phone.$pristine">{{\'PhoneReqError\' |\n' +
+    '                translate}}</div>\n' +
+    '            <div ng-if="(newclientForm.phone.$error.minlength || newclientForm.phone.$error.maxlength)">{{\'PhoneLengthError\'\n' +
+    '                | translate}}</div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'UserPasswordLbl\' | translate}}</label>\n' +
+    '\n' +
+    '        <input required type="password" class="mat-input form-control" name="password" ng-model="userObj.password"\n' +
+    '            ng-minlength="8" ng-maxlength="25">\n' +
+    '        <div ng-messages="newclientForm.password.$error">\n' +
+    '            <div ng-if="newclientForm.password.$error.required && !newclientForm.password.$pristine">{{\'requiredErr\' |\n' +
+    '                translate}}</div>\n' +
+    '            <div ng-if="(newclientForm.password.$error.minlength || newclientForm.password.$error.maxlength) && !newclientForm.password.newPassword.$error.required">Password\n' +
+    '                length must be 8-25 char.</div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'ConfirmPasswordLbl\' | translate}}</label>\n' +
+    '        <input required type="password" class="mat-input form-control" name="confirmPassword" ng-model="userObj.confirmPassword"\n' +
+    '            equalto="newclientForm.password">\n' +
+    '        <div ng-messages="newclientForm.confirmPassword.$error">\n' +
+    '            <div ng-if="newclientForm.confirmPassword.$error.required && !newclientForm.confirmPassword.$pristine">{{\'requiredErr\'\n' +
+    '                | translate}}</div>\n' +
+    '            <div ng-if="newclientForm.confirmPassword.$error.equalto && !newclientForm.confirmPassword.$error.required">{{\'passworddontmatch\'\n' +
+    '                | translate}}</div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'Country\' | translate}}</label>\n' +
+    '        <select ng-required="(selectedType.userTypeId == 3||selectedType.userTypeId == 4)" style="width:100% !important"\n' +
+    '            class="select-tags form-control pmd-select2-tags" ng-change="editUserCtrl.countryChange()" ng-model="editUserCtrl.selectedCountryId"\n' +
+    '            ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in editUserCtrl.counties">\n' +
+    '        </select>\n' +
+    '    </div>\n' +
+    '    <div ng-show=" editUserCtrl.selectedCountryId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'Region\' | translate}}</label>\n' +
+    '        <select ng-required="(selectedType.userTypeId == 3||selectedType.userTypeId == 4)&& editUserCtrl.selectedCountryId > 0"\n' +
+    '            style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="editUserCtrl.regionChange()"\n' +
+    '            ng-model="editUserCtrl.selectedRegionId" ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in editUserCtrl.regions">\n' +
+    '        </select>\n' +
+    '    </div>\n' +
+    '    <div ng-show=" editUserCtrl.selectedRegionId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'City\' | translate}}</label>\n' +
+    '        <select ng-required="(selectedType.userTypeId == 3||selectedType.userTypeId == 4)&& editUserCtrl.selectedRegionId > 0"\n' +
+    '            style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="editUserCtrl.cityChange()"\n' +
+    '            ng-model="editUserCtrl.selectedCityId" ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in editUserCtrl.cities">\n' +
+    '        </select>\n' +
+    '    </div>\n' +
+    '    <div ng-show=" editUserCtrl.selectedCityId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'Area\' | translate}}</label>\n' +
+    '        <select ng-required="(selectedType.userTypeId == 3||selectedType.userTypeId == 4)&& editUserCtrl.selectedCityId > 0"\n' +
+    '            style="width:100% !important" class="select-tags form-control pmd-select2-tags" ng-change="editUserCtrl.areaChange()"\n' +
+    '            ng-model="editUserCtrl.selectedAreaId" ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in editUserCtrl.areaList">\n' +
+    '        </select>\n' +
+    '    </div>\n' +
+    '    <div ng-show="  editUserCtrl.selectedAreaId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'Branch\' | translate}}</label>\n' +
+    '        <select ng-required="(selectedType.userTypeId == 3||selectedType.userTypeId == 4) && editUserCtrl.selectedAreaId > 0 "\n' +
+    '            class="form-control select-with-search pmd-select2-tags" multiple ng-change="editUserCtrl.branchChange()"\n' +
+    '            ng-model="editUserCtrl.selectedBranchId" ng-options="a.branchId as a.titleDictionary[selectedLanguage] for a in editUserCtrl.branchList"></select>\n' +
+    '    </div>\n' +
+    '    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '\n' +
+    '        <label> {{ \'Role\' | translate}} </label>\n' +
+    '        <select required style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" multiple\n' +
+    '            ng-model="editUserCtrl.selectedUserRoles" ng-options="role as role.titleDictionary[selectedLanguage] for role in roleList"></select>\n' +
+    '\n' +
+    '    </div>\n' +
+    '</form>\n' +
+    '<!-- <div class="pmd-modal-action text-right">\n' +
+    '    <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="newclientForm.$invalid || !editUserCtrl.show && editUserCtrl.selectedBranchId <= 0"\n' +
+    '        class="btn pmd-ripple-effect btn-primary" type="button" ng-click="Updateclient()">{{\'Edit\' | translate}}</button>\n' +
+    '</div> -->\n' +
+    '\n' +
+    '<div class="pmd-modal-action text-right">\n' +
+    '    <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="newclientForm.$invalid || !editUserCtrl.show && editUserCtrl.selectedBranchId <= 0"\n' +
+    '        class="btn pmd-ripple-effect btn-primary" type="button" ng-click="Updateclient()">{{\'saveChangesBtn\' |\n' +
+    '        translate}}</button>\n' +
+    '    <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editUserCtrl.close()">{{\'DiscardBtn\' |\n' +
+    '        translate}}</button>\n' +
+    '</div>\n' +
+    '\n' +
+    '<script type="text/javascript">\n' +
+    '    $(document).ready(function () {\n' +
+    '        $(".select-add-tags").select2({\n' +
+    '            tags: true,\n' +
+    '            theme: "bootstrap",\n' +
+    '            insertTag: function (data, tag) {\n' +
+    '                // Insert the tag at the end of the results\n' +
+    '                data.push(tag);\n' +
+    '                // console.log(data);\n' +
+    '            }\n' +
+    '        });\n' +
+    '        $(".select-tags").select2({\n' +
+    '            tags: false,\n' +
+    '            theme: "bootstrap",\n' +
+    '        })\n' +
+    '\n' +
+    '        $(".select-with-search").select2({\n' +
+    '            theme: "bootstrap"\n' +
+    '        });\n' +
+    '    });\n' +
+    '</script>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/register/templates/user.html',
+    '<div>\n' +
+    '    <div style="margin-bottom:10px">\n' +
+    '        <button style="background-color: #e4e5e6;color: black!important;" ng-click="$state.go(\'addUser\');"\n' +
+    '            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'AddUserBtn\' | translate}}</button>\n' +
+    '\n' +
+    '    </div>\n' +
+    '    <div ng-if="userCtrl.userList.results.length == 0">\n' +
+    '        <span>{{\'NouserAvailable\' | translate}}</span>\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="userList.length >0">\n' +
+    '\n' +
+    '        <div class="table-responsive">\n' +
+    '            <table class="table pmd-table table-hover">\n' +
+    '                <thead>\n' +
+    '                    <tr>\n' +
+    '                        <th>{{\'userName\' | translate}}</th>\n' +
+    '                        <th>{{\'EmailLbl\' | translate}}</th>\n' +
+    '                        <th>{{\'Phone1Lbl\' | translate}}</th>\n' +
+    '                        <th>{{\'Status\' | translate}}</th>\n' +
+    '                        <th></th>\n' +
+    '                    </tr>\n' +
+    '                </thead>\n' +
+    '                <tbody>\n' +
+    '                    <tr ng-repeat="user in userList">\n' +
+    '                        <td data-title="Name" width="20%">{{user.firstName}} {{user.lastName}}</td>\n' +
+    '                        <td data-title="Name" width="20%">{{user.email}} </td>\n' +
+    '\n' +
+    '                        <td data-title="Description">{{user.phone}}</td>\n' +
+    '                        <td>\n' +
+    '                            <div class="btn-switch" ng-class="{\'btn-switch--on\':user.isActive}" ng-model="user.isActive"\n' +
+    '                                ng-click="userCtrl.UpdateUser(user)">\n' +
+    '\n' +
+    '                                <div class="btn-switch-circle" ng-class="{\'btn-switch-circle--on\':user.isActive}"\n' +
+    '                                    ng-model="user.isActive" ng-click="userCtrl.UpdateUser(user)">\n' +
+    '                                </div>\n' +
+    '                        </td>\n' +
+    '                        <td width="30%">\n' +
+    '                            <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go(\'editUser\', {userId: user.userId});">mode_edit</i>\n' +
+    '                            <!-- <i class="material-icons pmd-md deleteButton cursorPointer font25" ng-click="CategoryCtrl.openDeleteDialog(Category,Category.titleDictionary[selectedLanguage],Category.categoryId)">delete</i> -->\n' +
+    '                        </td>\n' +
+    '                    </tr>\n' +
+    '                </tbody>\n' +
+    '            </table>\n' +
+    '        </div>\n' +
+    '\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount" paging-action="changePage(page)"\n' +
+    '        flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">\n' +
+    '    </div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/user/templates/home.html',
     '<script type="text/javascript">\n' +
     '	$(document).ready(function () {\n' +
@@ -1096,115 +1509,151 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '<section class="main" ng-style="style()">\n' +
     '	<!--TOP SECTION-->\n' +
     '	<!--Check Availability SECTION-->\n' +
-    '	<div class="inn-body-section inn-booking">\n' +
-    '		<div class="container">\n' +
-    '			<div class="row">\n' +
-    '				<!--TYPOGRAPHY SECTION-->\n' +
-    '				<div class="col-md-6">\n' +
-    '					<div class="book-title">\n' +
-    '						<h2>{{\'customiseProgram\' | translate}}</h2>\n' +
-    '						<p>{{\'DescribeCustomiseProgram\' | translate}}</p>\n' +
-    '					</div>\n' +
+    '</section>\n' +
+    '<div class="inn-body-section inn-booking">\n' +
+    '	<div class="container">\n' +
+    '		<div class="row">\n' +
+    '			<!--TYPOGRAPHY SECTION-->\n' +
+    '			<div class="col-md-6">\n' +
+    '				<div class="book-title">\n' +
+    '					<h2>{{\'customiseProgram\' | translate}}</h2>\n' +
+    '					<p>{{\'DescribeCustomiseProgram\' | translate}}</p>\n' +
     '				</div>\n' +
-    '				<div class="col-md-6">\n' +
-    '					<div class="book-form inn-com-form">\n' +
-    '						<form name="cutomizeProgram" class="col s12">\n' +
-    '							<div class="row">\n' +
+    '			</div>\n' +
+    '			<div class="col-md-6">\n' +
+    '				<div class="book-form inn-com-form">\n' +
+    '					<form name="cutomizeProgram" class="col s12">\n' +
+    '						<!-- <div class="row">\n' +
     '								<div class="input-field col s6">\n' +
-    '									<div ng-messages="cutomizeProgram.programName.$error">\n' +
-    '										<div ng-if="cutomizeProgram.programName.$error.required && !cutomizeProgram.programName.$pristine">{{\'requiredField\' | translate}}\n' +
-    '										</div>\n' +
-    '										<div ng-if="(cutomizeProgram.programName.$error.minlength || cutomizeProgram.programName.$error.maxlength)">{{\'minMaxLengthText\' | translate}}</div>\n' +
-    '									</div>\n' +
+    '									<input required type="text" class="validate" name="programName" ng-model="programName" minlength="1" maxlength="50">\n' +
+    '									<label>{{\'ProgramName\' | translate}}</label>\n' +
     '								</div>\n' +
     '								<div class="input-field col s6">\n' +
-    '									<div ng-messages="cutomizeProgram.programDescription.$error">\n' +
-    '										<div ng-if="cutomizeProgram.programDescription.$error.required && !cutomizeProgram.programDescription.$pristine">{{\'requiredField\' | translate}}\n' +
-    '										</div>\n' +
-    '										<div ng-if="(cutomizeProgram.programDescription.$error.minlength || cutomizeProgram.programDescription.$error.maxlength)">{{\'minMaxLengthText\' | translate}}</div>\n' +
-    '									</div>\n' +
+    '									<input required type="text" class="validate" name="programDescription" ng-model="programDescription" minlength="1" maxlength="50">\n' +
+    '									<label>{{\'ProgramDescription\' | translate}}</label>\n' +
     '								</div>\n' +
+    '							</div> -->\n' +
     '\n' +
-    '							</div>\n' +
-    '							<div class="row">\n' +
-    '								<div class="input-field col s6">\n' +
-    '									<input required numbers-only type="text" class="validate" name="mealPerDay" ng-model="mealPerDay" minlength="1" maxlength="2">\n' +
-    '									<label>{{\'MealPerDay\' | translate}}</label>\n' +
-    '								</div>\n' +
-    '								<div class="input-field col s6">\n' +
-    '									<input required numbers-only type="text" class="validate" name="programDaysCount" ng-model="programDaysCount" minlength="1"\n' +
-    '									 maxlength="2">\n' +
-    '									<label>{{\'ProgramDaysCount\' | translate}}</label>\n' +
-    '									<div ng-show="settingsPrepService.minNoDaysPerProgram > programDaysCount">\n' +
-    '										<p>{{\'minAllowedDays= \' | translate}} {{settingsPrepService.minNoDaysPerProgram}}</p>\n' +
+    '						<div class="row">\n' +
+    '							<div class="input-field col s6">\n' +
+    '								<div ng-messages="cutomizeProgram.programName.$error">\n' +
+    '									<div\n' +
+    '										ng-if="cutomizeProgram.programName.$error.required && !cutomizeProgram.programName.$pristine">\n' +
+    '										{{\'requiredField\' | translate}}\n' +
     '									</div>\n' +
+    '									<div\n' +
+    '										ng-if="(cutomizeProgram.programName.$error.minlength || cutomizeProgram.programName.$error.maxlength)">\n' +
+    '										{{\'minMaxLengthText\' | translate}}</div>\n' +
     '								</div>\n' +
     '							</div>\n' +
-    '\n' +
-    '							<div class="row">\n' +
-    '								<div class="input-field col s6">\n' +
-    '									<div ng-messages="cutomizeProgram.mealPerDay.$error">\n' +
-    '										<div ng-if="cutomizeProgram.mealPerDay.$error.required && !cutomizeProgram.mealPerDay.$pristine">{{\'requiredField\' | translate}}\n' +
-    '										</div>\n' +
-    '										<div ng-if="(cutomizeProgram.mealPerDay.$error.minlength || cutomizeProgram.mealPerDay.$error.maxlength)">{{\'minMaxLengthNum\' | translate}}</div>\n' +
-    '										<div ng-if="1 > mealPerDay">{{\'minMealsIsOne\' | translate}}</div>\n' +
+    '							<div class="input-field col s6">\n' +
+    '								<div ng-messages="cutomizeProgram.programDescription.$error">\n' +
+    '									<div\n' +
+    '										ng-if="cutomizeProgram.programDescription.$error.required && !cutomizeProgram.programDescription.$pristine">\n' +
+    '										{{\'requiredField\' | translate}}\n' +
     '									</div>\n' +
-    '								</div>\n' +
-    '								<div class="input-field col s6">\n' +
-    '									<div ng-messages="cutomizeProgram.programDaysCount.$error">\n' +
-    '										<div ng-if="cutomizeProgram.programDaysCount.$error.required && !cutomizeProgram.programDaysCount.$pristine">{{\'requiredField\' | translate}}\n' +
-    '										</div>\n' +
-    '										<div ng-if="(cutomizeProgram.programDaysCount.$error.minlength || cutomizeProgram.programDaysCount.$error.maxlength)">{{\'minMaxLengthNum\' | translate}}</div>\n' +
-    '									</div>\n' +
-    '								</div>\n' +
-    '\n' +
-    '							</div>\n' +
-    '\n' +
-    '							<div class="row">\n' +
-    '								<div class="input-field col s5">\n' +
-    '									<label>{{\'SelectExcludeDays\' | translate}}</label>\n' +
-    '								</div>\n' +
-    '								<div class="input-field col s7">\n' +
-    '									<!-- <input type="text" class="validate"> -->\n' +
-    '									<select style="width:100% !important" class="form-control select-tags pmd-select2-tags" multiple ng-model="SelectedDays"\n' +
-    '									 ng-options="day as day.dayNameDictionary[selectedLanguage] for day in dayList">\n' +
-    '									</select>\n' +
+    '									<div\n' +
+    '										ng-if="(cutomizeProgram.programDescription.$error.minlength || cutomizeProgram.programDescription.$error.maxlength)">\n' +
+    '										{{\'minMaxLengthText\' | translate}}</div>\n' +
     '								</div>\n' +
     '							</div>\n' +
     '\n' +
-    '							<div class="row">\n' +
-    '								<div class="col s6">\n' +
-    '									<p>\n' +
-    '										<input type="checkbox" id="test5" ng-model="isBreakFast" />\n' +
-    '										<label for="test5">{{\'IsBreakFast\' | translate}}</label>\n' +
-    '									</p>\n' +
-    '								</div>\n' +
-    '								<div class="col s6">\n' +
-    '									<p>\n' +
-    '										<input type="checkbox" id="test6" ng-model="isSnack" />\n' +
-    '										<label for="test6">{{\'IsSnack\' | translate}}</label>\n' +
-    '									</p>\n' +
+    '						</div>\n' +
+    '						<div class="row">\n' +
+    '							<div class="input-field col s6">\n' +
+    '								<input required numbers-only type="text" class="validate" name="mealPerDay"\n' +
+    '									ng-model="mealPerDay" minlength="1" maxlength="2">\n' +
+    '								<label>{{\'MealPerDay\' | translate}}</label>\n' +
+    '							</div>\n' +
+    '							<div class="input-field col s6">\n' +
+    '								<input required numbers-only type="text" class="validate" name="programDaysCount"\n' +
+    '									ng-model="programDaysCount" minlength="1" maxlength="2">\n' +
+    '								<label>{{\'ProgramDaysCount\' | translate}}</label>\n' +
+    '								<div ng-show="settingsPrepService.minNoDaysPerProgram > programDaysCount">\n' +
+    '									<p>{{\'minAllowedDays= \' | translate}}\n' +
+    '										{{settingsPrepService.minNoDaysPerProgram}}</p>\n' +
     '								</div>\n' +
     '							</div>\n' +
-    '							<div class="row">\n' +
-    '								<div class="input-field col s12">\n' +
-    '									<input name="itemDatetime" required ng-model="itemDatetime" type="text" id="startdate" class="form-control" />\n' +
-    '									<label for="from">Check In</label>\n' +
-    '								</div>\n' +
-    '							</div>\n' +
-    '							<div class="row">\n' +
-    '								<div class="col s6">\n' +
-    '									<div ng-messages="cutomizeProgram.itemDatetime.$error">\n' +
-    '										<div ng-if="cutomizeProgram.itemDatetime.$error.required && !cutomizeProgram.itemDatetime.$pristine">{{\'requiredField\' | translate}}</div>\n' +
+    '						</div>\n' +
+    '\n' +
+    '						<div class="row">\n' +
+    '							<div class="input-field col s6">\n' +
+    '								<div ng-messages="cutomizeProgram.mealPerDay.$error">\n' +
+    '									<div\n' +
+    '										ng-if="cutomizeProgram.mealPerDay.$error.required && !cutomizeProgram.mealPerDay.$pristine">\n' +
+    '										{{\'requiredField\' | translate}}\n' +
     '									</div>\n' +
+    '									<div\n' +
+    '										ng-if="(cutomizeProgram.mealPerDay.$error.minlength || cutomizeProgram.mealPerDay.$error.maxlength)">\n' +
+    '										{{\'minMaxLengthNum\' | translate}}</div>\n' +
+    '									<div ng-if="1 > mealPerDay">{{\'minMealsIsOne\' | translate}}</div>\n' +
     '								</div>\n' +
     '							</div>\n' +
-    '							<div class="row">\n' +
-    '								<div class="input-field col s12">\n' +
-    '									<input ng-disabled="cutomizeProgram.$invalid  || settingsPrepService.minNoDaysPerProgram > programDaysCount" type="submit"\n' +
-    '									 class="form-btn" ng-click="submitCustomise()">\n' +
+    '							<div class="input-field col s6">\n' +
+    '								<div ng-messages="cutomizeProgram.programDaysCount.$error">\n' +
+    '									<div\n' +
+    '										ng-if="cutomizeProgram.programDaysCount.$error.required && !cutomizeProgram.programDaysCount.$pristine">\n' +
+    '										{{\'requiredField\' | translate}}\n' +
+    '									</div>\n' +
+    '									<div\n' +
+    '										ng-if="(cutomizeProgram.programDaysCount.$error.minlength || cutomizeProgram.programDaysCount.$error.maxlength)">\n' +
+    '										{{\'minMaxLengthNum\' | translate}}</div>\n' +
     '								</div>\n' +
     '							</div>\n' +
+    '\n' +
+    '						</div>\n' +
+    '\n' +
+    '						<div class="row">\n' +
+    '							<!-- <div class="input-field col s6">\n' +
+    '								\n' +
+    '							</div> -->\n' +
+    '							<label>{{\'SelectExcludeDays\' | translate}}</label>\n' +
+    '\n' +
+    '							<div class="input-field col s12">\n' +
+    '								<select style="width:100% !important" class="form-control select-tags pmd-select2-tags"\n' +
+    '									multiple ng-model="SelectedDays"\n' +
+    '									ng-options="day as day.dayNameDictionary[selectedLanguage] for day in dayList">\n' +
+    '								</select>\n' +
+    '							</div>\n' +
+    '						</div>\n' +
+    '\n' +
+    '						<div class="row">\n' +
+    '							<div class="col s6">\n' +
+    '								<p>\n' +
+    '									<input type="checkbox" id="test5" ng-model="isBreakFast" />\n' +
+    '									<label for="test5">{{\'IsBreakFast\' | translate}}</label>\n' +
+    '								</p>\n' +
+    '							</div>\n' +
+    '							<div class="col s6">\n' +
+    '								<p>\n' +
+    '									<input type="checkbox" id="test6" ng-model="isSnack" />\n' +
+    '									<label for="test6">{{\'IsSnack\' | translate}}</label>\n' +
+    '								</p>\n' +
+    '							</div>\n' +
+    '						</div>\n' +
+    '						<div class="row">\n' +
+    '							<div class="input-field col s12">\n' +
+    '								<input name="itemDatetime" required ng-model="itemDatetime" type="text" id="startdate"\n' +
+    '									class="form-control" />\n' +
+    '								<label for="from">Check In</label>\n' +
+    '							</div>\n' +
+    '						</div>\n' +
+    '						<div class="row">\n' +
+    '							<div class="col s6">\n' +
+    '								<div ng-messages="cutomizeProgram.itemDatetime.$error">\n' +
+    '									<div\n' +
+    '										ng-if="cutomizeProgram.itemDatetime.$error.required && !cutomizeProgram.itemDatetime.$pristine">\n' +
+    '										{{\'requiredField\' | translate}}</div>\n' +
+    '								</div>\n' +
+    '							</div>\n' +
+    '						</div>\n' +
+    '						<div class="row">\n' +
+    '							<div class="input-field col s12">\n' +
+    '								<input\n' +
+    '									ng-disabled="cutomizeProgram.$invalid  || settingsPrepService.minNoDaysPerProgram > programDaysCount"\n' +
+    '									type="submit" class="form-btn" ng-click="submitCustomise()">\n' +
+    '							</div>\n' +
+    '						</div>\n' +
     '\n' +
     '						</form>\n' +
     '					</div>\n' +
@@ -1351,7 +1800,79 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '		</div>\n' +
     '	</div>\n' +
     '\n' +
-    '</section>\n' +
+    '\n' +
     '<!-- </form> -->\n' +
     '<!--END HEADER SECTION-->');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/core/login/templates/login.html',
+    '<div class="logincard" ng-if="!isLoggedIn()">\n' +
+    '    <div class="pmd-card card-default pmd-z-depth">\n' +
+    '        <div class="login-card">\n' +
+    '            <form ng-submit="submit(username,password)" name="loginForm" style="width: 50%;\n' +
+    '            margin-left: 25%;\n' +
+    '            margin-top: 10%;">\n' +
+    '                <div class="pmd-card-body">\n' +
+    '                    <!-- <div class="alert alert-success" role="alert"> Oh snap! Change a few things up and try submitting\n' +
+    '                        again. </div> -->\n' +
+    '                    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                        <label for="inputError1" class="control-label pmd-input-group-label">Email</label>\n' +
+    '                        <div class="input-group">\n' +
+    '                            <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">perm_identity</i>\n' +
+    '                            </div>\n' +
+    '                            <input type="text" class="form-control" id="exampleInputAmount" name="username"\n' +
+    '                                ng-pattern="/^\\w+([-+.\']\\w+)*@\\w+([-.]\\w+)*\\.\\w+([-.]\\w+)*$/" required\n' +
+    '                                ng-model="username" ng-change="reset()">\n' +
+    '\n' +
+    '                        </div>\n' +
+    '                        <span class="error" ng-show="loginForm.username.$error.pattern">{{\'WrongMail\' | translate}}\n' +
+    '                        </span>\n' +
+    '                        <div ng-messages="loginForm.email.$error">\n' +
+    '                            <div ng-if="loginForm.username.$error.required && !loginForm.username.$pristine">{{\'EmailLengthError\'\n' +
+    '                            | translate}}</div>\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '\n' +
+    '                    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                        <label for="inputError1" class="control-label pmd-input-group-label">Password</label>\n' +
+    '                        <div class="input-group">\n' +
+    '                            <div class="input-group-addon"><i class="material-icons md-dark pmd-sm">lock_outline</i>\n' +
+    '                            </div>\n' +
+    '                            <input required type="password" name="password" ng-model="password" ng-change="reset()"\n' +
+    '                                class="form-control" ng-minlength="8" ng-maxlength="25">\n' +
+    '\n' +
+    '                        </div>\n' +
+    '\n' +
+    '                        <span class="error" ng-show="loginForm.password.$error.pattern">{{\'WrongMail\' | translate}}\n' +
+    '                        </span>\n' +
+    '                        <div\n' +
+    '                            ng-if="(loginForm.password.$error.minlength || loginForm.password.$error.maxlength) && !loginForm.password.newPassword.$error.required">\n' +
+    '                            Password\n' +
+    '                            length must be 8-25 char.</div>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '                <div ng-if="invalidLoginInfo" class="loginFailed">\n' +
+    '                    <span>Incorrect username or password.</span>\n' +
+    '                </div>\n' +
+    '                <div ng-if="inActiveUser" class="loginFailed">\n' +
+    '                    <span>Your Account Is Disabled, Please contact to administrator.</span>\n' +
+    '                </div>\n' +
+    '\n' +
+    '\n' +
+    '                <div class="pmd-card-footer card-footer-no-border card-footer-p16 text-center">\n' +
+    '                    <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="loginForm.$invalid "\n' +
+    '                        class="btn pmd-ripple-effect btn-primary" type="submit">\n' +
+    '                        {{\'Login\' | translate}}</button>\n' +
+    '\n' +
+    '                    <button class="btn pmd-ripple-effect btn-primary" type="button" ng-click="Register()">\n' +
+    '                        {{\'Register\' | translate}}</button>\n' +
+    '\n' +
+    '                </div>\n' +
+    '            </form>\n' +
+    '        </div>\n' +
+    '\n' +
+    '\n' +
+    '    </div>\n' +
+    '</div>');
 }]);

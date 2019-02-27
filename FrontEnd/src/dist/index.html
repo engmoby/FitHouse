@@ -11,7 +11,7 @@
     <link rel="icon" href="/assets/img/cropped-favicon-32x32.png" sizes="32x32">
     <link rel="icon" href="/assets/img/cropped-favicon-192x192.png" sizes="192x192">
     <link rel="shortcut icon" href="/assets/img/cropped-favicon-192x192.png" type="image/x-icon">
-    <link rel="stylesheet" ng-href="bundle-{{selectedLanguage}}.css?v=f834f8dca22b6fbc5809e00b71048e8f" />
+    <link rel="stylesheet" ng-href="bundle-{{selectedLanguage}}.css?v=5aa87a14bd8180f6478bb41ad7330c39" />
     <script src="https://momentjs.com/downloads/moment.js"></script>
 
 </head>
@@ -57,7 +57,7 @@
         <div class="menu-section">
             <div class="container">
                 <div class="row">
-                    <div class="top-bar">
+                    <div class="top-bar" ng-show="isLoggedIn()" ng-cloak ng-init="logoutFlag=false">
                         <ul>
                             <li>
                                 <a ng-click="$state.go('aboutUs');" style="cursor: pointer;">{{'AboutUs' | translate}}</a>
@@ -70,10 +70,13 @@
                                     <i class="fa fa-angle-down"></i>
                                 </a>
                             </li>
+                            <li><a ng-click="logout()" style="cursor: pointer;">{{'logoutBtn' | translate}}</a>
+                            </li>
+
                         </ul>
                     </div>
-                    <div class="all-drop-down">
 
+                    <div class="all-drop-down">
                         <!-- Dropdown Structure -->
                         <ul id='dropdown2' class='dropdown-content drop-con-man'>
                             <li>
@@ -83,9 +86,6 @@
                                 <a ng-click="changeLanguage('ar')">عربي</a>
                             </li>
                         </ul>
-                        <!-- ROOM Dropdown Structure -->
-
-                        <!-- PAGES Dropdown Structure -->
 
                     </div>
                 </div>
@@ -96,7 +96,7 @@
                                 data-actual-width="700" data-actual-height="198" style="width: 180px; " />
                         </a>
                     </div>
-                    <div class="menu-bar">
+                    <div class="menu-bar" ng-show="isLoggedIn()" ng-cloak ng-init="logoutFlag=false">
                         <ul>
                             <li>
                                 <a ng-click="$state.go('home');" style="cursor: pointer;" class='dropdown-button' data-activates='drop-home'>{{'Home'| translate}}</a>
@@ -155,10 +155,12 @@
             </div>
         </div>
     </section>
-    <script src="libs.js?v=f834f8dca22b6fbc5809e00b71048e8f"></script>
-    <script src="core.js?v=f834f8dca22b6fbc5809e00b71048e8f"></script>
-    <script src="app.js?v=f834f8dca22b6fbc5809e00b71048e8f"></script>
-    <script src="templates.js?v=f834f8dca22b6fbc5809e00b71048e8f"></script>
+    <script src="libs.js?v=5aa87a14bd8180f6478bb41ad7330c39"></script>
+    <script src="core.js?v=5aa87a14bd8180f6478bb41ad7330c39"></script>
+    <script src="app.js?v=5aa87a14bd8180f6478bb41ad7330c39"></script>
+    <script src="templates.js?v=5aa87a14bd8180f6478bb41ad7330c39"></script>
+    <script src="https://rawgithub.com/McNull/angular-block-ui/bower/angular-block-ui.min.js"></script>
+    <link rel="stylesheet" href="https://rawgithub.com/McNull/angular-block-ui/bower/angular-block-ui.min.css">
 
 </body>
 
