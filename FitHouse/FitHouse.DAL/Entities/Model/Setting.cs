@@ -26,6 +26,8 @@ namespace FitHouse.DAL.Entities.Model
         //public long CurrencyId { get; set; }
         //public virtual Currency Currency { get; set; }
         public long MaxPauseDays { get; set; }
+        public long ProgramDiscount { get; set; }
+
         public long MinNoDaysPerProgram { get; set; }
 
     }

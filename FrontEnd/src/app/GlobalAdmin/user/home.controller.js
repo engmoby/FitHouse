@@ -39,15 +39,8 @@
             localStorage.setItem('isSnack', $scope.isSnack);
             localStorage.setItem('itemDatetime', $scope.itemDatetime);
             /*add here the disacount value*/
-            localStorage.setItem('ProgramDiscount', 0);
+            localStorage.setItem('ProgramDiscount', $scope.settingsPrepService.programDiscount);
             $state.go('Custom');
-        }
-
-        $scope.bookMeal = function (meal) {
-            // navigate to anothet page
-        }
-        $scope.bookProgram = function (program) {
-            // navigate to anothet page
         }
 
         $scope.style = function () {

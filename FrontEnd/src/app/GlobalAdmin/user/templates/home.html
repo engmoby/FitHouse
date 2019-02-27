@@ -33,7 +33,12 @@
 
 </script>
 
-
+<style>
+	button[disabled], html input[disabled] {
+    cursor: default;
+    background: #e2a3ab !important;
+}
+</style>
 
 <!--HEADER SECTION-->
 <!-- <form name="edithomeForm"> -->
@@ -88,10 +93,6 @@
 						</div>
 						<div class="row">
 							<div class="input-field col s6">
-								<input required numbers-only type="text" class="validate" name="mealPerDay" ng-model="mealPerDay" minlength="1" maxlength="2">
-								<label>{{'MealPerDay' | translate}}</label>
-							</div>
-							<div class="input-field col s6">
 								<input required numbers-only type="text" class="validate" name="programDaysCount" ng-model="programDaysCount" minlength="1"
 								 maxlength="2">
 								<label>{{'ProgramDaysCount' | translate}}</label>
@@ -100,9 +101,22 @@
 									</p>
 								</div>
 							</div>
+							<div class="input-field col s6">
+								<input required numbers-only type="text" class="validate" name="mealPerDay" ng-model="mealPerDay" minlength="1" maxlength="2">
+								<label>{{'MealPerDay' | translate}}</label>
+							</div>
 						</div>
 
 						<div class="row">
+							<div class="input-field col s6">
+								<div ng-messages="cutomizeProgram.programDaysCount.$error">
+									<div ng-if="cutomizeProgram.programDaysCount.$error.required && !cutomizeProgram.programDaysCount.$pristine">
+										{{'requiredField' | translate}}
+									</div>
+									<div ng-if="(cutomizeProgram.programDaysCount.$error.minlength || cutomizeProgram.programDaysCount.$error.maxlength)">
+										{{'minMaxLengthNum' | translate}}</div>
+								</div>
+							</div>
 							<div class="input-field col s6">
 								<div ng-messages="cutomizeProgram.mealPerDay.$error">
 									<div ng-if="cutomizeProgram.mealPerDay.$error.required && !cutomizeProgram.mealPerDay.$pristine">
@@ -113,16 +127,6 @@
 									<div ng-if="1 > mealPerDay">{{'minMealsIsOne' | translate}}</div>
 								</div>
 							</div>
-							<div class="input-field col s6">
-								<div ng-messages="cutomizeProgram.programDaysCount.$error">
-									<div ng-if="cutomizeProgram.programDaysCount.$error.required && !cutomizeProgram.programDaysCount.$pristine">
-										{{'requiredField' | translate}}
-									</div>
-									<div ng-if="(cutomizeProgram.programDaysCount.$error.minlength || cutomizeProgram.programDaysCount.$error.maxlength)">
-										{{'minMaxLengthNum' | translate}}</div>
-								</div>
-							</div>
-
 						</div>
 
 						<div class="row">
@@ -155,7 +159,7 @@
 						<div class="row">
 							<div class="input-field col s12">
 								<input name="itemDatetime" required ng-model="itemDatetime" type="text" id="startdate" class="form-control" />
-								<label for="from">{{'CheckIn' | translate}}</label>
+								<label for="from">{{'OrderStartDate' | translate}}</label>
 							</div>
 						</div>
 						<div class="row">
@@ -170,9 +174,10 @@
 							<div class="input-field col s12">
 								<input ng-disabled="cutomizeProgram.$invalid  || settingsPrepService.minNoDaysPerProgram > programDaysCount" type="submit"
 								 class="form-btn" ng-click="submitCustomise()">
+
+								 <!-- <button style="width: 90%; height: 50%;" class="form-btn" ng-disabled="cutomizeProgram.$invalid  || settingsPrepService.minNoDaysPerProgram > programDaysCount" ng-click="submitCustomise()"></button> -->
 							</div>
 						</div>
-
 					</form>
 				</div>
 			</div>
@@ -199,8 +204,6 @@
 			<div class="to-ho-hotel">
 				<!-- HOTEL GRID -->
 				<div ng-repeat="n in [] | range:6">
-
-
 					<div ng-click="$state.go('mealDetails', {mealId: mealsPrepService[n].mealId});" style="cursor: pointer !important;" ng-if="mealsPrepService[n] != undefined"
 					 class="col-md-4">
 						<div class="to-ho-hotel-con">
