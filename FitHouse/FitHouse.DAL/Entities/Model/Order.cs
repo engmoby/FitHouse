@@ -27,6 +27,7 @@ namespace FitHouse.DAL.Entities.Model
         public bool IsProgram { get; set; }
         public DateTime? PauseStart { get; set; }  
         public string OrderCode { get; set; }
+        public decimal Price { get; set; }
         public virtual Enums.OrderType Type { get; set; }
         public virtual Enums.OrderStatus OrderStatus { get; set; }
 

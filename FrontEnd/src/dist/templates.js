@@ -1475,7 +1475,12 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '\n' +
     '</script>\n' +
     '\n' +
-    '\n' +
+    '<style>\n' +
+    '	button[disabled], html input[disabled] {\n' +
+    '    cursor: default;\n' +
+    '    background: #e2a3ab !important;\n' +
+    '}\n' +
+    '</style>\n' +
     '\n' +
     '<!--HEADER SECTION-->\n' +
     '<!-- <form name="edithomeForm"> -->\n' +
@@ -1510,23 +1515,19 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '						<div class="row">\n' +
     '							<div class="input-field col s6">\n' +
     '								<div ng-messages="cutomizeProgram.programName.$error">\n' +
-    '									<div\n' +
-    '										ng-if="cutomizeProgram.programName.$error.required && !cutomizeProgram.programName.$pristine">\n' +
+    '									<div ng-if="cutomizeProgram.programName.$error.required && !cutomizeProgram.programName.$pristine">\n' +
     '										{{\'requiredField\' | translate}}\n' +
     '									</div>\n' +
-    '									<div\n' +
-    '										ng-if="(cutomizeProgram.programName.$error.minlength || cutomizeProgram.programName.$error.maxlength)">\n' +
+    '									<div ng-if="(cutomizeProgram.programName.$error.minlength || cutomizeProgram.programName.$error.maxlength)">\n' +
     '										{{\'minMaxLengthText\' | translate}}</div>\n' +
     '								</div>\n' +
     '							</div>\n' +
     '							<div class="input-field col s6">\n' +
     '								<div ng-messages="cutomizeProgram.programDescription.$error">\n' +
-    '									<div\n' +
-    '										ng-if="cutomizeProgram.programDescription.$error.required && !cutomizeProgram.programDescription.$pristine">\n' +
+    '									<div ng-if="cutomizeProgram.programDescription.$error.required && !cutomizeProgram.programDescription.$pristine">\n' +
     '										{{\'requiredField\' | translate}}\n' +
     '									</div>\n' +
-    '									<div\n' +
-    '										ng-if="(cutomizeProgram.programDescription.$error.minlength || cutomizeProgram.programDescription.$error.maxlength)">\n' +
+    '									<div ng-if="(cutomizeProgram.programDescription.$error.minlength || cutomizeProgram.programDescription.$error.maxlength)">\n' +
     '										{{\'minMaxLengthText\' | translate}}</div>\n' +
     '								</div>\n' +
     '							</div>\n' +
@@ -1534,46 +1535,40 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '						</div>\n' +
     '						<div class="row">\n' +
     '							<div class="input-field col s6">\n' +
-    '								<input required numbers-only type="text" class="validate" name="mealPerDay"\n' +
-    '									ng-model="mealPerDay" minlength="1" maxlength="2">\n' +
-    '								<label>{{\'MealPerDay\' | translate}}</label>\n' +
-    '							</div>\n' +
-    '							<div class="input-field col s6">\n' +
-    '								<input required numbers-only type="text" class="validate" name="programDaysCount"\n' +
-    '									ng-model="programDaysCount" minlength="1" maxlength="2">\n' +
+    '								<input required numbers-only type="text" class="validate" name="programDaysCount" ng-model="programDaysCount" minlength="1"\n' +
+    '								 maxlength="2">\n' +
     '								<label>{{\'ProgramDaysCount\' | translate}}</label>\n' +
     '								<div ng-show="settingsPrepService.minNoDaysPerProgram > programDaysCount">\n' +
-    '									<p>{{\'minAllowedDays= \' | translate}}\n' +
-    '										{{settingsPrepService.minNoDaysPerProgram}}</p>\n' +
+    '									<p>{{\'minAllowedDays= \' | translate}} {{settingsPrepService.minNoDaysPerProgram}}\n' +
+    '									</p>\n' +
     '								</div>\n' +
+    '							</div>\n' +
+    '							<div class="input-field col s6">\n' +
+    '								<input required numbers-only type="text" class="validate" name="mealPerDay" ng-model="mealPerDay" minlength="1" maxlength="2">\n' +
+    '								<label>{{\'MealPerDay\' | translate}}</label>\n' +
     '							</div>\n' +
     '						</div>\n' +
     '\n' +
     '						<div class="row">\n' +
     '							<div class="input-field col s6">\n' +
-    '								<div ng-messages="cutomizeProgram.mealPerDay.$error">\n' +
-    '									<div\n' +
-    '										ng-if="cutomizeProgram.mealPerDay.$error.required && !cutomizeProgram.mealPerDay.$pristine">\n' +
+    '								<div ng-messages="cutomizeProgram.programDaysCount.$error">\n' +
+    '									<div ng-if="cutomizeProgram.programDaysCount.$error.required && !cutomizeProgram.programDaysCount.$pristine">\n' +
     '										{{\'requiredField\' | translate}}\n' +
     '									</div>\n' +
-    '									<div\n' +
-    '										ng-if="(cutomizeProgram.mealPerDay.$error.minlength || cutomizeProgram.mealPerDay.$error.maxlength)">\n' +
+    '									<div ng-if="(cutomizeProgram.programDaysCount.$error.minlength || cutomizeProgram.programDaysCount.$error.maxlength)">\n' +
+    '										{{\'minMaxLengthNum\' | translate}}</div>\n' +
+    '								</div>\n' +
+    '							</div>\n' +
+    '							<div class="input-field col s6">\n' +
+    '								<div ng-messages="cutomizeProgram.mealPerDay.$error">\n' +
+    '									<div ng-if="cutomizeProgram.mealPerDay.$error.required && !cutomizeProgram.mealPerDay.$pristine">\n' +
+    '										{{\'requiredField\' | translate}}\n' +
+    '									</div>\n' +
+    '									<div ng-if="(cutomizeProgram.mealPerDay.$error.minlength || cutomizeProgram.mealPerDay.$error.maxlength)">\n' +
     '										{{\'minMaxLengthNum\' | translate}}</div>\n' +
     '									<div ng-if="1 > mealPerDay">{{\'minMealsIsOne\' | translate}}</div>\n' +
     '								</div>\n' +
     '							</div>\n' +
-    '							<div class="input-field col s6">\n' +
-    '								<div ng-messages="cutomizeProgram.programDaysCount.$error">\n' +
-    '									<div\n' +
-    '										ng-if="cutomizeProgram.programDaysCount.$error.required && !cutomizeProgram.programDaysCount.$pristine">\n' +
-    '										{{\'requiredField\' | translate}}\n' +
-    '									</div>\n' +
-    '									<div\n' +
-    '										ng-if="(cutomizeProgram.programDaysCount.$error.minlength || cutomizeProgram.programDaysCount.$error.maxlength)">\n' +
-    '										{{\'minMaxLengthNum\' | translate}}</div>\n' +
-    '								</div>\n' +
-    '							</div>\n' +
-    '\n' +
     '						</div>\n' +
     '\n' +
     '						<div class="row">\n' +
@@ -1583,9 +1578,8 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '							<label>{{\'SelectExcludeDays\' | translate}}</label>\n' +
     '\n' +
     '							<div class="input-field col s12">\n' +
-    '								<select style="width:100% !important" class="form-control select-tags pmd-select2-tags"\n' +
-    '									multiple ng-model="SelectedDays"\n' +
-    '									ng-options="day as day.dayNameDictionary[selectedLanguage] for day in dayList">\n' +
+    '								<select style="width:100% !important" class="form-control select-tags pmd-select2-tags" multiple ng-model="SelectedDays"\n' +
+    '								 ng-options="day as day.dayNameDictionary[selectedLanguage] for day in dayList">\n' +
     '								</select>\n' +
     '							</div>\n' +
     '						</div>\n' +
@@ -1606,28 +1600,26 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '						</div>\n' +
     '						<div class="row">\n' +
     '							<div class="input-field col s12">\n' +
-    '								<input name="itemDatetime" required ng-model="itemDatetime" type="text" id="startdate"\n' +
-    '									class="form-control" />\n' +
-    '								<label for="from">Check In</label>\n' +
+    '								<input name="itemDatetime" required ng-model="itemDatetime" type="text" id="startdate" class="form-control" />\n' +
+    '								<label for="from">{{\'OrderStartDate\' | translate}}</label>\n' +
     '							</div>\n' +
     '						</div>\n' +
     '						<div class="row">\n' +
     '							<div class="col s6">\n' +
     '								<div ng-messages="cutomizeProgram.itemDatetime.$error">\n' +
-    '									<div\n' +
-    '										ng-if="cutomizeProgram.itemDatetime.$error.required && !cutomizeProgram.itemDatetime.$pristine">\n' +
+    '									<div ng-if="cutomizeProgram.itemDatetime.$error.required && !cutomizeProgram.itemDatetime.$pristine">\n' +
     '										{{\'requiredField\' | translate}}</div>\n' +
     '								</div>\n' +
     '							</div>\n' +
     '						</div>\n' +
     '						<div class="row">\n' +
     '							<div class="input-field col s12">\n' +
-    '								<input\n' +
-    '									ng-disabled="cutomizeProgram.$invalid  || settingsPrepService.minNoDaysPerProgram > programDaysCount"\n' +
-    '									type="submit" class="form-btn" ng-click="submitCustomise()">\n' +
+    '								<input ng-disabled="cutomizeProgram.$invalid  || settingsPrepService.minNoDaysPerProgram > programDaysCount" type="submit"\n' +
+    '								 class="form-btn" ng-click="submitCustomise()">\n' +
+    '\n' +
+    '								 <!-- <button style="width: 90%; height: 50%;" class="form-btn" ng-disabled="cutomizeProgram.$invalid  || settingsPrepService.minNoDaysPerProgram > programDaysCount" ng-click="submitCustomise()"></button> -->\n' +
     '							</div>\n' +
     '						</div>\n' +
-    '\n' +
     '					</form>\n' +
     '				</div>\n' +
     '			</div>\n' +
@@ -1654,28 +1646,28 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '			<div class="to-ho-hotel">\n' +
     '				<!-- HOTEL GRID -->\n' +
     '				<div ng-repeat="n in [] | range:6">\n' +
-    '					<div ng-if="mealsPrepService[n] != undefined" class="col-md-4">\n' +
+    '					<div ng-click="$state.go(\'mealDetails\', {mealId: mealsPrepService[n].mealId});" style="cursor: pointer !important;" ng-if="mealsPrepService[n] != undefined"\n' +
+    '					 class="col-md-4">\n' +
     '						<div class="to-ho-hotel-con">\n' +
     '							<div class="to-ho-hotel-con-1">\n' +
-    '								<div class="hom-hot-av-tic" style="cursor: pointer !important;"\n' +
-    '									ng-click="bookMeal(mealsPrepService[n]);">{{\'Book\' | translate}}</div>\n' +
+    '								<!-- {{mealsPrepService[n].mealId}} -->\n' +
     '								<img src="https://fithouseksa.com/wp-content/uploads/2018/07/Grilled-steak.png" alt="">\n' +
     '							</div>\n' +
     '							<div class="to-ho-hotel-con-23">\n' +
     '								<div class="to-ho-hotel-con-2">\n' +
     '									<a>\n' +
-    '										<h4>{{mealsPrepService[n].mealNameDictionary[selectedLanguage]}}</h4>\n' +
+    '										<h4>{{mealsPrepService[n].mealNameDictionary[selectedLanguage] | limitTo:10}}</h4>\n' +
     '									</a>\n' +
     '								</div>\n' +
     '								<div class="to-ho-hotel-con-3">\n' +
     '									<ul>\n' +
-    '										<li>{{mealsPrepService[n].mealDescriptionDictionary[selectedLanguage]}}\n' +
-    '											<div class="dir-rat-star ho-hot-rat-star"> Rating:\n' +
-    '												<i class="fa fa-star" aria-hidden="true"></i>\n' +
-    '												<i class="fa fa-star" aria-hidden="true"></i>\n' +
-    '												<i class="fa fa-star" aria-hidden="true"></i>\n' +
-    '												<i class="fa fa-star" aria-hidden="true"></i>\n' +
-    '												<i class="fa fa-star-o" aria-hidden="true"></i>\n' +
+    '										<li>{{mealsPrepService[n].mealDescriptionDictionary[selectedLanguage] | limitTo:10}}\n' +
+    '											<div class="dir-rat-star ho-hot-rat-star">\n' +
+    '												<i aria-hidden="true"></i>\n' +
+    '												<i aria-hidden="true"></i>\n' +
+    '												<i aria-hidden="true"></i>\n' +
+    '												<i aria-hidden="true"></i>\n' +
+    '												<i aria-hidden="true"></i>\n' +
     '											</div>\n' +
     '										</li>\n' +
     '										<li>\n' +

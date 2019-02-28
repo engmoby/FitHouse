@@ -82,7 +82,7 @@ namespace FitHouse.API.Controllers
             }
 
 
-            _MealFacade.AddMeal(MealDto, HostingEnvironment.MapPath("~/Images/"));
+            _MealFacade.AddMeal(MealDto, HostingEnvironment.MapPath("~/Images/"));  
             return Ok();
         }
 

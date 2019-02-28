@@ -207,6 +207,7 @@ namespace FitHouse.BLL.Services
             order.OrderExpiration = null;
             order.PauseStart = null;
             order.OrderCode = rm.Next(10000, 1000000).ToString();
+            
 
             order.AddressId = (orderDto.AddressId == 0) ? null : orderDto.AddressId;
             var orderDetails = new List<OrderDetail>();
@@ -230,6 +231,7 @@ namespace FitHouse.BLL.Services
             {
                 order.OrderStatus = Enums.OrderStatus.Prepering;
                 order.OrderStartDate = orderDto.Day;
+                
                 foreach (var detail in orderDto.Meals)
                 {
                     var orderDetail = new OrderDetail();
@@ -238,6 +240,8 @@ namespace FitHouse.BLL.Services
                     orderDetail.Day = orderDto.Day;
                     orderDetail.Status = Enums.OrderStatus.Prepering;
                     orderDetails.Add(orderDetail);
+
+                    order.Price += detail.MealPrice;
                 }
             }
 
@@ -245,12 +249,13 @@ namespace FitHouse.BLL.Services
             {
                 order.OrderStatus = Enums.OrderStatus.Prepering;
                 order.OrderStartDate = orderDto.Day;
-                    var orderDetail = new OrderDetail();
-                    orderDetail.MealId = orderDto.Meal.MealId;
-                    orderDetail.Day = null;
-                    orderDetail.Day = orderDto.Day;
-                    orderDetail.Status = Enums.OrderStatus.Prepering;
-                    orderDetails.Add(orderDetail);
+                order.Price = orderDto.Meal.MealPrice;
+                var orderDetail = new OrderDetail();
+                orderDetail.MealId = orderDto.Meal.MealId;
+                orderDetail.Day = null;
+                orderDetail.Day = orderDto.Day;
+                orderDetail.Status = Enums.OrderStatus.Prepering;
+                orderDetails.Add(orderDetail);
             }
 
 
@@ -258,6 +263,7 @@ namespace FitHouse.BLL.Services
             {
                 order.IsProgram = true;
                 order.OrderStartDate = orderDto.Day;
+                order.Price = orderDto.Programs[0].Price;
 
                 foreach (var detail in orderDto.Programs)
                 {
@@ -328,9 +334,9 @@ namespace FitHouse.BLL.Services
             {
                 order.IsProgram = true;
                 order.OrderStartDate = orderDto.Day;
-
-               
-                    var details = _programDetailService.DistictProgramDays(orderDto.Program.ProgramId);
+                order.Price = orderDto.Program.Price;
+                
+                var details = _programDetailService.DistictProgramDays(orderDto.Program.ProgramId);
                     var lastDate = order.OrderStartDate;
                     var excludeDays = new List<ProgExcludeDay>();
                     foreach (var progDetail in details)

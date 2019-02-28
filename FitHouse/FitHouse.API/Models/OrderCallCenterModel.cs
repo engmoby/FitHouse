@@ -39,6 +39,6 @@ namespace FitHouse.API.Models
         public ProgramModel Program { get; set; }
         public DateTime Day { get; set; }
         public MealModel Meal { get; set; }
-
+        public decimal Price { get; set; }
     }
 }

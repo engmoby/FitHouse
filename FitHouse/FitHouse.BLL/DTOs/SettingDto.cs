@@ -19,6 +19,7 @@ namespace FitHouse.BLL.DTOs
         //public CurrencyDto Currency { get; set; }
         public long MaxPauseDays { get; set; }
         public string CurrencyCode { get; set; }
+        public long ProgramDiscount { get; set; }
 
         public long MinNoDaysPerProgram { get; set; }
     }

@@ -121,6 +121,17 @@
                     }
                 })
 
+                .state('Custom', {
+                    url: '/Custom',
+                    templateUrl: './app/GlobalAdmin/customProgram/templates/Custom.html',
+                    controller: 'CustomController',
+                    'controllerAs': 'CustomCtrl',
+                    resolve: {
+                        itemsPrepService: itemsPrepService,
+                        CountriesPrepService: CountriesPrepService
+                    }
+                })
+
                 .state('Summary', {
                     url: '/Summary',
                     templateUrl: './app/GlobalAdmin/customProgram/templates/Summary.html',

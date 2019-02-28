@@ -40,7 +40,7 @@
                 'width': '100%'
             };
         }
-
+        
         $scope.orderType = {
             type: 'delivery'
         };

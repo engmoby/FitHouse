@@ -110,6 +110,7 @@
                         CountriesPrepService: CountriesPrepService
                     }
                 })
+
                 .state('Custom', {
                     url: '/Custom',
                     templateUrl: './app/GlobalAdmin/customProgram/templates/Custom.html',
@@ -701,6 +702,11 @@
                 });
         }
 
+    angular
+        .module('home')
+        .controller('programDetailsController', ['$scope', '$stateParams', '$translate', 'appCONSTANTS'
+            , '$filter', 'progDetailsPrepService', 'itemsssPrepService', 'OrderResource'
+            , 'RegionResource', 'CityResource', 'AreaResource', 'CountriesPrepService', programDetailsController])
 
         $scope.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
         $scope.selectedCountryId = 0;
@@ -989,7 +995,7 @@
             };
         }
 
-        $scope.orderType = {
+                $scope.orderType = {
             type: 'delivery'
         };
         $scope.addresses = {
@@ -1393,6 +1399,15 @@
             }
             return total;
         }
+        vm.cityChange = function () {
+            funcCityChange();
+        }
+        function funcAreaChange() {
+            vm.branchList = [];
+            vm.selectedBranch = { branchId: 0, titleDictionary: { "en-us": "All Branches", "ar-eg": "كل الفروع" } };
+            vm.branchList.push(vm.selectedBranch);
+            if (vm.selectedArea.areaId > 0)
+                vm.branchList = vm.branchList.concat(vm.selectedArea.branches);
 
         function refreshOrders() {
             blockUI.start("Loading...");
@@ -1408,7 +1423,19 @@
                     ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
                 });
         }
+    }
 
+})();(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('userController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate', '$state', 'UserResource',
+            '$localStorage', 'authorizationService', 'appCONSTANTS',
+            'ToastService', 'CountriesPrepService', 'RegionResource', 'CityResource', 'AreaResource', userController]);
+
+    function userController($rootScope, blockUI, $scope, $filter, $translate, $state, UserResource, $localStorage, authorizationService, appCONSTANTS, ToastService, CountriesPrepService,
+        RegionResource, CityResource, AreaResource) {
 
         vm.currentPage = 1;
         $scope.changePage = function (page) {
@@ -1508,6 +1535,7 @@
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
                 });
+            blockUI.stop();
         }
         vm.regionChange = function () {
             if (vm.selectedRegionId != undefined) {
@@ -1567,6 +1595,8 @@
                 }
             }
         }
+        function refreshUsers() {
+            blockUI.start("Loading...");
 
 
         $scope.AddNewclient = function () {
@@ -1631,6 +1661,40 @@
         vm.UpdateUser = function (user) {
             change(user, false);
         }
+        vm.currentPage = 1;
+        $scope.changePage = function (page) {
+            vm.currentPage = page;
+            refreshUsers();
+        }
+
+        blockUI.stop();
+
+
+
+        function change(user, isDeleted) {
+            debugger;
+            var updateObj = new UserResource();
+            updateObj.userId = user.userId;
+            if (!isDeleted)
+                updateObj.isActive = (user.isActive == true ? false : true);
+            updateObj.isDeleted = user.isDeleted;
+
+            updateObj.$update().then(
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    user.isActive = updateObj.isActive;
+
+                },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+
+        }
+        vm.UpdateUser = function (user) {
+            change(user, false);
+        }
+
 
 
 
@@ -1692,11 +1756,6 @@
             localStorage.setItem('itemDatetime', $scope.itemDatetime);
             localStorage.setItem('ProgramDiscount', 0);
             $state.go('Custom');
-        }
-
-        $scope.bookMeal = function (meal) {
-        }
-        $scope.bookProgram = function (program) {
         }
 
         $scope.style = function () {

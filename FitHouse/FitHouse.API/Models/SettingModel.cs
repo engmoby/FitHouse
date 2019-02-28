@@ -20,5 +20,7 @@ namespace FitHouse.API.Models
         //public CurrencyDto Currency { get; set; }
         public long MaxPauseDays { get; set; }
         public long MinNoDaysPerProgram { get; set; }
+        public long ProgramDiscount { get; set; }
+
     }
 }
