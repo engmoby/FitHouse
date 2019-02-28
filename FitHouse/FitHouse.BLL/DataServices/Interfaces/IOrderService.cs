@@ -10,5 +10,6 @@ namespace FitHouse.BLL.DataServices.Interfaces
         PagedResultsDto GetAllOrdersForDelivery(long branchId, int page, int pageSize);
         PagedResultsDto GetAllOrdersForKitchen(long branchId, int page, int pageSize);
         PagedResultsDto GetAllOrdersForPickup(long branchId, int page, int pageSize);
+        PagedResultsDto GetOrderByClientId(long userId, int page, int pageSize);
     }
 }

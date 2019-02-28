@@ -13,8 +13,8 @@
       };
       return factory;
 
-      function responseErrorInterceptor(rejection) {
-          if(rejection.status == 403) {
+      function responseErrorInterceptor(rejection) { 
+        if(rejection.status == 403) {
               $rootScope.$broadcast(AUTH_EVENTS.failedToAuthorize);
           }else if (rejection.status == 401) {
             if (rejection.data=="password changed") {

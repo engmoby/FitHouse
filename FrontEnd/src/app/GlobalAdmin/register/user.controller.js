@@ -9,21 +9,22 @@
 
     function userController($rootScope, blockUI, $scope, $filter, $translate, $state, UserResource, $localStorage, authorizationService, appCONSTANTS, ToastService, CountriesPrepService,
         RegionResource, CityResource, AreaResource) {
-           
+
         var vm = this;
-        blockUI.start("Loading...");
+        //  blockUI.start($translate.instant('loading'));
         vm.close = function () {
-            $state.go('users');
-        } 
+            $state.go('login');
+        }
+        vm.selectedAreaId = 0;
         vm.counties = [];
         vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
         vm.selectedCountryId = 0;
         vm.counties = vm.counties.concat(CountriesPrepService.results)
- 
+
         $scope.phoneNumbr = /^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/;
         $scope.userObj = "";
-        $scope.selectedType = ""; 
-        vm.resetDLL = function () { 
+        $scope.selectedType = "";
+        vm.resetDLL = function () {
             vm.counties = [];
             vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
             vm.selectedCountryId = 0;
@@ -49,7 +50,6 @@
         }
 
         vm.countryChange = function () {
-            // vm.counties.splice(0, 1);
             for (var i = vm.counties.length - 1; i >= 0; i--) {
                 if (vm.counties[i].countryId == 0) {
                     vm.counties.splice(i, 1);
@@ -66,7 +66,7 @@
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
                 });
-            blockUI.stop();
+            //  blockUI.stop();
         }
         vm.regionChange = function () {
             // vm.regions.splice(0, 1);
@@ -108,7 +108,8 @@
             }
         }
         vm.areaChange = function () {
-            // vm.area.splice(0, 1);
+            debugger;
+            var dd = vm.selectedAreaId; // vm.area.splice(0, 1);
             if (vm.selectedAreaId != undefined && vm.selectedAreaId > 0) {
                 for (var i = vm.area.length - 1; i >= 0; i--) {
                     if (vm.area[i].areaId == 0) {
@@ -117,8 +118,8 @@
                 }
                 vm.branchList = [];
                 // vm.branchList.push({ branchId: 0, titleDictionary: { "en": "Select Branch", "ar": "اختار فرع" } });
-                vm.selectedBranchId = [0];
                 vm.branchList = vm.branchList.concat(($filter('filter')(vm.area, { areaId: vm.selectedAreaId }))[0].branches);
+                vm.selectedBranchId = vm.branchList[0].branchId;
             }
         }
         vm.branchChange = function () {
@@ -128,27 +129,10 @@
                 }
             }
         }
-        function refreshUsers() {
-            blockUI.start("Loading...");
-
-            var k = UserResource.getAllUsers({ page: vm.currentPage }).$promise.then(function (results) {
-                vm.getPageData = results;
-                $scope.userList = vm.getPageData.results;
-                console.log($scope.userList);
-                blockUI.stop();
-
-            },
-                function (data, status) {
-                    blockUI.stop();
-
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
-        }
 
 
         $scope.AddNewclient = function () {
-            blockUI.start("Loading...");
-
+            blockUI.start($translate.instant('loading'));
             var newClient = new UserResource();
             newClient.FirstName = $scope.FirstName;
             newClient.LastName = $scope.LastName;
@@ -159,20 +143,23 @@
             newClient.IsAdmin = true;
             newClient.UserRoles = vm.selectedUserRoles;
             newClient.branchId = vm.selectedBranchId;
+            newClient.code = 100;
+            newClient.isAddress = true;
+            newClient.floor = vm.FLoor;
+            newClient.appartmentNo = vm.AppartmentNo;
+            newClient.description = vm.AddressDescription;
             newClient.$create().then(
                 function (data, status) {
-                    blockUI.stop();
-
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('ClientAddSuccess'), "success");
-
-                    localStorage.setItem('data', JSON.stringify(data.userId));
-                    $state.go('users');
+                    debugger;
+                    //  localStorage.setItem('data', JSON.stringify(data.userId));
+                    $scope.submit($scope.Email, $scope.Password)
 
                 },
                 function (data, status) {
-                    blockUI.stop();
+                    blockUI.start(data.data.message);
+                    // debugger; 
+                    alert(data.data.message);
 
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 }
             );
         }
@@ -182,7 +169,7 @@
             refreshUsers();
         }
 
-        blockUI.stop();
+        // blockUI.stop();
 
 
 

@@ -18,5 +18,7 @@ namespace FitHouse.BLL.Services.Interfaces
         bool ChangeOrderDetailsStatus(long orderDetailsId, int status);
         bool ChangeOrderStatus(long orderId, int status);
         //OrderCallCenterDto CreateMeal(OrderCallCenterDto orderDto, long userId);
+        PagedResultsDto GetOrderByClientId(long userId, int page, int pageSize);
+
     }
 }

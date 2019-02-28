@@ -3,12 +3,12 @@
 
     angular
         .module('home')
-        .controller('loginController', ['$rootScope', '$scope', '$state', '$localStorage', 'authorizationService', 'appCONSTANTS','blockUI', loginController]);
+        .controller('loginController', ['$rootScope', '$scope', '$state','$translate', '$localStorage', 'authorizationService', 'appCONSTANTS','blockUI', loginController]);
 
-    function loginController($rootScope, $scope, $state, $localStorage, authorizationService, appCONSTANTS,blockUI) {
+    function loginController($rootScope, $scope, $state,$translate, $localStorage, authorizationService, appCONSTANTS,blockUI) {
+       // blockUI.start($translate.instant('loading'));
 
         if ($localStorage.authInfo) {
-            blockUI.start("Loading...");
             var user = authorizationService.getUser();
 
             // if (user.PermissionId[0] == 1)
@@ -26,8 +26,8 @@
             $state.go('login');
         }
 
-        $scope.Register = function () {
-         debugger;   $state.go('addUser');
+        $scope.Register = function () { 
+           $state.go('addUser');
 
         }
     }

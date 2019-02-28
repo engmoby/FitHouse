@@ -9,6 +9,9 @@ namespace FitHouse.BLL.Services.Interfaces
 {
     public interface IAddressFacade
     {
-       List<AddressDto> GetUserAddresses(long userId);
+        List<AddressDto> GetUserAddresses(long userId);
+        AddressDto CreateAddress(AddressDto addressDto, int userId);
+        AddressDto EditAddress(AddressDto addressDto, int userId);
+
     }
 }

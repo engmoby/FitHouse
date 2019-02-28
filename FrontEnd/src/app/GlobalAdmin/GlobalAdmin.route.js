@@ -28,6 +28,45 @@
                         CountriesPrepService: CountriesPrepService
                     }
                 })
+
+
+                .state('profile', {
+                    url: '/profile/:userId',
+                    templateUrl: './app/GlobalAdmin/register/templates/editUser.html',
+                    controller: 'editUserController',
+                    'controllerAs': 'editUserCtrl',
+                    resolve: {
+                        EditUserPrepService: EditUserPrepService,
+                        CountriesPrepService: CountriesPrepService,
+
+                    },
+                    data: {
+                        permissions: {
+                            only: ['1'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
+
+                .state('history', {
+                    url: '/history',
+                    templateUrl: './app/GlobalAdmin/register/templates/Order.html',
+                    controller: 'OrderController',
+                    'controllerAs': 'orderCtrl',
+                    resolve: {
+                        ordersPrepService: ordersPrepService
+
+                    },
+                    data: {
+                        permissions: {
+                            only: ['1'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
                 .state('program', {
                     url: '/program',
                     templateUrl: './app/GlobalAdmin/program/templates/program.html',
@@ -71,96 +110,96 @@
                         CountriesPrepService: CountriesPrepService
                     }
                 })
-
-        } 
+                .state('Custom', {
+                    url: '/Custom',
+                    templateUrl: './app/GlobalAdmin/customProgram/templates/Custom.html',
+                    controller: 'CustomController',
+                    'controllerAs': 'CustomCtrl',
+                    resolve: {
+                        itemsPrepService: itemsPrepService,
+                        CountriesPrepService: CountriesPrepService
+                    }
                 })
-    .state('Custom', {
-        url: '/Custom',
-        templateUrl: './app/GlobalAdmin/customProgram/templates/Custom.html',
-        controller: 'CustomController',
-        'controllerAs': 'CustomCtrl',
-        resolve: {
-            itemsPrepService: itemsPrepService,
-            CountriesPrepService: CountriesPrepService
-        }
-    })
 
-    .state('Summary', {
-        url: '/Summary',
-        templateUrl: './app/GlobalAdmin/customProgram/templates/Summary.html',
-        controller: 'CustomController',
-        'controllerAs': 'CustomCtrl',
-        resolve: {
-            itemsPrepService: itemsPrepService,
-            CountriesPrepService: CountriesPrepService
-        }
-    })
+                .state('Summary', {
+                    url: '/Summary',
+                    templateUrl: './app/GlobalAdmin/customProgram/templates/Summary.html',
+                    controller: 'CustomController',
+                    'controllerAs': 'CustomCtrl',
+                    resolve: {
+                        itemsPrepService: itemsPrepService,
+                        CountriesPrepService: CountriesPrepService
+                    }
+                })
 
         });
+ 
+    progDetailsPrepService.$inject = ['GetProgramDetailResource', '$stateParams']
+    function progDetailsPrepService(GetProgramDetailResource, $stateParams) {
+        return GetProgramDetailResource.getProgramDetail({ programId: $stateParams.programId }).$promise;
+    }
 
-/*Custom Program */
+    itemsssPrepService.$inject = ['GetItemsssResource']
+    function itemsssPrepService(GetItemsssResource) {
+        return GetItemsssResource.getAllItemsss().$promise;
+    }
 
-CountriesPrepService.$inject = ['CountryResource']
-function CountriesPrepService(CountryResource) {
-    return CountryResource.getAllCountries({ pageSize: 0 }).$promise;
-}
+    CategoreisPrepService.$inject = ['CustomsResourceCategories']
+    function CategoreisPrepService(CustomsResourceCategories) {
+        return CustomsResourceCategories.getAllCategories().$promise;
+    }
+    itemsPrepService.$inject = ['GetItemsResource']
+    function itemsPrepService(GetItemsResource) {
+        return GetItemsResource.getAllItemsCategorized().$promise;
+    }
+    CountriesPrepService.$inject = ['CountryResource']
+    function CountriesPrepService(CountryResource) {
+        return CountryResource.getAllCountries({ pageSize: 0 }).$promise;
+    }
 
-progDetailsPrepService.$inject = ['GetProgramDetailResource', '$stateParams']
-function progDetailsPrepService(GetProgramDetailResource, $stateParams) {
-    return GetProgramDetailResource.getProgramDetail({ programId: $stateParams.programId }).$promise;
-}
+    daysPrepService.$inject = ['GetDaysResource']
+    function daysPrepService(GetDaysResource) {
+        return GetDaysResource.gatAllDays().$promise;
+    }
 
-itemsssPrepService.$inject = ['GetItemsssResource']
-function itemsssPrepService(GetItemsssResource) {
-    return GetItemsssResource.getAllItemsss().$promise;
-}
+    mealsPrepService.$inject = ['GetMealsResource', '$stateParams']
+    function mealsPrepService(GetMealsResource, $stateParams) {
+        return GetMealsResource.getAllMeals().$promise;
+    }
 
-CategoreisPrepService.$inject = ['CustomsResourceCategories']
-function CategoreisPrepService(CustomsResourceCategories) {
-    return CustomsResourceCategories.getAllCategories().$promise;
-}
-itemsPrepService.$inject = ['GetItemsResource']
-function itemsPrepService(GetItemsResource) {
-    return GetItemsResource.getAllItemsCategorized().$promise;
-}
-CountriesPrepService.$inject = ['CountryResource']
-function CountriesPrepService(CountryResource) {
-    return CountryResource.getAllCountries({ pageSize: 0 }).$promise;
-}
+    mealPrepService.$inject = ['MealResource', '$stateParams']
+    function mealPrepService(MealResource, $stateParams) {
+        return MealResource.getMeal({ mealId: $stateParams.mealId }).$promise;
+    }
 
-daysPrepService.$inject = ['GetDaysResource']
-function daysPrepService(GetDaysResource) {
-    return GetDaysResource.gatAllDays().$promise;
-}
+    programPrepService.$inject = ['GetProgramResource']
+    function programPrepService(GetProgramResource) {
+        return GetProgramResource.gatAllPrograms().$promise;
+    }
 
-mealsPrepService.$inject = ['GetMealsResource', '$stateParams']
-function mealsPrepService(GetMealsResource, $stateParams) {
-    return GetMealsResource.getAllMeals().$promise;
-}
+    programNoPagePrepService.$inject = ['GetProgramResource']
+    function programNoPagePrepService(GetProgramResource) {
+        return GetProgramResource.gatAllPrograms({ pageSize: 0 }).$promise;
+    }
 
-mealPrepService.$inject = ['MealResource', '$stateParams']
-function mealPrepService(MealResource, $stateParams) {
-    return MealResource.getMeal({ mealId: $stateParams.mealId }).$promise;
-}
+    settingsPrepService.$inject = ['GetSettingsResource']
+    function settingsPrepService(GetSettingsResource) {
+        return GetSettingsResource.getAllSettings().$promise;
+    }
 
-programPrepService.$inject = ['GetProgramResource']
-function programPrepService(GetProgramResource) {
-    return GetProgramResource.gatAllPrograms().$promise;
-}
+    EditUserPrepService.$inject = ['UserResource', '$stateParams']
+    function EditUserPrepService(GetUserResource, $stateParams) {
+        return GetUserResource.getUser({ userId: $stateParams.userId }).$promise;
+    }
+    
+    // HistoryUserPrepService.$inject = ['HistoryResource', '$stateParams']
+    // function HistoryUserPrepService(HistoryResource, $stateParams) {
+    //     return HistoryResource.GetOrderByClientId().$promise;
+    // }
 
-programNoPagePrepService.$inject = ['GetProgramResource']
-function programNoPagePrepService(GetProgramResource) {
-    return GetProgramResource.gatAllPrograms({ pageSize: 0 }).$promise;
-}
-
-settingsPrepService.$inject = ['GetSettingsResource']
-function settingsPrepService(GetSettingsResource) {
-    return GetSettingsResource.getAllSettings().$promise;
-}
-
-/*User */
-CountriesPrepService.$inject = ['CountryResource']
-function CountriesPrepService(CountryResource) {
-    return CountryResource.getAllCountries({ pageSize: 0 }).$promise;
-}
+      /*Orders */
+      ordersPrepService.$inject = ['OrdersResource', '$stateParams']
+      function ordersPrepService(OrdersResource, $stateParams) {
+          return OrdersResource.getAllOrders().$promise;
+      }
 }());

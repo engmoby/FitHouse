@@ -22,16 +22,7 @@
                  
                 })
                 
-                // .state('addUser', {
-                //     url: '/addUser',
-                //     templateUrl: './app/GlobalAdmin/register/templates/addUser.html',
-                //     controller: 'userController',
-                //     'controllerAs': 'userCtrl', 
-                //     resolve: { 
-                //           CountriesPrepService: CountriesPrepService,
-
-                //     } 
-                // })
+             
                 .state('login', {
                     url: '/login',
                     templateUrl: './app/core/login/templates/login.html',
@@ -50,10 +41,5 @@
                     templateUrl: './app/shell/401.html'
                 })
         });
-    
-     /*User */ 
-     CountriesPrepService.$inject = ['CountryResource']
-     function CountriesPrepService(CountryResource) {
-         return CountryResource.getAllCountries({ pageSize: 0 }).$promise;
-     }
+     
 }());

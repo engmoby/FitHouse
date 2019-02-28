@@ -4,15 +4,15 @@
     angular
         .module('home')
         .controller('editUserController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate', '$state', 'UserResource',
-            'RoleResource', 'RolePrepService', '$localStorage', 'authorizationService', 'appCONSTANTS', 'EditUserPrepService',
+            '$localStorage', 'authorizationService', 'appCONSTANTS', 'EditUserPrepService',
             'ToastService', 'CountriesPrepService',
             'RegionResource', 'CityResource', 'AreaResource', editUserController]);
 
 
     function editUserController($rootScope, blockUI, $scope, $filter, $translate, $state, UserResource,
-        RoleResource, RolePrepService, $localStorage, authorizationService, appCONSTANTS, EditUserPrepService, ToastService,
+        $localStorage, authorizationService, appCONSTANTS, EditUserPrepService, ToastService,
         CountriesPrepService, RegionResource, CityResource, AreaResource) {
-
+        debugger;
         blockUI.start("Loading...");
 
         $scope.isPaneShown = true;
@@ -22,20 +22,11 @@
             $state.go('users');
         }
 
-        vm.show = true;
-        $scope.roleList = RolePrepService.results;
-        vm.selectedUserRoles = [];
+        vm.show = true; 
         $scope.userObj = EditUserPrepService;
         $scope.userObj.confirmPassword = $scope.userObj.password;
         console.log($scope.userObj);
-        init();
-        var i;
-        for (i = 0; i < $scope.userObj.userRoles.length; i++) {
-            var indexRate = $scope.roleList.indexOf($filter('filter')($scope.roleList, { 'roleId': $scope.userObj.userRoles[i].roleId }, true)[0]);
-            vm.selectedUserRoles.push($scope.roleList[indexRate]);
-
-        }
-
+        init(); 
 
         $scope.Updateclient = function () {
             blockUI.start("Loading...");
@@ -48,8 +39,7 @@
             newClient.phone = $scope.userObj.phone;
             newClient.email = $scope.userObj.email;
             newClient.password = $scope.userObj.password;
-            newClient.isActive = true;
-            newClient.userRoles = vm.selectedUserRoles;
+            newClient.isActive = true; 
             newClient.branchId = vm.selectedBranchId;//1;
             newClient.$update().then(
                 function (data, status) {

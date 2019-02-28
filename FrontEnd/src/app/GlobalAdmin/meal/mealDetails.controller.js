@@ -193,7 +193,7 @@
         }
 
         $scope.Order = function () {
-            // blockUI.start("Loading...");
+            // blockUI.start($translate.instant('loading'));
 
             var order = new OrderResource();
 

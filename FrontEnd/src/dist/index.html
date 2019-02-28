@@ -11,7 +11,7 @@
     <link rel="icon" href="/assets/img/cropped-favicon-32x32.png" sizes="32x32">
     <link rel="icon" href="/assets/img/cropped-favicon-192x192.png" sizes="192x192">
     <link rel="shortcut icon" href="/assets/img/cropped-favicon-192x192.png" type="image/x-icon">
-    <link rel="stylesheet" ng-href="bundle-{{selectedLanguage}}.css?v=03d8edf7d13026d3e00ec2a6297c0ffe" />
+    <link rel="stylesheet" ng-href="bundle-{{selectedLanguage}}.css?v=02550ce10cdab659d77c3c6e9e288b04" />
     <script src="https://momentjs.com/downloads/moment.js"></script>
 
 </head>
@@ -23,13 +23,22 @@
             <div class="mm-inn">
                 <div class="mm-logo">
                     <a href="index.html">
-                        <img src="/assets/img/logo-os-white.png" alt="Fit House Restaurant" id="logo" data-height-percentage="84" data-actual-width="700"
-                            data-actual-height="198" style="width: 180px; " />
+                        <img src="/assets/img/logo-os-white.png" alt="Fit House Restaurant" id="logo"
+                            data-height-percentage="84" data-actual-width="700" data-actual-height="198"
+                            style="width: 180px; " />
                     </a>
                 </div>
-
+                <div class="mm-icon">
+                    <span>
+                        <i class="fa fa-bars show-menu" aria-hidden="true"></i>
+                    </span>
+                </div>
                 <div class="mm-menu">
-
+                    <div class="mm-close">
+                        <span>
+                            <i class="fa fa-times hide-menu" aria-hidden="true"></i>
+                        </span>
+                    </div>
                     <ul>
                         </li>
                         <li>
@@ -51,14 +60,15 @@
                 <div class="row">
                     <div class="top-bar" ng-show="isLoggedIn()" ng-cloak ng-init="logoutFlag=false">
                         <ul>
+
+                            <li> <select class="select-simple form-control pmd-select2" ng-model="selectedLanguage"
+                                    ng-change="changeLanguage(selectedLanguage)">
+                                    <option ng-selected="selectedLanguage == item.id" ng-repeat="item in languages"
+                                        ng-value="item.id">{{item.label | translate}}</option>
+                                </select></li>
                             <li>
-                                <a ng-click="$state.go('aboutUs');" style="cursor: pointer;">{{'AboutUs' | translate}}</a>
-                            </li>
-                            <li>
-                                <a ng-click="$state.go('contactUs');" style="cursor: pointer;">{{'ContactUs' | translate}}</a>
-                            </li>
-                            <li>
-                                <a class='dropdown-button' href='#' data-activates='dropdown2'>{{'Language' | translate}}
+                                <a class='dropdown-button' href='#dropdown2'
+                                    data-activates='dropdown2'>{{'Language' | translate}}
                                     <i class="fa fa-angle-down"></i>
                                 </a>
                             </li>
@@ -84,27 +94,32 @@
                 <div class="row">
                     <div class="logo">
                         <a href="index.html">
-                            <img src="/assets/img/logo-os-white.png" alt="Fit House Restaurant" id="logo" data-height-percentage="84"
-                                data-actual-width="700" data-actual-height="198" style="width: 180px; " />
+                            <img src="/assets/img/logo-os-white.png" alt="Fit House Restaurant" id="logo"
+                                data-height-percentage="84" data-actual-width="700" data-actual-height="198"
+                                style="width: 180px; " />
                         </a>
                     </div>
                     <div class="menu-bar" ng-show="isLoggedIn()" ng-cloak ng-init="logoutFlag=false">
                         <ul>
-                            <li><a ng-click="$state.go('homePage');" style="cursor: pointer;" class='dropdown-button'
+                            <li>
+                                <a ng-click="$state.go('homePage');" style="cursor: pointer;" class='dropdown-button'
                                     data-activates='drop-home'>{{'Home'| translate}}</a>
                             </li>
-                            <li><a ng-click="$state.go('addUser');"
-                                    style="cursor: pointer;">{{'Leadership' | translate}}</a>
                             <li>
-                                <a ng-click="$state.go('home');" style="cursor: pointer;" class='dropdown-button' data-activates='drop-home'>{{'Home'| translate}}</a>
-                            </li>
-                            <li>
-                                <a ng-click="$state.go('program');" style="cursor: pointer;">{{'Programs' | translate}}</a>
+                                <a ng-click="$state.go('program');"
+                                    style="cursor: pointer;">{{'Programs' | translate}}</a>
                             </li>
                             <li>
                                 <a ng-click="$state.go('meal');" style="cursor: pointer;">{{'Meals' | translate}}</a>
                             </li>
+                            <li>
+                                <a ng-click="$state.go('history');" style="cursor: pointer;">{{'History' | translate}}</a>
+                            </li>
+                            <li>
+                                <a ng-click="$state.go('profile', {userId: user.id});" style="cursor: pointer;">{{'Profile' | translate}}</a>
+                            </li>
                         </ul>
+
                     </div>
                 </div>
             </div>
@@ -120,17 +135,20 @@
                     <div class="foot-com foot-1">
                         <ul>
                             <li>
-                                <a ng-show="contactUsHome.showFacebook == true" ng-href="{{contactUsHome.facebookLink}}" target="_blank">
+                                <a ng-show="contactUsHome.showFacebook == true" ng-href="{{contactUsHome.facebookLink}}"
+                                    target="_blank">
                                     <i class="fa fa-facebook" aria-hidden="true"></i>
                                 </a>
                             </li>
                             <li>
-                                <a ng-show="contactUsHome.showGmail == true" ng-href="{{contactUsHome.gmailLink}}" target="_blank">
+                                <a ng-show="contactUsHome.showGmail == true" ng-href="{{contactUsHome.gmailLink}}"
+                                    target="_blank">
                                     <i class="fa fa-google-plus" aria-hidden="true"></i>
                                 </a>
                             </li>
                             <li>
-                                <a ng-show="contactUsHome.showTwitter == true" ng-href="{{contactUsHome.twitterLink}}" target="_blank">
+                                <a ng-show="contactUsHome.showTwitter == true" ng-href="{{contactUsHome.twitterLink}}"
+                                    target="_blank">
                                     <i class="fa fa-twitter" aria-hidden="true"></i>
                                 </a>
                             </li>
@@ -152,11 +170,26 @@
             </div>
         </div>
     </section>
-    <script src="libs.js?v=86e5fcbfdcf95659af990f4cfcba1578"></script>
-    <script src="core.js?v=86e5fcbfdcf95659af990f4cfcba1578"></script>
-    <script src="app.js?v=86e5fcbfdcf95659af990f4cfcba1578"></script>
-    <script src="templates.js?v=86e5fcbfdcf95659af990f4cfcba1578"></script>
+    <script src="libs.js?v=02550ce10cdab659d77c3c6e9e288b04"></script>
+    <script src="core.js?v=02550ce10cdab659d77c3c6e9e288b04"></script>
+    <script src="app.js?v=02550ce10cdab659d77c3c6e9e288b04"></script>
+    <script src="templates.js?v=02550ce10cdab659d77c3c6e9e288b04"></script>
+    <script src="https://rawgithub.com/McNull/angular-block-ui/bower/angular-block-ui.min.js"></script>
+    <link rel="stylesheet" href="https://rawgithub.com/McNull/angular-block-ui/bower/angular-block-ui.min.css">
 
 </body>
+
+<script type="text/javascript">
+    $(document).ready(function () {
+        $(".select-tags").select2({
+            tags: false,
+            theme: "bootstrap",
+        })
+
+        $(".select-with-search").select2({
+            theme: "bootstrap"
+        });
+    });
+</script>
 
 </html>

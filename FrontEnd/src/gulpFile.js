@@ -84,7 +84,7 @@ var paths = {
     //   './node_modules/propellerkit/dist/js/propeller.min.js',
     // './node_modules/propellerkit/dist/js/bootstrap.min.js',
     // './node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js',
-    //   './node_modules/angular-paging/dist/paging.js',
+        './node_modules/angular-paging/dist/paging.js',
     //    './node_modules/ngprogress-lite/ngprogress-lite.min.js',
     //    './node_modules/angular-translate/dist/angular-translate.min.js',
     //    './node_modules/angular-ui-event/dist/event.min.js',
@@ -121,7 +121,7 @@ var paths = {
     './node_modules/select2-bootstrap-theme/dist/select2-bootstrap.min.css',
     // './assets/cssAR/*.css',
 
-    // './node_modules/ngprogress-lite/ngprogress-lite.css',
+      './node_modules/ngprogress-lite/ngprogress-lite.css',
     // './node_modules/nvd3/build/nv.d3.min.css',
     // // './node_modules/textAngular/dist/textAngular.css',
   ],

@@ -7,6 +7,7 @@
             'ui.router',
             'ngStorage',
             'permission',
+            'bw.paging',
             //'ui.event',
             'ngProgressLite',
            // 'ui.bootstrap', 

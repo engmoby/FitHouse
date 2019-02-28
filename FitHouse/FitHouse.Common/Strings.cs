@@ -8,6 +8,7 @@ namespace FitHouse.Common
 
         public const string JWT = "JWT";
         public const string userID = "UserID";
+        public const string IsAdmin = "false";
         public const string userName = "Name";
         public const string userRole = "Role";
        // public const string TenantId = "TenantId";

@@ -7,20 +7,20 @@
     .run(runBlock);
 
   config.$inject = ['ngProgressLiteProvider'];
-  runBlock.$inject = ['$rootScope', 'ngProgressLite','$transitions','blockUI'];
+  runBlock.$inject = ['$rootScope', 'ngProgressLite','$transitions','blockUI','$translate'];
 
   function config(ngProgressLiteProvider) {
     ngProgressLiteProvider.settings.speed = 1000;
 
   }
 
-  function runBlock($rootScope, ngProgressLite,$transitions,blockUI) {
+  function runBlock($rootScope, ngProgressLite,$transitions,blockUI,$translate) {
 
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
         startProgress();
     });
     $transitions.onStart({}, function(transition) {
-      blockUI.start("Loading..."); 
+      blockUI.start($translate.instant('loading')); 
     });
     $transitions.onSuccess({}, function(transition) {
       blockUI.stop();
