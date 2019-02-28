@@ -3,19 +3,21 @@
 
     angular
         .module('home')
-        .controller('mealDetailsController', ['$scope', '$stateParams', '$translate', 'appCONSTANTS'
+        .controller('mealDetailsController', ['$scope', '$stateParams', '$state', '$translate', 'appCONSTANTS'
             , '$filter', 'mealPrepService', 'itemsssPrepService', 'OrderResource'
-            , 'RegionResource', 'CityResource', 'AreaResource', 'CountriesPrepService', mealDetailsController])
+            , 'RegionResource', 'BranchResource', 'CityResource', 'AreaResource', 'CountriesPrepService', mealDetailsController])
 
-    function mealDetailsController($scope, $stateParams, $translate, appCONSTANTS
+    function mealDetailsController($scope, $stateParams, $state, $translate, appCONSTANTS
         , $filter, mealPrepService
-        , itemsssPrepService, OrderResource, RegionResource, CityResource, AreaResource
+        , itemsssPrepService, OrderResource, RegionResource, BranchResource, CityResource, AreaResource
         , CountriesPrepService) {
 
         $scope.mealPrepService = mealPrepService;
         $scope.itemsssPrepService = itemsssPrepService;
-        $scope.clientId = localStorage.getItem('ClientId');
-
+        $scope.Total = 0;
+        var vm = this;
+        $scope.clientId = $scope.user.id;// localStorage.getItem('ClientId');
+        $scope.DeliveryFees = 0;
         $scope.counties = [];
         $scope.fats = 0;
         $scope.carbs = 0;
@@ -40,7 +42,7 @@
                 'width': '100%'
             };
         }
-        
+
         $scope.orderType = {
             type: 'delivery'
         };
@@ -48,23 +50,48 @@
             address: 0
         };
 
-        $scope.addressValidation = false;
+        // $scope.addressValidation = false;
+        // $scope.addressInfo = function (address) {
+        //     $scope.addressDetails = address;
+        //     $scope.addressValidation = true;
+        // } 
+
         $scope.addressInfo = function (address) {
             $scope.addressDetails = address;
-            $scope.addressValidation = true;
+            $scope.selectedBranchId = $scope.addressDetails.branchId;
+            GetBranchDelivery();
+            debugger;
+            $scope.Total = $scope.mealPrepService.mealPrice + $scope.DeliveryFees;
         }
-
         $scope.dateIsValid = false;
         $scope.dateChange = function () {
-            if ($('#startdate').data('date') == null || $('#startdate').data('date') == "") {
+
+
+            if ($scope.itemDatetime == null || $scope.itemDatetime == "") {
                 $scope.dateIsValid = false;
                 // $scope.$apply();
-            } else if (!$scope.orderProgramForm.isInValid) {
-                $scope.dateIsValid = true;
+            } else if (!$scope.orderForm.isInValid) {
+
+                var GivenDate = $scope.itemDatetime;
+                var CurrentDate = new Date();
+                GivenDate = new Date(GivenDate);
+
+                GivenDate.setHours(CurrentDate.getHours());
+                GivenDate.setMinutes(CurrentDate.getMinutes());
+                GivenDate.setSeconds(CurrentDate.getSeconds());
+
+                if (GivenDate > CurrentDate) {
+                    // alert('Given date is greater than the current date.');
+                    $scope.dateIsValid = true;
+                }
+                else {
+                    alert('Given date is not greater than the current date.');
+                    //$scope.dateIsValid = false;
+
+                }
                 // $scope.$apply();
             }
         }
-
         if ($scope.orderType.type == 'delivery') {
             var k = OrderResource.getUserAddresses({ userId: $scope.clientId }).$promise.then(function (results) {
                 $scope.userAddresses = results;
@@ -78,6 +105,18 @@
                 });
         }
 
+        function GetBranchDelivery() {
+            var temp = new BranchResource();
+            temp.$getBranch({ branchId: $scope.selectedBranchId }).then(function (results) {
+                $scope.DeliveryFees = results.deliveryPrice;
+                // blockUI.stop();
+
+            },
+                function (data, status) {
+                    //   blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
 
         $scope.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
         $scope.selectedCountryId = 0;
@@ -91,24 +130,8 @@
             $scope.regions = [];
             $scope.cities = [];
             $scope.area = [];
-            $scope.categoryList = [];
         }
 
-        $scope.departmentChange = function () {
-            $scope.department.splice(0, 1);
-            $scope.categoryList = [];
-            $scope.categoryList.push({ categoryId: 0, titleDictionary: { "en": "Select Category", "ar": "اختار الفئة" } });
-            $scope.selectedCategoryId = 0;
-            $scope.categoryList = $scope.categoryList.concat(($filter('filter')($scope.department, { departmentId: $scope.selectedDepartmentId }))[0].categories);
-        }
-
-        $scope.categoryChange = function () {
-            for (var i = $scope.categoryList.length - 1; i >= 0; i--) {
-                if ($scope.categoryList[i].categoryId == 0) {
-                    $scope.categoryList.splice(i, 1);
-                }
-            }
-        }
 
         $scope.countryChange = function () {
             // $scope.counties.splice(0, 1);
@@ -190,6 +213,8 @@
                     $scope.branchList.splice(i, 1);
                 }
             }
+            $scope.DeliveryFees = 0;
+            $scope.Total = $scope.mealPrepService.mealPrice + $scope.DeliveryFees;
         }
 
         $scope.Order = function () {
@@ -211,8 +236,9 @@
                     // ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
 
                     // localStorage.setItem('data', JSON.stringify(data.userId));
-                    $state.go('meals');
-
+                    //  $state.go('meals');
+                    localStorage.setItem('OrderSummary', JSON.stringify(data));
+                    $state.go('Summary');
                 },
                 function (data, status) {
                     // blockUI.stop();

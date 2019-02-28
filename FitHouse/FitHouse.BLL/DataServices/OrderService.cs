@@ -54,26 +54,28 @@ namespace FitHouse.BLL.DataServices
             PagedResultsDto results = new PagedResultsDto();
             results.TotalCount = query.Select(x => x).Count();
             var data = query.OrderByDescending(x => x.OrderId).Skip((page - 1) * pageSize).Take(pageSize).ToList();
-            var orderDto = new List<OrderDto>(); 
-            foreach (var dto in data)
-            {
-                decimal price = 0;
-                if (dto.Type == Enums.OrderType.Item)
-                    price += dto.OrderDetails.Sum(dtoOrderDetail => dtoOrderDetail.Item.Price);
+            //var orderDto = new List<OrderFullDto>(); 
+            //foreach (var dto in data)
+            //{
+            //    decimal price = 0;
+            //    if (dto.Type == Enums.OrderType.Item)
+            //        price += dto.OrderDetails.Sum(dtoOrderDetail => dtoOrderDetail.Item.Price);
 
-                if (dto.Type == Enums.OrderType.Meal)
-                    price += dto.OrderDetails.Sum(dtoOrderDetail => dtoOrderDetail.Meal.MealPrice);
+            //    if (dto.Type == Enums.OrderType.Meal)
+            //        price += dto.OrderDetails.Sum(dtoOrderDetail => dtoOrderDetail.Meal.MealPrice);
 
-                if (dto.Type == Enums.OrderType.Program)
-                    foreach (var dtoOrderDetail in dto.OrderDetails)
-                        price = dtoOrderDetail.Program.Price;
+            //    if (dto.Type == Enums.OrderType.Program)
+            //        foreach (var dtoOrderDetail in dto.OrderDetails)
+            //            price = dtoOrderDetail.Program.Price;
 
-                var convertToDto = Mapper.Map<OrderDto>(dto);
-                convertToDto.Price = price;
-                orderDto.Add(convertToDto);
-            }
-            results.Data = orderDto;
+            //    var convertToDto = Mapper.Map<OrderFullDto>(dto);
+            //     convertToDto.Price = price;
+            //    orderDto.Add(convertToDto);
+            //}
 
+            results.Data = Mapper.Map<List<OrderFullDto>>(data);
+
+            //results.Data = orderDto;
             return results;
         }
         public PagedResultsDto GetAllOrdersForDelivery(long branchId, int page, int pageSize)

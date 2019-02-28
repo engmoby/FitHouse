@@ -25,6 +25,7 @@
 		vm.clientId = user.UserId;
 		vm.order = JSON.parse(localStorage.getItem("OrderSummary"));
 		vm.Total = 0;
+		vm.DeliveryFees = 0;
 
 		$scope.getData = function (itemModel, day, meal) {
 
@@ -234,7 +235,8 @@
 			//GetBranchDelivery();
 		}
 		function GetBranchDelivery() {
-			var k = BranchResource.getBranch({ branchId: vm.selectedBranchId }).$promise.then(function (results) {
+			var temp = new BranchResource();
+            temp.$getBranch({ branchId: vm.selectedBranchId }).then(function (results) {
 				vm.DeliveryFees = results.deliveryPrice;
 				// blockUI.stop();
 

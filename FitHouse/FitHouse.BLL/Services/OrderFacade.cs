@@ -403,6 +403,7 @@ namespace FitHouse.BLL.Services
             _orderDetailsService.InsertRange(orderDetails);
             _orderService.Insert(order);
             SaveChanges();
+            orderDto = Mapper.Map<OrderCallCenterDto>(order);
 
             return orderDto;
         }

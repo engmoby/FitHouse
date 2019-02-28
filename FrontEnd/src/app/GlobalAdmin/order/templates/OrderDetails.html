@@ -1,0 +1,92 @@
+<div class="inn-banner">
+    <div class="container">
+        <div class="row">
+            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
+                laoreet.
+                <p>
+                    <ul>
+                        <li><a href="$state.go('homePage');">Home</a>
+                        </li> 
+                    </ul>
+        </div>
+    </div>
+</div>
+<div class="inn-body-section pad-bot-55">
+    <div class="container">
+
+        <div class="row">
+            <!--TYPOGRAPHY SECTION-->
+            <div class="col-md-12">
+                <div class="hp-section">
+                    <div class="hp-sub-tit">
+                        <h4>
+                            <span>{{'MealDetails' | translate}}</span>
+                        </h4> 
+                    </div>
+                    <div class="hp-over">
+                        <ul class="nav nav-tabs hp-over-nav">
+                            <li class="active">
+                                <a data-toggle="tab" data-target="#home" style="cursor: pointer;">
+                                    <img src="/assets/img/cropped-favicon-32x32.png" alt="">
+                                    <span class="tab-hide">{{'Details' | translate}}</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a data-toggle="tab" data-target="#menu1" style="cursor: pointer;">
+                                    <img src="/assets/img/cropped-favicon-32x32.png" alt="">
+                                    <span class="tab-hide">{{'Summary' | translate}}</span>
+                                </a>
+                            </li> 
+                        </ul>
+                        <div class="tab-content">
+                            <div id="home" class="tab-pane fade in active tab-space">
+                                <div
+                                    class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                    <label for="first-name">{{'Items' | translate}}</label>
+                                    <ul>
+                                        <li ng-repeat="detail in OrderMealPrepService.mealDetails">
+                                            <!-- {{detail}} -->
+                                            <div class="res-menu">
+                                                <!-- {{item.itemNameDictionary[selectedLanguage]}} -->
+                                                <img src="/assets/img/meal.jpeg" alt="" />
+                                                <h3> {{detail.item.itemNameDictionary[selectedLanguage]}}
+                                                    <span>{{detail.item.price}}</span>
+                                                </h3>
+                                                <span
+                                                    class="menu-item">{{detail.item.itemDescriptionDictionary[selectedLanguage] }}</span>
+                                                <!-- | limitTo:10 -->
+                                            </div>
+
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                            <div id="menu1" class="tab-pane fade in   tab-space">
+                                <div class="hp-main-overview">
+                                    <ul>
+                                        <li>{{'Fats' | translate}}:
+                                            <span>{{fats}}</span>
+                                        </li>
+                                        <li>{{'Carbs' | translate}}:
+                                            <span>{{carbs}}</span>
+                                        </li>
+                                        <li>{{'Protein' | translate}}:
+                                            <span>{{protein}}</span>
+                                        </li>
+                                        <li>{{'Calories' | translate}}:
+                                            <span>{{calories}}</span>
+                                        </li>
+                                        <li>{{'TotalPrice' | translate}}:
+                                            <span class="ov-yes">{{OrderMealPrepService.mealPrice}}</span>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div> 
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

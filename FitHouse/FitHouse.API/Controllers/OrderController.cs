@@ -169,7 +169,7 @@ namespace FitHouse.API.Controllers
         public IHttpActionResult GetOrderByClientId(int page = Page, int pagesize = PageSize)
         { 
             PagedResultsDto orderObj = _orderFacade.GetOrderByClientId(UserId, page, pagesize);
-            var data = Mapper.Map<List<OrderModel>>(orderObj.Data);
+            var data = Mapper.Map<List<OrderFullDto>>(orderObj.Data);
             return PagedResponse("GetOrderByClientId", page, pagesize, orderObj.TotalCount, data);
         }
     }

@@ -2,7 +2,7 @@
 <html lang="en" ng-app="home" ng-cloak ng-controller="homeCtrl">
 
 <head>
-    <title>Mezab Al-Rahma</title>
+    <title>FitHouse</title>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="description" content="">
@@ -113,10 +113,16 @@
                                 <a ng-click="$state.go('meal');" style="cursor: pointer;">{{'Meals' | translate}}</a>
                             </li>
                             <li>
-                                <a ng-click="$state.go('history');" style="cursor: pointer;">{{'History' | translate}}</a>
+                                <a ng-click="$state.go('history');"
+                                    style="cursor: pointer;">{{'History' | translate}}</a>
                             </li>
                             <li>
-                                <a ng-click="$state.go('profile', {userId: user.id});" style="cursor: pointer;">{{'Profile' | translate}}</a>
+                                <a ng-click="$state.go('profile', {userId: user.id});"
+                                    style="cursor: pointer;">{{'Profile' | translate}}</a>
+                            </li>
+                            <li>
+                                <a ng-click="$state.go('Address', {userId: user.id});"
+                                    style="cursor: pointer;">{{'Address' | translate}}</a>
                             </li>
                         </ul>
 

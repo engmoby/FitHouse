@@ -1,0 +1,69 @@
+<div class="inn-banner">
+    <div class="container">
+        <div class="row">
+            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
+                laoreet.
+                <p>
+                    <ul>
+                        <li><a href="$state.go('homePage');">Home</a>
+                        </li>
+                        <li><a href="#"></a>Table</a>
+                        </li>
+                    </ul>
+        </div>
+    </div>
+</div>
+
+<div class="inn-body-section pad-bot-55">
+    <div class="container">
+
+        <div class="row">
+            <!--TYPOGRAPHY SECTION-->
+            <div class="col-md-12">
+                <div class="head-typo typo-com">
+                    <h3>{{'Address' | translate}}</h3>
+
+                    <div style="margin-bottom:10px">
+                        <button style="background-color: #e4e5e6;color: black!important;"
+                            ng-click="$state.go('newAddress');" class="btn pmd-ripple-effect btn-primary pmd-z-depth"
+                            type="button">{{'AddBtn'
+                | translate}}</button>
+
+                    </div>
+                    <div ng-if="AddressList.length == 0">
+                        <span>{{'NoAddressAvailable' | translate}}</span>
+                    </div>
+                    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="AddressList.length > 0">
+                        <div class="table-responsive"></div>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>{{'appartmentNo' | translate}}</th>
+                                    <th>{{'floor' | translate}}</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr ng-repeat="address in AddressList">
+                                    <td data-title="Name">{{address.appartmentNo}}</td>
+
+                                    <td data-title="Name">{{address.floor}}</td>
+
+                                    <td width="30%" ng-show="!address.isStatic">
+                                        <i class="material-icons md-dark pmd-md cursorPointer font25"
+                                            ng-click="$state.go('editaddress',{addressId: address.addressId});">mode_edit</i>
+
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"
+                        paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"
+                        hide-if-empty="true" disabled-class="hide">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

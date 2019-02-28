@@ -1,3 +1,51 @@
+(function() {
+  'use strict';
+
+  angular
+    .module('home')
+    .config(config)
+    .run(runBlock);
+
+  config.$inject = ['ngProgressLiteProvider'];
+  runBlock.$inject = ['$rootScope', 'ngProgressLite','$transitions','blockUI','$translate'];
+
+  function config(ngProgressLiteProvider) {
+    ngProgressLiteProvider.settings.speed = 1000;
+
+  }
+
+  function runBlock($rootScope, ngProgressLite,$transitions,blockUI,$translate) {
+
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+        startProgress();
+    });
+    $transitions.onStart({}, function(transition) {
+      blockUI.start($translate.instant('loading')); 
+    });
+    $transitions.onSuccess({}, function(transition) {
+      blockUI.stop();
+    });
+    $transitions.onError({  }, function(transition) {
+      blockUI.stop();
+    });
+    var routingDoneEvents = ['$stateChangeSuccess', '$stateChangeError', '$stateNotFound'];
+
+    angular.forEach(routingDoneEvents, function(event) {
+      $rootScope.$on(event, function(event, toState, toParams, fromState, fromParams) {
+        endProgress();
+      });
+    });
+
+    function startProgress() {
+      ngProgressLite.start();
+    }
+
+    function endProgress() {
+      ngProgressLite.done();
+    }
+
+  }
+})();
 (function () {
     'use strict';
 
@@ -52,7 +100,7 @@
 
                 .state('history', {
                     url: '/history',
-                    templateUrl: './app/GlobalAdmin/register/templates/Order.html',
+                    templateUrl: './app/GlobalAdmin/order/templates/Order.html',
                     controller: 'OrderController',
                     'controllerAs': 'orderCtrl',
                     resolve: {
@@ -67,6 +115,32 @@
                     }
 
                 })
+
+
+                                .state('orderDetails', {
+                    url: '/orderDetails/:id',
+                    templateUrl: './app/GlobalAdmin/order/templates/OrderDetails.html',
+                    controller: 'orderMealDetailscontroller',
+                    'controllerAs': 'orderDetailsCtrl',
+                    resolve: {
+                        OrderMealPrepService: OrderMealPrepService,
+                        itemsssPrepService: itemsssPrepService 
+                    }
+                })
+
+
+                                .state('orderProgramDetails', {
+                    url: '/orderpDetails/:programId',
+                    templateUrl: './app/GlobalAdmin/order/templates/OrderProgramDetails.html',
+                    controller: 'orderProgramDetailscontroller',
+                    'controllerAs': 'orderProgramDetailsCtrl',
+                    resolve: {
+                        OrderprogDetailsPrepService: OrderprogDetailsPrepService,
+                        itemsssPrepService: itemsssPrepService 
+                    }
+                })
+
+
                 .state('program', {
                     url: '/program',
                     templateUrl: './app/GlobalAdmin/program/templates/program.html',
@@ -133,9 +207,51 @@
                     }
                 })
 
+
+                                .state('Address', {
+                    url: '/Address/:userId',
+                    templateUrl: './app/GlobalAdmin/Address/templates/Address.html',
+                    controller: 'AddressController',
+                    'controllerAs': 'AddressCtrl',
+                    resolve: {
+                        AddressPrepService: AddressPrepService
+                    },
+                    data: {
+                        permissions: {
+                            only: ['3'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('newAddress', {
+                    url: '/newAddress',
+                    templateUrl: './app/GlobalAdmin/Address/templates/new.html',
+                    controller: 'createAddressDialogController',
+                    'controllerAs': 'newAddressCtrl', 
+
+                })
+                .state('editaddress', {
+                    url: '/editaddress/:addressId',
+                    templateUrl: './app/GlobalAdmin/Address/templates/edit.html',
+                    controller: 'editAddressDialogController',
+                    'controllerAs': 'editAddressCtrl',
+                    resolve: {
+                        AddressByIdPrepService: AddressByIdPrepService,   
+                    },
+                    data: {
+                        permissions: {
+                            only: ['3'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
+
         });
 
-     progDetailsPrepService.$inject = ['GetProgramDetailResource', '$stateParams']
+    progDetailsPrepService.$inject = ['GetProgramDetailResource', '$stateParams']
     function progDetailsPrepService(GetProgramDetailResource, $stateParams) {
         return GetProgramDetailResource.getProgramDetail({ programId: $stateParams.programId }).$promise;
     }
@@ -194,59 +310,214 @@
     }
 
 
-      ordersPrepService.$inject = ['OrdersResource', '$stateParams']
-      function ordersPrepService(OrdersResource, $stateParams) {
-          return OrdersResource.getAllOrders().$promise;
-      }
+    ordersPrepService.$inject = ['OrdersResource', '$stateParams']
+    function ordersPrepService(OrdersResource, $stateParams) {
+        return OrdersResource.getAllOrders().$promise;
+    }
+
+    OrderMealPrepService.$inject = ['MealResource', '$stateParams']
+    function OrderMealPrepService(MealResource, $stateParams) {
+        return MealResource.getMeal({ mealId: $stateParams.id }).$promise;
+    } 
+
+        OrderprogDetailsPrepService.$inject = ['GetProgramDetailResource', '$stateParams']
+    function OrderprogDetailsPrepService(GetProgramDetailResource, $stateParams) {
+        return GetProgramDetailResource.getProgramDetail({ programId: $stateParams.programId }).$promise;
+    }
+
+     AddressPrepService.$inject = ['AddressResource','$stateParams']
+     function AddressPrepService(AddressResource,$stateParams) {
+         return AddressResource.getAllAddress({ userId: $stateParams.userId }).$promise;
+     }
+
+        AllActivateAddressPrepService.$inject = ['AddressResource']
+     function AllActivateAddressPrepService(AddressResource) {
+         return AddressResource.getAllActivateAddress({ pageSize: 0 }).$promise;
+     }
+
+      AddressByIdPrepService.$inject = ['AddressResource', '$stateParams']
+     function AddressByIdPrepService(AddressResource, $stateParams) {
+         return AddressResource.getAddress({ addressId: $stateParams.addressId }).$promise;
+     }
 }());
-(function() {
-  'use strict';
+(function () {
+    'use strict';
 
-  angular
-    .module('home')
-    .config(config)
-    .run(runBlock);
+    angular
+        .module('home')
+        .controller('AddressController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate',
+            '$state', 'AddressResource', 'AddressPrepService', '$localStorage',
+            'authorizationService', 'appCONSTANTS',
+            'ToastService', AddressController]);
 
-  config.$inject = ['ngProgressLiteProvider'];
-  runBlock.$inject = ['$rootScope', 'ngProgressLite','$transitions','blockUI','$translate'];
 
-  function config(ngProgressLiteProvider) {
-    ngProgressLiteProvider.settings.speed = 1000;
+    function AddressController($rootScope, blockUI, $scope, $filter, $translate,
+        $state, AddressResource, AddressPrepService, $localStorage, authorizationService,
+        appCONSTANTS, ToastService) {
 
-  }
+        blockUI.start("Loading...");
 
-  function runBlock($rootScope, ngProgressLite,$transitions,blockUI,$translate) {
+        var vm = this;
 
-    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-        startProgress();
-    });
-    $transitions.onStart({}, function(transition) {
-      blockUI.start($translate.instant('loading')); 
-    });
-    $transitions.onSuccess({}, function(transition) {
-      blockUI.stop();
-    });
-    $transitions.onError({  }, function(transition) {
-      blockUI.stop();
-    });
-    var routingDoneEvents = ['$stateChangeSuccess', '$stateChangeError', '$stateNotFound'];
+        $scope.totalCount = AddressPrepService.totalCount;
+        $scope.AddressList = AddressPrepService;
+        console.log($scope.AddressList);
+        function refreshAddress() {
+            blockUI.start("Loading...");
 
-    angular.forEach(routingDoneEvents, function(event) {
-      $rootScope.$on(event, function(event, toState, toParams, fromState, fromParams) {
-        endProgress();
-      });
-    });
+            var k = AddressResource.getAllAddress({ page: vm.currentPage }).$promise.then(function (results) {
+                $scope.AddressList = results;
+                blockUI.stop();
 
-    function startProgress() {
-      ngProgressLite.start();
+            },
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+
+
+
+        vm.currentPage = 1;
+        $scope.changePage = function (page) {
+            vm.currentPage = page;
+            refreshAddress();
+        }
+        blockUI.stop();
+
     }
 
-    function endProgress() {
-      ngProgressLite.done();
-    }
+})();(function () {
+    angular
+        .module('home')
+        .factory('AddressResource', ['$resource', 'appCONSTANTS', AddressResource])
 
-  }
-})();
+    function AddressResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Address/', {}, {
+            getAllAddress: { method: 'GET', url: appCONSTANTS.API_URL + 'Address/GetUserAddresses/:userId', useToken: true, isArray: true },
+            create: { method: 'POST', useToken: true },
+            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Address/EditAddress', useToken: true },
+            getAddress: { method: 'GET', url: appCONSTANTS.API_URL + 'Address/GetAddressById/:AddressId', useToken: true }
+
+        })
+    }
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('createAddressDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
+            'AddressResource','PermissionResource', 'ToastService', '$rootScope', createAddressDialogController])
+
+    function createAddressDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, AddressResource,PermissionResource,
+        ToastService, $rootScope) {
+        var vm = this;
+        vm.language = appCONSTANTS.supportedLanguage; 
+        $scope.permissionList = [];
+        BindPermissison();
+
+        vm.close = function () {
+            $state.go('Address');
+        }
+
+        vm.AddNewType = function () {
+            blockUI.start("Loading..."); 
+
+                        var newObj = new AddressResource();
+            newObj.titleDictionary = vm.titleDictionary;
+            newObj.Permissions = vm.selectedPermissions;
+            newObj.IsDeleted = false;
+            newObj.IsStatic = false;
+            newObj.$create().then(
+                function (data, status) {
+                     blockUI.stop();
+
+                                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+                    $state.go('Address');
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+
+                                        ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        function BindPermissison() {
+            blockUI.start("Loading..."); 
+
+                        var k = PermissionResource.getAllPermissions({ pageSize: 20 }).$promise.then(function (results) {
+                    vm.getPageData = results;
+                    $scope.permissionList = vm.getPageData.results;
+                blockUI.stop();
+
+                                    },
+                function (data, status) {
+                blockUI.stop();
+
+                                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+    }
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('editAddressDialogController', ['$scope', 'blockUI', '$http', '$filter','$state', 'appCONSTANTS', '$translate', 'AddressResource', 'PermissionResource','PermissionPrepService', 'ToastService',
+            'AddressByIdPrepService', editAddressDialogController])
+
+    function editAddressDialogController($scope, blockUI, $http,$filter, $state, appCONSTANTS, $translate, AddressResource, PermissionResource,PermissionPrepService, ToastService, AddressByIdPrepService) {
+        var vm = this;
+        vm.language = appCONSTANTS.supportedLanguage;
+        vm.permissionList = PermissionPrepService.results;
+        vm.Address = AddressByIdPrepService;
+        console.log(vm.Address); 
+        vm.selectedPermissions = [];
+        vm.Close = function () {
+            $state.go('Address');
+        }
+        var i;
+        for (i = 0; i < vm.Address.permissions.length; i++) {
+            var indexRate = vm.permissionList.indexOf($filter('filter')(vm.permissionList, { 'permissionId': vm.Address.permissions[i].permissionId }, true)[0]);
+            vm.selectedPermissions.push(vm.permissionList[indexRate]);
+
+        }
+
+
+
+
+               vm.UpdateType = function () {
+            blockUI.start("Loading..."); 
+            console.log(vm.Address);
+            var updateObj = new AddressResource();
+            updateObj.addressId = vm.Address.addressId;
+            updateObj.permissions = vm.selectedPermissions;
+            updateObj.titleDictionary = vm.Address.titleDictionary;
+            updateObj.isDeleted = vm.Address.IsDeleted;
+            updateObj.isActive = vm.Address.isActive;
+            updateObj.$update().then(
+                function (data, status) {
+                blockUI.stop();
+
+                                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+
+                    $state.go('Address');
+
+                },
+                function (data, status) {
+                blockUI.stop();
+
+                                        ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+
+           }
+}());
 (function () {
 	'use strict';
 
@@ -274,6 +545,7 @@
 		vm.clientId = user.UserId;
 		vm.order = JSON.parse(localStorage.getItem("OrderSummary"));
 		vm.Total = 0;
+		vm.DeliveryFees = 0;
 
 		$scope.getData = function (itemModel, day, meal) {
 
@@ -467,7 +739,8 @@
 			vm.Total = vm.ProgramTotalPrice + vm.DeliveryFees;
 		}
 		function GetBranchDelivery() {
-			var k = BranchResource.getBranch({ branchId: vm.selectedBranchId }).$promise.then(function (results) {
+			var temp = new BranchResource();
+            temp.$getBranch({ branchId: vm.selectedBranchId }).then(function (results) {
 				vm.DeliveryFees = results.deliveryPrice;
 
 			},
@@ -633,19 +906,21 @@
 
     angular
         .module('home')
-        .controller('mealDetailsController', ['$scope', '$stateParams', '$translate', 'appCONSTANTS'
+        .controller('mealDetailsController', ['$scope', '$stateParams', '$state', '$translate', 'appCONSTANTS'
             , '$filter', 'mealPrepService', 'itemsssPrepService', 'OrderResource'
-            , 'RegionResource', 'CityResource', 'AreaResource', 'CountriesPrepService', mealDetailsController])
+            , 'RegionResource', 'BranchResource', 'CityResource', 'AreaResource', 'CountriesPrepService', mealDetailsController])
 
-    function mealDetailsController($scope, $stateParams, $translate, appCONSTANTS
+    function mealDetailsController($scope, $stateParams, $state, $translate, appCONSTANTS
         , $filter, mealPrepService
-        , itemsssPrepService, OrderResource, RegionResource, CityResource, AreaResource
+        , itemsssPrepService, OrderResource, RegionResource, BranchResource, CityResource, AreaResource
         , CountriesPrepService) {
 
         $scope.mealPrepService = mealPrepService;
         $scope.itemsssPrepService = itemsssPrepService;
-        $scope.clientId = localStorage.getItem('ClientId');
-
+        $scope.Total = 0;
+        var vm = this;
+        $scope.clientId = $scope.user.id;
+        $scope.DeliveryFees = 0;
         $scope.counties = [];
         $scope.fats = 0;
         $scope.carbs = 0;
@@ -678,21 +953,39 @@
             address: 0
         };
 
-        $scope.addressValidation = false;
+
         $scope.addressInfo = function (address) {
             $scope.addressDetails = address;
-            $scope.addressValidation = true;
+            $scope.selectedBranchId = $scope.addressDetails.branchId;
+            GetBranchDelivery();
+            debugger;
+            $scope.Total = $scope.mealPrepService.mealPrice + $scope.DeliveryFees;
         }
-
         $scope.dateIsValid = false;
         $scope.dateChange = function () {
-            if ($('#startdate').data('date') == null || $('#startdate').data('date') == "") {
+
+
+            if ($scope.itemDatetime == null || $scope.itemDatetime == "") {
                 $scope.dateIsValid = false;
-            } else if (!$scope.orderProgramForm.isInValid) {
-                $scope.dateIsValid = true;
+            } else if (!$scope.orderForm.isInValid) {
+
+                var GivenDate = $scope.itemDatetime;
+                var CurrentDate = new Date();
+                GivenDate = new Date(GivenDate);
+
+                GivenDate.setHours(CurrentDate.getHours());
+                GivenDate.setMinutes(CurrentDate.getMinutes());
+                GivenDate.setSeconds(CurrentDate.getSeconds());
+
+                if (GivenDate > CurrentDate) {
+                    $scope.dateIsValid = true;
+                }
+                else {
+                    alert('Given date is not greater than the current date.');
+
+                }
             }
         }
-
         if ($scope.orderType.type == 'delivery') {
             var k = OrderResource.getUserAddresses({ userId: $scope.clientId }).$promise.then(function (results) {
                 $scope.userAddresses = results;
@@ -702,11 +995,16 @@
                 });
         }
 
-    angular
-        .module('home')
-        .controller('programDetailsController', ['$scope', '$stateParams', '$translate', 'appCONSTANTS'
-            , '$filter', 'progDetailsPrepService', 'itemsssPrepService', 'OrderResource'
-            , 'RegionResource', 'CityResource', 'AreaResource', 'CountriesPrepService', programDetailsController])
+        function GetBranchDelivery() {
+            var temp = new BranchResource();
+            temp.$getBranch({ branchId: $scope.selectedBranchId }).then(function (results) {
+                $scope.DeliveryFees = results.deliveryPrice;
+
+            },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
 
         $scope.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
         $scope.selectedCountryId = 0;
@@ -720,24 +1018,8 @@
             $scope.regions = [];
             $scope.cities = [];
             $scope.area = [];
-            $scope.categoryList = [];
         }
 
-        $scope.departmentChange = function () {
-            $scope.department.splice(0, 1);
-            $scope.categoryList = [];
-            $scope.categoryList.push({ categoryId: 0, titleDictionary: { "en": "Select Category", "ar": "اختار الفئة" } });
-            $scope.selectedCategoryId = 0;
-            $scope.categoryList = $scope.categoryList.concat(($filter('filter')($scope.department, { departmentId: $scope.selectedDepartmentId }))[0].categories);
-        }
-
-        $scope.categoryChange = function () {
-            for (var i = $scope.categoryList.length - 1; i >= 0; i--) {
-                if ($scope.categoryList[i].categoryId == 0) {
-                    $scope.categoryList.splice(i, 1);
-                }
-            }
-        }
 
         $scope.countryChange = function () {
             for (var i = $scope.counties.length - 1; i >= 0; i--) {
@@ -813,6 +1095,8 @@
                     $scope.branchList.splice(i, 1);
                 }
             }
+            $scope.DeliveryFees = 0;
+            $scope.Total = $scope.mealPrepService.mealPrice + $scope.DeliveryFees;
         }
 
         $scope.Order = function () {
@@ -830,8 +1114,8 @@
                 function (data, status) {
 
 
-                    $state.go('meals');
-
+                    localStorage.setItem('OrderSummary', JSON.stringify(data));
+                    $state.go('Summary');
                 },
                 function (data, status) {
 
@@ -995,7 +1279,7 @@
             };
         }
 
-                $scope.orderType = {
+        $scope.orderType = {
             type: 'delivery'
         };
         $scope.addresses = {
@@ -1169,6 +1453,182 @@
                 }
             );
         }
+
+
+    }
+
+}
+    ());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('OrderController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate',
+            '$state', 'OrdersResource', 'ordersPrepService', '$localStorage',
+            'authorizationService', 'appCONSTANTS',
+            'ToastService', OrderController])
+        ;
+
+
+    function OrderController($rootScope, blockUI, $scope, $filter, $translate,
+        $state, OrdersResource, ordersPrepService, $localStorage, authorizationService,
+        appCONSTANTS, ToastService) {
+
+        blockUI.start("Loading..."); 
+        var vm = this;
+
+        $scope.totalCount = ordersPrepService.totalCount;
+        $scope.OrderList = ordersPrepService;
+        console.log($scope.OrderList);
+        $scope.getTotal = function (order) {
+            debugger;
+            var total = 0;
+            if (order.type == "3") {
+                for (var i = 0; i < order.orderDetails.length; i++) {
+                    var obj = order.orderDetails[i];
+                    total += (obj.item.price);
+                }
+            }
+            else if (order.type == "2") {
+                for (var i = 0; i < order.orderDetails.length; i++) {
+                    var obj = order.orderDetails[i];
+                    total += (obj.meal.mealPrice);
+                }
+            }
+            else if (order.type == "1") {
+                total = 1500;
+            }
+            return total;
+        }
+
+        function refreshOrders() {
+            blockUI.start("Loading...");
+
+            var k = OrdersResource.getAllOrders({ page: vm.currentPage }).$promise.then(function (results) {
+                $scope.OrderList = results;
+                blockUI.stop();
+
+            },
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+
+
+        vm.currentPage = 1;
+        $scope.changePage = function (page) {
+            vm.currentPage = page;
+            refreshOrders();
+        }
+        blockUI.stop();
+
+        $scope.goToDetails = function (orderModel) {
+
+
+
+        }
+
+    }
+
+})();(function () {
+    angular
+      .module('home')
+        .factory('OrdersResource', ['$resource', 'appCONSTANTS', OrdersResource]) 
+
+    function OrdersResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Orders/', {}, {
+            getAllOrders: { method: 'GET', url: appCONSTANTS.API_URL + 'Orders/GetOrderByClientId', useToken: true  },
+            create: { method: 'POST', useToken: true },
+            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Orders/EditOrder', useToken: true },
+            getOrder: { method: 'GET', url: appCONSTANTS.API_URL + 'Orders/GetOrderById/:OrderId', useToken: true } ,
+            getFullOrder: { method: 'GET', url: appCONSTANTS.API_URL + 'Orders/GetFullOrderById/:OrderId', useToken: true }   
+
+        })
+    } 
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('orderMealDetailscontroller', ['$scope', '$stateParams', '$state', '$translate', 'appCONSTANTS'
+            , '$filter', 'OrderMealPrepService', 'itemsssPrepService', 'OrderResource'
+            , 'RegionResource', 'BranchResource', 'CityResource', 'AreaResource', orderMealDetailscontroller])
+
+    function orderMealDetailscontroller($scope, $stateParams, $state, $translate, appCONSTANTS
+        , $filter, OrderMealPrepService
+        , itemsssPrepService, OrderResource, RegionResource, BranchResource, CityResource, AreaResource
+    ) {
+
+        $scope.OrderMealPrepService = OrderMealPrepService;
+        $scope.itemsssPrepService = itemsssPrepService;
+        $scope.Total = 0;
+        var vm = this;
+        $scope.clientId = $scope.user.id;
+        $scope.DeliveryFees = 0;
+        $scope.counties = [];
+        $scope.fats = 0;
+        $scope.carbs = 0;
+        $scope.protein = 0;
+        $scope.calories = 0;
+
+        for (var i = 0; i < $scope.OrderMealPrepService.mealDetails.length; i++) {
+            var differntItem = $scope.itemsssPrepService.filter(x => (x.itemId == $scope.OrderMealPrepService.mealDetails[i].itemId));
+
+            $scope.fats += differntItem[0].fat;
+            $scope.carbs += differntItem[0].carbs;
+            $scope.protein += differntItem[0].protein;
+            $scope.calories += differntItem[0].calories;
+        }
+
+        $scope.style = function () {
+            return {
+                'background': 'url(https://fithouseksa.com/wp-content/uploads/2018/07/fat-running.png) no-repeat',
+                'background-attachment': 'fixed',
+                'background-size': 'cover',
+                'width': '100%',
+                'width': '100%'
+            };
+        }
+
+
+
+
+               }
+
+}
+    ());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('orderProgramDetailscontroller', ['$scope', '$stateParams', '$translate', 'appCONSTANTS'
+            , '$filter', 'OrderprogDetailsPrepService', 'itemsssPrepService', 'OrderResource', orderProgramDetailscontroller])
+
+    function orderProgramDetailscontroller($scope, $stateParams, $translate, appCONSTANTS
+        , $filter, OrderprogDetailsPrepService
+        , itemsssPrepService) {
+        debugger;
+        $scope.OrderprogDetailsPrepService = OrderprogDetailsPrepService;
+        $scope.itemsssPrepService = itemsssPrepService;
+        $scope.clientId = localStorage.getItem('ClientId');
+
+         $scope.fats = 0;
+        $scope.carbs = 0;
+        $scope.protein = 0;
+        $scope.calories = 0;
+
+        for (var i = 0; i < $scope.OrderprogDetailsPrepService.items.length; i++) {
+            $scope.fats += $scope.OrderprogDetailsPrepService.items[i].fat;
+            $scope.carbs += $scope.OrderprogDetailsPrepService.items[i].carbs;
+            $scope.protein += $scope.OrderprogDetailsPrepService.items[i].protein;
+            $scope.calories += $scope.OrderprogDetailsPrepService.items[i].calories;
+        }
+
 
 
     }
@@ -1399,15 +1859,6 @@
             }
             return total;
         }
-        vm.cityChange = function () {
-            funcCityChange();
-        }
-        function funcAreaChange() {
-            vm.branchList = [];
-            vm.selectedBranch = { branchId: 0, titleDictionary: { "en-us": "All Branches", "ar-eg": "كل الفروع" } };
-            vm.branchList.push(vm.selectedBranch);
-            if (vm.selectedArea.areaId > 0)
-                vm.branchList = vm.branchList.concat(vm.selectedArea.branches);
 
         function refreshOrders() {
             blockUI.start("Loading...");
@@ -1423,19 +1874,7 @@
                     ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
                 });
         }
-    }
 
-})();(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('userController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate', '$state', 'UserResource',
-            '$localStorage', 'authorizationService', 'appCONSTANTS',
-            'ToastService', 'CountriesPrepService', 'RegionResource', 'CityResource', 'AreaResource', userController]);
-
-    function userController($rootScope, blockUI, $scope, $filter, $translate, $state, UserResource, $localStorage, authorizationService, appCONSTANTS, ToastService, CountriesPrepService,
-        RegionResource, CityResource, AreaResource) {
 
         vm.currentPage = 1;
         $scope.changePage = function (page) {
@@ -1535,7 +1974,6 @@
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
                 });
-            blockUI.stop();
         }
         vm.regionChange = function () {
             if (vm.selectedRegionId != undefined) {
@@ -1595,8 +2033,6 @@
                 }
             }
         }
-        function refreshUsers() {
-            blockUI.start("Loading...");
 
 
         $scope.AddNewclient = function () {
@@ -1661,40 +2097,6 @@
         vm.UpdateUser = function (user) {
             change(user, false);
         }
-        vm.currentPage = 1;
-        $scope.changePage = function (page) {
-            vm.currentPage = page;
-            refreshUsers();
-        }
-
-        blockUI.stop();
-
-
-
-        function change(user, isDeleted) {
-            debugger;
-            var updateObj = new UserResource();
-            updateObj.userId = user.userId;
-            if (!isDeleted)
-                updateObj.isActive = (user.isActive == true ? false : true);
-            updateObj.isDeleted = user.isDeleted;
-
-            updateObj.$update().then(
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    user.isActive = updateObj.isActive;
-
-                },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-
-        }
-        vm.UpdateUser = function (user) {
-            change(user, false);
-        }
-
 
 
 
@@ -1732,18 +2134,19 @@
                 return input;
             }
         })
-        .controller('homePageController', ['$scope', '$state', '$stateParams', '$translate', 'appCONSTANTS', 'mealsPrepService', 'programPrepService', 'settingsPrepService'
+        .controller('homePageController', ['$scope', '$state', '$stateParams', '$translate','blockUI', 'appCONSTANTS', 'mealsPrepService', 'programPrepService', 'settingsPrepService'
             , 'daysPrepService', homePageController])
 
-    function homePageController($scope, $state, $stateParams, $translate, appCONSTANTS, mealsPrepService, programPrepService
+    function homePageController($scope, $state, $stateParams, $translate, blockUI,appCONSTANTS, mealsPrepService, programPrepService
         , settingsPrepService, daysPrepService) {
+            blockUI.start($translate.instant('loading'));
 
         $scope.mealsPrepService = mealsPrepService.results;
         $scope.programPrepService = programPrepService.results;
         $scope.settingsPrepService = settingsPrepService;
         $scope.dayList = daysPrepService;
 		$scope.SelectedDays = [];
-
+        blockUI.stop();
         $scope.isSnack = false;
         $scope.isBreakFast = false;
 
@@ -1754,7 +2157,7 @@
             localStorage.setItem('isBreakFast', $scope.isBreakFast);
             localStorage.setItem('isSnack', $scope.isSnack);
             localStorage.setItem('itemDatetime', $scope.itemDatetime);
-            localStorage.setItem('ProgramDiscount', 0);
+            localStorage.setItem('ProgramDiscount', $scope.settingsPrepService.programDiscount);
             $state.go('Custom');
         }
 

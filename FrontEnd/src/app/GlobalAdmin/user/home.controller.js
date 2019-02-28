@@ -14,18 +14,19 @@
                 return input;
             }
         })
-        .controller('homePageController', ['$scope', '$state', '$stateParams', '$translate', 'appCONSTANTS', 'mealsPrepService', 'programPrepService', 'settingsPrepService'
+        .controller('homePageController', ['$scope', '$state', '$stateParams', '$translate','blockUI', 'appCONSTANTS', 'mealsPrepService', 'programPrepService', 'settingsPrepService'
             , 'daysPrepService', homePageController])
 
-    function homePageController($scope, $state, $stateParams, $translate, appCONSTANTS, mealsPrepService, programPrepService
+    function homePageController($scope, $state, $stateParams, $translate, blockUI,appCONSTANTS, mealsPrepService, programPrepService
         , settingsPrepService, daysPrepService) {
+            blockUI.start($translate.instant('loading'));
 
         $scope.mealsPrepService = mealsPrepService.results;
         $scope.programPrepService = programPrepService.results;
         $scope.settingsPrepService = settingsPrepService;
         $scope.dayList = daysPrepService;
 		$scope.SelectedDays = [];
-
+        blockUI.stop();
         $scope.isSnack = false;
         $scope.isBreakFast = false;
 

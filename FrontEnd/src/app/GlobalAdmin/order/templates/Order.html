@@ -61,10 +61,12 @@
                                         <img ng-if="order.type == 1" src="assets\img\meal.png" title="meal">
                                         <img ng-if="order.type == 2" src="assets\img\item.png" title="item">
                                     </td>
-                                    <td>
-                                        <a ng-click="$state.go('programDetails', {programId: order.programId});"
-                                            class="cursorPointer">{{'ItemsBtn'|
-                            translate}}</a>
+                                    <td> <a ng-if="!order.isProgram" style="cursor: pointer;"
+                                            ng-click="$state.go('orderDetails', {id: order.orderDetails[0].mealId});"
+                                            class="cursorPointer">{{'ItemsBtn'|translate}}</a>
+                                        <a ng-if="order.isProgram" style="cursor: pointer;"
+                                            ng-click="$state.go('orderProgramDetails', {programId: order.orderDetails[0].programId});"
+                                            class="cursorPointer">{{'ItemsBtn'|translate}}</a>
                                     </td>
 
                                 </tr>
