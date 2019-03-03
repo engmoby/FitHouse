@@ -1121,7 +1121,6 @@
         $scope.addressInfo = function (address) {
             $scope.addressDetails = address;
             $scope.selectedBranchId = $scope.addressDetails.branchId;
-            GetBranchDelivery();
             debugger;
             $scope.Total = $scope.mealPrepService.mealPrice + $scope.DeliveryFees;
         }
@@ -1584,12 +1583,12 @@
         .module('home')
         .controller('programDetailsController', ['$scope', '$stateParams', '$translate', 'appCONSTANTS'
             , '$filter', 'progDetailsPrepService', 'itemsssPrepService', 'OrderResource'
-            , 'RegionResource', 'CityResource', 'AreaResource', 'CountriesPrepService', programDetailsController])
+            , 'RegionResource', 'CityResource', 'AreaResource', 'CountriesPrepService', 'BranchResource', programDetailsController])
 
     function programDetailsController($scope, $stateParams, $translate, appCONSTANTS
         , $filter, progDetailsPrepService
         , itemsssPrepService, OrderResource, RegionResource, CityResource, AreaResource
-        , CountriesPrepService) {
+        , CountriesPrepService, BranchResource) {
 
         $scope.progDetailsPrepService = progDetailsPrepService;
         $scope.itemsssPrepService = itemsssPrepService;
@@ -1601,6 +1600,8 @@
         $scope.carbs = 0;
         $scope.protein = 0;
         $scope.calories = 0;
+        $scope.DeliveryFees = 0;
+        $scope.Total = 0;
 
         for (var i = 0; i < $scope.progDetailsPrepService.items.length; i++) {
             $scope.fats += $scope.progDetailsPrepService.items[i].fat;
@@ -1630,6 +1631,21 @@
         $scope.addressInfo = function (address) {
             $scope.addressDetails = address;
             $scope.addressValidation = true;
+            $scope.selectedBranchId = $scope.addressDetails.branchId;
+            GetBranchDelivery();
+            debugger;
+        }
+
+        function GetBranchDelivery() {
+            var temp = new BranchResource();
+            temp.$getBranch({ branchId: $scope.selectedBranchId }).then(function (results) {
+                $scope.DeliveryFees = results.deliveryPrice;
+                $scope.Total = $scope.progDetailsPrepService.price + $scope.DeliveryFees;
+
+            },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
         }
 
         $scope.dateIsValid = false;

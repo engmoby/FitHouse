@@ -821,13 +821,14 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '    <div class="container">\n' +
     '        <div class="row">\n' +
     '            <h4>All Room Types</h4>\n' +
-    '            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut\n' +
-    '                laoreet.\n' +
+    '            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet.\n' +
     '                <p>\n' +
     '                    <ul>\n' +
-    '                        <li><a href="#">Home</a>\n' +
+    '                        <li>\n' +
+    '                            <a href="#">{{\'Home\' | translate}}</a>\n' +
     '                        </li>\n' +
-    '                        <li><a href="#">Rooms</a>\n' +
+    '                        <li>\n' +
+    '                            <a href="#">{{\'Meals\' | translate}}</a>\n' +
     '                        </li>\n' +
     '                    </ul>\n' +
     '        </div>\n' +
@@ -885,8 +886,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                            </ul>\n' +
     '                            <div class="tab-content">\n' +
     '                                <div id="home" class="tab-pane fade in active tab-space">\n' +
-    '                                    <div\n' +
-    '                                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                                    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
     '                                        <label for="first-name">{{\'Items\' | translate}}</label>\n' +
     '                                        <ul>\n' +
     '                                            <li ng-repeat="detail in mealPrepService.mealDetails">\n' +
@@ -897,8 +897,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                                    <h3> {{detail.item.itemNameDictionary[selectedLanguage]}}\n' +
     '                                                        <span>{{detail.item.price}}</span>\n' +
     '                                                    </h3>\n' +
-    '                                                    <span\n' +
-    '                                                        class="menu-item">{{detail.item.itemDescriptionDictionary[selectedLanguage] }}</span>\n' +
+    '                                                    <span class="menu-item">{{detail.item.itemDescriptionDictionary[selectedLanguage] }}</span>\n' +
     '                                                    <!-- | limitTo:10 -->\n' +
     '                                                </div>\n' +
     '\n' +
@@ -932,179 +931,41 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                        <!-- {{itemDatetime}} -->\n' +
     '                                        <div class="col-md-6">\n' +
     '                                            <h5>{{\'OrderDate\' | translate}}</h5>\n' +
-    '                                            <input name="itemDatetime" required ng-model="itemDatetime" type="text"\n' +
-    '                                                id="startdate" class="form-control" ng-change="dateChange();" />\n' +
+    '                                            <input name="itemDatetime" required ng-model="itemDatetime" type="text" id="startdate" class="form-control" ng-change="dateChange();"\n' +
+    '                                            />\n' +
     '                                        </div>\n' +
     '\n' +
     '\n' +
     '                                        <div class="col-md-12">\n' +
-    '                                            <h5>{{\'OrderType\' | translate}}</h5>\n' +
-    '                                            <p>\n' +
-    '                                                <input ng-model="orderType.type" name="group1" type="radio" id="test1"\n' +
-    '                                                    value="delivery" />\n' +
-    '                                                <label for="test1">{{\'Delivery\' | translate}}</label>\n' +
-    '                                            </p>\n' +
-    '                                            <p>\n' +
-    '                                                <input ng-model="orderType.type" name="group1" type="radio" id="test2"\n' +
-    '                                                    value="pickup" />\n' +
-    '                                                <label for="test2">{{\'PickUp\' | translate}}</label>\n' +
-    '                                            </p>\n' +
     '\n' +
-    '                                            <div ng-if="orderType.type == \'delivery\'" class="row">\n' +
-    '\n' +
-    '                                                <div>\n' +
-    '                                                    <div\n' +
-    '                                                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                                                        <label for="first-name">{{\'SelectAddress\' | translate}}</label>\n' +
-    '\n' +
-    '                                                        <div ng-repeat="address in userAddresses">\n' +
-    '                                                            <label>\n' +
-    '                                                                <input name="group3" ng-change="addressInfo(address)"\n' +
-    '                                                                    type="radio" ng-model="addresses.address"\n' +
-    '                                                                    value="{{address.addressId}}"\n' +
-    '                                                                    ng-required="orderType.type == \'delivery\'">\n' +
-    '                                                                <label for="addressRadio{{address.addressId}}">\n' +
-    '                                                                    {{\'appartmentNo\' | translate}}:\n' +
-    '                                                                    {{address.appartmentNo}}\n' +
-    '                                                                    <br> {{\'Floor\' | translate}} :\n' +
-    '                                                                    {{address.floor}}\n' +
-    '                                                                    <br> {{\'appartmentNo\' | translate}} :\n' +
-    '                                                                    {{address.description}}\n' +
-    '                                                                </label>\n' +
-    '                                                            </label>\n' +
-    '                                                        </div>\n' +
-    '\n' +
-    '                                                        <!-- <div ng-repeat="address in userAddresses">\n' +
-    '                                                                    <p>\n' +
-    '                                                                        <input ng-change="addressInfo(address)"\n' +
-    '                                                                            name="group2" type="radio"\n' +
-    '                                                                            id="test{{address.addressId}}"\n' +
-    '                                                                            ng-model="addresses.address"\n' +
-    '                                                                            value="{{address.addressId}}" />\n' +
-    '                                                                        <label\n' +
-    '                                                                            for="test{{address.addressId}}">{{address.appartmentNo}},\n' +
-    '                                                                            {{address.description}},\n' +
-    '                                                                            {{\'Floor\' | translate}}\n' +
-    '                                                                            {{address.floor}}</label>\n' +
-    '                                                                    </p>\n' +
-    '                                                                </div> -->\n' +
-    '                                                    </div>\n' +
+    '                                            <div class="row">\n' +
+    '                                                <div class="input-field col s6">\n' +
+    '                                                    <select style="width:100% !important" required class=" select-tags form-control pmd-select2-tags"\n' +
+    '                                                        name="country" ng-change="countryChange()" ng-model="selectedCountryId"\n' +
+    '                                                        ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in counties">\n' +
+    '                                                    </select>\n' +
     '                                                </div>\n' +
-    '\n' +
+    '                                                <div class="input-field col s6">\n' +
+    '                                                    <select style="width:100% !important" ng-required="selectedCountryId > 0" class="select-tags form-control pmd-select2-tags"\n' +
+    '                                                        ng-change="regionChange()" ng-model="selectedRegionId" ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in regions">\n' +
+    '                                                    </select>\n' +
+    '                                                </div>\n' +
     '                                            </div>\n' +
-    '\n' +
-    '                                            <!-- <div class="row form-group">\n' +
-    '                                                    <div class="col-md-6">\n' +
-    '                                                        <div ng-show="orderType.type == \'pickup\'">\n' +
-    '                                                            <div\n' +
-    '                                                                class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                                                                <label\n' +
-    '                                                                    for="first-name">{{\'Country\' | translate}}</label>\n' +
-    '                                                                <select ng-required="orderType.type == \'pickup\'"\n' +
-    '                                                                    style="width:100% !important"\n' +
-    '                                                                    class="select-tags form-control pmd-select2-tags"\n' +
-    '                                                                    ng-change="countryChange()"\n' +
-    '                                                                    ng-model="selectedCountryId"\n' +
-    '                                                                    ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in counties">\n' +
-    '                                                                </select>\n' +
-    '                                                            </div>\n' +
-    '                                                            <div ng-show=" selectedCountryId > 0"\n' +
-    '                                                                class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                                                                <label for="first-name">{{\'Region\' | translate}}</label>\n' +
-    '                                                                <select ng-required="orderType.type == \'pickup\'"\n' +
-    '                                                                    style="width:100% !important"\n' +
-    '                                                                    class="select-tags form-control pmd-select2-tags"\n' +
-    '                                                                    ng-change="regionChange()"\n' +
-    '                                                                    ng-model="selectedRegionId"\n' +
-    '                                                                    ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in regions">\n' +
-    '                                                                </select>\n' +
-    '                                                            </div>\n' +
-    '                                                            <div ng-show=" selectedRegionId > 0"\n' +
-    '                                                                class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                                                                <label for="first-name">{{\'City\' | translate}}</label>\n' +
-    '                                                                <select\n' +
-    '                                                                    ng-required="selectedRegionId > 0 && orderType.type == \'pickup\'"\n' +
-    '                                                                    style="width:100% !important"\n' +
-    '                                                                    class="select-tags form-control pmd-select2-tags"\n' +
-    '                                                                    ng-change="cityChange()" ng-model="selectedCityId"\n' +
-    '                                                                    ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in cities">\n' +
-    '                                                                </select>\n' +
-    '                                                            </div>\n' +
-    '                                                            <div ng-show=" selectedCityId > 0"\n' +
-    '                                                                class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                                                                <label for="first-name">{{\'Area\' | translate}}</label>\n' +
-    '                                                                <select\n' +
-    '                                                                    ng-required=" selectedCityId > 0 && orderType.type == \'pickup\'"\n' +
-    '                                                                    style="width:100% !important"\n' +
-    '                                                                    class="select-tags form-control pmd-select2-tags"\n' +
-    '                                                                    ng-change="areaChange()" ng-model="selectedAreaId"\n' +
-    '                                                                    ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in area">\n' +
-    '                                                                </select>\n' +
-    '                                                            </div>\n' +
-    '                                                            <div ng-show=" selectedAreaId > 0"\n' +
-    '                                                                class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                                                                <label for="first-name">{{\'Branch\' | translate}}</label>\n' +
-    '                                                                <select\n' +
-    '                                                                    ng-required=" selectedAreaId > 0  && orderType.type == \'pickup\'"\n' +
-    '                                                                    class="form-control select-with-search pmd-select2-tags"\n' +
-    '                                                                    ng-change="branchChange()"\n' +
-    '                                                                    ng-model="selectedBranchId"\n' +
-    '                                                                    ng-options="a.branchId as a.titleDictionary[selectedLanguage] for a in branchList"></select>\n' +
-    '                                                            </div>\n' +
-    '\n' +
-    '                                                        </div>\n' +
-    '                                                    </div>\n' +
-    '\n' +
-    '                                                </div> -->\n' +
-    '\n' +
-    '                                            <div ng-show="orderType.type == \'pickup\'">\n' +
-    '                                                <div class="row">\n' +
-    '                                                    <div class="input-field col s6">\n' +
-    '                                                        <select style="width:100% !important"\n' +
-    '                                                            ng-required="orderType.type == \'pickup\'"\n' +
-    '                                                            class=" select-tags form-control pmd-select2-tags"\n' +
-    '                                                            name="country" ng-change="countryChange()"\n' +
-    '                                                            ng-model="selectedCountryId"\n' +
-    '                                                            ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in counties">\n' +
-    '                                                        </select>\n' +
-    '                                                    </div>\n' +
-    '                                                    <div class="input-field col s6">\n' +
-    '                                                        <select style="width:100% !important"\n' +
-    '                                                            ng-required="orderType.type == \'pickup\' || selectedCountryId > 0"\n' +
-    '                                                            class="select-tags form-control pmd-select2-tags"\n' +
-    '                                                            ng-change="regionChange()" ng-model="selectedRegionId"\n' +
-    '                                                            ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in regions">\n' +
-    '                                                        </select>\n' +
-    '                                                    </div>\n' +
+    '                                            <div class="row">\n' +
+    '                                                <div class="input-field col s6">\n' +
+    '                                                    <select ng-required="selectedRegionId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
+    '                                                        ng-change="cityChange()" ng-model="selectedCityId" ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in cities">\n' +
+    '                                                    </select>\n' +
     '                                                </div>\n' +
-    '                                                <div class="row">\n' +
-    '                                                    <div class="input-field col s6">\n' +
-    '                                                        <select\n' +
-    '                                                            ng-required="orderType.type == \'pickup\'  || selectedRegionId > 0"\n' +
-    '                                                            style="width:100% !important"\n' +
-    '                                                            class="select-tags form-control pmd-select2-tags"\n' +
-    '                                                            ng-change="cityChange()" ng-model="selectedCityId"\n' +
-    '                                                            ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in cities">\n' +
-    '                                                        </select>\n' +
-    '                                                    </div>\n' +
-    '                                                    <div class="input-field col s6">\n' +
-    '                                                        <select\n' +
-    '                                                            ng-required="orderType.type == \'pickup\' || selectedCityId > 0"\n' +
-    '                                                            style="width:100% !important"\n' +
-    '                                                            class="select-tags form-control pmd-select2-tags"\n' +
-    '                                                            ng-change="areaChange()" ng-model="selectedAreaId"\n' +
-    '                                                            ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in area">\n' +
-    '                                                        </select>\n' +
-    '                                                    </div>\n' +
-    '                                                    <div class="input-field col s6">\n' +
-    '                                                        <select\n' +
-    '                                                            ng-required="orderType.type == \'pickup\' || selectedAreaId > 0"\n' +
-    '                                                            style="width:100% !important"\n' +
-    '                                                            class="select-tags form-control pmd-select2-tags"\n' +
-    '                                                            ng-change="branchChange()" ng-model="selectedBranchId"\n' +
-    '                                                            ng-options="group.branchId as group.titleDictionary[selectedLanguage] for group in branchList">\n' +
-    '                                                        </select>\n' +
-    '                                                    </div>\n' +
+    '                                                <div class="input-field col s6">\n' +
+    '                                                    <select ng-required="selectedCityId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
+    '                                                        ng-change="areaChange()" ng-model="selectedAreaId" ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in area">\n' +
+    '                                                    </select>\n' +
+    '                                                </div>\n' +
+    '                                                <div class="input-field col s6">\n' +
+    '                                                    <select ng-required="selectedAreaId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
+    '                                                        ng-change="branchChange()" ng-model="selectedBranchId" ng-options="group.branchId as group.titleDictionary[selectedLanguage] for group in branchList">\n' +
+    '                                                    </select>\n' +
     '                                                </div>\n' +
     '                                            </div>\n' +
     '                                            <div class="input-field col s12 m4 l2">\n' +
@@ -1112,16 +973,14 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                                        ng-disabled="orderForm.$invalid"> -->\n' +
     '                                                <!-- ng-disabled="orderForm.$invalid || addressValidation == false">   -->\n' +
     '                                                <!-- ng-disabled="orderForm.$invalid || !dateIsValid || addressValidation == false" -->\n' +
-    '                                       \n' +
+    '\n' +
     '\n' +
     '                                                Price:{{ mealPrepService.mealPrice}}\n' +
     '                                                <br> Delivery:{{ DeliveryFees}}\n' +
     '                                                <br>Total :{{ Total}}\n' +
     '                                                <br>\n' +
-    '                                                <button style="background-color: #e4e5e6;color: black!important;"\n' +
-    '                                                    ng-disabled="orderForm.$invalid || selectedBranchId <= 0 && !dateIsValid"\n' +
-    '                                                    class="btn pmd-ripple-effect btn-primary" type="button"\n' +
-    '                                                    ng-click="Order();">\n' +
+    '                                                <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="orderForm.$invalid || selectedBranchId <= 0 && !dateIsValid"\n' +
+    '                                                    class="btn pmd-ripple-effect btn-primary" type="button" ng-click="Order();">\n' +
     '                                                    {{\'next\' | translate}}</button>\n' +
     '\n' +
     '                                            </div>\n' +
@@ -1467,82 +1326,83 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 
 angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/program/templates/program.html',
-    '<section class="main" > \n' +
-    '    <!-- ng-style="style()" -->\n' +
-    '    <br>\n' +
-    '    <div class="inn-body-section pad-bot-55">\n' +
-    '        <div class="container">\n' +
-    '            <div class="row">\n' +
-    '                <div class="page-head">\n' +
-    '                    <h2>{{\'Programs\' | translate}}</h2>\n' +
-    '                    <div class="head-title">\n' +
-    '                        <div class="hl-1"></div>\n' +
-    '                        <div class="hl-2"></div>\n' +
-    '                        <div class="hl-3"></div>\n' +
-    '                    </div>\n' +
-    '                    <p>{{\'ProgramsDescription\' | translate}}</p>\n' +
+    '<!-- <div class="main" >  -->\n' +
+    '<!-- ng-style="style()" -->\n' +
+    '<br>\n' +
+    '<div class="inn-body-section pad-bot-55">\n' +
+    '    <div class="container">\n' +
+    '        <div class="row">\n' +
+    '            <div class="page-head">\n' +
+    '                <h2>{{\'Programs\' | translate}}</h2>\n' +
+    '                <div class="head-title">\n' +
+    '                    <div class="hl-1"></div>\n' +
+    '                    <div class="hl-2"></div>\n' +
+    '                    <div class="hl-3"></div>\n' +
     '                </div>\n' +
-    '                <!--ROOM SECTION-->\n' +
-    '                <div style="cursor: pointer !important;" ng-click="$state.go(\'programDetails\', {programId: Program.programId});" ng-repeat="Program in programPrepService" class="room">\n' +
-    '                \n' +
-    '                    <div class="ribbon ribbon-top-left">\n' +
-    '                        <span>{{\'Program\' | translate}}</span>\n' +
-    '                    </div>\n' +
-    '                    <!--ROOM IMAGE-->\n' +
-    '                    <div class="r1 r-com">\n' +
-    '                        <img src="https://fithouseksa.com/wp-content/uploads/2018/07/fithouse-icons6.png" alt="" />\n' +
-    '                    </div>\n' +
-    '                    <!--ROOM RATING-->\n' +
-    '                    <div class="r2 r-com">\n' +
-    '                        <h4>{{Program.programNameDictionary[selectedLanguage]}}</h4>\n' +
-    '                        <div class="r2-ratt">\n' +
-    '                            <i class="fa fa-star"></i>\n' +
-    '                            <i class="fa fa-star"></i>\n' +
-    '                            <i class="fa fa-star"></i>\n' +
-    '                            <i class="fa fa-star"></i>\n' +
-    '                            <i class="fa fa-star"></i>\n' +
-    '                            <img src="images/h-trip.png" alt="" />\n' +
-    '                            <span></span>\n' +
-    '                        </div>\n' +
-    '                        <ul>\n' +
-    '                            <li></li>\n' +
-    '                            <li></li>\n' +
-    '                            <li></li>\n' +
-    '                            <li></li>\n' +
-    '                        </ul>\n' +
-    '                    </div>\n' +
-    '                    <!--ROOM AMINITIES-->\n' +
-    '                    <div class="r3 r-com">\n' +
-    '                        <ul>\n' +
-    '                            <li>{{\'ProgramDays\' | translate}}: {{Program.programDays}}</li>\n' +
-    '                            <li>{{\'MealPerDay\' | translate}}: {{Program.noOfMeals}}</li>\n' +
-    '                            <li></li>\n' +
-    '                            <li></li>\n' +
-    '                            <li></li>\n' +
-    '                        </ul>\n' +
-    '                    </div>\n' +
-    '                    <!--ROOM PRICE-->\n' +
-    '                    <div class="r4 r-com">\n' +
-    '                        <p>{{Program.price}}</p>\n' +
-    '                        <p>\n' +
-    '                            <span class="room-price-1"></span>\n' +
-    '                            <span class="room-price"></span>\n' +
-    '                        </p>\n' +
-    '                        <p>{{\'NonRefundable\' | translate}}</p>\n' +
-    '                    </div>\n' +
-    '                    <!--ROOM BOOKING BUTTON-->\n' +
-    '                    <div class="r5 r-com">\n' +
-    '                        <div class="r2-available">{{\'Available\' | translate}}</div>\n' +
-    '                        <p></p>\n' +
-    '                        <a ng-click="$state.go(\'programDetails\', {programId: Program.programId});" class="inn-room-book">{{\'Book\' | translate}}</a>\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '                <!--END ROOM SECTION-->\n' +
+    '                <p>{{\'ProgramsDescription\' | translate}}</p>\n' +
     '            </div>\n' +
+    '            <!--ROOM SECTION-->\n' +
+    '            <div style="cursor: pointer !important;" ng-click="$state.go(\'programDetails\', {programId: Program.programId});" ng-repeat="Program in programPrepService"\n' +
+    '                class="room">\n' +
+    '\n' +
+    '                <div class="ribbon ribbon-top-left">\n' +
+    '                    <span>{{\'Program\' | translate}}</span>\n' +
+    '                </div>\n' +
+    '                <!--ROOM IMAGE-->\n' +
+    '                <div class="r1 r-com">\n' +
+    '                    <img src="https://fithouseksa.com/wp-content/uploads/2018/07/fithouse-icons6.png" alt="" />\n' +
+    '                </div>\n' +
+    '                <!--ROOM RATING-->\n' +
+    '                <div class="r2 r-com">\n' +
+    '                    <h4>{{Program.programNameDictionary[selectedLanguage]}}</h4>\n' +
+    '                    <div class="r2-ratt">\n' +
+    '                        <i class="fa fa-star"></i>\n' +
+    '                        <i class="fa fa-star"></i>\n' +
+    '                        <i class="fa fa-star"></i>\n' +
+    '                        <i class="fa fa-star"></i>\n' +
+    '                        <i class="fa fa-star"></i>\n' +
+    '                        <img src="images/h-trip.png" alt="" />\n' +
+    '                        <span></span>\n' +
+    '                    </div>\n' +
+    '                    <ul>\n' +
+    '                        <li></li>\n' +
+    '                        <li></li>\n' +
+    '                        <li></li>\n' +
+    '                        <li></li>\n' +
+    '                    </ul>\n' +
+    '                </div>\n' +
+    '                <!--ROOM AMINITIES-->\n' +
+    '                <div class="r3 r-com">\n' +
+    '                    <ul>\n' +
+    '                        <li>{{\'ProgramDays\' | translate}}: {{Program.programDays}}</li>\n' +
+    '                        <li>{{\'MealPerDay\' | translate}}: {{Program.noOfMeals}}</li>\n' +
+    '                        <li></li>\n' +
+    '                        <li></li>\n' +
+    '                        <li></li>\n' +
+    '                    </ul>\n' +
+    '                </div>\n' +
+    '                <!--ROOM PRICE-->\n' +
+    '                <div class="r4 r-com">\n' +
+    '                    <p>{{Program.price}}</p>\n' +
+    '                    <p>\n' +
+    '                        <span class="room-price-1"></span>\n' +
+    '                        <span class="room-price"></span>\n' +
+    '                    </p>\n' +
+    '                    <p>{{\'NonRefundable\' | translate}}</p>\n' +
+    '                </div>\n' +
+    '                <!--ROOM BOOKING BUTTON-->\n' +
+    '                <div class="r5 r-com">\n' +
+    '                    <div class="r2-available">{{\'Available\' | translate}}</div>\n' +
+    '                    <p></p>\n' +
+    '                    <a ng-click="$state.go(\'programDetails\', {programId: Program.programId});" class="inn-room-book">{{\'Book\' | translate}}</a>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '            <!--END ROOM SECTION-->\n' +
     '        </div>\n' +
     '    </div>\n' +
+    '</div>\n' +
     '\n' +
-    '</section>');
+    '<!-- </div> -->');
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
@@ -1564,19 +1424,36 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '\n' +
     '<!--HEADER SECTION-->\n' +
     '\n' +
-    '<section>\n' +
-    '    <!--TOP SECTION-->\n' +
-    '    <div class="menu-section">\n' +
-    '        <div class="container">\n' +
-    '\n' +
+    '<!-- <section> -->\n' +
+    '<div class="inn-banner">\n' +
+    '    <div class="container">\n' +
+    '        <div class="row">\n' +
+    '            <h4>All Room Types</h4>\n' +
+    '            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet.\n' +
+    '                <p>\n' +
+    '                    <ul>\n' +
+    '                        <li>\n' +
+    '                            <a href="#"> {{\'Home\' | translate}}</a>\n' +
+    '                        </li>\n' +
+    '                        <li>\n' +
+    '                            <a href="#"> {{\'Programs\' | translate}}</a>\n' +
+    '                        </li>\n' +
+    '                    </ul>\n' +
     '        </div>\n' +
     '    </div>\n' +
-    '    <!--TOP SECTION-->\n' +
-    '    <div class="hp-banner">\n' +
-    '        <img src="images/detailed-banner.jpg" alt=""> </div>\n' +
-    '    <!--END HOTEL ROOMS-->\n' +
-    '    <!--CHECK AVAILABILITY FORM-->\n' +
-    '    <!-- <div class="check-available">\n' +
+    '</div>\n' +
+    '<!--TOP SECTION-->\n' +
+    '<div class="menu-section">\n' +
+    '    <div class="container">\n' +
+    '\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '<!--TOP SECTION-->\n' +
+    '<div class="hp-banner">\n' +
+    '    <img src="images/detailed-banner.jpg" alt=""> </div>\n' +
+    '<!--END HOTEL ROOMS-->\n' +
+    '<!--CHECK AVAILABILITY FORM-->\n' +
+    '<!-- <div class="check-available">\n' +
     '        <div class="container">\n' +
     '            <div class="row">\n' +
     '                <div class="col-md-12">\n' +
@@ -1634,228 +1511,231 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '            </div>\n' +
     '        </div>\n' +
     '    </div> -->\n' +
-    '    <!--END CHECK AVAILABILITY FORM-->\n' +
-    '    <div class="hom-com">\n' +
-    '        <div class="container">\n' +
-    '            <div class="row">\n' +
-    '                <div class="col-md-12">\n' +
-    '                    <div class="row">\n' +
-    '                        <div class="hp-section">\n' +
-    '                            <div class="hp-sub-tit">\n' +
-    '                                <h4>\n' +
-    '                                    <span>{{progDetailsPrepService.programNameDictionary[selectedLanguage]}}</span>\n' +
-    '                                </h4>\n' +
+    '<!--END CHECK AVAILABILITY FORM-->\n' +
+    '<div class="hom-com">\n' +
+    '    <div class="container">\n' +
+    '        <div class="row">\n' +
+    '            <div class="col-md-12">\n' +
+    '                <div class="row">\n' +
+    '                    <div class="hp-section">\n' +
+    '                        <div class="hp-sub-tit">\n' +
+    '                            <h4>\n' +
+    '                                <span>{{progDetailsPrepService.programNameDictionary[selectedLanguage]}}</span>\n' +
+    '                            </h4>\n' +
     '\n' +
-    '                            </div>\n' +
-    '                            <div class="hp-amini detai-2p">\n' +
-    '                                <p>{{progDetailsPrepService.programDescriptionDictionary[selectedLanguage]}}</p>\n' +
-    '                            </div>\n' +
     '                        </div>\n' +
-    '\n' +
-    '                        <div class="hp-section">\n' +
-    '                            <div class="hp-sub-tit">\n' +
-    '                                <h4>\n' +
-    '                                    <span>{{\'ProgramDetails\' | translate}}</span>\n' +
-    '                                </h4>\n' +
-    '                                <!-- <p>Aliquam id tempor sem. Cras molestie risus et lobortis congue. Donec id est consectetur,\n' +
-    '                                    cursus tellus at, mattis lacus.</p> -->\n' +
-    '                            </div>\n' +
-    '                            <div class="hp-over">\n' +
-    '                                <ul class="nav nav-tabs hp-over-nav">\n' +
-    '                                    <li class="active">\n' +
-    '                                        <a data-toggle="tab" data-target="#home" style="cursor: pointer;">\n' +
-    '                                            <img src="images/icon/a9.png" alt="">\n' +
-    '                                            <span class="tab-hide">{{\'Details\' | translate}}</span>\n' +
-    '                                        </a>\n' +
-    '                                    </li>\n' +
-    '                                    <li>\n' +
-    '                                        <a data-toggle="tab" data-target="#menu1" style="cursor: pointer;">\n' +
-    '                                            <img src="images/icon/a8.png" alt="">\n' +
-    '                                            <span class="tab-hide">{{\'Summary\' | translate}}</span>\n' +
-    '                                        </a>\n' +
-    '                                    </li>\n' +
-    '                                    <li>\n' +
-    '                                        <a data-toggle="tab" data-target="#menu2" style="cursor: pointer;">\n' +
-    '                                            <img src="images/icon/a8.png" alt="">\n' +
-    '                                            <span class="tab-hide">{{\'Order\' | translate}}</span>\n' +
-    '                                        </a>\n' +
-    '                                    </li>\n' +
-    '                                </ul>\n' +
-    '                                <div class="tab-content">\n' +
-    '                                    <div id="home" class="tab-pane fade in active tab-space">\n' +
-    '                                        <div ng-init="counterDay = 0; counterMeal = 0">\n' +
-    '                                            <div class="panel-group pmd-accordion pmd-accordion-inbox" id="accordion6" role="tablist" aria-multiselectable="true">\n' +
-    '                                                <div ng-repeat="n in [].constructor(progDetailsPrepService.programDays)  track by $index" class="panel panel-default">\n' +
-    '                                                    <div class="panel-heading" role="tab" id="headingOne">\n' +
-    '                                                        <h4 class="panel-title">\n' +
-    '                                                            <a ng-init="counterDay=counterDay+1;" data-toggle="collapse" data-parent="#accordion6" ng-init="n=false" ng-click="n=!n;"\n' +
-    '                                                                aria-expanded="true" aria-controls="collapseOne6" data-expandable="false">\n' +
-    '                                                                {{\'Day\' | translate}} #{{counterDay=$index+1}}\n' +
-    '                                                                <i class="material-icons md-dark pmd-sm pmd-accordion-arrow">keyboard_arrow_down</i>\n' +
-    '                                                            </a>\n' +
-    '                                                        </h4>\n' +
-    '                                                    </div>\n' +
-    '                                                    <div ng-show="n == true" id="collapseOne6" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">\n' +
-    '                                                        <div class="panel-body">\n' +
-    '                                                            <ul>\n' +
-    '\n' +
-    '                                                                <li ng-repeat="meal in [].constructor(progDetailsPrepService.noOfMeals)  track by $index">\n' +
-    '                                                                    <h4>\n' +
-    '                                                                        <a ng-init="counterMeal=counterMeal+1;" ng-click="showDetails = ! showDetails;">{{\'Meal\' | translate}} #{{counterMeal=$index+1}}</a>\n' +
-    '                                                                        <!-- <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="progDetailsPrepService.ShowProgramMeal(progDetailsPrepService.programDetails.programId, counterDay, counterMeal)">mode_edit</i> -->\n' +
-    '                                                                    </h4>\n' +
-    '                                                                    <div ng-show="showDetails">\n' +
-    '                                                                        <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                                                                            <label for="first-name">{{\'Items\' | translate}}</label>\n' +
-    '                                                                            <ul>\n' +
-    '                                                                                <li ng-repeat="detail in progDetailsPrepService.programDetails | filter:{dayNumber:counterDay, mealNumberPerDay: counterMeal} ">\n' +
-    '                                                                                    <div class="res-menu" ng-repeat="item in progDetailsPrepService.items |filter :{itemId:detail.itemId}">\n' +
-    '                                                                                        <!-- {{item.itemNameDictionary[selectedLanguage]}} -->\n' +
-    '                                                                                        <img src="/assets/img/meal.jpeg" alt="" />\n' +
-    '                                                                                        <h3> {{item.itemNameDictionary[selectedLanguage]\n' +
-    '                                                                                            | limitTo:10}}\n' +
-    '                                                                                            <span>{{item.price}}</span>\n' +
-    '                                                                                        </h3>\n' +
-    '                                                                                        <span class="menu-item">{{item.itemDescriptionDictionary[selectedLanguage]\n' +
-    '                                                                                            | limitTo:10}}</span>\n' +
-    '                                                                                    </div>\n' +
-    '\n' +
-    '                                                                                </li>\n' +
-    '                                                                            </ul>\n' +
-    '                                                                        </div>\n' +
-    '                                                                    </div>\n' +
-    '                                                                </li>\n' +
-    '                                                            </ul>\n' +
-    '                                                        </div>\n' +
-    '                                                    </div>\n' +
-    '                                                </div>\n' +
-    '                                            </div>\n' +
-    '                                        </div>\n' +
-    '                                    </div>\n' +
-    '                                    <div id="menu1" class="tab-pane fade in active tab-space">\n' +
-    '                                        <div class="hp-main-overview">\n' +
-    '                                            <ul>\n' +
-    '                                                <li>{{\'Fats\' | translate}}:\n' +
-    '                                                    <span>{{fats}}</span>\n' +
-    '                                                </li>\n' +
-    '                                                <li>{{\'Carbs\' | translate}}:\n' +
-    '                                                    <span>{{carbs}}</span>\n' +
-    '                                                </li>\n' +
-    '                                                <li>{{\'Protein\' | translate}}:\n' +
-    '                                                    <span>{{protein}}</span>\n' +
-    '                                                </li>\n' +
-    '                                                <li>{{\'Calories\' | translate}}:\n' +
-    '                                                    <span>{{calories}}</span>\n' +
-    '                                                </li>\n' +
-    '                                                <li>{{\'TotalPrice\' | translate}}:\n' +
-    '                                                    <span>{{progDetailsPrepService.price}}</span>\n' +
-    '                                                </li>\n' +
-    '                                            </ul>\n' +
-    '                                        </div>\n' +
-    '                                    </div>\n' +
-    '                                    <div id="menu2" class="tab-pane fade in active tab-space">\n' +
-    '                                        <form name="orderForm">\n' +
-    '                                            <!-- {{itemDatetime}} -->\n' +
-    '                                            <div class="col-md-6">\n' +
-    '                                                <h5>{{\'OrderDate\' | translate}}</h5>\n' +
-    '                                                <input name="itemDatetime" required ng-model="itemDatetime" type="text" id="startdate" \n' +
-    '                                                class="form-control" ng-change="dateChange();" />\n' +
-    '                                            </div>\n' +
-    '\n' +
-    '\n' +
-    '                                            <div class="col-md-12">\n' +
-    '                                                <h5>{{\'OrderType\' | translate}}</h5>\n' +
-    '                                                <p>\n' +
-    '                                                    <input ng-model="orderType.type" name="group1" type="radio" id="test1" value="delivery" />\n' +
-    '                                                    <label for="test1">{{\'Delivery\' | translate}}</label>\n' +
-    '                                                </p>\n' +
-    '                                                <p>\n' +
-    '                                                    <input ng-model="orderType.type" name="group1" type="radio" id="test2" value="pickup" />\n' +
-    '                                                    <label for="test2">{{\'PickUp\' | translate}}</label>\n' +
-    '                                                </p>\n' +
-    '\n' +
-    '                                                <div ng-if="orderType.type == \'delivery\'" class="row form-group">\n' +
-    '                                                    <div class="col-md-6">\n' +
-    '                                                        <div>\n' +
-    '                                                            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                                                                <label for="first-name">{{\'SelectAddress\' | translate}}</label>\n' +
-    '                                                                <!-- {{addresses.address}} -->\n' +
-    '                                                                <div ng-repeat="address in userAddresses">\n' +
-    '                                                                    <p>\n' +
-    '                                                                        <input ng-change="addressInfo(address)" name="group2" type="radio" id="test{{address.addressId}}" ng-model="addresses.address"\n' +
-    '                                                                            value="{{address.addressId}}" />\n' +
-    '                                                                        <label for="test{{address.addressId}}">{{address.appartmentNo}}, {{address.description}},\n' +
-    '                                                                            {{\'Floor\' | translate}} {{address.floor}}</label>\n' +
-    '                                                                    </p>\n' +
-    '                                                                    <!-- <label>\n' +
-    '                                                                        <input ng-change="addressInfo(address)" type="radio" ng-model="addresses.address" value="{{address.addressId}}"> {{address.appartmentNo}}, {{address.description}},\n' +
-    '                                                                        {{\'Floor\' | translate}} {{address.floor}}\n' +
-    '                                                                    </label> -->\n' +
-    '                                                                </div>\n' +
-    '                                                            </div>\n' +
-    '                                                        </div>\n' +
-    '                                                    </div>\n' +
-    '                                                </div>\n' +
-    '\n' +
-    '                                                <div class="row form-group">\n' +
-    '                                                    <div class="col-md-6">\n' +
-    '                                                        <div ng-show="orderType.type == \'pickup\'">\n' +
-    '                                                            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                                                                <label for="first-name">{{\'Country\' | translate}}</label>\n' +
-    '                                                                <select ng-required="orderType.type == \'pickup\'" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
-    '                                                                    ng-change="countryChange()" ng-model="selectedCountryId"\n' +
-    '                                                                    ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in counties">\n' +
-    '                                                                </select>\n' +
-    '                                                            </div>\n' +
-    '                                                            <div ng-show=" selectedCountryId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                                                                <label for="first-name">{{\'Region\' | translate}}</label>\n' +
-    '                                                                <select ng-required="orderType.type == \'pickup\'" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
-    '                                                                    ng-change="regionChange()" ng-model="selectedRegionId" ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in regions">\n' +
-    '                                                                </select>\n' +
-    '                                                            </div>\n' +
-    '                                                            <div ng-show=" selectedRegionId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                                                                <label for="first-name">{{\'City\' | translate}}</label>\n' +
-    '                                                                <select ng-required="selectedRegionId > 0 && orderType.type == \'pickup\'" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
-    '                                                                    ng-change="cityChange()" ng-model="selectedCityId" ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in cities">\n' +
-    '                                                                </select>\n' +
-    '                                                            </div>\n' +
-    '                                                            <div ng-show=" selectedCityId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                                                                <label for="first-name">{{\'Area\' | translate}}</label>\n' +
-    '                                                                <select ng-required=" selectedCityId > 0 && orderType.type == \'pickup\'" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
-    '                                                                    ng-change="areaChange()" ng-model="selectedAreaId" ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in area">\n' +
-    '                                                                </select>\n' +
-    '                                                            </div>\n' +
-    '                                                            <div ng-show=" selectedAreaId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                                                                <label for="first-name">{{\'Branch\' | translate}}</label>\n' +
-    '                                                                <select ng-required=" selectedAreaId > 0  && orderType.type == \'pickup\'" class="form-control select-with-search pmd-select2-tags"\n' +
-    '                                                                    ng-change="branchChange()" ng-model="selectedBranchId" ng-options="a.branchId as a.titleDictionary[selectedLanguage] for a in branchList"></select>\n' +
-    '                                                            </div>\n' +
-    '\n' +
-    '                                                        </div>\n' +
-    '                                                    </div>\n' +
-    '\n' +
-    '                                                </div>\n' +
-    '\n' +
-    '                                                <div class="input-field col s12 m4 l2">\n' +
-    '                                                    <input type="submit" value="submit" class="form-btn" ng-click="Order()" ng-disabled="orderForm.$invalid | || addressValidation == false" >\n' +
-    '                                                    <!-- ng-disabled="orderForm.$invalid || !dateIsValid || addressValidation == false" -->\n' +
-    '                                                </div>\n' +
-    '                                            </div>\n' +
-    '                                        </form>\n' +
-    '\n' +
-    '                                    </div>\n' +
-    '                                </div>\n' +
-    '                            </div>\n' +
-    '\n' +
+    '                        <div class="hp-amini detai-2p">\n' +
+    '                            <p>{{progDetailsPrepService.programDescriptionDictionary[selectedLanguage]}}</p>\n' +
     '                        </div>\n' +
     '                    </div>\n' +
     '\n' +
+    '                    <div class="hp-section">\n' +
+    '                        <div class="hp-sub-tit">\n' +
+    '                            <h4>\n' +
+    '                                <span>{{\'ProgramDetails\' | translate}}</span>\n' +
+    '                            </h4>\n' +
+    '                            <!-- <p>Aliquam id tempor sem. Cras molestie risus et lobortis congue. Donec id est consectetur,\n' +
+    '                                    cursus tellus at, mattis lacus.</p> -->\n' +
+    '                        </div>\n' +
+    '                        <div class="hp-over">\n' +
+    '                            <ul class="nav nav-tabs hp-over-nav">\n' +
+    '                                <li class="active">\n' +
+    '                                    <a data-toggle="tab" data-target="#home" style="cursor: pointer;">\n' +
+    '                                        <img src="images/icon/a9.png" alt="">\n' +
+    '                                        <span class="tab-hide">{{\'Details\' | translate}}</span>\n' +
+    '                                    </a>\n' +
+    '                                </li>\n' +
+    '                                <li>\n' +
+    '                                    <a data-toggle="tab" data-target="#menu1" style="cursor: pointer;">\n' +
+    '                                        <img src="images/icon/a8.png" alt="">\n' +
+    '                                        <span class="tab-hide">{{\'Summary\' | translate}}</span>\n' +
+    '                                    </a>\n' +
+    '                                </li>\n' +
+    '                                <li>\n' +
+    '                                    <a data-toggle="tab" data-target="#menu2" style="cursor: pointer;">\n' +
+    '                                        <img src="images/icon/a8.png" alt="">\n' +
+    '                                        <span class="tab-hide">{{\'Order\' | translate}}</span>\n' +
+    '                                    </a>\n' +
+    '                                </li>\n' +
+    '                            </ul>\n' +
+    '                            <div class="tab-content">\n' +
+    '                                <div id="home" class="tab-pane fade in active tab-space">\n' +
+    '                                    <div ng-init="counterDay = 0; counterMeal = 0">\n' +
+    '                                        <div class="panel-group pmd-accordion pmd-accordion-inbox" id="accordion6" role="tablist" aria-multiselectable="true">\n' +
+    '                                            <div ng-repeat="n in [].constructor(progDetailsPrepService.programDays)  track by $index" class="panel panel-default">\n' +
+    '                                                <div class="panel-heading" role="tab" id="headingOne">\n' +
+    '                                                    <h4 class="panel-title">\n' +
+    '                                                        <a ng-init="counterDay=counterDay+1;" data-toggle="collapse" data-parent="#accordion6" ng-init="n=false" ng-click="n=!n;"\n' +
+    '                                                            aria-expanded="true" aria-controls="collapseOne6" data-expandable="false">\n' +
+    '                                                            {{\'Day\' | translate}} #{{counterDay=$index+1}}\n' +
+    '                                                            <i class="material-icons md-dark pmd-sm pmd-accordion-arrow">keyboard_arrow_down</i>\n' +
+    '                                                        </a>\n' +
+    '                                                    </h4>\n' +
+    '                                                </div>\n' +
+    '                                                <div ng-show="n == true" id="collapseOne6" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">\n' +
+    '                                                    <div class="panel-body">\n' +
+    '                                                        <ul>\n' +
+    '\n' +
+    '                                                            <li ng-repeat="meal in [].constructor(progDetailsPrepService.noOfMeals)  track by $index">\n' +
+    '                                                                <h4>\n' +
+    '                                                                    <a ng-init="counterMeal=counterMeal+1;" ng-click="showDetails = ! showDetails;">{{\'Meal\' | translate}} #{{counterMeal=$index+1}}</a>\n' +
+    '                                                                    <!-- <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="progDetailsPrepService.ShowProgramMeal(progDetailsPrepService.programDetails.programId, counterDay, counterMeal)">mode_edit</i> -->\n' +
+    '                                                                </h4>\n' +
+    '                                                                <div ng-show="showDetails">\n' +
+    '                                                                    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                                                                        <label for="first-name">{{\'Items\' | translate}}</label>\n' +
+    '                                                                        <ul>\n' +
+    '                                                                            <li ng-repeat="detail in progDetailsPrepService.programDetails | filter:{dayNumber:counterDay, mealNumberPerDay: counterMeal} ">\n' +
+    '                                                                                <div class="res-menu" ng-repeat="item in progDetailsPrepService.items |filter :{itemId:detail.itemId}">\n' +
+    '                                                                                    <!-- {{item.itemNameDictionary[selectedLanguage]}} -->\n' +
+    '                                                                                    <img src="/assets/img/meal.jpeg" alt="" />\n' +
+    '                                                                                    <h3> {{item.itemNameDictionary[selectedLanguage]\n' +
+    '                                                                                        | limitTo:10}}\n' +
+    '                                                                                        <span>{{item.price}}</span>\n' +
+    '                                                                                    </h3>\n' +
+    '                                                                                    <span class="menu-item">{{item.itemDescriptionDictionary[selectedLanguage]\n' +
+    '                                                                                        | limitTo:10}}</span>\n' +
+    '                                                                                </div>\n' +
+    '\n' +
+    '                                                                            </li>\n' +
+    '                                                                        </ul>\n' +
+    '                                                                    </div>\n' +
+    '                                                                </div>\n' +
+    '                                                            </li>\n' +
+    '                                                        </ul>\n' +
+    '                                                    </div>\n' +
+    '                                                </div>\n' +
+    '                                            </div>\n' +
+    '                                        </div>\n' +
+    '                                    </div>\n' +
+    '                                </div>\n' +
+    '                                <div id="menu1" class="tab-pane fade in tab-space">\n' +
+    '                                    <div class="hp-main-overview">\n' +
+    '                                        <ul>\n' +
+    '                                            <li>{{\'Fats\' | translate}}:\n' +
+    '                                                <span>{{fats}}</span>\n' +
+    '                                            </li>\n' +
+    '                                            <li>{{\'Carbs\' | translate}}:\n' +
+    '                                                <span>{{carbs}}</span>\n' +
+    '                                            </li>\n' +
+    '                                            <li>{{\'Protein\' | translate}}:\n' +
+    '                                                <span>{{protein}}</span>\n' +
+    '                                            </li>\n' +
+    '                                            <li>{{\'Calories\' | translate}}:\n' +
+    '                                                <span>{{calories}}</span>\n' +
+    '                                            </li>\n' +
+    '                                            <li>{{\'TotalPrice\' | translate}}:\n' +
+    '                                                <span>{{progDetailsPrepService.price}}</span>\n' +
+    '                                            </li>\n' +
+    '                                        </ul>\n' +
+    '                                    </div>\n' +
+    '                                </div>\n' +
+    '                                <div id="menu2" class="tab-pane fade in tab-space">\n' +
+    '                                    <form name="orderForm">\n' +
+    '                                        <!-- {{itemDatetime}} -->\n' +
+    '                                        <div class="col-md-6">\n' +
+    '                                            <h5>{{\'OrderDate\' | translate}}</h5>\n' +
+    '                                            <input name="itemDatetime" required ng-model="itemDatetime" type="text" id="startdate" class="form-control" ng-change="dateChange();"\n' +
+    '                                            />\n' +
+    '                                        </div>\n' +
+    '\n' +
+    '\n' +
+    '                                        <div class="col-md-12">\n' +
+    '                                            <h5>{{\'OrderType\' | translate}}</h5>\n' +
+    '                                            <p>\n' +
+    '                                                <input ng-model="orderType.type" name="group1" type="radio" id="test1" value="delivery" />\n' +
+    '                                                <label for="test1">{{\'Delivery\' | translate}}</label>\n' +
+    '                                            </p>\n' +
+    '                                            <p>\n' +
+    '                                                <input ng-model="orderType.type" name="group1" type="radio" id="test2" value="pickup" />\n' +
+    '                                                <label for="test2">{{\'PickUp\' | translate}}</label>\n' +
+    '                                            </p>\n' +
+    '\n' +
+    '                                            <div ng-if="orderType.type == \'delivery\'" class="row form-group">\n' +
+    '                                                <div class="col-md-6">\n' +
+    '                                                    <div>\n' +
+    '                                                        <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                                                            <label for="first-name">{{\'SelectAddress\' | translate}}</label>\n' +
+    '                                                            <!-- {{addresses.address}} -->\n' +
+    '                                                            <div ng-repeat="address in userAddresses">\n' +
+    '                                                                <p>\n' +
+    '                                                                    <input ng-change="addressInfo(address)" name="group2" type="radio" id="test{{address.addressId}}" ng-model="addresses.address"\n' +
+    '                                                                        value="{{address.addressId}}" />\n' +
+    '                                                                    <label for="test{{address.addressId}}">{{address.appartmentNo}}, {{address.description}}, {{\'Floor\'\n' +
+    '                                                                        | translate}} {{address.floor}}</label>\n' +
+    '                                                                </p>\n' +
+    '                                                                <!-- <label>\n' +
+    '                                                                        <input ng-change="addressInfo(address)" type="radio" ng-model="addresses.address" value="{{address.addressId}}"> {{address.appartmentNo}}, {{address.description}},\n' +
+    '                                                                        {{\'Floor\' | translate}} {{address.floor}}\n' +
+    '                                                                    </label> -->\n' +
+    '                                                            </div>\n' +
+    '                                                        </div>\n' +
+    '                                                    </div>\n' +
+    '                                                </div>\n' +
+    '                                            </div>\n' +
+    '\n' +
+    '                                            <div class="row form-group">\n' +
+    '                                                <div class="col-md-6">\n' +
+    '                                                    <div ng-show="orderType.type == \'pickup\'">\n' +
+    '                                                        <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                                                            <label for="first-name">{{\'Country\' | translate}}</label>\n' +
+    '                                                            <select ng-required="orderType.type == \'pickup\'" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
+    '                                                                ng-change="countryChange()" ng-model="selectedCountryId" ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in counties">\n' +
+    '                                                            </select>\n' +
+    '                                                        </div>\n' +
+    '                                                        <div ng-show=" selectedCountryId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                                                            <label for="first-name">{{\'Region\' | translate}}</label>\n' +
+    '                                                            <select ng-required="orderType.type == \'pickup\'" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
+    '                                                                ng-change="regionChange()" ng-model="selectedRegionId" ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in regions">\n' +
+    '                                                            </select>\n' +
+    '                                                        </div>\n' +
+    '                                                        <div ng-show=" selectedRegionId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                                                            <label for="first-name">{{\'City\' | translate}}</label>\n' +
+    '                                                            <select ng-required="selectedRegionId > 0 && orderType.type == \'pickup\'" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
+    '                                                                ng-change="cityChange()" ng-model="selectedCityId" ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in cities">\n' +
+    '                                                            </select>\n' +
+    '                                                        </div>\n' +
+    '                                                        <div ng-show=" selectedCityId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                                                            <label for="first-name">{{\'Area\' | translate}}</label>\n' +
+    '                                                            <select ng-required=" selectedCityId > 0 && orderType.type == \'pickup\'" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
+    '                                                                ng-change="areaChange()" ng-model="selectedAreaId" ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in area">\n' +
+    '                                                            </select>\n' +
+    '                                                        </div>\n' +
+    '                                                        <div ng-show=" selectedAreaId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                                                            <label for="first-name">{{\'Branch\' | translate}}</label>\n' +
+    '                                                            <select ng-required=" selectedAreaId > 0  && orderType.type == \'pickup\'" class="form-control select-with-search pmd-select2-tags"\n' +
+    '                                                                ng-change="branchChange()" ng-model="selectedBranchId" ng-options="a.branchId as a.titleDictionary[selectedLanguage] for a in branchList"></select>\n' +
+    '                                                        </div>\n' +
+    '\n' +
+    '                                                    </div>\n' +
+    '                                                </div>\n' +
+    '\n' +
+    '                                            </div>\n' +
+    '\n' +
+    '                                            <div class="input-field col s12 m4 l2">\n' +
+    '                                                    Price:{{ progDetailsPrepService.price}}\n' +
+    '                                                    <br> Delivery:{{ DeliveryFees}}\n' +
+    '                                                    <br>Total :{{ Total}}\n' +
+    '                                                    <br>\n' +
+    '                                                    <button style="background-color: #e4e5e6;color: black!important;" class="btn pmd-ripple-effect btn-primary" ng-click="Order()" ng-disabled="orderForm.$invalid  || selectedBranchId <= 0 || (addressValidation == false && orderType.type == \'delivery\') && !dateIsValid"> {{\'next\' | translate}}</button>\n' +
+    '                                                <!-- ng-disabled="orderForm.$invalid || !dateIsValid || addressValidation == false" -->\n' +
+    '                                            </div>\n' +
+    '                                        </div>\n' +
+    '                                    </form>\n' +
+    '\n' +
+    '                                </div>\n' +
+    '                            </div>\n' +
+    '                        </div>\n' +
+    '\n' +
+    '                    </div>\n' +
     '                </div>\n' +
+    '\n' +
     '            </div>\n' +
     '        </div>\n' +
+    '    </div>\n' +
     '\n' +
-    '</section>\n' +
-    '<!--END HEADER SECTION-->');
+    '    <!-- </section> -->\n' +
+    '    <!--END HEADER SECTION-->');
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
