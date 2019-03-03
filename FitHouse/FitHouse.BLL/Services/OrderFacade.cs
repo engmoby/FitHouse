@@ -249,7 +249,7 @@ namespace FitHouse.BLL.Services
             {
                 order.OrderStatus = Enums.OrderStatus.Prepering;
                 order.OrderStartDate = orderDto.Day;
-                order.Price = orderDto.Meal.MealPrice;
+                order.Price = orderDto.Price;
                 var orderDetail = new OrderDetail();
                 orderDetail.MealId = orderDto.Meal.MealId;
                 orderDetail.Day = null;
@@ -334,7 +334,7 @@ namespace FitHouse.BLL.Services
             {
                 order.IsProgram = true;
                 order.OrderStartDate = orderDto.Day;
-                order.Price = orderDto.Program.Price;
+                order.Price = orderDto.Price;
                 
                 var details = _programDetailService.DistictProgramDays(orderDto.Program.ProgramId);
                     var lastDate = order.OrderStartDate;
