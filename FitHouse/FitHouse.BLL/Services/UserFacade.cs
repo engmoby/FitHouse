@@ -97,6 +97,7 @@ namespace FitHouse.BLL.Services
             if (getUserInfo.BranchId != null)
             {
                 userDto.BranchId = getUserInfo.BranchId;
+                userDto.Branch  = Mapper.Map<BranchDto>(getUserInfo.Branch) ;
                 userDto.AreaId = getUserInfo.Branch.AreaId;
                 userDto.CityId = getUserInfo.Branch.Area.CityId;
                 userDto.RegionId = getUserInfo.Branch.Area.City.RegionId;

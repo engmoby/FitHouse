@@ -40,7 +40,7 @@ namespace FitHouse.API.Controllers
 
 
 
-        [Route("api/Addresss/EditAddress", Name = "EditAddress")]
+        [Route("api/Address/EditAddress", Name = "EditAddress")]
         [HttpPost]
         public IHttpActionResult EditAddress([FromBody] AddressModel addressModel)
         {
@@ -49,5 +49,12 @@ namespace FitHouse.API.Controllers
             return Ok(reurnAddress);
         }
 
+        [Route("api/Address/GetAddressById", Name = "GetAddressById")]
+        [HttpGet]
+        public IHttpActionResult GetAddressById(long addressId)
+        {
+            var reurnAddress = _addressFacade.GetAddress(addressId);
+            return Ok(reurnAddress);
+        }
     }
 }

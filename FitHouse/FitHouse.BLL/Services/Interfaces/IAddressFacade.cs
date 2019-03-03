@@ -12,6 +12,7 @@ namespace FitHouse.BLL.Services.Interfaces
         List<AddressDto> GetUserAddresses(long userId);
         AddressDto CreateAddress(AddressDto addressDto, int userId);
         AddressDto EditAddress(AddressDto addressDto, int userId);
+        AddressDto GetAddress(long addressId);
 
     }
 }

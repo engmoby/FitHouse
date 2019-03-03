@@ -19,18 +19,17 @@
         $scope.$emit('LOAD')
         var vm = this;
         vm.close = function () {
-            $state.go('users');
+            $state.go('homePage');
         }
 
-        vm.show = true; 
+        vm.show = true;
         $scope.userObj = EditUserPrepService;
         $scope.userObj.confirmPassword = $scope.userObj.password;
         console.log($scope.userObj);
-        init(); 
+        init();
 
         $scope.Updateclient = function () {
             blockUI.start("Loading...");
-            debugger;
             vm.show = false;
             var newClient = new UserResource();
             newClient.userId = $scope.userObj.userId;
@@ -39,7 +38,7 @@
             newClient.phone = $scope.userObj.phone;
             newClient.email = $scope.userObj.email;
             newClient.password = $scope.userObj.password;
-            newClient.isActive = true; 
+            newClient.isActive = true;
             newClient.branchId = vm.selectedBranchId;//1;
             newClient.$update().then(
                 function (data, status) {
@@ -62,10 +61,15 @@
 
 
         function init() {
+            debugger;
+
             vm.counties = [];
             //   vm.selectedCountry = $scope.userObj.branch.area.city.region.country;// { countryId: 0, titleDictionary: { "en-us": "All Countries", "ar-eg": "كل البلاد" } };
-            vm.counties.push(vm.selectedCountry);
             vm.counties = vm.counties.concat(CountriesPrepService.results)
+            var indexCountry = vm.counties.indexOf($filter('filter')(vm.counties, { 'countryId': $scope.userObj.countryId }, true)[0]);
+            vm.selectedCountryId = vm.counties[indexCountry];
+
+           // vm.counties.push(vm.selectedCountry);
             //   vm.selectedRegion = $scope.userObj.branch.area.city.region;// { regionId: 0, titleDictionary: { "en-us": "All Regions", "ar-eg": "كل الأقاليم" } };
             vm.regions = [];
             vm.regions.push(vm.selectedRegion);
@@ -78,12 +82,9 @@
             //   vm.selectedBranch = $scope.userObj.branch;// { branchId: 0, titleDictionary: { "en-us": "All Branches", "ar-eg": "كل الفروع" } };
             vm.branchList = [];
             vm.branchList.push(vm.selectedBranch);
-            debugger;
             // console.log(vm.counties);
-            // var indexCountry = vm.counties.indexOf($filter('filter')(vm.counties, { 'countryId': $scope.userObj.countryId }, true)[0]);
-            // vm.selectedCountry = vm.counties[indexCountry];
 
-            // funcCountryChange();
+            funcCountryChange();
 
         }
         function funcCountryChange() {

@@ -3,9 +3,9 @@
 
     angular
         .module('home')
-        .controller('homeCtrl', ['$rootScope', '$transitions', '$translate', '$scope', 'appCONSTANTS', '$state', '_', 'authenticationService', 'authorizationService', '$localStorage', homeCtrl])
+        .controller('homeCtrl', ['$rootScope','blockUI','$transitions', '$translate', '$scope', 'appCONSTANTS', '$state', '_', 'authenticationService', 'authorizationService', '$localStorage', homeCtrl])
 
-    function homeCtrl($rootScope, $transitions, $translate, $scope, appCONSTANTS, $state, _, authenticationService, authorizationService, $localStorage) {
+    function homeCtrl($rootScope, blockUI,$transitions, $translate, $scope, appCONSTANTS, $state, _, authenticationService, authorizationService, $localStorage) {
         $scope.$on('LOAD', function () { $scope.loading = true });
         $scope.$on('UNLOAD', function () { $scope.loading = false });
         var vm = this;
@@ -35,6 +35,7 @@
         $scope.init();
 
         $scope.submit = function (username, password) {
+            blockUI.start('Loading...');
 
             authorizationService.isPasswordchanged = false;
             $('#passwordChanged').hide();
@@ -99,7 +100,9 @@
             $scope.inActiveUser = false;
             $scope.user = authorizationService.getUser();
             // if ($scope.user.PermissionId[0] == 1)
-                $state.go('homePage'); 
+         
+           
+            $state.go('homePage');
             // if ($scope.user.PermissionId[0] == 3)
             //     $state.go('Role');
             // if ($scope.user.PermissionId[0] == 4)
