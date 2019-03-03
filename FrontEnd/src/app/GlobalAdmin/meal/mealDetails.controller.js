@@ -62,7 +62,7 @@
             $scope.selectedBranchId = $scope.addressDetails.branchId;
             // GetBranchDelivery();
             debugger;
-            $scope.Total = $scope.mealPrepService.mealPrice + $scope.DeliveryFees;
+            $scope.Total = $scope.mealPrepService.mealPrice;
         }
         $scope.dateIsValid = false;
         $scope.dateChange = function () {
@@ -215,7 +215,7 @@
                 }
             }
             $scope.DeliveryFees = 0;
-            $scope.Total = $scope.mealPrepService.mealPrice + $scope.DeliveryFees;
+            $scope.Total = $scope.mealPrepService.mealPrice;
         }
 
         $scope.Order = function () {
@@ -229,6 +229,7 @@
             order.userId = $scope.clientId;
             order.day = $('#startdate').val();
             order.type = "Meal";
+            order.price = $scope.Total;
 
             order.$createOrder().then(
                 function (data, status) {

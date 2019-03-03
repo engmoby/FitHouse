@@ -1,51 +1,3 @@
-(function() {
-  'use strict';
-
-  angular
-    .module('home')
-    .config(config)
-    .run(runBlock);
-
-  config.$inject = ['ngProgressLiteProvider'];
-  runBlock.$inject = ['$rootScope', 'ngProgressLite','$transitions','blockUI','$translate'];
-
-  function config(ngProgressLiteProvider) {
-    ngProgressLiteProvider.settings.speed = 1000;
-
-  }
-
-  function runBlock($rootScope, ngProgressLite,$transitions,blockUI,$translate) {
-
-    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-        startProgress();
-    });
-    $transitions.onStart({}, function(transition) {
-      blockUI.start($translate.instant('loading')); 
-    });
-    $transitions.onSuccess({}, function(transition) {
-      blockUI.stop();
-    });
-    $transitions.onError({  }, function(transition) {
-      blockUI.stop();
-    });
-    var routingDoneEvents = ['$stateChangeSuccess', '$stateChangeError', '$stateNotFound'];
-
-    angular.forEach(routingDoneEvents, function(event) {
-      $rootScope.$on(event, function(event, toState, toParams, fromState, fromParams) {
-        endProgress();
-      });
-    });
-
-    function startProgress() {
-      ngProgressLite.start();
-    }
-
-    function endProgress() {
-      ngProgressLite.done();
-    }
-
-  }
-})();
 (function () {
     'use strict';
 
@@ -169,7 +121,8 @@
                     resolve: {
                         progDetailsPrepService: progDetailsPrepService,
                         itemsssPrepService: itemsssPrepService,
-                        CountriesPrepService: CountriesPrepService
+                        CountriesPrepService: CountriesPrepService,
+                        settingsPrepService: settingsPrepService
                     }
                 })
 
@@ -340,6 +293,54 @@
          return AddressResource.getAddress({ addressId: $stateParams.addressId }).$promise;
      }
 }());
+(function() {
+  'use strict';
+
+  angular
+    .module('home')
+    .config(config)
+    .run(runBlock);
+
+  config.$inject = ['ngProgressLiteProvider'];
+  runBlock.$inject = ['$rootScope', 'ngProgressLite','$transitions','blockUI','$translate'];
+
+  function config(ngProgressLiteProvider) {
+    ngProgressLiteProvider.settings.speed = 1000;
+
+  }
+
+  function runBlock($rootScope, ngProgressLite,$transitions,blockUI,$translate) {
+
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+        startProgress();
+    });
+    $transitions.onStart({}, function(transition) {
+      blockUI.start($translate.instant('loading')); 
+    });
+    $transitions.onSuccess({}, function(transition) {
+      blockUI.stop();
+    });
+    $transitions.onError({  }, function(transition) {
+      blockUI.stop();
+    });
+    var routingDoneEvents = ['$stateChangeSuccess', '$stateChangeError', '$stateNotFound'];
+
+    angular.forEach(routingDoneEvents, function(event) {
+      $rootScope.$on(event, function(event, toState, toParams, fromState, fromParams) {
+        endProgress();
+      });
+    });
+
+    function startProgress() {
+      ngProgressLite.start();
+    }
+
+    function endProgress() {
+      ngProgressLite.done();
+    }
+
+  }
+})();
 (function () {
     'use strict';
 
@@ -623,7 +624,7 @@
             $scope.addressDetails = address;
             $scope.selectedBranchId = $scope.addressDetails.branchId;
             debugger;
-            $scope.Total = $scope.mealPrepService.mealPrice + $scope.DeliveryFees;
+            $scope.Total = $scope.mealPrepService.mealPrice;
         }
         $scope.dateIsValid = false;
         $scope.dateChange = function () {
@@ -760,7 +761,7 @@
                 }
             }
             $scope.DeliveryFees = 0;
-            $scope.Total = $scope.mealPrepService.mealPrice + $scope.DeliveryFees;
+            $scope.Total = $scope.mealPrepService.mealPrice;
         }
 
         $scope.Order = function () {
@@ -773,6 +774,7 @@
             order.userId = $scope.clientId;
             order.day = $('#startdate').val();
             order.type = "Meal";
+            order.price = $scope.Total;
 
             order.$createOrder().then(
                 function (data, status) {
@@ -1243,14 +1245,15 @@
         .module('home')
         .controller('programDetailsController', ['$scope', '$stateParams', '$translate', 'appCONSTANTS'
             , '$filter', 'progDetailsPrepService', 'itemsssPrepService', 'OrderResource'
-            , 'RegionResource', 'CityResource', 'AreaResource', 'CountriesPrepService', 'BranchResource', programDetailsController])
+            , 'RegionResource', 'CityResource', 'AreaResource', 'CountriesPrepService', 'BranchResource', 'settingsPrepService', programDetailsController])
 
     function programDetailsController($scope, $stateParams, $translate, appCONSTANTS
         , $filter, progDetailsPrepService
         , itemsssPrepService, OrderResource, RegionResource, CityResource, AreaResource
-        , CountriesPrepService, BranchResource) {
+        , CountriesPrepService, BranchResource, settingsPrepService) {
 
         $scope.progDetailsPrepService = progDetailsPrepService;
+        $scope.settingsPrepService = settingsPrepService;
         $scope.itemsssPrepService = itemsssPrepService;
         $scope.clientId = localStorage.getItem('ClientId');
 
@@ -1300,7 +1303,7 @@
             var temp = new BranchResource();
             temp.$getBranch({ branchId: $scope.selectedBranchId }).then(function (results) {
                 $scope.DeliveryFees = results.deliveryPrice;
-                $scope.Total = $scope.progDetailsPrepService.price + $scope.DeliveryFees;
+                $scope.Total = ($scope.progDetailsPrepService.price + $scope.DeliveryFees) - ($scope.progDetailsPrepService.price *  ($scope.settingsPrepService.programDiscount / 100));
 
             },
                 function (data, status) {
@@ -1432,6 +1435,8 @@
                     $scope.branchList.splice(i, 1);
                 }
             }
+            $scope.DeliveryFees = 0;
+            $scope.Total = $scope.progDetailsPrepService.price - ($scope.progDetailsPrepService.price * ($scope.settingsPrepService.programDiscount / 100));
         }
 
         $scope.Order = function () {
@@ -1441,6 +1446,7 @@
             order.program = $scope.progDetailsPrepService;
             order.isByAdmin = false;
             order.userId = $scope.clientId;
+            order.price = $scope.Total;
             order.day = $('#startdate').val();
 
             if ($scope.orderType.type == "delivery") {

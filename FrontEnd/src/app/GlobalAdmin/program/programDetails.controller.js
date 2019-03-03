@@ -5,14 +5,15 @@
         .module('home')
         .controller('programDetailsController', ['$scope', '$stateParams', '$translate', 'appCONSTANTS'
             , '$filter', 'progDetailsPrepService', 'itemsssPrepService', 'OrderResource'
-            , 'RegionResource', 'CityResource', 'AreaResource', 'CountriesPrepService', 'BranchResource', programDetailsController])
+            , 'RegionResource', 'CityResource', 'AreaResource', 'CountriesPrepService', 'BranchResource', 'settingsPrepService', programDetailsController])
 
     function programDetailsController($scope, $stateParams, $translate, appCONSTANTS
         , $filter, progDetailsPrepService
         , itemsssPrepService, OrderResource, RegionResource, CityResource, AreaResource
-        , CountriesPrepService, BranchResource) {
+        , CountriesPrepService, BranchResource, settingsPrepService) {
 
         $scope.progDetailsPrepService = progDetailsPrepService;
+        $scope.settingsPrepService = settingsPrepService;
         $scope.itemsssPrepService = itemsssPrepService;
         $scope.clientId = localStorage.getItem('ClientId');
 
@@ -63,7 +64,7 @@
             var temp = new BranchResource();
             temp.$getBranch({ branchId: $scope.selectedBranchId }).then(function (results) {
                 $scope.DeliveryFees = results.deliveryPrice;
-                $scope.Total = $scope.progDetailsPrepService.price + $scope.DeliveryFees;
+                $scope.Total = ($scope.progDetailsPrepService.price + $scope.DeliveryFees) - ($scope.progDetailsPrepService.price *  ($scope.settingsPrepService.programDiscount / 100));
                 // blockUI.stop();
 
             },
@@ -209,6 +210,8 @@
                     $scope.branchList.splice(i, 1);
                 }
             }
+            $scope.DeliveryFees = 0;
+            $scope.Total = $scope.progDetailsPrepService.price - ($scope.progDetailsPrepService.price * ($scope.settingsPrepService.programDiscount / 100));
         }
 
         $scope.Order = function () {
@@ -220,6 +223,7 @@
             order.isByAdmin = false;
             // order.branchId = $scope.selectedBranchId;
             order.userId = $scope.clientId;
+            order.price = $scope.Total;
             order.day = $('#startdate').val();
 
             if ($scope.orderType.type == "delivery") {

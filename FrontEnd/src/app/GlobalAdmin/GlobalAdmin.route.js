@@ -121,7 +121,8 @@
                     resolve: {
                         progDetailsPrepService: progDetailsPrepService,
                         itemsssPrepService: itemsssPrepService,
-                        CountriesPrepService: CountriesPrepService
+                        CountriesPrepService: CountriesPrepService,
+                        settingsPrepService: settingsPrepService
                     }
                 })
 
