@@ -31,8 +31,8 @@
 							<ul class="nav nav-tabs hp-over-nav">
 
 								<li>
-									<a data-toggle="tab" href="#menu1"><img src="/assets/img/db4.png" alt=""> <span
-											class="tab-hide">Overview</span>
+									<a data-toggle="tab" data-target="#menu1"><img src="/assets/img/db4.png" alt="">
+										<span class="tab-hide">Overview</span>
 									</a>
 								</li>
 							</ul>
@@ -43,12 +43,14 @@
 										<ul>
 											<li>Order Code: <span>#{{CustomCtrl.order.orderCode}}</span>
 											</li>
-											<li>Price: <span>{{CustomCtrl.order.orderPrice}}</span>
+											<li>Price: <span>{{CustomCtrl.order.price}}</span>
 											</li>
 											<li>Type :
+												<span> ( {{CustomCtrl.order.isProgram ? 'Program' : 'Meal'}} ) </span>
 												<span>{{CustomCtrl.order.isDelivery ? 'Delivery' : 'PickUp'}}</span>
 
 											</li>
+
 											<li>No. of Days : <span>{{CustomCtrl.daysCount}}</span>
 											</li>
 											<li>No. of Meals Per Day : <span>{{CustomCtrl.mealsCount}}</span>

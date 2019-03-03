@@ -7,6 +7,7 @@
             'ui.router',
             'ngStorage',
             'permission',
+            'bw.paging',
             //'ui.event',
             'ngProgressLite',
            // 'ui.bootstrap', 
@@ -30,7 +31,7 @@
       .module('core')
       // registering 'lodash' as a constant to be able to inject it later
       .constant('_', window._)
-      .run(function($rootScope, $state, $stateParams,blockUIConfig) {
+      .run(function($rootScope, $state, $stateParams,blockUIConfig) { 
         $rootScope.$state = $state;
         $rootScope.$stateParams = $stateParams;
         blockUIConfig.autoBlock = false;
@@ -93,16 +94,7 @@
                  
                 })
                 
-                // .state('addUser', {
-                //     url: '/addUser',
-                //     templateUrl: './app/GlobalAdmin/register/templates/addUser.html',
-                //     controller: 'userController',
-                //     'controllerAs': 'userCtrl', 
-                //     resolve: { 
-                //           CountriesPrepService: CountriesPrepService,
-
-                //     } 
-                // })
+             
                 .state('login', {
                     url: '/login',
                     templateUrl: './app/core/login/templates/login.html',
@@ -121,12 +113,7 @@
                     templateUrl: './app/shell/401.html'
                 })
         });
-    
-     /*User */ 
-     CountriesPrepService.$inject = ['CountryResource']
-     function CountriesPrepService(CountryResource) {
-         return CountryResource.getAllCountries({ pageSize: 0 }).$promise;
-     }
+     
 }());
 ;(function () {
   'use strict';
@@ -487,10 +474,12 @@
         "deleteConfirmationLbl": "Are you sure you want to delete: ",
         "deleteBtn": "Delete",
         "cancelBtn": "Cancel",
+        "loading": "Lodaing...",
       }
 
       var ar_translations = {
 
+        "loading": "تحميل ...",
         "ProgramName": "اسم البرنامج",
         "ProgramDescription": "وصف البرنامج",
         "SelectExcludeDays": "الأيام المستثيه",
@@ -958,12 +947,12 @@
 
     angular
         .module('home')
-        .controller('loginController', ['$rootScope', '$scope', '$state', '$localStorage', 'authorizationService', 'appCONSTANTS','blockUI', loginController]);
+        .controller('loginController', ['$rootScope', '$scope', '$state','$translate', '$localStorage', 'authorizationService', 'appCONSTANTS','blockUI', loginController]);
 
-    function loginController($rootScope, $scope, $state, $localStorage, authorizationService, appCONSTANTS,blockUI) {
+    function loginController($rootScope, $scope, $state,$translate, $localStorage, authorizationService, appCONSTANTS,blockUI) {
+       // blockUI.start($translate.instant('loading'));
 
         if ($localStorage.authInfo) {
-            blockUI.start("Loading...");
             var user = authorizationService.getUser();
 
             // if (user.PermissionId[0] == 1)
@@ -981,8 +970,8 @@
             $state.go('login');
         }
 
-        $scope.Register = function () {
-         debugger;   $state.go('addUser');
+        $scope.Register = function () { 
+           $state.go('addUser');
 
         }
     }
@@ -1303,8 +1292,8 @@
       };
       return factory;
 
-      function responseErrorInterceptor(rejection) {
-          if(rejection.status == 403) {
+      function responseErrorInterceptor(rejection) { 
+        if(rejection.status == 403) {
               $rootScope.$broadcast(AUTH_EVENTS.failedToAuthorize);
           }else if (rejection.status == 401) {
             if (rejection.data=="password changed") {
@@ -1344,41 +1333,40 @@
   })();
 
 })();
-;(function() {
+;(function () {
   'use strict';
-  (function() {
+  (function () {
     angular
       .module('core')
       .factory('useTokenInterceptor', useTokenInterceptor);
 
-    useTokenInterceptor.$inject = ['authenticationService','$localStorage'];
+    useTokenInterceptor.$inject = ['authenticationService', '$localStorage'];
 
 
-    function useTokenInterceptor(authenticationService,$localStorage) {
+    function useTokenInterceptor(authenticationService, $localStorage) {
       var tokenInterceptor = {
         request: requestInterceptor
       };
       return tokenInterceptor;
 
-      function requestInterceptor(config) {
-          if (config.useToken) {
-            return authenticationService.getToken()
-              .then(function(data){
-                config.headers['Authorization'] = data['token_type'] + " " + data['access_token'];
-				if(config.params== null || config.params.lang ==null)
-					config.headers['Accept-Language'] = $localStorage.language;//"en";
-				else
-					config.headers['Accept-Language'] = config.params.lang;
-                if (!config.headers.hasOwnProperty('Content-Type')) 
-                {
-                    config.headers['Content-Type'] = 'application/json';
-                }
-                return config;
-              });
+      function requestInterceptor(config) { 
+        if (config.useToken) {
+          return authenticationService.getToken()
+            .then(function (data) {
+              config.headers['Authorization'] = data['token_type'] + " " + data['access_token'];
+              if (config.params == null || config.params.lang == null)
+                config.headers['Accept-Language'] = $localStorage.language;//"en";
+              else
+                config.headers['Accept-Language'] = config.params.lang;
+              if (!config.headers.hasOwnProperty('Content-Type')) {
+                config.headers['Content-Type'] = 'application/json';
+              }
+              return config;
+            });
 
-          }
-          return config;
         }
+        return config;
+      }
     }
 
 
@@ -1387,7 +1375,7 @@
 
 
   //inject interceptor to $http
-  (function() {
+  (function () {
     angular
       .module("core")
       .config(config);
@@ -1491,9 +1479,7 @@
       return {
         name: info? info.Username : "",
         role: info ? info.Role : "",
-        id: info ? info.UserId : "",
-        PermissionId: info && info.PermissionId ? info.PermissionId.split(';'):[],
-        userTypeId: info && info.TypeId ? info.TypeId:0
+        id: info ? info.UserId : ""
       };
     }
 

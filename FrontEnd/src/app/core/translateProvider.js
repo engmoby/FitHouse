@@ -357,10 +357,12 @@
         "deleteConfirmationLbl": "Are you sure you want to delete: ",
         "deleteBtn": "Delete",
         "cancelBtn": "Cancel",
+        "loading": "Lodaing...",
       }
 
       var ar_translations = {
 
+        "loading": "تحميل ...",
         "ProgramName": "اسم البرنامج",
         "ProgramDescription": "وصف البرنامج",
         "SelectExcludeDays": "الأيام المستثيه",

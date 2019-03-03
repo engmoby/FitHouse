@@ -28,5 +28,26 @@ namespace FitHouse.API.Controllers
 
             return Ok(addresses);
         }
+
+        [Route("api/Address", Name = "CreateAddress")]
+        [HttpPost]
+        public IHttpActionResult CreateArea([FromBody] AddressModel addressModel)
+        {
+            var reurnArea = _addressFacade.CreateAddress(Mapper.Map<AddressDto>(addressModel), UserId);
+
+            return Ok(reurnArea);
+        }
+
+
+
+        [Route("api/Addresss/EditAddress", Name = "EditAddress")]
+        [HttpPost]
+        public IHttpActionResult EditAddress([FromBody] AddressModel addressModel)
+        {
+            var reurnAddress = _addressFacade.EditAddress(Mapper.Map<AddressDto>(addressModel), UserId);
+
+            return Ok(reurnAddress);
+        }
+
     }
 }

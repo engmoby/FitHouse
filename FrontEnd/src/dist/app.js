@@ -28,6 +28,71 @@
                         CountriesPrepService: CountriesPrepService
                     }
                 })
+
+
+                .state('profile', {
+                    url: '/profile/:userId',
+                    templateUrl: './app/GlobalAdmin/register/templates/editUser.html',
+                    controller: 'editUserController',
+                    'controllerAs': 'editUserCtrl',
+                    resolve: {
+                        EditUserPrepService: EditUserPrepService,
+                        CountriesPrepService: CountriesPrepService,
+
+                    },
+                    data: {
+                        permissions: {
+                            only: ['1'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
+
+                .state('history', {
+                    url: '/history',
+                    templateUrl: './app/GlobalAdmin/order/templates/Order.html',
+                    controller: 'OrderController',
+                    'controllerAs': 'orderCtrl',
+                    resolve: {
+                        ordersPrepService: ordersPrepService
+
+                    },
+                    data: {
+                        permissions: {
+                            only: ['1'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
+
+                                .state('orderDetails', {
+                    url: '/orderDetails/:id',
+                    templateUrl: './app/GlobalAdmin/order/templates/OrderDetails.html',
+                    controller: 'orderMealDetailscontroller',
+                    'controllerAs': 'orderDetailsCtrl',
+                    resolve: {
+                        OrderMealPrepService: OrderMealPrepService,
+                        itemsssPrepService: itemsssPrepService 
+                    }
+                })
+
+
+                                .state('orderProgramDetails', {
+                    url: '/orderpDetails/:programId',
+                    templateUrl: './app/GlobalAdmin/order/templates/OrderProgramDetails.html',
+                    controller: 'orderProgramDetailscontroller',
+                    'controllerAs': 'orderProgramDetailsCtrl',
+                    resolve: {
+                        OrderprogDetailsPrepService: OrderprogDetailsPrepService,
+                        itemsssPrepService: itemsssPrepService 
+                    }
+                })
+
+
                 .state('program', {
                     url: '/program',
                     templateUrl: './app/GlobalAdmin/program/templates/program.html',
@@ -94,13 +159,49 @@
                     }
                 })
 
+
+                                .state('Address', {
+                    url: '/Address/:userId',
+                    templateUrl: './app/GlobalAdmin/Address/templates/Address.html',
+                    controller: 'AddressController',
+                    'controllerAs': 'AddressCtrl',
+                    resolve: {
+                        AddressPrepService: AddressPrepService
+                    },
+                    data: {
+                        permissions: {
+                            only: ['3'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('newAddress', {
+                    url: '/newAddress',
+                    templateUrl: './app/GlobalAdmin/Address/templates/new.html',
+                    controller: 'createAddressDialogController',
+                    'controllerAs': 'newAddressCtrl', 
+
+                })
+                .state('editaddress', {
+                    url: '/editaddress/:addressId',
+                    templateUrl: './app/GlobalAdmin/Address/templates/edit.html',
+                    controller: 'editAddressDialogController',
+                    'controllerAs': 'editAddressCtrl',
+                    resolve: {
+                        AddressByIdPrepService: AddressByIdPrepService,   
+                    },
+                    data: {
+                        permissions: {
+                            only: ['3'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
+
         });
-
-
-    CountriesPrepService.$inject = ['CountryResource']
-    function CountriesPrepService(CountryResource) {
-        return CountryResource.getAllCountries({ pageSize: 0 }).$promise;
-    }
 
     progDetailsPrepService.$inject = ['GetProgramDetailResource', '$stateParams']
     function progDetailsPrepService(GetProgramDetailResource, $stateParams) {
@@ -155,10 +256,41 @@
         return GetSettingsResource.getAllSettings().$promise;
     }
 
-    CountriesPrepService.$inject = ['CountryResource']
-    function CountriesPrepService(CountryResource) {
-        return CountryResource.getAllCountries({ pageSize: 0 }).$promise;
+    EditUserPrepService.$inject = ['UserResource', '$stateParams']
+    function EditUserPrepService(GetUserResource, $stateParams) {
+        return GetUserResource.getUser({ userId: $stateParams.userId }).$promise;
     }
+
+
+    ordersPrepService.$inject = ['OrdersResource', '$stateParams']
+    function ordersPrepService(OrdersResource, $stateParams) {
+        return OrdersResource.getAllOrders().$promise;
+    }
+
+    OrderMealPrepService.$inject = ['MealResource', '$stateParams']
+    function OrderMealPrepService(MealResource, $stateParams) {
+        return MealResource.getMeal({ mealId: $stateParams.id }).$promise;
+    } 
+
+        OrderprogDetailsPrepService.$inject = ['GetProgramDetailResource', '$stateParams']
+    function OrderprogDetailsPrepService(GetProgramDetailResource, $stateParams) {
+        return GetProgramDetailResource.getProgramDetail({ programId: $stateParams.programId }).$promise;
+    }
+
+     AddressPrepService.$inject = ['AddressResource','$stateParams']
+     function AddressPrepService(AddressResource,$stateParams) {
+         return AddressResource.getAllAddress({ userId: $stateParams.userId }).$promise;
+     }
+
+        AllActivateAddressPrepService.$inject = ['AddressResource']
+     function AllActivateAddressPrepService(AddressResource) {
+         return AddressResource.getAllActivateAddress({ pageSize: 0 }).$promise;
+     }
+
+      AddressByIdPrepService.$inject = ['AddressResource', '$stateParams']
+     function AddressByIdPrepService(AddressResource, $stateParams) {
+         return AddressResource.getAddress({ addressId: $stateParams.addressId }).$promise;
+     }
 }());
 (function() {
   'use strict';
@@ -169,20 +301,20 @@
     .run(runBlock);
 
   config.$inject = ['ngProgressLiteProvider'];
-  runBlock.$inject = ['$rootScope', 'ngProgressLite','$transitions','blockUI'];
+  runBlock.$inject = ['$rootScope', 'ngProgressLite','$transitions','blockUI','$translate'];
 
   function config(ngProgressLiteProvider) {
     ngProgressLiteProvider.settings.speed = 1000;
 
   }
 
-  function runBlock($rootScope, ngProgressLite,$transitions,blockUI) {
+  function runBlock($rootScope, ngProgressLite,$transitions,blockUI,$translate) {
 
     $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
         startProgress();
     });
     $transitions.onStart({}, function(transition) {
-      blockUI.start("Loading..."); 
+      blockUI.start($translate.instant('loading')); 
     });
     $transitions.onSuccess({}, function(transition) {
       blockUI.stop();
@@ -208,6 +340,184 @@
 
   }
 })();
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('AddressController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate',
+            '$state', 'AddressResource', 'AddressPrepService', '$localStorage',
+            'authorizationService', 'appCONSTANTS',
+            'ToastService', AddressController]);
+
+
+    function AddressController($rootScope, blockUI, $scope, $filter, $translate,
+        $state, AddressResource, AddressPrepService, $localStorage, authorizationService,
+        appCONSTANTS, ToastService) {
+
+        blockUI.start("Loading...");
+
+        var vm = this;
+
+        $scope.totalCount = AddressPrepService.totalCount;
+        $scope.AddressList = AddressPrepService;
+        console.log($scope.AddressList);
+        function refreshAddress() {
+            blockUI.start("Loading...");
+
+            var k = AddressResource.getAllAddress({ page: vm.currentPage }).$promise.then(function (results) {
+                $scope.AddressList = results;
+                blockUI.stop();
+
+            },
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+
+
+
+        vm.currentPage = 1;
+        $scope.changePage = function (page) {
+            vm.currentPage = page;
+            refreshAddress();
+        }
+        blockUI.stop();
+
+    }
+
+})();(function () {
+    angular
+        .module('home')
+        .factory('AddressResource', ['$resource', 'appCONSTANTS', AddressResource])
+
+    function AddressResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Address/', {}, {
+            getAllAddress: { method: 'GET', url: appCONSTANTS.API_URL + 'Address/GetUserAddresses/:userId', useToken: true, isArray: true },
+            create: { method: 'POST', useToken: true },
+            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Address/EditAddress', useToken: true },
+            getAddress: { method: 'GET', url: appCONSTANTS.API_URL + 'Address/GetAddressById/:AddressId', useToken: true }
+
+        })
+    }
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('createAddressDialogController', ['$scope', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
+            'AddressResource','PermissionResource', 'ToastService', '$rootScope', createAddressDialogController])
+
+    function createAddressDialogController($scope, blockUI, $http, $state, appCONSTANTS, $translate, AddressResource,PermissionResource,
+        ToastService, $rootScope) {
+        var vm = this;
+        vm.language = appCONSTANTS.supportedLanguage; 
+        $scope.permissionList = [];
+        BindPermissison();
+
+        vm.close = function () {
+            $state.go('Address');
+        }
+
+        vm.AddNewType = function () {
+            blockUI.start("Loading..."); 
+
+                        var newObj = new AddressResource();
+            newObj.titleDictionary = vm.titleDictionary;
+            newObj.Permissions = vm.selectedPermissions;
+            newObj.IsDeleted = false;
+            newObj.IsStatic = false;
+            newObj.$create().then(
+                function (data, status) {
+                     blockUI.stop();
+
+                                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+                    $state.go('Address');
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+
+                                        ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+        function BindPermissison() {
+            blockUI.start("Loading..."); 
+
+                        var k = PermissionResource.getAllPermissions({ pageSize: 20 }).$promise.then(function (results) {
+                    vm.getPageData = results;
+                    $scope.permissionList = vm.getPageData.results;
+                blockUI.stop();
+
+                                    },
+                function (data, status) {
+                blockUI.stop();
+
+                                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+    }
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('editAddressDialogController', ['$scope', 'blockUI', '$http', '$filter','$state', 'appCONSTANTS', '$translate', 'AddressResource', 'PermissionResource','PermissionPrepService', 'ToastService',
+            'AddressByIdPrepService', editAddressDialogController])
+
+    function editAddressDialogController($scope, blockUI, $http,$filter, $state, appCONSTANTS, $translate, AddressResource, PermissionResource,PermissionPrepService, ToastService, AddressByIdPrepService) {
+        var vm = this;
+        vm.language = appCONSTANTS.supportedLanguage;
+        vm.permissionList = PermissionPrepService.results;
+        vm.Address = AddressByIdPrepService;
+        console.log(vm.Address); 
+        vm.selectedPermissions = [];
+        vm.Close = function () {
+            $state.go('Address');
+        }
+        var i;
+        for (i = 0; i < vm.Address.permissions.length; i++) {
+            var indexRate = vm.permissionList.indexOf($filter('filter')(vm.permissionList, { 'permissionId': vm.Address.permissions[i].permissionId }, true)[0]);
+            vm.selectedPermissions.push(vm.permissionList[indexRate]);
+
+        }
+
+
+
+
+               vm.UpdateType = function () {
+            blockUI.start("Loading..."); 
+            console.log(vm.Address);
+            var updateObj = new AddressResource();
+            updateObj.addressId = vm.Address.addressId;
+            updateObj.permissions = vm.selectedPermissions;
+            updateObj.titleDictionary = vm.Address.titleDictionary;
+            updateObj.isDeleted = vm.Address.IsDeleted;
+            updateObj.isActive = vm.Address.isActive;
+            updateObj.$update().then(
+                function (data, status) {
+                blockUI.stop();
+
+                                        ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+
+                    $state.go('Address');
+
+                },
+                function (data, status) {
+                blockUI.stop();
+
+                                        ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+
+           }
+}());
 (function () {
 	'use strict';
 
@@ -235,6 +545,7 @@
 		vm.clientId = user.UserId;
 		vm.order = JSON.parse(localStorage.getItem("OrderSummary"));
 		vm.Total = 0;
+		vm.DeliveryFees = 0;
 
 		$scope.getData = function (itemModel, day, meal) {
 
@@ -428,7 +739,8 @@
 			vm.Total = vm.ProgramTotalPrice + vm.DeliveryFees;
 		}
 		function GetBranchDelivery() {
-			var k = BranchResource.getBranch({ branchId: vm.selectedBranchId }).$promise.then(function (results) {
+			var temp = new BranchResource();
+            temp.$getBranch({ branchId: vm.selectedBranchId }).then(function (results) {
 				vm.DeliveryFees = results.deliveryPrice;
 
 			},
@@ -516,28 +828,28 @@
   }
   function CountryResource($resource, appCONSTANTS) {
     return $resource(appCONSTANTS.API_URL + 'Countries/', {}, {
-      getAllCountries: { method: 'GET', url: appCONSTANTS.API_URL + 'Countries/GetAllCountries', useToken: true, params: { lang: '@lang' } },
+      getAllCountries: { method: 'GET', url: appCONSTANTS.API_URL + 'Countries/GetAllCountries', useToken: false, params: { lang: '@lang' } },
 
     })
   }
   function RegionResource($resource, appCONSTANTS) {
     return $resource(appCONSTANTS.API_URL + 'Regions/', {}, {
-      getAllRegions: { method: 'GET', url: appCONSTANTS.API_URL + 'Countries/:countryId/Regions', useToken: true, params: { lang: '@lang' } },
+      getAllRegions: { method: 'GET', url: appCONSTANTS.API_URL + 'Countries/:countryId/Regions', useToken: false, params: { lang: '@lang' } },
     })
   }
   function CityResource($resource, appCONSTANTS) {
     return $resource(appCONSTANTS.API_URL + 'Cities/', {}, {
-      getAllCities: { method: 'GET', url: appCONSTANTS.API_URL + 'Regions/:regionId/Cities', useToken: true, params: { lang: '@lang' } },
+      getAllCities: { method: 'GET', url: appCONSTANTS.API_URL + 'Regions/:regionId/Cities', useToken: false, params: { lang: '@lang' } },
     })
   }
   function AreaResource($resource, appCONSTANTS) {
     return $resource(appCONSTANTS.API_URL + 'Areas/', {}, {
-      getAllAreas: { method: 'GET', url: appCONSTANTS.API_URL + 'Cities/:cityId/Areas/GetAllAreas', useToken: true, params: { lang: '@lang' } },
+      getAllAreas: { method: 'GET', url: appCONSTANTS.API_URL + 'Cities/:cityId/Areas/GetAllAreas', useToken: false, params: { lang: '@lang' } },
     })
   }
   function BranchResource($resource, appCONSTANTS) {
     return $resource(appCONSTANTS.API_URL + 'Branchs/', {}, { 
-        getBranch: { method: 'GET', url: appCONSTANTS.API_URL + 'Branchs/GetBranchById/:BranchId', useToken: true }
+        getBranch: { method: 'GET', url: appCONSTANTS.API_URL + 'Branchs/GetBranchById/:BranchId', useToken: false }
     })
 } 
 }());
@@ -594,19 +906,21 @@
 
     angular
         .module('home')
-        .controller('mealDetailsController', ['$scope', '$stateParams', '$translate', 'appCONSTANTS'
+        .controller('mealDetailsController', ['$scope', '$stateParams', '$state', '$translate', 'appCONSTANTS'
             , '$filter', 'mealPrepService', 'itemsssPrepService', 'OrderResource'
-            , 'RegionResource', 'CityResource', 'AreaResource', 'CountriesPrepService', mealDetailsController])
+            , 'RegionResource', 'BranchResource', 'CityResource', 'AreaResource', 'CountriesPrepService', mealDetailsController])
 
-    function mealDetailsController($scope, $stateParams, $translate, appCONSTANTS
+    function mealDetailsController($scope, $stateParams, $state, $translate, appCONSTANTS
         , $filter, mealPrepService
-        , itemsssPrepService, OrderResource, RegionResource, CityResource, AreaResource
+        , itemsssPrepService, OrderResource, RegionResource, BranchResource, CityResource, AreaResource
         , CountriesPrepService) {
 
         $scope.mealPrepService = mealPrepService;
         $scope.itemsssPrepService = itemsssPrepService;
-        $scope.clientId = localStorage.getItem('ClientId');
-
+        $scope.Total = 0;
+        var vm = this;
+        $scope.clientId = $scope.user.id;
+        $scope.DeliveryFees = 0;
         $scope.counties = [];
         $scope.fats = 0;
         $scope.carbs = 0;
@@ -632,28 +946,46 @@
             };
         }
 
-                $scope.orderType = {
+        $scope.orderType = {
             type: 'delivery'
         };
         $scope.addresses = {
             address: 0
         };
 
-        $scope.addressValidation = false;
+
         $scope.addressInfo = function (address) {
             $scope.addressDetails = address;
-            $scope.addressValidation = true;
+            $scope.selectedBranchId = $scope.addressDetails.branchId;
+            GetBranchDelivery();
+            debugger;
+            $scope.Total = $scope.mealPrepService.mealPrice + $scope.DeliveryFees;
         }
-
         $scope.dateIsValid = false;
         $scope.dateChange = function () {
-            if ($('#startdate').data('date') == null || $('#startdate').data('date') == "") {
+
+
+            if ($scope.itemDatetime == null || $scope.itemDatetime == "") {
                 $scope.dateIsValid = false;
-            } else if (!$scope.orderProgramForm.isInValid) {
-                $scope.dateIsValid = true;
+            } else if (!$scope.orderForm.isInValid) {
+
+                var GivenDate = $scope.itemDatetime;
+                var CurrentDate = new Date();
+                GivenDate = new Date(GivenDate);
+
+                GivenDate.setHours(CurrentDate.getHours());
+                GivenDate.setMinutes(CurrentDate.getMinutes());
+                GivenDate.setSeconds(CurrentDate.getSeconds());
+
+                if (GivenDate > CurrentDate) {
+                    $scope.dateIsValid = true;
+                }
+                else {
+                    alert('Given date is not greater than the current date.');
+
+                }
             }
         }
-
         if ($scope.orderType.type == 'delivery') {
             var k = OrderResource.getUserAddresses({ userId: $scope.clientId }).$promise.then(function (results) {
                 $scope.userAddresses = results;
@@ -663,6 +995,16 @@
                 });
         }
 
+        function GetBranchDelivery() {
+            var temp = new BranchResource();
+            temp.$getBranch({ branchId: $scope.selectedBranchId }).then(function (results) {
+                $scope.DeliveryFees = results.deliveryPrice;
+
+            },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
 
         $scope.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
         $scope.selectedCountryId = 0;
@@ -676,24 +1018,8 @@
             $scope.regions = [];
             $scope.cities = [];
             $scope.area = [];
-            $scope.categoryList = [];
         }
 
-        $scope.departmentChange = function () {
-            $scope.department.splice(0, 1);
-            $scope.categoryList = [];
-            $scope.categoryList.push({ categoryId: 0, titleDictionary: { "en": "Select Category", "ar": "اختار الفئة" } });
-            $scope.selectedCategoryId = 0;
-            $scope.categoryList = $scope.categoryList.concat(($filter('filter')($scope.department, { departmentId: $scope.selectedDepartmentId }))[0].categories);
-        }
-
-        $scope.categoryChange = function () {
-            for (var i = $scope.categoryList.length - 1; i >= 0; i--) {
-                if ($scope.categoryList[i].categoryId == 0) {
-                    $scope.categoryList.splice(i, 1);
-                }
-            }
-        }
 
         $scope.countryChange = function () {
             for (var i = $scope.counties.length - 1; i >= 0; i--) {
@@ -769,6 +1095,8 @@
                     $scope.branchList.splice(i, 1);
                 }
             }
+            $scope.DeliveryFees = 0;
+            $scope.Total = $scope.mealPrepService.mealPrice + $scope.DeliveryFees;
         }
 
         $scope.Order = function () {
@@ -786,14 +1114,190 @@
                 function (data, status) {
 
 
-                    $state.go('meals');
-
+                    localStorage.setItem('OrderSummary', JSON.stringify(data));
+                    $state.go('Summary');
                 },
                 function (data, status) {
 
                 }
             );
         }
+
+
+    }
+
+}
+    ());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('OrderController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate',
+            '$state', 'OrdersResource', 'ordersPrepService', '$localStorage',
+            'authorizationService', 'appCONSTANTS',
+            'ToastService', OrderController])
+        ;
+
+
+    function OrderController($rootScope, blockUI, $scope, $filter, $translate,
+        $state, OrdersResource, ordersPrepService, $localStorage, authorizationService,
+        appCONSTANTS, ToastService) {
+
+        blockUI.start("Loading..."); 
+        var vm = this;
+
+        $scope.totalCount = ordersPrepService.totalCount;
+        $scope.OrderList = ordersPrepService;
+        console.log($scope.OrderList);
+        $scope.getTotal = function (order) {
+            debugger;
+            var total = 0;
+            if (order.type == "3") {
+                for (var i = 0; i < order.orderDetails.length; i++) {
+                    var obj = order.orderDetails[i];
+                    total += (obj.item.price);
+                }
+            }
+            else if (order.type == "2") {
+                for (var i = 0; i < order.orderDetails.length; i++) {
+                    var obj = order.orderDetails[i];
+                    total += (obj.meal.mealPrice);
+                }
+            }
+            else if (order.type == "1") {
+                total = 1500;
+            }
+            return total;
+        }
+
+        function refreshOrders() {
+            blockUI.start("Loading...");
+
+            var k = OrdersResource.getAllOrders({ page: vm.currentPage }).$promise.then(function (results) {
+                $scope.OrderList = results;
+                blockUI.stop();
+
+            },
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+
+
+        vm.currentPage = 1;
+        $scope.changePage = function (page) {
+            vm.currentPage = page;
+            refreshOrders();
+        }
+        blockUI.stop();
+
+        $scope.goToDetails = function (orderModel) {
+
+
+
+        }
+
+    }
+
+})();(function () {
+    angular
+      .module('home')
+        .factory('OrdersResource', ['$resource', 'appCONSTANTS', OrdersResource]) 
+
+    function OrdersResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Orders/', {}, {
+            getAllOrders: { method: 'GET', url: appCONSTANTS.API_URL + 'Orders/GetOrderByClientId', useToken: true  },
+            create: { method: 'POST', useToken: true },
+            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Orders/EditOrder', useToken: true },
+            getOrder: { method: 'GET', url: appCONSTANTS.API_URL + 'Orders/GetOrderById/:OrderId', useToken: true } ,
+            getFullOrder: { method: 'GET', url: appCONSTANTS.API_URL + 'Orders/GetFullOrderById/:OrderId', useToken: true }   
+
+        })
+    } 
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('orderMealDetailscontroller', ['$scope', '$stateParams', '$state', '$translate', 'appCONSTANTS'
+            , '$filter', 'OrderMealPrepService', 'itemsssPrepService', 'OrderResource'
+            , 'RegionResource', 'BranchResource', 'CityResource', 'AreaResource', orderMealDetailscontroller])
+
+    function orderMealDetailscontroller($scope, $stateParams, $state, $translate, appCONSTANTS
+        , $filter, OrderMealPrepService
+        , itemsssPrepService, OrderResource, RegionResource, BranchResource, CityResource, AreaResource
+    ) {
+
+        $scope.OrderMealPrepService = OrderMealPrepService;
+        $scope.itemsssPrepService = itemsssPrepService;
+        $scope.Total = 0;
+        var vm = this;
+        $scope.clientId = $scope.user.id;
+        $scope.DeliveryFees = 0;
+        $scope.counties = [];
+        $scope.fats = 0;
+        $scope.carbs = 0;
+        $scope.protein = 0;
+        $scope.calories = 0;
+
+        for (var i = 0; i < $scope.OrderMealPrepService.mealDetails.length; i++) {
+            var differntItem = $scope.itemsssPrepService.filter(x => (x.itemId == $scope.OrderMealPrepService.mealDetails[i].itemId));
+
+            $scope.fats += differntItem[0].fat;
+            $scope.carbs += differntItem[0].carbs;
+            $scope.protein += differntItem[0].protein;
+            $scope.calories += differntItem[0].calories;
+        }
+
+        $scope.style = function () {
+            return {
+                'background': 'url(https://fithouseksa.com/wp-content/uploads/2018/07/fat-running.png) no-repeat',
+                'background-attachment': 'fixed',
+                'background-size': 'cover',
+                'width': '100%',
+                'width': '100%'
+            };
+        }
+
+
+
+
+               }
+
+}
+    ());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('orderProgramDetailscontroller', ['$scope', '$stateParams', '$translate', 'appCONSTANTS'
+            , '$filter', 'OrderprogDetailsPrepService', 'itemsssPrepService', 'OrderResource', orderProgramDetailscontroller])
+
+    function orderProgramDetailscontroller($scope, $stateParams, $translate, appCONSTANTS
+        , $filter, OrderprogDetailsPrepService
+        , itemsssPrepService) {
+        debugger;
+        $scope.OrderprogDetailsPrepService = OrderprogDetailsPrepService;
+        $scope.itemsssPrepService = itemsssPrepService;
+        $scope.clientId = localStorage.getItem('ClientId');
+
+         $scope.fats = 0;
+        $scope.carbs = 0;
+        $scope.protein = 0;
+        $scope.calories = 0;
+
+        for (var i = 0; i < $scope.OrderprogDetailsPrepService.items.length; i++) {
+            $scope.fats += $scope.OrderprogDetailsPrepService.items[i].fat;
+            $scope.carbs += $scope.OrderprogDetailsPrepService.items[i].carbs;
+            $scope.protein += $scope.OrderprogDetailsPrepService.items[i].protein;
+            $scope.calories += $scope.OrderprogDetailsPrepService.items[i].calories;
+        }
+
 
 
     }
@@ -849,7 +1353,7 @@
 
     function CountryResource($resource, appCONSTANTS) {
         return $resource(appCONSTANTS.API_URL + 'Countries/', {}, {
-            getAllCountries: { method: 'GET', url: appCONSTANTS.API_URL + 'Countries/GetAllCountries', useToken: true, params: { lang: '@lang' } },
+            getAllCountries: { method: 'GET', url: appCONSTANTS.API_URL + 'Countries/GetAllCountries', useToken: false, params: { lang: '@lang' } },
             create: { method: 'POST', useToken: true },
             update: { method: 'POST', url: appCONSTANTS.API_URL + 'Countries/EditCountry', useToken: true },
             getCountry: { method: 'GET', url: appCONSTANTS.API_URL + 'Countries/:countryId', useToken: true }
@@ -859,7 +1363,7 @@
 
     function AreaResource($resource, appCONSTANTS) {
         return $resource(appCONSTANTS.API_URL + 'Areas/', {}, {
-            getAllAreas: { method: 'GET', url: appCONSTANTS.API_URL + 'Cities/:cityId/Areas/GetAllAreas', useToken: true, params: { lang: '@lang' } },
+            getAllAreas: { method: 'GET', url: appCONSTANTS.API_URL + 'Cities/:cityId/Areas/GetAllAreas', useToken: false, params: { lang: '@lang' } },
             create: { method: 'POST', useToken: true },
             update: { method: 'POST', url: appCONSTANTS.API_URL + 'Areas/EditArea', useToken: true },
             getArea: { method: 'GET', url: appCONSTANTS.API_URL + 'Areas/GetAreaById/:AreaId', useToken: true },
@@ -869,7 +1373,7 @@
 
     function RegionResource($resource, appCONSTANTS) {
         return $resource(appCONSTANTS.API_URL + 'Regions/', {}, {
-            getAllRegions: { method: 'GET', url: appCONSTANTS.API_URL + 'Countries/:countryId/Regions', useToken: true, params: { lang: '@lang' } },
+            getAllRegions: { method: 'GET', url: appCONSTANTS.API_URL + 'Countries/:countryId/Regions', useToken: false, params: { lang: '@lang' } },
             create: { method: 'POST', useToken: true },
             update: { method: 'POST', url: appCONSTANTS.API_URL + 'Regions/EditRegion', useToken: true },
             getRegion: { method: 'GET', url: appCONSTANTS.API_URL + 'Regions/:regionId', useToken: true },
@@ -880,7 +1384,7 @@
 
     function CityResource($resource, appCONSTANTS) {
         return $resource(appCONSTANTS.API_URL + 'Cities/', {}, {
-            getAllCities: { method: 'GET', url: appCONSTANTS.API_URL + 'Regions/:regionId/Cities', useToken: true, params: { lang: '@lang' } },
+            getAllCities: { method: 'GET', url: appCONSTANTS.API_URL + 'Regions/:regionId/Cities', useToken: false, params: { lang: '@lang' } },
             create: { method: 'POST', useToken: true },
             update: { method: 'POST', url: appCONSTANTS.API_URL + 'Cities/EditCity', useToken: true },
             getCity: { method: 'GET', url: appCONSTANTS.API_URL + 'Cities/:cityId', useToken: true },
@@ -1137,15 +1641,15 @@
     angular
         .module('home')
         .controller('editUserController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate', '$state', 'UserResource',
-            'RoleResource', 'RolePrepService', '$localStorage', 'authorizationService', 'appCONSTANTS', 'EditUserPrepService',
+            '$localStorage', 'authorizationService', 'appCONSTANTS', 'EditUserPrepService',
             'ToastService', 'CountriesPrepService',
             'RegionResource', 'CityResource', 'AreaResource', editUserController]);
 
 
     function editUserController($rootScope, blockUI, $scope, $filter, $translate, $state, UserResource,
-        RoleResource, RolePrepService, $localStorage, authorizationService, appCONSTANTS, EditUserPrepService, ToastService,
+        $localStorage, authorizationService, appCONSTANTS, EditUserPrepService, ToastService,
         CountriesPrepService, RegionResource, CityResource, AreaResource) {
-
+        debugger;
         blockUI.start("Loading...");
 
         $scope.isPaneShown = true;
@@ -1155,20 +1659,11 @@
             $state.go('users');
         }
 
-        vm.show = true;
-        $scope.roleList = RolePrepService.results;
-        vm.selectedUserRoles = [];
+        vm.show = true; 
         $scope.userObj = EditUserPrepService;
         $scope.userObj.confirmPassword = $scope.userObj.password;
         console.log($scope.userObj);
-        init();
-        var i;
-        for (i = 0; i < $scope.userObj.userRoles.length; i++) {
-            var indexRate = $scope.roleList.indexOf($filter('filter')($scope.roleList, { 'roleId': $scope.userObj.userRoles[i].roleId }, true)[0]);
-            vm.selectedUserRoles.push($scope.roleList[indexRate]);
-
-        }
-
+        init(); 
 
         $scope.Updateclient = function () {
             blockUI.start("Loading...");
@@ -1181,8 +1676,7 @@
             newClient.phone = $scope.userObj.phone;
             newClient.email = $scope.userObj.email;
             newClient.password = $scope.userObj.password;
-            newClient.isActive = true;
-            newClient.userRoles = vm.selectedUserRoles;
+            newClient.isActive = true; 
             newClient.branchId = vm.selectedBranchId;
             newClient.$update().then(
                 function (data, status) {
@@ -1328,6 +1822,96 @@
 
     angular
         .module('home')
+        .controller('OrderController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate',
+            '$state', 'OrdersResource', 'ordersPrepService', '$localStorage',
+            'authorizationService', 'appCONSTANTS',
+            'ToastService', OrderController])
+        ;
+
+
+    function OrderController($rootScope, blockUI, $scope, $filter, $translate,
+        $state, OrdersResource, ordersPrepService, $localStorage, authorizationService,
+        appCONSTANTS, ToastService) {
+
+        blockUI.start("Loading..."); 
+        var vm = this;
+
+        $scope.totalCount = ordersPrepService.totalCount;
+        $scope.OrderList = ordersPrepService;
+        console.log($scope.OrderList);
+        $scope.getTotal = function (order) {
+            debugger;
+            var total = 0;
+            if (order.type == "3") {
+                for (var i = 0; i < order.orderDetails.length; i++) {
+                    var obj = order.orderDetails[i];
+                    total += (obj.item.price);
+                }
+            }
+            else if (order.type == "2") {
+                for (var i = 0; i < order.orderDetails.length; i++) {
+                    var obj = order.orderDetails[i];
+                    total += (obj.meal.mealPrice);
+                }
+            }
+            else if (order.type == "1") {
+                total = 1500;
+            }
+            return total;
+        }
+
+        function refreshOrders() {
+            blockUI.start("Loading...");
+
+            var k = OrdersResource.getAllOrders({ page: vm.currentPage }).$promise.then(function (results) {
+                $scope.OrderList = results;
+                blockUI.stop();
+
+            },
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+
+
+        vm.currentPage = 1;
+        $scope.changePage = function (page) {
+            vm.currentPage = page;
+            refreshOrders();
+        }
+        blockUI.stop();
+
+        $scope.goToDetails = function (orderModel) {
+
+
+
+        }
+
+    }
+
+})();(function () {
+    angular
+      .module('home')
+        .factory('OrdersResource', ['$resource', 'appCONSTANTS', OrdersResource]) 
+
+    function OrdersResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Orders/', {}, {
+            getAllOrders: { method: 'GET', url: appCONSTANTS.API_URL + 'Orders/GetOrderByClientId', useToken: true  },
+            create: { method: 'POST', useToken: true },
+            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Orders/EditOrder', useToken: true },
+            getOrder: { method: 'GET', url: appCONSTANTS.API_URL + 'Orders/GetOrderById/:OrderId', useToken: true } ,
+            getFullOrder: { method: 'GET', url: appCONSTANTS.API_URL + 'Orders/GetFullOrderById/:OrderId', useToken: true }   
+
+        })
+    } 
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
         .controller('userController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate', '$state', 'UserResource',
             '$localStorage', 'authorizationService', 'appCONSTANTS',
             'ToastService', 'CountriesPrepService', 'RegionResource', 'CityResource', 'AreaResource', userController]);
@@ -1335,20 +1919,20 @@
     function userController($rootScope, blockUI, $scope, $filter, $translate, $state, UserResource, $localStorage, authorizationService, appCONSTANTS, ToastService, CountriesPrepService,
         RegionResource, CityResource, AreaResource) {
 
-                   var vm = this;
-        blockUI.start("Loading...");
+        var vm = this;
         vm.close = function () {
-            $state.go('users');
-        } 
+            $state.go('login');
+        }
+        vm.selectedAreaId = 0;
         vm.counties = [];
         vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
         vm.selectedCountryId = 0;
         vm.counties = vm.counties.concat(CountriesPrepService.results)
 
-         $scope.phoneNumbr = /^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/;
+        $scope.phoneNumbr = /^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/;
         $scope.userObj = "";
-        $scope.selectedType = ""; 
-        vm.resetDLL = function () { 
+        $scope.selectedType = "";
+        vm.resetDLL = function () {
             vm.counties = [];
             vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
             vm.selectedCountryId = 0;
@@ -1390,7 +1974,6 @@
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
                 });
-            blockUI.stop();
         }
         vm.regionChange = function () {
             if (vm.selectedRegionId != undefined) {
@@ -1430,6 +2013,8 @@
             }
         }
         vm.areaChange = function () {
+            debugger;
+            var dd = vm.selectedAreaId; 
             if (vm.selectedAreaId != undefined && vm.selectedAreaId > 0) {
                 for (var i = vm.area.length - 1; i >= 0; i--) {
                     if (vm.area[i].areaId == 0) {
@@ -1437,8 +2022,8 @@
                     }
                 }
                 vm.branchList = [];
-                vm.selectedBranchId = [0];
                 vm.branchList = vm.branchList.concat(($filter('filter')(vm.area, { areaId: vm.selectedAreaId }))[0].branches);
+                vm.selectedBranchId = vm.branchList[0].branchId;
             }
         }
         vm.branchChange = function () {
@@ -1448,27 +2033,10 @@
                 }
             }
         }
-        function refreshUsers() {
-            blockUI.start("Loading...");
-
-            var k = UserResource.getAllUsers({ page: vm.currentPage }).$promise.then(function (results) {
-                vm.getPageData = results;
-                $scope.userList = vm.getPageData.results;
-                console.log($scope.userList);
-                blockUI.stop();
-
-            },
-                function (data, status) {
-                    blockUI.stop();
-
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
-        }
 
 
         $scope.AddNewclient = function () {
-            blockUI.start("Loading...");
-
+            blockUI.start($translate.instant('loading'));
             var newClient = new UserResource();
             newClient.FirstName = $scope.FirstName;
             newClient.LastName = $scope.LastName;
@@ -1479,20 +2047,21 @@
             newClient.IsAdmin = true;
             newClient.UserRoles = vm.selectedUserRoles;
             newClient.branchId = vm.selectedBranchId;
+            newClient.code = 100;
+            newClient.isAddress = true;
+            newClient.floor = vm.FLoor;
+            newClient.appartmentNo = vm.AppartmentNo;
+            newClient.description = vm.AddressDescription;
             newClient.$create().then(
                 function (data, status) {
-                    blockUI.stop();
-
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('ClientAddSuccess'), "success");
-
-                    localStorage.setItem('data', JSON.stringify(data.userId));
-                    $state.go('users');
+                    debugger;
+                    $scope.submit($scope.Email, $scope.Password)
 
                 },
                 function (data, status) {
-                    blockUI.stop();
+                    blockUI.start(data.data.message);
+                    alert(data.data.message);
 
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 }
             );
         }
@@ -1502,7 +2071,6 @@
             refreshUsers();
         }
 
-        blockUI.stop();
 
 
 
@@ -1541,13 +2109,11 @@
 
     function UserResource($resource, appCONSTANTS) {
         return $resource(appCONSTANTS.API_URL + 'Users/', {}, {
-            getAllUsers: { method: 'GET', url: appCONSTANTS.API_URL + 'Users/GetAllUsers', useToken: true, params: { lang: '@lang' } },
-            create: { method: 'POST', useToken: true },
+            create: { method: 'POST', useToken: false },
             update: { method: 'POST', url: appCONSTANTS.API_URL + 'Users/EditRegisterUser', useToken: true },
             getUser: { method: 'GET', url: appCONSTANTS.API_URL + 'Users/GetUserById/:UserId', useToken: true }, 
             validate: { method: 'GET', url: appCONSTANTS.API_URL + 'Users/ValidateByPhone/:Phone', useToken: true }, 
-            getUserDepartments: { method: 'GET', url: appCONSTANTS.API_URL + 'Users/Departments', useToken: true },
-            getUserArea: { method: 'GET', url: appCONSTANTS.API_URL + 'Users/Area', useToken: true },
+            getUserDepartments: { method: 'GET', url: appCONSTANTS.API_URL + 'Users/Departments', useToken: true }, 
         })
     }
 
@@ -1568,18 +2134,19 @@
                 return input;
             }
         })
-        .controller('homePageController', ['$scope', '$state', '$stateParams', '$translate', 'appCONSTANTS', 'mealsPrepService', 'programPrepService', 'settingsPrepService'
+        .controller('homePageController', ['$scope', '$state', '$stateParams', '$translate','blockUI', 'appCONSTANTS', 'mealsPrepService', 'programPrepService', 'settingsPrepService'
             , 'daysPrepService', homePageController])
 
-    function homePageController($scope, $state, $stateParams, $translate, appCONSTANTS, mealsPrepService, programPrepService
+    function homePageController($scope, $state, $stateParams, $translate, blockUI,appCONSTANTS, mealsPrepService, programPrepService
         , settingsPrepService, daysPrepService) {
+            blockUI.start($translate.instant('loading'));
 
         $scope.mealsPrepService = mealsPrepService.results;
         $scope.programPrepService = programPrepService.results;
         $scope.settingsPrepService = settingsPrepService;
         $scope.dayList = daysPrepService;
 		$scope.SelectedDays = [];
-
+        blockUI.stop();
         $scope.isSnack = false;
         $scope.isBreakFast = false;
 

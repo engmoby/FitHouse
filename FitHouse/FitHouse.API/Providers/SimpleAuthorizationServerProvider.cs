@@ -119,11 +119,12 @@ namespace FitHouse.API.Providers
 
         private AuthenticationTicket GetAuthenticationTicket(UserDto user)
         {
+            bool Isadmin = user.UserCode!= null;
             var identity = new ClaimsIdentity(Strings.JWT);
             identity.AddClaim(new Claim(Strings.userName, user.FirstName));
             identity.AddClaim(new Claim(ClaimTypes.Name, "-"+user.FirstName+" " +user.LastName));
             identity.AddClaim(new Claim(Strings.userID, user.UserId.ToString()));
-           //identity.AddClaim(new Claim(Strings.TenantId, user.TenantId.ToString()));
+           identity.AddClaim(new Claim(Strings.IsAdmin, Isadmin.ToString()));
             //identity.AddClaim(new Claim(Strings.PermissionId, string.Join(";", user.PermissionId)));
             // identity.AddClaim(new Claim(ClaimTypes.Role, user.Role.ToString()));
 
@@ -145,9 +146,9 @@ namespace FitHouse.API.Providers
                 {
                     "Username", user.FirstName +" "+user.LastName
                 },
-                //{
-                //    "TenantId", user.TenantId.ToString()
-                //},
+                {
+                    "IsAdmin", user.IsAdmin.ToString()
+                },
                 {
                     "PermissionId", string.Join(";", user.PermissionId)
                 }, 

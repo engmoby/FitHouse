@@ -203,7 +203,7 @@ namespace FitHouse.BLL.Services
                 _addressService.Insert(address);
             }
             SaveChanges();
-
+            userDto.UserId = userObj.UserId;
             return userDto;
         }
         public UserDto EditUserInfo(UserDto userDto, int userId)

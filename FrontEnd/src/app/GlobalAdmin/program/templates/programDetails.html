@@ -114,19 +114,19 @@
                             <div class="hp-over">
                                 <ul class="nav nav-tabs hp-over-nav">
                                     <li class="active">
-                                        <a data-toggle="tab">
+                                        <a data-toggle="tab" data-target="#home" style="cursor: pointer;">
                                             <img src="images/icon/a9.png" alt="">
                                             <span class="tab-hide">{{'Details' | translate}}</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a data-toggle="tab">
+                                        <a data-toggle="tab" data-target="#menu1" style="cursor: pointer;">
                                             <img src="images/icon/a8.png" alt="">
                                             <span class="tab-hide">{{'Summary' | translate}}</span>
                                         </a>
                                     </li>
                                     <li>
-                                        <a data-toggle="tab"">
+                                        <a data-toggle="tab" data-target="#menu2" style="cursor: pointer;">
                                             <img src="images/icon/a8.png" alt="">
                                             <span class="tab-hide">{{'Order' | translate}}</span>
                                         </a>
@@ -288,7 +288,7 @@
                                                 </div>
 
                                                 <div class="input-field col s12 m4 l2">
-                                                    <input type="submit" value="submit" class="form-btn" ng-click="Order()" ng-disabled="orderForm.$invalid || || addressValidation == false" >
+                                                    <input type="submit" value="submit" class="form-btn" ng-click="Order()" ng-disabled="orderForm.$invalid | || addressValidation == false" >
                                                     <!-- ng-disabled="orderForm.$invalid || !dateIsValid || addressValidation == false" -->
                                                 </div>
                                             </div>

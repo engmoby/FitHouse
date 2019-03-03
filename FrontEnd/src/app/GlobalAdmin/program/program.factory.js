@@ -21,7 +21,7 @@
 
     function CountryResource($resource, appCONSTANTS) {
         return $resource(appCONSTANTS.API_URL + 'Countries/', {}, {
-            getAllCountries: { method: 'GET', url: appCONSTANTS.API_URL + 'Countries/GetAllCountries', useToken: true, params: { lang: '@lang' } },
+            getAllCountries: { method: 'GET', url: appCONSTANTS.API_URL + 'Countries/GetAllCountries', useToken: false, params: { lang: '@lang' } },
             create: { method: 'POST', useToken: true },
             update: { method: 'POST', url: appCONSTANTS.API_URL + 'Countries/EditCountry', useToken: true },
             getCountry: { method: 'GET', url: appCONSTANTS.API_URL + 'Countries/:countryId', useToken: true }
@@ -31,7 +31,7 @@
 
     function AreaResource($resource, appCONSTANTS) {
         return $resource(appCONSTANTS.API_URL + 'Areas/', {}, {
-            getAllAreas: { method: 'GET', url: appCONSTANTS.API_URL + 'Cities/:cityId/Areas/GetAllAreas', useToken: true, params: { lang: '@lang' } },
+            getAllAreas: { method: 'GET', url: appCONSTANTS.API_URL + 'Cities/:cityId/Areas/GetAllAreas', useToken: false, params: { lang: '@lang' } },
             create: { method: 'POST', useToken: true },
             update: { method: 'POST', url: appCONSTANTS.API_URL + 'Areas/EditArea', useToken: true },
             getArea: { method: 'GET', url: appCONSTANTS.API_URL + 'Areas/GetAreaById/:AreaId', useToken: true },
@@ -41,7 +41,7 @@
 
     function RegionResource($resource, appCONSTANTS) {
         return $resource(appCONSTANTS.API_URL + 'Regions/', {}, {
-            getAllRegions: { method: 'GET', url: appCONSTANTS.API_URL + 'Countries/:countryId/Regions', useToken: true, params: { lang: '@lang' } },
+            getAllRegions: { method: 'GET', url: appCONSTANTS.API_URL + 'Countries/:countryId/Regions', useToken: false, params: { lang: '@lang' } },
             create: { method: 'POST', useToken: true },
             update: { method: 'POST', url: appCONSTANTS.API_URL + 'Regions/EditRegion', useToken: true },
             getRegion: { method: 'GET', url: appCONSTANTS.API_URL + 'Regions/:regionId', useToken: true },
@@ -52,7 +52,7 @@
 
     function CityResource($resource, appCONSTANTS) {
         return $resource(appCONSTANTS.API_URL + 'Cities/', {}, {
-            getAllCities: { method: 'GET', url: appCONSTANTS.API_URL + 'Regions/:regionId/Cities', useToken: true, params: { lang: '@lang' } },
+            getAllCities: { method: 'GET', url: appCONSTANTS.API_URL + 'Regions/:regionId/Cities', useToken: false, params: { lang: '@lang' } },
             create: { method: 'POST', useToken: true },
             update: { method: 'POST', url: appCONSTANTS.API_URL + 'Cities/EditCity', useToken: true },
             getCity: { method: 'GET', url: appCONSTANTS.API_URL + 'Cities/:cityId', useToken: true },

@@ -41,28 +41,28 @@
   }
   function CountryResource($resource, appCONSTANTS) {
     return $resource(appCONSTANTS.API_URL + 'Countries/', {}, {
-      getAllCountries: { method: 'GET', url: appCONSTANTS.API_URL + 'Countries/GetAllCountries', useToken: true, params: { lang: '@lang' } },
+      getAllCountries: { method: 'GET', url: appCONSTANTS.API_URL + 'Countries/GetAllCountries', useToken: false, params: { lang: '@lang' } },
 
     })
   }
   function RegionResource($resource, appCONSTANTS) {
     return $resource(appCONSTANTS.API_URL + 'Regions/', {}, {
-      getAllRegions: { method: 'GET', url: appCONSTANTS.API_URL + 'Countries/:countryId/Regions', useToken: true, params: { lang: '@lang' } },
+      getAllRegions: { method: 'GET', url: appCONSTANTS.API_URL + 'Countries/:countryId/Regions', useToken: false, params: { lang: '@lang' } },
     })
   }
   function CityResource($resource, appCONSTANTS) {
     return $resource(appCONSTANTS.API_URL + 'Cities/', {}, {
-      getAllCities: { method: 'GET', url: appCONSTANTS.API_URL + 'Regions/:regionId/Cities', useToken: true, params: { lang: '@lang' } },
+      getAllCities: { method: 'GET', url: appCONSTANTS.API_URL + 'Regions/:regionId/Cities', useToken: false, params: { lang: '@lang' } },
     })
   }
   function AreaResource($resource, appCONSTANTS) {
     return $resource(appCONSTANTS.API_URL + 'Areas/', {}, {
-      getAllAreas: { method: 'GET', url: appCONSTANTS.API_URL + 'Cities/:cityId/Areas/GetAllAreas', useToken: true, params: { lang: '@lang' } },
+      getAllAreas: { method: 'GET', url: appCONSTANTS.API_URL + 'Cities/:cityId/Areas/GetAllAreas', useToken: false, params: { lang: '@lang' } },
     })
   }
   function BranchResource($resource, appCONSTANTS) {
     return $resource(appCONSTANTS.API_URL + 'Branchs/', {}, { 
-        getBranch: { method: 'GET', url: appCONSTANTS.API_URL + 'Branchs/GetBranchById/:BranchId', useToken: true }
+        getBranch: { method: 'GET', url: appCONSTANTS.API_URL + 'Branchs/GetBranchById/:BranchId', useToken: false }
     })
 } 
 }());

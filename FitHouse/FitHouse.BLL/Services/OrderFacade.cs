@@ -403,6 +403,7 @@ namespace FitHouse.BLL.Services
             _orderDetailsService.InsertRange(orderDetails);
             _orderService.Insert(order);
             SaveChanges();
+            orderDto = Mapper.Map<OrderCallCenterDto>(order);
 
             return orderDto;
         }
@@ -540,6 +541,19 @@ namespace FitHouse.BLL.Services
 
             return returnValue;
 
+        }
+
+        //public List<OrderFullDto> GetOrderByClientId(long userId)
+        //{
+        //    if (userId == 0)
+        //        return null;
+        //    var getOrders = _orderService.Query(x => x.UserId == userId).Select().ToList();
+        //    var afterMap = Mapper.Map<List<OrderFullDto>>(getOrders);
+        //    return afterMap;
+        //}
+        public PagedResultsDto GetOrderByClientId(long userId, int page, int pageSize)
+        {
+            return _orderService.GetOrderByClientId(userId, page, pageSize);
         }
     }
 }

@@ -28,6 +28,71 @@
                         CountriesPrepService: CountriesPrepService
                     }
                 })
+
+
+                .state('profile', {
+                    url: '/profile/:userId',
+                    templateUrl: './app/GlobalAdmin/register/templates/editUser.html',
+                    controller: 'editUserController',
+                    'controllerAs': 'editUserCtrl',
+                    resolve: {
+                        EditUserPrepService: EditUserPrepService,
+                        CountriesPrepService: CountriesPrepService,
+
+                    },
+                    data: {
+                        permissions: {
+                            only: ['1'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
+
+                .state('history', {
+                    url: '/history',
+                    templateUrl: './app/GlobalAdmin/order/templates/Order.html',
+                    controller: 'OrderController',
+                    'controllerAs': 'orderCtrl',
+                    resolve: {
+                        ordersPrepService: ordersPrepService
+
+                    },
+                    data: {
+                        permissions: {
+                            only: ['1'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                
+
+                .state('orderDetails', {
+                    url: '/orderDetails/:id',
+                    templateUrl: './app/GlobalAdmin/order/templates/OrderDetails.html',
+                    controller: 'orderMealDetailscontroller',
+                    'controllerAs': 'orderDetailsCtrl',
+                    resolve: {
+                        OrderMealPrepService: OrderMealPrepService,
+                        itemsssPrepService: itemsssPrepService 
+                    }
+                })
+                
+
+                .state('orderProgramDetails', {
+                    url: '/orderpDetails/:programId',
+                    templateUrl: './app/GlobalAdmin/order/templates/OrderProgramDetails.html',
+                    controller: 'orderProgramDetailscontroller',
+                    'controllerAs': 'orderProgramDetailsCtrl',
+                    resolve: {
+                        OrderprogDetailsPrepService: OrderprogDetailsPrepService,
+                        itemsssPrepService: itemsssPrepService 
+                    }
+                })
+
+
                 .state('program', {
                     url: '/program',
                     templateUrl: './app/GlobalAdmin/program/templates/program.html',
@@ -93,15 +158,50 @@
                         CountriesPrepService: CountriesPrepService
                     }
                 })
+                
+
+                .state('Address', {
+                    url: '/Address/:userId',
+                    templateUrl: './app/GlobalAdmin/Address/templates/Address.html',
+                    controller: 'AddressController',
+                    'controllerAs': 'AddressCtrl',
+                    resolve: {
+                        AddressPrepService: AddressPrepService
+                    },
+                    data: {
+                        permissions: {
+                            only: ['3'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+                .state('newAddress', {
+                    url: '/newAddress',
+                    templateUrl: './app/GlobalAdmin/Address/templates/new.html',
+                    controller: 'createAddressDialogController',
+                    'controllerAs': 'newAddressCtrl', 
+
+                })
+                .state('editaddress', {
+                    url: '/editaddress/:addressId',
+                    templateUrl: './app/GlobalAdmin/Address/templates/edit.html',
+                    controller: 'editAddressDialogController',
+                    'controllerAs': 'editAddressCtrl',
+                    resolve: {
+                        AddressByIdPrepService: AddressByIdPrepService,   
+                    },
+                    data: {
+                        permissions: {
+                            only: ['3'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
 
         });
-
-    /*Custom Program */
-
-    CountriesPrepService.$inject = ['CountryResource']
-    function CountriesPrepService(CountryResource) {
-        return CountryResource.getAllCountries({ pageSize: 0 }).$promise;
-    }
 
     progDetailsPrepService.$inject = ['GetProgramDetailResource', '$stateParams']
     function progDetailsPrepService(GetProgramDetailResource, $stateParams) {
@@ -156,9 +256,45 @@
         return GetSettingsResource.getAllSettings().$promise;
     }
 
-    /*User */
-    CountriesPrepService.$inject = ['CountryResource']
-    function CountriesPrepService(CountryResource) {
-        return CountryResource.getAllCountries({ pageSize: 0 }).$promise;
+    EditUserPrepService.$inject = ['UserResource', '$stateParams']
+    function EditUserPrepService(GetUserResource, $stateParams) {
+        return GetUserResource.getUser({ userId: $stateParams.userId }).$promise;
     }
+
+    // HistoryUserPrepService.$inject = ['HistoryResource', '$stateParams']
+    // function HistoryUserPrepService(HistoryResource, $stateParams) {
+    //     return HistoryResource.GetOrderByClientId().$promise;
+    // }
+
+    /*Orders */
+    ordersPrepService.$inject = ['OrdersResource', '$stateParams']
+    function ordersPrepService(OrdersResource, $stateParams) {
+        return OrdersResource.getAllOrders().$promise;
+    }
+
+    OrderMealPrepService.$inject = ['MealResource', '$stateParams']
+    function OrderMealPrepService(MealResource, $stateParams) {
+        return MealResource.getMeal({ mealId: $stateParams.id }).$promise;
+    } 
+    
+    OrderprogDetailsPrepService.$inject = ['GetProgramDetailResource', '$stateParams']
+    function OrderprogDetailsPrepService(GetProgramDetailResource, $stateParams) {
+        return GetProgramDetailResource.getProgramDetail({ programId: $stateParams.programId }).$promise;
+    }
+
+     /*Address */
+     AddressPrepService.$inject = ['AddressResource','$stateParams']
+     function AddressPrepService(AddressResource,$stateParams) {
+         return AddressResource.getAllAddress({ userId: $stateParams.userId }).$promise;
+     }
+   
+     AllActivateAddressPrepService.$inject = ['AddressResource']
+     function AllActivateAddressPrepService(AddressResource) {
+         return AddressResource.getAllActivateAddress({ pageSize: 0 }).$promise;
+     }
+ 
+     AddressByIdPrepService.$inject = ['AddressResource', '$stateParams']
+     function AddressByIdPrepService(AddressResource, $stateParams) {
+         return AddressResource.getAddress({ addressId: $stateParams.addressId }).$promise;
+     }
 }());

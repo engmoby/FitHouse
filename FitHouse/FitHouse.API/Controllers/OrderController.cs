@@ -156,6 +156,22 @@ namespace FitHouse.API.Controllers
             var reurnOrder = _orderFacade.ChangeOrderStatus(orderId, status);
             return Ok(reurnOrder);
         }
+
+        //[Route("api/Orders/GetOrderByClientId", Name = "GetOrderByClientId")]
+        //[HttpGet]
+        //public IHttpActionResult GetOrderByClientId()
+        //{
+        //    var reurnOrder = _orderFacade.GetOrderByClientId(UserId);
+        //    return Ok(reurnOrder);
+        //}
+        [Route("api/Orders/GetOrderByClientId", Name = "GetOrderByClientId")]
+        [HttpGet]
+        public IHttpActionResult GetOrderByClientId(int page = Page, int pagesize = PageSize)
+        { 
+            PagedResultsDto orderObj = _orderFacade.GetOrderByClientId(UserId, page, pagesize);
+            var data = Mapper.Map<List<OrderFullDto>>(orderObj.Data);
+            return PagedResponse("GetOrderByClientId", page, pagesize, orderObj.TotalCount, data);
+        }
     }
 
 }
