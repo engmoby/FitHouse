@@ -1,56 +1,104 @@
-<div class="modal-content">
-	<div class="modal-header bordered">
-		<h2 class="pmd-card-title-text">{{'Address' | translate}}</h2>
-	</div>
-	<div class="modal-body">
-		<form class="form-horizontal" name="editTypeForm"> 
-                <div> 
-                    <!-- Nav tabs -->
-                    <ul class="nav nav-tabs" address="tablist">
-                        <li address="presentation" ng-class="{'active':$index == 0}" ng-repeat="lang in editAddressCtrl.language">
-                            <a href="javascript:void(0);" data-target="#{{lang.value}}-form" aria-controls="home" address="tab" data-toggle="tab">
-                                {{lang.value | translate}}
-                            </a>
-                        </li> 
-                    </ul>
-                    <div class="pmd-card">
-                        <div class="pmd-card-body">
-                            <!-- Tab panes -->
-                            <div class="tab-content">
-                                <div address="tablist" class="tab-pane" ng-class="{'active':$index == 0}" ng-repeat="lang in editAddressCtrl.language" id="{{lang.value}}-form">
-                                    <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">
-                                        <label for="first-name"> {{ lang.value+'Name' | translate}} </label>
-                                        <input required type="text" class="mat-input form-control" name="titleDictionary{{lang.value+'Name'}}" ng-model="editAddressCtrl.Address.titleDictionary[lang.key]" ng-minlength="3" ng-maxlength="255">
-                                        <div ng-messages="editTypeForm.titleDictionary{{lang.value+'Name'}}.$error" >
-                                            
-                                            <div ng-show="editTypeForm.titleDictionary{{lang.value+'Name'}}.$error.required && !editTypeForm.titleDictionary{{lang.value+'Name'}}.$pristine">{{'requiredErr' | translate}}</div>
-                                            <div ng-show="(editTypeForm.titleDictionary{{lang.value+'Name'}}.$error.minlength || editTypeForm.titleDictionary{{lang.value+'Name'}}.$error.maxlength) && !editTypeForm.titleDictionary{{lang.value+'Name'}}.$error.required">{{'NameLengthError255' | translate}}</div>
-                                        </div>
-                                    </div>
-                                 
-                                </div>
-                                <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-                                    <label for="first-name">{{'Permission' | translate}}</label>
-                                    <select required style="width:100% !important" class="form-control select-add-tags pmd-select2-tags"   multiple
-                                            ng-model="editAddressCtrl.selectedPermissions" ng-options="permission as permission.titleDictionary[selectedLanguage] for permission in editAddressCtrl.permissionList">
-                         
-                                    </select>   
-                                </div>
-                            </div> 
+<div class="inn-body-section pad-bot-55">
+    <div class="container">
+        <div class="row">
+            <div class="head-typo typo-com collap-expand book-form inn-com-form">
+                <h2>{{'Address' | translate}} </h2>
+
+
+                <form class="form-horizontal" name="addressForm">
+
+                    <div
+                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                        <label for="first-name">{{'FLoor' | translate}}</label>
+                        <input required type="number" class="mat-input form-control" name="floor"
+                            ng-model="editAddressCtrl.Address.floor" ng-minlength="1" ng-maxlength="4">
+                        <div ng-messages="addressForm.floor.$error" class="error">
+                            <div ng-if="addressForm.floor.$error.required && !addressForm.floor.$pristine">
+                                {{'ProgramDaysCountReqError' | translate}}</div>
+                            <div ng-if="(addressForm.floor.$error.minlength || addressForm.floor.$error.maxlength)">
+                                {{'ProgramDaysCountLengthError' | translate}}</div>
                         </div>
-
-                   
                     </div>
-                </div> 
- 
-		</form>
-	</div>
-	<div class="pmd-modal-action text-right">
-		<button style="background-color: #e4e5e6;color: black!important;" ng-disabled="editTypeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editAddressCtrl.UpdateType()">{{'saveChangesBtn' | translate}}</button>
-		<button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editAddressCtrl.Close()">{{'DiscardBtn' | translate}}</button>
-	</div>
-</div>
 
+                    <div
+                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                        <label for="first-name">{{'ApartmentNumber' | translate}}</label>
+                        <input required type="number" class="mat-input form-control" name="appartmentNo"
+                            ng-model="editAddressCtrl.Address.appartmentNo" ng-minlength="1" ng-maxlength="4">
+                        <div ng-messages="addressForm.appartmentNo.$error" class="error">
+                            <div
+                                ng-if="addressForm.appartmentNo.$error.required && !addressForm.appartmentNo.$pristine">
+                                {{'ProgramDaysCountReqError' | translate}}</div>
+                            <div
+                                ng-if="(addressForm.appartmentNo.$error.minlength || addressForm.appartmentNo.$error.maxlength)">
+                                {{'ProgramDaysCountLengthError' | translate}}</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                        <label for="first-name">{{'AddressDescription' | translate}}</label>
+                        <textarea required type="text" class="mat-input form-control" name="addressDescription"
+                            ng-model="editAddressCtrl.Address.description" ng-minlength="3" ng-maxlength="255"></textarea>
+                        <div ng-messages="addressForm.addressDescription.$error">
+                            <div
+                                ng-if="addressForm.addressDescription.$error.required && !addressForm.addressDescription.$pristine">
+                                {{'Address' | translate}}
+                                {{'ReqError' | translate}}
+                            </div>
+                            <div
+                                ng-if="(addressForm.addressDescription.$error.minlength || addressForm.addressDescription.$error.maxlength)">
+                                {{'NameLengthError255' | translate}}</div>
+                        </div>
+                    </div>
+
+                    <div
+                    class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                    <label for="first-name">{{'Country' | translate}}</label>
+                    <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"
+                        ng-change="editAddressCtrl.countryChange()" ng-model="editAddressCtrl.selectedCountryId"
+                        ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in editAddressCtrl.counties">
+                    </select>
+                </div>
+                <div ng-show=" editAddressCtrl.selectedCountryId > 0"
+                    class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                    <label for="first-name">{{'Region' | translate}}</label>
+                    <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"
+                        ng-change="editAddressCtrl.regionChange()" ng-model="editAddressCtrl.selectedRegionId"
+                        ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in editAddressCtrl.regions">
+                    </select>
+                </div>
+                <div ng-show=" editAddressCtrl.selectedRegionId > 0"
+                    class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                    <label for="first-name">{{'City' | translate}}</label>
+                    <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"
+                        ng-change="editAddressCtrl.cityChange()" ng-model="editAddressCtrl.selectedCityId"
+                        ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in editAddressCtrl.cities">
+                    </select>
+                </div>
+                <div ng-show=" editAddressCtrl.selectedCityId > 0"
+                    class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                    <label for="first-name">{{'Area' | translate}}</label>
+                    <select ng-required="editAddressCtrl.selectedCityId > 0" style="width:100% !important"
+                        class="select-tags form-control pmd-select2-tags" ng-change="editAddressCtrl.areaChange()"
+                        ng-model="editAddressCtrl.selectedAreaId"
+                        ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in editAddressCtrl.area">
+                    </select>
+                </div>
+
+                    <div class="pmd-modal-action text-right">
+                        <button style="background-color: #e4e5e6;color: black!important;"
+                            ng-disabled="addressForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"
+                            ng-click="editAddressCtrl.UpdateType()">{{'saveChangesBtn' | translate}}</button>
+
+                        <button class="btn pmd-ripple-effect btn-default" type="button"
+                            ng-click="$state.go('Address', {userId: user.id});">{{'DiscardBtn' | translate}}</button>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </div>
+</div>
 	
 
 <script type="text/javascript">

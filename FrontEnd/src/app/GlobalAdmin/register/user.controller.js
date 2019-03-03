@@ -22,8 +22,7 @@
         vm.counties = vm.counties.concat(CountriesPrepService.results)
 
         $scope.phoneNumbr = /^\+?\d{2}[- ]?\d{3}[- ]?\d{5}$/;
-        $scope.userObj = "";
-        $scope.selectedType = "";
+        $scope.userObj = ""; 
         vm.resetDLL = function () {
             vm.counties = [];
             vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
@@ -33,21 +32,7 @@
             vm.cities = [];
             vm.area = [];
             vm.categoryList = [];
-        }
-        vm.departmentChange = function () {
-            vm.department.splice(0, 1);
-            vm.categoryList = [];
-            vm.categoryList.push({ categoryId: 0, titleDictionary: { "en": "Select Category", "ar": "اختار الفئة" } });
-            vm.selectedCategoryId = 0;
-            vm.categoryList = vm.categoryList.concat(($filter('filter')(vm.department, { departmentId: vm.selectedDepartmentId }))[0].categories);
-        }
-        vm.categoryChange = function () {
-            for (var i = vm.categoryList.length - 1; i >= 0; i--) {
-                if (vm.categoryList[i].categoryId == 0) {
-                    vm.categoryList.splice(i, 1);
-                }
-            }
-        }
+        } 
 
         vm.countryChange = function () {
             for (var i = vm.counties.length - 1; i >= 0; i--) {

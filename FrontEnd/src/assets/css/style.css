@@ -1092,7 +1092,7 @@ td {} .inn-com p {} .inn-com-form {} .inn-com-form form {
     margin-top: 72px;
     position: relative;
     overflow: hidden;
-    background: url('/assets/images/inn-bg.jpg') no-repeat;
+    background: url('/assets/img/inn-bg.jpg') no-repeat;
     background-size: cover;
     color: #b4b4b4;
     padding: 35px 0px;
