@@ -1,19 +1,19 @@
 (function () {
-    'use strict';
+  'use strict';
 
-    angular
-        .module('core', [
-            'ngResource',
-            'ui.router',
-            'ngStorage',
-            'permission',
-            'bw.paging',
-            //'ui.event',
-            'ngProgressLite',
-           // 'ui.bootstrap', 
-             'pascalprecht.translate',
-           'blockUI'
-        ]);
+  angular
+    .module('core', [
+      'ngResource',
+      'ui.router',
+      'ngStorage',
+      'permission',
+      'bw.paging',
+      //'ui.event',
+      'ngProgressLite',
+      // 'ui.bootstrap', 
+      'pascalprecht.translate',
+      'blockUI'
+    ]);
 }());
 ;(function() {
   'use strict';
