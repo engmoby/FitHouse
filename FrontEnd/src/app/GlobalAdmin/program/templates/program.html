@@ -1,76 +1,77 @@
-<section class="main" > 
-    <!-- ng-style="style()" -->
-    <br>
-    <div class="inn-body-section pad-bot-55">
-        <div class="container">
-            <div class="row">
-                <div class="page-head">
-                    <h2>{{'Programs' | translate}}</h2>
-                    <div class="head-title">
-                        <div class="hl-1"></div>
-                        <div class="hl-2"></div>
-                        <div class="hl-3"></div>
-                    </div>
-                    <p>{{'ProgramsDescription' | translate}}</p>
+<!-- <div class="main" >  -->
+<!-- ng-style="style()" -->
+<br>
+<div class="inn-body-section pad-bot-55">
+    <div class="container">
+        <div class="row">
+            <div class="page-head">
+                <h2>{{'Programs' | translate}}</h2>
+                <div class="head-title">
+                    <div class="hl-1"></div>
+                    <div class="hl-2"></div>
+                    <div class="hl-3"></div>
                 </div>
-                <!--ROOM SECTION-->
-                <div style="cursor: pointer !important;" ng-click="$state.go('programDetails', {programId: Program.programId});" ng-repeat="Program in programPrepService" class="room">
-                
-                    <div class="ribbon ribbon-top-left">
-                        <span>{{'Program' | translate}}</span>
-                    </div>
-                    <!--ROOM IMAGE-->
-                    <div class="r1 r-com">
-                        <img src="https://fithouseksa.com/wp-content/uploads/2018/07/fithouse-icons6.png" alt="" />
-                    </div>
-                    <!--ROOM RATING-->
-                    <div class="r2 r-com">
-                        <h4>{{Program.programNameDictionary[selectedLanguage]}}</h4>
-                        <div class="r2-ratt">
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <i class="fa fa-star"></i>
-                            <img src="images/h-trip.png" alt="" />
-                            <span></span>
-                        </div>
-                        <ul>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                        </ul>
-                    </div>
-                    <!--ROOM AMINITIES-->
-                    <div class="r3 r-com">
-                        <ul>
-                            <li>{{'ProgramDays' | translate}}: {{Program.programDays}}</li>
-                            <li>{{'MealPerDay' | translate}}: {{Program.noOfMeals}}</li>
-                            <li></li>
-                            <li></li>
-                            <li></li>
-                        </ul>
-                    </div>
-                    <!--ROOM PRICE-->
-                    <div class="r4 r-com">
-                        <p>{{Program.price}}</p>
-                        <p>
-                            <span class="room-price-1"></span>
-                            <span class="room-price"></span>
-                        </p>
-                        <p>{{'NonRefundable' | translate}}</p>
-                    </div>
-                    <!--ROOM BOOKING BUTTON-->
-                    <div class="r5 r-com">
-                        <div class="r2-available">{{'Available' | translate}}</div>
-                        <p></p>
-                        <a ng-click="$state.go('programDetails', {programId: Program.programId});" class="inn-room-book">{{'Book' | translate}}</a>
-                    </div>
-                </div>
-                <!--END ROOM SECTION-->
+                <p>{{'ProgramsDescription' | translate}}</p>
             </div>
+            <!--ROOM SECTION-->
+            <div style="cursor: pointer !important;" ng-click="$state.go('programDetails', {programId: Program.programId});" ng-repeat="Program in programPrepService"
+                class="room">
+
+                <div class="ribbon ribbon-top-left">
+                    <span>{{'Program' | translate}}</span>
+                </div>
+                <!--ROOM IMAGE-->
+                <div class="r1 r-com">
+                    <img src="https://fithouseksa.com/wp-content/uploads/2018/07/fithouse-icons6.png" alt="" />
+                </div>
+                <!--ROOM RATING-->
+                <div class="r2 r-com">
+                    <h4>{{Program.programNameDictionary[selectedLanguage]}}</h4>
+                    <div class="r2-ratt">
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <i class="fa fa-star"></i>
+                        <img src="images/h-trip.png" alt="" />
+                        <span></span>
+                    </div>
+                    <ul>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+                <!--ROOM AMINITIES-->
+                <div class="r3 r-com">
+                    <ul>
+                        <li>{{'ProgramDays' | translate}}: {{Program.programDays}}</li>
+                        <li>{{'MealPerDay' | translate}}: {{Program.noOfMeals}}</li>
+                        <li></li>
+                        <li></li>
+                        <li></li>
+                    </ul>
+                </div>
+                <!--ROOM PRICE-->
+                <div class="r4 r-com">
+                    <p>{{Program.price}}</p>
+                    <p>
+                        <span class="room-price-1"></span>
+                        <span class="room-price"></span>
+                    </p>
+                    <p>{{'NonRefundable' | translate}}</p>
+                </div>
+                <!--ROOM BOOKING BUTTON-->
+                <div class="r5 r-com">
+                    <div class="r2-available">{{'Available' | translate}}</div>
+                    <p></p>
+                    <a ng-click="$state.go('programDetails', {programId: Program.programId});" class="inn-room-book">{{'Book' | translate}}</a>
+                </div>
+            </div>
+            <!--END ROOM SECTION-->
         </div>
     </div>
+</div>
 
-</section>
+<!-- </div> -->

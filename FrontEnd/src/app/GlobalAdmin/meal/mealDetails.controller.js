@@ -16,7 +16,8 @@
         $scope.itemsssPrepService = itemsssPrepService;
         $scope.Total = 0;
         var vm = this;
-        $scope.clientId = $scope.user.id;// localStorage.getItem('ClientId');
+        $scope.clientId = $scope.user.id;
+        // localStorage.getItem('ClientId');
         $scope.DeliveryFees = 0;
         $scope.counties = [];
         $scope.fats = 0;
@@ -59,7 +60,7 @@
         $scope.addressInfo = function (address) {
             $scope.addressDetails = address;
             $scope.selectedBranchId = $scope.addressDetails.branchId;
-            GetBranchDelivery();
+            // GetBranchDelivery();
             debugger;
             $scope.Total = $scope.mealPrepService.mealPrice + $scope.DeliveryFees;
         }
