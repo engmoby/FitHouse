@@ -67,7 +67,7 @@
                     }
 
                 })
-                
+
 
                 .state('orderDetails', {
                     url: '/orderDetails/:id',
@@ -76,10 +76,10 @@
                     'controllerAs': 'orderDetailsCtrl',
                     resolve: {
                         OrderMealPrepService: OrderMealPrepService,
-                        itemsssPrepService: itemsssPrepService 
+                        itemsssPrepService: itemsssPrepService
                     }
                 })
-                
+
 
                 .state('orderProgramDetails', {
                     url: '/orderpDetails/:programId',
@@ -88,7 +88,7 @@
                     'controllerAs': 'orderProgramDetailsCtrl',
                     resolve: {
                         OrderprogDetailsPrepService: OrderprogDetailsPrepService,
-                        itemsssPrepService: itemsssPrepService 
+                        itemsssPrepService: itemsssPrepService
                     }
                 })
 
@@ -159,7 +159,7 @@
                         CountriesPrepService: CountriesPrepService
                     }
                 })
-                
+
 
                 .state('Address', {
                     url: '/Address/:userId',
@@ -181,7 +181,10 @@
                     url: '/newAddress',
                     templateUrl: './app/GlobalAdmin/Address/templates/new.html',
                     controller: 'createAddressDialogController',
-                    'controllerAs': 'newAddressCtrl', 
+                    'controllerAs': 'newAddressCtrl',
+                    resolve: {
+                        CountriesPrepService: CountriesPrepService
+                    }
 
                 })
                 .state('editaddress', {
@@ -190,7 +193,8 @@
                     controller: 'editAddressDialogController',
                     'controllerAs': 'editAddressCtrl',
                     resolve: {
-                        AddressByIdPrepService: AddressByIdPrepService,   
+                        AddressByIdPrepService: AddressByIdPrepService,
+                        CountriesPrepService: CountriesPrepService
                     },
                     data: {
                         permissions: {
@@ -276,26 +280,26 @@
     OrderMealPrepService.$inject = ['MealResource', '$stateParams']
     function OrderMealPrepService(MealResource, $stateParams) {
         return MealResource.getMeal({ mealId: $stateParams.id }).$promise;
-    } 
-    
+    }
+
     OrderprogDetailsPrepService.$inject = ['GetProgramDetailResource', '$stateParams']
     function OrderprogDetailsPrepService(GetProgramDetailResource, $stateParams) {
         return GetProgramDetailResource.getProgramDetail({ programId: $stateParams.programId }).$promise;
     }
 
-     /*Address */
-     AddressPrepService.$inject = ['AddressResource','$stateParams']
-     function AddressPrepService(AddressResource,$stateParams) {
-         return AddressResource.getAllAddress({ userId: $stateParams.userId }).$promise;
-     }
-   
-     AllActivateAddressPrepService.$inject = ['AddressResource']
-     function AllActivateAddressPrepService(AddressResource) {
-         return AddressResource.getAllActivateAddress({ pageSize: 0 }).$promise;
-     }
- 
-     AddressByIdPrepService.$inject = ['AddressResource', '$stateParams']
-     function AddressByIdPrepService(AddressResource, $stateParams) {
-         return AddressResource.getAddress({ addressId: $stateParams.addressId }).$promise;
-     }
+    /*Address */
+    AddressPrepService.$inject = ['AddressResource', '$stateParams']
+    function AddressPrepService(AddressResource, $stateParams) {
+        return AddressResource.getAllAddress({ userId: $stateParams.userId }).$promise;
+    }
+
+    AllActivateAddressPrepService.$inject = ['AddressResource']
+    function AllActivateAddressPrepService(AddressResource) {
+        return AddressResource.getAllActivateAddress({ pageSize: 0 }).$promise;
+    }
+
+    AddressByIdPrepService.$inject = ['AddressResource', '$stateParams']
+    function AddressByIdPrepService(AddressResource, $stateParams) {
+        return AddressResource.getAddress({ addressId: $stateParams.addressId }).$promise;
+    }
 }());
