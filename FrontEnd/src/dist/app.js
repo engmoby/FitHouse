@@ -1266,6 +1266,7 @@
                 $scope.branchList = $scope.branchList.concat(($filter('filter')($scope.area, { areaId: $scope.selectedAreaId }))[0].branches);
             }
         }
+        $scope.areaChanged = false;
         $scope.branchChange = function () {
             for (var i = $scope.branchList.length - 1; i >= 0; i--) {
                 if ($scope.branchList[i].branchId == 0) {
@@ -1274,6 +1275,8 @@
             }
             $scope.DeliveryFees = 0;
             $scope.Total = $scope.mealPrepService.mealPrice;
+            $scope.areaChanged = true;
+
         }
 
         $scope.Order = function () {
@@ -1596,11 +1599,11 @@
 
     angular
         .module('home')
-        .controller('programDetailsController', ['$scope', '$stateParams', '$translate', 'appCONSTANTS'
+        .controller('programDetailsController', ['$scope', '$state', '$stateParams', '$translate', 'appCONSTANTS'
             , '$filter', 'progDetailsPrepService', 'itemsssPrepService', 'OrderResource'
             , 'RegionResource', 'CityResource', 'AreaResource', 'CountriesPrepService', 'BranchResource', 'settingsPrepService', programDetailsController])
 
-    function programDetailsController($scope, $stateParams, $translate, appCONSTANTS
+    function programDetailsController($scope, $state, $stateParams, $translate, appCONSTANTS
         , $filter, progDetailsPrepService
         , itemsssPrepService, OrderResource, RegionResource, CityResource, AreaResource
         , CountriesPrepService, BranchResource, settingsPrepService) {
@@ -1814,17 +1817,13 @@
 
             order.$createOrder().then(
                 function (data, status) {
-                    blockUI.stop();
 
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
 
-                    $state.go('callCenter');
+                    $state.go('Summary');
 
                 },
                 function (data, status) {
-                    blockUI.stop();
 
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 }
             );
         }
@@ -1834,131 +1833,6 @@
 
 }
     ());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .filter('range', function () {
-            return function (input, total) {
-                total = parseInt(total);
-
-                for (var i = 0; i < total; i++) {
-                    input.push(i);
-                }
-
-                return input;
-            }
-        })
-        .controller('homePageController', ['$scope', '$state', '$stateParams', '$translate','blockUI', 'appCONSTANTS', 'mealsPrepService', 'programPrepService', 'settingsPrepService'
-            , 'daysPrepService', homePageController])
-
-    function homePageController($scope, $state, $stateParams, $translate, blockUI,appCONSTANTS, mealsPrepService, programPrepService
-        , settingsPrepService, daysPrepService) {
-            blockUI.start($translate.instant('loading'));
-
-        $scope.mealsPrepService = mealsPrepService.results;
-        $scope.programPrepService = programPrepService.results;
-        $scope.settingsPrepService = settingsPrepService;
-        $scope.dayList = daysPrepService;
-		$scope.SelectedDays = [];
-        blockUI.stop();
-        $scope.isSnack = false;
-        $scope.isBreakFast = false;
-
-        $scope.submitCustomise = function () {
-            localStorage.setItem('mealPerDay', $scope.mealPerDay);
-            localStorage.setItem('programDaysCount', $scope.programDaysCount);
-            localStorage.setItem('dayList', JSON.stringify($scope.SelectedDays));
-            localStorage.setItem('isBreakFast', $scope.isBreakFast);
-            localStorage.setItem('isSnack', $scope.isSnack);
-            localStorage.setItem('itemDatetime', $scope.itemDatetime);
-            localStorage.setItem('ProgramDiscount', $scope.settingsPrepService.programDiscount);
-            $state.go('Custom');
-        }
-
-        $scope.style = function () {
-            return {
-                'background': 'url(https://fithouseksa.com/wp-content/uploads/2018/07/fat-running.png) no-repeat',
-                'background-attachment': 'fixed',
-                'background-size': 'cover',
-                'width': '100%',
-                'width': '100%'
-            };
-        }
-
-    }
-
-}
-    ());
-(function () {
-  angular
-    .module('home')
-    .factory('AboutUsResource', ['$resource', 'appCONSTANTS', AboutUsResource])
-    .factory('ContactUsResource', ['$resource', 'appCONSTANTS', ContactUsResource])
-    .factory('HomeResource', ['$resource', 'appCONSTANTS', HomeResource])
-    .factory('LeadershipResource', ['$resource', 'appCONSTANTS', LeadershipResource])
-    .factory('GetMealsResource', ['$resource', 'appCONSTANTS', GetMealsResource])
-    .factory('GetSettingsResource', ['$resource', 'appCONSTANTS', GetSettingsResource])
-    .factory('GetProgramResource', ['$resource', 'appCONSTANTS', GetProgramResource])
-    .factory('GetDaysResource', ['$resource', 'appCONSTANTS', GetDaysResource])
-
-    ;
-
-
-
-  function GetDaysResource($resource, appCONSTANTS) {
-    return $resource(appCONSTANTS.API_URL + 'Day/GetAllDays', {}, {
-      gatAllDays: { method: 'GET', useToken: true, isArray: true }
-    })
-  }
-
-  function GetSettingsResource($resource, appCONSTANTS) {
-    return $resource(appCONSTANTS.API_URL + 'Setting/GetSetting', {}, {
-      getAllSettings: { method: 'GET', useToken: true }
-    })
-  }
-
-  function AboutUsResource($resource, appCONSTANTS) {
-    return $resource(appCONSTANTS.API_URL + 'AboutUs', {}, {
-      getAboutUs: { method: 'GET', useToken: true }
-    })
-  }
-
-  function GetProgramResource($resource, appCONSTANTS) {
-    return $resource(appCONSTANTS.API_URL + 'Program', {}, {
-      gatAllPrograms: { method: 'GET', useToken: true }
-    })
-  }
-
-
-  function ContactUsResource($resource, appCONSTANTS) {
-    return $resource(appCONSTANTS.API_URL + 'ContactUs', {}, {
-      getContactUs: { method: 'GET', useToken: true }
-    })
-  }
-
-  function HomeResource($resource, appCONSTANTS) {
-    return $resource(appCONSTANTS.API_URL + 'Home', {}, {
-      getHome: { method: 'GET', useToken: true }
-    })
-  }
-
-  function LeadershipResource($resource, appCONSTANTS) {
-    return $resource(appCONSTANTS.API_URL + 'OurTeams', {}, {
-      getLeadership: { method: 'GET', useToken: true, isArray: true }
-    })
-  }
-
-  function GetMealsResource($resource, appCONSTANTS) {
-    return $resource(appCONSTANTS.API_URL + 'Meals/GetAllMeals', {}, {
-      getAllMeals: { method: 'GET', useToken: true, params: { lang: '@lang' } },
-    })
-  }
-
-
-}());
-
 (function () {
     'use strict';
 
@@ -2430,3 +2304,128 @@
     }
 
 }());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .filter('range', function () {
+            return function (input, total) {
+                total = parseInt(total);
+
+                for (var i = 0; i < total; i++) {
+                    input.push(i);
+                }
+
+                return input;
+            }
+        })
+        .controller('homePageController', ['$scope', '$state', '$stateParams', '$translate','blockUI', 'appCONSTANTS', 'mealsPrepService', 'programPrepService', 'settingsPrepService'
+            , 'daysPrepService', homePageController])
+
+    function homePageController($scope, $state, $stateParams, $translate, blockUI,appCONSTANTS, mealsPrepService, programPrepService
+        , settingsPrepService, daysPrepService) {
+            blockUI.start($translate.instant('loading'));
+
+        $scope.mealsPrepService = mealsPrepService.results;
+        $scope.programPrepService = programPrepService.results;
+        $scope.settingsPrepService = settingsPrepService;
+        $scope.dayList = daysPrepService;
+		$scope.SelectedDays = [];
+        blockUI.stop();
+        $scope.isSnack = false;
+        $scope.isBreakFast = false;
+
+        $scope.submitCustomise = function () {
+            localStorage.setItem('mealPerDay', $scope.mealPerDay);
+            localStorage.setItem('programDaysCount', $scope.programDaysCount);
+            localStorage.setItem('dayList', JSON.stringify($scope.SelectedDays));
+            localStorage.setItem('isBreakFast', $scope.isBreakFast);
+            localStorage.setItem('isSnack', $scope.isSnack);
+            localStorage.setItem('itemDatetime', $scope.itemDatetime);
+            localStorage.setItem('ProgramDiscount', $scope.settingsPrepService.programDiscount);
+            $state.go('Custom');
+        }
+
+        $scope.style = function () {
+            return {
+                'background': 'url(https://fithouseksa.com/wp-content/uploads/2018/07/fat-running.png) no-repeat',
+                'background-attachment': 'fixed',
+                'background-size': 'cover',
+                'width': '100%',
+                'width': '100%'
+            };
+        }
+
+    }
+
+}
+    ());
+(function () {
+  angular
+    .module('home')
+    .factory('AboutUsResource', ['$resource', 'appCONSTANTS', AboutUsResource])
+    .factory('ContactUsResource', ['$resource', 'appCONSTANTS', ContactUsResource])
+    .factory('HomeResource', ['$resource', 'appCONSTANTS', HomeResource])
+    .factory('LeadershipResource', ['$resource', 'appCONSTANTS', LeadershipResource])
+    .factory('GetMealsResource', ['$resource', 'appCONSTANTS', GetMealsResource])
+    .factory('GetSettingsResource', ['$resource', 'appCONSTANTS', GetSettingsResource])
+    .factory('GetProgramResource', ['$resource', 'appCONSTANTS', GetProgramResource])
+    .factory('GetDaysResource', ['$resource', 'appCONSTANTS', GetDaysResource])
+
+    ;
+
+
+
+  function GetDaysResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'Day/GetAllDays', {}, {
+      gatAllDays: { method: 'GET', useToken: true, isArray: true }
+    })
+  }
+
+  function GetSettingsResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'Setting/GetSetting', {}, {
+      getAllSettings: { method: 'GET', useToken: true }
+    })
+  }
+
+  function AboutUsResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'AboutUs', {}, {
+      getAboutUs: { method: 'GET', useToken: true }
+    })
+  }
+
+  function GetProgramResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'Program', {}, {
+      gatAllPrograms: { method: 'GET', useToken: true }
+    })
+  }
+
+
+  function ContactUsResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'ContactUs', {}, {
+      getContactUs: { method: 'GET', useToken: true }
+    })
+  }
+
+  function HomeResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'Home', {}, {
+      getHome: { method: 'GET', useToken: true }
+    })
+  }
+
+  function LeadershipResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'OurTeams', {}, {
+      getLeadership: { method: 'GET', useToken: true, isArray: true }
+    })
+  }
+
+  function GetMealsResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'Meals/GetAllMeals', {}, {
+      getAllMeals: { method: 'GET', useToken: true, params: { lang: '@lang' } },
+    })
+  }
+
+
+}());
+

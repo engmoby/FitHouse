@@ -1,16 +1,28 @@
 <script>
+    // $(function () {
+    //     var today = new Date();
+    //     var tomorrow = new Date();
+    //     $('#startdate').datepicker(
+    //         {
+    //             minDate: tomorrow.setDate(today.getDate() + 1)
+    //         }
+    //     ).on('dp.change', function (e) {
+    //         debugger;
+    //         angular.element(document.getElementById('startdate')).scope().dateChange();
+    //     });
+    // });
     $(function () {
-		$('#startdate').datepicker(
-			{
-				minDate: new Date()
-			}
-		).on('dp.change', function (e) {
-			debugger;
-			angular.element(document.getElementById('startdate')).scope().dateChange();
-		});
-	});
+        $('#startdate').datepicker(
+            {
+                minDate: new Date()
+            }
+        ).on('dp.change', function (e) {
+            debugger;
+            angular.element(document.getElementById('startdate')).scope().dateChange();
+        });
+    });
 </script>
- 
+
 <div class="menu-section">
     <div class="container">
 
@@ -227,9 +239,9 @@
                                                             <!-- {{addresses.address}} -->
                                                             <div ng-repeat="address in userAddresses">
                                                                 <p>
-                                                                    <input ng-change="addressInfo(address)" name="group2" type="radio" id="test{{address.addressId}}" ng-model="addresses.address"
+                                                                    <input ng-change="addressInfo(address)" name="group2" type="radio" id="address{{address.addressId}}" ng-model="addresses.address"
                                                                         value="{{address.addressId}}" />
-                                                                    <label for="test{{address.addressId}}">{{address.appartmentNo}}, {{address.description}}, {{'Floor'
+                                                                    <label for="address{{address.addressId}}">{{address.appartmentNo}}, {{address.description}}, {{'Floor'
                                                                         | translate}} {{address.floor}}</label>
                                                                 </p>
                                                                 <!-- <label>
@@ -281,12 +293,14 @@
                                             </div>
 
                                             <div class="input-field col s12 m4 l2">
-                                                    Price:{{ progDetailsPrepService.price}}
-                                                    <br> Delivery:{{ DeliveryFees}}
-                                                    <br>Discount :{{ settingsPrepService.programDiscount}} %
-                                                    <br>Total :{{ Total}}
-                                                    <br>
-                                                    <button style="background-color: #e4e5e6;color: black!important;" class="btn pmd-ripple-effect btn-primary" ng-click="Order()" ng-disabled="orderForm.$invalid  || selectedBranchId <= 0 || (addressValidation == false && orderType.type == 'delivery') && !dateIsValid"> {{'next' | translate}}</button>
+                                                Price:{{ progDetailsPrepService.price}}
+                                                <br> Delivery:{{ DeliveryFees}}
+                                                <br>Discount :{{ settingsPrepService.programDiscount}} %
+                                                <br>Total :{{ Total}}
+                                                <br>
+                                                <button style="background-color: #e4e5e6;color: black!important;" class="btn pmd-ripple-effect btn-primary" ng-click="Order()"
+                                                    ng-disabled="orderForm.$invalid  || selectedBranchId <= 0 || (addressValidation == false && orderType.type == 'delivery') && !dateIsValid">
+                                                {{'next' | translate}}</button>
                                                 <!-- ng-disabled="orderForm.$invalid || !dateIsValid || addressValidation == false" -->
                                             </div>
                                         </div>

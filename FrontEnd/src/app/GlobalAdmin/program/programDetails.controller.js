@@ -3,11 +3,11 @@
 
     angular
         .module('home')
-        .controller('programDetailsController', ['$scope', '$stateParams', '$translate', 'appCONSTANTS'
+        .controller('programDetailsController', ['$scope', '$state', '$stateParams', '$translate', 'appCONSTANTS'
             , '$filter', 'progDetailsPrepService', 'itemsssPrepService', 'OrderResource'
             , 'RegionResource', 'CityResource', 'AreaResource', 'CountriesPrepService', 'BranchResource', 'settingsPrepService', programDetailsController])
 
-    function programDetailsController($scope, $stateParams, $translate, appCONSTANTS
+    function programDetailsController($scope, $state, $stateParams, $translate, appCONSTANTS
         , $filter, progDetailsPrepService
         , itemsssPrepService, OrderResource, RegionResource, CityResource, AreaResource
         , CountriesPrepService, BranchResource, settingsPrepService) {
@@ -239,17 +239,17 @@
 
             order.$createOrder().then(
                 function (data, status) {
-                    blockUI.stop();
+                    // blockUI.stop();
 
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+                    // ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
 
-                    $state.go('callCenter');
+                    $state.go('Summary');
 
                 },
                 function (data, status) {
-                    blockUI.stop();
+                    // blockUI.stop();
 
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                    // ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 }
             );
         }

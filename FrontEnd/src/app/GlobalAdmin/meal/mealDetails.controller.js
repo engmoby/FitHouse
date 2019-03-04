@@ -86,7 +86,7 @@
                     $scope.dateIsValid = true;
                 }
                 else {
-                   // alert('Given date is not greater than the current date.');
+                    // alert('Given date is not greater than the current date.');
                     //$scope.dateIsValid = false;
 
                 }
@@ -208,6 +208,7 @@
                 $scope.branchList = $scope.branchList.concat(($filter('filter')($scope.area, { areaId: $scope.selectedAreaId }))[0].branches);
             }
         }
+        $scope.areaChanged = false;
         $scope.branchChange = function () {
             for (var i = $scope.branchList.length - 1; i >= 0; i--) {
                 if ($scope.branchList[i].branchId == 0) {
@@ -216,6 +217,8 @@
             }
             $scope.DeliveryFees = 0;
             $scope.Total = $scope.mealPrepService.mealPrice;
+            $scope.areaChanged = true;
+
         }
 
         $scope.Order = function () {
