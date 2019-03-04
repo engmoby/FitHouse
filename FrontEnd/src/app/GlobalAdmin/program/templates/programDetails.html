@@ -231,11 +231,11 @@
                                         <div class="col-md-12">
                                             <h5>{{'OrderType' | translate}}</h5>
                                             <p>
-                                                <input ng-model="orderType.type" name="group1" type="radio" id="test1" value="delivery" />
+                                                <input ng-change="typeChanged()" ng-model="orderType.type" name="group1" type="radio" id="test1" value="delivery" />
                                                 <label for="test1">{{'Delivery' | translate}}</label>
                                             </p>
                                             <p>
-                                                <input ng-model="orderType.type" name="group1" type="radio" id="test2" value="pickup" />
+                                                <input ng-change="typeChanged()" ng-model="orderType.type" name="group1" type="radio" id="test2" value="pickup" />
                                                 <label for="test2">{{'PickUp' | translate}}</label>
                                             </p>
 
