@@ -64,7 +64,7 @@ var paths = {
     './node_modules/ngstorage/ngStorage.js',
     './node_modules/angular-resource/angular-resource.js',
     './assets/js/bootstrap.js',
-    './assets/js/materialize.min.js',
+    // './assets/js/materialize.min.js',
     // './assets/js/html5shiv.js',
     './assets/js/jquery.mixitup.min.js',
     './assets/js/custom.js',
@@ -232,6 +232,10 @@ gulp.task('copy-templates', function () {
     .pipe(gulp.dest(paths.build + '/'));
 });
 
+gulp.task('loadJS', function (cb) {
+  gulp.src(['./assets/js/materialize.min.js'])
+    .pipe(gulp.dest(paths.build + '/'));
+});
 // gulp.task('copy-templates', function() {
 //   gulp.src('./app/**/*.html')
 //     .pipe(minifyHtml({empty: true, quotes: true}))
@@ -268,7 +272,7 @@ gulp.task('serve', function () {
 });
 
 // copy task
-gulp.task('copy', ['cssAR', 'css', 'copy-libs', 'copy-core', 'copy-app', 'copy-templates', 'copy-index', 'images', 'svgs', 'fonts', 'countriesData']);
+gulp.task('copy', ['cssAR', 'css', 'copy-libs', 'copy-core', 'copy-app', 'copy-templates', 'copy-index', 'images', 'svgs', 'fonts', 'countriesData','loadJS']);
 
 //clean build
 gulp.task('clean-build', function (cb) {

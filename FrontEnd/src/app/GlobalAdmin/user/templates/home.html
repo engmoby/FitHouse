@@ -21,6 +21,7 @@
 	});
 
 	$(function () {
+		
 		$('#startdate').datepicker(
 			{
 				minDate: new Date()
@@ -146,18 +147,19 @@
 							<div class="col s6">
 								<p>
 									<input type="checkbox" id="test5" ng-model="isBreakFast" />
-									<label for="test5">{{'IsBreakFast' | translate}}</label>
+									<label for="test5" class="labelCheckBox">{{'IsBreakFast' | translate}}</label>
 								</p>
 							</div>
 							<div class="col s6">
 								<p>
 									<input type="checkbox" id="test6" ng-model="isSnack" />
-									<label for="test6">{{'IsSnack' | translate}}</label>
+									<label for="test6" class="labelCheckBox">{{'IsSnack' | translate}}</label>
 								</p>
 							</div>
 						</div>
 						<div class="row">
 							<div class="input-field col s12">
+								
 								<input name="itemDatetime" required ng-model="itemDatetime" type="text" id="startdate" class="form-control" />
 								<label for="from">{{'OrderStartDate' | translate}}</label>
 							</div>
@@ -246,6 +248,8 @@
 <!--END HOTEL ROOMS-->
 
 <!--TOP SECTION-->
+<section>
+
 <div class="inn-body-section pad-bot-55">
 	<div class="container">
 		<div class="row">
@@ -271,7 +275,7 @@
 					</div>
 					<!--ROOM RATING-->
 					<div class="r2 r-com">
-						<h4>{{programPrepService[n].programNameDictionary[selectedLanguage] | limitTo:10}}}</h4>
+						<h4>{{programPrepService[n].programNameDictionary[selectedLanguage] | limitTo:10}}</h4>
 						<div class="r2-ratt">
 							<i></i>
 							<i></i>
@@ -318,9 +322,12 @@
 				</div>
 				<!--END ROOM SECTION-->
 			</div>
+			
 		</div>
 	</div>
 </div>
+</section>
+
 
 
 <!-- </form> -->

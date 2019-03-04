@@ -44,7 +44,7 @@
         display: block;
     }
     .r-com {
-        width: 100%;
+        width: 100% !important;
     }
     .r2 {
         border-bottom: 1px solid #d1d1d1;
