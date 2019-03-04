@@ -192,6 +192,14 @@
                                 <div id="menu1" class="tab-pane fade in tab-space">
                                     <div class="hp-main-overview">
                                         <ul>
+                                            <li>{{'ExcludedDays' | translate}}:
+                                                <span ng-if="progDetailsPrepService.days.length > 0" ng-repeat="day in progDetailsPrepService.days">
+                                                    {{day.dayNameDictionary[selectedLanguage]}}, 
+                                                </span>
+                                                <span ng-if="progDetailsPrepService.days.length == 0">
+                                                    {{'NoExcludedDays' | translate}}
+                                                </span>
+                                            </li>
                                             <li>{{'Fats' | translate}}:
                                                 <span>{{fats}}</span>
                                             </li>
@@ -300,7 +308,7 @@
                                                 <br>
                                                 <button style="background-color: #e4e5e6;color: black!important;" class="btn pmd-ripple-effect btn-primary" ng-click="Order()"
                                                     ng-disabled="orderForm.$invalid  || selectedBranchId <= 0 || (addressValidation == false && orderType.type == 'delivery') && !dateIsValid">
-                                                {{'next' | translate}}</button>
+                                                    {{'next' | translate}}</button>
                                                 <!-- ng-disabled="orderForm.$invalid || !dateIsValid || addressValidation == false" -->
                                             </div>
                                         </div>
