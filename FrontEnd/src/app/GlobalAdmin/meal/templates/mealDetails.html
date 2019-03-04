@@ -1,17 +1,15 @@
 <script>
     $(function () {
-        var today = new Date();
-        var tomorrow = new Date();
         $('#startdate').datepicker(
             {
-                minDate: tomorrow.setDate(today.getDate() + 1)
+                minDate: new Date()
             }
         ).on('dp.change', function (e) {
             debugger;
             angular.element(document.getElementById('startdate')).scope().dateChange();
         });
     });
-</script> 
+</script>
 <div class="hp-banner">
     <img src="images/detailed-banner.jpg" alt=""> </div>
 
@@ -117,12 +115,11 @@
 
                                             <div class="row">
                                                 <div class="input-field col s6">
-                                                    <select style="width:100% !important" required class=" select-tags form-control pmd-select2-tags"
-                                                        name="country" ng-change="countryChange()" ng-model="selectedCountryId"
-                                                        ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in counties">
+                                                    <select style="width:100% !important" required class=" select-tags form-control pmd-select2-tags" name="country" ng-change="countryChange()"
+                                                        ng-model="selectedCountryId" ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in counties">
                                                     </select>
                                                 </div>
-                                                <div class="input-field col s6" ng-show="selectedCountryId > 0"> 
+                                                <div class="input-field col s6" ng-show="selectedCountryId > 0">
                                                     <select style="width:100% !important" ng-required="selectedCountryId > 0" class="select-tags form-control pmd-select2-tags"
                                                         ng-change="regionChange()" ng-model="selectedRegionId" ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in regions">
                                                     </select>
@@ -152,11 +149,12 @@
                                                 <!-- ng-disabled="orderForm.$invalid || !dateIsValid || addressValidation == false" -->
 
 
-                                                Price:{{ mealPrepService.mealPrice}} 
+                                                Price:{{ mealPrepService.mealPrice}}
                                                 <br>
-                                                <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="orderForm.$invalid || selectedBranchId <= 0 && !dateIsValid"
+                                                <!-- {{areaChanged}} -->
+                                                <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="areaChanged == false || orderForm.$invalid || selectedBranchId <= 0 && !dateIsValid"
                                                     class="btn pmd-ripple-effect btn-primary" type="button" ng-click="Order();">
-                                                    {{'next' | translate}}</button>
+                                                    {{'order' | translate}}</button>
 
                                             </div>
                                         </div>

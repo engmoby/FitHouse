@@ -11,7 +11,7 @@
     <link rel="icon" href="/assets/img/cropped-favicon-32x32.png" sizes="32x32">
     <link rel="icon" href="/assets/img/cropped-favicon-192x192.png" sizes="192x192">
     <link rel="shortcut icon" href="/assets/img/cropped-favicon-192x192.png" type="image/x-icon">
-    <link rel="stylesheet" ng-href="bundle-{{selectedLanguage}}.css?v=5601b9134bfae84a69aa1d20d90a03fc" />
+    <link rel="stylesheet" ng-href="bundle-{{selectedLanguage}}.css?v=98a5c8c10f22427a19bdd58bd9c0893f" />
     <script src="https://momentjs.com/downloads/moment.js"></script>
 
 </head>
@@ -53,21 +53,21 @@
         </div>
     </section>
 
-    <section>
+    <section class="main">
         <!--TOP SECTION-->
         <div class="menu-section">
             <div class="container">
                 <div class="row">
                     <div class="top-bar" ng-show="isLoggedIn()" ng-cloak ng-init="logoutFlag=false">
                         <ul>
-
+<!-- 
                             <li> <select class="select-simple form-control pmd-select2" ng-model="selectedLanguage"
                                     ng-change="changeLanguage(selectedLanguage)">
                                     <option ng-selected="selectedLanguage == item.id" ng-repeat="item in languages"
                                         ng-value="item.id">{{item.label | translate}}</option>
-                                </select></li>
+                                </select></li> -->
                             <li>
-                                <a class='dropdown-button' href='#dropdown2'
+                                <a class='dropdown-button' href='#'
                                     data-activates='dropdown2'>{{'Language' | translate}}
                                     <i class="fa fa-angle-down"></i>
                                 </a>
@@ -176,13 +176,14 @@
             </div>
         </div>
     </section>
-    <script src="libs.js?v=5601b9134bfae84a69aa1d20d90a03fc"></script>
-    <script src="core.js?v=5601b9134bfae84a69aa1d20d90a03fc"></script>
-    <script src="app.js?v=5601b9134bfae84a69aa1d20d90a03fc"></script>
-    <script src="templates.js?v=5601b9134bfae84a69aa1d20d90a03fc"></script>
+    <script src="libs.js?v=98a5c8c10f22427a19bdd58bd9c0893f"></script>
+    <script src="core.js?v=98a5c8c10f22427a19bdd58bd9c0893f"></script>
+    <script src="app.js?v=98a5c8c10f22427a19bdd58bd9c0893f"></script>
+    <script src="templates.js?v=98a5c8c10f22427a19bdd58bd9c0893f"></script>
     <script src="https://rawgithub.com/McNull/angular-block-ui/bower/angular-block-ui.min.js"></script>
     <link rel="stylesheet" href="https://rawgithub.com/McNull/angular-block-ui/bower/angular-block-ui.min.css">
 
+    <script src="materialize.min.js" type="text/javascript"></script>
 </body>
 
 <script type="text/javascript">

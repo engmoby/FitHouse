@@ -783,18 +783,16 @@ angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/meal/templates/mealDetails.html',
     '<script>\n' +
     '    $(function () {\n' +
-    '        var today = new Date();\n' +
-    '        var tomorrow = new Date();\n' +
     '        $(\'#startdate\').datepicker(\n' +
     '            {\n' +
-    '                minDate: tomorrow.setDate(today.getDate() + 1)\n' +
+    '                minDate: new Date()\n' +
     '            }\n' +
     '        ).on(\'dp.change\', function (e) {\n' +
     '            debugger;\n' +
     '            angular.element(document.getElementById(\'startdate\')).scope().dateChange();\n' +
     '        });\n' +
     '    });\n' +
-    '</script> \n' +
+    '</script>\n' +
     '<div class="hp-banner">\n' +
     '    <img src="images/detailed-banner.jpg" alt=""> </div>\n' +
     '\n' +
@@ -900,12 +898,11 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '\n' +
     '                                            <div class="row">\n' +
     '                                                <div class="input-field col s6">\n' +
-    '                                                    <select style="width:100% !important" required class=" select-tags form-control pmd-select2-tags"\n' +
-    '                                                        name="country" ng-change="countryChange()" ng-model="selectedCountryId"\n' +
-    '                                                        ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in counties">\n' +
+    '                                                    <select style="width:100% !important" required class=" select-tags form-control pmd-select2-tags" name="country" ng-change="countryChange()"\n' +
+    '                                                        ng-model="selectedCountryId" ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in counties">\n' +
     '                                                    </select>\n' +
     '                                                </div>\n' +
-    '                                                <div class="input-field col s6" ng-show="selectedCountryId > 0"> \n' +
+    '                                                <div class="input-field col s6" ng-show="selectedCountryId > 0">\n' +
     '                                                    <select style="width:100% !important" ng-required="selectedCountryId > 0" class="select-tags form-control pmd-select2-tags"\n' +
     '                                                        ng-change="regionChange()" ng-model="selectedRegionId" ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in regions">\n' +
     '                                                    </select>\n' +
@@ -935,11 +932,12 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                                <!-- ng-disabled="orderForm.$invalid || !dateIsValid || addressValidation == false" -->\n' +
     '\n' +
     '\n' +
-    '                                                Price:{{ mealPrepService.mealPrice}} \n' +
+    '                                                Price:{{ mealPrepService.mealPrice}}\n' +
     '                                                <br>\n' +
-    '                                                <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="orderForm.$invalid || selectedBranchId <= 0 && !dateIsValid"\n' +
+    '                                                <!-- {{areaChanged}} -->\n' +
+    '                                                <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="areaChanged == false || orderForm.$invalid || selectedBranchId <= 0 && !dateIsValid"\n' +
     '                                                    class="btn pmd-ripple-effect btn-primary" type="button" ng-click="Order();">\n' +
-    '                                                    {{\'next\' | translate}}</button>\n' +
+    '                                                    {{\'order\' | translate}}</button>\n' +
     '\n' +
     '                                            </div>\n' +
     '                                        </div>\n' +
@@ -1338,18 +1336,30 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/program/templates/programDetails.html',
     '<script>\n' +
+    '    // $(function () {\n' +
+    '    //     var today = new Date();\n' +
+    '    //     var tomorrow = new Date();\n' +
+    '    //     $(\'#startdate\').datepicker(\n' +
+    '    //         {\n' +
+    '    //             minDate: tomorrow.setDate(today.getDate() + 1)\n' +
+    '    //         }\n' +
+    '    //     ).on(\'dp.change\', function (e) {\n' +
+    '    //         debugger;\n' +
+    '    //         angular.element(document.getElementById(\'startdate\')).scope().dateChange();\n' +
+    '    //     });\n' +
+    '    // });\n' +
     '    $(function () {\n' +
-    '		$(\'#startdate\').datepicker(\n' +
-    '			{\n' +
-    '				minDate: new Date()\n' +
-    '			}\n' +
-    '		).on(\'dp.change\', function (e) {\n' +
-    '			debugger;\n' +
-    '			angular.element(document.getElementById(\'startdate\')).scope().dateChange();\n' +
-    '		});\n' +
-    '	});\n' +
+    '        $(\'#startdate\').datepicker(\n' +
+    '            {\n' +
+    '                minDate: new Date()\n' +
+    '            }\n' +
+    '        ).on(\'dp.change\', function (e) {\n' +
+    '            debugger;\n' +
+    '            angular.element(document.getElementById(\'startdate\')).scope().dateChange();\n' +
+    '        });\n' +
+    '    });\n' +
     '</script>\n' +
-    ' \n' +
+    '\n' +
     '<div class="menu-section">\n' +
     '    <div class="container">\n' +
     '\n' +
@@ -1519,6 +1529,14 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                <div id="menu1" class="tab-pane fade in tab-space">\n' +
     '                                    <div class="hp-main-overview">\n' +
     '                                        <ul>\n' +
+    '                                            <li>{{\'ExcludedDays\' | translate}}:\n' +
+    '                                                <span ng-if="progDetailsPrepService.days.length > 0" ng-repeat="day in progDetailsPrepService.days">\n' +
+    '                                                    {{day.dayNameDictionary[selectedLanguage]}}, \n' +
+    '                                                </span>\n' +
+    '                                                <span ng-if="progDetailsPrepService.days.length == 0">\n' +
+    '                                                    {{\'NoExcludedDays\' | translate}}\n' +
+    '                                                </span>\n' +
+    '                                            </li>\n' +
     '                                            <li>{{\'Fats\' | translate}}:\n' +
     '                                                <span>{{fats}}</span>\n' +
     '                                            </li>\n' +
@@ -1566,9 +1584,9 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                                            <!-- {{addresses.address}} -->\n' +
     '                                                            <div ng-repeat="address in userAddresses">\n' +
     '                                                                <p>\n' +
-    '                                                                    <input ng-change="addressInfo(address)" name="group2" type="radio" id="test{{address.addressId}}" ng-model="addresses.address"\n' +
+    '                                                                    <input ng-change="addressInfo(address)" name="group2" type="radio" id="address{{address.addressId}}" ng-model="addresses.address"\n' +
     '                                                                        value="{{address.addressId}}" />\n' +
-    '                                                                    <label for="test{{address.addressId}}">{{address.appartmentNo}}, {{address.description}}, {{\'Floor\'\n' +
+    '                                                                    <label for="address{{address.addressId}}">{{address.appartmentNo}}, {{address.description}}, {{\'Floor\'\n' +
     '                                                                        | translate}} {{address.floor}}</label>\n' +
     '                                                                </p>\n' +
     '                                                                <!-- <label>\n' +
@@ -1620,12 +1638,14 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                            </div>\n' +
     '\n' +
     '                                            <div class="input-field col s12 m4 l2">\n' +
-    '                                                    Price:{{ progDetailsPrepService.price}}\n' +
-    '                                                    <br> Delivery:{{ DeliveryFees}}\n' +
-    '                                                    <br>Discount :{{ settingsPrepService.programDiscount}} %\n' +
-    '                                                    <br>Total :{{ Total}}\n' +
-    '                                                    <br>\n' +
-    '                                                    <button style="background-color: #e4e5e6;color: black!important;" class="btn pmd-ripple-effect btn-primary" ng-click="Order()" ng-disabled="orderForm.$invalid  || selectedBranchId <= 0 || (addressValidation == false && orderType.type == \'delivery\') && !dateIsValid"> {{\'next\' | translate}}</button>\n' +
+    '                                                Price:{{ progDetailsPrepService.price}}\n' +
+    '                                                <br> Delivery:{{ DeliveryFees}}\n' +
+    '                                                <br>Discount :{{ settingsPrepService.programDiscount}} %\n' +
+    '                                                <br>Total :{{ Total}}\n' +
+    '                                                <br>\n' +
+    '                                                <button style="background-color: #e4e5e6;color: black!important;" class="btn pmd-ripple-effect btn-primary" ng-click="Order()"\n' +
+    '                                                    ng-disabled="orderForm.$invalid  || selectedBranchId <= 0 || (addressValidation == false && orderType.type == \'delivery\') && !dateIsValid">\n' +
+    '                                                    {{\'next\' | translate}}</button>\n' +
     '                                                <!-- ng-disabled="orderForm.$invalid || !dateIsValid || addressValidation == false" -->\n' +
     '                                            </div>\n' +
     '                                        </div>\n' +
@@ -2326,6 +2346,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '	});\n' +
     '\n' +
     '	$(function () {\n' +
+    '		\n' +
     '		$(\'#startdate\').datepicker(\n' +
     '			{\n' +
     '				minDate: new Date()\n' +
@@ -2451,18 +2472,19 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '							<div class="col s6">\n' +
     '								<p>\n' +
     '									<input type="checkbox" id="test5" ng-model="isBreakFast" />\n' +
-    '									<label for="test5">{{\'IsBreakFast\' | translate}}</label>\n' +
+    '									<label for="test5" class="labelCheckBox">{{\'IsBreakFast\' | translate}}</label>\n' +
     '								</p>\n' +
     '							</div>\n' +
     '							<div class="col s6">\n' +
     '								<p>\n' +
     '									<input type="checkbox" id="test6" ng-model="isSnack" />\n' +
-    '									<label for="test6">{{\'IsSnack\' | translate}}</label>\n' +
+    '									<label for="test6" class="labelCheckBox">{{\'IsSnack\' | translate}}</label>\n' +
     '								</p>\n' +
     '							</div>\n' +
     '						</div>\n' +
     '						<div class="row">\n' +
     '							<div class="input-field col s12">\n' +
+    '								\n' +
     '								<input name="itemDatetime" required ng-model="itemDatetime" type="text" id="startdate" class="form-control" />\n' +
     '								<label for="from">{{\'OrderStartDate\' | translate}}</label>\n' +
     '							</div>\n' +
@@ -2551,6 +2573,8 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '<!--END HOTEL ROOMS-->\n' +
     '\n' +
     '<!--TOP SECTION-->\n' +
+    '<section>\n' +
+    '\n' +
     '<div class="inn-body-section pad-bot-55">\n' +
     '	<div class="container">\n' +
     '		<div class="row">\n' +
@@ -2576,7 +2600,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '					</div>\n' +
     '					<!--ROOM RATING-->\n' +
     '					<div class="r2 r-com">\n' +
-    '						<h4>{{programPrepService[n].programNameDictionary[selectedLanguage] | limitTo:10}}}</h4>\n' +
+    '						<h4>{{programPrepService[n].programNameDictionary[selectedLanguage] | limitTo:10}}</h4>\n' +
     '						<div class="r2-ratt">\n' +
     '							<i></i>\n' +
     '							<i></i>\n' +
@@ -2623,9 +2647,12 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '				</div>\n' +
     '				<!--END ROOM SECTION-->\n' +
     '			</div>\n' +
+    '			\n' +
     '		</div>\n' +
     '	</div>\n' +
     '</div>\n' +
+    '</section>\n' +
+    '\n' +
     '\n' +
     '\n' +
     '<!-- </form> -->\n' +
