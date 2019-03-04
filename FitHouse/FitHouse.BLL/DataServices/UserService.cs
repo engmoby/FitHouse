@@ -36,7 +36,7 @@ namespace FitHouse.BLL.DataServices
         }
         public PagedResultsDto GetAllUsers(int page, int pageSize)
         {
-            var query = Queryable().Where(x => !x.IsStatic && !x.IsDeleted && x.IsAdmin).OrderBy(x => x.UserId);
+            var query = Queryable().Where(x => !x.IsStatic && !x.IsDeleted && x.IsAdmin && x.Code == 0).OrderBy(x => x.UserId);
             PagedResultsDto results = new PagedResultsDto();
             results.TotalCount = query.Count(); //_repository.Query(x => !x.IsDeleted).Select().Count(x => !x.IsDeleted);
             var modelReturn = query.OrderBy(x => x.UserId).Skip((page - 1) * pageSize).Take(pageSize).ToList();
