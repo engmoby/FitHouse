@@ -11,7 +11,7 @@
     <link rel="icon" href="/assets/img/cropped-favicon-32x32.png" sizes="32x32">
     <link rel="icon" href="/assets/img/cropped-favicon-192x192.png" sizes="192x192">
     <link rel="shortcut icon" href="/assets/img/cropped-favicon-192x192.png" type="image/x-icon">
-    <link rel="stylesheet" ng-href="bundle-{{selectedLanguage}}.css?v=a979d86e0cd485d5085ff599faedb1f6" />
+    <link rel="stylesheet" ng-href="bundle-{{selectedLanguage}}.css?v=175d791df61b4151aa29f8dbbf53cef1" />
     <script src="https://momentjs.com/downloads/moment.js"></script>
 
 </head>
@@ -22,7 +22,7 @@
         <div class="mm">
             <div class="mm-inn">
                 <div class="mm-logo">
-                    <a href="index.html">
+                    <a ng-click="$state.go('homePage');">
                         <img src="/assets/img/logo-os-white.png" alt="Fit House Restaurant" id="logo"
                             data-height-percentage="84" data-actual-width="700" data-actual-height="198"
                             style="width: 180px; " />
@@ -93,7 +93,7 @@
                 </div>
                 <div class="row">
                     <div class="logo">
-                        <a href="$state.go('homePage');">
+                        <a ng-click="$state.go('homePage');" style="cursor: pointer;">
                             <img src="/assets/img/logo-os-white.png" alt="Fit House Restaurant" id="logo"
                                 data-height-percentage="84" data-actual-width="700" data-actual-height="198"
                                 style="width: 180px; " />
@@ -176,10 +176,10 @@
             </div>
         </div>
     </section>
-    <script src="libs.js?v=a979d86e0cd485d5085ff599faedb1f6"></script>
-    <script src="core.js?v=a979d86e0cd485d5085ff599faedb1f6"></script>
-    <script src="app.js?v=a979d86e0cd485d5085ff599faedb1f6"></script>
-    <script src="templates.js?v=a979d86e0cd485d5085ff599faedb1f6"></script>
+    <script src="libs.js?v=175d791df61b4151aa29f8dbbf53cef1"></script>
+    <script src="core.js?v=175d791df61b4151aa29f8dbbf53cef1"></script>
+    <script src="app.js?v=175d791df61b4151aa29f8dbbf53cef1"></script>
+    <script src="templates.js?v=175d791df61b4151aa29f8dbbf53cef1"></script>
     <script src="https://rawgithub.com/McNull/angular-block-ui/bower/angular-block-ui.min.js"></script>
     <link rel="stylesheet" href="https://rawgithub.com/McNull/angular-block-ui/bower/angular-block-ui.min.css">
 

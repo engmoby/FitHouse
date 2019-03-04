@@ -86,11 +86,9 @@
                 | translate}}</div>
                         </div>
                     </div>
-                    <div
-                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                    <div class="form-group pmd-textfield pmd-textfield-floating-label">
                         <label for="first-name">{{'Country' | translate}}</label>
-                        <select  
-                            style="width:100% !important" class="select-tags form-control pmd-select2-tags"
+                        <select class="select-tags form-control pmd-select2-tags" style="width:100% !important"
                             ng-change="editUserCtrl.countryChange()" ng-model="editUserCtrl.selectedCountryId"
                             ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in editUserCtrl.counties">
                         </select>
@@ -98,30 +96,27 @@
                     <div ng-show=" editUserCtrl.selectedCountryId > 0"
                         class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                         <label for="first-name">{{'Region' | translate}}</label>
-                        <select
-                            ng-required="(selectedType.userTypeId == 3||selectedType.userTypeId == 4)&& editUserCtrl.selectedCountryId > 0"
-                            style="width:100% !important" class="select-tags form-control pmd-select2-tags"
-                            ng-change="editUserCtrl.regionChange()" ng-model="editUserCtrl.selectedRegionId"
+                        <select ng-required="editUserCtrl.selectedCountryId > 0" style="width:100% !important"
+                            class="select-tags form-control pmd-select2-tags" ng-change="editUserCtrl.regionChange()"
+                            ng-model="editUserCtrl.selectedRegionId"
                             ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in editUserCtrl.regions">
                         </select>
                     </div>
                     <div ng-show=" editUserCtrl.selectedRegionId > 0"
                         class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                         <label for="first-name">{{'City' | translate}}</label>
-                        <select
-                            ng-required="(selectedType.userTypeId == 3||selectedType.userTypeId == 4)&& editUserCtrl.selectedRegionId > 0"
-                            style="width:100% !important" class="select-tags form-control pmd-select2-tags"
-                            ng-change="editUserCtrl.cityChange()" ng-model="editUserCtrl.selectedCityId"
+                        <select ng-required="editUserCtrl.selectedRegionId > 0" style="width:100% !important"
+                            class="select-tags form-control pmd-select2-tags" ng-change="editUserCtrl.cityChange()"
+                            ng-model="editUserCtrl.selectedCityId"
                             ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in editUserCtrl.cities">
                         </select>
                     </div>
                     <div ng-show=" editUserCtrl.selectedCityId > 0"
                         class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                         <label for="first-name">{{'Area' | translate}}</label>
-                        <select
-                            ng-required="(selectedType.userTypeId == 3||selectedType.userTypeId == 4)&& editUserCtrl.selectedCityId > 0"
-                            style="width:100% !important" class="select-tags form-control pmd-select2-tags"
-                            ng-change="editUserCtrl.areaChange()" ng-model="editUserCtrl.selectedAreaId"
+                        <select ng-required="  editUserCtrl.selectedCityId > 0" style="width:100% !important"
+                            class="select-tags form-control pmd-select2-tags" ng-change="editUserCtrl.areaChange()"
+                            ng-model="editUserCtrl.selectedAreaId"
                             ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in editUserCtrl.areaList">
                         </select>
                     </div>
