@@ -915,20 +915,20 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                            <ul class="nav nav-tabs hp-over-nav">\n' +
     '                                <li class="active">\n' +
     '                                    <a data-toggle="tab" data-target="#home" style="cursor: pointer;">\n' +
-    '                                        <img src="/assets/img/cropped-favicon-32x32.png" alt="">\n' +
-    '                                        <span class="tab-hide">{{\'Details\' | translate}}</span>\n' +
+    '                                        <!-- <img src="/assets/img/cropped-favicon-32x32.png" alt=""> -->\n' +
+    '                                        <span>{{\'Details\' | translate}}</span>\n' +
     '                                    </a>\n' +
     '                                </li>\n' +
     '                                <li>\n' +
     '                                    <a data-toggle="tab" data-target="#menu1" style="cursor: pointer;">\n' +
-    '                                        <img src="/assets/img/cropped-favicon-32x32.png" alt="">\n' +
-    '                                        <span class="tab-hide">{{\'Summary\' | translate}}</span>\n' +
+    '                                        <!-- <img src="/assets/img/cropped-favicon-32x32.png" alt=""> -->\n' +
+    '                                        <span>{{\'Summary\' | translate}}</span>\n' +
     '                                    </a>\n' +
     '                                </li>\n' +
     '                                <li>\n' +
     '                                    <a data-toggle="tab" data-target="#menu2" style="cursor: pointer;">\n' +
-    '                                        <img src="/assets/img/cropped-favicon-32x32.png" alt="">\n' +
-    '                                        <span class="tab-hide">{{\'Order\' | translate}}</span>\n' +
+    '                                        <!-- <img src="/assets/img/cropped-favicon-32x32.png" alt=""> -->\n' +
+    '                                        <span>{{\'Order\' | translate}}</span>\n' +
     '                                    </a>\n' +
     '                                </li>\n' +
     '                            </ul>\n' +
@@ -1134,7 +1134,8 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/order/templates/OrderDetails.html',
     ' \n' +
-    '<div class="inn-body-section pad-bot-55">\n' +
+    '<!-- <div class="inn-body-section pad-bot-55"> -->\n' +
+    '<div class="hom-com ng-scope">\n' +
     '    <div class="container">\n' +
     '\n' +
     '        <div class="row">\n' +
@@ -1150,14 +1151,14 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                        <ul class="nav nav-tabs hp-over-nav">\n' +
     '                            <li class="active">\n' +
     '                                <a data-toggle="tab" data-target="#home" style="cursor: pointer;">\n' +
-    '                                    <img src="/assets/img/cropped-favicon-32x32.png" alt="">\n' +
-    '                                    <span class="tab-hide">{{\'Details\' | translate}}</span>\n' +
+    '                                    <!-- <img src="/assets/img/cropped-favicon-32x32.png" alt=""> -->\n' +
+    '                                    <span >{{\'Details\' | translate}}</span>\n' +
     '                                </a>\n' +
     '                            </li>\n' +
     '                            <li>\n' +
     '                                <a data-toggle="tab" data-target="#menu1" style="cursor: pointer;">\n' +
-    '                                    <img src="/assets/img/cropped-favicon-32x32.png" alt="">\n' +
-    '                                    <span class="tab-hide">{{\'Summary\' | translate}}</span>\n' +
+    '                                    <!-- <img src="/assets/img/cropped-favicon-32x32.png" alt=""> -->\n' +
+    '                                    <span >{{\'Summary\' | translate}}</span>\n' +
     '                                </a>\n' +
     '                            </li> \n' +
     '                        </ul>\n' +
@@ -1450,11 +1451,11 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '    });\n' +
     '</script>\n' +
     '\n' +
-    '<div class="menu-section">\n' +
+    '<!-- <div class="menu-section">\n' +
     '    <div class="container">\n' +
     '\n' +
     '    </div>\n' +
-    '</div>\n' +
+    '</div> -->\n' +
     '<!--TOP SECTION-->\n' +
     '<div class="hp-banner">\n' +
     '    <img src="images/detailed-banner.jpg" alt=""> </div>\n' +
@@ -1548,20 +1549,20 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                            <ul class="nav nav-tabs hp-over-nav">\n' +
     '                                <li class="active">\n' +
     '                                    <a data-toggle="tab" data-target="#home" style="cursor: pointer;">\n' +
-    '                                        <img src="images/icon/a9.png" alt="">\n' +
-    '                                        <span class="tab-hide">{{\'Details\' | translate}}</span>\n' +
+    '                                        <!-- <img src="images/icon/a9.png" alt=""> -->\n' +
+    '                                        <span>{{\'Details\' | translate}}</span>\n' +
     '                                    </a>\n' +
     '                                </li>\n' +
     '                                <li>\n' +
     '                                    <a data-toggle="tab" data-target="#menu1" style="cursor: pointer;">\n' +
-    '                                        <img src="images/icon/a8.png" alt="">\n' +
-    '                                        <span class="tab-hide">{{\'Summary\' | translate}}</span>\n' +
+    '                                        <!-- <img src="images/icon/a8.png" alt=""> -->\n' +
+    '                                        <span>{{\'Summary\' | translate}}</span>\n' +
     '                                    </a>\n' +
     '                                </li>\n' +
     '                                <li>\n' +
     '                                    <a data-toggle="tab" data-target="#menu2" style="cursor: pointer;">\n' +
-    '                                        <img src="images/icon/a8.png" alt="">\n' +
-    '                                        <span class="tab-hide">{{\'Order\' | translate}}</span>\n' +
+    '                                        <!-- <img src="images/icon/a8.png" alt=""> -->\n' +
+    '                                        <span>{{\'Order\' | translate}}</span>\n' +
     '                                    </a>\n' +
     '                                </li>\n' +
     '                            </ul>\n' +
@@ -1570,10 +1571,10 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                    <div ng-init="counterDay = 0; counterMeal = 0">\n' +
     '                                        <div class="panel-group pmd-accordion pmd-accordion-inbox" id="accordion6" role="tablist" aria-multiselectable="true">\n' +
     '                                            <div ng-repeat="n in [].constructor(progDetailsPrepService.programDays)  track by $index" class="panel panel-default">\n' +
-    '                                                <div class="panel-heading" role="tab" id="headingOne">\n' +
+    '                                                <div class="panel-heading" role="tab" id="headingOne" ng-init="counterDay=counterDay+1;" data-toggle="collapse" data-parent="#accordion6" ng-init="n=false" ng-click="n=!n;"\n' +
+    '                                                aria-expanded="true" aria-controls="collapseOne6" data-expandable="false">\n' +
     '                                                    <h4 class="panel-title">\n' +
-    '                                                        <a ng-init="counterDay=counterDay+1;" data-toggle="collapse" data-parent="#accordion6" ng-init="n=false" ng-click="n=!n;"\n' +
-    '                                                            aria-expanded="true" aria-controls="collapseOne6" data-expandable="false">\n' +
+    '                                                        <a >\n' +
     '                                                            {{\'Day\' | translate}} #{{counterDay=$index+1}}\n' +
     '                                                            <i class="material-icons md-dark pmd-sm pmd-accordion-arrow">keyboard_arrow_down</i>\n' +
     '                                                        </a>\n' +

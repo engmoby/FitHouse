@@ -1458,10 +1458,10 @@ td {} .inn-com p {} .inn-com-form {} .inn-com-form form {
 .res-menu img {
     float: right;
     width: 55px;
-    margin-right: 25px;
+    margin-left: 25px;
 }
 .res-menu h3 span {
-    float: right;
+    float: left;
     font-size: 20px;
     color: #dba714;
     border: 1px solid #dba714;
@@ -2292,7 +2292,7 @@ td {} .inn-com p {} .inn-com-form {} .inn-com-form form {
     pointer-events: none;
 }
 .ui-datepicker-prev {
-    background: url('/assets/img/right-arrow.png') no-repeat center center;
+    background: url('/assets/img/left-arrow.png') no-repeat center center;
     background-size: 12px;
 }
 .ui-datepicker-next {
@@ -2339,13 +2339,13 @@ td {} .inn-com p {} .inn-com-form {} .inn-com-form form {
     top: 1px;
 }
 .ui-datepicker .ui-datepicker-prev {
-    right: 2px;
+    left: 2px;
 }
 .ui-datepicker .ui-datepicker-next {
     right: 2px;
 }
 .ui-datepicker .ui-datepicker-prev-hover {
-    right: 1px;
+    left: 1px;
 }
 .ui-datepicker .ui-datepicker-next-hover {
     right: 1px;
@@ -3911,7 +3911,7 @@ footer ul li a {
     color: #2a2b33;
 }
 .hp-main-overview ul li span {
-    float: right;
+    float: left;
     /* padding-right: 44px; */
     
     color: #949494;

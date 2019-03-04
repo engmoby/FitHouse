@@ -90,6 +90,7 @@
     .book-title {
         padding: 0%;
         margin-bottom: 30px;
+        padding-right: 0% !important;
     }
     .book-title h2 {
         margin-bottom: 10px;
