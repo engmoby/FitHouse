@@ -11,7 +11,7 @@
     <link rel="icon" href="/assets/img/cropped-favicon-32x32.png" sizes="32x32">
     <link rel="icon" href="/assets/img/cropped-favicon-192x192.png" sizes="192x192">
     <link rel="shortcut icon" href="/assets/img/cropped-favicon-192x192.png" type="image/x-icon">
-    <link rel="stylesheet" ng-href="bundle-{{selectedLanguage}}.css?v=f5e39d07fd4e1e1acfad18540af825e4" />
+    <link rel="stylesheet" ng-href="bundle-{{selectedLanguage}}.css?v=4f5a9acb56e372712342fa8203c96789" />
     <script src="https://momentjs.com/downloads/moment.js"></script>
 
 </head>
@@ -33,7 +33,7 @@
                         <i class="fa fa-bars show-menu" aria-hidden="true"></i>
                     </span>
                 </div>
-                <div class="mm-menu">
+                <div class="mm-menu" ng-show="isLoggedIn()" ng-cloak ng-init="logoutFlag=false">
                     <div class="mm-close">
                         <span>
                             <i class="fa fa-times hide-menu" aria-hidden="true"></i>
@@ -42,10 +42,27 @@
                     <ul>
                         </li>
                         <li>
-                            <a ng-click="$state.go('aboutUs');">{{'AboutUs' | translate}}</a>
+                                <a ng-click="$state.go('homePage');" style="cursor: pointer;" class='dropdown-button'
+                                data-activates='drop-home'>{{'Home'| translate}}</a>
                         </li>
                         <li>
-                            <a ng-click="$state.go('program');">{{'Programs' | translate}}</a>
+                                <a ng-click="$state.go('program');"
+                                style="cursor: pointer;">{{'Programs' | translate}}</a>
+                        </li>
+                        <li>
+                            <a ng-click="$state.go('meal');" style="cursor: pointer;">{{'Meals' | translate}}</a>
+                        </li>
+                        <li>
+                            <a ng-click="$state.go('history');"
+                                style="cursor: pointer;">{{'History' | translate}}</a>
+                        </li>
+                        <li>
+                            <a ng-click="$state.go('profile', {userId: user.id});"
+                                style="cursor: pointer;">{{'Profile' | translate}}</a>
+                        </li>
+                        <li>
+                            <a ng-click="$state.go('Address', {userId: user.id});"
+                                style="cursor: pointer;">{{'Address' | translate}}</a>
                         </li>
                     </ul>
                 </div>
@@ -176,10 +193,10 @@
             </div>
         </div>
     </section>
-    <script src="libs.js?v=f5e39d07fd4e1e1acfad18540af825e4"></script>
-    <script src="core.js?v=f5e39d07fd4e1e1acfad18540af825e4"></script>
-    <script src="app.js?v=f5e39d07fd4e1e1acfad18540af825e4"></script>
-    <script src="templates.js?v=f5e39d07fd4e1e1acfad18540af825e4"></script>
+    <script src="libs.js?v=4f5a9acb56e372712342fa8203c96789"></script>
+    <script src="core.js?v=4f5a9acb56e372712342fa8203c96789"></script>
+    <script src="app.js?v=4f5a9acb56e372712342fa8203c96789"></script>
+    <script src="templates.js?v=4f5a9acb56e372712342fa8203c96789"></script>
     <script src="https://rawgithub.com/McNull/angular-block-ui/bower/angular-block-ui.min.js"></script>
     <link rel="stylesheet" href="https://rawgithub.com/McNull/angular-block-ui/bower/angular-block-ui.min.css">
 
