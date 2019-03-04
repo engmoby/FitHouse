@@ -1,3 +1,53 @@
+(function() {
+  'use strict';
+
+  angular
+    .module('home')
+    .config(config)
+    .run(runBlock);
+
+  config.$inject = ['ngProgressLiteProvider'];
+  runBlock.$inject = ['$rootScope', 'ngProgressLite','$transitions','blockUI','$translate'];
+
+  function config(ngProgressLiteProvider) {
+    ngProgressLiteProvider.settings.speed = 1000;
+
+  }
+
+  function runBlock($rootScope, ngProgressLite,$transitions,blockUI,$translate) {
+
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+        startProgress();
+    });
+    $transitions.onStart({}, function(transition) {
+      blockUI.start($translate.instant('loading')); 
+    });
+    $transitions.onSuccess({}, function(transition) {
+      blockUI.stop();
+      $(".hide-menu").click()
+    });
+    $transitions.onError({  }, function(transition) {
+      blockUI.stop();
+      $(".hide-menu").click()
+    });
+    var routingDoneEvents = ['$stateChangeSuccess', '$stateChangeError', '$stateNotFound'];
+
+    angular.forEach(routingDoneEvents, function(event) {
+      $rootScope.$on(event, function(event, toState, toParams, fromState, fromParams) {
+        endProgress();
+      });
+    });
+
+    function startProgress() {
+      ngProgressLite.start();
+    }
+
+    function endProgress() {
+      ngProgressLite.done();
+    }
+
+  }
+})();
 (function () {
     'use strict';
 
@@ -308,56 +358,6 @@
         return AddressResource.getAddress({ addressId: $stateParams.addressId }).$promise;
     }
 }());
-(function() {
-  'use strict';
-
-  angular
-    .module('home')
-    .config(config)
-    .run(runBlock);
-
-  config.$inject = ['ngProgressLiteProvider'];
-  runBlock.$inject = ['$rootScope', 'ngProgressLite','$transitions','blockUI','$translate'];
-
-  function config(ngProgressLiteProvider) {
-    ngProgressLiteProvider.settings.speed = 1000;
-
-  }
-
-  function runBlock($rootScope, ngProgressLite,$transitions,blockUI,$translate) {
-
-    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-        startProgress();
-    });
-    $transitions.onStart({}, function(transition) {
-      blockUI.start($translate.instant('loading')); 
-    });
-    $transitions.onSuccess({}, function(transition) {
-      blockUI.stop();
-      $(".hide-menu").click()
-    });
-    $transitions.onError({  }, function(transition) {
-      blockUI.stop();
-      $(".hide-menu").click()
-    });
-    var routingDoneEvents = ['$stateChangeSuccess', '$stateChangeError', '$stateNotFound'];
-
-    angular.forEach(routingDoneEvents, function(event) {
-      $rootScope.$on(event, function(event, toState, toParams, fromState, fromParams) {
-        endProgress();
-      });
-    });
-
-    function startProgress() {
-      ngProgressLite.start();
-    }
-
-    function endProgress() {
-      ngProgressLite.done();
-    }
-
-  }
-})();
 (function () {
     'use strict';
 
@@ -1542,125 +1542,143 @@
 
     angular
         .module('home')
-        .controller('OrderController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate',
-            '$state', 'OrdersResource', 'ordersPrepService', '$localStorage',
-            'authorizationService', 'appCONSTANTS',
-            'ToastService', OrderController])
-        ;
+        .controller('programController', ['$scope', '$stateParams', '$translate', 'appCONSTANTS', 'programPrepService'
+            , programController])
 
     function programController($scope, $stateParams, $translate, appCONSTANTS, programPrepService) {
 
-    function OrderController($rootScope, blockUI, $scope, $filter, $translate,
-        $state, OrdersResource, ordersPrepService, $localStorage, authorizationService,
-        appCONSTANTS, ToastService) {
+        $scope.programPrepService = programPrepService.results;
 
-        blockUI.start("Loading..."); 
-        var vm = this;
-
-        $scope.totalCount = ordersPrepService.totalCount;
-        $scope.OrderList = ordersPrepService;
-        console.log($scope.OrderList);
-        $scope.getTotal = function (order) {
-            debugger;
-            var total = 0;
-            if (order.type == "3") {
-                for (var i = 0; i < order.orderDetails.length; i++) {
-                    var obj = order.orderDetails[i];
-                    total += (obj.item.price);
-                }
-            }
-            else if (order.type == "2") {
-                for (var i = 0; i < order.orderDetails.length; i++) {
-                    var obj = order.orderDetails[i];
-                    total += (obj.meal.mealPrice);
-                }
-            }
-            else if (order.type == "1") {
-                total = 1500;
-            }
-            return total;
-        }
-
-        function refreshOrders() {
-            blockUI.start("Loading...");
-
-            var k = OrdersResource.getAllOrders({ page: vm.currentPage }).$promise.then(function (results) {
-                $scope.OrderList = results;
-                blockUI.stop();
-
-            },
-                function (data, status) {
-                    blockUI.stop();
-
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
-        }
-
-
-        vm.currentPage = 1;
-        $scope.changePage = function (page) {
-            vm.currentPage = page;
-            refreshOrders();
-        }
-        blockUI.stop();
-
-        $scope.goToDetails = function (orderModel) {
-
-
-
+        $scope.style = function () {
+            return {
+                'background': 'url(https://fithouseksa.com/wp-content/uploads/2018/07/fat-running.png) no-repeat',
+                'background-attachment': 'fixed',
+                'background-size': 'cover',
+                'width': '100%',
+                'width': '100%'
+            };
         }
 
     }
 
-})();(function () {
+}
+    ());
+(function () {
     angular
-      .module('home')
-        .factory('OrdersResource', ['$resource', 'appCONSTANTS', OrdersResource]) 
+        .module('home')
+        .factory('GetProgramDetailResource', ['$resource', 'appCONSTANTS', GetProgramDetailResource])
+        .factory('GetItemsssResource', ['$resource', 'appCONSTANTS', GetItemsssResource])
+        .factory('GetProgramByIdResource', ['$resource', 'appCONSTANTS', GetProgramByIdResource])
+        .factory('OrderResource', ['$resource', 'appCONSTANTS', OrderResource])
+        .factory('RegionResource', ['$resource', 'appCONSTANTS', RegionResource])
+        .factory('CityResource', ['$resource', 'appCONSTANTS', CityResource])
+        .factory('AreaResource', ['$resource', 'appCONSTANTS', AreaResource])
+        .factory('CountryResource', ['$resource', 'appCONSTANTS', CountryResource])
+        ;
 
-    function OrdersResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'Orders/', {}, {
-            getAllOrders: { method: 'GET', url: appCONSTANTS.API_URL + 'Orders/GetOrderByClientId', useToken: true  },
-            create: { method: 'POST', useToken: true },
-            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Orders/EditOrder', useToken: true },
-            getOrder: { method: 'GET', url: appCONSTANTS.API_URL + 'Orders/GetOrderById/:OrderId', useToken: true } ,
-            getFullOrder: { method: 'GET', url: appCONSTANTS.API_URL + 'Orders/GetFullOrderById/:OrderId', useToken: true }   
+    function OrderResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Orders', {}, {
+            createOrder: { method: 'POST', url: appCONSTANTS.API_URL + 'Orders/CreateOrder', useToken: true },
+            getUserAddresses: { method: 'GET', url: appCONSTANTS.API_URL + 'Address/GetUserAddresses/:userId', useToken: true, isArray: true },
 
         })
-    } 
+    }
+
+    function CountryResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Countries/', {}, {
+            getAllCountries: { method: 'GET', url: appCONSTANTS.API_URL + 'Countries/GetAllCountries', useToken: false, params: { lang: '@lang' } },
+            create: { method: 'POST', useToken: true },
+            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Countries/EditCountry', useToken: true },
+            getCountry: { method: 'GET', url: appCONSTANTS.API_URL + 'Countries/:countryId', useToken: true }
+
+        })
+    }
+
+    function AreaResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Areas/', {}, {
+            getAllAreas: { method: 'GET', url: appCONSTANTS.API_URL + 'Cities/:cityId/Areas/GetAllAreas', useToken: false, params: { lang: '@lang' } },
+            create: { method: 'POST', useToken: true },
+            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Areas/EditArea', useToken: true },
+            getArea: { method: 'GET', url: appCONSTANTS.API_URL + 'Areas/GetAreaById/:AreaId', useToken: true },
+            getAllAreasForUser: { method: 'GET', url: appCONSTANTS.API_URL + 'Users/:userId/Areas', useToken: true, isArray: true }
+        })
+    }
+
+    function RegionResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Regions/', {}, {
+            getAllRegions: { method: 'GET', url: appCONSTANTS.API_URL + 'Countries/:countryId/Regions', useToken: false, params: { lang: '@lang' } },
+            create: { method: 'POST', useToken: true },
+            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Regions/EditRegion', useToken: true },
+            getRegion: { method: 'GET', url: appCONSTANTS.API_URL + 'Regions/:regionId', useToken: true },
+            getAllRegionsForUser: { method: 'GET', url: appCONSTANTS.API_URL + 'Users/:userId/Regions', useToken: true, isArray: true }
+
+        })
+    }
+
+    function CityResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Cities/', {}, {
+            getAllCities: { method: 'GET', url: appCONSTANTS.API_URL + 'Regions/:regionId/Cities', useToken: false, params: { lang: '@lang' } },
+            create: { method: 'POST', useToken: true },
+            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Cities/EditCity', useToken: true },
+            getCity: { method: 'GET', url: appCONSTANTS.API_URL + 'Cities/:cityId', useToken: true },
+            getAllCitiesForUser: { method: 'GET', url: appCONSTANTS.API_URL + 'Users/:userId/Cities', useToken: true, isArray: true }
+        })
+    }
+
+    function GetProgramDetailResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Program', {}, {
+            getProgramDetail: { method: 'GET', url: appCONSTANTS.API_URL + 'Program/GetAllProgramItems/:programId', useToken: true }
+        })
+    }
+
+    function GetProgramByIdResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Program', {}, {
+            getProgram: { method: 'GET', url: appCONSTANTS.API_URL + 'Program/GetProgramById/:ProgramId', useToken: true },
+
+        })
+    }
+
+    function GetItemsssResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Items/GetAllItems', {}, {
+            getAllItemsss: { method: 'GET', useToken: true, params: { lang: '@lang' }, isArray: true },
+        })
+    }
+
 }());
+
 (function () {
     'use strict';
 
     angular
         .module('home')
-        .controller('orderMealDetailscontroller', ['$scope', '$stateParams', '$state', '$translate', 'appCONSTANTS'
-            , '$filter', 'OrderMealPrepService', 'itemsssPrepService', 'OrderResource'
-            , 'RegionResource', 'BranchResource', 'CityResource', 'AreaResource', orderMealDetailscontroller])
+        .controller('programDetailsController', ['$scope', '$state', '$stateParams', '$translate', 'appCONSTANTS'
+            , '$filter', 'progDetailsPrepService', 'itemsssPrepService', 'OrderResource'
+            , 'RegionResource', 'CityResource', 'AreaResource', 'CountriesPrepService', 'BranchResource', 'settingsPrepService', programDetailsController])
 
-    function orderMealDetailscontroller($scope, $stateParams, $state, $translate, appCONSTANTS
-        , $filter, OrderMealPrepService
-        , itemsssPrepService, OrderResource, RegionResource, BranchResource, CityResource, AreaResource
-    ) {
+    function programDetailsController($scope, $state, $stateParams, $translate, appCONSTANTS
+        , $filter, progDetailsPrepService
+        , itemsssPrepService, OrderResource, RegionResource, CityResource, AreaResource
+        , CountriesPrepService, BranchResource, settingsPrepService) {
 
-        $scope.OrderMealPrepService = OrderMealPrepService;
+        $scope.progDetailsPrepService = progDetailsPrepService;
+        $scope.settingsPrepService = settingsPrepService;
         $scope.itemsssPrepService = itemsssPrepService;
-        $scope.Total = 0;
-        var vm = this;
         $scope.clientId = $scope.user.id;
-        $scope.DeliveryFees = 0;
+
         $scope.counties = [];
+
         $scope.fats = 0;
         $scope.carbs = 0;
         $scope.protein = 0;
         $scope.calories = 0;
+        $scope.DeliveryFees = 0;
+        $scope.Total = 0;
 
-        for (var i = 0; i < $scope.OrderMealPrepService.mealDetails.length; i++) {
-            var differntItem = $scope.itemsssPrepService.filter(x => (x.itemId == $scope.OrderMealPrepService.mealDetails[i].itemId));
-
-            $scope.fats += differntItem[0].fat;
-            $scope.carbs += differntItem[0].carbs;
-            $scope.protein += differntItem[0].protein;
-            $scope.calories += differntItem[0].calories;
+        for (var i = 0; i < $scope.progDetailsPrepService.items.length; i++) {
+            $scope.fats += $scope.progDetailsPrepService.items[i].fat;
+            $scope.carbs += $scope.progDetailsPrepService.items[i].carbs;
+            $scope.protein += $scope.progDetailsPrepService.items[i].protein;
+            $scope.calories += $scope.progDetailsPrepService.items[i].calories;
         }
 
         $scope.style = function () {
@@ -1673,219 +1691,63 @@
             };
         }
 
+        $scope.orderType = {
+            type: 'delivery'
+        };
+        $scope.addresses = {
+            address: 0
+        };
 
-
-    }
-
-               }
-
-}
-    ());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('orderProgramDetailscontroller', ['$scope', '$stateParams', '$translate', 'appCONSTANTS'
-            , '$filter', 'OrderprogDetailsPrepService', 'itemsssPrepService', 'OrderResource', orderProgramDetailscontroller])
-
-    function orderProgramDetailscontroller($scope, $stateParams, $translate, appCONSTANTS
-        , $filter, OrderprogDetailsPrepService
-        , itemsssPrepService) {
-        debugger;
-        $scope.OrderprogDetailsPrepService = OrderprogDetailsPrepService;
-        $scope.itemsssPrepService = itemsssPrepService;
-        $scope.clientId = localStorage.getItem('ClientId');
-
-         $scope.fats = 0;
-        $scope.carbs = 0;
-        $scope.protein = 0;
-        $scope.calories = 0;
-
-        for (var i = 0; i < $scope.OrderprogDetailsPrepService.items.length; i++) {
-            $scope.fats += $scope.OrderprogDetailsPrepService.items[i].fat;
-            $scope.carbs += $scope.OrderprogDetailsPrepService.items[i].carbs;
-            $scope.protein += $scope.OrderprogDetailsPrepService.items[i].protein;
-            $scope.calories += $scope.OrderprogDetailsPrepService.items[i].calories;
-        }
-
-
-
-    }
-
-}
-    ());
-(function () {
-    'use strict';
-
-            vm.branchList = [];
-            vm.selectedBranch = { branchId: 0, titleDictionary: { "en-us": "All Branches", "ar-eg": "كل الفروع" } };
-            vm.branchList.push(vm.selectedBranch);
-
-
-            RegionResource.getAllRegions({ countryId: $scope.userObj.countryId, pageSize: 0 }).$promise.then(function (results) {
-
-                vm.regions = vm.regions.concat(results.results);
-
-                var indexregion = vm.regions.indexOf($filter('filter')(vm.regions, { 'regionId': $scope.userObj.regionId }, true)[0]);
-                vm.selectedRegionId = $scope.userObj.regionId;
-                funcregionChange();
-            },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
-        }
-
-
-        vm.countryChange = function () {
-            funcCountryChange();
-        }
-        function funcregionChange() {
-            if (vm.selectedRegionId != undefined) {
-                vm.cities = [];
-                vm.areaList = [];
-                vm.selectedCity = { cityId: 0, titleDictionary: { "en-us": "All Cities", "ar-eg": "كل المدن" } };
-                vm.selectedArea = { areaId: 0, titleDictionary: { "en-us": "All Areas", "ar-eg": "كل المناطق" } };
-                vm.cities.push(vm.selectedCity);
-                vm.areaList = [vm.selectedArea];
-
-                vm.branchList = [];
-                vm.selectedBranch = { branchId: 0, titleDictionary: { "en-us": "All Branches", "ar-eg": "كل الفروع" } };
-                vm.branchList.push(vm.selectedBranch);
-                CityResource.getAllCities({ regionId: vm.selectedRegionId, pageSize: 0 }).$promise.then(function (results) {
-
-                    vm.cities = vm.cities.concat(results.results);
-
-                    var indexcity = vm.cities.indexOf($filter('filter')(vm.cities, { 'cityId': $scope.userObj.cityId }, true)[0]);
-                    debugger;
-                    vm.selectedCityId = $scope.userObj.cityId;
-                    funcCityChange();
-                },
-                    function (data, status) {
-                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                    });
-            }
-        }
-        vm.regionChange = function () {
-            funcregionChange();
-        }
-
-        function funcCityChange() {
-
-            if (vm.selectedCityId != undefined) {
-                vm.areaList = [];
-                vm.selectedArea = { areaId: 0, titleDictionary: { "en-us": "All Areas", "ar-eg": "كل المناطق" } };
-                vm.areaList.push(vm.selectedArea);
-
-                vm.branchList = [];
-                vm.selectedBranch = { branchId: 0, titleDictionary: { "en-us": "All Branches", "ar-eg": "كل الفروع" } };
-                vm.branchList.push(vm.selectedBranch);
-                AreaResource.getAllAreas({ cityId: vm.selectedCityId, pageSize: 0 }).$promise.then(function (results) {
-                    vm.areaList = vm.areaList.concat(results.results);
-
-                    var indexarea = vm.areaList.indexOf($filter('filter')(vm.areaList, { 'areaId': $scope.userObj.areaId }, true)[0]);
-                    vm.selectedAreaId = $scope.userObj.areaId;
-                    funcAreaChange();
-
-                },
-                    function (data, status) {
-                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                    });
-            }
-        }
-        vm.cityChange = function () {
-            funcCityChange();
-        }
-        function funcAreaChange() {
-            vm.branchList = [];
-            vm.selectedBranch = { branchId: 0, titleDictionary: { "en-us": "All Branches", "ar-eg": "كل الفروع" } };
-            vm.branchList.push(vm.selectedBranch);
-            if (vm.selectedArea.areaId > 0)
-                vm.branchList = vm.branchList.concat(vm.selectedArea.branches);
-
-
-            var indexbranch = vm.branchList.indexOf($filter('filter')(vm.branchList, { 'branchId': $scope.userObj.branchId }, true)[0]);
-            vm.selectedBranch = vm.branchList[indexbranch];
-
-        }
-        vm.areaChange = function () {
-            funcAreaChange();
-        }
-    }
-
-})();(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('OrderController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate',
-            '$state', 'OrdersResource', 'ordersPrepService', '$localStorage',
-            'authorizationService', 'appCONSTANTS',
-            'ToastService', OrderController])
-        ;
-
-
-    function OrderController($rootScope, blockUI, $scope, $filter, $translate,
-        $state, OrdersResource, ordersPrepService, $localStorage, authorizationService,
-        appCONSTANTS, ToastService) {
-
-        blockUI.start("Loading..."); 
-        var vm = this;
-
-        $scope.totalCount = ordersPrepService.totalCount;
-        $scope.OrderList = ordersPrepService;
-        console.log($scope.OrderList);
-        $scope.getTotal = function (order) {
+        $scope.addressValidation = false;
+        $scope.addressInfo = function (address) {
+            $scope.addressDetails = address;
+            $scope.addressValidation = true;
+            $scope.selectedBranchId = $scope.addressDetails.branchId;
+            GetBranchDelivery();
             debugger;
-            var total = 0;
-            if (order.type == "3") {
-                for (var i = 0; i < order.orderDetails.length; i++) {
-                    var obj = order.orderDetails[i];
-                    total += (obj.item.price);
-                }
-            }
-            else if (order.type == "2") {
-                for (var i = 0; i < order.orderDetails.length; i++) {
-                    var obj = order.orderDetails[i];
-                    total += (obj.meal.mealPrice);
-                }
-            }
-            else if (order.type == "1") {
-                total = 1500;
-            }
-            return total;
         }
 
-        function refreshOrders() {
-            blockUI.start("Loading...");
+        function GetBranchDelivery() {
+            var temp = new BranchResource();
+            temp.$getBranch({ branchId: $scope.selectedBranchId }).then(function (results) {
+                if (results.deliveryPrice == null) {
+                    $scope.DeliveryFees = 0;
+                }
+                else {
+                    $scope.DeliveryFees = results.deliveryPrice;
+                }
 
-            var k = OrdersResource.getAllOrders({ page: vm.currentPage }).$promise.then(function (results) {
-                $scope.OrderList = results;
-                blockUI.stop();
+                if ($scope.settingsPrepService.programDiscount == undefined || $scope.settingsPrepService.programDiscount == 0) {
+                    $scope.Total = $scope.progDetailsPrepService.price + $scope.DeliveryFees;
+                }
+                else {
+                    $scope.Total = ($scope.progDetailsPrepService.price + $scope.DeliveryFees) - ($scope.progDetailsPrepService.price * ($scope.settingsPrepService.programDiscount / 100));
+                }
 
             },
                 function (data, status) {
-                    blockUI.stop();
-
                     ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
                 });
         }
 
-
-        vm.currentPage = 1;
-        $scope.changePage = function (page) {
-            vm.currentPage = page;
-            refreshOrders();
-        }
-        blockUI.stop();
-
-        $scope.goToDetails = function (orderModel) {
-
-
-
+        $scope.dateIsValid = false;
+        $scope.dateChange = function () {
+            if ($('#startdate').data('date') == null || $('#startdate').data('date') == "") {
+                $scope.dateIsValid = false;
+            } else if (!$scope.orderProgramForm.isInValid) {
+                $scope.dateIsValid = true;
+            }
         }
 
-    }
+        if ($scope.orderType.type == 'delivery') {
+            var k = OrderResource.getUserAddresses({ userId: $scope.clientId }).$promise.then(function (results) {
+                $scope.userAddresses = results;
+
+            },
+                function (data, status) {
+                });
+        }
+
 
         $scope.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
         $scope.selectedCountryId = 0;
@@ -1993,7 +1855,12 @@
                 }
             }
             $scope.DeliveryFees = 0;
-            $scope.Total = $scope.progDetailsPrepService.price - ($scope.progDetailsPrepService.price * ($scope.settingsPrepService.programDiscount / 100));
+            if ($scope.settingsPrepService.programDiscount == undefined || $scope.settingsPrepService.programDiscount == 0) {
+                $scope.Total = $scope.progDetailsPrepService.price + $scope.DeliveryFees;
+            }
+            else {
+                $scope.Total = ($scope.progDetailsPrepService.price + $scope.DeliveryFees) - ($scope.progDetailsPrepService.price * ($scope.settingsPrepService.programDiscount / 100));
+            }
         }
 
         $scope.Order = function () {
@@ -2019,8 +1886,8 @@
             order.$createOrder().then(
                 function (data, status) {
 
-
-                    $state.go('Summary');
+                    localStorage.setItem('OrderSummary', JSON.stringify(data));
+                    $state.go('summaryProgram');
 
                 },
                 function (data, status) {

@@ -100,10 +100,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/23/2018 03:44:10</publishTime>
     </File>
     <File Include="bin/FitHouse.API.dll">
-      <publishTime>03/04/2019 10:54:03</publishTime>
+      <publishTime>03/04/2019 13:08:36</publishTime>
     </File>
     <File Include="bin/FitHouse.BLL.dll">
-      <publishTime>03/04/2019 10:53:58</publishTime>
+      <publishTime>03/04/2019 13:08:31</publishTime>
     </File>
     <File Include="bin/FitHouse.Common.dll">
       <publishTime>03/03/2019 11:26:12</publishTime>
@@ -367,7 +367,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/23/2018 03:44:10</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>02/26/2019 09:52:45</publishTime>
+      <publishTime>03/04/2019 13:08:36</publishTime>
     </File>
   </ItemGroup>
 </Project>

@@ -3,9 +3,9 @@
 
     angular
         .module('home')
-        .controller('homeCtrl', ['$rootScope','blockUI','$transitions', '$translate', '$scope', 'appCONSTANTS', '$state', '_', 'authenticationService', 'authorizationService', '$localStorage', homeCtrl])
+        .controller('homeCtrl', ['$rootScope', 'blockUI', '$transitions', '$translate', '$scope', 'appCONSTANTS', '$state', '_', 'authenticationService', 'authorizationService', '$localStorage', homeCtrl])
 
-    function homeCtrl($rootScope, blockUI,$transitions, $translate, $scope, appCONSTANTS, $state, _, authenticationService, authorizationService, $localStorage) {
+    function homeCtrl($rootScope, blockUI, $transitions, $translate, $scope, appCONSTANTS, $state, _, authenticationService, authorizationService, $localStorage) {
         $scope.$on('LOAD', function () { $scope.loading = true });
         $scope.$on('UNLOAD', function () { $scope.loading = false });
         var vm = this;
@@ -63,25 +63,25 @@
                 $state.go(toState.name, toParams, { reload: true });
             }
         });
-        // $transitions.onStart({}, function (transition) {
-        //     if (authorizationService.isLoggedIn()) {
-        //         var user = authorizationService.getUser();
-        //         var authorize = false;
-        //         if (transition._targetState._identifier.self != undefined) {
-        //             if (transition._targetState._identifier.self.data.permissions.only != undefined) {
-        //                 transition._targetState._identifier.self.data.permissions.only.forEach(function (element) {
-        //                     if (user.PermissionId.includes(element.toString()))
-        //                         authorize = true;
-        //                 }, this);
-        //                 if (!authorize)
-        //                     $state.go(transition._targetState._identifier.self.data.permissions.redirectTo)
-        //             }
-        //         }
-        //     }
-        //     else {
-        //         $state.go('login');
-        //     }
-        // });
+        $transitions.onStart({}, function (transition) {
+            if (authorizationService.isLoggedIn()) {
+                var user = authorizationService.getUser();
+                // var authorize = false;
+                // if (transition._targetState._identifier.self != undefined) {
+                //     if (transition._targetState._identifier.self.data.permissions.only != undefined) {
+                //         transition._targetState._identifier.self.data.permissions.only.forEach(function (element) {
+                //             if (user.PermissionId.includes(element.toString()))
+                //                 authorize = true;
+                //         }, this);
+                //         if (!authorize)
+                //             $state.go(transition._targetState._identifier.self.data.permissions.redirectTo)
+                //     }
+                // }
+            }
+            else {
+                $state.go('login');
+            }
+        });
         $scope.$watch(function () { return $localStorage.authInfo; }, function (newVal, oldVal) {
             if (oldVal != undefined && newVal === undefined && $localStorage.authInfo == undefined) {
                 console.log('logout');
@@ -98,24 +98,26 @@
             $scope.afterSubmit = false;
             $scope.invalidLoginInfo = false;
             $scope.inActiveUser = false;
-            $scope.user = authorizationService.getUser();
-            // if ($scope.user.PermissionId[0] == 1)
-            blockUI.stop();
-           
-            $state.go('homePage');
-            // if ($scope.user.PermissionId[0] == 3)
-            //     $state.go('Role');
-            // if ($scope.user.PermissionId[0] == 4)
-            //     $state.go('Category'); 
-            // if ($scope.user.PermissionId[0] == 10)
-            //     $state.go('Dashboard');
-
+            $scope.user = authorizationService.getUser(); 
+            if (response != undefined) {
+                if (response.data.PermissionId != "") {
+                    $scope.invalidLoginInfo = false;
+                    $scope.inActiveNotClient = true;
+                }
+                else
+                    $state.go('homePage');
+            }
+            else {
+                blockUI.stop();
+                authorizationService.logout();
+                $state.go('login');
+            }
 
         }
 
         function loginFailed(response) {
             $scope.afterSubmit = true;
-            blockUI.stop();
+            //   blockUI.stop();
             if (response.data == null) {
                 $scope.invalidLoginInfo = false;
                 $scope.inActiveUser = true;
@@ -130,6 +132,7 @@
                     $scope.invalidLoginInfo = false;
                     $scope.inActiveUser = true;
                 }
+
             }
         }
 
