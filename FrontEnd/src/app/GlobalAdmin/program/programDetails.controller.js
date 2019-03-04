@@ -15,7 +15,8 @@
         $scope.progDetailsPrepService = progDetailsPrepService;
         $scope.settingsPrepService = settingsPrepService;
         $scope.itemsssPrepService = itemsssPrepService;
-        $scope.clientId = localStorage.getItem('ClientId');
+        // $scope.clientId = localStorage.getItem('ClientId');
+        $scope.clientId = $scope.user.id;
 
         $scope.counties = [];
 
