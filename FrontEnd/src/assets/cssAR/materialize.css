@@ -2730,8 +2730,8 @@ nav ul a span.badge {
     }
 }
 .container .row {
-    margin-left: -11.75rem;
     margin-right: -0.75rem;
+    margin-left: -0.75rem;
 }
 .section {
     padding-top: 1rem;
@@ -2752,7 +2752,7 @@ nav ul a span.badge {
     clear: both;
 }
 .row .col {
-    float: left;
+    float: right;
     box-sizing: border-box;
     padding: 0 0.75rem;
     min-height: 1px;

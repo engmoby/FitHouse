@@ -187,7 +187,7 @@ th {
     padding: 5px 0px;
 }
 .top-bar {
-    float: right;
+    float: left !important;
 }
 .top-bar ul {
     padding: 0px;
@@ -199,7 +199,7 @@ th {
 .top-bar ul li a {
     color: #888;
     font-size: 12px;
-    border-right: 1px solid #474747;
+    border-left: 1px solid #474747 !important;
     padding: 0px 10px;
     text-transform: initial;
     font-family: 'Quicksand', sans-serif;
@@ -217,17 +217,17 @@ th {
     top: 0px;
 }
 .logo {
-    float: left;
+    float: right;
     width: 20%;
 }
 .logo img {} .menu-bar {
-    float: left;
+    float: right;
     width: 80%;
 }
 .menu-bar ul {
     padding: 0px;
     margin-bottom: 0px;
-    float: right;
+    float: left !important;
     margin-top: 12px;
 }
 .menu-bar ul li {
@@ -692,23 +692,23 @@ td {} .inn-com p {} .inn-com-form {} .inn-com-form form {
     display: block;
     border: 2px solid #587a07;
 }
-.ribbon-top-right::before,
-.ribbon-top-right::after {
+.ribbon-top-left::before,
+.ribbon-top-left::after {
     border-top-color: transparent;
     border-right-color: transparent;
 }
-.ribbon-top-right::before {
+.ribbon-top-left::before {
     top: 0;
-    right: 0;
+    left: 0;
 }
-.ribbon-top-right::after {
+.ribbon-top-left::after {
     bottom: 0;
-    right: 0;
+    left: 0;
 }
-.ribbon-top-right span {
-    right: -19px;
+.ribbon-top-left span {
+    left: -19px;
     top: 21px;
-    transform: rotate(-45deg);
+    transform: rotate(45deg);
 }
 .ribbon span {
     position: absolute;
