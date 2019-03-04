@@ -160,6 +160,17 @@
                     }
                 })
 
+                .state('summaryProgram', {
+                    url: '/summaryProgram',
+                    templateUrl: './app/GlobalAdmin/customProgram/templates/summaryProgram.html',
+                    controller: 'CustomController',
+                    'controllerAs': 'CustomCtrl',
+                    resolve: {
+                        itemsPrepService: itemsPrepService,
+                        CountriesPrepService: CountriesPrepService
+                    }
+                })
+
 
                 .state('Address', {
                     url: '/Address/:userId',

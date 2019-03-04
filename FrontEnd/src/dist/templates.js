@@ -1,4 +1,324 @@
 angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Address/templates/Address.html',
+    '<div class="inn-banner">\n' +
+    '    <div class="container">\n' +
+    '        <div class="row">\n' +
+    '            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut\n' +
+    '                laoreet.\n' +
+    '                <p>\n' +
+    '                    <ul>\n' +
+    '                        <li><a href="$state.go(\'homePage\');">Home</a>\n' +
+    '                        </li>\n' +
+    '                        <li><a href="#"></a>Table</a>\n' +
+    '                        </li>\n' +
+    '                    </ul>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '\n' +
+    '<div class="inn-body-section pad-bot-55">\n' +
+    '    <div class="container">\n' +
+    '\n' +
+    '        <div class="row">\n' +
+    '            <!--TYPOGRAPHY SECTION-->\n' +
+    '            <div class="col-md-12">\n' +
+    '                <div class="head-typo typo-com">\n' +
+    '                    <h3>{{\'Address\' | translate}}</h3>\n' +
+    '\n' +
+    '                    <div style="margin-bottom:10px">\n' +
+    '                        <button style="background-color: #e4e5e6;color: black!important;"\n' +
+    '                            ng-click="$state.go(\'newAddress\');" class="btn pmd-ripple-effect btn-primary pmd-z-depth"\n' +
+    '                            type="button">{{\'AddBtn\'\n' +
+    '                | translate}}</button>\n' +
+    '\n' +
+    '                    </div>\n' +
+    '                    <div ng-if="AddressList.length == 0">\n' +
+    '                        <span>{{\'NoAddressAvailable\' | translate}}</span>\n' +
+    '                    </div>\n' +
+    '                    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="AddressList.length > 0">\n' +
+    '                        <div class="table-responsive"></div>\n' +
+    '                        <table class="table">\n' +
+    '                            <thead>\n' +
+    '                                <tr>\n' +
+    '                                    <th>{{\'appartmentNo\' | translate}}</th>\n' +
+    '                                    <th>{{\'floor\' | translate}}</th>\n' +
+    '                                    <th></th>\n' +
+    '                                </tr>\n' +
+    '                            </thead>\n' +
+    '                            <tbody>\n' +
+    '                                <tr ng-repeat="address in AddressList">\n' +
+    '                                    <td data-title="Name">{{address.appartmentNo}}</td>\n' +
+    '\n' +
+    '                                    <td data-title="Name">{{address.floor}}</td>\n' +
+    '\n' +
+    '                                    <td width="30%" ng-show="!address.isStatic">\n' +
+    '                                        <i class="material-icons md-dark pmd-md cursorPointer font25" style="cursor: pointer;"\n' +
+    '                                            ng-click="$state.go(\'editaddress\',{addressId: address.addressId});">mode_edit</i>\n' +
+    '\n' +
+    '                                    </td>\n' +
+    '                                </tr>\n' +
+    '                            </tbody>\n' +
+    '                        </table>\n' +
+    '                    </div>\n' +
+    '                    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
+    '                        paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"\n' +
+    '                        hide-if-empty="true" disabled-class="hide">\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Address/templates/edit.html',
+    '<div class="inn-body-section pad-bot-55">\n' +
+    '    <div class="container">\n' +
+    '        <div class="row">\n' +
+    '            <div class="head-typo typo-com collap-expand book-form inn-com-form">\n' +
+    '                <h2>{{\'Address\' | translate}} </h2>\n' +
+    '\n' +
+    '\n' +
+    '                <form class="form-horizontal" name="addressForm">\n' +
+    '\n' +
+    '                    <div\n' +
+    '                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                        <label for="first-name">{{\'FLoor\' | translate}}</label>\n' +
+    '                        <input required type="number" class="mat-input form-control" name="floor"\n' +
+    '                            ng-model="editAddressCtrl.Address.floor" ng-minlength="1" ng-maxlength="4">\n' +
+    '                        <div ng-messages="addressForm.floor.$error" class="error">\n' +
+    '                            <div ng-if="addressForm.floor.$error.required && !addressForm.floor.$pristine">\n' +
+    '                                {{\'ProgramDaysCountReqError\' | translate}}</div>\n' +
+    '                            <div ng-if="(addressForm.floor.$error.minlength || addressForm.floor.$error.maxlength)">\n' +
+    '                                {{\'ProgramDaysCountLengthError\' | translate}}</div>\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '\n' +
+    '                    <div\n' +
+    '                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                        <label for="first-name">{{\'ApartmentNumber\' | translate}}</label>\n' +
+    '                        <input required type="number" class="mat-input form-control" name="appartmentNo"\n' +
+    '                            ng-model="editAddressCtrl.Address.appartmentNo" ng-minlength="1" ng-maxlength="4">\n' +
+    '                        <div ng-messages="addressForm.appartmentNo.$error" class="error">\n' +
+    '                            <div\n' +
+    '                                ng-if="addressForm.appartmentNo.$error.required && !addressForm.appartmentNo.$pristine">\n' +
+    '                                {{\'ProgramDaysCountReqError\' | translate}}</div>\n' +
+    '                            <div\n' +
+    '                                ng-if="(addressForm.appartmentNo.$error.minlength || addressForm.appartmentNo.$error.maxlength)">\n' +
+    '                                {{\'ProgramDaysCountLengthError\' | translate}}</div>\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '\n' +
+    '                    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                        <label for="first-name">{{\'AddressDescription\' | translate}}</label>\n' +
+    '                        <textarea required type="text" class="mat-input form-control" name="addressDescription"\n' +
+    '                            ng-model="editAddressCtrl.Address.description" ng-minlength="3"\n' +
+    '                            ng-maxlength="255"></textarea>\n' +
+    '                        <div ng-messages="addressForm.addressDescription.$error">\n' +
+    '                            <div\n' +
+    '                                ng-if="addressForm.addressDescription.$error.required && !addressForm.addressDescription.$pristine">\n' +
+    '                                {{\'Address\' | translate}}\n' +
+    '                                {{\'ReqError\' | translate}}\n' +
+    '                            </div>\n' +
+    '                            <div\n' +
+    '                                ng-if="(addressForm.addressDescription.$error.minlength || addressForm.addressDescription.$error.maxlength)">\n' +
+    '                                {{\'NameLengthError255\' | translate}}</div>\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '\n' +
+    '                    <div\n' +
+    '                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                        <label for="first-name">{{\'Country\' | translate}}</label>\n' +
+    '                        <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
+    '                            ng-change="editAddressCtrl.countryChange()" ng-model="editAddressCtrl.selectedCountryId"\n' +
+    '                            ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in editAddressCtrl.counties">\n' +
+    '                        </select>\n' +
+    '                    </div>\n' +
+    '                    <div ng-show=" editAddressCtrl.selectedCountryId > 0"\n' +
+    '                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                        <label for="first-name">{{\'Region\' | translate}}</label>\n' +
+    '                        <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
+    '                            ng-change="editAddressCtrl.regionChange()" ng-model="editAddressCtrl.selectedRegionId"\n' +
+    '                            ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in editAddressCtrl.regions">\n' +
+    '                        </select>\n' +
+    '                    </div>\n' +
+    '                    <div ng-show=" editAddressCtrl.selectedRegionId > 0"\n' +
+    '                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                        <label for="first-name">{{\'City\' | translate}}</label>\n' +
+    '                        <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
+    '                            ng-change="editAddressCtrl.cityChange()" ng-model="editAddressCtrl.selectedCityId"\n' +
+    '                            ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in editAddressCtrl.cities">\n' +
+    '                        </select>\n' +
+    '                    </div>\n' +
+    '                    <div ng-show=" editAddressCtrl.selectedCityId > 0"\n' +
+    '                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                        <label for="first-name">{{\'Area\' | translate}}</label>\n' +
+    '                        <select ng-required="editAddressCtrl.selectedCityId > 0" style="width:100% !important"\n' +
+    '                            class="select-tags form-control pmd-select2-tags" ng-change="editAddressCtrl.areaChange()"\n' +
+    '                            ng-model="editAddressCtrl.selectedAreaId"\n' +
+    '                            ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in editAddressCtrl.area">\n' +
+    '                        </select>\n' +
+    '                    </div>\n' +
+    '                    <div class="pmd-modal-action text-right">\n' +
+    '                        <button style="background-color: #e4e5e6;color: black!important;"\n' +
+    '                            ng-disabled="addressForm.$invalid || editAddressCtrl.selectedBranchId < 0"\n' +
+    '                            class="btn pmd-ripple-effect btn-primary" type="button"\n' +
+    '                            ng-click="editAddressCtrl.UpdateType()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '\n' +
+    '                        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
+    '                            ng-click="$state.go(\'Address\', {userId: user.id});">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '                    </div>\n' +
+    '                </form>\n' +
+    '\n' +
+    '            </div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '\n' +
+    '\n' +
+    '<script type="text/javascript">\n' +
+    '    $(document).ready(function () {\n' +
+    '        $(".select-add-tags").select2({\n' +
+    '            tags: true,\n' +
+    '            theme: "bootstrap",\n' +
+    '            insertTag: function (data, tag) {\n' +
+    '                // Insert the tag at the end of the results\n' +
+    '                data.push(tag);\n' +
+    '                // console.log(data);\n' +
+    '            }\n' +
+    '        });\n' +
+    '        $(".select-tags").select2({\n' +
+    '            tags: false,\n' +
+    '            theme: "bootstrap",\n' +
+    '        })\n' +
+    '\n' +
+    '        $(".select-with-search").select2({\n' +
+    '            theme: "bootstrap"\n' +
+    '        });\n' +
+    '    });\n' +
+    '</script>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Address/templates/new.html',
+    '<div class="inn-body-section pad-bot-55">\n' +
+    '    <div class="container">\n' +
+    '        <div class="row">\n' +
+    '            <div class="head-typo typo-com collap-expand book-form inn-com-form">\n' +
+    '                <h2>{{\'Address\' | translate}} </h2>\n' +
+    '\n' +
+    '\n' +
+    '                <form class="form-horizontal" name="addressForm">\n' +
+    '\n' +
+    '                    <div\n' +
+    '                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                        <label for="first-name">{{\'FLoor\' | translate}}</label>\n' +
+    '                        <input required type="number" class="mat-input form-control" name="floor"\n' +
+    '                            ng-model="newAddressCtrl.FLoor" ng-minlength="1" ng-maxlength="4">\n' +
+    '                        <div ng-messages="addressForm.floor.$error" class="error">\n' +
+    '                            <div ng-if="addressForm.floor.$error.required && !addressForm.floor.$pristine">\n' +
+    '                                {{\'ProgramDaysCountReqError\' | translate}}</div>\n' +
+    '                            <div ng-if="(addressForm.floor.$error.minlength || addressForm.floor.$error.maxlength)">\n' +
+    '                                {{\'ProgramDaysCountLengthError\' | translate}}</div>\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '\n' +
+    '                    <div\n' +
+    '                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                        <label for="first-name">{{\'ApartmentNumber\' | translate}}</label>\n' +
+    '                        <input required type="number" class="mat-input form-control" name="appartmentNo"\n' +
+    '                            ng-model="newAddressCtrl.AppartmentNo" ng-minlength="1" ng-maxlength="4">\n' +
+    '                        <div ng-messages="addressForm.appartmentNo.$error" class="error">\n' +
+    '                            <div\n' +
+    '                                ng-if="addressForm.appartmentNo.$error.required && !addressForm.appartmentNo.$pristine">\n' +
+    '                                {{\'ProgramDaysCountReqError\' | translate}}</div>\n' +
+    '                            <div\n' +
+    '                                ng-if="(addressForm.appartmentNo.$error.minlength || addressForm.appartmentNo.$error.maxlength)">\n' +
+    '                                {{\'ProgramDaysCountLengthError\' | translate}}</div>\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '\n' +
+    '                    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                        <label for="first-name">{{\'AddressDescription\' | translate}}</label>\n' +
+    '                        <textarea required type="text" class="mat-input form-control" name="addressDescription"\n' +
+    '                            ng-model="newAddressCtrl.AddressDescription" ng-minlength="3" ng-maxlength="255"></textarea>\n' +
+    '                        <div ng-messages="addressForm.addressDescription.$error">\n' +
+    '                            <div\n' +
+    '                                ng-if="addressForm.addressDescription.$error.required && !addressForm.addressDescription.$pristine">\n' +
+    '                                {{\'Address\' | translate}}\n' +
+    '                                {{\'ReqError\' | translate}}\n' +
+    '                            </div>\n' +
+    '                            <div\n' +
+    '                                ng-if="(addressForm.addressDescription.$error.minlength || addressForm.addressDescription.$error.maxlength)">\n' +
+    '                                {{\'NameLengthError255\' | translate}}</div>\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '\n' +
+    '                    <div\n' +
+    '                    class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                    <label for="first-name">{{\'Country\' | translate}}</label>\n' +
+    '                    <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
+    '                        ng-change="newAddressCtrl.countryChange()" ng-model="newAddressCtrl.selectedCountryId"\n' +
+    '                        ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in newAddressCtrl.counties">\n' +
+    '                    </select>\n' +
+    '                </div>\n' +
+    '                <div ng-show=" newAddressCtrl.selectedCountryId > 0"\n' +
+    '                    class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                    <label for="first-name">{{\'Region\' | translate}}</label>\n' +
+    '                    <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
+    '                        ng-change="newAddressCtrl.regionChange()" ng-model="newAddressCtrl.selectedRegionId"\n' +
+    '                        ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in newAddressCtrl.regions">\n' +
+    '                    </select>\n' +
+    '                </div>\n' +
+    '                <div ng-show=" newAddressCtrl.selectedRegionId > 0"\n' +
+    '                    class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                    <label for="first-name">{{\'City\' | translate}}</label>\n' +
+    '                    <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
+    '                        ng-change="newAddressCtrl.cityChange()" ng-model="newAddressCtrl.selectedCityId"\n' +
+    '                        ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in newAddressCtrl.cities">\n' +
+    '                    </select>\n' +
+    '                </div>\n' +
+    '                <div ng-show=" newAddressCtrl.selectedCityId > 0"\n' +
+    '                    class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                    <label for="first-name">{{\'Area\' | translate}}</label>\n' +
+    '                    <select ng-required="newAddressCtrl.selectedCityId > 0" style="width:100% !important"\n' +
+    '                        class="select-tags form-control pmd-select2-tags" ng-change="newAddressCtrl.areaChange()"\n' +
+    '                        ng-model="newAddressCtrl.selectedAreaId"\n' +
+    '                        ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in newAddressCtrl.area">\n' +
+    '                    </select>\n' +
+    '                </div>\n' +
+    '\n' +
+    '                    <div class="pmd-modal-action text-right">\n' +
+    '                        <button style="background-color: #e4e5e6;color: black!important;"\n' +
+    '                            ng-disabled="addressForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"\n' +
+    '                            ng-click="newAddressCtrl.AddNewType()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '\n' +
+    '                        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
+    '                            ng-click="$state.go(\'Address\', {userId: user.id});">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '                    </div>\n' +
+    '                </form>\n' +
+    '\n' +
+    '            </div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '\n' +
+    '<script type="text/javascript">\n' +
+    '    $(document).ready(function () {\n' +
+    '        $(".select-tags").select2({\n' +
+    '            tags: false,\n' +
+    '            theme: "bootstrap",\n' +
+    '        })\n' +
+    '\n' +
+    '        $(".select-with-search").select2({\n' +
+    '            theme: "bootstrap"\n' +
+    '        });\n' +
+    '    });\n' +
+    '</script>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/customProgram/templates/Custom.html',
     '<!--TOP BANNER-->\n' +
     '<div class="inn-banner">\n' +
@@ -381,627 +701,89 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/Address/templates/Address.html',
-    '<div class="inn-banner">\n' +
+  $templateCache.put('./app/GlobalAdmin/customProgram/templates/summaryProgram.html',
+    '<div class="hom-com">\n' +
     '    <div class="container">\n' +
     '        <div class="row">\n' +
-    '            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut\n' +
-    '                laoreet.\n' +
-    '                <p>\n' +
-    '                    <ul>\n' +
-    '                        <li><a href="$state.go(\'homePage\');">Home</a>\n' +
-    '                        </li>\n' +
-    '                        <li><a href="#"></a>Table</a>\n' +
-    '                        </li>\n' +
-    '                    </ul>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '</div>\n' +
+    '            <div class="col-md-8">\n' +
+    '                <div class="row">\n' +
     '\n' +
-    '<div class="inn-body-section pad-bot-55">\n' +
-    '    <div class="container">\n' +
-    '\n' +
-    '        <div class="row">\n' +
-    '            <!--TYPOGRAPHY SECTION-->\n' +
-    '            <div class="col-md-12">\n' +
-    '                <div class="head-typo typo-com">\n' +
-    '                    <h3>{{\'Address\' | translate}}</h3>\n' +
-    '\n' +
-    '                    <div style="margin-bottom:10px">\n' +
-    '                        <button style="background-color: #e4e5e6;color: black!important;"\n' +
-    '                            ng-click="$state.go(\'newAddress\');" class="btn pmd-ripple-effect btn-primary pmd-z-depth"\n' +
-    '                            type="button">{{\'AddBtn\'\n' +
-    '                | translate}}</button>\n' +
-    '\n' +
-    '                    </div>\n' +
-    '                    <div ng-if="AddressList.length == 0">\n' +
-    '                        <span>{{\'NoAddressAvailable\' | translate}}</span>\n' +
-    '                    </div>\n' +
-    '                    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="AddressList.length > 0">\n' +
-    '                        <div class="table-responsive"></div>\n' +
-    '                        <table class="table">\n' +
-    '                            <thead>\n' +
-    '                                <tr>\n' +
-    '                                    <th>{{\'appartmentNo\' | translate}}</th>\n' +
-    '                                    <th>{{\'floor\' | translate}}</th>\n' +
-    '                                    <th></th>\n' +
-    '                                </tr>\n' +
-    '                            </thead>\n' +
-    '                            <tbody>\n' +
-    '                                <tr ng-repeat="address in AddressList">\n' +
-    '                                    <td data-title="Name">{{address.appartmentNo}}</td>\n' +
-    '\n' +
-    '                                    <td data-title="Name">{{address.floor}}</td>\n' +
-    '\n' +
-    '                                    <td width="30%" ng-show="!address.isStatic">\n' +
-    '                                        <i class="material-icons md-dark pmd-md cursorPointer font25" style="cursor: pointer;"\n' +
-    '                                            ng-click="$state.go(\'editaddress\',{addressId: address.addressId});">mode_edit</i>\n' +
-    '\n' +
-    '                                    </td>\n' +
-    '                                </tr>\n' +
-    '                            </tbody>\n' +
-    '                        </table>\n' +
-    '                    </div>\n' +
-    '                    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
-    '                        paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"\n' +
-    '                        hide-if-empty="true" disabled-class="hide">\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '            </div>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/Address/templates/edit.html',
-    '<div class="inn-body-section pad-bot-55">\n' +
-    '    <div class="container">\n' +
-    '        <div class="row">\n' +
-    '            <div class="head-typo typo-com collap-expand book-form inn-com-form">\n' +
-    '                <h2>{{\'Address\' | translate}} </h2>\n' +
-    '\n' +
-    '\n' +
-    '                <form class="form-horizontal" name="addressForm">\n' +
-    '\n' +
-    '                    <div\n' +
-    '                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                        <label for="first-name">{{\'FLoor\' | translate}}</label>\n' +
-    '                        <input required type="number" class="mat-input form-control" name="floor"\n' +
-    '                            ng-model="editAddressCtrl.Address.floor" ng-minlength="1" ng-maxlength="4">\n' +
-    '                        <div ng-messages="addressForm.floor.$error" class="error">\n' +
-    '                            <div ng-if="addressForm.floor.$error.required && !addressForm.floor.$pristine">\n' +
-    '                                {{\'ProgramDaysCountReqError\' | translate}}</div>\n' +
-    '                            <div ng-if="(addressForm.floor.$error.minlength || addressForm.floor.$error.maxlength)">\n' +
-    '                                {{\'ProgramDaysCountLengthError\' | translate}}</div>\n' +
+    '                    <div class="hp-section">\n' +
+    '                        <div class="hp-sub-tit">\n' +
+    '                            <h4>\n' +
+    '                                <span>Order</span> Details</h4>\n' +
+    '                            <p>Thanks for applying in our system Thanks for applying in our system Thanks for applying in our\n' +
+    '                                system.</p>\n' +
     '                        </div>\n' +
-    '                    </div>\n' +
+    '                        <div class="hp-over">\n' +
+    '                            <ul class="nav nav-tabs hp-over-nav">\n' +
     '\n' +
-    '                    <div\n' +
-    '                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                        <label for="first-name">{{\'ApartmentNumber\' | translate}}</label>\n' +
-    '                        <input required type="number" class="mat-input form-control" name="appartmentNo"\n' +
-    '                            ng-model="editAddressCtrl.Address.appartmentNo" ng-minlength="1" ng-maxlength="4">\n' +
-    '                        <div ng-messages="addressForm.appartmentNo.$error" class="error">\n' +
-    '                            <div\n' +
-    '                                ng-if="addressForm.appartmentNo.$error.required && !addressForm.appartmentNo.$pristine">\n' +
-    '                                {{\'ProgramDaysCountReqError\' | translate}}</div>\n' +
-    '                            <div\n' +
-    '                                ng-if="(addressForm.appartmentNo.$error.minlength || addressForm.appartmentNo.$error.maxlength)">\n' +
-    '                                {{\'ProgramDaysCountLengthError\' | translate}}</div>\n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
+    '                                <li>\n' +
+    '                                    <a data-toggle="tab" data-target="#menu1">\n' +
+    '                                        <img src="/assets/img/db4.png" alt="">\n' +
+    '                                        <span class="tab-hide">Overview</span>\n' +
+    '                                    </a>\n' +
+    '                                </li>\n' +
+    '                            </ul>\n' +
+    '                            <div class="tab-content">\n' +
     '\n' +
-    '                    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '                        <label for="first-name">{{\'AddressDescription\' | translate}}</label>\n' +
-    '                        <textarea required type="text" class="mat-input form-control" name="addressDescription"\n' +
-    '                            ng-model="editAddressCtrl.Address.description" ng-minlength="3" ng-maxlength="255"></textarea>\n' +
-    '                        <div ng-messages="addressForm.addressDescription.$error">\n' +
-    '                            <div\n' +
-    '                                ng-if="addressForm.addressDescription.$error.required && !addressForm.addressDescription.$pristine">\n' +
-    '                                {{\'Address\' | translate}}\n' +
-    '                                {{\'ReqError\' | translate}}\n' +
-    '                            </div>\n' +
-    '                            <div\n' +
-    '                                ng-if="(addressForm.addressDescription.$error.minlength || addressForm.addressDescription.$error.maxlength)">\n' +
-    '                                {{\'NameLengthError255\' | translate}}</div>\n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
+    '                                <div id="menu1" class="tab-pane fade in active tab-space">\n' +
+    '                                    <div class="hp-main-overview">\n' +
+    '                                        <ul>\n' +
+    '                                            <li>Order Code:\n' +
+    '                                                <span>#{{CustomCtrl.order.orderCode}}</span>\n' +
+    '                                            </li>\n' +
+    '                                            <li>Price:\n' +
+    '                                                <span>{{CustomCtrl.order.price}}</span>\n' +
+    '                                            </li>\n' +
+    '                                            <li>Type :\n' +
+    '                                                <span>{{\'Program\' | translate}}</span>\n' +
+    '                                            </li>\n' +
     '\n' +
-    '                    <div\n' +
-    '                    class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                    <label for="first-name">{{\'Country\' | translate}}</label>\n' +
-    '                    <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
-    '                        ng-change="editAddressCtrl.countryChange()" ng-model="editAddressCtrl.selectedCountryId"\n' +
-    '                        ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in editAddressCtrl.counties">\n' +
-    '                    </select>\n' +
-    '                </div>\n' +
-    '                <div ng-show=" editAddressCtrl.selectedCountryId > 0"\n' +
-    '                    class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                    <label for="first-name">{{\'Region\' | translate}}</label>\n' +
-    '                    <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
-    '                        ng-change="editAddressCtrl.regionChange()" ng-model="editAddressCtrl.selectedRegionId"\n' +
-    '                        ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in editAddressCtrl.regions">\n' +
-    '                    </select>\n' +
-    '                </div>\n' +
-    '                <div ng-show=" editAddressCtrl.selectedRegionId > 0"\n' +
-    '                    class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                    <label for="first-name">{{\'City\' | translate}}</label>\n' +
-    '                    <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
-    '                        ng-change="editAddressCtrl.cityChange()" ng-model="editAddressCtrl.selectedCityId"\n' +
-    '                        ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in editAddressCtrl.cities">\n' +
-    '                    </select>\n' +
-    '                </div>\n' +
-    '                <div ng-show=" editAddressCtrl.selectedCityId > 0"\n' +
-    '                    class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                    <label for="first-name">{{\'Area\' | translate}}</label>\n' +
-    '                    <select ng-required="editAddressCtrl.selectedCityId > 0" style="width:100% !important"\n' +
-    '                        class="select-tags form-control pmd-select2-tags" ng-change="editAddressCtrl.areaChange()"\n' +
-    '                        ng-model="editAddressCtrl.selectedAreaId"\n' +
-    '                        ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in editAddressCtrl.area">\n' +
-    '                    </select>\n' +
-    '                </div>\n' +
+    '                                            <!-- <li>No. of Days :\n' +
+    '                                                <span>{{CustomCtrl.daysCount}}</span>\n' +
+    '                                            </li>\n' +
+    '                                            <li>No. of Meals Per Day :\n' +
+    '                                                <span>{{CustomCtrl.mealsCount}}</span>\n' +
+    '                                            </li> -->\n' +
+    '                                            <li>Start Date :\n' +
+    '                                                <span>{{CustomCtrl.order.orderDate | limitTo: 10}}</span>\n' +
+    '                                            </li>\n' +
+    '                                            <li>Status :\n' +
+    '                                                <span class="ov-yes">{{CustomCtrl.order.orderStatus ? \'Waiting\' : \'Open\'}}</span>\n' +
     '\n' +
-    '                    <div class="pmd-modal-action text-right">\n' +
-    '                        <button style="background-color: #e4e5e6;color: black!important;"\n' +
-    '                            ng-disabled="addressForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"\n' +
-    '                            ng-click="editAddressCtrl.UpdateType()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '                                                <!-- <span class="ov-yes" ng-if="{{CustomCtrl.order.type ==0}}">\n' +
+    '                                                        Open\n' +
+    '                                                    </span> -->\n' +
     '\n' +
-    '                        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
-    '                            ng-click="$state.go(\'Address\', {userId: user.id});">{{\'DiscardBtn\' | translate}}</button>\n' +
-    '                    </div>\n' +
-    '                </form>\n' +
-    '\n' +
-    '            </div>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '</div>\n' +
-    '	\n' +
-    '\n' +
-    '<script type="text/javascript">\n' +
-    '    $(document).ready(function() {\n' +
-    '        $(".select-add-tags").select2({\n' +
-    '            tags: true,\n' +
-    '            theme: "bootstrap",\n' +
-    '            insertTag: function (data, tag) {\n' +
-    '                data.push(tag);\n' +
-    '            }\n' +
-    '        });\n' +
-    '    });\n' +
-    '</script>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/Address/templates/new.html',
-    '<div class="inn-body-section pad-bot-55">\n' +
-    '    <div class="container">\n' +
-    '        <div class="row">\n' +
-    '            <div class="head-typo typo-com collap-expand book-form inn-com-form">\n' +
-    '                <h2>{{\'Address\' | translate}} </h2>\n' +
-    '\n' +
-    '\n' +
-    '                <form class="form-horizontal" name="addressForm">\n' +
-    '\n' +
-    '                    <div\n' +
-    '                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                        <label for="first-name">{{\'FLoor\' | translate}}</label>\n' +
-    '                        <input required type="number" class="mat-input form-control" name="floor"\n' +
-    '                            ng-model="newAddressCtrl.FLoor" ng-minlength="1" ng-maxlength="4">\n' +
-    '                        <div ng-messages="addressForm.floor.$error" class="error">\n' +
-    '                            <div ng-if="addressForm.floor.$error.required && !addressForm.floor.$pristine">\n' +
-    '                                {{\'ProgramDaysCountReqError\' | translate}}</div>\n' +
-    '                            <div ng-if="(addressForm.floor.$error.minlength || addressForm.floor.$error.maxlength)">\n' +
-    '                                {{\'ProgramDaysCountLengthError\' | translate}}</div>\n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
-    '\n' +
-    '                    <div\n' +
-    '                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                        <label for="first-name">{{\'ApartmentNumber\' | translate}}</label>\n' +
-    '                        <input required type="number" class="mat-input form-control" name="appartmentNo"\n' +
-    '                            ng-model="newAddressCtrl.AppartmentNo" ng-minlength="1" ng-maxlength="4">\n' +
-    '                        <div ng-messages="addressForm.appartmentNo.$error" class="error">\n' +
-    '                            <div\n' +
-    '                                ng-if="addressForm.appartmentNo.$error.required && !addressForm.appartmentNo.$pristine">\n' +
-    '                                {{\'ProgramDaysCountReqError\' | translate}}</div>\n' +
-    '                            <div\n' +
-    '                                ng-if="(addressForm.appartmentNo.$error.minlength || addressForm.appartmentNo.$error.maxlength)">\n' +
-    '                                {{\'ProgramDaysCountLengthError\' | translate}}</div>\n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
-    '\n' +
-    '                    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '                        <label for="first-name">{{\'AddressDescription\' | translate}}</label>\n' +
-    '                        <textarea required type="text" class="mat-input form-control" name="addressDescription"\n' +
-    '                            ng-model="newAddressCtrl.AddressDescription" ng-minlength="3" ng-maxlength="255"></textarea>\n' +
-    '                        <div ng-messages="addressForm.addressDescription.$error">\n' +
-    '                            <div\n' +
-    '                                ng-if="addressForm.addressDescription.$error.required && !addressForm.addressDescription.$pristine">\n' +
-    '                                {{\'Address\' | translate}}\n' +
-    '                                {{\'ReqError\' | translate}}\n' +
-    '                            </div>\n' +
-    '                            <div\n' +
-    '                                ng-if="(addressForm.addressDescription.$error.minlength || addressForm.addressDescription.$error.maxlength)">\n' +
-    '                                {{\'NameLengthError255\' | translate}}</div>\n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
-    '\n' +
-    '                    <div\n' +
-    '                    class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                    <label for="first-name">{{\'Country\' | translate}}</label>\n' +
-    '                    <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
-    '                        ng-change="newAddressCtrl.countryChange()" ng-model="newAddressCtrl.selectedCountryId"\n' +
-    '                        ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in newAddressCtrl.counties">\n' +
-    '                    </select>\n' +
-    '                </div>\n' +
-    '                <div ng-show=" newAddressCtrl.selectedCountryId > 0"\n' +
-    '                    class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                    <label for="first-name">{{\'Region\' | translate}}</label>\n' +
-    '                    <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
-    '                        ng-change="newAddressCtrl.regionChange()" ng-model="newAddressCtrl.selectedRegionId"\n' +
-    '                        ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in newAddressCtrl.regions">\n' +
-    '                    </select>\n' +
-    '                </div>\n' +
-    '                <div ng-show=" newAddressCtrl.selectedRegionId > 0"\n' +
-    '                    class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                    <label for="first-name">{{\'City\' | translate}}</label>\n' +
-    '                    <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
-    '                        ng-change="newAddressCtrl.cityChange()" ng-model="newAddressCtrl.selectedCityId"\n' +
-    '                        ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in newAddressCtrl.cities">\n' +
-    '                    </select>\n' +
-    '                </div>\n' +
-    '                <div ng-show=" newAddressCtrl.selectedCityId > 0"\n' +
-    '                    class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                    <label for="first-name">{{\'Area\' | translate}}</label>\n' +
-    '                    <select ng-required="newAddressCtrl.selectedCityId > 0" style="width:100% !important"\n' +
-    '                        class="select-tags form-control pmd-select2-tags" ng-change="newAddressCtrl.areaChange()"\n' +
-    '                        ng-model="newAddressCtrl.selectedAreaId"\n' +
-    '                        ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in newAddressCtrl.area">\n' +
-    '                    </select>\n' +
-    '                </div>\n' +
-    '\n' +
-    '                    <div class="pmd-modal-action text-right">\n' +
-    '                        <button style="background-color: #e4e5e6;color: black!important;"\n' +
-    '                            ng-disabled="addressForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"\n' +
-    '                            ng-click="newAddressCtrl.AddNewType()">{{\'saveChangesBtn\' | translate}}</button>\n' +
-    '\n' +
-    '                        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
-    '                            ng-click="$state.go(\'Address\', {userId: user.id});">{{\'DiscardBtn\' | translate}}</button>\n' +
-    '                    </div>\n' +
-    '                </form>\n' +
-    '\n' +
-    '            </div>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '</div>\n' +
-    '\n' +
-    '<script type="text/javascript">\n' +
-    '    $(document).ready(function () {\n' +
-    '        $(".select-tags").select2({\n' +
-    '            tags: false,\n' +
-    '            theme: "bootstrap",\n' +
-    '        })\n' +
-    '\n' +
-    '        $(".select-with-search").select2({\n' +
-    '            theme: "bootstrap"\n' +
-    '        });\n' +
-    '    });\n' +
-    '</script>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/order/templates/Order.html',
-    ' \n' +
-    '<div class="inn-body-section pad-bot-55">\n' +
-    '    <div class="container">\n' +
-    '\n' +
-    '        <div class="row">\n' +
-    '            <!--TYPOGRAPHY SECTION-->\n' +
-    '            <div class="col-md-12">\n' +
-    '                <div class="head-typo typo-com">\n' +
-    '                    <h3>{{\'OrderHistory\' | translate}}</h3>\n' +
-    '\n' +
-    '                    <div ng-if="OrderList.results.length == 0">\n' +
-    '                        <span>{{\'NoOrdersAvailable\' | translate}}</span>\n' +
-    '                    </div>\n' +
-    '                    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="OrderList.results.length > 0">\n' +
-    '\n' +
-    '                        <table class="table">\n' +
-    '                            <thead>\n' +
-    '                                <tr>\n' +
-    '                                    <th>{{\'OrderCode\' | translate}}</th>\n' +
-    '                                    <th>{{\'Date\' | translate}}</th>\n' +
-    '                                    <th>{{\'startDate\' | translate}}</th>\n' +
-    '                                    <th>{{\'Price\' | translate}}</th>\n' +
-    '                                    <th>{{\'Delvery/Takeaway\' | translate}}</th>\n' +
-    '                                    <th>{{\'Ordertype\' | translate}}</th>\n' +
-    '                                    <th>{{\'status\' | translate}}</th>\n' +
-    '                                    <th></th>\n' +
-    '                                </tr>\n' +
-    '                            </thead>\n' +
-    '                            <tbody>\n' +
-    '                                <tr ng-repeat="order in OrderList.results">\n' +
-    '                                    <td data-title="Name">#{{order.orderCode}} </td>\n' +
-    '\n' +
-    '                                    <td data-title="Name">{{order.orderDate | date : "d/MMM/yy h:mm a" }} </td>\n' +
-    '                                    <td data-title="Name">{{order.orderStartDate | date : "d/MMM/yy h:mm a"}} </td>\n' +
-    '                                    <td data-title="Name"> \n' +
-    '                                        <h4>{{ order.price}}</h4>\n' +
-    '                                    </td>\n' +
-    '                                    <td data-title="Name">\n' +
-    '                                        <img ng-if="order.isDelivery == true" src="assets\\img\\delivery.png"\n' +
-    '                                            title="delivery">\n' +
-    '                                        <img ng-if="order.isDelivery == false" src="assets\\img\\takeaway.png"\n' +
-    '                                            title="take away" style="width: 44px;height: 39px;">\n' +
-    '                                    </td>\n' +
-    '\n' +
-    '                                    <td data-title="Name">\n' +
-    '                                        <img ng-if="order.type == 0" src="assets\\img\\program.png" title="program">\n' +
-    '                                        <img ng-if="order.type == 1" src="assets\\img\\meal.png" title="meal">\n' +
-    '                                        <img ng-if="order.type == 2" src="assets\\img\\item.png" title="item">\n' +
-    '                                    </td>\n' +
-    '                                    <td data-title="orderStatus"> \n' +
-    '                                        <span class="ov-yes" ng-if="order.orderStatus == 0"> {{\'Open\' | translate}}</span>\n' +
-    '                                        <span class="ov-yes" ng-if="order.orderStatus == 1">{{\'Pending\' | translate}}</span>\n' +
-    '                                        <span class="ov-yes" ng-if="order.orderStatus == 2">{{\'Prepering\' | translate}}</span>\n' +
-    '                                        <span class="ov-yes" ng-if="order.orderStatus == 3">{{\'OnTheWay\' | translate}}</span>\n' +
-    '                                        <span class="ov-yes" ng-if="order.orderStatus == 4">{{\'Deliverd\' | translate}}</span>\n' +
-    '                                        <span class="ov-yes" ng-if="order.orderStatus == 5">{{\'NotDeliverd\' | translate}}</span>\n' +
-    '                                        <span class="ov-yes" ng-if="order.orderStatus == 6">{{\'KitchenFinished\' | translate}}</span>\n' +
-    '                                    </td>\n' +
-    '                                    \n' +
-    '                                    <td> <a ng-if="!order.isProgram" style="cursor: pointer;"\n' +
-    '                                            ng-click="$state.go(\'orderDetails\', {id: order.orderDetails[0].mealId});"\n' +
-    '                                            class="cursorPointer">{{\'ItemsBtn\'|translate}}</a>\n' +
-    '                                        <a ng-if="order.isProgram" style="cursor: pointer;"\n' +
-    '                                            ng-click="$state.go(\'orderProgramDetails\', {programId: order.orderDetails[0].programId});"\n' +
-    '                                            class="cursorPointer">{{\'ItemsBtn\'|translate}}</a>\n' +
-    '                                    </td>\n' +
-    '\n' +
-    '                                </tr>\n' +
-    '                            </tbody>\n' +
-    '                        </table>\n' +
-    '                    </div>\n' +
-    '                    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
-    '                        paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"\n' +
-    '                        hide-if-empty="true" disabled-class="hide">\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '            </div>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/order/templates/OrderDetails.html',
-    '<div class="inn-banner">\n' +
-    '    <div class="container">\n' +
-    '        <div class="row">\n' +
-    '            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut\n' +
-    '                laoreet.\n' +
-    '                <p>\n' +
-    '                    <ul>\n' +
-    '                        <li><a href="$state.go(\'homePage\');">Home</a>\n' +
-    '                        </li> \n' +
-    '                    </ul>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '</div>\n' +
-    '<div class="inn-body-section pad-bot-55">\n' +
-    '    <div class="container">\n' +
-    '\n' +
-    '        <div class="row">\n' +
-    '            <!--TYPOGRAPHY SECTION-->\n' +
-    '            <div class="col-md-12">\n' +
-    '                <div class="hp-section">\n' +
-    '                    <div class="hp-sub-tit">\n' +
-    '                        <h4>\n' +
-    '                            <span>{{\'MealDetails\' | translate}}</span>\n' +
-    '                        </h4> \n' +
-    '                    </div>\n' +
-    '                    <div class="hp-over">\n' +
-    '                        <ul class="nav nav-tabs hp-over-nav">\n' +
-    '                            <li class="active">\n' +
-    '                                <a data-toggle="tab" data-target="#home" style="cursor: pointer;">\n' +
-    '                                    <img src="/assets/img/cropped-favicon-32x32.png" alt="">\n' +
-    '                                    <span class="tab-hide">{{\'Details\' | translate}}</span>\n' +
-    '                                </a>\n' +
-    '                            </li>\n' +
-    '                            <li>\n' +
-    '                                <a data-toggle="tab" data-target="#menu1" style="cursor: pointer;">\n' +
-    '                                    <img src="/assets/img/cropped-favicon-32x32.png" alt="">\n' +
-    '                                    <span class="tab-hide">{{\'Summary\' | translate}}</span>\n' +
-    '                                </a>\n' +
-    '                            </li> \n' +
-    '                        </ul>\n' +
-    '                        <div class="tab-content">\n' +
-    '                            <div id="home" class="tab-pane fade in active tab-space">\n' +
-    '                                <div\n' +
-    '                                    class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                                    <label for="first-name">{{\'Items\' | translate}}</label>\n' +
-    '                                    <ul>\n' +
-    '                                        <li ng-repeat="detail in OrderMealPrepService.mealDetails">\n' +
-    '                                            <!-- {{detail}} -->\n' +
-    '                                            <div class="res-menu">\n' +
-    '                                                <!-- {{item.itemNameDictionary[selectedLanguage]}} -->\n' +
-    '                                                <img src="/assets/img/meal.jpeg" alt="" />\n' +
-    '                                                <h3> {{detail.item.itemNameDictionary[selectedLanguage]}}\n' +
-    '                                                    <span>{{detail.item.price}}</span>\n' +
-    '                                                </h3>\n' +
-    '                                                <span\n' +
-    '                                                    class="menu-item">{{detail.item.itemDescriptionDictionary[selectedLanguage] }}</span>\n' +
-    '                                                <!-- | limitTo:10 -->\n' +
-    '                                            </div>\n' +
-    '\n' +
-    '                                        </li>\n' +
-    '                                    </ul>\n' +
-    '                                </div>\n' +
-    '                            </div>\n' +
-    '                            <div id="menu1" class="tab-pane fade in   tab-space">\n' +
-    '                                <div class="hp-main-overview">\n' +
-    '                                    <ul>\n' +
-    '                                        <li>{{\'Fats\' | translate}}:\n' +
-    '                                            <span>{{fats}}</span>\n' +
-    '                                        </li>\n' +
-    '                                        <li>{{\'Carbs\' | translate}}:\n' +
-    '                                            <span>{{carbs}}</span>\n' +
-    '                                        </li>\n' +
-    '                                        <li>{{\'Protein\' | translate}}:\n' +
-    '                                            <span>{{protein}}</span>\n' +
-    '                                        </li>\n' +
-    '                                        <li>{{\'Calories\' | translate}}:\n' +
-    '                                            <span>{{calories}}</span>\n' +
-    '                                        </li>\n' +
-    '                                        <li>{{\'TotalPrice\' | translate}}:\n' +
-    '                                            <span class="ov-yes">{{OrderMealPrepService.mealPrice}}</span>\n' +
-    '                                        </li>\n' +
-    '                                    </ul>\n' +
-    '                                </div>\n' +
-    '                            </div> \n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
-    '\n' +
-    '                </div>\n' +
-    '            </div>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/order/templates/OrderProgramDetails.html',
-    '<div class="inn-banner">\n' +
-    '    <div class="container">\n' +
-    '        <div class="row">\n' +
-    '            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut\n' +
-    '                laoreet.\n' +
-    '                <p>\n' +
-    '                    <ul>\n' +
-    '                        <li><a href="$state.go(\'homePage\');">Home</a>\n' +
-    '                        </li>\n' +
-    '                    </ul>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '</div>\n' +
-    '<div class="inn-body-section pad-bot-55">\n' +
-    '    <div class="container">\n' +
-    '\n' +
-    '        <div class="row">\n' +
-    '            <!--TYPOGRAPHY SECTION-->\n' +
-    '            <div class="col-md-12">\n' +
-    '                <div class="hp-section">\n' +
-    '                    <div class="hp-sub-tit">\n' +
-    '                        <h4>\n' +
-    '                            <span>{{\'ProgramDetails\' | translate}}</span>\n' +
-    '                        </h4>\n' +
-    '                    </div>\n' +
-    '                    <div class="hp-over">\n' +
-    '                        <ul class="nav nav-tabs hp-over-nav">\n' +
-    '                            <li class="active">\n' +
-    '                                <a data-toggle="tab" data-target="#home" style="cursor: pointer;">\n' +
-    '                                    <img src="/assets/img/cropped-favicon-32x32.png" alt="">\n' +
-    '                                    <span class="tab-hide">{{\'Details\' | translate}}</span>\n' +
-    '                                </a>\n' +
-    '                            </li>\n' +
-    '                            <li>\n' +
-    '                                <a data-toggle="tab" data-target="#menu1" style="cursor: pointer;">\n' +
-    '                                    <img src="/assets/img/cropped-favicon-32x32.png" alt="">\n' +
-    '                                    <span class="tab-hide">{{\'Summary\' | translate}}</span>\n' +
-    '                                </a>\n' +
-    '                            </li>\n' +
-    '                        </ul>\n' +
-    '                        <div class="tab-content">\n' +
-    '                            <div id="home" class="tab-pane fade in active tab-space">\n' +
-    '                                <div ng-init="counterDay = 0; counterMeal = 0">\n' +
-    '                                    <div class="panel-group pmd-accordion pmd-accordion-inbox" id="accordion6"\n' +
-    '                                        role="tablist" aria-multiselectable="true">\n' +
-    '                                        <div ng-repeat="n in [].constructor(OrderprogDetailsPrepService.programDays)  track by $index"\n' +
-    '                                            class="panel panel-default">\n' +
-    '                                            <div class="panel-heading" role="tab" id="headingOne">\n' +
-    '                                                <h4 class="panel-title">\n' +
-    '                                                    <a ng-init="counterDay=counterDay+1;" data-toggle="collapse"\n' +
-    '                                                        data-parent="#accordion6" ng-init="n=false" ng-click="n=!n;"\n' +
-    '                                                        aria-expanded="true" aria-controls="collapseOne6"\n' +
-    '                                                        data-expandable="false">\n' +
-    '                                                        {{\'Day\' | translate}}  {{counterDay=$index+1}}\n' +
-    '                                                        <i\n' +
-    '                                                            class="material-icons md-dark pmd-sm pmd-accordion-arrow">keyboard_arrow_down</i>\n' +
-    '                                                    </a>\n' +
-    '                                                </h4>\n' +
-    '                                            </div>\n' +
-    '                                            <div ng-show="n == true" id="collapseOne6"\n' +
-    '                                                class="panel-collapse collapse in" role="tabpanel"\n' +
-    '                                                aria-labelledby="headingOne">\n' +
-    '                                                <div class="panel-body">\n' +
-    '                                                    <ul>\n' +
-    '\n' +
-    '                                                        <li\n' +
-    '                                                            ng-repeat="meal in [].constructor(OrderprogDetailsPrepService.noOfMeals)  track by $index">\n' +
-    '                                                            <h4>\n' +
-    '                                                                <a ng-init="counterMeal=counterMeal+1;"\n' +
-    '                                                                    ng-click="showDetails = ! showDetails;">{{\'Meal\' | translate}}\n' +
-    '                                                                     {{counterMeal=$index+1}}</a>\n' +
-    '                                                                <!-- <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="OrderprogDetailsPrepService.ShowProgramMeal(OrderprogDetailsPrepService.programDetails.programId, counterDay, counterMeal)">mode_edit</i> -->\n' +
-    '                                                            </h4>\n' +
-    '                                                            <div ng-show="showDetails">\n' +
-    '                                                                <div\n' +
-    '                                                                    class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                                                                    <label\n' +
-    '                                                                        for="first-name">{{\'Items\' | translate}}</label>\n' +
-    '                                                                    <ul>\n' +
-    '                                                                        <li\n' +
-    '                                                                            ng-repeat="detail in OrderprogDetailsPrepService.programDetails | filter:{dayNumber:counterDay, mealNumberPerDay: counterMeal} ">\n' +
-    '                                                                            <div class="res-menu"\n' +
-    '                                                                                ng-repeat="item in OrderprogDetailsPrepService.items |filter :{itemId:detail.itemId}">\n' +
-    '                                                                                <!-- {{item.itemNameDictionary[selectedLanguage]}} -->\n' +
-    '                                                                                <img src="/assets/img/meal.jpeg"\n' +
-    '                                                                                    alt="" />\n' +
-    '                                                                                <h3> {{item.itemNameDictionary[selectedLanguage]\n' +
-    '                                                                                            | limitTo:10}}\n' +
-    '                                                                                    <span>{{item.price}}</span>\n' +
-    '                                                                                </h3>\n' +
-    '                                                                                <span class="menu-item">{{item.itemDescriptionDictionary[selectedLanguage]\n' +
-    '                                                                                            | limitTo:10}}</span>\n' +
-    '                                                                            </div>\n' +
-    '\n' +
-    '                                                                        </li>\n' +
-    '                                                                    </ul>\n' +
-    '                                                                </div>\n' +
-    '                                                            </div>\n' +
-    '                                                        </li>\n' +
-    '                                                    </ul>\n' +
-    '                                                </div>\n' +
-    '                                            </div>\n' +
-    '                                        </div>\n' +
+    '                                                <!-- <span class="ov-yes">{{CustomCtrl.order.price}}</span> -->\n' +
+    '                                            </li>\n' +
+    '                                        </ul>\n' +
     '                                    </div>\n' +
     '                                </div>\n' +
-    '                            </div>\n' +
-    '                            <div id="menu1" class="tab-pane fade in   tab-space">\n' +
-    '                                <div class="hp-main-overview">\n' +
-    '                                    <ul>\n' +
-    '                                        <li>{{\'Fats\' | translate}}:\n' +
-    '                                            <span>{{fats}}</span>\n' +
-    '                                        </li>\n' +
-    '                                        <li>{{\'Carbs\' | translate}}:\n' +
-    '                                            <span>{{carbs}}</span>\n' +
-    '                                        </li>\n' +
-    '                                        <li>{{\'Protein\' | translate}}:\n' +
-    '                                            <span>{{protein}}</span>\n' +
-    '                                        </li>\n' +
-    '                                        <li>{{\'Calories\' | translate}}:\n' +
-    '                                            <span>{{calories}}</span>\n' +
-    '                                        </li>\n' +
-    '                                        <li>{{\'TotalPrice\' | translate}}:\n' +
-    '                                            <span class="ov-yes">{{OrderprogDetailsPrepService.price}}</span>\n' +
-    '                                        </li>\n' +
-    '                                    </ul>\n' +
-    '                                </div>\n' +
+    '\n' +
     '                            </div>\n' +
     '                        </div>\n' +
     '                    </div>\n' +
     '\n' +
     '                </div>\n' +
+    '            </div>\n' +
+    '            <div class="col-md-4">\n' +
+    '                <!--=========================================-->\n' +
+    '                <div class="hp-call hp-right-com">\n' +
+    '                    <div class="hp-call-in">\n' +
+    '                        <img src="/assets/img/db4.png" alt="">\n' +
+    '                        <h3>\n' +
+    '                            <span>Check Availability. Call us!</span> +01 4214 4214</h3>\n' +
+    '                        <small>We are available 24/7 Monday to Sunday</small>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '                <!--=========================================-->\n' +
+    '                <!--=========================================-->\n' +
+    '                <!--=========================================-->\n' +
+    '                <!--=========================================-->\n' +
+    '\n' +
+    '                <!--=========================================-->\n' +
     '            </div>\n' +
     '        </div>\n' +
     '    </div>\n' +
@@ -1263,6 +1045,301 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '    </div>\n' +
     '\n' +
     '    <!--END HEADER SECTION-->');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/order/templates/Order.html',
+    ' \n' +
+    '<div class="inn-body-section pad-bot-55">\n' +
+    '    <div class="container">\n' +
+    '\n' +
+    '        <div class="row">\n' +
+    '            <!--TYPOGRAPHY SECTION-->\n' +
+    '            <div class="col-md-12">\n' +
+    '                <div class="head-typo typo-com">\n' +
+    '                    <h3>{{\'OrderHistory\' | translate}}</h3>\n' +
+    '\n' +
+    '                    <div ng-if="OrderList.results.length == 0">\n' +
+    '                        <span>{{\'NoOrdersAvailable\' | translate}}</span>\n' +
+    '                    </div>\n' +
+    '                    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="OrderList.results.length > 0">\n' +
+    '\n' +
+    '                        <table class="table">\n' +
+    '                            <thead>\n' +
+    '                                <tr>\n' +
+    '                                    <th>{{\'OrderCode\' | translate}}</th>\n' +
+    '                                    <th>{{\'Date\' | translate}}</th>\n' +
+    '                                    <th>{{\'startDate\' | translate}}</th>\n' +
+    '                                    <th>{{\'Price\' | translate}}</th>\n' +
+    '                                    <th>{{\'Delvery/Takeaway\' | translate}}</th>\n' +
+    '                                    <th>{{\'Ordertype\' | translate}}</th>\n' +
+    '                                    <th>{{\'status\' | translate}}</th>\n' +
+    '                                    <th></th>\n' +
+    '                                </tr>\n' +
+    '                            </thead>\n' +
+    '                            <tbody>\n' +
+    '                                <tr ng-repeat="order in OrderList.results">\n' +
+    '                                    <td data-title="Name">#{{order.orderCode}} </td>\n' +
+    '\n' +
+    '                                    <td data-title="Name">{{order.orderDate | date : "d/MMM/yy h:mm a" }} </td>\n' +
+    '                                    <td data-title="Name">{{order.orderStartDate | date : "d/MMM/yy h:mm a"}} </td>\n' +
+    '                                    <td data-title="Name"> \n' +
+    '                                        <h4>{{ order.price}}</h4>\n' +
+    '                                    </td>\n' +
+    '                                    <td data-title="Name">\n' +
+    '                                        <img ng-if="order.isDelivery == true" src="assets\\img\\delivery.png"\n' +
+    '                                            title="delivery">\n' +
+    '                                        <img ng-if="order.isDelivery == false" src="assets\\img\\takeaway.png"\n' +
+    '                                            title="take away" style="width: 44px;height: 39px;">\n' +
+    '                                    </td>\n' +
+    '\n' +
+    '                                    <td data-title="Name">\n' +
+    '                                        <img ng-if="order.type == 0" src="assets\\img\\program.png" title="program">\n' +
+    '                                        <img ng-if="order.type == 1" src="assets\\img\\meal.png" title="meal">\n' +
+    '                                        <img ng-if="order.type == 2" src="assets\\img\\item.png" title="item">\n' +
+    '                                    </td>\n' +
+    '                                    <td data-title="orderStatus"> \n' +
+    '                                        <span class="ov-yes" ng-if="order.orderStatus == 0"> {{\'Open\' | translate}}</span>\n' +
+    '                                        <span class="ov-yes" ng-if="order.orderStatus == 1">{{\'Pending\' | translate}}</span>\n' +
+    '                                        <span class="ov-yes" ng-if="order.orderStatus == 2">{{\'Prepering\' | translate}}</span>\n' +
+    '                                        <span class="ov-yes" ng-if="order.orderStatus == 3">{{\'OnTheWay\' | translate}}</span>\n' +
+    '                                        <span class="ov-yes" ng-if="order.orderStatus == 4">{{\'Deliverd\' | translate}}</span>\n' +
+    '                                        <span class="ov-yes" ng-if="order.orderStatus == 5">{{\'NotDeliverd\' | translate}}</span>\n' +
+    '                                        <span class="ov-yes" ng-if="order.orderStatus == 6">{{\'KitchenFinished\' | translate}}</span>\n' +
+    '                                    </td>\n' +
+    '                                    \n' +
+    '                                    <td> <a ng-if="!order.isProgram" style="cursor: pointer;"\n' +
+    '                                            ng-click="$state.go(\'orderDetails\', {id: order.orderDetails[0].mealId});"\n' +
+    '                                            class="cursorPointer">{{\'ItemsBtn\'|translate}}</a>\n' +
+    '                                        <a ng-if="order.isProgram" style="cursor: pointer;"\n' +
+    '                                            ng-click="$state.go(\'orderProgramDetails\', {programId: order.orderDetails[0].programId});"\n' +
+    '                                            class="cursorPointer">{{\'ItemsBtn\'|translate}}</a>\n' +
+    '                                    </td>\n' +
+    '\n' +
+    '                                </tr>\n' +
+    '                            </tbody>\n' +
+    '                        </table>\n' +
+    '                    </div>\n' +
+    '                    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
+    '                        paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"\n' +
+    '                        hide-if-empty="true" disabled-class="hide">\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/order/templates/OrderDetails.html',
+    ' \n' +
+    '<div class="inn-body-section pad-bot-55">\n' +
+    '    <div class="container">\n' +
+    '\n' +
+    '        <div class="row">\n' +
+    '            <!--TYPOGRAPHY SECTION-->\n' +
+    '            <div class="col-md-12">\n' +
+    '                <div class="hp-section">\n' +
+    '                    <div class="hp-sub-tit">\n' +
+    '                        <h4>\n' +
+    '                            <span>{{\'MealDetails\' | translate}}</span>\n' +
+    '                        </h4> \n' +
+    '                    </div>\n' +
+    '                    <div class="hp-over">\n' +
+    '                        <ul class="nav nav-tabs hp-over-nav">\n' +
+    '                            <li class="active">\n' +
+    '                                <a data-toggle="tab" data-target="#home" style="cursor: pointer;">\n' +
+    '                                    <img src="/assets/img/cropped-favicon-32x32.png" alt="">\n' +
+    '                                    <span class="tab-hide">{{\'Details\' | translate}}</span>\n' +
+    '                                </a>\n' +
+    '                            </li>\n' +
+    '                            <li>\n' +
+    '                                <a data-toggle="tab" data-target="#menu1" style="cursor: pointer;">\n' +
+    '                                    <img src="/assets/img/cropped-favicon-32x32.png" alt="">\n' +
+    '                                    <span class="tab-hide">{{\'Summary\' | translate}}</span>\n' +
+    '                                </a>\n' +
+    '                            </li> \n' +
+    '                        </ul>\n' +
+    '                        <div class="tab-content">\n' +
+    '                            <div id="home" class="tab-pane fade in active tab-space">\n' +
+    '                                <div\n' +
+    '                                    class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                                    <label for="first-name">{{\'Items\' | translate}}</label>\n' +
+    '                                    <ul>\n' +
+    '                                        <li ng-repeat="detail in OrderMealPrepService.mealDetails">\n' +
+    '                                            <!-- {{detail}} -->\n' +
+    '                                            <div class="res-menu">\n' +
+    '                                                <!-- {{item.itemNameDictionary[selectedLanguage]}} -->\n' +
+    '                                                <img src="/assets/img/meal.jpeg" alt="" />\n' +
+    '                                                <h3> {{detail.item.itemNameDictionary[selectedLanguage]}}\n' +
+    '                                                    <span>{{detail.item.price}}</span>\n' +
+    '                                                </h3>\n' +
+    '                                                <span\n' +
+    '                                                    class="menu-item">{{detail.item.itemDescriptionDictionary[selectedLanguage] }}</span>\n' +
+    '                                                <!-- | limitTo:10 -->\n' +
+    '                                            </div>\n' +
+    '\n' +
+    '                                        </li>\n' +
+    '                                    </ul>\n' +
+    '                                </div>\n' +
+    '                            </div>\n' +
+    '                            <div id="menu1" class="tab-pane fade in   tab-space">\n' +
+    '                                <div class="hp-main-overview">\n' +
+    '                                    <ul>\n' +
+    '                                        <li>{{\'Fats\' | translate}}:\n' +
+    '                                            <span>{{fats}}</span>\n' +
+    '                                        </li>\n' +
+    '                                        <li>{{\'Carbs\' | translate}}:\n' +
+    '                                            <span>{{carbs}}</span>\n' +
+    '                                        </li>\n' +
+    '                                        <li>{{\'Protein\' | translate}}:\n' +
+    '                                            <span>{{protein}}</span>\n' +
+    '                                        </li>\n' +
+    '                                        <li>{{\'Calories\' | translate}}:\n' +
+    '                                            <span>{{calories}}</span>\n' +
+    '                                        </li>\n' +
+    '                                        <li>{{\'TotalPrice\' | translate}}:\n' +
+    '                                            <span class="ov-yes">{{OrderMealPrepService.mealPrice}}</span>\n' +
+    '                                        </li>\n' +
+    '                                    </ul>\n' +
+    '                                </div>\n' +
+    '                            </div> \n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/order/templates/OrderProgramDetails.html',
+    ' \n' +
+    '<div class="inn-body-section pad-bot-55">\n' +
+    '    <div class="container">\n' +
+    '\n' +
+    '        <div class="row">\n' +
+    '            <!--TYPOGRAPHY SECTION-->\n' +
+    '            <div class="col-md-12">\n' +
+    '                <div class="hp-section">\n' +
+    '                    <div class="hp-sub-tit">\n' +
+    '                        <h4>\n' +
+    '                            <span>{{\'ProgramDetails\' | translate}}</span>\n' +
+    '                        </h4>\n' +
+    '                    </div>\n' +
+    '                    <div class="hp-over">\n' +
+    '                        <ul class="nav nav-tabs hp-over-nav">\n' +
+    '                            <li class="active">\n' +
+    '                                <a data-toggle="tab" data-target="#home" style="cursor: pointer;">\n' +
+    '                                    <img src="/assets/img/cropped-favicon-32x32.png" alt="">\n' +
+    '                                    <span class="tab-hide">{{\'Details\' | translate}}</span>\n' +
+    '                                </a>\n' +
+    '                            </li>\n' +
+    '                            <li>\n' +
+    '                                <a data-toggle="tab" data-target="#menu1" style="cursor: pointer;">\n' +
+    '                                    <img src="/assets/img/cropped-favicon-32x32.png" alt="">\n' +
+    '                                    <span class="tab-hide">{{\'Summary\' | translate}}</span>\n' +
+    '                                </a>\n' +
+    '                            </li>\n' +
+    '                        </ul>\n' +
+    '                        <div class="tab-content">\n' +
+    '                            <div id="home" class="tab-pane fade in active tab-space">\n' +
+    '                                <div ng-init="counterDay = 0; counterMeal = 0">\n' +
+    '                                    <div class="panel-group pmd-accordion pmd-accordion-inbox" id="accordion6"\n' +
+    '                                        role="tablist" aria-multiselectable="true">\n' +
+    '                                        <div ng-repeat="n in [].constructor(OrderprogDetailsPrepService.programDays)  track by $index"\n' +
+    '                                            class="panel panel-default">\n' +
+    '                                            <div class="panel-heading" role="tab" id="headingOne">\n' +
+    '                                                <h4 class="panel-title">\n' +
+    '                                                    <a ng-init="counterDay=counterDay+1;" data-toggle="collapse"\n' +
+    '                                                        data-parent="#accordion6" ng-init="n=false" ng-click="n=!n;"\n' +
+    '                                                        aria-expanded="true" aria-controls="collapseOne6"\n' +
+    '                                                        data-expandable="false">\n' +
+    '                                                        {{\'Day\' | translate}}  {{counterDay=$index+1}}\n' +
+    '                                                        <i\n' +
+    '                                                            class="material-icons md-dark pmd-sm pmd-accordion-arrow">keyboard_arrow_down</i>\n' +
+    '                                                    </a>\n' +
+    '                                                </h4>\n' +
+    '                                            </div>\n' +
+    '                                            <div ng-show="n == true" id="collapseOne6"\n' +
+    '                                                class="panel-collapse collapse in" role="tabpanel"\n' +
+    '                                                aria-labelledby="headingOne">\n' +
+    '                                                <div class="panel-body">\n' +
+    '                                                    <ul>\n' +
+    '\n' +
+    '                                                        <li\n' +
+    '                                                            ng-repeat="meal in [].constructor(OrderprogDetailsPrepService.noOfMeals)  track by $index">\n' +
+    '                                                            <h4>\n' +
+    '                                                                <a ng-init="counterMeal=counterMeal+1;"\n' +
+    '                                                                    ng-click="showDetails = ! showDetails;">{{\'Meal\' | translate}}\n' +
+    '                                                                     {{counterMeal=$index+1}}</a>\n' +
+    '                                                                <!-- <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="OrderprogDetailsPrepService.ShowProgramMeal(OrderprogDetailsPrepService.programDetails.programId, counterDay, counterMeal)">mode_edit</i> -->\n' +
+    '                                                            </h4>\n' +
+    '                                                            <div ng-show="showDetails">\n' +
+    '                                                                <div\n' +
+    '                                                                    class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                                                                    <label\n' +
+    '                                                                        for="first-name">{{\'Items\' | translate}}</label>\n' +
+    '                                                                    <ul>\n' +
+    '                                                                        <li\n' +
+    '                                                                            ng-repeat="detail in OrderprogDetailsPrepService.programDetails | filter:{dayNumber:counterDay, mealNumberPerDay: counterMeal} ">\n' +
+    '                                                                            <div class="res-menu"\n' +
+    '                                                                                ng-repeat="item in OrderprogDetailsPrepService.items |filter :{itemId:detail.itemId}">\n' +
+    '                                                                                <!-- {{item.itemNameDictionary[selectedLanguage]}} -->\n' +
+    '                                                                                <img src="/assets/img/meal.jpeg"\n' +
+    '                                                                                    alt="" />\n' +
+    '                                                                                <h3> {{item.itemNameDictionary[selectedLanguage]\n' +
+    '                                                                                            | limitTo:10}}\n' +
+    '                                                                                    <span>{{item.price}}</span>\n' +
+    '                                                                                </h3>\n' +
+    '                                                                                <span class="menu-item">{{item.itemDescriptionDictionary[selectedLanguage]\n' +
+    '                                                                                            | limitTo:10}}</span>\n' +
+    '                                                                            </div>\n' +
+    '\n' +
+    '                                                                        </li>\n' +
+    '                                                                    </ul>\n' +
+    '                                                                </div>\n' +
+    '                                                            </div>\n' +
+    '                                                        </li>\n' +
+    '                                                    </ul>\n' +
+    '                                                </div>\n' +
+    '                                            </div>\n' +
+    '                                        </div>\n' +
+    '                                    </div>\n' +
+    '                                </div>\n' +
+    '                            </div>\n' +
+    '                            <div id="menu1" class="tab-pane fade in   tab-space">\n' +
+    '                                <div class="hp-main-overview">\n' +
+    '                                    <ul>\n' +
+    '                                        <li>{{\'Fats\' | translate}}:\n' +
+    '                                            <span>{{fats}}</span>\n' +
+    '                                        </li>\n' +
+    '                                        <li>{{\'Carbs\' | translate}}:\n' +
+    '                                            <span>{{carbs}}</span>\n' +
+    '                                        </li>\n' +
+    '                                        <li>{{\'Protein\' | translate}}:\n' +
+    '                                            <span>{{protein}}</span>\n' +
+    '                                        </li>\n' +
+    '                                        <li>{{\'Calories\' | translate}}:\n' +
+    '                                            <span>{{calories}}</span>\n' +
+    '                                        </li>\n' +
+    '                                        <li>{{\'TotalPrice\' | translate}}:\n' +
+    '                                            <span class="ov-yes">{{OrderprogDetailsPrepService.price}}</span>\n' +
+    '                                        </li>\n' +
+    '                                    </ul>\n' +
+    '                                </div>\n' +
+    '                            </div>\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '</div>');
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
@@ -2483,16 +2560,16 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '\n' +
     '						<div class="row">\n' +
     '							<div class="col s6">\n' +
-    '								<span>\n' +
+    '								<p>\n' +
     '									<input type="checkbox" id="test5" ng-model="isBreakFast" />\n' +
     '									<label for="test5" class="labelCheckBox">{{\'IsBreakFast\' | translate}}</label>\n' +
-    '								</span>\n' +
+    '								</p>\n' +
     '							</div>\n' +
     '							<div class="col s6">\n' +
-    '								<span>\n' +
+    '								<p>\n' +
     '									<input type="checkbox" id="test6" ng-model="isSnack" />\n' +
     '									<label for="test6" class="labelCheckBox">{{\'IsSnack\' | translate}}</label>\n' +
-    '								</span>\n' +
+    '								</p>\n' +
     '							</div>\n' +
     '						</div>\n' +
     '						<div class="row">\n' +

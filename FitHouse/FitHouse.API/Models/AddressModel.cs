@@ -14,5 +14,9 @@ namespace FitHouse.API.Models
         public long UserId { get; set; }
 
         public long? BranchId { get; set; }
+        public long? AreaId { get; set; }
+        public long? CountryId { get; set; }
+        public long? RegionId { get; set; }
+        public long? CityId { get; set; }
     }
 }
