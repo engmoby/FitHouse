@@ -12,7 +12,6 @@
     function editUserController($rootScope, blockUI, $scope, $filter, $translate, $state, UserResource,
         $localStorage, authorizationService, appCONSTANTS, EditUserPrepService, ToastService,
         CountriesPrepService, RegionResource, CityResource, AreaResource) {
-        debugger;
         blockUI.start("Loading...");
 
         $scope.isPaneShown = true;
@@ -27,6 +26,7 @@
         $scope.userObj.confirmPassword = $scope.userObj.password;
         console.log($scope.userObj);
         init();
+        blockUI.stop();
 
         $scope.Updateclient = function () {
             blockUI.start("Loading...");
@@ -57,7 +57,6 @@
                 }
             );
         }
-        blockUI.stop();
 
 
         function init() {
@@ -67,9 +66,9 @@
             //   vm.selectedCountry = $scope.userObj.branch.area.city.region.country;// { countryId: 0, titleDictionary: { "en-us": "All Countries", "ar-eg": "كل البلاد" } };
             vm.counties = vm.counties.concat(CountriesPrepService.results)
             var indexCountry = vm.counties.indexOf($filter('filter')(vm.counties, { 'countryId': $scope.userObj.countryId }, true)[0]);
-            vm.selectedCountryId = vm.counties[indexCountry];
+            vm.selectedCountryId = $scope.userObj.countryId;//vm.counties[indexCountry];
 
-           // vm.counties.push(vm.selectedCountry);
+            // vm.counties.push(vm.selectedCountry);
             //   vm.selectedRegion = $scope.userObj.branch.area.city.region;// { regionId: 0, titleDictionary: { "en-us": "All Regions", "ar-eg": "كل الأقاليم" } };
             vm.regions = [];
             vm.regions.push(vm.selectedRegion);
@@ -106,7 +105,7 @@
                 vm.regions = vm.regions.concat(results.results);
 
                 var indexregion = vm.regions.indexOf($filter('filter')(vm.regions, { 'regionId': $scope.userObj.regionId }, true)[0]);
-                vm.selectedRegion = vm.regions[indexregion];
+                vm.selectedRegionId = $scope.userObj.regionId;// vm.regions[indexregion];
                 funcregionChange();
             },
                 function (data, status) {
@@ -120,7 +119,7 @@
             funcCountryChange();
         }
         function funcregionChange() {
-            if (vm.selectedRegion.regionId != undefined) {
+            if (vm.selectedRegionId != undefined) {
                 vm.cities = [];
                 vm.areaList = [];
                 vm.selectedCity = { cityId: 0, titleDictionary: { "en-us": "All Cities", "ar-eg": "كل المدن" } };
@@ -131,12 +130,13 @@
                 vm.branchList = [];
                 vm.selectedBranch = { branchId: 0, titleDictionary: { "en-us": "All Branches", "ar-eg": "كل الفروع" } };
                 vm.branchList.push(vm.selectedBranch);
-                CityResource.getAllCities({ regionId: vm.selectedRegion.regionId, pageSize: 0 }).$promise.then(function (results) {
+                CityResource.getAllCities({ regionId: vm.selectedRegionId, pageSize: 0 }).$promise.then(function (results) {
 
                     vm.cities = vm.cities.concat(results.results);
 
                     var indexcity = vm.cities.indexOf($filter('filter')(vm.cities, { 'cityId': $scope.userObj.cityId }, true)[0]);
-                    vm.selectedCity = vm.cities[indexcity];
+                    debugger;
+                    vm.selectedCityId = $scope.userObj.cityId;//vm.cities[indexcity];
                     funcCityChange();
                 },
                     function (data, status) {
@@ -150,7 +150,7 @@
 
         function funcCityChange() {
 
-            if (vm.selectedCity.cityId != undefined) {
+            if (vm.selectedCityId != undefined) {
                 vm.areaList = [];
                 vm.selectedArea = { areaId: 0, titleDictionary: { "en-us": "All Areas", "ar-eg": "كل المناطق" } };
                 vm.areaList.push(vm.selectedArea);
@@ -158,11 +158,11 @@
                 vm.branchList = [];
                 vm.selectedBranch = { branchId: 0, titleDictionary: { "en-us": "All Branches", "ar-eg": "كل الفروع" } };
                 vm.branchList.push(vm.selectedBranch);
-                AreaResource.getAllAreas({ cityId: vm.selectedCity.cityId, pageSize: 0 }).$promise.then(function (results) {
+                AreaResource.getAllAreas({ cityId: vm.selectedCityId, pageSize: 0 }).$promise.then(function (results) {
                     vm.areaList = vm.areaList.concat(results.results);
 
                     var indexarea = vm.areaList.indexOf($filter('filter')(vm.areaList, { 'areaId': $scope.userObj.areaId }, true)[0]);
-                    vm.selectedArea = vm.areaList[indexarea];
+                    vm.selectedAreaId = $scope.userObj.areaId;//vm.areaList[indexarea];
                     funcAreaChange();
 
                 },

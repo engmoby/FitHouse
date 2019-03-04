@@ -11,26 +11,7 @@
             angular.element(document.getElementById('startdate')).scope().dateChange();
         });
     });
-</script>
-<!--TOP BANNER-->
-<div class="inn-banner">
-    <div class="container">
-        <div class="row">
-            <h4>All Room Types</h4>
-            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet.
-                <p>
-                    <ul>
-                        <li>
-                            <a href="#">{{'Home' | translate}}</a>
-                        </li>
-                        <li>
-                            <a href="#">{{'Meals' | translate}}</a>
-                        </li>
-                    </ul>
-        </div>
-    </div>
-</div>
-
+</script> 
 <div class="hp-banner">
     <img src="images/detailed-banner.jpg" alt=""> </div>
 
@@ -141,24 +122,24 @@
                                                         ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in counties">
                                                     </select>
                                                 </div>
-                                                <div class="input-field col s6">
+                                                <div class="input-field col s6" ng-show="selectedCountryId > 0"> 
                                                     <select style="width:100% !important" ng-required="selectedCountryId > 0" class="select-tags form-control pmd-select2-tags"
                                                         ng-change="regionChange()" ng-model="selectedRegionId" ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in regions">
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="row">
-                                                <div class="input-field col s6">
+                                                <div class="input-field col s6" ng-show="selectedRegionId > 0">
                                                     <select ng-required="selectedRegionId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"
                                                         ng-change="cityChange()" ng-model="selectedCityId" ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in cities">
                                                     </select>
                                                 </div>
-                                                <div class="input-field col s6">
+                                                <div class="input-field col s6" ng-show="selectedCityId > 0">
                                                     <select ng-required="selectedCityId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"
                                                         ng-change="areaChange()" ng-model="selectedAreaId" ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in area">
                                                     </select>
                                                 </div>
-                                                <div class="input-field col s6">
+                                                <div class="input-field col s6" ng-show="selectedAreaId > 0">
                                                     <select ng-required="selectedAreaId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"
                                                         ng-change="branchChange()" ng-model="selectedBranchId" ng-options="group.branchId as group.titleDictionary[selectedLanguage] for group in branchList">
                                                     </select>
@@ -171,9 +152,7 @@
                                                 <!-- ng-disabled="orderForm.$invalid || !dateIsValid || addressValidation == false" -->
 
 
-                                                Price:{{ mealPrepService.mealPrice}}
-                                                <br> Delivery:{{ DeliveryFees}}
-                                                <br>Total :{{ Total}}
+                                                Price:{{ mealPrepService.mealPrice}} 
                                                 <br>
                                                 <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="orderForm.$invalid || selectedBranchId <= 0 && !dateIsValid"
                                                     class="btn pmd-ripple-effect btn-primary" type="button" ng-click="Order();">

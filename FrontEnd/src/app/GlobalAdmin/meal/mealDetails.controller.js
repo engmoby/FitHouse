@@ -86,7 +86,7 @@
                     $scope.dateIsValid = true;
                 }
                 else {
-                    alert('Given date is not greater than the current date.');
+                   // alert('Given date is not greater than the current date.');
                     //$scope.dateIsValid = false;
 
                 }

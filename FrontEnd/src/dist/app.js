@@ -688,10 +688,10 @@
 
 	angular
 		.module('home')
-		.controller('CustomController', ['$scope', '$filter', '$state', 'UserAddressesResource', 'BranchResource', '$translate', 'RegionResource', 'CityResource',
+		.controller('CustomController', ['$scope', '$filter', '$timeout', '$state', 'UserAddressesResource', 'BranchResource', '$translate', 'RegionResource', 'CityResource',
 			'AreaResource', 'CountriesPrepService', 'CustomResource', 'itemsPrepService', 'ToastService', CustomController])
 
-	function CustomController($scope, $filter, $state, UserAddressesResource, BranchResource, $translate, RegionResource, CityResource, AreaResource, CountriesPrepService,
+	function CustomController($scope, $filter, $timeout, $state, UserAddressesResource, BranchResource, $translate, RegionResource, CityResource, AreaResource, CountriesPrepService,
 		CustomResource, itemsPrepService, ToastService) {
 
 		var vm = this;
@@ -711,7 +711,21 @@
 		vm.order = JSON.parse(localStorage.getItem("OrderSummary"));
 		vm.Total = 0;
 		vm.DeliveryFees = 0;
-
+		debugger;
+		if (vm.order != null) {
+			$timeout(function () {
+				vm.order = JSON.parse(localStorage.getItem("OrderSummary"));
+				localStorage.removeItem("OrderSummary");
+				localStorage.removeItem("itemDatetime");
+				localStorage.removeItem("isSnack");
+				localStorage.removeItem("isBreakFast");
+				localStorage.removeItem("dayList");
+				localStorage.removeItem("mealPerDay");
+				localStorage.removeItem("programDaysCount");
+				localStorage.removeItem("ProgramDiscount");
+				$state.go('homePage')
+			}, 5000);
+		}
 		$scope.getData = function (itemModel, day, meal) {
 
 			var differntMeal = $filter('filter')(vm.itemList, x => (x.dayNumber == day && x.mealNumberPerDay != meal) || (x.dayNumber != day));
@@ -905,7 +919,7 @@
 		}
 		function GetBranchDelivery() {
 			var temp = new BranchResource();
-            temp.$getBranch({ branchId: vm.selectedBranchId }).then(function (results) {
+			temp.$getBranch({ branchId: vm.selectedBranchId }).then(function (results) {
 				vm.DeliveryFees = results.deliveryPrice;
 
 			},
@@ -1145,7 +1159,6 @@
                     $scope.dateIsValid = true;
                 }
                 else {
-                    alert('Given date is not greater than the current date.');
 
                 }
             }
@@ -1826,6 +1839,131 @@
 
     angular
         .module('home')
+        .filter('range', function () {
+            return function (input, total) {
+                total = parseInt(total);
+
+                for (var i = 0; i < total; i++) {
+                    input.push(i);
+                }
+
+                return input;
+            }
+        })
+        .controller('homePageController', ['$scope', '$state', '$stateParams', '$translate','blockUI', 'appCONSTANTS', 'mealsPrepService', 'programPrepService', 'settingsPrepService'
+            , 'daysPrepService', homePageController])
+
+    function homePageController($scope, $state, $stateParams, $translate, blockUI,appCONSTANTS, mealsPrepService, programPrepService
+        , settingsPrepService, daysPrepService) {
+            blockUI.start($translate.instant('loading'));
+
+        $scope.mealsPrepService = mealsPrepService.results;
+        $scope.programPrepService = programPrepService.results;
+        $scope.settingsPrepService = settingsPrepService;
+        $scope.dayList = daysPrepService;
+		$scope.SelectedDays = [];
+        blockUI.stop();
+        $scope.isSnack = false;
+        $scope.isBreakFast = false;
+
+        $scope.submitCustomise = function () {
+            localStorage.setItem('mealPerDay', $scope.mealPerDay);
+            localStorage.setItem('programDaysCount', $scope.programDaysCount);
+            localStorage.setItem('dayList', JSON.stringify($scope.SelectedDays));
+            localStorage.setItem('isBreakFast', $scope.isBreakFast);
+            localStorage.setItem('isSnack', $scope.isSnack);
+            localStorage.setItem('itemDatetime', $scope.itemDatetime);
+            localStorage.setItem('ProgramDiscount', $scope.settingsPrepService.programDiscount);
+            $state.go('Custom');
+        }
+
+        $scope.style = function () {
+            return {
+                'background': 'url(https://fithouseksa.com/wp-content/uploads/2018/07/fat-running.png) no-repeat',
+                'background-attachment': 'fixed',
+                'background-size': 'cover',
+                'width': '100%',
+                'width': '100%'
+            };
+        }
+
+    }
+
+}
+    ());
+(function () {
+  angular
+    .module('home')
+    .factory('AboutUsResource', ['$resource', 'appCONSTANTS', AboutUsResource])
+    .factory('ContactUsResource', ['$resource', 'appCONSTANTS', ContactUsResource])
+    .factory('HomeResource', ['$resource', 'appCONSTANTS', HomeResource])
+    .factory('LeadershipResource', ['$resource', 'appCONSTANTS', LeadershipResource])
+    .factory('GetMealsResource', ['$resource', 'appCONSTANTS', GetMealsResource])
+    .factory('GetSettingsResource', ['$resource', 'appCONSTANTS', GetSettingsResource])
+    .factory('GetProgramResource', ['$resource', 'appCONSTANTS', GetProgramResource])
+    .factory('GetDaysResource', ['$resource', 'appCONSTANTS', GetDaysResource])
+
+    ;
+
+
+
+  function GetDaysResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'Day/GetAllDays', {}, {
+      gatAllDays: { method: 'GET', useToken: true, isArray: true }
+    })
+  }
+
+  function GetSettingsResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'Setting/GetSetting', {}, {
+      getAllSettings: { method: 'GET', useToken: true }
+    })
+  }
+
+  function AboutUsResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'AboutUs', {}, {
+      getAboutUs: { method: 'GET', useToken: true }
+    })
+  }
+
+  function GetProgramResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'Program', {}, {
+      gatAllPrograms: { method: 'GET', useToken: true }
+    })
+  }
+
+
+  function ContactUsResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'ContactUs', {}, {
+      getContactUs: { method: 'GET', useToken: true }
+    })
+  }
+
+  function HomeResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'Home', {}, {
+      getHome: { method: 'GET', useToken: true }
+    })
+  }
+
+  function LeadershipResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'OurTeams', {}, {
+      getLeadership: { method: 'GET', useToken: true, isArray: true }
+    })
+  }
+
+  function GetMealsResource($resource, appCONSTANTS) {
+    return $resource(appCONSTANTS.API_URL + 'Meals/GetAllMeals', {}, {
+      getAllMeals: { method: 'GET', useToken: true, params: { lang: '@lang' } },
+    })
+  }
+
+
+}());
+
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
         .controller('editUserController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate', '$state', 'UserResource',
             '$localStorage', 'authorizationService', 'appCONSTANTS', 'EditUserPrepService',
             'ToastService', 'CountriesPrepService',
@@ -1835,7 +1973,6 @@
     function editUserController($rootScope, blockUI, $scope, $filter, $translate, $state, UserResource,
         $localStorage, authorizationService, appCONSTANTS, EditUserPrepService, ToastService,
         CountriesPrepService, RegionResource, CityResource, AreaResource) {
-        debugger;
         blockUI.start("Loading...");
 
         $scope.isPaneShown = true;
@@ -1850,6 +1987,7 @@
         $scope.userObj.confirmPassword = $scope.userObj.password;
         console.log($scope.userObj);
         init();
+        blockUI.stop();
 
         $scope.Updateclient = function () {
             blockUI.start("Loading...");
@@ -1880,7 +2018,6 @@
                 }
             );
         }
-        blockUI.stop();
 
 
         function init() {
@@ -1889,7 +2026,7 @@
             vm.counties = [];
             vm.counties = vm.counties.concat(CountriesPrepService.results)
             var indexCountry = vm.counties.indexOf($filter('filter')(vm.counties, { 'countryId': $scope.userObj.countryId }, true)[0]);
-            vm.selectedCountryId = vm.counties[indexCountry];
+            vm.selectedCountryId = $scope.userObj.countryId;
 
             vm.regions = [];
             vm.regions.push(vm.selectedRegion);
@@ -1922,7 +2059,7 @@
                 vm.regions = vm.regions.concat(results.results);
 
                 var indexregion = vm.regions.indexOf($filter('filter')(vm.regions, { 'regionId': $scope.userObj.regionId }, true)[0]);
-                vm.selectedRegion = vm.regions[indexregion];
+                vm.selectedRegionId = $scope.userObj.regionId;
                 funcregionChange();
             },
                 function (data, status) {
@@ -1935,7 +2072,7 @@
             funcCountryChange();
         }
         function funcregionChange() {
-            if (vm.selectedRegion.regionId != undefined) {
+            if (vm.selectedRegionId != undefined) {
                 vm.cities = [];
                 vm.areaList = [];
                 vm.selectedCity = { cityId: 0, titleDictionary: { "en-us": "All Cities", "ar-eg": "كل المدن" } };
@@ -1946,12 +2083,13 @@
                 vm.branchList = [];
                 vm.selectedBranch = { branchId: 0, titleDictionary: { "en-us": "All Branches", "ar-eg": "كل الفروع" } };
                 vm.branchList.push(vm.selectedBranch);
-                CityResource.getAllCities({ regionId: vm.selectedRegion.regionId, pageSize: 0 }).$promise.then(function (results) {
+                CityResource.getAllCities({ regionId: vm.selectedRegionId, pageSize: 0 }).$promise.then(function (results) {
 
                     vm.cities = vm.cities.concat(results.results);
 
                     var indexcity = vm.cities.indexOf($filter('filter')(vm.cities, { 'cityId': $scope.userObj.cityId }, true)[0]);
-                    vm.selectedCity = vm.cities[indexcity];
+                    debugger;
+                    vm.selectedCityId = $scope.userObj.cityId;
                     funcCityChange();
                 },
                     function (data, status) {
@@ -1965,7 +2103,7 @@
 
         function funcCityChange() {
 
-            if (vm.selectedCity.cityId != undefined) {
+            if (vm.selectedCityId != undefined) {
                 vm.areaList = [];
                 vm.selectedArea = { areaId: 0, titleDictionary: { "en-us": "All Areas", "ar-eg": "كل المناطق" } };
                 vm.areaList.push(vm.selectedArea);
@@ -1973,11 +2111,11 @@
                 vm.branchList = [];
                 vm.selectedBranch = { branchId: 0, titleDictionary: { "en-us": "All Branches", "ar-eg": "كل الفروع" } };
                 vm.branchList.push(vm.selectedBranch);
-                AreaResource.getAllAreas({ cityId: vm.selectedCity.cityId, pageSize: 0 }).$promise.then(function (results) {
+                AreaResource.getAllAreas({ cityId: vm.selectedCityId, pageSize: 0 }).$promise.then(function (results) {
                     vm.areaList = vm.areaList.concat(results.results);
 
                     var indexarea = vm.areaList.indexOf($filter('filter')(vm.areaList, { 'areaId': $scope.userObj.areaId }, true)[0]);
-                    vm.selectedArea = vm.areaList[indexarea];
+                    vm.selectedAreaId = $scope.userObj.areaId;
                     funcAreaChange();
 
                 },
@@ -2292,128 +2430,3 @@
     }
 
 }());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .filter('range', function () {
-            return function (input, total) {
-                total = parseInt(total);
-
-                for (var i = 0; i < total; i++) {
-                    input.push(i);
-                }
-
-                return input;
-            }
-        })
-        .controller('homePageController', ['$scope', '$state', '$stateParams', '$translate','blockUI', 'appCONSTANTS', 'mealsPrepService', 'programPrepService', 'settingsPrepService'
-            , 'daysPrepService', homePageController])
-
-    function homePageController($scope, $state, $stateParams, $translate, blockUI,appCONSTANTS, mealsPrepService, programPrepService
-        , settingsPrepService, daysPrepService) {
-            blockUI.start($translate.instant('loading'));
-
-        $scope.mealsPrepService = mealsPrepService.results;
-        $scope.programPrepService = programPrepService.results;
-        $scope.settingsPrepService = settingsPrepService;
-        $scope.dayList = daysPrepService;
-		$scope.SelectedDays = [];
-        blockUI.stop();
-        $scope.isSnack = false;
-        $scope.isBreakFast = false;
-
-        $scope.submitCustomise = function () {
-            localStorage.setItem('mealPerDay', $scope.mealPerDay);
-            localStorage.setItem('programDaysCount', $scope.programDaysCount);
-            localStorage.setItem('dayList', JSON.stringify($scope.SelectedDays));
-            localStorage.setItem('isBreakFast', $scope.isBreakFast);
-            localStorage.setItem('isSnack', $scope.isSnack);
-            localStorage.setItem('itemDatetime', $scope.itemDatetime);
-            localStorage.setItem('ProgramDiscount', $scope.settingsPrepService.programDiscount);
-            $state.go('Custom');
-        }
-
-        $scope.style = function () {
-            return {
-                'background': 'url(https://fithouseksa.com/wp-content/uploads/2018/07/fat-running.png) no-repeat',
-                'background-attachment': 'fixed',
-                'background-size': 'cover',
-                'width': '100%',
-                'width': '100%'
-            };
-        }
-
-    }
-
-}
-    ());
-(function () {
-  angular
-    .module('home')
-    .factory('AboutUsResource', ['$resource', 'appCONSTANTS', AboutUsResource])
-    .factory('ContactUsResource', ['$resource', 'appCONSTANTS', ContactUsResource])
-    .factory('HomeResource', ['$resource', 'appCONSTANTS', HomeResource])
-    .factory('LeadershipResource', ['$resource', 'appCONSTANTS', LeadershipResource])
-    .factory('GetMealsResource', ['$resource', 'appCONSTANTS', GetMealsResource])
-    .factory('GetSettingsResource', ['$resource', 'appCONSTANTS', GetSettingsResource])
-    .factory('GetProgramResource', ['$resource', 'appCONSTANTS', GetProgramResource])
-    .factory('GetDaysResource', ['$resource', 'appCONSTANTS', GetDaysResource])
-
-    ;
-
-
-
-  function GetDaysResource($resource, appCONSTANTS) {
-    return $resource(appCONSTANTS.API_URL + 'Day/GetAllDays', {}, {
-      gatAllDays: { method: 'GET', useToken: true, isArray: true }
-    })
-  }
-
-  function GetSettingsResource($resource, appCONSTANTS) {
-    return $resource(appCONSTANTS.API_URL + 'Setting/GetSetting', {}, {
-      getAllSettings: { method: 'GET', useToken: true }
-    })
-  }
-
-  function AboutUsResource($resource, appCONSTANTS) {
-    return $resource(appCONSTANTS.API_URL + 'AboutUs', {}, {
-      getAboutUs: { method: 'GET', useToken: true }
-    })
-  }
-
-  function GetProgramResource($resource, appCONSTANTS) {
-    return $resource(appCONSTANTS.API_URL + 'Program', {}, {
-      gatAllPrograms: { method: 'GET', useToken: true }
-    })
-  }
-
-
-  function ContactUsResource($resource, appCONSTANTS) {
-    return $resource(appCONSTANTS.API_URL + 'ContactUs', {}, {
-      getContactUs: { method: 'GET', useToken: true }
-    })
-  }
-
-  function HomeResource($resource, appCONSTANTS) {
-    return $resource(appCONSTANTS.API_URL + 'Home', {}, {
-      getHome: { method: 'GET', useToken: true }
-    })
-  }
-
-  function LeadershipResource($resource, appCONSTANTS) {
-    return $resource(appCONSTANTS.API_URL + 'OurTeams', {}, {
-      getLeadership: { method: 'GET', useToken: true, isArray: true }
-    })
-  }
-
-  function GetMealsResource($resource, appCONSTANTS) {
-    return $resource(appCONSTANTS.API_URL + 'Meals/GetAllMeals', {}, {
-      getAllMeals: { method: 'GET', useToken: true, params: { lang: '@lang' } },
-    })
-  }
-
-
-}());
-

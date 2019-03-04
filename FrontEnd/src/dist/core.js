@@ -1,19 +1,19 @@
 (function () {
-    'use strict';
+  'use strict';
 
-    angular
-        .module('core', [
-            'ngResource',
-            'ui.router',
-            'ngStorage',
-            'permission',
-            'bw.paging',
-            //'ui.event',
-            'ngProgressLite',
-           // 'ui.bootstrap', 
-             'pascalprecht.translate',
-           'blockUI'
-        ]);
+  angular
+    .module('core', [
+      'ngResource',
+      'ui.router',
+      'ngStorage',
+      'permission',
+      'bw.paging',
+      //'ui.event',
+      'ngProgressLite',
+      // 'ui.bootstrap', 
+      'pascalprecht.translate',
+      'blockUI'
+    ]);
 }());
 ;(function() {
   'use strict';
@@ -1078,7 +1078,7 @@
             $scope.inActiveUser = false;
             $scope.user = authorizationService.getUser();
             // if ($scope.user.PermissionId[0] == 1)
-         
+            blockUI.stop();
            
             $state.go('homePage');
             // if ($scope.user.PermissionId[0] == 3)
@@ -1093,7 +1093,7 @@
 
         function loginFailed(response) {
             $scope.afterSubmit = true;
-
+            blockUI.stop();
             if (response.data == null) {
                 $scope.invalidLoginInfo = false;
                 $scope.inActiveUser = true;
