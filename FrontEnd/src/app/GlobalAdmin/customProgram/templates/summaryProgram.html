@@ -1,0 +1,86 @@
+<div class="hom-com">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-8">
+                <div class="row">
+
+                    <div class="hp-section">
+                        <div class="hp-sub-tit">
+                            <h4>
+                                <span>Order</span> Details</h4>
+                            <p>Thanks for applying in our system Thanks for applying in our system Thanks for applying in our
+                                system.</p>
+                        </div>
+                        <div class="hp-over">
+                            <ul class="nav nav-tabs hp-over-nav">
+
+                                <li>
+                                    <a data-toggle="tab" data-target="#menu1">
+                                        <img src="/assets/img/db4.png" alt="">
+                                        <span class="tab-hide">Overview</span>
+                                    </a>
+                                </li>
+                            </ul>
+                            <div class="tab-content">
+
+                                <div id="menu1" class="tab-pane fade in active tab-space">
+                                    <div class="hp-main-overview">
+                                        <ul>
+                                            <li>Order Code:
+                                                <span>#{{CustomCtrl.order.orderCode}}</span>
+                                            </li>
+                                            <li>Price:
+                                                <span>{{CustomCtrl.order.price}}</span>
+                                            </li>
+                                            <li>Type :
+                                                <span>{{'Program' | translate}}</span>
+                                            </li>
+
+                                            <!-- <li>No. of Days :
+                                                <span>{{CustomCtrl.daysCount}}</span>
+                                            </li>
+                                            <li>No. of Meals Per Day :
+                                                <span>{{CustomCtrl.mealsCount}}</span>
+                                            </li> -->
+                                            <li>Start Date :
+                                                <span>{{CustomCtrl.order.orderDate | limitTo: 10}}</span>
+                                            </li>
+                                            <li>Status :
+                                                <span class="ov-yes">{{CustomCtrl.order.orderStatus ? 'Waiting' : 'Open'}}</span>
+
+                                                <!-- <span class="ov-yes" ng-if="{{CustomCtrl.order.type ==0}}">
+                                                        Open
+                                                    </span> -->
+
+                                                <!-- <span class="ov-yes">{{CustomCtrl.order.price}}</span> -->
+                                            </li>
+                                        </ul>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-4">
+                <!--=========================================-->
+                <div class="hp-call hp-right-com">
+                    <div class="hp-call-in">
+                        <img src="/assets/img/db4.png" alt="">
+                        <h3>
+                            <span>Check Availability. Call us!</span> +01 4214 4214</h3>
+                        <small>We are available 24/7 Monday to Sunday</small>
+                    </div>
+                </div>
+                <!--=========================================-->
+                <!--=========================================-->
+                <!--=========================================-->
+                <!--=========================================-->
+
+                <!--=========================================-->
+            </div>
+        </div>
+    </div>
+</div>

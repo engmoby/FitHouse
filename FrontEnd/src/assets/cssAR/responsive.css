@@ -41,7 +41,7 @@
         display: none
     }
     .mm {
-        display: block;
+        display: block !important;
     }
     .r-com {
         width: 100% !important;
@@ -148,7 +148,7 @@
         margin-bottom: 30px;
     }
     .mm-logo a img {
-        padding: 12px 8px 4px 8px;
+        padding: 12px 8px 4px 8px !important;
     }
     .about-right {
         margin-top: 40px;
