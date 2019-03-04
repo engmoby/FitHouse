@@ -1,18 +1,4 @@
-<div class="inn-banner">
-    <div class="container">
-        <div class="row">
-            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut
-                laoreet.
-                <p>
-                    <ul>
-                        <li><a href="$state.go('homePage');">Home</a>
-                        </li>
-                        <li><a href="#"></a>Table</a>
-                        </li>
-                    </ul>
-        </div>
-    </div>
-</div>
+ 
 <div class="inn-body-section pad-bot-55">
     <div class="container">
 
@@ -36,6 +22,7 @@
                                     <th>{{'Price' | translate}}</th>
                                     <th>{{'Delvery/Takeaway' | translate}}</th>
                                     <th>{{'Ordertype' | translate}}</th>
+                                    <th>{{'status' | translate}}</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -45,8 +32,7 @@
 
                                     <td data-title="Name">{{order.orderDate | date : "d/MMM/yy h:mm a" }} </td>
                                     <td data-title="Name">{{order.orderStartDate | date : "d/MMM/yy h:mm a"}} </td>
-                                    <td data-title="Name">
-
+                                    <td data-title="Name"> 
                                         <h4>{{ order.price}}</h4>
                                     </td>
                                     <td data-title="Name">
@@ -61,6 +47,16 @@
                                         <img ng-if="order.type == 1" src="assets\img\meal.png" title="meal">
                                         <img ng-if="order.type == 2" src="assets\img\item.png" title="item">
                                     </td>
+                                    <td data-title="orderStatus"> 
+                                        <span class="ov-yes" ng-if="order.orderStatus == 0"> {{'Open' | translate}}</span>
+                                        <span class="ov-yes" ng-if="order.orderStatus == 1">{{'Pending' | translate}}</span>
+                                        <span class="ov-yes" ng-if="order.orderStatus == 2">{{'Prepering' | translate}}</span>
+                                        <span class="ov-yes" ng-if="order.orderStatus == 3">{{'OnTheWay' | translate}}</span>
+                                        <span class="ov-yes" ng-if="order.orderStatus == 4">{{'Deliverd' | translate}}</span>
+                                        <span class="ov-yes" ng-if="order.orderStatus == 5">{{'NotDeliverd' | translate}}</span>
+                                        <span class="ov-yes" ng-if="order.orderStatus == 6">{{'KitchenFinished' | translate}}</span>
+                                    </td>
+                                    
                                     <td> <a ng-if="!order.isProgram" style="cursor: pointer;"
                                             ng-click="$state.go('orderDetails', {id: order.orderDetails[0].mealId});"
                                             class="cursorPointer">{{'ItemsBtn'|translate}}</a>

@@ -3,10 +3,10 @@
 
 	angular
 		.module('home')
-		.controller('CustomController', ['$scope', '$filter', '$state', 'UserAddressesResource', 'BranchResource', '$translate', 'RegionResource', 'CityResource',
+		.controller('CustomController', ['$scope', '$filter', '$timeout', '$state', 'UserAddressesResource', 'BranchResource', '$translate', 'RegionResource', 'CityResource',
 			'AreaResource', 'CountriesPrepService', 'CustomResource', 'itemsPrepService', 'ToastService', CustomController])
 
-	function CustomController($scope, $filter, $state, UserAddressesResource, BranchResource, $translate, RegionResource, CityResource, AreaResource, CountriesPrepService,
+	function CustomController($scope, $filter, $timeout, $state, UserAddressesResource, BranchResource, $translate, RegionResource, CityResource, AreaResource, CountriesPrepService,
 		CustomResource, itemsPrepService, ToastService) {
 
 		var vm = this;
@@ -26,7 +26,22 @@
 		vm.order = JSON.parse(localStorage.getItem("OrderSummary"));
 		vm.Total = 0;
 		vm.DeliveryFees = 0;
-
+		debugger;
+		if (vm.order != null) {
+			//10 seconds delay
+			$timeout(function () {
+				vm.order = JSON.parse(localStorage.getItem("OrderSummary"));
+				localStorage.removeItem("OrderSummary");
+				localStorage.removeItem("itemDatetime");
+				localStorage.removeItem("isSnack");
+				localStorage.removeItem("isBreakFast");
+				localStorage.removeItem("dayList");
+				localStorage.removeItem("mealPerDay");
+				localStorage.removeItem("programDaysCount");
+				localStorage.removeItem("ProgramDiscount");
+				$state.go('homePage')
+			}, 5000);
+		}
 		$scope.getData = function (itemModel, day, meal) {
 
 			var differntMeal = $filter('filter')(vm.itemList, x => (x.dayNumber == day && x.mealNumberPerDay != meal) || (x.dayNumber != day));
@@ -236,7 +251,7 @@
 		}
 		function GetBranchDelivery() {
 			var temp = new BranchResource();
-            temp.$getBranch({ branchId: vm.selectedBranchId }).then(function (results) {
+			temp.$getBranch({ branchId: vm.selectedBranchId }).then(function (results) {
 				vm.DeliveryFees = results.deliveryPrice;
 				// blockUI.stop();
 

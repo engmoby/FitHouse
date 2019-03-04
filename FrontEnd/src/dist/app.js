@@ -688,10 +688,10 @@
 
 	angular
 		.module('home')
-		.controller('CustomController', ['$scope', '$filter', '$state', 'UserAddressesResource', 'BranchResource', '$translate', 'RegionResource', 'CityResource',
+		.controller('CustomController', ['$scope', '$filter', '$timeout', '$state', 'UserAddressesResource', 'BranchResource', '$translate', 'RegionResource', 'CityResource',
 			'AreaResource', 'CountriesPrepService', 'CustomResource', 'itemsPrepService', 'ToastService', CustomController])
 
-	function CustomController($scope, $filter, $state, UserAddressesResource, BranchResource, $translate, RegionResource, CityResource, AreaResource, CountriesPrepService,
+	function CustomController($scope, $filter, $timeout, $state, UserAddressesResource, BranchResource, $translate, RegionResource, CityResource, AreaResource, CountriesPrepService,
 		CustomResource, itemsPrepService, ToastService) {
 
 		var vm = this;
@@ -711,7 +711,21 @@
 		vm.order = JSON.parse(localStorage.getItem("OrderSummary"));
 		vm.Total = 0;
 		vm.DeliveryFees = 0;
-
+		debugger;
+		if (vm.order != null) {
+			$timeout(function () {
+				vm.order = JSON.parse(localStorage.getItem("OrderSummary"));
+				localStorage.removeItem("OrderSummary");
+				localStorage.removeItem("itemDatetime");
+				localStorage.removeItem("isSnack");
+				localStorage.removeItem("isBreakFast");
+				localStorage.removeItem("dayList");
+				localStorage.removeItem("mealPerDay");
+				localStorage.removeItem("programDaysCount");
+				localStorage.removeItem("ProgramDiscount");
+				$state.go('homePage')
+			}, 5000);
+		}
 		$scope.getData = function (itemModel, day, meal) {
 
 			var differntMeal = $filter('filter')(vm.itemList, x => (x.dayNumber == day && x.mealNumberPerDay != meal) || (x.dayNumber != day));
@@ -905,7 +919,7 @@
 		}
 		function GetBranchDelivery() {
 			var temp = new BranchResource();
-            temp.$getBranch({ branchId: vm.selectedBranchId }).then(function (results) {
+			temp.$getBranch({ branchId: vm.selectedBranchId }).then(function (results) {
 				vm.DeliveryFees = results.deliveryPrice;
 
 			},
@@ -1145,7 +1159,6 @@
                     $scope.dateIsValid = true;
                 }
                 else {
-                    alert('Given date is not greater than the current date.');
 
                 }
             }
@@ -1253,6 +1266,7 @@
                 $scope.branchList = $scope.branchList.concat(($filter('filter')($scope.area, { areaId: $scope.selectedAreaId }))[0].branches);
             }
         }
+        $scope.areaChanged = false;
         $scope.branchChange = function () {
             for (var i = $scope.branchList.length - 1; i >= 0; i--) {
                 if ($scope.branchList[i].branchId == 0) {
@@ -1261,6 +1275,8 @@
             }
             $scope.DeliveryFees = 0;
             $scope.Total = $scope.mealPrepService.mealPrice;
+            $scope.areaChanged = true;
+
         }
 
         $scope.Order = function () {
@@ -1583,11 +1599,11 @@
 
     angular
         .module('home')
-        .controller('programDetailsController', ['$scope', '$stateParams', '$translate', 'appCONSTANTS'
+        .controller('programDetailsController', ['$scope', '$state', '$stateParams', '$translate', 'appCONSTANTS'
             , '$filter', 'progDetailsPrepService', 'itemsssPrepService', 'OrderResource'
             , 'RegionResource', 'CityResource', 'AreaResource', 'CountriesPrepService', 'BranchResource', 'settingsPrepService', programDetailsController])
 
-    function programDetailsController($scope, $stateParams, $translate, appCONSTANTS
+    function programDetailsController($scope, $state, $stateParams, $translate, appCONSTANTS
         , $filter, progDetailsPrepService
         , itemsssPrepService, OrderResource, RegionResource, CityResource, AreaResource
         , CountriesPrepService, BranchResource, settingsPrepService) {
@@ -1595,7 +1611,7 @@
         $scope.progDetailsPrepService = progDetailsPrepService;
         $scope.settingsPrepService = settingsPrepService;
         $scope.itemsssPrepService = itemsssPrepService;
-        $scope.clientId = localStorage.getItem('ClientId');
+        $scope.clientId = $scope.user.id;
 
         $scope.counties = [];
 
@@ -1801,17 +1817,13 @@
 
             order.$createOrder().then(
                 function (data, status) {
-                    blockUI.stop();
 
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
 
-                    $state.go('callCenter');
+                    $state.go('Summary');
 
                 },
                 function (data, status) {
-                    blockUI.stop();
 
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 }
             );
         }
@@ -1835,7 +1847,6 @@
     function editUserController($rootScope, blockUI, $scope, $filter, $translate, $state, UserResource,
         $localStorage, authorizationService, appCONSTANTS, EditUserPrepService, ToastService,
         CountriesPrepService, RegionResource, CityResource, AreaResource) {
-        debugger;
         blockUI.start("Loading...");
 
         $scope.isPaneShown = true;
@@ -1850,6 +1861,7 @@
         $scope.userObj.confirmPassword = $scope.userObj.password;
         console.log($scope.userObj);
         init();
+        blockUI.stop();
 
         $scope.Updateclient = function () {
             blockUI.start("Loading...");
@@ -1880,7 +1892,6 @@
                 }
             );
         }
-        blockUI.stop();
 
 
         function init() {
@@ -1889,7 +1900,7 @@
             vm.counties = [];
             vm.counties = vm.counties.concat(CountriesPrepService.results)
             var indexCountry = vm.counties.indexOf($filter('filter')(vm.counties, { 'countryId': $scope.userObj.countryId }, true)[0]);
-            vm.selectedCountryId = vm.counties[indexCountry];
+            vm.selectedCountryId = $scope.userObj.countryId;
 
             vm.regions = [];
             vm.regions.push(vm.selectedRegion);
@@ -1922,7 +1933,7 @@
                 vm.regions = vm.regions.concat(results.results);
 
                 var indexregion = vm.regions.indexOf($filter('filter')(vm.regions, { 'regionId': $scope.userObj.regionId }, true)[0]);
-                vm.selectedRegion = vm.regions[indexregion];
+                vm.selectedRegionId = $scope.userObj.regionId;
                 funcregionChange();
             },
                 function (data, status) {
@@ -1935,7 +1946,7 @@
             funcCountryChange();
         }
         function funcregionChange() {
-            if (vm.selectedRegion.regionId != undefined) {
+            if (vm.selectedRegionId != undefined) {
                 vm.cities = [];
                 vm.areaList = [];
                 vm.selectedCity = { cityId: 0, titleDictionary: { "en-us": "All Cities", "ar-eg": "كل المدن" } };
@@ -1946,12 +1957,13 @@
                 vm.branchList = [];
                 vm.selectedBranch = { branchId: 0, titleDictionary: { "en-us": "All Branches", "ar-eg": "كل الفروع" } };
                 vm.branchList.push(vm.selectedBranch);
-                CityResource.getAllCities({ regionId: vm.selectedRegion.regionId, pageSize: 0 }).$promise.then(function (results) {
+                CityResource.getAllCities({ regionId: vm.selectedRegionId, pageSize: 0 }).$promise.then(function (results) {
 
                     vm.cities = vm.cities.concat(results.results);
 
                     var indexcity = vm.cities.indexOf($filter('filter')(vm.cities, { 'cityId': $scope.userObj.cityId }, true)[0]);
-                    vm.selectedCity = vm.cities[indexcity];
+                    debugger;
+                    vm.selectedCityId = $scope.userObj.cityId;
                     funcCityChange();
                 },
                     function (data, status) {
@@ -1965,7 +1977,7 @@
 
         function funcCityChange() {
 
-            if (vm.selectedCity.cityId != undefined) {
+            if (vm.selectedCityId != undefined) {
                 vm.areaList = [];
                 vm.selectedArea = { areaId: 0, titleDictionary: { "en-us": "All Areas", "ar-eg": "كل المناطق" } };
                 vm.areaList.push(vm.selectedArea);
@@ -1973,11 +1985,11 @@
                 vm.branchList = [];
                 vm.selectedBranch = { branchId: 0, titleDictionary: { "en-us": "All Branches", "ar-eg": "كل الفروع" } };
                 vm.branchList.push(vm.selectedBranch);
-                AreaResource.getAllAreas({ cityId: vm.selectedCity.cityId, pageSize: 0 }).$promise.then(function (results) {
+                AreaResource.getAllAreas({ cityId: vm.selectedCityId, pageSize: 0 }).$promise.then(function (results) {
                     vm.areaList = vm.areaList.concat(results.results);
 
                     var indexarea = vm.areaList.indexOf($filter('filter')(vm.areaList, { 'areaId': $scope.userObj.areaId }, true)[0]);
-                    vm.selectedArea = vm.areaList[indexarea];
+                    vm.selectedAreaId = $scope.userObj.areaId;
                     funcAreaChange();
 
                 },
