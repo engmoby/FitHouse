@@ -5978,6 +5978,231 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/setting/templates/editBranchFees.html',
+    '<div class="modal-content">\n' +
+    '    <div class="modal-header bordered">\n' +
+    '        <button class="close" type="button" ng-click="editBranchFeesCtrl.close()">×</button>\n' +
+    '        <h2 class="pmd-card-title-text">{{\'UpdateDeliveryFees\' | translate}}</h2>\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div class="modal-body">\n' +
+    '        <form class="form-horizontal" name="editFeesForm" autocomplete="off">\n' +
+    '\n' +
+    '            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                <label for="first-name">{{\'DeliveryCost\' | translate}}</label>\n' +
+    '                <input required type="number" class="mat-input form-control" name="minDays" ng-model="branch.deliveryCost"\n' +
+    '                    ng-minlength="1" ng-maxlength="2">\n' +
+    '                <div ng-messages="editFeesForm.minDays.$error" class="error">\n' +
+    '                    <div ng-if="editFeesForm.minDays.$error.required && !editFeesForm.minDays.$pristine">{{\'minDaysReqError\' | translate}}</div>\n' +
+    '                    <div ng-if="(editFeesForm.minDays.$error.minlength || editFeesForm.minDays.$error.maxlength)">{{\'minDaysLengthError\' | translate}}</div>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '\n' +
+    '            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                <label for="first-name">{{\'DeliveryPrice\' | translate}}</label>\n' +
+    '                <input required type="number" class="mat-input form-control" name="minDays" ng-model="branch.deliveryPrice"\n' +
+    '                    ng-minlength="1" ng-maxlength="2">\n' +
+    '                <div ng-messages="editFeesForm.minDays.$error" class="error">\n' +
+    '                    <div ng-if="editFeesForm.minDays.$error.required && !editFeesForm.minDays.$pristine">{{\'minDaysReqError\' | translate}}</div>\n' +
+    '                    <div ng-if="(editFeesForm.minDays.$error.minlength || editFeesForm.minDays.$error.maxlength)">{{\'minDaysLengthError\' | translate}}</div>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '        </form>\n' +
+    '        <div class="pmd-modal-action text-right">\n' +
+    '            <button ng-disabled="editFeesForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editBranchFeesCtrl.UpdateFees()">{{\'Edit\' | translate}}</button>\n' +
+    '        </div>\n' +
+    '\n' +
+    '    </div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/setting/templates/setting.html',
+    '<script type="text/javascript">\n' +
+    '    $(document).ready(function () {\n' +
+    '        $(".select-add-tags").select2({\n' +
+    '            tags: true,\n' +
+    '            theme: "bootstrap",\n' +
+    '            insertTag: function (data, tag) {\n' +
+    '                // Insert the tag at the end of the results\n' +
+    '                data.push(tag);\n' +
+    '                // console.log(data);\n' +
+    '            }\n' +
+    '        });\n' +
+    '\n' +
+    '        $(".select-tags").select2({\n' +
+    '            tags: false,\n' +
+    '            theme: "bootstrap",\n' +
+    '        });\n' +
+    '\n' +
+    '        $(".select-with-search").select2({\n' +
+    '            theme: "bootstrap"\n' +
+    '        });\n' +
+    '    });\n' +
+    '</script>\n' +
+    '<form class="form-horizontal" name="settingForm">\n' +
+    '    <div ng-if="settingsPrepService.isActive == undefined">\n' +
+    '        <div>\n' +
+    '            {{\'SendVer\' | translate}}\n' +
+    '            <br>\n' +
+    '            <label>\n' +
+    '                <input type="radio" ng-model="settingCtrl.orderType.type" value="none"> {{\'None\' | translate}}\n' +
+    '            </label>\n' +
+    '            <br/>\n' +
+    '            <label>\n' +
+    '                <input type="radio" ng-model="settingCtrl.orderType.type" value="sms"> {{\'SMS\' | translate}}\n' +
+    '            </label>\n' +
+    '            <br/>\n' +
+    '            <label>\n' +
+    '                <input type="radio" ng-model="settingCtrl.orderType.type" value="mail"> {{\'Mail\' | translate}}\n' +
+    '            </label>\n' +
+    '            <br/>\n' +
+    '            <label>\n' +
+    '                <input type="radio" ng-model="settingCtrl.orderType.type" value="both"> {{\'Both\' | translate}}\n' +
+    '            </label>\n' +
+    '            <br/>\n' +
+    '        </div>\n' +
+    '\n' +
+    '        <!-- <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '        <label for="first-name">{{\'Currency\' | translate}}</label>\n' +
+    '        <select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" multiple ng-model="settingCtrl.currency"\n' +
+    '            ng-options="curr as curr.currencyCode for curr in currencyPrepService">\n' +
+    '        </select>\n' +
+    '    </div> -->\n' +
+    '\n' +
+    '        <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '            <label for="first-name">{{\'MinDaysPerProg\' | translate}}</label>\n' +
+    '            <input required type="number" class="mat-input form-control" name="minDays" ng-model="settingCtrl.minDays" ng-minlength="1"\n' +
+    '                ng-maxlength="2">\n' +
+    '            <div ng-messages="settingForm.minDays.$error" class="error">\n' +
+    '                <div ng-if="settingForm.minDays.$error.required && !settingForm.minDays.$pristine">{{\'minDaysReqError\' | translate}}</div>\n' +
+    '                <div ng-if="(settingForm.minDays.$error.minlength || settingForm.minDays.$error.maxlength)">{{\'minDaysLengthError\' | translate}}</div>\n' +
+    '            </div>\n' +
+    '        </div>\n' +
+    '\n' +
+    '        <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '            <label for="first-name">{{\'AllowPause\' | translate}}\n' +
+    '                <input type="checkbox" ng-model="settingCtrl.allowPause">\n' +
+    '            </label>\n' +
+    '            <div ng-if="settingCtrl.allowPause == true" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                <label for="first-name">{{\'MaxPauseDays\' | translate}}</label>\n' +
+    '                <input required type="number" class="mat-input form-control" name="maxPause" ng-model="settingCtrl.maxPause" ng-minlength="1"\n' +
+    '                    ng-maxlength="2">\n' +
+    '                <div ng-messages="settingForm.maxPause.$error" class="error">\n' +
+    '                    <div ng-if="settingForm.maxPause.$error.required && !settingForm.maxPause.$pristine">{{\'minDaysReqError\' | translate}}</div>\n' +
+    '                    <div ng-if="(settingForm.maxPause.$error.minlength || settingForm.maxPause.$error.maxlength)">{{\'minDaysLengthError\' | translate}}</div>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '            <br>\n' +
+    '            <label for="first-name">{{\'AllowHistory\' | translate}}\n' +
+    '                <input type="checkbox" ng-model="settingCtrl.allowHistory">\n' +
+    '            </label>\n' +
+    '        </div>\n' +
+    '\n' +
+    '        <button style="background-color: #e4e5e6;color: black!important;" ng-click="settingCtrl.AddSetting()" class="btn pmd-ripple-effect btn-primary pmd-z-depth ng-binding"\n' +
+    '            type="button">Add</button>\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <div ng-if="settingsPrepService.isActive != undefined">\n' +
+    '        <div>\n' +
+    '            {{\'SendVer\' | translate}}\n' +
+    '            <br>\n' +
+    '            <label>\n' +
+    '                <input type="radio" ng-model="settingCtrl.orderType.type" value="none"> {{\'None\' | translate}}\n' +
+    '            </label>\n' +
+    '            <br/>\n' +
+    '            <label>\n' +
+    '                <input type="radio" ng-model="settingCtrl.orderType.type" value="sms"> {{\'SMS\' | translate}}\n' +
+    '            </label>\n' +
+    '            <br/>\n' +
+    '            <label>\n' +
+    '                <input type="radio" ng-model="settingCtrl.orderType.type" value="mail"> {{\'Mail\' | translate}}\n' +
+    '            </label>\n' +
+    '            <br/>\n' +
+    '            <label>\n' +
+    '                <input type="radio" ng-model="settingCtrl.orderType.type" value="both"> {{\'Both\' | translate}}\n' +
+    '            </label>\n' +
+    '            <br/>\n' +
+    '        </div>\n' +
+    '\n' +
+    '        <!-- <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '            <label for="first-name">{{\'Currency\' | translate}}</label>\n' +
+    '            <select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" multiple ng-model="settingsPrepService.currencyCode"\n' +
+    '                ng-options="curr as curr.currencyCode for curr in currencyPrepService">\n' +
+    '            </select>\n' +
+    '        </div> -->\n' +
+    '\n' +
+    '        <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '            <label for="first-name">{{\'MinDaysPerProg\' | translate}}</label>\n' +
+    '            <input required type="number" class="mat-input form-control" name="minDays" ng-model="settingsPrepService.minNoDaysPerProgram"\n' +
+    '                ng-minlength="1" ng-maxlength="2">\n' +
+    '            <div ng-messages="settingForm.minDays.$error" class="error">\n' +
+    '                <div ng-if="settingForm.minDays.$error.required && !settingForm.minDays.$pristine">{{\'minDaysReqError\' | translate}}</div>\n' +
+    '                <div ng-if="(settingForm.minDays.$error.minlength || settingForm.minDays.$error.maxlength)">{{\'minDaysLengthError\' | translate}}</div>\n' +
+    '            </div>\n' +
+    '        </div>\n' +
+    '\n' +
+    '\n' +
+    '\n' +
+    '        <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '            <label for="first-name">{{\'AllowPause\' | translate}}\n' +
+    '                <input type="checkbox" ng-model="settingsPrepService.isPause">\n' +
+    '            </label>\n' +
+    '            <div ng-if="settingsPrepService.isPause == true" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                <label for="first-name">{{\'MaxPauseDays\' | translate}}</label>\n' +
+    '                <input required type="number" class="mat-input form-control" name="maxPause" ng-model="settingsPrepService.maxPauseDays"\n' +
+    '                    ng-minlength="1" ng-maxlength="2">\n' +
+    '                <div ng-messages="settingForm.maxPause.$error" class="error">\n' +
+    '                    <div ng-if="settingForm.maxPause.$error.required && !settingForm.maxPause.$pristine">{{\'minDaysReqError\' | translate}}</div>\n' +
+    '                    <div ng-if="(settingForm.maxPause.$error.minlength || settingForm.maxPause.$error.maxlength)">{{\'minDaysLengthError\' | translate}}</div>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '\n' +
+    '            <br>\n' +
+    '\n' +
+    '            <label for="first-name">{{\'AllowHistory\' | translate}}\n' +
+    '                <input type="checkbox" ng-model="settingsPrepService.allowHistory">\n' +
+    '            </label>\n' +
+    '        </div>\n' +
+    '\n' +
+    '        <button style="background-color: #e4e5e6;color: black!important;" ng-click="settingCtrl.UpdateSetting()" class="btn pmd-ripple-effect btn-primary pmd-z-depth ng-binding"\n' +
+    '            type="button">Edit</button>\n' +
+    '\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <br>\n' +
+    '\n' +
+    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="BranchPrepService.results.length > 0">\n' +
+    '        <h2 style="margin-left: 50%">{{\'DeliveryFees\' | translate}}</h2>\n' +
+    '        <div class="table-responsive"></div>\n' +
+    '        <table class="table pmd-table table-hover">\n' +
+    '            <thead>\n' +
+    '                <tr>\n' +
+    '                    <th>{{\'branchName\' | translate}}</th>\n' +
+    '                    <th>{{\'DeliveryCost\' | translate}}</th>\n' +
+    '                    <th>{{\'DeliveryPrice\' | translate}}</th>\n' +
+    '                    <th></th>\n' +
+    '                </tr>\n' +
+    '            </thead>\n' +
+    '            <tbody>\n' +
+    '                <tr ng-repeat="branch in BranchPrepService.results">\n' +
+    '                    <td data-title="Name">{{branch.titleDictionary[selectedLanguage]}}</td>\n' +
+    '                    <td data-title="Name">{{branch.deliveryCost}}</td>\n' +
+    '                    <td data-title="Name">{{branch.deliveryPrice}}</td>\n' +
+    '                    <td width="30%" ng-show="!branch.isStatic">\n' +
+    '                        <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="EditBranchDialog(branch.branchId)">mode_edit</i>\n' +
+    '                    </td>\n' +
+    '                </tr>\n' +
+    '            </tbody>\n' +
+    '        </table>\n' +
+    '    </div>\n' +
+    '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount" paging-action="changePage(page)"\n' +
+    '        flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">\n' +
+    '    </div>\n' +
+    '</form>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/user/templates/addUser.html',
     '{{\'BasicInfoLbl\' | translate}}\n' +
     '<form class="form-horizontal" name="newclientForm">\n' +
@@ -6351,231 +6576,6 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '        flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">\n' +
     '    </div>\n' +
     '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/setting/templates/editBranchFees.html',
-    '<div class="modal-content">\n' +
-    '    <div class="modal-header bordered">\n' +
-    '        <button class="close" type="button" ng-click="editBranchFeesCtrl.close()">×</button>\n' +
-    '        <h2 class="pmd-card-title-text">{{\'UpdateDeliveryFees\' | translate}}</h2>\n' +
-    '    </div>\n' +
-    '\n' +
-    '    <div class="modal-body">\n' +
-    '        <form class="form-horizontal" name="editFeesForm" autocomplete="off">\n' +
-    '\n' +
-    '            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                <label for="first-name">{{\'DeliveryCost\' | translate}}</label>\n' +
-    '                <input required type="number" class="mat-input form-control" name="minDays" ng-model="branch.deliveryCost"\n' +
-    '                    ng-minlength="1" ng-maxlength="2">\n' +
-    '                <div ng-messages="editFeesForm.minDays.$error" class="error">\n' +
-    '                    <div ng-if="editFeesForm.minDays.$error.required && !editFeesForm.minDays.$pristine">{{\'minDaysReqError\' | translate}}</div>\n' +
-    '                    <div ng-if="(editFeesForm.minDays.$error.minlength || editFeesForm.minDays.$error.maxlength)">{{\'minDaysLengthError\' | translate}}</div>\n' +
-    '                </div>\n' +
-    '            </div>\n' +
-    '\n' +
-    '            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                <label for="first-name">{{\'DeliveryPrice\' | translate}}</label>\n' +
-    '                <input required type="number" class="mat-input form-control" name="minDays" ng-model="branch.deliveryPrice"\n' +
-    '                    ng-minlength="1" ng-maxlength="2">\n' +
-    '                <div ng-messages="editFeesForm.minDays.$error" class="error">\n' +
-    '                    <div ng-if="editFeesForm.minDays.$error.required && !editFeesForm.minDays.$pristine">{{\'minDaysReqError\' | translate}}</div>\n' +
-    '                    <div ng-if="(editFeesForm.minDays.$error.minlength || editFeesForm.minDays.$error.maxlength)">{{\'minDaysLengthError\' | translate}}</div>\n' +
-    '                </div>\n' +
-    '            </div>\n' +
-    '        </form>\n' +
-    '        <div class="pmd-modal-action text-right">\n' +
-    '            <button ng-disabled="editFeesForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editBranchFeesCtrl.UpdateFees()">{{\'Edit\' | translate}}</button>\n' +
-    '        </div>\n' +
-    '\n' +
-    '    </div>\n' +
-    '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/setting/templates/setting.html',
-    '<script type="text/javascript">\n' +
-    '    $(document).ready(function () {\n' +
-    '        $(".select-add-tags").select2({\n' +
-    '            tags: true,\n' +
-    '            theme: "bootstrap",\n' +
-    '            insertTag: function (data, tag) {\n' +
-    '                // Insert the tag at the end of the results\n' +
-    '                data.push(tag);\n' +
-    '                // console.log(data);\n' +
-    '            }\n' +
-    '        });\n' +
-    '\n' +
-    '        $(".select-tags").select2({\n' +
-    '            tags: false,\n' +
-    '            theme: "bootstrap",\n' +
-    '        });\n' +
-    '\n' +
-    '        $(".select-with-search").select2({\n' +
-    '            theme: "bootstrap"\n' +
-    '        });\n' +
-    '    });\n' +
-    '</script>\n' +
-    '<form class="form-horizontal" name="settingForm">\n' +
-    '    <div ng-if="settingsPrepService.isActive == undefined">\n' +
-    '        <div>\n' +
-    '            {{\'SendVer\' | translate}}\n' +
-    '            <br>\n' +
-    '            <label>\n' +
-    '                <input type="radio" ng-model="settingCtrl.orderType.type" value="none"> {{\'None\' | translate}}\n' +
-    '            </label>\n' +
-    '            <br/>\n' +
-    '            <label>\n' +
-    '                <input type="radio" ng-model="settingCtrl.orderType.type" value="sms"> {{\'SMS\' | translate}}\n' +
-    '            </label>\n' +
-    '            <br/>\n' +
-    '            <label>\n' +
-    '                <input type="radio" ng-model="settingCtrl.orderType.type" value="mail"> {{\'Mail\' | translate}}\n' +
-    '            </label>\n' +
-    '            <br/>\n' +
-    '            <label>\n' +
-    '                <input type="radio" ng-model="settingCtrl.orderType.type" value="both"> {{\'Both\' | translate}}\n' +
-    '            </label>\n' +
-    '            <br/>\n' +
-    '        </div>\n' +
-    '\n' +
-    '        <!-- <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '        <label for="first-name">{{\'Currency\' | translate}}</label>\n' +
-    '        <select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" multiple ng-model="settingCtrl.currency"\n' +
-    '            ng-options="curr as curr.currencyCode for curr in currencyPrepService">\n' +
-    '        </select>\n' +
-    '    </div> -->\n' +
-    '\n' +
-    '        <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '            <label for="first-name">{{\'MinDaysPerProg\' | translate}}</label>\n' +
-    '            <input required type="number" class="mat-input form-control" name="minDays" ng-model="settingCtrl.minDays" ng-minlength="1"\n' +
-    '                ng-maxlength="2">\n' +
-    '            <div ng-messages="settingForm.minDays.$error" class="error">\n' +
-    '                <div ng-if="settingForm.minDays.$error.required && !settingForm.minDays.$pristine">{{\'minDaysReqError\' | translate}}</div>\n' +
-    '                <div ng-if="(settingForm.minDays.$error.minlength || settingForm.minDays.$error.maxlength)">{{\'minDaysLengthError\' | translate}}</div>\n' +
-    '            </div>\n' +
-    '        </div>\n' +
-    '\n' +
-    '        <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '            <label for="first-name">{{\'AllowPause\' | translate}}\n' +
-    '                <input type="checkbox" ng-model="settingCtrl.allowPause">\n' +
-    '            </label>\n' +
-    '            <div ng-if="settingCtrl.allowPause == true" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                <label for="first-name">{{\'MaxPauseDays\' | translate}}</label>\n' +
-    '                <input required type="number" class="mat-input form-control" name="maxPause" ng-model="settingCtrl.maxPause" ng-minlength="1"\n' +
-    '                    ng-maxlength="2">\n' +
-    '                <div ng-messages="settingForm.maxPause.$error" class="error">\n' +
-    '                    <div ng-if="settingForm.maxPause.$error.required && !settingForm.maxPause.$pristine">{{\'minDaysReqError\' | translate}}</div>\n' +
-    '                    <div ng-if="(settingForm.maxPause.$error.minlength || settingForm.maxPause.$error.maxlength)">{{\'minDaysLengthError\' | translate}}</div>\n' +
-    '                </div>\n' +
-    '            </div>\n' +
-    '            <br>\n' +
-    '            <label for="first-name">{{\'AllowHistory\' | translate}}\n' +
-    '                <input type="checkbox" ng-model="settingCtrl.allowHistory">\n' +
-    '            </label>\n' +
-    '        </div>\n' +
-    '\n' +
-    '        <button style="background-color: #e4e5e6;color: black!important;" ng-click="settingCtrl.AddSetting()" class="btn pmd-ripple-effect btn-primary pmd-z-depth ng-binding"\n' +
-    '            type="button">Add</button>\n' +
-    '    </div>\n' +
-    '\n' +
-    '    <div ng-if="settingsPrepService.isActive != undefined">\n' +
-    '        <div>\n' +
-    '            {{\'SendVer\' | translate}}\n' +
-    '            <br>\n' +
-    '            <label>\n' +
-    '                <input type="radio" ng-model="settingCtrl.orderType.type" value="none"> {{\'None\' | translate}}\n' +
-    '            </label>\n' +
-    '            <br/>\n' +
-    '            <label>\n' +
-    '                <input type="radio" ng-model="settingCtrl.orderType.type" value="sms"> {{\'SMS\' | translate}}\n' +
-    '            </label>\n' +
-    '            <br/>\n' +
-    '            <label>\n' +
-    '                <input type="radio" ng-model="settingCtrl.orderType.type" value="mail"> {{\'Mail\' | translate}}\n' +
-    '            </label>\n' +
-    '            <br/>\n' +
-    '            <label>\n' +
-    '                <input type="radio" ng-model="settingCtrl.orderType.type" value="both"> {{\'Both\' | translate}}\n' +
-    '            </label>\n' +
-    '            <br/>\n' +
-    '        </div>\n' +
-    '\n' +
-    '        <!-- <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '            <label for="first-name">{{\'Currency\' | translate}}</label>\n' +
-    '            <select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" multiple ng-model="settingsPrepService.currencyCode"\n' +
-    '                ng-options="curr as curr.currencyCode for curr in currencyPrepService">\n' +
-    '            </select>\n' +
-    '        </div> -->\n' +
-    '\n' +
-    '        <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '            <label for="first-name">{{\'MinDaysPerProg\' | translate}}</label>\n' +
-    '            <input required type="number" class="mat-input form-control" name="minDays" ng-model="settingsPrepService.minNoDaysPerProgram"\n' +
-    '                ng-minlength="1" ng-maxlength="2">\n' +
-    '            <div ng-messages="settingForm.minDays.$error" class="error">\n' +
-    '                <div ng-if="settingForm.minDays.$error.required && !settingForm.minDays.$pristine">{{\'minDaysReqError\' | translate}}</div>\n' +
-    '                <div ng-if="(settingForm.minDays.$error.minlength || settingForm.minDays.$error.maxlength)">{{\'minDaysLengthError\' | translate}}</div>\n' +
-    '            </div>\n' +
-    '        </div>\n' +
-    '\n' +
-    '\n' +
-    '\n' +
-    '        <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '            <label for="first-name">{{\'AllowPause\' | translate}}\n' +
-    '                <input type="checkbox" ng-model="settingsPrepService.isPause">\n' +
-    '            </label>\n' +
-    '            <div ng-if="settingsPrepService.isPause == true" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                <label for="first-name">{{\'MaxPauseDays\' | translate}}</label>\n' +
-    '                <input required type="number" class="mat-input form-control" name="maxPause" ng-model="settingsPrepService.maxPauseDays"\n' +
-    '                    ng-minlength="1" ng-maxlength="2">\n' +
-    '                <div ng-messages="settingForm.maxPause.$error" class="error">\n' +
-    '                    <div ng-if="settingForm.maxPause.$error.required && !settingForm.maxPause.$pristine">{{\'minDaysReqError\' | translate}}</div>\n' +
-    '                    <div ng-if="(settingForm.maxPause.$error.minlength || settingForm.maxPause.$error.maxlength)">{{\'minDaysLengthError\' | translate}}</div>\n' +
-    '                </div>\n' +
-    '            </div>\n' +
-    '\n' +
-    '            <br>\n' +
-    '\n' +
-    '            <label for="first-name">{{\'AllowHistory\' | translate}}\n' +
-    '                <input type="checkbox" ng-model="settingsPrepService.allowHistory">\n' +
-    '            </label>\n' +
-    '        </div>\n' +
-    '\n' +
-    '        <button style="background-color: #e4e5e6;color: black!important;" ng-click="settingCtrl.UpdateSetting()" class="btn pmd-ripple-effect btn-primary pmd-z-depth ng-binding"\n' +
-    '            type="button">Edit</button>\n' +
-    '\n' +
-    '    </div>\n' +
-    '\n' +
-    '    <br>\n' +
-    '\n' +
-    '    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="BranchPrepService.results.length > 0">\n' +
-    '        <h2 style="margin-left: 50%">{{\'DeliveryFees\' | translate}}</h2>\n' +
-    '        <div class="table-responsive"></div>\n' +
-    '        <table class="table pmd-table table-hover">\n' +
-    '            <thead>\n' +
-    '                <tr>\n' +
-    '                    <th>{{\'branchName\' | translate}}</th>\n' +
-    '                    <th>{{\'DeliveryCost\' | translate}}</th>\n' +
-    '                    <th>{{\'DeliveryPrice\' | translate}}</th>\n' +
-    '                    <th></th>\n' +
-    '                </tr>\n' +
-    '            </thead>\n' +
-    '            <tbody>\n' +
-    '                <tr ng-repeat="branch in BranchPrepService.results">\n' +
-    '                    <td data-title="Name">{{branch.titleDictionary[selectedLanguage]}}</td>\n' +
-    '                    <td data-title="Name">{{branch.deliveryCost}}</td>\n' +
-    '                    <td data-title="Name">{{branch.deliveryPrice}}</td>\n' +
-    '                    <td width="30%" ng-show="!branch.isStatic">\n' +
-    '                        <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="EditBranchDialog(branch.branchId)">mode_edit</i>\n' +
-    '                    </td>\n' +
-    '                </tr>\n' +
-    '            </tbody>\n' +
-    '        </table>\n' +
-    '    </div>\n' +
-    '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount" paging-action="changePage(page)"\n' +
-    '        flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">\n' +
-    '    </div>\n' +
-    '</form>');
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {

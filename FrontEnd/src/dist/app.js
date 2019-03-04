@@ -545,29 +545,73 @@
     angular
         .module('home')
         .controller('editAddressDialogController', ['$scope', 'blockUI', '$http', '$filter', '$state', 'appCONSTANTS', '$translate',
-            'AddressResource', 'ToastService', 'AddressByIdPrepService','CountriesPrepService', 'RegionResource', 
+            'AddressResource', 'ToastService', 'AddressByIdPrepService', 'CountriesPrepService', 'RegionResource',
             'CityResource', 'AreaResource', editAddressDialogController])
 
     function editAddressDialogController($scope, blockUI, $http, $filter, $state, appCONSTANTS, $translate, AddressResource,
-        ToastService, AddressByIdPrepService,CountriesPrepService, RegionResource, CityResource, AreaResource) {
+        ToastService, AddressByIdPrepService, CountriesPrepService, RegionResource, CityResource, AreaResource) {
         var vm = this;
-        vm.selectedAreaId = 0;
-        vm.counties = [];
-        vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
-        vm.selectedCountryId = 0;
-        vm.counties = vm.counties.concat(CountriesPrepService.results)
 
         vm.Address = AddressByIdPrepService;
         vm.Address.floor = parseInt(vm.Address.floor);
-        vm.Address.appartmentNo = parseInt(vm.Address.appartmentNo); 
+        vm.Address.appartmentNo = parseInt(vm.Address.appartmentNo);
         console.log(vm.Address);
-        vm.selectedPermissions = [];
+        vm.counties = [];
+        vm.regions = [];
+        vm.cities = [];
+        vm.area = [];
+        vm.branchList = [];
+       console.log(vm.Address.areaId);
+        if (vm.Address.areaId == null) {
+            vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
+            vm.selectedCountryId = 0;
+            vm.counties = vm.counties.concat(CountriesPrepService.results)
+        }
+        else {
+            vm.counties = vm.counties.concat(CountriesPrepService.results)
+            vm.selectedCountryId = vm.Address.countryId;
+
+            var temp = new RegionResource();
+            temp.$getRegion({ regionId: vm.Address.regionId }).then(function (results) {
+                debugger;
+                vm.selectedRegionId = vm.Address.regionId;
+                vm.regions = vm.regions.concat(results);
+            },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+
+
+            var temp = new CityResource();
+            temp.$getCity({ cityId: vm.Address.cityId }).then(function (results) {
+                debugger;
+                vm.selectedCityId = vm.Address.cityId;
+                vm.cities = vm.cities.concat(results);
+            },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+
+            var temp = new AreaResource();
+            temp.$getArea({ areaId: vm.Address.areaId }).then(function (results) {
+                debugger;
+                vm.selectedAreaId = vm.Address.areaId;
+                vm.area = vm.area.concat(results);
+            },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+                vm.selectedBranchId = vm.Address.branchesId;
+
+        }
+        blockUI.stop();
         vm.Close = function () {
             $state.go('Address', { userId: $scope.user.id });
 
         }
 
         vm.UpdateType = function () {
+            debugger;
             blockUI.start("Loading...");
             var updateObj = new AddressResource();
             updateObj.addressId = vm.Address.addressId;
@@ -592,35 +636,28 @@
                 }
             );
         }
-        vm.resetDLL = function () {
-            vm.counties = [];
-            vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
-            vm.selectedCountryId = 0;
-            vm.counties = vm.counties.concat(CountriesPrepService.results)
-            vm.regions = [];
-            vm.cities = [];
-            vm.area = [];
-            vm.categoryList = [];
-        }
 
 
         vm.countryChange = function () {
-            for (var i = vm.counties.length - 1; i >= 0; i--) {
-                if (vm.counties[i].countryId == 0) {
-                    vm.counties.splice(i, 1);
+            if (vm.selectedCountryId != undefined) {
+                for (var i = vm.counties.length - 1; i >= 0; i--) {
+                    if (vm.counties[i].countryId == 0) {
+                        vm.counties.splice(i, 1);
+                    }
                 }
+                vm.regions = [];
+                vm.cities = [];
+                vm.area = [];
+                vm.regions.push({ regionId: 0, titleDictionary: { "en": "Select Region", "ar": "اختار اقليم" } });
+                RegionResource.getAllRegions({ countryId: vm.selectedCountryId, pageSize: 0 }).$promise.then(function (results) {
+                    vm.selectedRegionId = 0;
+                    vm.regions = vm.regions.concat(results.results);
+                },
+                    function (data, status) {
+                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                    });
+                blockUI.stop();
             }
-            vm.regions = [];
-            vm.cities = [];
-            vm.area = [];
-            vm.regions.push({ regionId: 0, titleDictionary: { "en": "Select Region", "ar": "اختار اقليم" } });
-            RegionResource.getAllRegions({ countryId: vm.selectedCountryId, pageSize: 0 }).$promise.then(function (results) {
-                vm.selectedRegionId = 0;
-                vm.regions = vm.regions.concat(results.results);
-            },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
         }
         vm.regionChange = function () {
             if (vm.selectedRegionId != undefined) {
@@ -660,8 +697,6 @@
             }
         }
         vm.areaChange = function () {
-            debugger;
-            var dd = vm.selectedAreaId; 
             if (vm.selectedAreaId != undefined && vm.selectedAreaId > 0) {
                 for (var i = vm.area.length - 1; i >= 0; i--) {
                     if (vm.area[i].areaId == 0) {
@@ -669,8 +704,12 @@
                     }
                 }
                 vm.branchList = [];
-                vm.branchList = vm.branchList.concat(($filter('filter')(vm.area, { areaId: vm.selectedAreaId }))[0].branches);
-                vm.selectedBranchId = vm.branchList[0].branchId;
+                var indexarea = vm.area.indexOf($filter('filter')(vm.area, { 'areaId': vm.selectedAreaId }, true)[0]);
+                vm.selectedAreaId = vm.area[indexarea];
+
+
+                debugger;
+                vm.selectedBranchId = vm.selectedAreaId.branches[0].branchId;
             }
         }
         vm.branchChange = function () {
@@ -683,280 +722,6 @@
 
     }
 }());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('mealController', ['$scope', '$stateParams', '$translate', 'appCONSTANTS', 'mealsPrepService'
-            , mealController])
-
-    function mealController($scope, $stateParams, $translate, appCONSTANTS, mealsPrepService) {
-
-        $scope.mealsPrepService = mealsPrepService.results;
-
-        $scope.style = function () {
-            return {
-                'background': 'url(https://fithouseksa.com/wp-content/uploads/2018/07/fat-running.png) no-repeat',
-                'background-attachment': 'fixed',
-                'background-size': 'cover',
-                'width': '100%',
-                'width': '100%'
-            };
-        }
-
-    }
-
-}
-    ());
-(function() {
-    angular
-      .module('home')
-      .factory('MealResource', ['$resource', 'appCONSTANTS', MealResource])
-      .factory('GetMealsResource', ['$resource', 'appCONSTANTS', GetMealsResource])
-      ;
-
-      function MealResource($resource, appCONSTANTS) {
-      return $resource(appCONSTANTS.API_URL + 'Meals/:mealId', {}, {
-        create: { method: 'POST', useToken: true },
-        getMeal: { method: 'GET', useToken: true },
-        deleteMeal: { method: 'DELETE', useToken: true },
-        update: { method: 'PUT', useToken: true }
-      })
-    }
-    function GetMealsResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'Meals/GetAllMeals', {}, {
-          getAllMeals: { method: 'GET', useToken: true, params:{lang:'@lang'} },
-        })
-    }
-
-}());
-  (function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('mealDetailsController', ['$scope', '$stateParams', '$state', '$translate', 'appCONSTANTS'
-            , '$filter', 'mealPrepService', 'itemsssPrepService', 'OrderResource'
-            , 'RegionResource', 'BranchResource', 'CityResource', 'AreaResource', 'CountriesPrepService', mealDetailsController])
-
-    function mealDetailsController($scope, $stateParams, $state, $translate, appCONSTANTS
-        , $filter, mealPrepService
-        , itemsssPrepService, OrderResource, RegionResource, BranchResource, CityResource, AreaResource
-        , CountriesPrepService) {
-
-        $scope.mealPrepService = mealPrepService;
-        $scope.itemsssPrepService = itemsssPrepService;
-        $scope.Total = 0;
-        var vm = this;
-        $scope.clientId = $scope.user.id;
-        $scope.DeliveryFees = 0;
-        $scope.counties = [];
-        $scope.fats = 0;
-        $scope.carbs = 0;
-        $scope.protein = 0;
-        $scope.calories = 0;
-
-        for (var i = 0; i < $scope.mealPrepService.mealDetails.length; i++) {
-            var differntItem = $scope.itemsssPrepService.filter(x => (x.itemId == $scope.mealPrepService.mealDetails[i].itemId));
-
-            $scope.fats += differntItem[0].fat;
-            $scope.carbs += differntItem[0].carbs;
-            $scope.protein += differntItem[0].protein;
-            $scope.calories += differntItem[0].calories;
-        }
-
-        $scope.style = function () {
-            return {
-                'background': 'url(https://fithouseksa.com/wp-content/uploads/2018/07/fat-running.png) no-repeat',
-                'background-attachment': 'fixed',
-                'background-size': 'cover',
-                'width': '100%',
-                'width': '100%'
-            };
-        }
-
-        $scope.orderType = {
-            type: 'delivery'
-        };
-        $scope.addresses = {
-            address: 0
-        };
-
-
-        $scope.addressInfo = function (address) {
-            $scope.addressDetails = address;
-            $scope.selectedBranchId = $scope.addressDetails.branchId;
-            debugger;
-            $scope.Total = $scope.mealPrepService.mealPrice;
-        }
-        $scope.dateIsValid = false;
-        $scope.dateChange = function () {
-
-
-            if ($scope.itemDatetime == null || $scope.itemDatetime == "") {
-                $scope.dateIsValid = false;
-            } else if (!$scope.orderForm.isInValid) {
-
-                var GivenDate = $scope.itemDatetime;
-                var CurrentDate = new Date();
-                GivenDate = new Date(GivenDate);
-
-                GivenDate.setHours(CurrentDate.getHours());
-                GivenDate.setMinutes(CurrentDate.getMinutes());
-                GivenDate.setSeconds(CurrentDate.getSeconds());
-
-                if (GivenDate > CurrentDate) {
-                    $scope.dateIsValid = true;
-                }
-                else {
-
-                }
-            }
-        }
-        if ($scope.orderType.type == 'delivery') {
-            var k = OrderResource.getUserAddresses({ userId: $scope.clientId }).$promise.then(function (results) {
-                $scope.userAddresses = results;
-
-            },
-                function (data, status) {
-                });
-        }
-
-        function GetBranchDelivery() {
-            var temp = new BranchResource();
-            temp.$getBranch({ branchId: $scope.selectedBranchId }).then(function (results) {
-                $scope.DeliveryFees = results.deliveryPrice;
-
-            },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
-        }
-
-        $scope.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
-        $scope.selectedCountryId = 0;
-        $scope.counties = $scope.counties.concat(CountriesPrepService.results)
-
-        $scope.resetDLL = function () {
-            $scope.counties = [];
-            $scope.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
-            $scope.selectedCountryId = 0;
-            $scope.counties = $scope.counties.concat(CountriesPrepService.results)
-            $scope.regions = [];
-            $scope.cities = [];
-            $scope.area = [];
-        }
-
-
-        $scope.countryChange = function () {
-            for (var i = $scope.counties.length - 1; i >= 0; i--) {
-                if ($scope.counties[i].countryId == 0) {
-                    $scope.counties.splice(i, 1);
-                }
-            }
-            $scope.regions = [];
-            $scope.cities = [];
-            $scope.area = [];
-            $scope.regions.push({ regionId: 0, titleDictionary: { "en": "Select Region", "ar": "اختار اقليم" } });
-            RegionResource.getAllRegions({ countryId: $scope.selectedCountryId, pageSize: 0 }).$promise.then(function (results) {
-                $scope.selectedRegionId = 0;
-                $scope.regions = $scope.regions.concat(results.results);
-            },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
-        }
-
-        $scope.regionChange = function () {
-            if ($scope.selectedRegionId != undefined) {
-                for (var i = $scope.regions.length - 1; i >= 0; i--) {
-                    if ($scope.regions[i].regionId == 0) {
-                        $scope.regions.splice(i, 1);
-                    }
-                }
-                $scope.cities = [];
-                $scope.area = [];
-                $scope.cities.push({ cityId: 0, titleDictionary: { "en": "Select City", "ar": "اختار مدينة" } });
-                CityResource.getAllCities({ regionId: $scope.selectedRegionId, pageSize: 0 }).$promise.then(function (results) {
-                    $scope.selectedCityId = 0;
-                    $scope.cities = $scope.cities.concat(results.results);
-                },
-                    function (data, status) {
-                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                    });
-            }
-        }
-        $scope.cityChange = function () {
-            if ($scope.selectedCityId != undefined) {
-                for (var i = $scope.cities.length - 1; i >= 0; i--) {
-                    if ($scope.cities[i].cityId == 0) {
-                        $scope.cities.splice(i, 1);
-                    }
-                }
-                $scope.area = [];
-                $scope.area.push({ areaId: 0, titleDictionary: { "en": "Select Area", "ar": "اختار منطقه" } });
-                AreaResource.getAllAreas({ cityId: $scope.selectedCityId, pageSize: 0 }).$promise.then(function (results) {
-                    $scope.selectedAreaId = 0;
-                    $scope.area = $scope.area.concat(results.results);
-                },
-                    function (data, status) {
-                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                    });
-            }
-        }
-        $scope.areaChange = function () {
-            if ($scope.selectedAreaId != undefined && $scope.selectedAreaId > 0) {
-                for (var i = $scope.area.length - 1; i >= 0; i--) {
-                    if ($scope.area[i].areaId == 0) {
-                        $scope.area.splice(i, 1);
-                    }
-                }
-                $scope.branchList = [];
-                $scope.selectedBranchId = [0];
-                $scope.branchList = $scope.branchList.concat(($filter('filter')($scope.area, { areaId: $scope.selectedAreaId }))[0].branches);
-            }
-        }
-        $scope.branchChange = function () {
-            for (var i = $scope.branchList.length - 1; i >= 0; i--) {
-                if ($scope.branchList[i].branchId == 0) {
-                    $scope.branchList.splice(i, 1);
-                }
-            }
-            $scope.DeliveryFees = 0;
-            $scope.Total = $scope.mealPrepService.mealPrice;
-        }
-
-        $scope.Order = function () {
-
-            var order = new OrderResource();
-
-            order.meal = $scope.mealPrepService;
-            order.isByAdmin = true;
-            order.branchId = $scope.selectedBranchId;
-            order.userId = $scope.clientId;
-            order.day = $('#startdate').val();
-            order.type = "Meal";
-            order.price = $scope.Total;
-
-            order.$createOrder().then(
-                function (data, status) {
-
-
-                    localStorage.setItem('OrderSummary', JSON.stringify(data));
-                    $state.go('Summary');
-                },
-                function (data, status) {
-
-                }
-            );
-        }
-
-
-    }
-
-}
-    ());
 (function () {
 	'use strict';
 
@@ -1306,6 +1071,280 @@
     })
 } 
 }());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('mealController', ['$scope', '$stateParams', '$translate', 'appCONSTANTS', 'mealsPrepService'
+            , mealController])
+
+    function mealController($scope, $stateParams, $translate, appCONSTANTS, mealsPrepService) {
+
+        $scope.mealsPrepService = mealsPrepService.results;
+
+        $scope.style = function () {
+            return {
+                'background': 'url(https://fithouseksa.com/wp-content/uploads/2018/07/fat-running.png) no-repeat',
+                'background-attachment': 'fixed',
+                'background-size': 'cover',
+                'width': '100%',
+                'width': '100%'
+            };
+        }
+
+    }
+
+}
+    ());
+(function() {
+    angular
+      .module('home')
+      .factory('MealResource', ['$resource', 'appCONSTANTS', MealResource])
+      .factory('GetMealsResource', ['$resource', 'appCONSTANTS', GetMealsResource])
+      ;
+
+      function MealResource($resource, appCONSTANTS) {
+      return $resource(appCONSTANTS.API_URL + 'Meals/:mealId', {}, {
+        create: { method: 'POST', useToken: true },
+        getMeal: { method: 'GET', useToken: true },
+        deleteMeal: { method: 'DELETE', useToken: true },
+        update: { method: 'PUT', useToken: true }
+      })
+    }
+    function GetMealsResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Meals/GetAllMeals', {}, {
+          getAllMeals: { method: 'GET', useToken: true, params:{lang:'@lang'} },
+        })
+    }
+
+}());
+  (function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('mealDetailsController', ['$scope', '$stateParams', '$state', '$translate', 'appCONSTANTS'
+            , '$filter', 'mealPrepService', 'itemsssPrepService', 'OrderResource'
+            , 'RegionResource', 'BranchResource', 'CityResource', 'AreaResource', 'CountriesPrepService', mealDetailsController])
+
+    function mealDetailsController($scope, $stateParams, $state, $translate, appCONSTANTS
+        , $filter, mealPrepService
+        , itemsssPrepService, OrderResource, RegionResource, BranchResource, CityResource, AreaResource
+        , CountriesPrepService) {
+
+        $scope.mealPrepService = mealPrepService;
+        $scope.itemsssPrepService = itemsssPrepService;
+        $scope.Total = 0;
+        var vm = this;
+        $scope.clientId = $scope.user.id;
+        $scope.DeliveryFees = 0;
+        $scope.counties = [];
+        $scope.fats = 0;
+        $scope.carbs = 0;
+        $scope.protein = 0;
+        $scope.calories = 0;
+
+        for (var i = 0; i < $scope.mealPrepService.mealDetails.length; i++) {
+            var differntItem = $scope.itemsssPrepService.filter(x => (x.itemId == $scope.mealPrepService.mealDetails[i].itemId));
+
+            $scope.fats += differntItem[0].fat;
+            $scope.carbs += differntItem[0].carbs;
+            $scope.protein += differntItem[0].protein;
+            $scope.calories += differntItem[0].calories;
+        }
+
+        $scope.style = function () {
+            return {
+                'background': 'url(https://fithouseksa.com/wp-content/uploads/2018/07/fat-running.png) no-repeat',
+                'background-attachment': 'fixed',
+                'background-size': 'cover',
+                'width': '100%',
+                'width': '100%'
+            };
+        }
+
+        $scope.orderType = {
+            type: 'delivery'
+        };
+        $scope.addresses = {
+            address: 0
+        };
+
+
+        $scope.addressInfo = function (address) {
+            $scope.addressDetails = address;
+            $scope.selectedBranchId = $scope.addressDetails.branchId;
+            debugger;
+            $scope.Total = $scope.mealPrepService.mealPrice;
+        }
+        $scope.dateIsValid = false;
+        $scope.dateChange = function () {
+
+
+            if ($scope.itemDatetime == null || $scope.itemDatetime == "") {
+                $scope.dateIsValid = false;
+            } else if (!$scope.orderForm.isInValid) {
+
+                var GivenDate = $scope.itemDatetime;
+                var CurrentDate = new Date();
+                GivenDate = new Date(GivenDate);
+
+                GivenDate.setHours(CurrentDate.getHours());
+                GivenDate.setMinutes(CurrentDate.getMinutes());
+                GivenDate.setSeconds(CurrentDate.getSeconds());
+
+                if (GivenDate > CurrentDate) {
+                    $scope.dateIsValid = true;
+                }
+                else {
+
+                }
+            }
+        }
+        if ($scope.orderType.type == 'delivery') {
+            var k = OrderResource.getUserAddresses({ userId: $scope.clientId }).$promise.then(function (results) {
+                $scope.userAddresses = results;
+
+            },
+                function (data, status) {
+                });
+        }
+
+        function GetBranchDelivery() {
+            var temp = new BranchResource();
+            temp.$getBranch({ branchId: $scope.selectedBranchId }).then(function (results) {
+                $scope.DeliveryFees = results.deliveryPrice;
+
+            },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+
+        $scope.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
+        $scope.selectedCountryId = 0;
+        $scope.counties = $scope.counties.concat(CountriesPrepService.results)
+
+        $scope.resetDLL = function () {
+            $scope.counties = [];
+            $scope.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
+            $scope.selectedCountryId = 0;
+            $scope.counties = $scope.counties.concat(CountriesPrepService.results)
+            $scope.regions = [];
+            $scope.cities = [];
+            $scope.area = [];
+        }
+
+
+        $scope.countryChange = function () {
+            for (var i = $scope.counties.length - 1; i >= 0; i--) {
+                if ($scope.counties[i].countryId == 0) {
+                    $scope.counties.splice(i, 1);
+                }
+            }
+            $scope.regions = [];
+            $scope.cities = [];
+            $scope.area = [];
+            $scope.regions.push({ regionId: 0, titleDictionary: { "en": "Select Region", "ar": "اختار اقليم" } });
+            RegionResource.getAllRegions({ countryId: $scope.selectedCountryId, pageSize: 0 }).$promise.then(function (results) {
+                $scope.selectedRegionId = 0;
+                $scope.regions = $scope.regions.concat(results.results);
+            },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+
+        $scope.regionChange = function () {
+            if ($scope.selectedRegionId != undefined) {
+                for (var i = $scope.regions.length - 1; i >= 0; i--) {
+                    if ($scope.regions[i].regionId == 0) {
+                        $scope.regions.splice(i, 1);
+                    }
+                }
+                $scope.cities = [];
+                $scope.area = [];
+                $scope.cities.push({ cityId: 0, titleDictionary: { "en": "Select City", "ar": "اختار مدينة" } });
+                CityResource.getAllCities({ regionId: $scope.selectedRegionId, pageSize: 0 }).$promise.then(function (results) {
+                    $scope.selectedCityId = 0;
+                    $scope.cities = $scope.cities.concat(results.results);
+                },
+                    function (data, status) {
+                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                    });
+            }
+        }
+        $scope.cityChange = function () {
+            if ($scope.selectedCityId != undefined) {
+                for (var i = $scope.cities.length - 1; i >= 0; i--) {
+                    if ($scope.cities[i].cityId == 0) {
+                        $scope.cities.splice(i, 1);
+                    }
+                }
+                $scope.area = [];
+                $scope.area.push({ areaId: 0, titleDictionary: { "en": "Select Area", "ar": "اختار منطقه" } });
+                AreaResource.getAllAreas({ cityId: $scope.selectedCityId, pageSize: 0 }).$promise.then(function (results) {
+                    $scope.selectedAreaId = 0;
+                    $scope.area = $scope.area.concat(results.results);
+                },
+                    function (data, status) {
+                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                    });
+            }
+        }
+        $scope.areaChange = function () {
+            if ($scope.selectedAreaId != undefined && $scope.selectedAreaId > 0) {
+                for (var i = $scope.area.length - 1; i >= 0; i--) {
+                    if ($scope.area[i].areaId == 0) {
+                        $scope.area.splice(i, 1);
+                    }
+                }
+                $scope.branchList = [];
+                $scope.selectedBranchId = [0];
+                $scope.branchList = $scope.branchList.concat(($filter('filter')($scope.area, { areaId: $scope.selectedAreaId }))[0].branches);
+            }
+        }
+        $scope.branchChange = function () {
+            for (var i = $scope.branchList.length - 1; i >= 0; i--) {
+                if ($scope.branchList[i].branchId == 0) {
+                    $scope.branchList.splice(i, 1);
+                }
+            }
+            $scope.DeliveryFees = 0;
+            $scope.Total = $scope.mealPrepService.mealPrice;
+        }
+
+        $scope.Order = function () {
+
+            var order = new OrderResource();
+
+            order.meal = $scope.mealPrepService;
+            order.isByAdmin = true;
+            order.branchId = $scope.selectedBranchId;
+            order.userId = $scope.clientId;
+            order.day = $('#startdate').val();
+            order.type = "Meal";
+            order.price = $scope.Total;
+
+            order.$createOrder().then(
+                function (data, status) {
+
+
+                    localStorage.setItem('OrderSummary', JSON.stringify(data));
+                    $state.go('Summary');
+                },
+                function (data, status) {
+
+                }
+            );
+        }
+
+
+    }
+
+}
+    ());
 (function () {
     'use strict';
 
