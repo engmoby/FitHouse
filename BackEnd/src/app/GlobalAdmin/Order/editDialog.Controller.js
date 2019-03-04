@@ -14,13 +14,13 @@
         console.log(vm.Order);
         vm.language = appCONSTANTS.supportedLanguage;
 
-        vm.Order.orderDate = vm.Order.orderDate + "Z"; 
+        vm.Order.orderDate = vm.Order.orderDate + "Z";
         vm.Order.orderDate = $filter('date')(new Date(vm.Order.orderDate), "dd/MM/yyyy hh:mm a");
-        
-        vm.Order.orderStartDate = vm.Order.orderStartDate + "Z"; 
+
+        vm.Order.orderStartDate = vm.Order.orderStartDate + "Z";
         vm.Order.orderStartDate = $filter('date')(new Date(vm.Order.orderStartDate), "dd/MM/yyyy hh:mm a");
-      
-      debugger;
+
+        debugger;
         if (vm.Order.orderStartDate != null) {
             // vm.Order.orderStartDate = vm.Order.orderStartDate + "Z";
             // vm.Order.orderStartDate = $filter('date')(new Date(vm.Order.orderStartDate), "dd/MM/yyyy hh:mm a");
@@ -38,10 +38,13 @@
             $(element.currentTarget).toggleClass("child-table-collapse");
         }
         $scope.dateChange = function () {
+            debugger;
             if ($('#startdate').data('date') == null || $('#startdate').data('date') == "") {
                 vm.dateIsValid = false;
                 $scope.$apply();
             } else if (!$scope.editForm.isInValid) {
+
+                vm.Order.orderStartDate = $('#startdate').data('date');
                 vm.dateIsValid = true;
                 $scope.$apply();
             }
@@ -50,11 +53,15 @@
         vm.UpdateType = function () {
             blockUI.start("Loading...");
             var updateObj = new OrdersResource();
-            updateObj.OrderStartDate = $('#startdate').val();
+            //  updateObj.OrderStartDate = $('#startdate').val();
             debugger;
-            if ($scope.orderStatus)
+            if ($scope.orderStatus) {
                 updateObj.orderStatus = "Prepering";
+            }
+            else {
+                updateObj.OrderStartDate = vm.Order.orderStartDate;
 
+            }
 
             updateObj.isPaid = vm.Order.isPaid;
             updateObj.OrderId = vm.Order.orderId;

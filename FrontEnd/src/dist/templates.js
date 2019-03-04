@@ -1,21 +1,6 @@
 angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/Address/templates/Address.html',
-    '<div class="inn-banner">\n' +
-    '    <div class="container">\n' +
-    '        <div class="row">\n' +
-    '            <p>Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut\n' +
-    '                laoreet.\n' +
-    '                <p>\n' +
-    '                    <ul>\n' +
-    '                        <li><a href="$state.go(\'homePage\');">Home</a>\n' +
-    '                        </li>\n' +
-    '                        <li><a href="#"></a>Table</a>\n' +
-    '                        </li>\n' +
-    '                    </ul>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '</div>\n' +
-    '\n' +
+    ' \n' +
     '<div class="inn-body-section pad-bot-55">\n' +
     '    <div class="container">\n' +
     '\n' +
@@ -1063,7 +1048,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                    <div ng-if="OrderList.results.length == 0">\n' +
     '                        <span>{{\'NoOrdersAvailable\' | translate}}</span>\n' +
     '                    </div>\n' +
-    '                    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="OrderList.results.length > 0">\n' +
+    '                    <div class="table-responsive" ng-if="OrderList.results.length > 0">\n' +
     '\n' +
     '                        <table class="table">\n' +
     '                            <thead>\n' +
@@ -2562,16 +2547,16 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '\n' +
     '						<div class="row">\n' +
     '							<div class="col s6">\n' +
-    '								<p>\n' +
+    '								<span>\n' +
     '									<input type="checkbox" id="test5" ng-model="isBreakFast" />\n' +
     '									<label for="test5" class="labelCheckBox">{{\'IsBreakFast\' | translate}}</label>\n' +
-    '								</p>\n' +
+    '								</span>\n' +
     '							</div>\n' +
     '							<div class="col s6">\n' +
-    '								<p>\n' +
+    '								<span>\n' +
     '									<input type="checkbox" id="test6" ng-model="isSnack" />\n' +
     '									<label for="test6" class="labelCheckBox">{{\'IsSnack\' | translate}}</label>\n' +
-    '								</p>\n' +
+    '								</span>\n' +
     '							</div>\n' +
     '						</div>\n' +
     '						<div class="row">\n' +
@@ -2810,6 +2795,10 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                    <div ng-if="inActiveUser" class="loginFailed">\n' +
     '                        <span>Your Account Is Disabled, Please contact to administrator.</span>\n' +
     '                    </div>\n' +
+    '                    <div ng-if="inActiveNotClient" class="loginFailed">\n' +
+    '                        <span>You are admin can\'t login herre, Please contact to administrator.</span>\n' +
+    '                    </div>\n' +
+    '\n' +
     '\n' +
     '\n' +
     '                    <div class="pmd-card-footer card-footer-no-border card-footer-p16 text-center">\n' +

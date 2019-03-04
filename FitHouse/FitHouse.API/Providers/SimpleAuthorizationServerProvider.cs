@@ -53,7 +53,7 @@ namespace FitHouse.API.Providers
             }
             catch (Exception e)
             {
-                
+
                 //user = new UserDto();
             }
 
@@ -119,19 +119,19 @@ namespace FitHouse.API.Providers
 
         private AuthenticationTicket GetAuthenticationTicket(UserDto user)
         {
-            bool Isadmin = user.UserCode!= null;
+            bool isadmin = user.Code == 0;
             var identity = new ClaimsIdentity(Strings.JWT);
             identity.AddClaim(new Claim(Strings.userName, user.FirstName));
-            identity.AddClaim(new Claim(ClaimTypes.Name, "-"+user.FirstName+" " +user.LastName));
+            identity.AddClaim(new Claim(ClaimTypes.Name, "-" + user.FirstName + " " + user.LastName));
             identity.AddClaim(new Claim(Strings.userID, user.UserId.ToString()));
-           identity.AddClaim(new Claim(Strings.IsAdmin, Isadmin.ToString()));
+            identity.AddClaim(new Claim(Strings.IsAdmin, isadmin.ToString()));
             //identity.AddClaim(new Claim(Strings.PermissionId, string.Join(";", user.PermissionId)));
             // identity.AddClaim(new Claim(ClaimTypes.Role, user.Role.ToString()));
 
             var props = new AuthenticationProperties(AuthProps(user));
 
             var ticket = new AuthenticationTicket(identity, props);
-            
+
 
 
             return ticket;

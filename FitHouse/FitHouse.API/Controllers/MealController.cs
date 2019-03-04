@@ -38,6 +38,12 @@ namespace FitHouse.API.Controllers
         {
             PagedResultsDto mealObj = _MealFacade.GetAllMeals(Language, page, pagesize);
             var data = Mapper.Map<List<MealModel>>(mealObj.Data);
+
+            foreach (var mealModel in data)
+            {
+                mealModel.ImageUrl = Url.Link("MealImage", new { mealModel.MealId });
+
+            }
             return PagedResponse("GetAllMeals", page, pagesize, mealObj.TotalCount, data);
         }
 

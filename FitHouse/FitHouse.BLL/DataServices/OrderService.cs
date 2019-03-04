@@ -161,6 +161,13 @@ namespace FitHouse.BLL.DataServices
 
             foreach (var order in query)
             {
+                foreach (var orderOrderDetail in order.OrderDetails)
+                {
+                    var day = orderOrderDetail.Day.Value.Day;
+                    var month = orderOrderDetail.Day.Value.Month;
+                    var yes = orderOrderDetail.Day.Value.Year;
+
+                }
                 if (order.OrderDetails.Any(d => d.Day != null &&
                                                 d.Day.Value.Year == todaysDate.Year && d.Day.Value.Month == todaysDate.Month && d.Day.Value.Day == todaysDate.Day))
                 {

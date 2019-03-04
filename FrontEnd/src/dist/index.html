@@ -33,7 +33,7 @@
                         <i class="fa fa-bars show-menu" aria-hidden="true"></i>
                     </span>
                 </div>
-                <div class="mm-menu">
+                <div class="mm-menu" ng-show="isLoggedIn()" ng-cloak ng-init="logoutFlag=false">
                     <div class="mm-close">
                         <span>
                             <i class="fa fa-times hide-menu" aria-hidden="true"></i>
@@ -42,10 +42,27 @@
                     <ul>
                         </li>
                         <li>
-                            <a ng-click="$state.go('aboutUs');">{{'AboutUs' | translate}}</a>
+                                <a ng-click="$state.go('homePage');" style="cursor: pointer;" class='dropdown-button'
+                                data-activates='drop-home'>{{'Home'| translate}}</a>
                         </li>
                         <li>
-                            <a ng-click="$state.go('program');">{{'Programs' | translate}}</a>
+                                <a ng-click="$state.go('program');"
+                                style="cursor: pointer;">{{'Programs' | translate}}</a>
+                        </li>
+                        <li>
+                            <a ng-click="$state.go('meal');" style="cursor: pointer;">{{'Meals' | translate}}</a>
+                        </li>
+                        <li>
+                            <a ng-click="$state.go('history');"
+                                style="cursor: pointer;">{{'History' | translate}}</a>
+                        </li>
+                        <li>
+                            <a ng-click="$state.go('profile', {userId: user.id});"
+                                style="cursor: pointer;">{{'Profile' | translate}}</a>
+                        </li>
+                        <li>
+                            <a ng-click="$state.go('Address', {userId: user.id});"
+                                style="cursor: pointer;">{{'Address' | translate}}</a>
                         </li>
                     </ul>
                 </div>

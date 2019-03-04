@@ -46,7 +46,7 @@
 
         $scope.style = function () {
             return {
-                'background': 'url(https://fithouseksa.com/wp-content/uploads/2018/07/fat-running.png) no-repeat',
+                // 'background': 'url(https://fithouseksa.com/wp-content/uploads/2018/07/fat-running.png) no-repeat',
                 'background-attachment': 'fixed',
                 'background-size': 'cover',
                 'width': '100%',

@@ -1561,6 +1561,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                            <input type="text" ng-model="editOrderCtrl.Order.orderStartDate"\n' +
     '                                ng-change="editOrderCtrl.changeDate" id="startdate" class="form-control" />\n' +
     '                        </div>\n' +
+    '                        {{editOrderCtrl.Order.orderStartDate}}\n' +
     '                    </div>\n' +
     '\n' +
     '                    <div\n' +
