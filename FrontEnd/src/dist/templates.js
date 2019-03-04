@@ -690,6 +690,96 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/customProgram/templates/summaryProgram.html',
+    '<div class="hom-com">\n' +
+    '    <div class="container">\n' +
+    '        <div class="row">\n' +
+    '            <div class="col-md-8">\n' +
+    '                <div class="row">\n' +
+    '\n' +
+    '                    <div class="hp-section">\n' +
+    '                        <div class="hp-sub-tit">\n' +
+    '                            <h4>\n' +
+    '                                <span>Order</span> Details</h4>\n' +
+    '                            <p>Thanks for applying in our system Thanks for applying in our system Thanks for applying in our\n' +
+    '                                system.</p>\n' +
+    '                        </div>\n' +
+    '                        <div class="hp-over">\n' +
+    '                            <ul class="nav nav-tabs hp-over-nav">\n' +
+    '\n' +
+    '                                <li>\n' +
+    '                                    <a data-toggle="tab" data-target="#menu1">\n' +
+    '                                        <img src="/assets/img/db4.png" alt="">\n' +
+    '                                        <span class="tab-hide">Overview</span>\n' +
+    '                                    </a>\n' +
+    '                                </li>\n' +
+    '                            </ul>\n' +
+    '                            <div class="tab-content">\n' +
+    '\n' +
+    '                                <div id="menu1" class="tab-pane fade in active tab-space">\n' +
+    '                                    <div class="hp-main-overview">\n' +
+    '                                        <ul>\n' +
+    '                                            <li>Order Code:\n' +
+    '                                                <span>#{{CustomCtrl.order.orderCode}}</span>\n' +
+    '                                            </li>\n' +
+    '                                            <li>Price:\n' +
+    '                                                <span>{{CustomCtrl.order.price}}</span>\n' +
+    '                                            </li>\n' +
+    '                                            <li>Type :\n' +
+    '                                                <span>{{\'Program\' | translate}}</span>\n' +
+    '                                            </li>\n' +
+    '\n' +
+    '                                            <!-- <li>No. of Days :\n' +
+    '                                                <span>{{CustomCtrl.daysCount}}</span>\n' +
+    '                                            </li>\n' +
+    '                                            <li>No. of Meals Per Day :\n' +
+    '                                                <span>{{CustomCtrl.mealsCount}}</span>\n' +
+    '                                            </li> -->\n' +
+    '                                            <li>Start Date :\n' +
+    '                                                <span>{{CustomCtrl.order.orderDate | limitTo: 10}}</span>\n' +
+    '                                            </li>\n' +
+    '                                            <li>Status :\n' +
+    '                                                <span class="ov-yes">{{CustomCtrl.order.orderStatus ? \'Waiting\' : \'Open\'}}</span>\n' +
+    '\n' +
+    '                                                <!-- <span class="ov-yes" ng-if="{{CustomCtrl.order.type ==0}}">\n' +
+    '                                                        Open\n' +
+    '                                                    </span> -->\n' +
+    '\n' +
+    '                                                <!-- <span class="ov-yes">{{CustomCtrl.order.price}}</span> -->\n' +
+    '                                            </li>\n' +
+    '                                        </ul>\n' +
+    '                                    </div>\n' +
+    '                                </div>\n' +
+    '\n' +
+    '                            </div>\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '            <div class="col-md-4">\n' +
+    '                <!--=========================================-->\n' +
+    '                <div class="hp-call hp-right-com">\n' +
+    '                    <div class="hp-call-in">\n' +
+    '                        <img src="/assets/img/db4.png" alt="">\n' +
+    '                        <h3>\n' +
+    '                            <span>Check Availability. Call us!</span> +01 4214 4214</h3>\n' +
+    '                        <small>We are available 24/7 Monday to Sunday</small>\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '                <!--=========================================-->\n' +
+    '                <!--=========================================-->\n' +
+    '                <!--=========================================-->\n' +
+    '                <!--=========================================-->\n' +
+    '\n' +
+    '                <!--=========================================-->\n' +
+    '            </div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/meal/templates/meal.html',
     ' \n' +
     '<div class="inn-body-section pad-bot-55">\n' +

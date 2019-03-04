@@ -64,8 +64,19 @@
         function GetBranchDelivery() {
             var temp = new BranchResource();
             temp.$getBranch({ branchId: $scope.selectedBranchId }).then(function (results) {
-                $scope.DeliveryFees = results.deliveryPrice;
-                $scope.Total = ($scope.progDetailsPrepService.price + $scope.DeliveryFees) - ($scope.progDetailsPrepService.price *  ($scope.settingsPrepService.programDiscount / 100));
+                if (results.deliveryPrice == null) {
+                    $scope.DeliveryFees = 0;
+                }
+                else {
+                    $scope.DeliveryFees = results.deliveryPrice;
+                }
+
+                if ($scope.settingsPrepService.programDiscount == undefined || $scope.settingsPrepService.programDiscount == 0) {
+                    $scope.Total = $scope.progDetailsPrepService.price + $scope.DeliveryFees;
+                }
+                else {
+                    $scope.Total = ($scope.progDetailsPrepService.price + $scope.DeliveryFees) - ($scope.progDetailsPrepService.price * ($scope.settingsPrepService.programDiscount / 100));
+                }
                 // blockUI.stop();
 
             },
@@ -212,7 +223,13 @@
                 }
             }
             $scope.DeliveryFees = 0;
-            $scope.Total = $scope.progDetailsPrepService.price - ($scope.progDetailsPrepService.price * ($scope.settingsPrepService.programDiscount / 100));
+            // $scope.Total = $scope.progDetailsPrepService.price - ($scope.progDetailsPrepService.price * ($scope.settingsPrepService.programDiscount / 100));
+            if ($scope.settingsPrepService.programDiscount == undefined || $scope.settingsPrepService.programDiscount == 0) {
+                $scope.Total = $scope.progDetailsPrepService.price + $scope.DeliveryFees;
+            }
+            else {
+                $scope.Total = ($scope.progDetailsPrepService.price + $scope.DeliveryFees) - ($scope.progDetailsPrepService.price * ($scope.settingsPrepService.programDiscount / 100));
+            }
         }
 
         $scope.Order = function () {
@@ -242,8 +259,8 @@
                     // blockUI.stop();
 
                     // ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
-
-                    $state.go('Summary');
+                    localStorage.setItem('OrderSummary', JSON.stringify(data));
+                    $state.go('summaryProgram');
 
                 },
                 function (data, status) {
