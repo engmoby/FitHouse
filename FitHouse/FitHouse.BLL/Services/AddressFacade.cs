@@ -62,7 +62,20 @@ namespace FitHouse.BLL.Services
 
         public AddressDto GetAddress(long addressId)
         {
-            return Mapper.Map<AddressDto>(_addressService.Query(x => x.AddressId == addressId).Select().FirstOrDefault());
+            var addressObj = _addressService.Query(x => x.AddressId == addressId).Select().FirstOrDefault();
+            var returnAddress = Mapper.Map<AddressDto>(addressObj);
+
+            if (addressObj?.BranchId != null)
+            {
+                returnAddress.BranchId = addressObj.BranchId;
+                returnAddress.Branch = Mapper.Map<BranchDto>(addressObj.Branch);
+                returnAddress.AreaId = addressObj.Branch.AreaId;
+                returnAddress.CityId = addressObj.Branch.Area.CityId;
+                returnAddress.RegionId = addressObj.Branch.Area.City.RegionId;
+                returnAddress.CountryId = addressObj.Branch.Area.City.Region.CountryId;
+
+            }
+            return returnAddress;
         }
     }
 }

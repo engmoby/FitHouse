@@ -556,29 +556,73 @@
     angular
         .module('home')
         .controller('editAddressDialogController', ['$scope', 'blockUI', '$http', '$filter', '$state', 'appCONSTANTS', '$translate',
-            'AddressResource', 'ToastService', 'AddressByIdPrepService','CountriesPrepService', 'RegionResource', 
+            'AddressResource', 'ToastService', 'AddressByIdPrepService', 'CountriesPrepService', 'RegionResource',
             'CityResource', 'AreaResource', editAddressDialogController])
 
     function editAddressDialogController($scope, blockUI, $http, $filter, $state, appCONSTANTS, $translate, AddressResource,
-        ToastService, AddressByIdPrepService,CountriesPrepService, RegionResource, CityResource, AreaResource) {
+        ToastService, AddressByIdPrepService, CountriesPrepService, RegionResource, CityResource, AreaResource) {
         var vm = this;
-        vm.selectedAreaId = 0;
-        vm.counties = [];
-        vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
-        vm.selectedCountryId = 0;
-        vm.counties = vm.counties.concat(CountriesPrepService.results)
 
         vm.Address = AddressByIdPrepService;
         vm.Address.floor = parseInt(vm.Address.floor);
-        vm.Address.appartmentNo = parseInt(vm.Address.appartmentNo); 
+        vm.Address.appartmentNo = parseInt(vm.Address.appartmentNo);
         console.log(vm.Address);
-        vm.selectedPermissions = [];
+        vm.counties = [];
+        vm.regions = [];
+        vm.cities = [];
+        vm.area = [];
+        vm.branchList = [];
+       console.log(vm.Address.areaId);
+        if (vm.Address.areaId == null) {
+            vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
+            vm.selectedCountryId = 0;
+            vm.counties = vm.counties.concat(CountriesPrepService.results)
+        }
+        else {
+            vm.counties = vm.counties.concat(CountriesPrepService.results)
+            vm.selectedCountryId = vm.Address.countryId;
+
+            var temp = new RegionResource();
+            temp.$getRegion({ regionId: vm.Address.regionId }).then(function (results) {
+                debugger;
+                vm.selectedRegionId = vm.Address.regionId;
+                vm.regions = vm.regions.concat(results);
+            },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+
+
+            var temp = new CityResource();
+            temp.$getCity({ cityId: vm.Address.cityId }).then(function (results) {
+                debugger;
+                vm.selectedCityId = vm.Address.cityId;
+                vm.cities = vm.cities.concat(results);
+            },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+
+            var temp = new AreaResource();
+            temp.$getArea({ areaId: vm.Address.areaId }).then(function (results) {
+                debugger;
+                vm.selectedAreaId = vm.Address.areaId;
+                vm.area = vm.area.concat(results);
+            },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+                vm.selectedBranchId = vm.Address.branchesId;
+
+        }
+        blockUI.stop();
         vm.Close = function () {
             $state.go('Address', { userId: $scope.user.id });
 
         }
 
         vm.UpdateType = function () {
+            debugger;
             blockUI.start("Loading...");
             var updateObj = new AddressResource();
             updateObj.addressId = vm.Address.addressId;
@@ -603,35 +647,28 @@
                 }
             );
         }
-        vm.resetDLL = function () {
-            vm.counties = [];
-            vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
-            vm.selectedCountryId = 0;
-            vm.counties = vm.counties.concat(CountriesPrepService.results)
-            vm.regions = [];
-            vm.cities = [];
-            vm.area = [];
-            vm.categoryList = [];
-        }
 
 
         vm.countryChange = function () {
-            for (var i = vm.counties.length - 1; i >= 0; i--) {
-                if (vm.counties[i].countryId == 0) {
-                    vm.counties.splice(i, 1);
+            if (vm.selectedCountryId != undefined) {
+                for (var i = vm.counties.length - 1; i >= 0; i--) {
+                    if (vm.counties[i].countryId == 0) {
+                        vm.counties.splice(i, 1);
+                    }
                 }
+                vm.regions = [];
+                vm.cities = [];
+                vm.area = [];
+                vm.regions.push({ regionId: 0, titleDictionary: { "en": "Select Region", "ar": "اختار اقليم" } });
+                RegionResource.getAllRegions({ countryId: vm.selectedCountryId, pageSize: 0 }).$promise.then(function (results) {
+                    vm.selectedRegionId = 0;
+                    vm.regions = vm.regions.concat(results.results);
+                },
+                    function (data, status) {
+                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                    });
+                blockUI.stop();
             }
-            vm.regions = [];
-            vm.cities = [];
-            vm.area = [];
-            vm.regions.push({ regionId: 0, titleDictionary: { "en": "Select Region", "ar": "اختار اقليم" } });
-            RegionResource.getAllRegions({ countryId: vm.selectedCountryId, pageSize: 0 }).$promise.then(function (results) {
-                vm.selectedRegionId = 0;
-                vm.regions = vm.regions.concat(results.results);
-            },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
         }
         vm.regionChange = function () {
             if (vm.selectedRegionId != undefined) {
@@ -671,8 +708,6 @@
             }
         }
         vm.areaChange = function () {
-            debugger;
-            var dd = vm.selectedAreaId; 
             if (vm.selectedAreaId != undefined && vm.selectedAreaId > 0) {
                 for (var i = vm.area.length - 1; i >= 0; i--) {
                     if (vm.area[i].areaId == 0) {
@@ -680,8 +715,12 @@
                     }
                 }
                 vm.branchList = [];
-                vm.branchList = vm.branchList.concat(($filter('filter')(vm.area, { areaId: vm.selectedAreaId }))[0].branches);
-                vm.selectedBranchId = vm.branchList[0].branchId;
+                var indexarea = vm.area.indexOf($filter('filter')(vm.area, { 'areaId': vm.selectedAreaId }, true)[0]);
+                vm.selectedAreaId = vm.area[indexarea];
+
+
+                debugger;
+                vm.selectedBranchId = vm.selectedAreaId.branches[0].branchId;
             }
         }
         vm.branchChange = function () {
@@ -1043,6 +1082,182 @@
     })
 } 
 }());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('OrderController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate',
+            '$state', 'OrdersResource', 'ordersPrepService', '$localStorage',
+            'authorizationService', 'appCONSTANTS',
+            'ToastService', OrderController])
+        ;
+
+
+    function OrderController($rootScope, blockUI, $scope, $filter, $translate,
+        $state, OrdersResource, ordersPrepService, $localStorage, authorizationService,
+        appCONSTANTS, ToastService) {
+
+        blockUI.start("Loading..."); 
+        var vm = this;
+
+        $scope.totalCount = ordersPrepService.totalCount;
+        $scope.OrderList = ordersPrepService;
+        console.log($scope.OrderList);
+        $scope.getTotal = function (order) {
+            debugger;
+            var total = 0;
+            if (order.type == "3") {
+                for (var i = 0; i < order.orderDetails.length; i++) {
+                    var obj = order.orderDetails[i];
+                    total += (obj.item.price);
+                }
+            }
+            else if (order.type == "2") {
+                for (var i = 0; i < order.orderDetails.length; i++) {
+                    var obj = order.orderDetails[i];
+                    total += (obj.meal.mealPrice);
+                }
+            }
+            else if (order.type == "1") {
+                total = 1500;
+            }
+            return total;
+        }
+
+        function refreshOrders() {
+            blockUI.start("Loading...");
+
+            var k = OrdersResource.getAllOrders({ page: vm.currentPage }).$promise.then(function (results) {
+                $scope.OrderList = results;
+                blockUI.stop();
+
+            },
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+
+
+        vm.currentPage = 1;
+        $scope.changePage = function (page) {
+            vm.currentPage = page;
+            refreshOrders();
+        }
+        blockUI.stop();
+
+        $scope.goToDetails = function (orderModel) {
+
+
+
+        }
+
+    }
+
+})();(function () {
+    angular
+      .module('home')
+        .factory('OrdersResource', ['$resource', 'appCONSTANTS', OrdersResource]) 
+
+    function OrdersResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Orders/', {}, {
+            getAllOrders: { method: 'GET', url: appCONSTANTS.API_URL + 'Orders/GetOrderByClientId', useToken: true  },
+            create: { method: 'POST', useToken: true },
+            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Orders/EditOrder', useToken: true },
+            getOrder: { method: 'GET', url: appCONSTANTS.API_URL + 'Orders/GetOrderById/:OrderId', useToken: true } ,
+            getFullOrder: { method: 'GET', url: appCONSTANTS.API_URL + 'Orders/GetFullOrderById/:OrderId', useToken: true }   
+
+        })
+    } 
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('orderMealDetailscontroller', ['$scope', '$stateParams', '$state', '$translate', 'appCONSTANTS'
+            , '$filter', 'OrderMealPrepService', 'itemsssPrepService', 'OrderResource'
+            , 'RegionResource', 'BranchResource', 'CityResource', 'AreaResource', orderMealDetailscontroller])
+
+    function orderMealDetailscontroller($scope, $stateParams, $state, $translate, appCONSTANTS
+        , $filter, OrderMealPrepService
+        , itemsssPrepService, OrderResource, RegionResource, BranchResource, CityResource, AreaResource
+    ) {
+
+        $scope.OrderMealPrepService = OrderMealPrepService;
+        $scope.itemsssPrepService = itemsssPrepService;
+        $scope.Total = 0;
+        var vm = this;
+        $scope.clientId = $scope.user.id;
+        $scope.DeliveryFees = 0;
+        $scope.counties = [];
+        $scope.fats = 0;
+        $scope.carbs = 0;
+        $scope.protein = 0;
+        $scope.calories = 0;
+
+        for (var i = 0; i < $scope.OrderMealPrepService.mealDetails.length; i++) {
+            var differntItem = $scope.itemsssPrepService.filter(x => (x.itemId == $scope.OrderMealPrepService.mealDetails[i].itemId));
+
+            $scope.fats += differntItem[0].fat;
+            $scope.carbs += differntItem[0].carbs;
+            $scope.protein += differntItem[0].protein;
+            $scope.calories += differntItem[0].calories;
+        }
+
+        $scope.style = function () {
+            return {
+                'background': 'url(https://fithouseksa.com/wp-content/uploads/2018/07/fat-running.png) no-repeat',
+                'background-attachment': 'fixed',
+                'background-size': 'cover',
+                'width': '100%',
+                'width': '100%'
+            };
+        }
+
+
+
+
+               }
+
+}
+    ());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('orderProgramDetailscontroller', ['$scope', '$stateParams', '$translate', 'appCONSTANTS'
+            , '$filter', 'OrderprogDetailsPrepService', 'itemsssPrepService', 'OrderResource', orderProgramDetailscontroller])
+
+    function orderProgramDetailscontroller($scope, $stateParams, $translate, appCONSTANTS
+        , $filter, OrderprogDetailsPrepService
+        , itemsssPrepService) {
+        debugger;
+        $scope.OrderprogDetailsPrepService = OrderprogDetailsPrepService;
+        $scope.itemsssPrepService = itemsssPrepService;
+        $scope.clientId = localStorage.getItem('ClientId');
+
+         $scope.fats = 0;
+        $scope.carbs = 0;
+        $scope.protein = 0;
+        $scope.calories = 0;
+
+        for (var i = 0; i < $scope.OrderprogDetailsPrepService.items.length; i++) {
+            $scope.fats += $scope.OrderprogDetailsPrepService.items[i].fat;
+            $scope.carbs += $scope.OrderprogDetailsPrepService.items[i].carbs;
+            $scope.protein += $scope.OrderprogDetailsPrepService.items[i].protein;
+            $scope.calories += $scope.OrderprogDetailsPrepService.items[i].calories;
+        }
+
+
+
+    }
+
+}
+    ());
 (function () {
     'use strict';
 

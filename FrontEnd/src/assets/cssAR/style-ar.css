@@ -920,7 +920,7 @@ td {} .inn-com p {} .inn-com-form {} .inn-com-form form {
     /* border-right: 1px solid #dedede; */
     
     list-style-type: none;
-    background: url(/assets/images/icon/arrow.png) no-repeat center right;
+    background: url(/assets/img/icon/arrow.png) no-repeat center right;
     background-size: 10px;
 }
 #drop-page li a {} #drop-page li a:hover {
@@ -2292,11 +2292,11 @@ td {} .inn-com p {} .inn-com-form {} .inn-com-form form {
     pointer-events: none;
 }
 .ui-datepicker-prev {
-    background: url('/assets/images/right-arrow.png') no-repeat center center;
+    background: url('/assets/img/right-arrow.png') no-repeat center center;
     background-size: 12px;
 }
 .ui-datepicker-next {
-    background: url('/assets/images/right-arrow.png') no-repeat center center;
+    background: url('/assets/img/right-arrow.png') no-repeat center center;
     background-size: 12px;
 }
 /* Icons
@@ -4540,4 +4540,9 @@ form .stars label:before {
 }
 .hp-main-overview-block ul li span {
     color: #b1aa9c;
+}
+
+.labelCheckBox{
+    padding: 0 !important;
+    padding-right: 30px !important;
 }
