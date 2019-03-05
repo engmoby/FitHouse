@@ -100,7 +100,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/23/2018 03:44:10</publishTime>
     </File>
     <File Include="bin/FitHouse.API.dll">
-      <publishTime>03/04/2019 13:08:36</publishTime>
+      <publishTime>03/04/2019 14:02:02</publishTime>
     </File>
     <File Include="bin/FitHouse.BLL.dll">
       <publishTime>03/04/2019 13:08:31</publishTime>

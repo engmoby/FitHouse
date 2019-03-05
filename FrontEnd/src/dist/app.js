@@ -1,53 +1,3 @@
-(function() {
-  'use strict';
-
-  angular
-    .module('home')
-    .config(config)
-    .run(runBlock);
-
-  config.$inject = ['ngProgressLiteProvider'];
-  runBlock.$inject = ['$rootScope', 'ngProgressLite','$transitions','blockUI','$translate'];
-
-  function config(ngProgressLiteProvider) {
-    ngProgressLiteProvider.settings.speed = 1000;
-
-  }
-
-  function runBlock($rootScope, ngProgressLite,$transitions,blockUI,$translate) {
-
-    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
-        startProgress();
-    });
-    $transitions.onStart({}, function(transition) {
-      blockUI.start($translate.instant('loading')); 
-    });
-    $transitions.onSuccess({}, function(transition) {
-      blockUI.stop();
-      $(".hide-menu").click()
-    });
-    $transitions.onError({  }, function(transition) {
-      blockUI.stop();
-      $(".hide-menu").click()
-    });
-    var routingDoneEvents = ['$stateChangeSuccess', '$stateChangeError', '$stateNotFound'];
-
-    angular.forEach(routingDoneEvents, function(event) {
-      $rootScope.$on(event, function(event, toState, toParams, fromState, fromParams) {
-        endProgress();
-      });
-    });
-
-    function startProgress() {
-      ngProgressLite.start();
-    }
-
-    function endProgress() {
-      ngProgressLite.done();
-    }
-
-  }
-})();
 (function () {
     'use strict';
 
@@ -358,6 +308,56 @@
         return AddressResource.getAddress({ addressId: $stateParams.addressId }).$promise;
     }
 }());
+(function() {
+  'use strict';
+
+  angular
+    .module('home')
+    .config(config)
+    .run(runBlock);
+
+  config.$inject = ['ngProgressLiteProvider'];
+  runBlock.$inject = ['$rootScope', 'ngProgressLite','$transitions','blockUI','$translate'];
+
+  function config(ngProgressLiteProvider) {
+    ngProgressLiteProvider.settings.speed = 1000;
+
+  }
+
+  function runBlock($rootScope, ngProgressLite,$transitions,blockUI,$translate) {
+
+    $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+        startProgress();
+    });
+    $transitions.onStart({}, function(transition) {
+      blockUI.start($translate.instant('loading')); 
+    });
+    $transitions.onSuccess({}, function(transition) {
+      blockUI.stop();
+      $(".hide-menu").click()
+    });
+    $transitions.onError({  }, function(transition) {
+      blockUI.stop();
+      $(".hide-menu").click()
+    });
+    var routingDoneEvents = ['$stateChangeSuccess', '$stateChangeError', '$stateNotFound'];
+
+    angular.forEach(routingDoneEvents, function(event) {
+      $rootScope.$on(event, function(event, toState, toParams, fromState, fromParams) {
+        endProgress();
+      });
+    });
+
+    function startProgress() {
+      ngProgressLite.start();
+    }
+
+    function endProgress() {
+      ngProgressLite.done();
+    }
+
+  }
+})();
 (function () {
     'use strict';
 
@@ -2393,16 +2393,15 @@
 
     function homePageController($scope, $state, $stateParams, $translate, blockUI,appCONSTANTS, mealsPrepService, programPrepService
         , settingsPrepService, daysPrepService) {
-            blockUI.start($translate.instant('loading'));
 
         $scope.mealsPrepService = mealsPrepService.results;
         $scope.programPrepService = programPrepService.results;
         $scope.settingsPrepService = settingsPrepService;
         $scope.dayList = daysPrepService;
 		$scope.SelectedDays = [];
-        blockUI.stop();
         $scope.isSnack = false;
         $scope.isBreakFast = false;
+        blockUI.stop();
 
         $scope.submitCustomise = function () {
             localStorage.setItem('mealPerDay', $scope.mealPerDay);

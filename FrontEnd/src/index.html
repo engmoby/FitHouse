@@ -13,7 +13,8 @@
     <link rel="shortcut icon" href="/assets/img/cropped-favicon-192x192.png" type="image/x-icon">
     <link rel="stylesheet" ng-href="bundle-{{selectedLanguage}}.css?v=#{VERSION_REPlACE}#" />
     <script src="https://momentjs.com/downloads/moment.js"></script>
-
+    <mimeMap fileExtension="woff" mimeType="application/font-woff" /> 
+    <mimeMap fileExtension="woff2" mimeType="application/font-woff" />
 </head>
 
 <body>
@@ -62,7 +63,7 @@
                         </li>
                         <li>
                             <a ng-click="$state.go('Address', {userId: user.id});"
-                                style="cursor: pointer;">{{'Address' | translate}}</a>
+                                style="cursor: pointer;">{{'addressLbl' | translate}}</a>
                         </li>
                     </ul>
                 </div>
@@ -139,7 +140,7 @@
                             </li>
                             <li>
                                 <a ng-click="$state.go('Address', {userId: user.id});"
-                                    style="cursor: pointer;">{{'Address' | translate}}</a>
+                                    style="cursor: pointer;">{{'addressLbl' | translate}}</a>
                             </li>
                         </ul>
 
