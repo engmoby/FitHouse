@@ -21,7 +21,7 @@
 	});
 
 	$(function () {
-		
+
 		$('#startdate').datepicker(
 			{
 				minDate: new Date()
@@ -35,10 +35,11 @@
 </script>
 
 <style>
-	button[disabled], html input[disabled] {
-    cursor: default;
-    background: #e2a3ab !important;
-}
+	button[disabled],
+	html input[disabled] {
+		cursor: default;
+		background: #e2a3ab !important;
+	}
 </style>
 
 <!--HEADER SECTION-->
@@ -159,7 +160,7 @@
 						</div>
 						<div class="row">
 							<div class="input-field col s12">
-								
+
 								<input name="itemDatetime" required ng-model="itemDatetime" type="text" id="startdate" class="form-control" />
 								<label for="from">{{'OrderStartDate' | translate}}</label>
 							</div>
@@ -174,11 +175,10 @@
 						</div>
 						<div class="row">
 							<div class="input-field col s12">
-								<input ng-disabled="cutomizeProgram.$invalid  || settingsPrepService.minNoDaysPerProgram > programDaysCount" 
-								type="submit"
+								<input ng-disabled="cutomizeProgram.$invalid  || settingsPrepService.minNoDaysPerProgram > programDaysCount" type="submit"
 								 class="form-btn" ng-click="submitCustomise()">
 
-								 <!-- <button style="width: 90%; height: 50%;" class="form-btn" ng-disabled="cutomizeProgram.$invalid  || settingsPrepService.minNoDaysPerProgram > programDaysCount" ng-click="submitCustomise()"></button> -->
+								<!-- <button style="width: 90%; height: 50%;" class="form-btn" ng-disabled="cutomizeProgram.$invalid  || settingsPrepService.minNoDaysPerProgram > programDaysCount" ng-click="submitCustomise()"></button> -->
 							</div>
 						</div>
 					</form>
@@ -209,10 +209,15 @@
 				<div ng-repeat="n in [] | range:6">
 					<div ng-click="$state.go('mealDetails', {mealId: mealsPrepService[n].mealId});" style="cursor: pointer !important;" ng-if="mealsPrepService[n] != undefined"
 					 class="col-md-4">
+					 {{mealsPrepService[n].imageUrl}}
 						<div class="to-ho-hotel-con">
-							<div class="to-ho-hotel-con-1">
+							<div ng-if="mealsPrepService[n].imageUrl == null" class="to-ho-hotel-con-1">
 								<!-- {{mealsPrepService[n].mealId}} -->
 								<img src="https://fithouseksa.com/wp-content/uploads/2018/07/Grilled-steak.png" alt="">
+							</div>
+							<div ng-if="mealsPrepService[n].imageUrl != null" class="to-ho-hotel-con-1">
+								<!-- {{mealsPrepService[n].mealId}} -->
+								<img src="mealsPrepService[n].imageUrl" alt="">
 							</div>
 							<div class="to-ho-hotel-con-23">
 								<div class="to-ho-hotel-con-2">
@@ -250,82 +255,82 @@
 <!--TOP SECTION-->
 <section>
 
-<div class="inn-body-section pad-bot-55">
-	<div class="container">
-		<div class="row">
-			<div class="page-head">
-				<h2>{{'Programs' | translate}}</h2>
-				<div class="head-title">
-					<div class="hl-1"></div>
-					<div class="hl-2"></div>
-					<div class="hl-3"></div>
+	<div class="inn-body-section pad-bot-55">
+		<div class="container">
+			<div class="row">
+				<div class="page-head">
+					<h2>{{'Programs' | translate}}</h2>
+					<div class="head-title">
+						<div class="hl-1"></div>
+						<div class="hl-2"></div>
+						<div class="hl-3"></div>
+					</div>
+					<p>{{'ProgramsDescription' | translate}}</p>
 				</div>
-				<p>{{'ProgramsDescription' | translate}}</p>
-			</div>
-			<!--ROOM SECTION-->
-			<div ng-repeat="n in [] | range:6">
-				<div style="cursor: pointer !important;" ng-click="$state.go('programDetails', {programId: programPrepService[n].programId});"
-				 ng-if="programPrepService[n] != undefined" class="room">
-					<div class="ribbon ribbon-top-left">
-						<span>{{'Program' | translate}}</span>
-					</div>
-					<!--ROOM IMAGE-->
-					<div class="r1 r-com">
-						<img src="https://fithouseksa.com/wp-content/uploads/2018/07/fithouse-icons6.png" alt="" />
-					</div>
-					<!--ROOM RATING-->
-					<div class="r2 r-com">
-						<h4>{{programPrepService[n].programNameDictionary[selectedLanguage] | limitTo:10}}</h4>
-						<div class="r2-ratt">
-							<i></i>
-							<i></i>
-							<i></i>
-							<i></i>
-							<i></i>
-							<img src="images/h-trip.png" alt="" />
-							<br>
-							<span>{{programPrepService[n].programDescriptionDictionary[selectedLanguage] | limitTo:10}}</span>
+				<!--ROOM SECTION-->
+				<div ng-repeat="n in [] | range:6">
+					<div style="cursor: pointer !important;" ng-click="$state.go('programDetails', {programId: programPrepService[n].programId});"
+					 ng-if="programPrepService[n] != undefined" class="room">
+						<div class="ribbon ribbon-top-left">
+							<span>{{'Program' | translate}}</span>
 						</div>
-						<ul>
-							<li></li>
-							<li></li>
-							<li></li>
-							<li></li>
-						</ul>
+						<!--ROOM IMAGE-->
+						<div class="r1 r-com">
+							<img src="https://fithouseksa.com/wp-content/uploads/2018/07/fithouse-icons6.png" alt="" />
+						</div>
+						<!--ROOM RATING-->
+						<div class="r2 r-com">
+							<h4>{{programPrepService[n].programNameDictionary[selectedLanguage] | limitTo:10}}</h4>
+							<div class="r2-ratt">
+								<i></i>
+								<i></i>
+								<i></i>
+								<i></i>
+								<i></i>
+								<img src="images/h-trip.png" alt="" />
+								<br>
+								<span>{{programPrepService[n].programDescriptionDictionary[selectedLanguage] | limitTo:10}}</span>
+							</div>
+							<ul>
+								<li></li>
+								<li></li>
+								<li></li>
+								<li></li>
+							</ul>
+						</div>
+						<!--ROOM AMINITIES-->
+						<div class="r3 r-com">
+							<ul>
+								<li>{{'ProgramDays' | translate}}: {{programPrepService[n].programDays}}</li>
+								<li>{{'MealPerDay' | translate}}: {{programPrepService[n].noOfMeals}}</li>
+								<li></li>
+								<li></li>
+								<li></li>
+							</ul>
+						</div>
+						<!--ROOM PRICE-->
+						<div class="r4 r-com">
+							<p></p>
+							<p>
+								<span class="room-price-1">{{programPrepService[n].price}}</span>
+								<span class="room-price"></span>
+							</p>
+							<p>{{'NonRefundable' | translate}}</p>
+						</div>
+						<!--ROOM BOOKING BUTTON-->
+						<div class="r5 r-com">
+							<div class="r2-available">Available</div>
+							<p></p>
+							<a style="cursor: pointer !important;" ng-click="$state.go('programDetails', {programId: programPrepService[n].programId});"
+							 class="inn-room-book">{{'Book' | translate}}</a>
+						</div>
 					</div>
-					<!--ROOM AMINITIES-->
-					<div class="r3 r-com">
-						<ul>
-							<li>{{'ProgramDays' | translate}}: {{programPrepService[n].programDays}}</li>
-							<li>{{'MealPerDay' | translate}}: {{programPrepService[n].noOfMeals}}</li>
-							<li></li>
-							<li></li>
-							<li></li>
-						</ul>
-					</div>
-					<!--ROOM PRICE-->
-					<div class="r4 r-com">
-						<p></p>
-						<p>
-							<span class="room-price-1">{{programPrepService[n].price}}</span>
-							<span class="room-price"></span>
-						</p>
-						<p>{{'NonRefundable' | translate}}</p>
-					</div>
-					<!--ROOM BOOKING BUTTON-->
-					<div class="r5 r-com">
-						<div class="r2-available">Available</div>
-						<p></p>
-						<a style="cursor: pointer !important;" ng-click="$state.go('programDetails', {programId: programPrepService[n].programId});"
-						 class="inn-room-book">{{'Book' | translate}}</a>
-					</div>
+					<!--END ROOM SECTION-->
 				</div>
-				<!--END ROOM SECTION-->
+
 			</div>
-			
 		</div>
 	</div>
-</div>
 </section>
 
 

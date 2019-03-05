@@ -1698,6 +1698,19 @@
             address: 0
         };
 
+        $scope.typeChanged = function () {
+            if ($scope.orderType.type == 'delivery') {
+                $scope.DeliveryFees = 0;
+                $scope.Total = 0;
+                $scope.selectedAreaId = 0;
+            }
+            else {
+                $scope.DeliveryFees = 0;
+                $scope.Total = 0;
+                $scope.addresses.address = null;
+            }
+        }
+
         $scope.addressValidation = false;
         $scope.addressInfo = function (address) {
             $scope.addressDetails = address;

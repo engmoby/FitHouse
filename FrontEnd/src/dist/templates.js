@@ -777,7 +777,6 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 
 angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/meal/templates/meal.html',
-    ' \n' +
     '<div class="inn-body-section pad-bot-55">\n' +
     '    <div class="container">\n' +
     '        <div class="row">\n' +
@@ -791,63 +790,67 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                <p>{{\'MealsDescription\' | translate}}</p>\n' +
     '            </div>\n' +
     '            <!--ROOM SECTION-->\n' +
-    '          \n' +
-    '                <div ng-click="$state.go(\'mealDetails\', {mealId: Meal.mealId});" style="cursor: pointer !important;"\n' +
-    '                    ng-repeat="Meal in mealsPrepService" class="room">\n' +
-    '                    <div class="ribbon ribbon-top-left">\n' +
-    '                        <span>{{\'Meal\' | translate}}</span>\n' +
-    '                    </div>\n' +
-    '                    <!--ROOM IMAGE-->\n' +
-    '                    <div class="r1 r-com">\n' +
-    '                        <img src="https://fithouseksa.com/wp-content/uploads/2018/07/Grilled-steak.png" alt="" />\n' +
-    '                    </div>\n' +
-    '                    <!--ROOM RATING-->\n' +
-    '                    <div class="r2 r-com">\n' +
-    '                        <h4>{{Meal.mealDescriptionDictionary[selectedLanguage]}}</h4>\n' +
-    '                        <div class="r2-ratt">\n' +
-    '                            <i></i>\n' +
-    '                            <i></i>\n' +
-    '                            <i></i>\n' +
-    '                            <i></i>\n' +
-    '                            <i></i>\n' +
-    '                            <img src="images/h-trip.png" alt="" />\n' +
-    '                            <span></span>\n' +
-    '                        </div>\n' +
-    '                        <ul>\n' +
-    '                            <li></li>\n' +
-    '                            <li></li>\n' +
-    '                            <li></li>\n' +
-    '                            <li></li>\n' +
-    '                        </ul>\n' +
-    '                    </div>\n' +
-    '                    <!--ROOM AMINITIES-->\n' +
-    '                    <div class="r3 r-com">\n' +
-    '                        <ul>\n' +
-    '                            <li>{{\'NumberOfItems\' | translate}}: {{Meal.mealDetails.length}}</li>\n' +
-    '                            <li></li>\n' +
-    '                            <li></li>\n' +
-    '                            <li></li>\n' +
-    '                            <li></li>\n' +
-    '                        </ul>\n' +
-    '                    </div>\n' +
-    '                    <!--ROOM PRICE-->\n' +
-    '                    <div class="r4 r-com">\n' +
-    '                        <p>{{Meal.mealPrice}}</p>\n' +
-    '                        <p>\n' +
-    '                            <span class="room-price-1"></span>\n' +
-    '                            <span class="room-price"></span>\n' +
-    '                        </p>\n' +
-    '                        <p>{{\'NonRefundable\' | translate}}</p>\n' +
-    '                    </div>\n' +
-    '                    <!--ROOM BOOKING BUTTON-->\n' +
-    '                    <div class="r5 r-com">\n' +
-    '                        <div class="r2-available">{{\'Available\' | translate}}</div>\n' +
-    '                        <p></p>\n' +
-    '                        <a ng-click="$state.go(\'mealDetails\', {mealId: Meal.mealId});"\n' +
-    '                            class="inn-room-book">{{\'Book\' | translate}}</a>\n' +
-    '                    </div>\n' +
+    '\n' +
+    '            <div ng-click="$state.go(\'mealDetails\', {mealId: Meal.mealId});" style="cursor: pointer !important;" ng-repeat="Meal in mealsPrepService"\n' +
+    '                class="room">\n' +
+    '                <!-- {{Meal.imageUrl}} -->\n' +
+    '\n' +
+    '                <div class="ribbon ribbon-top-left">\n' +
+    '                    <span>{{\'Meal\' | translate}}</span>\n' +
     '                </div>\n' +
-    '    \n' +
+    '                <!--ROOM IMAGE-->\n' +
+    '                <div ng-if="Meal.imageUrl == null" class="r1 r-com">\n' +
+    '                    <img src="https://fithouseksa.com/wp-content/uploads/2018/07/Grilled-steak.png" alt="" />\n' +
+    '                </div>\n' +
+    '                <div ng-if="Meal.imageUrl != null" class="r1 r-com">\n' +
+    '                    <img src="Meal.imageUrl" alt="" />\n' +
+    '                </div>\n' +
+    '                <!--ROOM RATING-->\n' +
+    '                <div class="r2 r-com">\n' +
+    '                    <h4>{{Meal.mealDescriptionDictionary[selectedLanguage]}}</h4>\n' +
+    '                    <div class="r2-ratt">\n' +
+    '                        <i></i>\n' +
+    '                        <i></i>\n' +
+    '                        <i></i>\n' +
+    '                        <i></i>\n' +
+    '                        <i></i>\n' +
+    '                        <img src="images/h-trip.png" alt="" />\n' +
+    '                        <span></span>\n' +
+    '                    </div>\n' +
+    '                    <ul>\n' +
+    '                        <li></li>\n' +
+    '                        <li></li>\n' +
+    '                        <li></li>\n' +
+    '                        <li></li>\n' +
+    '                    </ul>\n' +
+    '                </div>\n' +
+    '                <!--ROOM AMINITIES-->\n' +
+    '                <div class="r3 r-com">\n' +
+    '                    <ul>\n' +
+    '                        <li>{{\'NumberOfItems\' | translate}}: {{Meal.mealDetails.length}}</li>\n' +
+    '                        <li></li>\n' +
+    '                        <li></li>\n' +
+    '                        <li></li>\n' +
+    '                        <li></li>\n' +
+    '                    </ul>\n' +
+    '                </div>\n' +
+    '                <!--ROOM PRICE-->\n' +
+    '                <div class="r4 r-com">\n' +
+    '                    <p>{{Meal.mealPrice}}</p>\n' +
+    '                    <p>\n' +
+    '                        <span class="room-price-1"></span>\n' +
+    '                        <span class="room-price"></span>\n' +
+    '                    </p>\n' +
+    '                    <p>{{\'NonRefundable\' | translate}}</p>\n' +
+    '                </div>\n' +
+    '                <!--ROOM BOOKING BUTTON-->\n' +
+    '                <div class="r5 r-com">\n' +
+    '                    <div class="r2-available">{{\'Available\' | translate}}</div>\n' +
+    '                    <p></p>\n' +
+    '                    <a ng-click="$state.go(\'mealDetails\', {mealId: Meal.mealId});" class="inn-room-book">{{\'Book\' | translate}}</a>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '\n' +
     '            <!--END ROOM SECTION-->\n' +
     '        </div>\n' +
     '    </div>\n' +
@@ -900,20 +903,20 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                            <ul class="nav nav-tabs hp-over-nav">\n' +
     '                                <li class="active">\n' +
     '                                    <a data-toggle="tab" data-target="#home" style="cursor: pointer;">\n' +
-    '                                        <img src="/assets/img/cropped-favicon-32x32.png" alt="">\n' +
-    '                                        <span class="tab-hide">{{\'Details\' | translate}}</span>\n' +
+    '                                        <!-- <img src="/assets/img/cropped-favicon-32x32.png" alt=""> -->\n' +
+    '                                        <span>{{\'Details\' | translate}}</span>\n' +
     '                                    </a>\n' +
     '                                </li>\n' +
     '                                <li>\n' +
     '                                    <a data-toggle="tab" data-target="#menu1" style="cursor: pointer;">\n' +
-    '                                        <img src="/assets/img/cropped-favicon-32x32.png" alt="">\n' +
-    '                                        <span class="tab-hide">{{\'Summary\' | translate}}</span>\n' +
+    '                                        <!-- <img src="/assets/img/cropped-favicon-32x32.png" alt=""> -->\n' +
+    '                                        <span>{{\'Summary\' | translate}}</span>\n' +
     '                                    </a>\n' +
     '                                </li>\n' +
     '                                <li>\n' +
     '                                    <a data-toggle="tab" data-target="#menu2" style="cursor: pointer;">\n' +
-    '                                        <img src="/assets/img/cropped-favicon-32x32.png" alt="">\n' +
-    '                                        <span class="tab-hide">{{\'Order\' | translate}}</span>\n' +
+    '                                        <!-- <img src="/assets/img/cropped-favicon-32x32.png" alt=""> -->\n' +
+    '                                        <span>{{\'Order\' | translate}}</span>\n' +
     '                                    </a>\n' +
     '                                </li>\n' +
     '                            </ul>\n' +
@@ -1119,7 +1122,8 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/order/templates/OrderDetails.html',
     ' \n' +
-    '<div class="inn-body-section pad-bot-55">\n' +
+    '<!-- <div class="inn-body-section pad-bot-55"> -->\n' +
+    '<div class="hom-com ng-scope">\n' +
     '    <div class="container">\n' +
     '\n' +
     '        <div class="row">\n' +
@@ -1135,14 +1139,14 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                        <ul class="nav nav-tabs hp-over-nav">\n' +
     '                            <li class="active">\n' +
     '                                <a data-toggle="tab" data-target="#home" style="cursor: pointer;">\n' +
-    '                                    <img src="/assets/img/cropped-favicon-32x32.png" alt="">\n' +
-    '                                    <span class="tab-hide">{{\'Details\' | translate}}</span>\n' +
+    '                                    <!-- <img src="/assets/img/cropped-favicon-32x32.png" alt=""> -->\n' +
+    '                                    <span >{{\'Details\' | translate}}</span>\n' +
     '                                </a>\n' +
     '                            </li>\n' +
     '                            <li>\n' +
     '                                <a data-toggle="tab" data-target="#menu1" style="cursor: pointer;">\n' +
-    '                                    <img src="/assets/img/cropped-favicon-32x32.png" alt="">\n' +
-    '                                    <span class="tab-hide">{{\'Summary\' | translate}}</span>\n' +
+    '                                    <!-- <img src="/assets/img/cropped-favicon-32x32.png" alt=""> -->\n' +
+    '                                    <span >{{\'Summary\' | translate}}</span>\n' +
     '                                </a>\n' +
     '                            </li> \n' +
     '                        </ul>\n' +
@@ -1435,11 +1439,11 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '    });\n' +
     '</script>\n' +
     '\n' +
-    '<div class="menu-section">\n' +
+    '<!-- <div class="menu-section">\n' +
     '    <div class="container">\n' +
     '\n' +
     '    </div>\n' +
-    '</div>\n' +
+    '</div> -->\n' +
     '<!--TOP SECTION-->\n' +
     '<div class="hp-banner">\n' +
     '    <img src="images/detailed-banner.jpg" alt=""> </div>\n' +
@@ -1533,20 +1537,20 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                            <ul class="nav nav-tabs hp-over-nav">\n' +
     '                                <li class="active">\n' +
     '                                    <a data-toggle="tab" data-target="#home" style="cursor: pointer;">\n' +
-    '                                        <img src="images/icon/a9.png" alt="">\n' +
-    '                                        <span class="tab-hide">{{\'Details\' | translate}}</span>\n' +
+    '                                        <!-- <img src="images/icon/a9.png" alt=""> -->\n' +
+    '                                        <span>{{\'Details\' | translate}}</span>\n' +
     '                                    </a>\n' +
     '                                </li>\n' +
     '                                <li>\n' +
     '                                    <a data-toggle="tab" data-target="#menu1" style="cursor: pointer;">\n' +
-    '                                        <img src="images/icon/a8.png" alt="">\n' +
-    '                                        <span class="tab-hide">{{\'Summary\' | translate}}</span>\n' +
+    '                                        <!-- <img src="images/icon/a8.png" alt=""> -->\n' +
+    '                                        <span>{{\'Summary\' | translate}}</span>\n' +
     '                                    </a>\n' +
     '                                </li>\n' +
     '                                <li>\n' +
     '                                    <a data-toggle="tab" data-target="#menu2" style="cursor: pointer;">\n' +
-    '                                        <img src="images/icon/a8.png" alt="">\n' +
-    '                                        <span class="tab-hide">{{\'Order\' | translate}}</span>\n' +
+    '                                        <!-- <img src="images/icon/a8.png" alt=""> -->\n' +
+    '                                        <span>{{\'Order\' | translate}}</span>\n' +
     '                                    </a>\n' +
     '                                </li>\n' +
     '                            </ul>\n' +
@@ -1555,10 +1559,10 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                    <div ng-init="counterDay = 0; counterMeal = 0">\n' +
     '                                        <div class="panel-group pmd-accordion pmd-accordion-inbox" id="accordion6" role="tablist" aria-multiselectable="true">\n' +
     '                                            <div ng-repeat="n in [].constructor(progDetailsPrepService.programDays)  track by $index" class="panel panel-default">\n' +
-    '                                                <div class="panel-heading" role="tab" id="headingOne">\n' +
+    '                                                <div class="panel-heading" role="tab" id="headingOne" ng-init="counterDay=counterDay+1;" data-toggle="collapse" data-parent="#accordion6" ng-init="n=false" ng-click="n=!n;"\n' +
+    '                                                aria-expanded="true" aria-controls="collapseOne6" data-expandable="false">\n' +
     '                                                    <h4 class="panel-title">\n' +
-    '                                                        <a ng-init="counterDay=counterDay+1;" data-toggle="collapse" data-parent="#accordion6" ng-init="n=false" ng-click="n=!n;"\n' +
-    '                                                            aria-expanded="true" aria-controls="collapseOne6" data-expandable="false">\n' +
+    '                                                        <a >\n' +
     '                                                            {{\'Day\' | translate}} #{{counterDay=$index+1}}\n' +
     '                                                            <i class="material-icons md-dark pmd-sm pmd-accordion-arrow">keyboard_arrow_down</i>\n' +
     '                                                        </a>\n' +
@@ -1643,11 +1647,11 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                        <div class="col-md-12">\n' +
     '                                            <h5>{{\'OrderType\' | translate}}</h5>\n' +
     '                                            <p>\n' +
-    '                                                <input ng-model="orderType.type" name="group1" type="radio" id="test1" value="delivery" />\n' +
+    '                                                <input ng-change="typeChanged()" ng-model="orderType.type" name="group1" type="radio" id="test1" value="delivery" />\n' +
     '                                                <label for="test1">{{\'Delivery\' | translate}}</label>\n' +
     '                                            </p>\n' +
     '                                            <p>\n' +
-    '                                                <input ng-model="orderType.type" name="group1" type="radio" id="test2" value="pickup" />\n' +
+    '                                                <input ng-change="typeChanged()" ng-model="orderType.type" name="group1" type="radio" id="test2" value="pickup" />\n' +
     '                                                <label for="test2">{{\'PickUp\' | translate}}</label>\n' +
     '                                            </p>\n' +
     '\n' +
@@ -2421,7 +2425,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '	});\n' +
     '\n' +
     '	$(function () {\n' +
-    '		\n' +
+    '\n' +
     '		$(\'#startdate\').datepicker(\n' +
     '			{\n' +
     '				minDate: new Date()\n' +
@@ -2435,10 +2439,11 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '</script>\n' +
     '\n' +
     '<style>\n' +
-    '	button[disabled], html input[disabled] {\n' +
-    '    cursor: default;\n' +
-    '    background: #e2a3ab !important;\n' +
-    '}\n' +
+    '	button[disabled],\n' +
+    '	html input[disabled] {\n' +
+    '		cursor: default;\n' +
+    '		background: #e2a3ab !important;\n' +
+    '	}\n' +
     '</style>\n' +
     '\n' +
     '<!--HEADER SECTION-->\n' +
@@ -2559,7 +2564,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '						</div>\n' +
     '						<div class="row">\n' +
     '							<div class="input-field col s12">\n' +
-    '								\n' +
+    '\n' +
     '								<input name="itemDatetime" required ng-model="itemDatetime" type="text" id="startdate" class="form-control" />\n' +
     '								<label for="from">{{\'OrderStartDate\' | translate}}</label>\n' +
     '							</div>\n' +
@@ -2574,11 +2579,10 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '						</div>\n' +
     '						<div class="row">\n' +
     '							<div class="input-field col s12">\n' +
-    '								<input ng-disabled="cutomizeProgram.$invalid  || settingsPrepService.minNoDaysPerProgram > programDaysCount" \n' +
-    '								type="submit"\n' +
+    '								<input ng-disabled="cutomizeProgram.$invalid  || settingsPrepService.minNoDaysPerProgram > programDaysCount" type="submit"\n' +
     '								 class="form-btn" ng-click="submitCustomise()">\n' +
     '\n' +
-    '								 <!-- <button style="width: 90%; height: 50%;" class="form-btn" ng-disabled="cutomizeProgram.$invalid  || settingsPrepService.minNoDaysPerProgram > programDaysCount" ng-click="submitCustomise()"></button> -->\n' +
+    '								<!-- <button style="width: 90%; height: 50%;" class="form-btn" ng-disabled="cutomizeProgram.$invalid  || settingsPrepService.minNoDaysPerProgram > programDaysCount" ng-click="submitCustomise()"></button> -->\n' +
     '							</div>\n' +
     '						</div>\n' +
     '					</form>\n' +
@@ -2609,10 +2613,15 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '				<div ng-repeat="n in [] | range:6">\n' +
     '					<div ng-click="$state.go(\'mealDetails\', {mealId: mealsPrepService[n].mealId});" style="cursor: pointer !important;" ng-if="mealsPrepService[n] != undefined"\n' +
     '					 class="col-md-4">\n' +
+    '					 {{mealsPrepService[n].imageUrl}}\n' +
     '						<div class="to-ho-hotel-con">\n' +
-    '							<div class="to-ho-hotel-con-1">\n' +
+    '							<div ng-if="mealsPrepService[n].imageUrl == null" class="to-ho-hotel-con-1">\n' +
     '								<!-- {{mealsPrepService[n].mealId}} -->\n' +
     '								<img src="https://fithouseksa.com/wp-content/uploads/2018/07/Grilled-steak.png" alt="">\n' +
+    '							</div>\n' +
+    '							<div ng-if="mealsPrepService[n].imageUrl != null" class="to-ho-hotel-con-1">\n' +
+    '								<!-- {{mealsPrepService[n].mealId}} -->\n' +
+    '								<img src="mealsPrepService[n].imageUrl" alt="">\n' +
     '							</div>\n' +
     '							<div class="to-ho-hotel-con-23">\n' +
     '								<div class="to-ho-hotel-con-2">\n' +
@@ -2650,82 +2659,82 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '<!--TOP SECTION-->\n' +
     '<section>\n' +
     '\n' +
-    '<div class="inn-body-section pad-bot-55">\n' +
-    '	<div class="container">\n' +
-    '		<div class="row">\n' +
-    '			<div class="page-head">\n' +
-    '				<h2>{{\'Programs\' | translate}}</h2>\n' +
-    '				<div class="head-title">\n' +
-    '					<div class="hl-1"></div>\n' +
-    '					<div class="hl-2"></div>\n' +
-    '					<div class="hl-3"></div>\n' +
+    '	<div class="inn-body-section pad-bot-55">\n' +
+    '		<div class="container">\n' +
+    '			<div class="row">\n' +
+    '				<div class="page-head">\n' +
+    '					<h2>{{\'Programs\' | translate}}</h2>\n' +
+    '					<div class="head-title">\n' +
+    '						<div class="hl-1"></div>\n' +
+    '						<div class="hl-2"></div>\n' +
+    '						<div class="hl-3"></div>\n' +
+    '					</div>\n' +
+    '					<p>{{\'ProgramsDescription\' | translate}}</p>\n' +
     '				</div>\n' +
-    '				<p>{{\'ProgramsDescription\' | translate}}</p>\n' +
-    '			</div>\n' +
-    '			<!--ROOM SECTION-->\n' +
-    '			<div ng-repeat="n in [] | range:6">\n' +
-    '				<div style="cursor: pointer !important;" ng-click="$state.go(\'programDetails\', {programId: programPrepService[n].programId});"\n' +
-    '				 ng-if="programPrepService[n] != undefined" class="room">\n' +
-    '					<div class="ribbon ribbon-top-left">\n' +
-    '						<span>{{\'Program\' | translate}}</span>\n' +
-    '					</div>\n' +
-    '					<!--ROOM IMAGE-->\n' +
-    '					<div class="r1 r-com">\n' +
-    '						<img src="https://fithouseksa.com/wp-content/uploads/2018/07/fithouse-icons6.png" alt="" />\n' +
-    '					</div>\n' +
-    '					<!--ROOM RATING-->\n' +
-    '					<div class="r2 r-com">\n' +
-    '						<h4>{{programPrepService[n].programNameDictionary[selectedLanguage] | limitTo:10}}</h4>\n' +
-    '						<div class="r2-ratt">\n' +
-    '							<i></i>\n' +
-    '							<i></i>\n' +
-    '							<i></i>\n' +
-    '							<i></i>\n' +
-    '							<i></i>\n' +
-    '							<img src="images/h-trip.png" alt="" />\n' +
-    '							<br>\n' +
-    '							<span>{{programPrepService[n].programDescriptionDictionary[selectedLanguage] | limitTo:10}}</span>\n' +
+    '				<!--ROOM SECTION-->\n' +
+    '				<div ng-repeat="n in [] | range:6">\n' +
+    '					<div style="cursor: pointer !important;" ng-click="$state.go(\'programDetails\', {programId: programPrepService[n].programId});"\n' +
+    '					 ng-if="programPrepService[n] != undefined" class="room">\n' +
+    '						<div class="ribbon ribbon-top-left">\n' +
+    '							<span>{{\'Program\' | translate}}</span>\n' +
     '						</div>\n' +
-    '						<ul>\n' +
-    '							<li></li>\n' +
-    '							<li></li>\n' +
-    '							<li></li>\n' +
-    '							<li></li>\n' +
-    '						</ul>\n' +
+    '						<!--ROOM IMAGE-->\n' +
+    '						<div class="r1 r-com">\n' +
+    '							<img src="https://fithouseksa.com/wp-content/uploads/2018/07/fithouse-icons6.png" alt="" />\n' +
+    '						</div>\n' +
+    '						<!--ROOM RATING-->\n' +
+    '						<div class="r2 r-com">\n' +
+    '							<h4>{{programPrepService[n].programNameDictionary[selectedLanguage] | limitTo:10}}</h4>\n' +
+    '							<div class="r2-ratt">\n' +
+    '								<i></i>\n' +
+    '								<i></i>\n' +
+    '								<i></i>\n' +
+    '								<i></i>\n' +
+    '								<i></i>\n' +
+    '								<img src="images/h-trip.png" alt="" />\n' +
+    '								<br>\n' +
+    '								<span>{{programPrepService[n].programDescriptionDictionary[selectedLanguage] | limitTo:10}}</span>\n' +
+    '							</div>\n' +
+    '							<ul>\n' +
+    '								<li></li>\n' +
+    '								<li></li>\n' +
+    '								<li></li>\n' +
+    '								<li></li>\n' +
+    '							</ul>\n' +
+    '						</div>\n' +
+    '						<!--ROOM AMINITIES-->\n' +
+    '						<div class="r3 r-com">\n' +
+    '							<ul>\n' +
+    '								<li>{{\'ProgramDays\' | translate}}: {{programPrepService[n].programDays}}</li>\n' +
+    '								<li>{{\'MealPerDay\' | translate}}: {{programPrepService[n].noOfMeals}}</li>\n' +
+    '								<li></li>\n' +
+    '								<li></li>\n' +
+    '								<li></li>\n' +
+    '							</ul>\n' +
+    '						</div>\n' +
+    '						<!--ROOM PRICE-->\n' +
+    '						<div class="r4 r-com">\n' +
+    '							<p></p>\n' +
+    '							<p>\n' +
+    '								<span class="room-price-1">{{programPrepService[n].price}}</span>\n' +
+    '								<span class="room-price"></span>\n' +
+    '							</p>\n' +
+    '							<p>{{\'NonRefundable\' | translate}}</p>\n' +
+    '						</div>\n' +
+    '						<!--ROOM BOOKING BUTTON-->\n' +
+    '						<div class="r5 r-com">\n' +
+    '							<div class="r2-available">Available</div>\n' +
+    '							<p></p>\n' +
+    '							<a style="cursor: pointer !important;" ng-click="$state.go(\'programDetails\', {programId: programPrepService[n].programId});"\n' +
+    '							 class="inn-room-book">{{\'Book\' | translate}}</a>\n' +
+    '						</div>\n' +
     '					</div>\n' +
-    '					<!--ROOM AMINITIES-->\n' +
-    '					<div class="r3 r-com">\n' +
-    '						<ul>\n' +
-    '							<li>{{\'ProgramDays\' | translate}}: {{programPrepService[n].programDays}}</li>\n' +
-    '							<li>{{\'MealPerDay\' | translate}}: {{programPrepService[n].noOfMeals}}</li>\n' +
-    '							<li></li>\n' +
-    '							<li></li>\n' +
-    '							<li></li>\n' +
-    '						</ul>\n' +
-    '					</div>\n' +
-    '					<!--ROOM PRICE-->\n' +
-    '					<div class="r4 r-com">\n' +
-    '						<p></p>\n' +
-    '						<p>\n' +
-    '							<span class="room-price-1">{{programPrepService[n].price}}</span>\n' +
-    '							<span class="room-price"></span>\n' +
-    '						</p>\n' +
-    '						<p>{{\'NonRefundable\' | translate}}</p>\n' +
-    '					</div>\n' +
-    '					<!--ROOM BOOKING BUTTON-->\n' +
-    '					<div class="r5 r-com">\n' +
-    '						<div class="r2-available">Available</div>\n' +
-    '						<p></p>\n' +
-    '						<a style="cursor: pointer !important;" ng-click="$state.go(\'programDetails\', {programId: programPrepService[n].programId});"\n' +
-    '						 class="inn-room-book">{{\'Book\' | translate}}</a>\n' +
-    '					</div>\n' +
+    '					<!--END ROOM SECTION-->\n' +
     '				</div>\n' +
-    '				<!--END ROOM SECTION-->\n' +
+    '\n' +
     '			</div>\n' +
-    '			\n' +
     '		</div>\n' +
     '	</div>\n' +
-    '</div>\n' +
     '</section>\n' +
     '\n' +
     '\n' +
