@@ -2635,7 +2635,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '							</div>\n' +
     '							<div ng-if="mealsPrepService[n].imageUrl != null" class="to-ho-hotel-con-1">\n' +
     '								<!-- {{mealsPrepService[n].mealId}} -->\n' +
-    '								<img src={{mealsPrepService[n].imageUrl}} alt="">\n' +
+    '								<img src={{mealsPrepService[n].imageUrl}} imageonload  alt="">\n' +
     '							</div>\n' +
     '							<div class="to-ho-hotel-con-23">\n' +
     '								<div class="to-ho-hotel-con-2">\n' +
