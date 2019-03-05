@@ -2406,16 +2406,15 @@
 
     function homePageController($scope, $state, $stateParams, $translate, blockUI,appCONSTANTS, mealsPrepService, programPrepService
         , settingsPrepService, daysPrepService) {
-            blockUI.start($translate.instant('loading'));
 
         $scope.mealsPrepService = mealsPrepService.results;
         $scope.programPrepService = programPrepService.results;
         $scope.settingsPrepService = settingsPrepService;
         $scope.dayList = daysPrepService;
 		$scope.SelectedDays = [];
-        blockUI.stop();
         $scope.isSnack = false;
         $scope.isBreakFast = false;
+        blockUI.stop();
 
         $scope.submitCustomise = function () {
             localStorage.setItem('mealPerDay', $scope.mealPerDay);

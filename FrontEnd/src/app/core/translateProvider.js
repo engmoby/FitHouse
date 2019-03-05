@@ -358,11 +358,15 @@
         "deleteBtn": "Delete",
         "cancelBtn": "Cancel",
         "loading": "Lodaing...",
+        "History": "Orders",
+        "Profile": "Profile", 
       }
 
       var ar_translations = {
 
         "loading": "تحميل ...",
+        "History": "الطلبات",
+        "Profile": "الملف الشخصي", 
         "ProgramName": "اسم البرنامج",
         "ProgramDescription": "وصف البرنامج",
         "SelectExcludeDays": "الأيام المستثيه",
