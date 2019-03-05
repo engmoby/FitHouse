@@ -40,7 +40,7 @@
 				localStorage.removeItem("programDaysCount");
 				localStorage.removeItem("ProgramDiscount");
 				$state.go('homePage')
-			}, 5000);
+			}, 10000);
 		}
 		$scope.getData = function (itemModel, day, meal) {
 
@@ -72,6 +72,16 @@
 			// vm.ProgramTotalPrice = (vm.totalPrice + vm.DeliveryFees) - (vm.totalPrice * (vm.ProgramDiscount / 100));
 			// vm.ProgramTotalPriceBefore = vm.totalPrice + vm.DeliveryFees;
 
+			debugger;
+			vm.itemList.forEach(element => {
+				vm.carbs = (element.carbs == null) ? 0 : $scope.sum(vm.itemList, 'carbs');
+				vm.calories = (element.calories == null) ? 0 : $scope.sum(vm.itemList, 'calories');
+				vm.protein = (element.protein == null) ? 0 : $scope.sum(vm.itemList, 'protein');
+				vm.fat = (element.fat == null) ? 0 : $scope.sum(vm.itemList, 'fat');
+				//vm.price = $scope.sum(model, 'price');
+
+				//$scope.selectedItemList = model;
+			});
 		}
 
 		vm.AddNewProgram = function () {
@@ -121,15 +131,15 @@
 			var modelList = [];
 			modelList = model;
 
-			modelList.forEach(element => {
-				vm.carbs = (element.carbs == null) ? 0 : $scope.sum(model, 'carbs');
-				vm.calories = (element.calories == null) ? 0 : $scope.sum(model, 'calories');
-				vm.protein = (element.protein == null) ? 0 : $scope.sum(model, 'protein');
-				vm.fat = (element.fat == null) ? 0 : $scope.sum(model, 'fat');
-				//vm.price = $scope.sum(model, 'price');
+			// modelList.forEach(element => {
+			// 	vm.carbs = (element.carbs == null) ? 0 : $scope.sum(model, 'carbs');
+			// 	vm.calories = (element.calories == null) ? 0 : $scope.sum(model, 'calories');
+			// 	vm.protein = (element.protein == null) ? 0 : $scope.sum(model, 'protein');
+			// 	vm.fat = (element.fat == null) ? 0 : $scope.sum(model, 'fat');
+			// 	//vm.price = $scope.sum(model, 'price');
 
-				$scope.selectedItemList = model;
-			});
+			// 	$scope.selectedItemList = model;
+			// });
 			//console.log($scope.selectedItemList);
 		}
 		$scope.sum = function (items, prop) {
@@ -273,7 +283,7 @@
 				vm.orderType.type = 'pickup'
 				// if (CustomCtrl.selectedCityId > 0)
 				// 	vm.validate = false;
-
+				vm.addressDetails.address = null;
 			} else {
 				vm.orderType.type = 'delivery'
 

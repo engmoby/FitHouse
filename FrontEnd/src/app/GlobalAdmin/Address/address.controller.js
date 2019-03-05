@@ -20,6 +20,8 @@
         $scope.totalCount = AddressPrepService.totalCount;
         $scope.AddressList = AddressPrepService;
         console.log($scope.AddressList);
+        blockUI.stop();
+
         function refreshAddress() {
             blockUI.start("Loading...");
 
@@ -42,7 +44,6 @@
             vm.currentPage = page;
             refreshAddress();
         }
-        blockUI.stop();
 
     }
 

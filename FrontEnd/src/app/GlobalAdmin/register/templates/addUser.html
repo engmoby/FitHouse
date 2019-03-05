@@ -87,50 +87,6 @@
                 | translate}}</div>
                         </div>
                     </div>
-
-                    <div
-                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-                        <label for="first-name">{{'FLoor' | translate}}</label>
-                        <input required type="number" class="mat-input form-control" name="floor"
-                            ng-model="userCtrl.FLoor" ng-minlength="1" ng-maxlength="4">
-                        <div ng-messages="newclientForm.floor.$error" class="error">
-                            <div ng-if="newclientForm.floor.$error.required && !newclientForm.floor.$pristine">
-                                {{'ProgramDaysCountReqError' | translate}}</div>
-                            <div ng-if="(newclientForm.floor.$error.minlength || newclientForm.floor.$error.maxlength)">
-                                {{'ProgramDaysCountLengthError' | translate}}</div>
-                        </div>
-                    </div>
-
-                    <div
-                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-                        <label for="first-name">{{'ApartmentNumber' | translate}}</label>
-                        <input required type="number" class="mat-input form-control" name="appartmentNo"
-                            ng-model="userCtrl.AppartmentNo" ng-minlength="1" ng-maxlength="4">
-                        <div ng-messages="newclientForm.appartmentNo.$error" class="error">
-                            <div
-                                ng-if="newclientForm.appartmentNo.$error.required && !newclientForm.appartmentNo.$pristine">
-                                {{'ProgramDaysCountReqError' | translate}}</div>
-                            <div
-                                ng-if="(newclientForm.appartmentNo.$error.minlength || newclientForm.appartmentNo.$error.maxlength)">
-                                {{'ProgramDaysCountLengthError' | translate}}</div>
-                        </div>
-                    </div>
-
-                    <div class="form-group pmd-textfield pmd-textfield-floating-label">
-                        <label for="first-name">{{'AddressDescription' | translate}}</label>
-                        <textarea required type="text" class="mat-input form-control" name="addressDescription"
-                            ng-model="userCtrl.AddressDescription" ng-minlength="3" ng-maxlength="255"></textarea>
-                        <div ng-messages="newclientForm.addressDescription.$error">
-                            <div
-                                ng-if="newclientForm.addressDescription.$error.required && !newclientForm.addressDescription.$pristine">
-                                {{'Address' | translate}}
-                                {{'ReqError' | translate}}
-                            </div>
-                            <div
-                                ng-if="(newclientForm.addressDescription.$error.minlength || newclientForm.addressDescription.$error.maxlength)">
-                                {{'NameLengthError255' | translate}}</div>
-                        </div>
-                    </div>
                     <div
                         class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                         <label for="first-name">{{'Country' | translate}}</label>
@@ -164,6 +120,56 @@
                             ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in userCtrl.area">
                         </select>
                     </div>
+                    <div
+                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                        <label for="first-name">{{'FLoor' | translate}}</label>
+                        <input required type="number" positive class="mat-input form-control" name="floor"
+                            ng-pattern="/^[0-9]{1,5}$/" ng-model="userCtrl.FLoor" ng-minlength="1" ng-maxlength="4">
+                        <div ng-messages="newclientForm.floor.$error" class="error">
+                            <div ng-if="newclientForm.floor.$error.required && !newclientForm.floor.$pristine">
+                                {{'ProgramDaysCountReqError' | translate}}</div>
+                            <div ng-if="(newclientForm.floor.$error.minlength || newclientForm.floor.$error.maxlength)">
+                                {{'ProgramDaysCountLengthError' | translate}}</div>
+                            <div ng-if="newclientForm.floor.$error.pattern && !newclientForm.floor.$pristine">
+                                {{'wrongpattern' | translate}}</div> 
+                        </div>
+                    </div>
+
+                    <div
+                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                        <label for="first-name">{{'ApartmentNumber' | translate}}</label>
+                        <input required type="number" class="mat-input form-control" name="appartmentNo"
+                            ng-pattern="/^[0-9]{1,5}$/" ng-model="userCtrl.AppartmentNo"
+                            ng-minlength="1" ng-maxlength="4">
+                        <div ng-messages="newclientForm.appartmentNo.$error" class="error">
+                            <div
+                                ng-if="newclientForm.appartmentNo.$error.required && !newclientForm.appartmentNo.$pristine">
+                                {{'ProgramDaysCountReqError' | translate}}</div>
+                            <div
+                                ng-if="(newclientForm.appartmentNo.$error.minlength || newclientForm.appartmentNo.$error.maxlength)">
+                                {{'ProgramDaysCountLengthError' | translate}}</div>
+                            <div
+                                ng-if="newclientForm.appartmentNo.$error.pattern && !newclientForm.appartmentNo.$pristine">
+                                {{'wrongpattern' | translate}}</div>
+                        </div>
+                    </div>
+
+                    <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                        <label for="first-name">{{'AddressDescription' | translate}}</label>
+                        <textarea required type="text" class="mat-input form-control" name="addressDescription"
+                            ng-model="userCtrl.AddressDescription" ng-minlength="3" ng-maxlength="255"></textarea>
+                        <div ng-messages="newclientForm.addressDescription.$error">
+                            <div
+                                ng-if="newclientForm.addressDescription.$error.required && !newclientForm.addressDescription.$pristine">
+                                {{'Address' | translate}}
+                                {{'ReqError' | translate}}
+                            </div>
+                            <div
+                                ng-if="(newclientForm.addressDescription.$error.minlength || newclientForm.addressDescription.$error.maxlength)">
+                                {{'NameLengthError255' | translate}}</div>
+                        </div>
+                    </div>
+
 
                     <div class="pmd-modal-action text-right">
                         <button style="background-color: #e4e5e6;color: black!important;"

@@ -117,10 +117,10 @@
                         <select ng-required="  editUserCtrl.selectedCityId > 0" style="width:100% !important"
                             class="select-tags form-control pmd-select2-tags" ng-change="editUserCtrl.areaChange()"
                             ng-model="editUserCtrl.selectedAreaId"
-                            ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in editUserCtrl.areaList">
+                            ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in editUserCtrl.area">
                         </select>
                     </div>
-
+                    {{editUserCtrl.selectedBranchId}}
                     <div class="pmd-modal-action text-right">
                         <button style="background-color: #e4e5e6;color: black!important;"
                             ng-disabled="newclientForm.$invalid || !editUserCtrl.show && editUserCtrl.selectedBranchId <= 0"

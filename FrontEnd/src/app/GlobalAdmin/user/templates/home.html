@@ -75,19 +75,23 @@
 						<div class="row">
 							<div class="input-field col s6">
 								<div ng-messages="cutomizeProgram.programName.$error">
-									<div ng-if="cutomizeProgram.programName.$error.required && !cutomizeProgram.programName.$pristine">
+									<div
+										ng-if="cutomizeProgram.programName.$error.required && !cutomizeProgram.programName.$pristine">
 										{{'requiredField' | translate}}
 									</div>
-									<div ng-if="(cutomizeProgram.programName.$error.minlength || cutomizeProgram.programName.$error.maxlength)">
+									<div
+										ng-if="(cutomizeProgram.programName.$error.minlength || cutomizeProgram.programName.$error.maxlength)">
 										{{'minMaxLengthText' | translate}}</div>
 								</div>
 							</div>
 							<div class="input-field col s6">
 								<div ng-messages="cutomizeProgram.programDescription.$error">
-									<div ng-if="cutomizeProgram.programDescription.$error.required && !cutomizeProgram.programDescription.$pristine">
+									<div
+										ng-if="cutomizeProgram.programDescription.$error.required && !cutomizeProgram.programDescription.$pristine">
 										{{'requiredField' | translate}}
 									</div>
-									<div ng-if="(cutomizeProgram.programDescription.$error.minlength || cutomizeProgram.programDescription.$error.maxlength)">
+									<div
+										ng-if="(cutomizeProgram.programDescription.$error.minlength || cutomizeProgram.programDescription.$error.maxlength)">
 										{{'minMaxLengthText' | translate}}</div>
 								</div>
 							</div>
@@ -95,8 +99,8 @@
 						</div>
 						<div class="row">
 							<div class="input-field col s6">
-								<input required numbers-only type="text" class="validate" name="programDaysCount" ng-model="programDaysCount" minlength="1"
-								 maxlength="2">
+								<input required numbers-only type="text" class="validate" name="programDaysCount"
+									ng-model="programDaysCount" minlength="1" maxlength="2">
 								<label>{{'ProgramDaysCount' | translate}}</label>
 								<div ng-show="settingsPrepService.minNoDaysPerProgram > programDaysCount">
 									<p>{{'minAllowedDays= ' | translate}} {{settingsPrepService.minNoDaysPerProgram}}
@@ -104,7 +108,8 @@
 								</div>
 							</div>
 							<div class="input-field col s6">
-								<input required numbers-only type="text" class="validate" name="mealPerDay" ng-model="mealPerDay" minlength="1" maxlength="2">
+								<input required numbers-only type="text" class="validate" name="mealPerDay"
+									ng-model="mealPerDay" minlength="1" maxlength="2">
 								<label>{{'MealPerDay' | translate}}</label>
 							</div>
 						</div>
@@ -112,19 +117,23 @@
 						<div class="row">
 							<div class="input-field col s6">
 								<div ng-messages="cutomizeProgram.programDaysCount.$error">
-									<div ng-if="cutomizeProgram.programDaysCount.$error.required && !cutomizeProgram.programDaysCount.$pristine">
+									<div
+										ng-if="cutomizeProgram.programDaysCount.$error.required && !cutomizeProgram.programDaysCount.$pristine">
 										{{'requiredField' | translate}}
 									</div>
-									<div ng-if="(cutomizeProgram.programDaysCount.$error.minlength || cutomizeProgram.programDaysCount.$error.maxlength)">
+									<div
+										ng-if="(cutomizeProgram.programDaysCount.$error.minlength || cutomizeProgram.programDaysCount.$error.maxlength)">
 										{{'minMaxLengthNum' | translate}}</div>
 								</div>
 							</div>
 							<div class="input-field col s6">
 								<div ng-messages="cutomizeProgram.mealPerDay.$error">
-									<div ng-if="cutomizeProgram.mealPerDay.$error.required && !cutomizeProgram.mealPerDay.$pristine">
+									<div
+										ng-if="cutomizeProgram.mealPerDay.$error.required && !cutomizeProgram.mealPerDay.$pristine">
 										{{'requiredField' | translate}}
 									</div>
-									<div ng-if="(cutomizeProgram.mealPerDay.$error.minlength || cutomizeProgram.mealPerDay.$error.maxlength)">
+									<div
+										ng-if="(cutomizeProgram.mealPerDay.$error.minlength || cutomizeProgram.mealPerDay.$error.maxlength)">
 										{{'minMaxLengthNum' | translate}}</div>
 									<div ng-if="1 > mealPerDay">{{'minMealsIsOne' | translate}}</div>
 								</div>
@@ -138,8 +147,9 @@
 							<label>{{'SelectExcludeDays' | translate}}</label>
 
 							<div class="input-field col s12">
-								<select style="width:100% !important" class="form-control select-tags pmd-select2-tags" multiple ng-model="SelectedDays"
-								 ng-options="day as day.dayNameDictionary[selectedLanguage] for day in dayList">
+								<select style="width:100% !important" class="form-control select-tags pmd-select2-tags"
+									multiple ng-model="SelectedDays"
+									ng-options="day as day.dayNameDictionary[selectedLanguage] for day in dayList">
 								</select>
 							</div>
 						</div>
@@ -161,22 +171,25 @@
 						<div class="row">
 							<div class="input-field col s12">
 
-								<input name="itemDatetime" required ng-model="itemDatetime" type="text" id="startdate" class="form-control" />
+								<input name="itemDatetime" required ng-model="itemDatetime" type="text" id="startdate"
+									class="form-control" />
 								<label for="from">{{'OrderStartDate' | translate}}</label>
 							</div>
 						</div>
 						<div class="row">
 							<div class="col s6">
 								<div ng-messages="cutomizeProgram.itemDatetime.$error">
-									<div ng-if="cutomizeProgram.itemDatetime.$error.required && !cutomizeProgram.itemDatetime.$pristine">
+									<div
+										ng-if="cutomizeProgram.itemDatetime.$error.required && !cutomizeProgram.itemDatetime.$pristine">
 										{{'requiredField' | translate}}</div>
 								</div>
 							</div>
 						</div>
 						<div class="row">
 							<div class="input-field col s12">
-								<input ng-disabled="cutomizeProgram.$invalid  || settingsPrepService.minNoDaysPerProgram > programDaysCount" type="submit"
-								 class="form-btn" ng-click="submitCustomise()">
+								<input
+									ng-disabled="cutomizeProgram.$invalid  || settingsPrepService.minNoDaysPerProgram > programDaysCount"
+									type="submit" class="form-btn" ng-click="submitCustomise()">
 
 								<!-- <button style="width: 90%; height: 50%;" class="form-btn" ng-disabled="cutomizeProgram.$invalid  || settingsPrepService.minNoDaysPerProgram > programDaysCount" ng-click="submitCustomise()"></button> -->
 							</div>
@@ -207,9 +220,9 @@
 			<div class="to-ho-hotel">
 				<!-- HOTEL GRID -->
 				<div ng-repeat="n in [] | range:6">
-					<div ng-click="$state.go('mealDetails', {mealId: mealsPrepService[n].mealId});" style="cursor: pointer !important;" ng-if="mealsPrepService[n] != undefined"
-					 class="col-md-4">
-					 <!-- {{mealsPrepService[n].imageUrl}} -->
+					<div ng-click="$state.go('mealDetails', {mealId: mealsPrepService[n].mealId});"
+						style="cursor: pointer !important;" ng-if="mealsPrepService[n] != undefined" class="col-md-4">
+						<!-- {{mealsPrepService[n].imageUrl}} -->
 						<div class="to-ho-hotel-con">
 							<div ng-if="mealsPrepService[n].imageUrl == null" class="to-ho-hotel-con-1">
 								<!-- {{mealsPrepService[n].mealId}} -->
@@ -222,7 +235,8 @@
 							<div class="to-ho-hotel-con-23">
 								<div class="to-ho-hotel-con-2">
 									<a>
-										<h4>{{mealsPrepService[n].mealNameDictionary[selectedLanguage] | limitTo:10}}</h4>
+										<h4>{{mealsPrepService[n].mealNameDictionary[selectedLanguage] | limitTo:10}}
+										</h4>
 									</a>
 								</div>
 								<div class="to-ho-hotel-con-3">
@@ -269,8 +283,9 @@
 				</div>
 				<!--ROOM SECTION-->
 				<div ng-repeat="n in [] | range:6">
-					<div style="cursor: pointer !important;" ng-click="$state.go('programDetails', {programId: programPrepService[n].programId});"
-					 ng-if="programPrepService[n] != undefined" class="room">
+					<div style="cursor: pointer !important;"
+						ng-click="$state.go('programDetails', {programId: programPrepService[n].programId});"
+						ng-if="programPrepService[n] != undefined" class="room">
 						<div class="ribbon ribbon-top-left">
 							<span>{{'Program' | translate}}</span>
 						</div>
@@ -321,8 +336,9 @@
 						<div class="r5 r-com">
 							<div class="r2-available">Available</div>
 							<p></p>
-							<a style="cursor: pointer !important;" ng-click="$state.go('programDetails', {programId: programPrepService[n].programId});"
-							 class="inn-room-book">{{'Book' | translate}}</a>
+							<a style="cursor: pointer !important;"
+								ng-click="$state.go('programDetails', {programId: programPrepService[n].programId});"
+								class="inn-room-book">{{'Book' | translate}}</a>
 						</div>
 					</div>
 					<!--END ROOM SECTION-->
