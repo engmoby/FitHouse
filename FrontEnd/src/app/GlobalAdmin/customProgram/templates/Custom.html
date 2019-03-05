@@ -3,7 +3,7 @@
     <div class="container">
         <div class="row">
             <div class="page-head">
-                <h4>Program Details</h4>
+                <h4>{{'CustomizeProgram' | translate}} </h4>
                 <div class="head-title">
                     <div class="hl-1"></div>
                     <div class="hl-2"></div>
@@ -14,12 +14,12 @@
 
             <form name="stepTwoProgramForm">
                 <div class="head-typo typo-com collap-expand">
-                    <h4>Days</h4>
+                    <h4> {{'ProgramDays' | translate}}</h4>
                     <!-- {{CustomCtrl.itemList}} -->
-                     <span>carbs: {{CustomCtrl.carbs}}</span>
-                    <span>fat: {{CustomCtrl.fat}}</span>
-                    <span>calories: {{CustomCtrl.calories}}</span>
-                    <span>protein: {{CustomCtrl.protein}}</span>
+                    <span>{{'carbs' | translate}}: {{CustomCtrl.carbs}}</span>
+                    <span>{{'fat' | translate}}: {{CustomCtrl.fat}}</span>
+                    <span>{{'calories' | translate}}: {{CustomCtrl.calories}}</span>
+                    <span>{{'protein' | translate}}: {{CustomCtrl.protein}}</span>
                     <div ng-init="counterDay = 0; counterMeal = 0">
                         <div class="panel-group pmd-accordion pmd-accordion-inbox" id="accordion6" role="tablist"
                             aria-multiselectable="true">
@@ -32,7 +32,7 @@
                                         aria-expanded="true" aria-controls="collapseOne6" data-expandable="false">
                                         <h4 class="panel-title">
 
-                                            {{'Day' | translate}} : {{counterDay=$index+1}}
+                                            {{'ProgramDays' | translate}} : {{counterDay=$index+1}}
                                             <!-- <i class="material-icons md-dark pmd-sm pmd-accordion-arrow">keyboard_arrow_down</i> -->
 
                                         </h4>
@@ -92,7 +92,9 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="res-menu" ng-repeat="meal in itemModel">
-                                                            <img src="/assets/img/meal.jpeg" alt="" />
+                                                            {{meal.imageUrl}} <img src={{meal.imageUrl}} imageonload
+                                                                alt="">
+                                                            <!-- <img src="/assets/img/meal.jpeg" alt="" /> -->
                                                             <h3> {{meal.itemNameDictionary[selectedLanguage] | limitTo:10}}<span>{{meal.price}}</span>
                                                             </h3> <span
                                                                 class="menu-item">{{meal.itemDescriptionDictionary[selectedLanguage] | limitTo:10}}</span>
@@ -110,7 +112,7 @@
 
                 </div>
                 <div class="head-typo typo-com collap-expand">
-                    <h4>Address</h4>
+                    <h4>{{'addressLbl' | translate}}</h4>
                     <div class="col-md-12">
                         <div class="head-typo typo-com collap-expand book-form inn-com-form">
                             <!-- Switch -->
@@ -131,7 +133,7 @@
                                 <p>
                                     <input ng-model="CustomCtrl.orderType.type" name="group1" type="radio" id="test2"
                                         value="pickup" />
-                                    <label for="test2">{{'PickUp' | translate}}</label>
+                                    <label for="test2">{{'Pickup' | translate}}</label>
                                 </p>
 
                                 <!--    <div ng-if="CustomCtrl.orderType.type == 'delivery'" class="row form-group">
@@ -182,7 +184,7 @@
                                                             ng-required="CustomCtrl.orderType.type == 'delivery'">
                                                         <label for="addressRadio{{address.addressId}}">
                                                             {{'appartmentNo' | translate}}: {{address.appartmentNo}}
-                                                            <br> {{'Floor' | translate}} : {{address.floor}}
+                                                            <br> {{'FLoor' | translate}} : {{address.floor}}
                                                             <br> {{'appartmentNo' | translate}} :
                                                             {{address.description}}
                                                         </label>
@@ -254,15 +256,15 @@
                     <div class="row">
                         <div class="col-md-10"></div>
                         <div class="col-md-4">
-                            Program Price:{{ CustomCtrl.ProgramTotalPrice}}
-                            <br> Delivery:{{ CustomCtrl.DeliveryFees}}
-                            <br>Total :{{ CustomCtrl.Total}}
+                            {{'price' | translate}}:{{ CustomCtrl.ProgramTotalPrice}}
+                            <br> {{'DeliveryPrice' | translate}}:{{ CustomCtrl.DeliveryFees}}
+                            <br>{{'Total' | translate}} :{{ CustomCtrl.Total}}
                             <br>
                             <button style="background-color: #e4e5e6;color: black!important;"
                                 ng-disabled="stepTwoProgramForm.$invalid || CustomCtrl.selectedBranchId <= 0"
                                 class="btn pmd-ripple-effect btn-primary" type="button"
                                 ng-click="CustomCtrl.AddNewProgram();">
-                                {{'next' | translate}}</button>
+                                {{'Save' | translate}}</button>
                         </div>
                     </div>
             </form>

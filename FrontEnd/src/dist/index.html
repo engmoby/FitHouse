@@ -11,25 +11,22 @@
     <link rel="icon" href="/assets/img/cropped-favicon-32x32.png" sizes="32x32">
     <link rel="icon" href="/assets/img/cropped-favicon-192x192.png" sizes="192x192">
     <link rel="shortcut icon" href="/assets/img/cropped-favicon-192x192.png" type="image/x-icon">
-    <link rel="stylesheet" ng-href="bundle-{{selectedLanguage}}.css?v=a53431fcbd96c18e57592f7850038740" />
+    <link rel="stylesheet" ng-href="bundle-{{selectedLanguage}}.css?v=f2b4b0c15f72f50fa38d6cb8e1cd2ebf" />
     <script src="https://momentjs.com/downloads/moment.js"></script>
-    <style>
-        .hideHTML {
-            display: none !important;
-        }
-        
-</style>
+    <mimeMap fileExtension="woff" mimeType="application/font-woff" /> 
+    <mimeMap fileExtension="woff2" mimeType="application/font-woff" /> 
 </head>
 
 <body>
     <!--MOBILE MENU-->
-    <section ng-cloak id="sec1" class="hideHTML">
+    <section>
         <div class="mm">
             <div class="mm-inn">
                 <div class="mm-logo">
-                    <a ng-click="$state.go('program');">
-                        <img src="/assets/img/logo-os-white.png" alt="Fit House Restaurant" id="logo" ng-cloak
-                            data-height-percentage="84" data-actual-width="700" data-actual-height="198" style="width: 180px; " />
+                    <a ng-click="$state.go('homePage');">
+                        <img src="/assets/img/logo-os-white.png" alt="Fit House Restaurant" id="logo"
+                            data-height-percentage="84" data-actual-width="700" data-actual-height="198"
+                            style="width: 180px; " />
                     </a>
                 </div>
                 <div class="mm-icon">
@@ -44,31 +41,33 @@
                         </span>
                     </div>
                     <ul>
-                        <!-- </li> -->
-
-                        <li>
-                            <a ng-click="$state.go('program');" style="cursor: pointer;">{{'Programs' | translate}}</a>
                         </li>
                         <li>
-                            <a ng-click="$state.go('homePage');" style="cursor: pointer;" class='dropdown-button'
+                                <a ng-click="$state.go('homePage');" style="cursor: pointer;" class='dropdown-button'
                                 data-activates='drop-home'>{{'Home'| translate}}</a>
+                        </li>
+                        <li>
+                                <a ng-click="$state.go('program');"
+                                style="cursor: pointer;">{{'Programs' | translate}}</a>
                         </li>
                         <li>
                             <a ng-click="$state.go('meal');" style="cursor: pointer;">{{'Meals' | translate}}</a>
                         </li>
                         <li>
-                            <a ng-click="$state.go('history');" style="cursor: pointer;">{{'History' | translate}}</a>
+                            <a ng-click="$state.go('history');"
+                                style="cursor: pointer;">{{'History' | translate}}</a>
                         </li>
                         <li>
-                            <a ng-click="$state.go('profile', {userId: user.id});" style="cursor: pointer;">{{'Profile'
-                                | translate}}</a>
+                            <a ng-click="$state.go('profile', {userId: user.id});"
+                                style="cursor: pointer;">{{'Profile' | translate}}</a>
                         </li>
                         <li>
-                            <a ng-click="$state.go('Address', {userId: user.id});" style="cursor: pointer;">{{'addressLbl'
-                                | translate}}</a>
+                            <a ng-click="$state.go('Address', {userId: user.id});"
+                                style="cursor: pointer;">{{'addressLbl' | translate}}</a>
                         </li>
                         <li>
-                            <a class='dropdown-button' href='#' data-activates='dropdown3'>{{'Language' | translate}}
+                            <a class='dropdown-button' href='#'
+                                data-activates='dropdown3'>{{'Language' | translate}}
                                 <i class="fa fa-angle-down"></i>
                             </a>
                         </li>
@@ -76,38 +75,38 @@
                         </li>
                     </ul>
                 </div>
-                <div class="all-drop-down" ng-cloak>
-                    <!-- Dropdown Structure -->
-                    <ul id='dropdown3' class='dropdown-content drop-con-man'>
-                        <li>
-                            <a ng-click="changeLanguage('en')">English</a>
-                        </li>
-                        <li>
-                            <a ng-click="changeLanguage('ar')">عربي</a>
-                        </li>
-                    </ul>
+                <div class="all-drop-down">
+                        <!-- Dropdown Structure -->
+                        <ul id='dropdown3' class='dropdown-content drop-con-man'>
+                            <li>
+                                <a ng-click="changeLanguage('en')">English</a>
+                            </li>
+                            <li>
+                                <a ng-click="changeLanguage('ar')">عربي</a>
+                            </li>
+                        </ul>
 
-                </div>
+                    </div>
             </div>
         </div>
     </section>
 
-    <section class="main hideHTML" id="sec2" ng-cloak>
+    <section class="main">
         <!--TOP SECTION-->
         <div class="menu-section">
             <div class="container">
                 <div class="row">
                     <div class="top-bar" ng-show="isLoggedIn()" ng-cloak ng-init="logoutFlag=false">
                         <ul>
-                            <!-- 
+<!-- 
                             <li> <select class="select-simple form-control pmd-select2" ng-model="selectedLanguage"
                                     ng-change="changeLanguage(selectedLanguage)">
                                     <option ng-selected="selectedLanguage == item.id" ng-repeat="item in languages"
                                         ng-value="item.id">{{item.label | translate}}</option>
                                 </select></li> -->
                             <li>
-                                <a class='dropdown-button' href='#' data-activates='dropdown2'>{{'Language' |
-                                    translate}}
+                                <a class='dropdown-button' href='#'
+                                    data-activates='dropdown2'>{{'Language' | translate}}
                                     <i class="fa fa-angle-down"></i>
                                 </a>
                             </li>
@@ -132,33 +131,36 @@
                 </div>
                 <div class="row">
                     <div class="logo">
-                        <a ng-click="$state.go('program');" style="cursor: pointer;">
+                        <a ng-click="$state.go('homePage');" style="cursor: pointer;">
                             <img src="/assets/img/logo-os-white.png" alt="Fit House Restaurant" id="logo"
-                                data-height-percentage="84" data-actual-width="700" data-actual-height="198" style="width: 180px; " />
+                                data-height-percentage="84" data-actual-width="700" data-actual-height="198"
+                                style="width: 180px; " />
                         </a>
                     </div>
                     <div class="menu-bar" ng-show="isLoggedIn()" ng-cloak ng-init="logoutFlag=false">
                         <ul>
                             <li>
-                                <a ng-click="$state.go('program');" style="cursor: pointer;">{{'Programs' | translate}}</a>
-                            </li>
-                            <li>
                                 <a ng-click="$state.go('homePage');" style="cursor: pointer;" class='dropdown-button'
                                     data-activates='drop-home'>{{'Home'| translate}}</a>
+                            </li>
+                            <li>
+                                <a ng-click="$state.go('program');"
+                                    style="cursor: pointer;">{{'Programs' | translate}}</a>
                             </li>
                             <li>
                                 <a ng-click="$state.go('meal');" style="cursor: pointer;">{{'Meals' | translate}}</a>
                             </li>
                             <li>
-                                <a ng-click="$state.go('history');" style="cursor: pointer;">{{'History' | translate}}</a>
+                                <a ng-click="$state.go('history');"
+                                    style="cursor: pointer;">{{'History' | translate}}</a>
                             </li>
                             <li>
-                                <a ng-click="$state.go('profile', {userId: user.id});" style="cursor: pointer;">{{'Profile'
-                                    | translate}}</a>
+                                <a ng-click="$state.go('profile', {userId: user.id});"
+                                    style="cursor: pointer;">{{'Profile' | translate}}</a>
                             </li>
                             <li>
-                                <a ng-click="$state.go('Address', {userId: user.id});" style="cursor: pointer;">{{'addressLbl'
-                                    | translate}}</a>
+                                <a ng-click="$state.go('Address', {userId: user.id});"
+                                    style="cursor: pointer;">{{'addressLbl' | translate}}</a>
                             </li>
                         </ul>
 
@@ -212,10 +214,10 @@
             </div>
         </div>
     </section>
-    <script src="libs.js?v=a53431fcbd96c18e57592f7850038740"></script>
-    <script src="core.js?v=a53431fcbd96c18e57592f7850038740"></script>
-    <script src="app.js?v=a53431fcbd96c18e57592f7850038740"></script>
-    <script src="templates.js?v=a53431fcbd96c18e57592f7850038740"></script>
+    <script src="libs.js?v=f2b4b0c15f72f50fa38d6cb8e1cd2ebf"></script>
+    <script src="core.js?v=f2b4b0c15f72f50fa38d6cb8e1cd2ebf"></script>
+    <script src="app.js?v=f2b4b0c15f72f50fa38d6cb8e1cd2ebf"></script>
+    <script src="templates.js?v=f2b4b0c15f72f50fa38d6cb8e1cd2ebf"></script>
     <script src="https://rawgithub.com/McNull/angular-block-ui/bower/angular-block-ui.min.js"></script>
     <link rel="stylesheet" href="https://rawgithub.com/McNull/angular-block-ui/bower/angular-block-ui.min.css">
 
