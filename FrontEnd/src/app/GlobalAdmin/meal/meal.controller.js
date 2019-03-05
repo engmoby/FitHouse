@@ -7,6 +7,7 @@
             , mealController])
 
     function mealController($scope, $stateParams, $translate, appCONSTANTS, mealsPrepService) {
+        
 
         $scope.mealsPrepService = mealsPrepService.results;
 
