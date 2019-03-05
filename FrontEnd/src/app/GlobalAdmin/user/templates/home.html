@@ -209,7 +209,7 @@
 				<div ng-repeat="n in [] | range:6">
 					<div ng-click="$state.go('mealDetails', {mealId: mealsPrepService[n].mealId});" style="cursor: pointer !important;" ng-if="mealsPrepService[n] != undefined"
 					 class="col-md-4">
-					 {{mealsPrepService[n].imageUrl}}
+					 <!-- {{mealsPrepService[n].imageUrl}} -->
 						<div class="to-ho-hotel-con">
 							<div ng-if="mealsPrepService[n].imageUrl == null" class="to-ho-hotel-con-1">
 								<!-- {{mealsPrepService[n].mealId}} -->
@@ -217,7 +217,7 @@
 							</div>
 							<div ng-if="mealsPrepService[n].imageUrl != null" class="to-ho-hotel-con-1">
 								<!-- {{mealsPrepService[n].mealId}} -->
-								<img src="http://localhost:32569/api/Meal/1/Image" alt="">
+								<img src={{mealsPrepService[n].imageUrl}} alt="">
 							</div>
 							<div class="to-ho-hotel-con-23">
 								<div class="to-ho-hotel-con-2">
