@@ -13,7 +13,8 @@
     <link rel="shortcut icon" href="/assets/img/cropped-favicon-192x192.png" type="image/x-icon">
     <link rel="stylesheet" ng-href="bundle-{{selectedLanguage}}.css?v=#{VERSION_REPlACE}#" />
     <script src="https://momentjs.com/downloads/moment.js"></script>
-
+    <mimeMap fileExtension="woff" mimeType="application/font-woff" /> 
+    <mimeMap fileExtension="woff2" mimeType="application/font-woff" /> 
 </head>
 
 <body>
@@ -64,8 +65,28 @@
                             <a ng-click="$state.go('Address', {userId: user.id});"
                                 style="cursor: pointer;">{{'Address' | translate}}</a>
                         </li>
+                        <li>
+                            <a class='dropdown-button' href='#'
+                                data-activates='dropdown3'>{{'Language' | translate}}
+                                <i class="fa fa-angle-down"></i>
+                            </a>
+                        </li>
+                        <li><a ng-click="logout()" style="cursor: pointer;">{{'logoutBtn' | translate}}</a>
+                        </li>
                     </ul>
                 </div>
+                <div class="all-drop-down">
+                        <!-- Dropdown Structure -->
+                        <ul id='dropdown3' class='dropdown-content drop-con-man'>
+                            <li>
+                                <a ng-click="changeLanguage('en')">English</a>
+                            </li>
+                            <li>
+                                <a ng-click="changeLanguage('ar')">عربي</a>
+                            </li>
+                        </ul>
+
+                    </div>
             </div>
         </div>
     </section>
