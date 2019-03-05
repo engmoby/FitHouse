@@ -17,7 +17,7 @@
         vm.counties = vm.counties.concat(CountriesPrepService.results)
 
         vm.AddNewType = function () {
-            blockUI.start("Loading...");
+           blockUI.start($translate.instant('loading'));
             var newAddress = new AddressResource();
             newAddress.floor = vm.FLoor;
             newAddress.appartmentNo = vm.AppartmentNo;
@@ -26,7 +26,7 @@
             newAddress.userId = $scope.user.id;
             newAddress.$create().then(
                 function (data, status) {
-                 //   blockUI.stop();
+                  blockUI.stop();
 
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
                     $state.go('Address', { userId: $scope.user.id });

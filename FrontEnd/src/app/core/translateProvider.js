@@ -357,7 +357,7 @@
         "deleteConfirmationLbl": "Are you sure you want to delete: ",
         "deleteBtn": "Delete",
         "cancelBtn": "Cancel",
-        "loading": "Lodaing...",
+        "loading": "loading...",
         "History": "Orders",
         "Profile": "Profile", 
       }

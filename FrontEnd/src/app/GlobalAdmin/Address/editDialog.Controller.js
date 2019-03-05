@@ -85,7 +85,7 @@
 
         vm.UpdateType = function () {
             debugger;
-            blockUI.start("Loading...");
+           blockUI.start($translate.instant('loading'));
             var updateObj = new AddressResource();
             updateObj.addressId = vm.Address.addressId;
             updateObj.floor = vm.Address.floor;

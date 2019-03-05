@@ -373,7 +373,7 @@
         $state, AddressResource, AddressPrepService, $localStorage, authorizationService,
         appCONSTANTS, ToastService) {
 
-        blockUI.start("Loading...");
+            blockUI.start($translate.instant('loading'));
 
         var vm = this;
 
@@ -383,7 +383,7 @@
         blockUI.stop();
 
         function refreshAddress() {
-            blockUI.start("Loading...");
+            blockUI.start($translate.instant('loading'));
 
             var k = AddressResource.getAllAddress({ page: vm.currentPage }).$promise.then(function (results) {
                 $scope.AddressList = results;
@@ -441,7 +441,7 @@
         vm.counties = vm.counties.concat(CountriesPrepService.results)
 
         vm.AddNewType = function () {
-            blockUI.start("Loading...");
+           blockUI.start($translate.instant('loading'));
             var newAddress = new AddressResource();
             newAddress.floor = vm.FLoor;
             newAddress.appartmentNo = vm.AppartmentNo;
@@ -450,6 +450,7 @@
             newAddress.userId = $scope.user.id;
             newAddress.$create().then(
                 function (data, status) {
+                  blockUI.stop();
 
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
                     $state.go('Address', { userId: $scope.user.id });
@@ -626,7 +627,7 @@
 
         vm.UpdateType = function () {
             debugger;
-            blockUI.start("Loading...");
+           blockUI.start($translate.instant('loading'));
             var updateObj = new AddressResource();
             updateObj.addressId = vm.Address.addressId;
             updateObj.floor = vm.Address.floor;
@@ -1380,7 +1381,7 @@
         $state, OrdersResource, ordersPrepService, $localStorage, authorizationService,
         appCONSTANTS, ToastService) {
 
-        blockUI.start("Loading..."); 
+       blockUI.start($translate.instant('loading')); 
         var vm = this;
 
         $scope.totalCount = ordersPrepService.totalCount;
@@ -1408,7 +1409,7 @@
         }
 
         function refreshOrders() {
-            blockUI.start("Loading...");
+           blockUI.start($translate.instant('loading'));
 
             var k = OrdersResource.getAllOrders({ page: vm.currentPage }).$promise.then(function (results) {
                 $scope.OrderList = results;
@@ -1931,7 +1932,7 @@
     function editUserController($rootScope, blockUI, $scope, $filter, $translate, $state, UserResource,
         $localStorage, authorizationService, appCONSTANTS, EditUserPrepService, ToastService,
         CountriesPrepService, RegionResource, CityResource, AreaResource) {
-        blockUI.start("Loading...");
+       blockUI.start($translate.instant('loading'));
 
         $scope.isPaneShown = true;
         $scope.$emit('LOAD')
@@ -1992,7 +1993,7 @@
 
         }
         $scope.Updateclient = function () {
-            blockUI.start("Loading...");
+           blockUI.start($translate.instant('loading'));
             vm.show = false;
             var newClient = new UserResource();
             newClient.userId = $scope.userObj.userId;
@@ -2114,7 +2115,7 @@
         $state, OrdersResource, ordersPrepService, $localStorage, authorizationService,
         appCONSTANTS, ToastService) {
 
-        blockUI.start("Loading..."); 
+       blockUI.start($translate.instant('loading')); 
         var vm = this;
 
         $scope.totalCount = ordersPrepService.totalCount;
@@ -2142,7 +2143,7 @@
         }
 
         function refreshOrders() {
-            blockUI.start("Loading...");
+           blockUI.start($translate.instant('loading'));
 
             var k = OrdersResource.getAllOrders({ page: vm.currentPage }).$promise.then(function (results) {
                 $scope.OrderList = results;

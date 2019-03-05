@@ -12,7 +12,7 @@
     function editUserController($rootScope, blockUI, $scope, $filter, $translate, $state, UserResource,
         $localStorage, authorizationService, appCONSTANTS, EditUserPrepService, ToastService,
         CountriesPrepService, RegionResource, CityResource, AreaResource) {
-        blockUI.start("Loading...");
+       blockUI.start($translate.instant('loading'));
 
         $scope.isPaneShown = true;
         $scope.$emit('LOAD')
@@ -86,7 +86,7 @@
             //vm.branchList = ($filter('filter')(vm.area, { areaId: $scope.userObj.areaId }))[0].branches;
         }
         $scope.Updateclient = function () {
-            blockUI.start("Loading...");
+           blockUI.start($translate.instant('loading'));
             vm.show = false;
             var newClient = new UserResource();
             newClient.userId = $scope.userObj.userId;
