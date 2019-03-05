@@ -32,6 +32,7 @@
         vm.maxPause;
         vm.allowPause;
         vm.allowHistory;
+        vm.programDiscount;
 
         if ($scope.settingsPrepService.isActive != undefined) {
             if ($scope.settingsPrepService.isSMS && $scope.settingsPrepService.isMail) {
@@ -108,6 +109,7 @@
             setting.minNoDaysPerProgram = vm.minDays;
             setting.isDeleted = false;
             setting.isActive = true;
+            setting.programDiscount = vm.programDiscount;
 
             setting.$create().then(
                 function (data, status) {
@@ -163,6 +165,8 @@
             setting.minNoDaysPerProgram = $scope.settingsPrepService.minNoDaysPerProgram;
             setting.isDeleted = false;
             setting.isActive = true;
+            setting.programDiscount = vm.programDiscount;
+
 
             setting.$update().then(
                 function (data, status) {
