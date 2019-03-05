@@ -803,7 +803,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                    <img src="https://fithouseksa.com/wp-content/uploads/2018/07/Grilled-steak.png" alt="" />\n' +
     '                </div>\n' +
     '                <div ng-if="Meal.imageUrl != null" class="r1 r-com">\n' +
-    '                    <img src={{Meal.imageUrl}} alt="" />\n' +
+    '                    <img src="Meal.imageUrl" alt="" />\n' +
     '                </div>\n' +
     '                <!--ROOM RATING-->\n' +
     '                <div class="r2 r-com">\n' +
@@ -2613,7 +2613,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '				<div ng-repeat="n in [] | range:6">\n' +
     '					<div ng-click="$state.go(\'mealDetails\', {mealId: mealsPrepService[n].mealId});" style="cursor: pointer !important;" ng-if="mealsPrepService[n] != undefined"\n' +
     '					 class="col-md-4">\n' +
-    '					 <!-- {{mealsPrepService[n].imageUrl}} -->\n' +
+    '					 {{mealsPrepService[n].imageUrl}}\n' +
     '						<div class="to-ho-hotel-con">\n' +
     '							<div ng-if="mealsPrepService[n].imageUrl == null" class="to-ho-hotel-con-1">\n' +
     '								<!-- {{mealsPrepService[n].mealId}} -->\n' +
@@ -2621,7 +2621,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '							</div>\n' +
     '							<div ng-if="mealsPrepService[n].imageUrl != null" class="to-ho-hotel-con-1">\n' +
     '								<!-- {{mealsPrepService[n].mealId}} -->\n' +
-    '								<img src={{mealsPrepService[n].imageUrl}} alt="">\n' +
+    '								<img src="http://localhost:32569/api/Meal/1/Image" alt="">\n' +
     '							</div>\n' +
     '							<div class="to-ho-hotel-con-23">\n' +
     '								<div class="to-ho-hotel-con-2">\n' +
