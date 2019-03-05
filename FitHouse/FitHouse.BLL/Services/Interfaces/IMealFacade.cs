@@ -14,6 +14,7 @@ namespace FitHouse.BLL.Services.Interfaces
         void ActivateMeal(long MealId);
         void DeActivateMeal(long MealId);
         List<ItemProgramDto> GetMealItems(long mealId);
-        PagedResultsDto GetActivatedMealsByCategoryId(string language, long categoryId, int page, int pageSize);  
+        PagedResultsDto GetActivatedMealsByCategoryId(string language, long categoryId, int page, int pageSize);
+        PagedResultsDto GetAllActiveMeals(string language, int page, int pageSize);
     }
 }

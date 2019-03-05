@@ -65,7 +65,18 @@ namespace FitHouse.API.Controllers
 
             return PagedResponse("GetAllPrograms", page, pagesize, programs.TotalCount, data);
         }
-        
+
+        [Route("api/Program/GetAllActivePrograms", Name = "GetAllActivePrograms")]
+        [HttpGet]
+        [ResponseType(typeof(IEnumerable<ProgramModel>))]
+        public IHttpActionResult GetAllActivePrograms(int page = Page, int pagesize = PageSize)
+        {
+            var programs = _programFacade.GetAllActivePrograms(page, pagesize);
+            var data = Mapper.Map<List<ProgramModel>>(programs.Data);
+
+            return PagedResponse("GetAllActivePrograms", page, pagesize, programs.TotalCount, data);
+        }
+
         [Route("api/Program/EditProgram", Name = "EditProgram")]
         [HttpPost]
         public IHttpActionResult EditProgram([FromBody] ProgramModel programModel)

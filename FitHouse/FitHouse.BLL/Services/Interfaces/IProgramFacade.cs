@@ -20,5 +20,6 @@ namespace FitHouse.BLL.Services.Interfaces
         ProgramDto UpdateProgram(ProgramDto programDto);
         ProgramDto GetProgramById(ProgramDto programDto);
         ProgramDto GetProgramById(long programId);
+        PagedResultsDto GetAllActivePrograms(int page, int pageSize);
     }
 }

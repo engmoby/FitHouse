@@ -38,6 +38,23 @@ namespace FitHouse.BLL.DataServices
             results.Data = Mapper.Map<List<Meal>, List<MealDto>>(Meals);
             return results;
         }
+
+        public PagedResultsDto GetAllActiveMeals(string language, int page, int pageSize)
+        {
+            PagedResultsDto results = new PagedResultsDto();
+            results.TotalCount = _repository.Query(x => !x.Meal.IsDeleted && x.Meal.IsActive && x.Language.ToLower() == language.ToLower()).Select(x => x.Meal).Count(x => !x.IsDeleted);
+            List<Meal> Meals;
+            if (pageSize > 0)
+                Meals = _repository.Query(x => !x.Meal.IsDeleted && x.Meal.IsActive && x.Language.ToLower() == language.ToLower()).Select(x => x.Meal)
+                    .OrderBy(x => x.MealId).Skip((page - 1) * pageSize)
+                    .Take(pageSize).ToList();
+            else
+                Meals = _repository.Query(x => !x.Meal.IsDeleted && x.Meal.IsActive && x.Language.ToLower() == language.ToLower()).Select(x => x.Meal)
+                    .OrderBy(x => x.MealId).ToList();
+            results.Data = Mapper.Map<List<Meal>, List<MealDto>>(Meals);
+            return results;
+        }
+
         public PagedResultsDto GetActivatedMeals(string language, int page, int pageSize)
         {
             PagedResultsDto results = new PagedResultsDto();

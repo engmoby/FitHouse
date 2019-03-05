@@ -47,6 +47,21 @@ namespace FitHouse.API.Controllers
             return PagedResponse("GetAllMeals", page, pagesize, mealObj.TotalCount, data);
         }
 
+        [Route("api/Meals/GetAllActiveMeals", Name = "GetAllActiveMeals")]
+        [HttpGet]
+        public IHttpActionResult GetAllActiveMeals(int page = Page, int pagesize = PageSize)
+        {
+            PagedResultsDto mealObj = _MealFacade.GetAllActiveMeals(Language, page, pagesize);
+            var data = Mapper.Map<List<MealModel>>(mealObj.Data);
+
+            foreach (var mealModel in data)
+            {
+                mealModel.ImageUrl = Url.Link("MealImage", new { mealModel.MealId });
+
+            }
+            return PagedResponse("GetAllActiveMeals", page, pagesize, mealObj.TotalCount, data);
+        }
+
 
         //  [AuthorizeOrders(Enums.OrderType.RestaurantAdmin)]
         [Route("api/Meals", Name = "AddMeal")]

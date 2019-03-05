@@ -33,7 +33,7 @@
   }
 
   function GetProgramResource($resource, appCONSTANTS) {
-    return $resource(appCONSTANTS.API_URL + 'Program', {}, {
+    return $resource(appCONSTANTS.API_URL + 'Program/GetAllActivePrograms', {}, {
       gatAllPrograms: { method: 'GET', useToken: true }
     })
   }
@@ -58,7 +58,7 @@
   }
 
   function GetMealsResource($resource, appCONSTANTS) {
-    return $resource(appCONSTANTS.API_URL + 'Meals/GetAllMeals', {}, {
+    return $resource(appCONSTANTS.API_URL + 'Meals/GetAllActiveMeals', {}, {
       getAllMeals: { method: 'GET', useToken: true, params: { lang: '@lang' } },
     })
   }

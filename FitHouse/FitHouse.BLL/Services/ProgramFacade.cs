@@ -43,6 +43,12 @@ namespace FitHouse.BLL.Services
             return programs;
         }
 
+        public PagedResultsDto GetAllActivePrograms(int page, int pageSize)
+        {
+            var programs = _programService.GetAllActivePrograms(page, pageSize);
+            return programs;
+        }
+        
         public ProgramDto UpdateProgramDetails(long programId, long dayCount, long mealCount,
             List<ItemProgramDto> itemss)
         {
