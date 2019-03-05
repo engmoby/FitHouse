@@ -22,12 +22,12 @@
 
 	$(function () {
 
-		$('#startdate').datepicker(
-			{
+		$('#startdate').datetimepicker({widgetPositioning:{vertical:"top"},
+			
 				minDate: new Date()
 			}
 		).on('dp.change', function (e) {
-			debugger;
+			
 			angular.element(document.getElementById('startdate')).scope().dateChange();
 		});
 	});
@@ -203,7 +203,7 @@
 </div>
 <!--End Check Availability SECTION-->
 <!--HOTEL ROOMS SECTION-->
-<div class="hom1 hom-com pad-bot-40">
+<!-- <div class="hom1 hom-com pad-bot-40">
 	<div class="container">
 		<div class="row">
 			<div class="hom1-title">
@@ -218,18 +218,18 @@
 		</div>
 		<div class="row">
 			<div class="to-ho-hotel">
-				<!-- HOTEL GRID -->
-				<div ng-repeat="n in [] | range:6">
-					<div ng-click="$state.go('mealDetails', {mealId: mealsPrepService[n].mealId});"
+				<!-- HOTEL GRID --
+				<!-- <div > --
+					<div ng-repeat="n in [] | range:6" ng-click="$state.go('mealDetails', {mealId: mealsPrepService[n].mealId});"
 						style="cursor: pointer !important;" ng-if="mealsPrepService[n] != undefined" class="col-md-4">
-						<!-- {{mealsPrepService[n].imageUrl}} -->
+						<!-- {{mealsPrepService[n].imageUrl}} --
 						<div class="to-ho-hotel-con">
 							<div ng-if="mealsPrepService[n].imageUrl == null" class="to-ho-hotel-con-1">
-								<!-- {{mealsPrepService[n].mealId}} -->
+								<!-- {{mealsPrepService[n].mealId}} --
 								<img src="https://fithouseksa.com/wp-content/uploads/2018/07/Grilled-steak.png" alt="">
 							</div>
 							<div ng-if="mealsPrepService[n].imageUrl != null" class="to-ho-hotel-con-1">
-								<!-- {{mealsPrepService[n].mealId}} -->
+								<!-- {{mealsPrepService[n].mealId}} --
 								<img src={{mealsPrepService[n].imageUrl}} imageonload  alt="">
 							</div>
 							<div class="to-ho-hotel-con-23">
@@ -259,15 +259,15 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				<!-- </div> --
 			</div>
 		</div>
 	</div>
-</div>
+</div> -->
 <!--END HOTEL ROOMS-->
 
 <!--TOP SECTION-->
-<section>
+<!-- <section>
 
 	<div class="inn-body-section pad-bot-55">
 		<div class="container">
@@ -281,7 +281,7 @@
 					</div>
 					<p>{{'ProgramsDescription' | translate}}</p>
 				</div>
-				<!--ROOM SECTION-->
+				<!--ROOM SECTION--
 				<div ng-repeat="n in [] | range:6">
 					<div style="cursor: pointer !important;"
 						ng-click="$state.go('programDetails', {programId: programPrepService[n].programId});"
@@ -289,11 +289,11 @@
 						<div class="ribbon ribbon-top-left">
 							<span>{{'Program' | translate}}</span>
 						</div>
-						<!--ROOM IMAGE-->
+						<!--ROOM IMAGE--
 						<div class="r1 r-com">
 							<img src="https://fithouseksa.com/wp-content/uploads/2018/07/fithouse-icons6.png" alt="" />
 						</div>
-						<!--ROOM RATING-->
+						<!--ROOM RATING--
 						<div class="r2 r-com">
 							<h4>{{programPrepService[n].programNameDictionary[selectedLanguage] | limitTo:10}}</h4>
 							<div class="r2-ratt">
@@ -313,7 +313,7 @@
 								<li></li>
 							</ul>
 						</div>
-						<!--ROOM AMINITIES-->
+						<!--ROOM AMINITIES--
 						<div class="r3 r-com">
 							<ul>
 								<li>{{'ProgramDays' | translate}}: {{programPrepService[n].programDays}}</li>
@@ -323,7 +323,7 @@
 								<li></li>
 							</ul>
 						</div>
-						<!--ROOM PRICE-->
+						<!--ROOM PRICE--
 						<div class="r4 r-com">
 							<p></p>
 							<p>
@@ -332,7 +332,7 @@
 							</p>
 							<p>{{'NonRefundable' | translate}}</p>
 						</div>
-						<!--ROOM BOOKING BUTTON-->
+						<!--ROOM BOOKING BUTTON--
 						<div class="r5 r-com">
 							<div class="r2-available">Available</div>
 							<p></p>
@@ -341,13 +341,13 @@
 								class="inn-room-book">{{'Book' | translate}}</a>
 						</div>
 					</div>
-					<!--END ROOM SECTION-->
+					<!--END ROOM SECTION--
 				</div>
 
 			</div>
 		</div>
 	</div>
-</section>
+</section> -->
 
 
 

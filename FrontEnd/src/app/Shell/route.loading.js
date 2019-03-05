@@ -28,7 +28,7 @@
     });
     $transitions.onError({  }, function(transition) {
       blockUI.stop();
-      $(".hide-menu").click()
+      $(".hide-menu").click();
     });
     var routingDoneEvents = ['$stateChangeSuccess', '$stateChangeError', '$stateNotFound'];
 

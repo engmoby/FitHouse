@@ -3,12 +3,26 @@ $(document).ready(function() {
 
     //LEFT MOBILE MENU OPEN
     $(".show-menu").on('click', function() {
-        $(".mm-menu").css('right', '-25%');
+        if(localStorage["ngStorage-language"] == '"en"'){
+            $(".mm-menu").css('right', '-25%');
+            $(".mm-menu").css('left', 'unset');
+        }
+        else{
+            $(".mm-menu").css('right', 'unset');
+            $(".mm-menu").css('left', '-25%');
+        }
     });
 
     //LEFT MOBILE MENU OPEN
     $(".hide-menu").on('click', function() {
-        $(".mm-menu").css('right', '-100%');
+        if(localStorage["ngStorage-language"] == '"en"'){
+            $(".mm-menu").css('right', '-100%');
+            $(".mm-menu").css('left', 'unset');
+        }
+        else{
+            $(".mm-menu").css('right', 'unset');
+            $(".mm-menu").css('left', '-100%');
+        }
     });
     //GOOGLE MAP - SCROLL REMOVE
     $('.hp-view')

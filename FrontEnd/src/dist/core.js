@@ -273,7 +273,7 @@ angular.module('core')
         "Mobile": "Mobile:",
         "LeadershipTeam": "Leadership Team",
         "Leadership": "Leadership",
-        "Home": "Home",
+        "Home": "Custom program",
         "AboutUs": "About Us",
         "ContactUs": "Contact Us",
         "Language": "Language",
@@ -650,7 +650,7 @@ angular.module('core')
         "Mobile": "رقم الجوال: ",
         "LeadershipTeam": "فريق القيادة",
         "Leadership": "القيادة",
-        "Home": "الرئيسيه",
+        "Home": "برنامج مخصص",
         "ContactUs": "تواصل",
         "AboutUs": "عن ميزاب",
         "Language": "اللغه",
@@ -1113,7 +1113,8 @@ angular.module('core')
             //     $state.go('Area'); 
             // if ($scope.user.PermissionId[0] == 10)
             blockUI.stop();
-            $state.go('homePage');
+            // $state.go('homePage');
+            $state.go('program');
 
         }
         else {
@@ -1131,12 +1132,13 @@ angular.module('core')
 
     angular
         .module('home')
-        .controller('homeCtrl', ['$rootScope', 'blockUI', '$transitions', '$translate', '$scope', 'appCONSTANTS', '$state', '_', 'authenticationService', 'authorizationService', '$localStorage', homeCtrl])
+        .controller('homeCtrl', ['$rootScope', 'blockUI', '$transitions', '$translate', '$scope', 'appCONSTANTS', '$state', '_', 'authenticationService', 'authorizationService', '$localStorage', '$timeout', homeCtrl])
 
-    function homeCtrl($rootScope, blockUI, $transitions, $translate, $scope, appCONSTANTS, $state, _, authenticationService, authorizationService, $localStorage) {
+    function homeCtrl($rootScope, blockUI, $transitions, $translate, $scope, appCONSTANTS, $state, _, authenticationService, authorizationService, $localStorage, $timeout) {
         $scope.$on('LOAD', function () { $scope.loading = true });
         $scope.$on('UNLOAD', function () { $scope.loading = false });
         var vm = this;
+
         $scope.emailEmpty = false;
         $scope.passwordEmpty = false;
         $scope.languages = [{
@@ -1154,6 +1156,7 @@ angular.module('core')
         else
             $scope.selectedLanguage = $localStorage.language;
 
+        
         $translate.use($scope.selectedLanguage);
         $scope.init =
             function () {
@@ -1237,7 +1240,8 @@ angular.module('core')
                 else {
                     debugger;
                     blockUI.stop();
-                    $state.go('homePage');
+                    // $state.go('homePage');
+                    $state.go('program');
                 }
             }
             else {
@@ -1290,7 +1294,11 @@ angular.module('core')
             return (new Date()).getTime()
         }
 
+        $timeout(function () {
 
+            document.getElementById("sec1").classList.remove('hideHTML');
+            document.getElementById("sec2").classList.remove('hideHTML');
+        }, 100);
     }
 
 
