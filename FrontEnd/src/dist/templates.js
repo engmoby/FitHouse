@@ -793,15 +793,17 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '\n' +
     '            <div ng-click="$state.go(\'mealDetails\', {mealId: Meal.mealId});" style="cursor: pointer !important;" ng-repeat="Meal in mealsPrepService"\n' +
     '                class="room">\n' +
+    '                <!-- {{Meal.imageUrl}} -->\n' +
+    '\n' +
     '                <div class="ribbon ribbon-top-left">\n' +
     '                    <span>{{\'Meal\' | translate}}</span>\n' +
     '                </div>\n' +
     '                <!--ROOM IMAGE-->\n' +
-    '                <div ng-if="mealsPrepService.imageUrl == null" class="r1 r-com">\n' +
+    '                <div ng-if="Meal.imageUrl == null" class="r1 r-com">\n' +
     '                    <img src="https://fithouseksa.com/wp-content/uploads/2018/07/Grilled-steak.png" alt="" />\n' +
     '                </div>\n' +
-    '                <div ng-if="mealsPrepService.imageUrl != null" class="r1 r-com">\n' +
-    '                    <img src="mealsPrepService.imageUrl" alt="" />\n' +
+    '                <div ng-if="Meal.imageUrl != null" class="r1 r-com">\n' +
+    '                    <img src="Meal.imageUrl" alt="" />\n' +
     '                </div>\n' +
     '                <!--ROOM RATING-->\n' +
     '                <div class="r2 r-com">\n' +
@@ -2610,6 +2612,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '				<div ng-repeat="n in [] | range:6">\n' +
     '					<div ng-click="$state.go(\'mealDetails\', {mealId: mealsPrepService[n].mealId});" style="cursor: pointer !important;" ng-if="mealsPrepService[n] != undefined"\n' +
     '					 class="col-md-4">\n' +
+    '					 {{mealsPrepService[n].imageUrl}}\n' +
     '						<div class="to-ho-hotel-con">\n' +
     '							<div ng-if="mealsPrepService[n].imageUrl == null" class="to-ho-hotel-con-1">\n' +
     '								<!-- {{mealsPrepService[n].mealId}} -->\n' +

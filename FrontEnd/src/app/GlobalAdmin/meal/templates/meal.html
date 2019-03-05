@@ -14,15 +14,17 @@
 
             <div ng-click="$state.go('mealDetails', {mealId: Meal.mealId});" style="cursor: pointer !important;" ng-repeat="Meal in mealsPrepService"
                 class="room">
+                <!-- {{Meal.imageUrl}} -->
+
                 <div class="ribbon ribbon-top-left">
                     <span>{{'Meal' | translate}}</span>
                 </div>
                 <!--ROOM IMAGE-->
-                <div ng-if="mealsPrepService.imageUrl == null" class="r1 r-com">
+                <div ng-if="Meal.imageUrl == null" class="r1 r-com">
                     <img src="https://fithouseksa.com/wp-content/uploads/2018/07/Grilled-steak.png" alt="" />
                 </div>
-                <div ng-if="mealsPrepService.imageUrl != null" class="r1 r-com">
-                    <img src="mealsPrepService.imageUrl" alt="" />
+                <div ng-if="Meal.imageUrl != null" class="r1 r-com">
+                    <img src="Meal.imageUrl" alt="" />
                 </div>
                 <!--ROOM RATING-->
                 <div class="r2 r-com">

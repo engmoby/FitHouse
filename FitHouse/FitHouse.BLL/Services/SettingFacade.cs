@@ -40,7 +40,8 @@ namespace FitHouse.BLL.Services
             setting.IsSMS = settingDto.IsSMS;
             setting.MaxPauseDays = settingDto.MaxPauseDays;
             setting.MinNoDaysPerProgram = settingDto.MinNoDaysPerProgram;
-            
+            setting.ProgramDiscount = settingDto.ProgramDiscount;
+
 
             _settingService.Update(setting);
             SaveChanges();
