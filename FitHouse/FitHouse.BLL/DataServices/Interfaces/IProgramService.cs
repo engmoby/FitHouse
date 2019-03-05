@@ -12,5 +12,6 @@ namespace FitHouse.BLL.DataServices.Interfaces
     public interface IProgramService : IService<Program>
     {
         PagedResultsDto GetAllPrograms(int page, int pageSize);
+        PagedResultsDto GetAllActivePrograms(int page, int pageSize);
     }
 }

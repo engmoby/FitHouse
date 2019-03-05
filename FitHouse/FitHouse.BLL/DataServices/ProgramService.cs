@@ -31,5 +31,19 @@ namespace FitHouse.BLL.DataServices
             return results;
         }
 
+        public PagedResultsDto GetAllActivePrograms(int page, int pageSize)
+        {
+            PagedResultsDto results = new PagedResultsDto();
+            var query = Queryable().Where(x => !x.IsDeleted && !x.IsForClient && x.IsActive).OrderBy(x => x.ProgramId);
+            results.TotalCount = _repository.Queryable().Count(x => !x.IsDeleted && !x.IsForClient && x.IsActive);
+
+            var programs = pageSize > 0
+                ? query.OrderBy(x => x.ProgramId).Skip((page - 1) * pageSize).Take(pageSize).ToList()
+                : query.OrderBy(x => x.ProgramId).ToList();
+            results.Data = Mapper.Map<List<Program>, List<ProgramDto>>(programs);
+
+            return results;
+        }
+
     }
 }

@@ -129,6 +129,12 @@ namespace FitHouse.BLL.Services
             return results;
         }
 
+        public PagedResultsDto GetAllActiveMeals(string language, int page, int pageSize)
+        {
+            var results = _mealTranslationService.GetAllActiveMeals(language, page, pageSize);
+            return results;
+        }
+        
         public PagedResultsDto GetActivatedMealsByCategoryId(string language, long categoryId, int page, int pageSize)
         {
             var category = _categoryService.Find(categoryId);

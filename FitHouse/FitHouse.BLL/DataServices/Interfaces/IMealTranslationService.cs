@@ -10,5 +10,6 @@ namespace FitHouse.BLL.DataServices.Interfaces
         bool CheckMealNameExist(string mealName, string language, long mealId);
         PagedResultsDto GetAllMeals(string language, int page, int pageSize); 
         PagedResultsDto GetActivatedMeals(string language,  int page, int pageSize);
+        PagedResultsDto GetAllActiveMeals(string language, int page, int pageSize);
     }
 }
