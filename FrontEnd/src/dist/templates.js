@@ -323,7 +323,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '    <div class="container">\n' +
     '        <div class="row">\n' +
     '            <div class="page-head">\n' +
-    '                <h4>Program Details</h4>\n' +
+    '                <h4>{{\'CustomizeProgram\' | translate}} </h4>\n' +
     '                <div class="head-title">\n' +
     '                    <div class="hl-1"></div>\n' +
     '                    <div class="hl-2"></div>\n' +
@@ -334,12 +334,12 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '\n' +
     '            <form name="stepTwoProgramForm">\n' +
     '                <div class="head-typo typo-com collap-expand">\n' +
-    '                    <h4>Days</h4>\n' +
+    '                    <h4> {{\'ProgramDays\' | translate}}</h4>\n' +
     '                    <!-- {{CustomCtrl.itemList}} -->\n' +
-    '                     <span>carbs: {{CustomCtrl.carbs}}</span>\n' +
-    '                    <span>fat: {{CustomCtrl.fat}}</span>\n' +
-    '                    <span>calories: {{CustomCtrl.calories}}</span>\n' +
-    '                    <span>protein: {{CustomCtrl.protein}}</span>\n' +
+    '                    <span>{{\'carbs\' | translate}}: {{CustomCtrl.carbs}}</span>\n' +
+    '                    <span>{{\'fat\' | translate}}: {{CustomCtrl.fat}}</span>\n' +
+    '                    <span>{{\'calories\' | translate}}: {{CustomCtrl.calories}}</span>\n' +
+    '                    <span>{{\'protein\' | translate}}: {{CustomCtrl.protein}}</span>\n' +
     '                    <div ng-init="counterDay = 0; counterMeal = 0">\n' +
     '                        <div class="panel-group pmd-accordion pmd-accordion-inbox" id="accordion6" role="tablist"\n' +
     '                            aria-multiselectable="true">\n' +
@@ -352,7 +352,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                        aria-expanded="true" aria-controls="collapseOne6" data-expandable="false">\n' +
     '                                        <h4 class="panel-title">\n' +
     '\n' +
-    '                                            {{\'Day\' | translate}} : {{counterDay=$index+1}}\n' +
+    '                                            {{\'ProgramDays\' | translate}} : {{counterDay=$index+1}}\n' +
     '                                            <!-- <i class="material-icons md-dark pmd-sm pmd-accordion-arrow">keyboard_arrow_down</i> -->\n' +
     '\n' +
     '                                        </h4>\n' +
@@ -412,7 +412,9 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                                    </div>\n' +
     '                                                    <div class="row">\n' +
     '                                                        <div class="res-menu" ng-repeat="meal in itemModel">\n' +
-    '                                                            <img src="/assets/img/meal.jpeg" alt="" />\n' +
+    '                                                            {{meal.imageUrl}} <img src={{meal.imageUrl}} imageonload\n' +
+    '                                                                alt="">\n' +
+    '                                                            <!-- <img src="/assets/img/meal.jpeg" alt="" /> -->\n' +
     '                                                            <h3> {{meal.itemNameDictionary[selectedLanguage] | limitTo:10}}<span>{{meal.price}}</span>\n' +
     '                                                            </h3> <span\n' +
     '                                                                class="menu-item">{{meal.itemDescriptionDictionary[selectedLanguage] | limitTo:10}}</span>\n' +
@@ -430,7 +432,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '\n' +
     '                </div>\n' +
     '                <div class="head-typo typo-com collap-expand">\n' +
-    '                    <h4>Address</h4>\n' +
+    '                    <h4>{{\'addressLbl\' | translate}}</h4>\n' +
     '                    <div class="col-md-12">\n' +
     '                        <div class="head-typo typo-com collap-expand book-form inn-com-form">\n' +
     '                            <!-- Switch -->\n' +
@@ -451,7 +453,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                <p>\n' +
     '                                    <input ng-model="CustomCtrl.orderType.type" name="group1" type="radio" id="test2"\n' +
     '                                        value="pickup" />\n' +
-    '                                    <label for="test2">{{\'PickUp\' | translate}}</label>\n' +
+    '                                    <label for="test2">{{\'Pickup\' | translate}}</label>\n' +
     '                                </p>\n' +
     '\n' +
     '                                <!--    <div ng-if="CustomCtrl.orderType.type == \'delivery\'" class="row form-group">\n' +
@@ -502,7 +504,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                                            ng-required="CustomCtrl.orderType.type == \'delivery\'">\n' +
     '                                                        <label for="addressRadio{{address.addressId}}">\n' +
     '                                                            {{\'appartmentNo\' | translate}}: {{address.appartmentNo}}\n' +
-    '                                                            <br> {{\'Floor\' | translate}} : {{address.floor}}\n' +
+    '                                                            <br> {{\'FLoor\' | translate}} : {{address.floor}}\n' +
     '                                                            <br> {{\'appartmentNo\' | translate}} :\n' +
     '                                                            {{address.description}}\n' +
     '                                                        </label>\n' +
@@ -574,15 +576,15 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                    <div class="row">\n' +
     '                        <div class="col-md-10"></div>\n' +
     '                        <div class="col-md-4">\n' +
-    '                            Program Price:{{ CustomCtrl.ProgramTotalPrice}}\n' +
-    '                            <br> Delivery:{{ CustomCtrl.DeliveryFees}}\n' +
-    '                            <br>Total :{{ CustomCtrl.Total}}\n' +
+    '                            {{\'price\' | translate}}:{{ CustomCtrl.ProgramTotalPrice}}\n' +
+    '                            <br> {{\'DeliveryPrice\' | translate}}:{{ CustomCtrl.DeliveryFees}}\n' +
+    '                            <br>{{\'Total\' | translate}} :{{ CustomCtrl.Total}}\n' +
     '                            <br>\n' +
     '                            <button style="background-color: #e4e5e6;color: black!important;"\n' +
     '                                ng-disabled="stepTwoProgramForm.$invalid || CustomCtrl.selectedBranchId <= 0"\n' +
     '                                class="btn pmd-ripple-effect btn-primary" type="button"\n' +
     '                                ng-click="CustomCtrl.AddNewProgram();">\n' +
-    '                                {{\'next\' | translate}}</button>\n' +
+    '                                {{\'Save\' | translate}}</button>\n' +
     '                        </div>\n' +
     '                    </div>\n' +
     '            </form>\n' +

@@ -10,6 +10,7 @@ namespace FitHouse.API.Models
     {
         public long ItemId { get; set; }
         public MemoryStream Image { get; set; }
+        public string ImageUrl { get; set; }
         public string ItemName { get; set; }
         public string ItemDescription { get; set; }
         public bool IsDeleted { get; set; }

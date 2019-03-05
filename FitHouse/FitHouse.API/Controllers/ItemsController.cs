@@ -81,7 +81,11 @@ namespace FitHouse.API.Controllers
         public IHttpActionResult GetAllItems()
         {
             var items = Mapper.Map<List<ItemProgramModel>>(_itemFacade.GetAllItems());
+            foreach (var itemModel in items)
+            {
+                itemModel.ImageUrl = Url.Link("ItemImage", new {itemModel.CategoryId, itemModel.ItemId });
 
+            }
             return Ok(items);
         }
 
