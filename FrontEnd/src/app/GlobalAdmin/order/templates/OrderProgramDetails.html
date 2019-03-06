@@ -73,13 +73,15 @@
                                                                                 <!-- {{item.itemNameDictionary[selectedLanguage]}} -->
                                                                                 <img src={{item.imageUrl}} imageonload alt=""> 
 
-                                                                                <h3> {{item.itemNameDictionary[selectedLanguage]
-                                                                                            | limitTo:10}}
-                                                                                    <span>{{item.price}}</span>
+                                                                                <h3> {{item.itemNameDictionary[selectedLanguage]}}
+                                                                                    <span>{{item.totalPrice}}</span>
                                                                                 </h3>
-                                                                                <span class="menu-item">{{item.itemDescriptionDictionary[selectedLanguage]
-                                                                                            | limitTo:10}}</span>
-                                                                            </div>
+                                                                                <span class="menu-item">{{item.itemDescriptionDictionary[selectedLanguage]}}</span>
+                                                                                <span> {{'fat' | translate}}:{{item.fat}}</span>
+                                                                                <span> {{'carbs' | translate}}:{{item.carbs}}</span>
+                                                                                <span> {{'protein' | translate}}:{{item.protein}}</span>
+                                                                                <span> {{'calories' | translate}}:{{item.calories}}</span>
+                                                                             </div>
 
                                                                         </li>
                                                                     </ul>

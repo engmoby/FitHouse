@@ -278,7 +278,7 @@ angular.module('core')
         "ContactUs": "Contact Us",
         "Language": "Language",
         "customiseProgram": "Customise Program",
-        "DescribeCustomiseProgram": "Describe Customise Program as client want",
+        "DescribeCustomiseProgram": "create your own Program as you want",
         "ProgramName": "Program Name",
         "ProgramDescription": "Program Description",
         "SelectExcludeDays": "Excluded Days",
@@ -627,11 +627,20 @@ angular.module('core')
         "Prepering": "Prepering", 
         "thanks": "Thanks for applying in our system.", 
         "Overview": "Overview", 
+        "NumberOfItems": "Number Of Items", 
+        "NoOrdersAvailable": "No Orders yet", 
+        "copyrigth": "© 2019 Fit House | All rights reserved", 
+        "NoAddressAvailable": "No Address yet", 
+
       }
 
       var ar_translations = {
         "thanks": "شكرا لاستخدامك النظام الخاص بنا ", 
+        "NumberOfItems": "عدد الوجبات", 
+        "NoAddressAvailable": "لا توجد عناوين حتي الان", 
 
+        "copyrigth": " حقوق الملكيه لسنه  2019 Fit House", 
+        "NoOrdersAvailable":"لا يوجد طلبات حتي الان", 
         "Overview": "نظرة عامة", 
         "Open": "0", 
         "Prepering": "Prepering", 
@@ -651,7 +660,7 @@ angular.module('core')
         "ProgramDays": "عدد ايام البرنامج",
         "NonRefundable": "غير قابل للاسترداد",
 
-        "DescribeCustomiseProgram": "Describe Customise Program as client want",
+        "DescribeCustomiseProgram": "إنشاء البرنامج الخاص بك كما تريد",
         "customiseProgram": "انشاء برنامج",
         "Email": "البريد الالكتروني: ",
         "WhatsApp": "واتس اب: ",
@@ -745,7 +754,7 @@ angular.module('core')
         "LETSCREATEPROGRAM": "هيا لنضيف برنامج",
         "BaiscInfo": "معلومات اساسيه",
         "CreateMeal": "اضف الوجبه",
-        "Summary": "المختصر",
+        "Summary": "تفاصيل",
         "saveUser": "حفظ مستخدم",
         "Program": "البرنامج",
         "ProgramLbl": "برنامج جديد",

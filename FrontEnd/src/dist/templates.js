@@ -1,4 +1,322 @@
 angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Address/templates/Address.html',
+    ' \n' +
+    '<div class="inn-body-section pad-bot-55">\n' +
+    '    <div class="container">\n' +
+    '\n' +
+    '        <div class="row">\n' +
+    '            <!--TYPOGRAPHY SECTION-->\n' +
+    '            <div class="col-md-12">\n' +
+    '                <div class="head-typo typo-com">\n' +
+    '                    <h3>{{\'addressLbl\' | translate}}</h3>\n' +
+    '\n' +
+    '                    <div style="margin-bottom:10px">\n' +
+    '                        <button style="background-color: #e4e5e6;color: black!important;"\n' +
+    '                            ng-click="$state.go(\'newAddress\');" class="btn pmd-ripple-effect btn-primary pmd-z-depth"\n' +
+    '                            type="button">{{\'AddBtn\'\n' +
+    '                | translate}}</button>\n' +
+    '\n' +
+    '                    </div>\n' +
+    '                    <div ng-if="AddressList.length == 0">\n' +
+    '                        <span>{{\'NoAddressAvailable\' | translate}}</span>\n' +
+    '                    </div>\n' +
+    '                    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="AddressList.length > 0">\n' +
+    '                        <div class="table-responsive"></div>\n' +
+    '                        <table class="table">\n' +
+    '                            <thead>\n' +
+    '                                <tr>\n' +
+    '                                    <th>{{\'appartmentNo\' | translate}}</th>\n' +
+    '                                    <th>{{\'FLoor\' | translate}}</th>\n' +
+    '                                    <th></th>\n' +
+    '                                </tr>\n' +
+    '                            </thead>\n' +
+    '                            <tbody>\n' +
+    '                                <tr ng-repeat="address in AddressList">\n' +
+    '                                    <td data-title="Name">{{address.appartmentNo}}</td>\n' +
+    '\n' +
+    '                                    <td data-title="Name">{{address.floor}}</td>\n' +
+    '\n' +
+    '                                    <td width="30%" ng-show="!address.isStatic">\n' +
+    '                                        <i class="material-icons md-dark pmd-md cursorPointer font25" style="cursor: pointer;"\n' +
+    '                                            ng-click="$state.go(\'editaddress\',{addressId: address.addressId});">mode_edit</i>\n' +
+    '\n' +
+    '                                    </td>\n' +
+    '                                </tr>\n' +
+    '                            </tbody>\n' +
+    '                        </table>\n' +
+    '                    </div>\n' +
+    '                    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
+    '                        paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"\n' +
+    '                        hide-if-empty="true" disabled-class="hide">\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Address/templates/edit.html',
+    '<div class="inn-body-section pad-bot-55">\n' +
+    '    <div class="container">\n' +
+    '        <div class="row">\n' +
+    '            <div class="head-typo typo-com collap-expand book-form inn-com-form">\n' +
+    '                <h2>{{\'Address\' | translate}} </h2>\n' +
+    '\n' +
+    '\n' +
+    '                <form class="form-horizontal" name="addressForm">\n' +
+    '\n' +
+    '                    <div\n' +
+    '                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                        <label for="first-name">{{\'Country\' | translate}}</label>\n' +
+    '                        <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
+    '                            ng-change="editAddressCtrl.countryChange()" ng-model="editAddressCtrl.selectedCountryId"\n' +
+    '                            ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in editAddressCtrl.counties">\n' +
+    '                        </select>\n' +
+    '                    </div>\n' +
+    '                    <div ng-show=" editAddressCtrl.selectedCountryId > 0"\n' +
+    '                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                        <label for="first-name">{{\'Region\' | translate}}</label>\n' +
+    '                        <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
+    '                            ng-change="editAddressCtrl.regionChange()" ng-model="editAddressCtrl.selectedRegionId"\n' +
+    '                            ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in editAddressCtrl.regions">\n' +
+    '                        </select>\n' +
+    '                    </div>\n' +
+    '                    <div ng-show=" editAddressCtrl.selectedRegionId > 0"\n' +
+    '                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                        <label for="first-name">{{\'City\' | translate}}</label>\n' +
+    '                        <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
+    '                            ng-change="editAddressCtrl.cityChange()" ng-model="editAddressCtrl.selectedCityId"\n' +
+    '                            ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in editAddressCtrl.cities">\n' +
+    '                        </select>\n' +
+    '                    </div>\n' +
+    '                    <div ng-show=" editAddressCtrl.selectedCityId > 0"\n' +
+    '                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                        <label for="first-name">{{\'Area\' | translate}}</label>\n' +
+    '                        <select ng-required="editAddressCtrl.selectedCityId > 0" style="width:100% !important"\n' +
+    '                            class="select-tags form-control pmd-select2-tags" ng-change="editAddressCtrl.areaChange()"\n' +
+    '                            ng-model="editAddressCtrl.selectedAreaId"\n' +
+    '                            ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in editAddressCtrl.area">\n' +
+    '                        </select>\n' +
+    '                    </div>\n' +
+    '\n' +
+    '                    <div\n' +
+    '                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                        <label for="first-name">{{\'FLoor\' | translate}}</label>\n' +
+    '                        <input required type="number" class="mat-input form-control" name="floor"\n' +
+    '                            ng-pattern="/^[0-9]{1,5}$/" ng-model="editAddressCtrl.Address.floor" ng-minlength="1"\n' +
+    '                            ng-maxlength="4">\n' +
+    '                        <div ng-messages="addressForm.floor.$error" class="error">\n' +
+    '                            <div ng-if="addressForm.floor.$error.required && !addressForm.floor.$pristine">\n' +
+    '                                {{\'ProgramDaysCountReqError\' | translate}}</div>\n' +
+    '                            <div ng-if="(addressForm.floor.$error.minlength || addressForm.floor.$error.maxlength)">\n' +
+    '                                {{\'ProgramDaysCountLengthError\' | translate}}</div>\n' +
+    '                            <div ng-if="addressForm.floor.$error.pattern && !addressForm.floor.$pristine">\n' +
+    '                                {{\'wrongpattern\' | translate}}</div>\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '\n' +
+    '                    <div\n' +
+    '                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                        <label for="first-name">{{\'ApartmentNumber\' | translate}}</label>\n' +
+    '                        <input required type="number" class="mat-input form-control" name="appartmentNo"\n' +
+    '                            ng-pattern="/^[0-9]{1,5}$/" ng-model="editAddressCtrl.Address.appartmentNo" ng-minlength="1"\n' +
+    '                            ng-maxlength="4">\n' +
+    '                        <div ng-messages="addressForm.appartmentNo.$error" class="error">\n' +
+    '                            <div\n' +
+    '                                ng-if="addressForm.appartmentNo.$error.required && !addressForm.appartmentNo.$pristine">\n' +
+    '                                {{\'ProgramDaysCountReqError\' | translate}}</div>\n' +
+    '                            <div\n' +
+    '                                ng-if="(addressForm.appartmentNo.$error.minlength || addressForm.appartmentNo.$error.maxlength)">\n' +
+    '                                {{\'ProgramDaysCountLengthError\' | translate}}</div>\n' +
+    '                            <div ng-if="addressForm.appartmentNo.$error.pattern && !addressForm.appartmentNo.$pristine">\n' +
+    '                                {{\'wrongpattern\' | translate}}</div>\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '\n' +
+    '                    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                        <label for="first-name">{{\'AddressDescription\' | translate}}</label>\n' +
+    '                        <textarea required type="text" class="mat-input form-control" name="addressDescription"\n' +
+    '                            ng-model="editAddressCtrl.Address.description" ng-minlength="3"\n' +
+    '                            ng-maxlength="255"></textarea>\n' +
+    '                        <div ng-messages="addressForm.addressDescription.$error">\n' +
+    '                            <div\n' +
+    '                                ng-if="addressForm.addressDescription.$error.required && !addressForm.addressDescription.$pristine">\n' +
+    '                                {{\'Address\' | translate}}\n' +
+    '                                {{\'ReqError\' | translate}}\n' +
+    '                            </div>\n' +
+    '                            <div\n' +
+    '                                ng-if="(addressForm.addressDescription.$error.minlength || addressForm.addressDescription.$error.maxlength)">\n' +
+    '                                {{\'NameLengthError255\' | translate}}</div>\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '\n' +
+    '                    <div class="pmd-modal-action text-right">\n' +
+    '                        <button style="background-color: #e4e5e6;color: black!important;"\n' +
+    '                            ng-disabled="addressForm.$invalid || editAddressCtrl.selectedBranchId < 0"\n' +
+    '                            class="btn pmd-ripple-effect btn-primary" type="button"\n' +
+    '                            ng-click="editAddressCtrl.UpdateType()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '\n' +
+    '                        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
+    '                            ng-click="$state.go(\'Address\', {userId: user.id});">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '                    </div>\n' +
+    '                </form>\n' +
+    '\n' +
+    '            </div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '\n' +
+    '\n' +
+    '<script type="text/javascript">\n' +
+    '    $(document).ready(function () {\n' +
+    '        $(".select-add-tags").select2({\n' +
+    '            tags: true,\n' +
+    '            theme: "bootstrap",\n' +
+    '            insertTag: function (data, tag) {\n' +
+    '                // Insert the tag at the end of the results\n' +
+    '                data.push(tag);\n' +
+    '                // console.log(data);\n' +
+    '            }\n' +
+    '        });\n' +
+    '        $(".select-tags").select2({\n' +
+    '            tags: false,\n' +
+    '            theme: "bootstrap",\n' +
+    '        })\n' +
+    '\n' +
+    '        $(".select-with-search").select2({\n' +
+    '            theme: "bootstrap"\n' +
+    '        });\n' +
+    '    });\n' +
+    '</script>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/Address/templates/new.html',
+    '<div class="inn-body-section pad-bot-55">\n' +
+    '    <div class="container">\n' +
+    '        <div class="row">\n' +
+    '            <div class="head-typo typo-com collap-expand book-form inn-com-form">\n' +
+    '                <h2>{{\'Address\' | translate}} </h2>\n' +
+    '\n' +
+    '\n' +
+    '                <form class="form-horizontal" name="addressForm">\n' +
+    '\n' +
+    '                    <div\n' +
+    '                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                        <label for="first-name">{{\'Country\' | translate}}</label>\n' +
+    '                        <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
+    '                            ng-change="newAddressCtrl.countryChange()" ng-model="newAddressCtrl.selectedCountryId"\n' +
+    '                            ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in newAddressCtrl.counties">\n' +
+    '                        </select>\n' +
+    '                    </div>\n' +
+    '                    <div ng-show=" newAddressCtrl.selectedCountryId > 0"\n' +
+    '                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                        <label for="first-name">{{\'Region\' | translate}}</label>\n' +
+    '                        <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
+    '                            ng-change="newAddressCtrl.regionChange()" ng-model="newAddressCtrl.selectedRegionId"\n' +
+    '                            ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in newAddressCtrl.regions">\n' +
+    '                        </select>\n' +
+    '                    </div>\n' +
+    '                    <div ng-show=" newAddressCtrl.selectedRegionId > 0"\n' +
+    '                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                        <label for="first-name">{{\'City\' | translate}}</label>\n' +
+    '                        <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
+    '                            ng-change="newAddressCtrl.cityChange()" ng-model="newAddressCtrl.selectedCityId"\n' +
+    '                            ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in newAddressCtrl.cities">\n' +
+    '                        </select>\n' +
+    '                    </div>\n' +
+    '                    <div ng-show=" newAddressCtrl.selectedCityId > 0"\n' +
+    '                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                        <label for="first-name">{{\'Area\' | translate}}</label>\n' +
+    '                        <select ng-required="newAddressCtrl.selectedCityId > 0" style="width:100% !important"\n' +
+    '                            class="select-tags form-control pmd-select2-tags" ng-change="newAddressCtrl.areaChange()"\n' +
+    '                            ng-model="newAddressCtrl.selectedAreaId"\n' +
+    '                            ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in newAddressCtrl.area">\n' +
+    '                        </select>\n' +
+    '                    </div>\n' +
+    '\n' +
+    '                    <div\n' +
+    '                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                        <label for="first-name">{{\'FLoor\' | translate}}</label>\n' +
+    '                        <input required type="number" class="mat-input form-control" name="floor"\n' +
+    '                            ng-pattern="/^[0-9]{1,5}$/" ng-model="newAddressCtrl.FLoor" ng-minlength="1"\n' +
+    '                            ng-maxlength="4">\n' +
+    '                        <div ng-messages="addressForm.floor.$error" class="error">\n' +
+    '                            <div ng-if="addressForm.floor.$error.required && !addressForm.floor.$pristine">\n' +
+    '                                {{\'ProgramDaysCountReqError\' | translate}}</div>\n' +
+    '                            <div ng-if="(addressForm.floor.$error.minlength || addressForm.floor.$error.maxlength)">\n' +
+    '                                {{\'ProgramDaysCountLengthError\' | translate}}</div>\n' +
+    '                            <div ng-if="addressForm.floor.$error.pattern && !addressForm.floor.$pristine">\n' +
+    '                                {{\'wrongpattern\' | translate}}</div>\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '\n' +
+    '                    <div\n' +
+    '                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                        <label for="first-name">{{\'ApartmentNumber\' | translate}}</label>\n' +
+    '                        <input required type="number" class="mat-input form-control" name="appartmentNo"\n' +
+    '                            ng-pattern="/^[0-9]{1,5}$/" ng-model="newAddressCtrl.AppartmentNo" ng-minlength="1"\n' +
+    '                            ng-maxlength="4">\n' +
+    '                        <div ng-messages="addressForm.appartmentNo.$error" class="error">\n' +
+    '                            <div\n' +
+    '                                ng-if="addressForm.appartmentNo.$error.required && !addressForm.appartmentNo.$pristine">\n' +
+    '                                {{\'ProgramDaysCountReqError\' | translate}}</div>\n' +
+    '                            <div\n' +
+    '                                ng-if="(addressForm.appartmentNo.$error.minlength || addressForm.appartmentNo.$error.maxlength)">\n' +
+    '                                {{\'ProgramDaysCountLengthError\' | translate}}</div>\n' +
+    '                            <div ng-if="addressForm.appartmentNo.$error.pattern && !addressForm.appartmentNo.$pristine">\n' +
+    '                                {{\'wrongpattern\' | translate}}</div>\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '\n' +
+    '                    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
+    '                        <label for="first-name">{{\'AddressDescription\' | translate}}</label>\n' +
+    '                        <textarea required type="text" class="mat-input form-control" name="addressDescription"\n' +
+    '                            ng-model="newAddressCtrl.AddressDescription" ng-minlength="3" ng-maxlength="255"></textarea>\n' +
+    '                        <div ng-messages="addressForm.addressDescription.$error">\n' +
+    '                            <div\n' +
+    '                                ng-if="addressForm.addressDescription.$error.required && !addressForm.addressDescription.$pristine">\n' +
+    '                                {{\'Address\' | translate}}\n' +
+    '                                {{\'ReqError\' | translate}}\n' +
+    '                            </div>\n' +
+    '                            <div\n' +
+    '                                ng-if="(addressForm.addressDescription.$error.minlength || addressForm.addressDescription.$error.maxlength)">\n' +
+    '                                {{\'NameLengthError255\' | translate}}</div>\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '\n' +
+    '                    <div class="pmd-modal-action text-right">\n' +
+    '                        <button style="background-color: #e4e5e6;color: black!important;"\n' +
+    '                            ng-disabled="addressForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"\n' +
+    '                            ng-click="newAddressCtrl.AddNewType()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '\n' +
+    '                        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
+    '                            ng-click="$state.go(\'Address\', {userId: user.id});">{{\'DiscardBtn\' | translate}}</button>\n' +
+    '                    </div>\n' +
+    '                </form>\n' +
+    '\n' +
+    '            </div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '</div>\n' +
+    '\n' +
+    '<script type="text/javascript">\n' +
+    '    $(document).ready(function () {\n' +
+    '        $(".select-tags").select2({\n' +
+    '            tags: false,\n' +
+    '            theme: "bootstrap",\n' +
+    '        })\n' +
+    '\n' +
+    '        $(".select-with-search").select2({\n' +
+    '            theme: "bootstrap"\n' +
+    '        });\n' +
+    '    });\n' +
+    '</script>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/customProgram/templates/Custom.html',
     '<!--TOP SECTION-->\n' +
     '<div class="inn-body-section pad-bot-55">\n' +
@@ -34,7 +352,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                        aria-expanded="true" aria-controls="collapseOne6" data-expandable="false">\n' +
     '                                        <h4 class="panel-title">\n' +
     '\n' +
-    '                                            {{\'ProgramDays\' | translate}} : {{counterDay=$index+1}}\n' +
+    '                                            {{\'Day\' | translate}} : {{counterDay=$index+1}}\n' +
     '                                            <!-- <i class="material-icons md-dark pmd-sm pmd-accordion-arrow">keyboard_arrow_down</i> -->\n' +
     '\n' +
     '                                        </h4>\n' +
@@ -94,11 +412,17 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                                    </div>\n' +
     '                                                    <div class="row">\n' +
     '                                                        <div class="res-menu" ng-repeat="meal in itemModel">\n' +
-    '                                                           <img src={{meal.imageUrl}} imageonload alt="">\n' +
+    '                                                            <img src={{meal.imageUrl}} imageonload alt="">\n' +
     '                                                            <!-- <img src="/assets/img/meal.jpeg" alt="" /> -->\n' +
-    '                                                            <h3> {{meal.itemNameDictionary[selectedLanguage] | limitTo:10}}<span>{{meal.price}}</span>\n' +
-    '                                                            </h3> <span\n' +
-    '                                                                class="menu-item">{{meal.itemDescriptionDictionary[selectedLanguage] | limitTo:10}}</span>\n' +
+    '                                                            <h3> {{meal.itemNameDictionary[selectedLanguage] }}\n' +
+    '                                                                <span>{{meal.totalPrice}}</span>\n' +
+    '                                                            </h3>\n' +
+    '                                                            <span\n' +
+    '                                                                class="menu-item">{{meal.itemDescriptionDictionary[selectedLanguage] | limitTo:20}}</span>\n' +
+    '                                                            <span> {{\'fat\' | translate}}:{{meal.fat}}</span>\n' +
+    '                                                            <span> {{\'carbs\' | translate}}:{{meal.carbs}}</span>\n' +
+    '                                                            <span> {{\'protein\' | translate}}:{{meal.protein}}</span>\n' +
+    '                                                            <span> {{\'calories\' | translate}}:{{meal.calories}}</span>\n' +
     '                                                        </div>\n' +
     '                                                    </div>\n' +
     '\n' +
@@ -111,8 +435,8 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                        </div>\n' +
     '                    </div>\n' +
     '\n' +
-    '                </div>\n' +
-    '                <div class="head-typo typo-com collap-expand">\n' +
+    '                </div> \n' +
+    '                <div ng-show="!stepTwoProgramForm.$invalid" class="head-typo typo-com collap-expand">\n' +
     '                    <h4>{{\'addressLbl\' | translate}}</h4>\n' +
     '                    <div class="col-md-12">\n' +
     '                        <div class="head-typo typo-com collap-expand book-form inn-com-form">\n' +
@@ -170,7 +494,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                    ng-model="CustomCtrl.orderType.type" type="radio" id="test2" />\n' +
     '                                <label for="test2">{{\'PickUp\' | translate}}</label>\n' +
     '                            </p> -->\n' +
-    '                                <div class="row" ng-if="CustomCtrl.orderType.type == \'delivery\'">\n' +
+    '                                <div class="row form-group" ng-if="CustomCtrl.orderType.type == \'delivery\'">\n' +
     '                                    <div class="col-md-6">\n' +
     '                                        <div>\n' +
     '                                            <div\n' +
@@ -178,9 +502,24 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                                <label for="first-name">{{\'SelectAddress\' | translate}}</label>\n' +
     '\n' +
     '                                                <div ng-repeat="address in CustomCtrl.userAddresses">\n' +
-    '                                                    <label>\n' +
-    '                                                        <input name="group3" ng-change="CustomCtrl.addressInfo(address)"\n' +
+    '                                                    <p>\n' +
+    '\n' +
+    '                                                        <p>\n' +
+    '                                                            <input ng-change="CustomCtrl.addressInfo(address)"\n' +
+    '                                                                name="group2" type="radio"\n' +
+    '                                                                id="address{{address.addressId}}"\n' +
+    '                                                                ng-model="addresses.address"\n' +
+    '                                                                value="{{address.addressId}}" />\n' +
+    '                                                            <label for="address{{address.addressId}}">\n' +
+    '                                                                {{\'appartmentNo\' | translate}}: {{address.appartmentNo}}\n' +
+    '                                                                <br> {{\'FLoor\' | translate}} : {{address.floor}}\n' +
+    '                                                                <br> {{\'description\' | translate}}\n' +
+    '                                                                :{{address.description}}</label>\n' +
+    '                                                        </p>\n' +
+    '\n' +
+    '                                                        <!-- <input ng-change="CustomCtrl.addressInfo(address)" name="group2"\n' +
     '                                                            type="radio" ng-model="CustomCtrl.addresses.address"\n' +
+    '                                                            id="address{{address.addressId}}"\n' +
     '                                                            value="{{address.addressId}}"\n' +
     '                                                            ng-required="CustomCtrl.orderType.type == \'delivery\'">\n' +
     '                                                        <label for="addressRadio{{address.addressId}}">\n' +
@@ -188,8 +527,8 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                                            <br> {{\'FLoor\' | translate}} : {{address.floor}}\n' +
     '                                                            <br> {{\'appartmentNo\' | translate}} :\n' +
     '                                                            {{address.description}}\n' +
-    '                                                        </label>\n' +
-    '                                                    </label>\n' +
+    '                                                        </label> -->\n' +
+    '                                                    </p>\n' +
     '                                                </div>\n' +
     '                                            </div>\n' +
     '                                        </div>\n' +
@@ -254,6 +593,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                            </div>\n' +
     '                        </div>\n' +
     '                    </div>\n' +
+    '                </div>\n' +
     '                    <div class="row">\n' +
     '                        <div class="col-md-10"></div>\n' +
     '                        <div class="col-md-4">\n' +
@@ -476,23 +816,26 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '            </div>\n' +
     '            <!--ROOM SECTION-->\n' +
     '\n' +
-    '            <div ng-click="$state.go(\'mealDetails\', {mealId: Meal.mealId});" style="cursor: pointer !important;" ng-repeat="Meal in mealsPrepService"\n' +
-    '                class="room">\n' +
+    '            <div ng-click="$state.go(\'mealDetails\', {mealId: Meal.mealId});" style="cursor: pointer !important;"\n' +
+    '                ng-repeat="Meal in mealsPrepService" class="room">\n' +
     '                <!-- {{Meal.imageUrl}} -->\n' +
     '\n' +
     '                <div class="ribbon ribbon-top-left">\n' +
     '                    <span>{{\'Meal\' | translate}}</span>\n' +
     '                </div>\n' +
     '                <!--ROOM IMAGE-->\n' +
-    '                <div ng-if="Meal.imageUrl == null" class="r1 r-com">\n' +
+    '                <!-- <div ng-if="Meal.imageUrl == null" class="r1 r-com">\n' +
     '                    <img src="https://fithouseksa.com/wp-content/uploads/2018/07/Grilled-steak.png" alt="" />\n' +
     '                </div>\n' +
     '                <div ng-if="Meal.imageUrl != null" class="r1 r-com">\n' +
     '                    <img src={{Meal.imageUrl}} alt="" />\n' +
+    '                </div> -->\n' +
+    '                <div class="r1 r-com">\n' +
+    '                    <img src={{Meal.imageUrl}} imageonload alt="">\n' +
     '                </div>\n' +
     '                <!--ROOM RATING-->\n' +
     '                <div class="r2 r-com">\n' +
-    '                    <h4>{{Meal.mealDescriptionDictionary[selectedLanguage]}}</h4>\n' +
+    '                    <h4>{{Meal.mealDescriptionDictionary[selectedLanguage] | limitTo:15}}</h4>\n' +
     '                    <div class="r2-ratt">\n' +
     '                        <i></i>\n' +
     '                        <i></i>\n' +
@@ -526,13 +869,14 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                        <span class="room-price-1"></span>\n' +
     '                        <span class="room-price"></span>\n' +
     '                    </p>\n' +
-    '                    <p>{{\'NonRefundable\' | translate}}</p>\n' +
+    '                    <!-- <p>{{\'NonRefundable\' | translate}}</p> -->\n' +
     '                </div>\n' +
     '                <!--ROOM BOOKING BUTTON-->\n' +
     '                <div class="r5 r-com">\n' +
-    '                    <div class="r2-available">{{\'Available\' | translate}}</div>\n' +
+    '                    <!-- <div class="r2-available">{{\'Available\' | translate}}</div> -->\n' +
     '                    <p></p>\n' +
-    '                    <a ng-click="$state.go(\'mealDetails\', {mealId: Meal.mealId});" class="inn-room-book">{{\'Book\' | translate}}</a>\n' +
+    '                    <a ng-click="$state.go(\'mealDetails\', {mealId: Meal.mealId});"\n' +
+    '                        class="inn-room-book">{{\'Order\' | translate}}</a>\n' +
     '                </div>\n' +
     '            </div>\n' +
     '\n' +
@@ -619,7 +963,11 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                                        <span>{{detail.item.price}}</span>\n' +
     '                                                    </h3>\n' +
     '                                                    <span class="menu-item">{{detail.item.itemDescriptionDictionary[selectedLanguage] }}</span>\n' +
-    '                                                    <!-- | limitTo:10 -->\n' +
+    '                                                    <span> {{\'fat\' | translate}}:{{detail.item.fat}}</span>\n' +
+    '                                                    <span> {{\'carbs\' | translate}}:{{detail.item.carbs}}</span>\n' +
+    '                                                    <span> {{\'protein\' | translate}}:{{detail.item.protein}}</span>\n' +
+    '                                                    <span> {{\'calories\' | translate}}:{{detail.item.calories}}</span>\n' +
+    '                                                      <!-- | limitTo:10 -->\n' +
     '                                                </div>\n' +
     '\n' +
     '                                            </li>\n' +
@@ -847,11 +1195,15 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                                <!-- {{item.itemNameDictionary[selectedLanguage]}} --> \n' +
     '                                                <img src={{detail.item.imageUrl}} imageonload alt=""> \n' +
     '                                                <h3> {{detail.item.itemNameDictionary[selectedLanguage]}}\n' +
-    '                                                    <span>{{detail.item.price}}</span>\n' +
+    '                                                    <span>{{detail.item.totalPrice}}</span>\n' +
     '                                                </h3>\n' +
     '                                                <span\n' +
     '                                                    class="menu-item">{{detail.item.itemDescriptionDictionary[selectedLanguage] }}</span>\n' +
-    '                                                <!-- | limitTo:10 -->\n' +
+    '                                                    <span> {{\'fat\' | translate}}:{{detail.item.fat}}</span>\n' +
+    '                                                    <span> {{\'carbs\' | translate}}:{{detail.item.carbs}}</span>\n' +
+    '                                                    <span> {{\'protein\' | translate}}:{{detail.item.protein}}</span>\n' +
+    '                                                    <span> {{\'calories\' | translate}}:{{detail.item.calories}}</span>\n' +
+    '                                                       <!-- | limitTo:10 -->\n' +
     '                                            </div>\n' +
     '\n' +
     '                                        </li>\n' +
@@ -966,13 +1318,15 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                                                                <!-- {{item.itemNameDictionary[selectedLanguage]}} -->\n' +
     '                                                                                <img src={{item.imageUrl}} imageonload alt=""> \n' +
     '\n' +
-    '                                                                                <h3> {{item.itemNameDictionary[selectedLanguage]\n' +
-    '                                                                                            | limitTo:10}}\n' +
-    '                                                                                    <span>{{item.price}}</span>\n' +
+    '                                                                                <h3> {{item.itemNameDictionary[selectedLanguage]}}\n' +
+    '                                                                                    <span>{{item.totalPrice}}</span>\n' +
     '                                                                                </h3>\n' +
-    '                                                                                <span class="menu-item">{{item.itemDescriptionDictionary[selectedLanguage]\n' +
-    '                                                                                            | limitTo:10}}</span>\n' +
-    '                                                                            </div>\n' +
+    '                                                                                <span class="menu-item">{{item.itemDescriptionDictionary[selectedLanguage]}}</span>\n' +
+    '                                                                                <span> {{\'fat\' | translate}}:{{item.fat}}</span>\n' +
+    '                                                                                <span> {{\'carbs\' | translate}}:{{item.carbs}}</span>\n' +
+    '                                                                                <span> {{\'protein\' | translate}}:{{item.protein}}</span>\n' +
+    '                                                                                <span> {{\'calories\' | translate}}:{{item.calories}}</span>\n' +
+    '                                                                             </div>\n' +
     '\n' +
     '                                                                        </li>\n' +
     '                                                                    </ul>\n' +
@@ -1047,8 +1401,8 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                </div>\n' +
     '                <!--ROOM RATING-->\n' +
     '                <div class="r2 r-com">\n' +
-    '                    <h4>{{Program.programNameDictionary[selectedLanguage]}}</h4>\n' +
-    '                    <div class="r2-ratt">\n' +
+    '                    <h4>{{Program.programNameDictionary[selectedLanguage] | limitTo:15}}</h4>\n' +
+    '                    <!-- <div class="r2-ratt">\n' +
     '                        <i class="fa fa-star"></i>\n' +
     '                        <i class="fa fa-star"></i>\n' +
     '                        <i class="fa fa-star"></i>\n' +
@@ -1056,7 +1410,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                        <i class="fa fa-star"></i>\n' +
     '                        <img src="images/h-trip.png" alt="" />\n' +
     '                        <span></span>\n' +
-    '                    </div>\n' +
+    '                    </div> -->\n' +
     '                    <ul>\n' +
     '                        <li></li>\n' +
     '                        <li></li>\n' +
@@ -1206,9 +1560,9 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                            </h4>\n' +
     '\n' +
     '                        </div>\n' +
-    '                        <!-- <div class="hp-amini detai-2p">\n' +
+    '                        <div class="hp-amini detai-2p">\n' +
     '                            <p>{{progDetailsPrepService.programDescriptionDictionary[selectedLanguage]}}</p>\n' +
-    '                        </div> -->\n' +
+    '                        </div>\n' +
     '                    </div>\n' +
     '\n' +
     '                    <div class="hp-section">\n' +
@@ -1224,7 +1578,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                <li class="active">\n' +
     '                                    <a data-toggle="tab" data-target="#home" style="cursor: pointer;">\n' +
     '                                        <!-- <img src="images/icon/a9.png" alt=""> -->\n' +
-    '                                        <span>{{\'Details\' | translate}}</span>\n' +
+    '                                        <span>{{\'orderdetails\' | translate}}</span>\n' +
     '                                    </a>\n' +
     '                                </li>\n' +
     '                                <li>\n' +
@@ -1291,7 +1645,11 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                                                                        <span>{{item.price}}</span>\n' +
     '                                                                                    </h3>\n' +
     '                                                                                    <span\n' +
-    '                                                                                        class="menu-item">{{item.itemDescriptionDictionary[selectedLanguage]    | limitTo:50}}</span>\n' +
+    '                                                                                        class="menu-item">{{item.itemDescriptionDictionary[selectedLanguage] }}</span>\n' +
+    '                                                                                        <span> {{\'fat\' | translate}}:{{item.fat}}</span>\n' +
+    '                                                                                        <span> {{\'carbs\' | translate}}:{{item.carbs}}</span>\n' +
+    '                                                                                        <span> {{\'protein\' | translate}}:{{item.protein}}</span>\n' +
+    '                                                                                        <span> {{\'calories\' | translate}}:{{item.calories}}</span>\n' +
     '                                                                                </div>\n' +
     '\n' +
     '                                                                            </li>\n' +
@@ -1356,7 +1714,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                            <p>\n' +
     '                                                <input ng-change="typeChanged()" ng-model="orderType.type" name="group1"\n' +
     '                                                    type="radio" id="test2" value="pickup" />\n' +
-    '                                                <label for="test2">{{\'PickUp\' | translate}}</label>\n' +
+    '                                                <label for="test2">{{\'Pickup\' | translate}}</label>\n' +
     '                                            </p>\n' +
     '\n' +
     '                                            <div ng-if="orderType.type == \'delivery\'" class="row form-group">\n' +
@@ -1375,9 +1733,11 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                                                        ng-model="addresses.address"\n' +
     '                                                                        value="{{address.addressId}}" />\n' +
     '                                                                    <label\n' +
-    '                                                                        for="address{{address.addressId}}">{{address.appartmentNo}},\n' +
-    '                                                                        {{address.description}}, {{\'Floor\'\n' +
-    '                                                                        | translate}} {{address.floor}}</label>\n' +
+    '                                                                        for="address{{address.addressId}}">{{\'appartmentNo\' | translate}}:\n' +
+    '                                                                        {{address.appartmentNo}}\n' +
+    '                                                                        <br> {{\'FLoor\' | translate}} : {{address.floor}}\n' +
+    '                                                                        <br> {{\'description\' | translate}} :\n' +
+    '                                                                        {{address.description}}</label>\n' +
     '                                                                </p>\n' +
     '                                                                <!-- <label>\n' +
     '                                                                        <input ng-change="addressInfo(address)" type="radio" ng-model="addresses.address" value="{{address.addressId}}"> {{address.appartmentNo}}, {{address.description}},\n' +
@@ -1450,15 +1810,16 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                            </div>\n' +
     '\n' +
     '                                            <div class="input-field col s12 m4 l2">\n' +
-    '                                                Price:{{ progDetailsPrepService.price}}\n' +
-    '                                                <br> Delivery:{{ DeliveryFees}}\n' +
-    '                                                <br>Discount :{{ settingsPrepService.programDiscount}} %\n' +
-    '                                                <br>Total :{{ Total}}\n' +
+    '                                                {{\'price\' | translate}}:{{ progDetailsPrepService.price}}\n' +
+    '                                                <br> {{\'DeliveryPrice\' | translate}}:{{ DeliveryFees}}\n' +
+    '                                                <br>{{\'ProgramDiscount\' | translate}}\n' +
+    '                                                :{{ settingsPrepService.programDiscount}} %\n' +
+    '                                                <br>{{\'Total\' | translate}} :{{ Total}}\n' +
     '                                                <br>\n' +
     '                                                <button style="background-color: #e4e5e6;color: black!important;"\n' +
     '                                                    class="btn pmd-ripple-effect btn-primary" ng-click="Order()"\n' +
     '                                                    ng-disabled="orderForm.$invalid  || selectedBranchId <= 0 || (addressValidation == false && orderType.type == \'delivery\') && !dateIsValid">\n' +
-    '                                                    {{\'next\' | translate}}</button>\n' +
+    '                                                    {{\'Save\' | translate}}</button>\n' +
     '                                                <!-- ng-disabled="orderForm.$invalid || !dateIsValid || addressValidation == false" -->\n' +
     '                                            </div>\n' +
     '                                        </div>\n' +
@@ -2166,12 +2527,12 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '\n' +
     '	$(function () {\n' +
     '\n' +
-    '		$(\'#startdate\').datepicker(\n' +
-    '			{\n' +
+    '		$(\'#startdate\').datetimepicker({widgetPositioning:{vertical:"top"},\n' +
+    '			\n' +
     '				minDate: new Date()\n' +
     '			}\n' +
     '		).on(\'dp.change\', function (e) {\n' +
-    '			debugger;\n' +
+    '			\n' +
     '			angular.element(document.getElementById(\'startdate\')).scope().dateChange();\n' +
     '		});\n' +
     '	});\n' +
@@ -2302,13 +2663,13 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '							<div class="col s6">\n' +
     '								<span>\n' +
     '									<input type="checkbox" id="test5" ng-model="isBreakFast" />\n' +
-    '									<label for="test5" class="labelCheckBox">{{\'IsBreakFast\' | translate}}</label>\n' +
+    '									<label for="test5" class="labelCheckBox">{{\'Breakfast\' | translate}}</label>\n' +
     '								</span>\n' +
     '							</div>\n' +
     '							<div class="col s6">\n' +
     '								<span>\n' +
     '									<input type="checkbox" id="test6" ng-model="isSnack" />\n' +
-    '									<label for="test6" class="labelCheckBox">{{\'IsSnack\' | translate}}</label>\n' +
+    '									<label for="test6" class="labelCheckBox">{{\'Snack\' | translate}}</label>\n' +
     '								</span>\n' +
     '							</div>\n' +
     '						</div>\n' +
@@ -2317,7 +2678,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '\n' +
     '								<input name="itemDatetime" required ng-model="itemDatetime" type="text" id="startdate"\n' +
     '									class="form-control" />\n' +
-    '								<label for="from">{{\'OrderStartDate\' | translate}}</label>\n' +
+    '								<label for="from">{{\'startDate\' | translate}}</label>\n' +
     '							</div>\n' +
     '						</div>\n' +
     '						<div class="row">\n' +
@@ -2333,7 +2694,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '							<div class="input-field col s12">\n' +
     '								<input\n' +
     '									ng-disabled="cutomizeProgram.$invalid  || settingsPrepService.minNoDaysPerProgram > programDaysCount"\n' +
-    '									type="submit" class="form-btn" ng-click="submitCustomise()">\n' +
+    '									type="button" class="form-btn" ng-click="submitCustomise()" value="{{\'MakeOrder\' | translate}}"  >\n' +
     '\n' +
     '								<!-- <button style="width: 90%; height: 50%;" class="form-btn" ng-disabled="cutomizeProgram.$invalid  || settingsPrepService.minNoDaysPerProgram > programDaysCount" ng-click="submitCustomise()"></button> -->\n' +
     '							</div>\n' +
@@ -2347,7 +2708,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '</div>\n' +
     '<!--End Check Availability SECTION-->\n' +
     '<!--HOTEL ROOMS SECTION-->\n' +
-    '<div class="hom1 hom-com pad-bot-40">\n' +
+    '<!-- <div class="hom1 hom-com pad-bot-40">\n' +
     '	<div class="container">\n' +
     '		<div class="row">\n' +
     '			<div class="hom1-title">\n' +
@@ -2362,18 +2723,18 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '		</div>\n' +
     '		<div class="row">\n' +
     '			<div class="to-ho-hotel">\n' +
-    '				<!-- HOTEL GRID -->\n' +
-    '				<div ng-repeat="n in [] | range:6">\n' +
-    '					<div ng-click="$state.go(\'mealDetails\', {mealId: mealsPrepService[n].mealId});"\n' +
+    '				<!-- HOTEL GRID --\n' +
+    '				<!-- <div > --\n' +
+    '					<div ng-repeat="n in [] | range:6" ng-click="$state.go(\'mealDetails\', {mealId: mealsPrepService[n].mealId});"\n' +
     '						style="cursor: pointer !important;" ng-if="mealsPrepService[n] != undefined" class="col-md-4">\n' +
-    '						<!-- {{mealsPrepService[n].imageUrl}} -->\n' +
+    '						<!-- {{mealsPrepService[n].imageUrl}} --\n' +
     '						<div class="to-ho-hotel-con">\n' +
     '							<div ng-if="mealsPrepService[n].imageUrl == null" class="to-ho-hotel-con-1">\n' +
-    '								<!-- {{mealsPrepService[n].mealId}} -->\n' +
+    '								<!-- {{mealsPrepService[n].mealId}} --\n' +
     '								<img src="https://fithouseksa.com/wp-content/uploads/2018/07/Grilled-steak.png" alt="">\n' +
     '							</div>\n' +
     '							<div ng-if="mealsPrepService[n].imageUrl != null" class="to-ho-hotel-con-1">\n' +
-    '								<!-- {{mealsPrepService[n].mealId}} -->\n' +
+    '								<!-- {{mealsPrepService[n].mealId}} --\n' +
     '								<img src={{mealsPrepService[n].imageUrl}} imageonload  alt="">\n' +
     '							</div>\n' +
     '							<div class="to-ho-hotel-con-23">\n' +
@@ -2403,15 +2764,15 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '							</div>\n' +
     '						</div>\n' +
     '					</div>\n' +
-    '				</div>\n' +
+    '				<!-- </div> --\n' +
     '			</div>\n' +
     '		</div>\n' +
     '	</div>\n' +
-    '</div>\n' +
+    '</div> -->\n' +
     '<!--END HOTEL ROOMS-->\n' +
     '\n' +
     '<!--TOP SECTION-->\n' +
-    '<section>\n' +
+    '<!-- <section>\n' +
     '\n' +
     '	<div class="inn-body-section pad-bot-55">\n' +
     '		<div class="container">\n' +
@@ -2425,7 +2786,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '					</div>\n' +
     '					<p>{{\'ProgramsDescription\' | translate}}</p>\n' +
     '				</div>\n' +
-    '				<!--ROOM SECTION-->\n' +
+    '				<!--ROOM SECTION--\n' +
     '				<div ng-repeat="n in [] | range:6">\n' +
     '					<div style="cursor: pointer !important;"\n' +
     '						ng-click="$state.go(\'programDetails\', {programId: programPrepService[n].programId});"\n' +
@@ -2433,11 +2794,11 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '						<div class="ribbon ribbon-top-left">\n' +
     '							<span>{{\'Program\' | translate}}</span>\n' +
     '						</div>\n' +
-    '						<!--ROOM IMAGE-->\n' +
+    '						<!--ROOM IMAGE--\n' +
     '						<div class="r1 r-com">\n' +
     '							<img src="https://fithouseksa.com/wp-content/uploads/2018/07/fithouse-icons6.png" alt="" />\n' +
     '						</div>\n' +
-    '						<!--ROOM RATING-->\n' +
+    '						<!--ROOM RATING--\n' +
     '						<div class="r2 r-com">\n' +
     '							<h4>{{programPrepService[n].programNameDictionary[selectedLanguage] | limitTo:10}}</h4>\n' +
     '							<div class="r2-ratt">\n' +
@@ -2457,7 +2818,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '								<li></li>\n' +
     '							</ul>\n' +
     '						</div>\n' +
-    '						<!--ROOM AMINITIES-->\n' +
+    '						<!--ROOM AMINITIES--\n' +
     '						<div class="r3 r-com">\n' +
     '							<ul>\n' +
     '								<li>{{\'ProgramDays\' | translate}}: {{programPrepService[n].programDays}}</li>\n' +
@@ -2467,7 +2828,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '								<li></li>\n' +
     '							</ul>\n' +
     '						</div>\n' +
-    '						<!--ROOM PRICE-->\n' +
+    '						<!--ROOM PRICE--\n' +
     '						<div class="r4 r-com">\n' +
     '							<p></p>\n' +
     '							<p>\n' +
@@ -2476,7 +2837,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '							</p>\n' +
     '							<p>{{\'NonRefundable\' | translate}}</p>\n' +
     '						</div>\n' +
-    '						<!--ROOM BOOKING BUTTON-->\n' +
+    '						<!--ROOM BOOKING BUTTON--\n' +
     '						<div class="r5 r-com">\n' +
     '							<div class="r2-available">Available</div>\n' +
     '							<p></p>\n' +
@@ -2485,13 +2846,13 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '								class="inn-room-book">{{\'Book\' | translate}}</a>\n' +
     '						</div>\n' +
     '					</div>\n' +
-    '					<!--END ROOM SECTION-->\n' +
+    '					<!--END ROOM SECTION--\n' +
     '				</div>\n' +
     '\n' +
     '			</div>\n' +
     '		</div>\n' +
     '	</div>\n' +
-    '</section>\n' +
+    '</section> -->\n' +
     '\n' +
     '\n' +
     '\n' +
@@ -2576,322 +2937,4 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '        </div>\n' +
     '    </div>\n' +
     '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/Address/templates/Address.html',
-    ' \n' +
-    '<div class="inn-body-section pad-bot-55">\n' +
-    '    <div class="container">\n' +
-    '\n' +
-    '        <div class="row">\n' +
-    '            <!--TYPOGRAPHY SECTION-->\n' +
-    '            <div class="col-md-12">\n' +
-    '                <div class="head-typo typo-com">\n' +
-    '                    <h3>{{\'Address\' | translate}}</h3>\n' +
-    '\n' +
-    '                    <div style="margin-bottom:10px">\n' +
-    '                        <button style="background-color: #e4e5e6;color: black!important;"\n' +
-    '                            ng-click="$state.go(\'newAddress\');" class="btn pmd-ripple-effect btn-primary pmd-z-depth"\n' +
-    '                            type="button">{{\'AddBtn\'\n' +
-    '                | translate}}</button>\n' +
-    '\n' +
-    '                    </div>\n' +
-    '                    <div ng-if="AddressList.length == 0">\n' +
-    '                        <span>{{\'NoAddressAvailable\' | translate}}</span>\n' +
-    '                    </div>\n' +
-    '                    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="AddressList.length > 0">\n' +
-    '                        <div class="table-responsive"></div>\n' +
-    '                        <table class="table">\n' +
-    '                            <thead>\n' +
-    '                                <tr>\n' +
-    '                                    <th>{{\'appartmentNo\' | translate}}</th>\n' +
-    '                                    <th>{{\'floor\' | translate}}</th>\n' +
-    '                                    <th></th>\n' +
-    '                                </tr>\n' +
-    '                            </thead>\n' +
-    '                            <tbody>\n' +
-    '                                <tr ng-repeat="address in AddressList">\n' +
-    '                                    <td data-title="Name">{{address.appartmentNo}}</td>\n' +
-    '\n' +
-    '                                    <td data-title="Name">{{address.floor}}</td>\n' +
-    '\n' +
-    '                                    <td width="30%" ng-show="!address.isStatic">\n' +
-    '                                        <i class="material-icons md-dark pmd-md cursorPointer font25" style="cursor: pointer;"\n' +
-    '                                            ng-click="$state.go(\'editaddress\',{addressId: address.addressId});">mode_edit</i>\n' +
-    '\n' +
-    '                                    </td>\n' +
-    '                                </tr>\n' +
-    '                            </tbody>\n' +
-    '                        </table>\n' +
-    '                    </div>\n' +
-    '                    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
-    '                        paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"\n' +
-    '                        hide-if-empty="true" disabled-class="hide">\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '            </div>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/Address/templates/edit.html',
-    '<div class="inn-body-section pad-bot-55">\n' +
-    '    <div class="container">\n' +
-    '        <div class="row">\n' +
-    '            <div class="head-typo typo-com collap-expand book-form inn-com-form">\n' +
-    '                <h2>{{\'Address\' | translate}} </h2>\n' +
-    '\n' +
-    '\n' +
-    '                <form class="form-horizontal" name="addressForm">\n' +
-    '\n' +
-    '                    <div\n' +
-    '                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                        <label for="first-name">{{\'Country\' | translate}}</label>\n' +
-    '                        <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
-    '                            ng-change="editAddressCtrl.countryChange()" ng-model="editAddressCtrl.selectedCountryId"\n' +
-    '                            ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in editAddressCtrl.counties">\n' +
-    '                        </select>\n' +
-    '                    </div>\n' +
-    '                    <div ng-show=" editAddressCtrl.selectedCountryId > 0"\n' +
-    '                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                        <label for="first-name">{{\'Region\' | translate}}</label>\n' +
-    '                        <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
-    '                            ng-change="editAddressCtrl.regionChange()" ng-model="editAddressCtrl.selectedRegionId"\n' +
-    '                            ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in editAddressCtrl.regions">\n' +
-    '                        </select>\n' +
-    '                    </div>\n' +
-    '                    <div ng-show=" editAddressCtrl.selectedRegionId > 0"\n' +
-    '                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                        <label for="first-name">{{\'City\' | translate}}</label>\n' +
-    '                        <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
-    '                            ng-change="editAddressCtrl.cityChange()" ng-model="editAddressCtrl.selectedCityId"\n' +
-    '                            ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in editAddressCtrl.cities">\n' +
-    '                        </select>\n' +
-    '                    </div>\n' +
-    '                    <div ng-show=" editAddressCtrl.selectedCityId > 0"\n' +
-    '                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                        <label for="first-name">{{\'Area\' | translate}}</label>\n' +
-    '                        <select ng-required="editAddressCtrl.selectedCityId > 0" style="width:100% !important"\n' +
-    '                            class="select-tags form-control pmd-select2-tags" ng-change="editAddressCtrl.areaChange()"\n' +
-    '                            ng-model="editAddressCtrl.selectedAreaId"\n' +
-    '                            ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in editAddressCtrl.area">\n' +
-    '                        </select>\n' +
-    '                    </div>\n' +
-    '\n' +
-    '                    <div\n' +
-    '                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                        <label for="first-name">{{\'FLoor\' | translate}}</label>\n' +
-    '                        <input required type="number" class="mat-input form-control" name="floor"\n' +
-    '                            ng-pattern="/^[0-9]{1,5}$/" ng-model="editAddressCtrl.Address.floor" ng-minlength="1"\n' +
-    '                            ng-maxlength="4">\n' +
-    '                        <div ng-messages="addressForm.floor.$error" class="error">\n' +
-    '                            <div ng-if="addressForm.floor.$error.required && !addressForm.floor.$pristine">\n' +
-    '                                {{\'ProgramDaysCountReqError\' | translate}}</div>\n' +
-    '                            <div ng-if="(addressForm.floor.$error.minlength || addressForm.floor.$error.maxlength)">\n' +
-    '                                {{\'ProgramDaysCountLengthError\' | translate}}</div>\n' +
-    '                            <div ng-if="addressForm.floor.$error.pattern && !addressForm.floor.$pristine">\n' +
-    '                                {{\'wrongpattern\' | translate}}</div>\n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
-    '\n' +
-    '                    <div\n' +
-    '                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                        <label for="first-name">{{\'ApartmentNumber\' | translate}}</label>\n' +
-    '                        <input required type="number" class="mat-input form-control" name="appartmentNo"\n' +
-    '                            ng-pattern="/^[0-9]{1,5}$/" ng-model="editAddressCtrl.Address.appartmentNo" ng-minlength="1"\n' +
-    '                            ng-maxlength="4">\n' +
-    '                        <div ng-messages="addressForm.appartmentNo.$error" class="error">\n' +
-    '                            <div\n' +
-    '                                ng-if="addressForm.appartmentNo.$error.required && !addressForm.appartmentNo.$pristine">\n' +
-    '                                {{\'ProgramDaysCountReqError\' | translate}}</div>\n' +
-    '                            <div\n' +
-    '                                ng-if="(addressForm.appartmentNo.$error.minlength || addressForm.appartmentNo.$error.maxlength)">\n' +
-    '                                {{\'ProgramDaysCountLengthError\' | translate}}</div>\n' +
-    '                            <div ng-if="addressForm.appartmentNo.$error.pattern && !addressForm.appartmentNo.$pristine">\n' +
-    '                                {{\'wrongpattern\' | translate}}</div>\n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
-    '\n' +
-    '                    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '                        <label for="first-name">{{\'AddressDescription\' | translate}}</label>\n' +
-    '                        <textarea required type="text" class="mat-input form-control" name="addressDescription"\n' +
-    '                            ng-model="editAddressCtrl.Address.description" ng-minlength="3"\n' +
-    '                            ng-maxlength="255"></textarea>\n' +
-    '                        <div ng-messages="addressForm.addressDescription.$error">\n' +
-    '                            <div\n' +
-    '                                ng-if="addressForm.addressDescription.$error.required && !addressForm.addressDescription.$pristine">\n' +
-    '                                {{\'Address\' | translate}}\n' +
-    '                                {{\'ReqError\' | translate}}\n' +
-    '                            </div>\n' +
-    '                            <div\n' +
-    '                                ng-if="(addressForm.addressDescription.$error.minlength || addressForm.addressDescription.$error.maxlength)">\n' +
-    '                                {{\'NameLengthError255\' | translate}}</div>\n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
-    '\n' +
-    '                    <div class="pmd-modal-action text-right">\n' +
-    '                        <button style="background-color: #e4e5e6;color: black!important;"\n' +
-    '                            ng-disabled="addressForm.$invalid || editAddressCtrl.selectedBranchId < 0"\n' +
-    '                            class="btn pmd-ripple-effect btn-primary" type="button"\n' +
-    '                            ng-click="editAddressCtrl.UpdateType()">{{\'saveChangesBtn\' | translate}}</button>\n' +
-    '\n' +
-    '                        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
-    '                            ng-click="$state.go(\'Address\', {userId: user.id});">{{\'DiscardBtn\' | translate}}</button>\n' +
-    '                    </div>\n' +
-    '                </form>\n' +
-    '\n' +
-    '            </div>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '</div>\n' +
-    '\n' +
-    '\n' +
-    '<script type="text/javascript">\n' +
-    '    $(document).ready(function () {\n' +
-    '        $(".select-add-tags").select2({\n' +
-    '            tags: true,\n' +
-    '            theme: "bootstrap",\n' +
-    '            insertTag: function (data, tag) {\n' +
-    '                // Insert the tag at the end of the results\n' +
-    '                data.push(tag);\n' +
-    '                // console.log(data);\n' +
-    '            }\n' +
-    '        });\n' +
-    '        $(".select-tags").select2({\n' +
-    '            tags: false,\n' +
-    '            theme: "bootstrap",\n' +
-    '        })\n' +
-    '\n' +
-    '        $(".select-with-search").select2({\n' +
-    '            theme: "bootstrap"\n' +
-    '        });\n' +
-    '    });\n' +
-    '</script>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/Address/templates/new.html',
-    '<div class="inn-body-section pad-bot-55">\n' +
-    '    <div class="container">\n' +
-    '        <div class="row">\n' +
-    '            <div class="head-typo typo-com collap-expand book-form inn-com-form">\n' +
-    '                <h2>{{\'Address\' | translate}} </h2>\n' +
-    '\n' +
-    '\n' +
-    '                <form class="form-horizontal" name="addressForm">\n' +
-    '\n' +
-    '                    <div\n' +
-    '                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                        <label for="first-name">{{\'Country\' | translate}}</label>\n' +
-    '                        <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
-    '                            ng-change="newAddressCtrl.countryChange()" ng-model="newAddressCtrl.selectedCountryId"\n' +
-    '                            ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in newAddressCtrl.counties">\n' +
-    '                        </select>\n' +
-    '                    </div>\n' +
-    '                    <div ng-show=" newAddressCtrl.selectedCountryId > 0"\n' +
-    '                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                        <label for="first-name">{{\'Region\' | translate}}</label>\n' +
-    '                        <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
-    '                            ng-change="newAddressCtrl.regionChange()" ng-model="newAddressCtrl.selectedRegionId"\n' +
-    '                            ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in newAddressCtrl.regions">\n' +
-    '                        </select>\n' +
-    '                    </div>\n' +
-    '                    <div ng-show=" newAddressCtrl.selectedRegionId > 0"\n' +
-    '                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                        <label for="first-name">{{\'City\' | translate}}</label>\n' +
-    '                        <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
-    '                            ng-change="newAddressCtrl.cityChange()" ng-model="newAddressCtrl.selectedCityId"\n' +
-    '                            ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in newAddressCtrl.cities">\n' +
-    '                        </select>\n' +
-    '                    </div>\n' +
-    '                    <div ng-show=" newAddressCtrl.selectedCityId > 0"\n' +
-    '                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                        <label for="first-name">{{\'Area\' | translate}}</label>\n' +
-    '                        <select ng-required="newAddressCtrl.selectedCityId > 0" style="width:100% !important"\n' +
-    '                            class="select-tags form-control pmd-select2-tags" ng-change="newAddressCtrl.areaChange()"\n' +
-    '                            ng-model="newAddressCtrl.selectedAreaId"\n' +
-    '                            ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in newAddressCtrl.area">\n' +
-    '                        </select>\n' +
-    '                    </div>\n' +
-    '\n' +
-    '                    <div\n' +
-    '                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                        <label for="first-name">{{\'FLoor\' | translate}}</label>\n' +
-    '                        <input required type="number" class="mat-input form-control" name="floor"\n' +
-    '                            ng-pattern="/^[0-9]{1,5}$/" ng-model="newAddressCtrl.FLoor" ng-minlength="1"\n' +
-    '                            ng-maxlength="4">\n' +
-    '                        <div ng-messages="addressForm.floor.$error" class="error">\n' +
-    '                            <div ng-if="addressForm.floor.$error.required && !addressForm.floor.$pristine">\n' +
-    '                                {{\'ProgramDaysCountReqError\' | translate}}</div>\n' +
-    '                            <div ng-if="(addressForm.floor.$error.minlength || addressForm.floor.$error.maxlength)">\n' +
-    '                                {{\'ProgramDaysCountLengthError\' | translate}}</div>\n' +
-    '                            <div ng-if="addressForm.floor.$error.pattern && !addressForm.floor.$pristine">\n' +
-    '                                {{\'wrongpattern\' | translate}}</div>\n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
-    '\n' +
-    '                    <div\n' +
-    '                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                        <label for="first-name">{{\'ApartmentNumber\' | translate}}</label>\n' +
-    '                        <input required type="number" class="mat-input form-control" name="appartmentNo"\n' +
-    '                            ng-pattern="/^[0-9]{1,5}$/" ng-model="newAddressCtrl.AppartmentNo" ng-minlength="1"\n' +
-    '                            ng-maxlength="4">\n' +
-    '                        <div ng-messages="addressForm.appartmentNo.$error" class="error">\n' +
-    '                            <div\n' +
-    '                                ng-if="addressForm.appartmentNo.$error.required && !addressForm.appartmentNo.$pristine">\n' +
-    '                                {{\'ProgramDaysCountReqError\' | translate}}</div>\n' +
-    '                            <div\n' +
-    '                                ng-if="(addressForm.appartmentNo.$error.minlength || addressForm.appartmentNo.$error.maxlength)">\n' +
-    '                                {{\'ProgramDaysCountLengthError\' | translate}}</div>\n' +
-    '                            <div ng-if="addressForm.appartmentNo.$error.pattern && !addressForm.appartmentNo.$pristine">\n' +
-    '                                {{\'wrongpattern\' | translate}}</div>\n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
-    '\n' +
-    '                    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
-    '                        <label for="first-name">{{\'AddressDescription\' | translate}}</label>\n' +
-    '                        <textarea required type="text" class="mat-input form-control" name="addressDescription"\n' +
-    '                            ng-model="newAddressCtrl.AddressDescription" ng-minlength="3" ng-maxlength="255"></textarea>\n' +
-    '                        <div ng-messages="addressForm.addressDescription.$error">\n' +
-    '                            <div\n' +
-    '                                ng-if="addressForm.addressDescription.$error.required && !addressForm.addressDescription.$pristine">\n' +
-    '                                {{\'Address\' | translate}}\n' +
-    '                                {{\'ReqError\' | translate}}\n' +
-    '                            </div>\n' +
-    '                            <div\n' +
-    '                                ng-if="(addressForm.addressDescription.$error.minlength || addressForm.addressDescription.$error.maxlength)">\n' +
-    '                                {{\'NameLengthError255\' | translate}}</div>\n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
-    '\n' +
-    '                    <div class="pmd-modal-action text-right">\n' +
-    '                        <button style="background-color: #e4e5e6;color: black!important;"\n' +
-    '                            ng-disabled="addressForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"\n' +
-    '                            ng-click="newAddressCtrl.AddNewType()">{{\'saveChangesBtn\' | translate}}</button>\n' +
-    '\n' +
-    '                        <button class="btn pmd-ripple-effect btn-default" type="button"\n' +
-    '                            ng-click="$state.go(\'Address\', {userId: user.id});">{{\'DiscardBtn\' | translate}}</button>\n' +
-    '                    </div>\n' +
-    '                </form>\n' +
-    '\n' +
-    '            </div>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '</div>\n' +
-    '\n' +
-    '<script type="text/javascript">\n' +
-    '    $(document).ready(function () {\n' +
-    '        $(".select-tags").select2({\n' +
-    '            tags: false,\n' +
-    '            theme: "bootstrap",\n' +
-    '        })\n' +
-    '\n' +
-    '        $(".select-with-search").select2({\n' +
-    '            theme: "bootstrap"\n' +
-    '        });\n' +
-    '    });\n' +
-    '</script>');
 }]);

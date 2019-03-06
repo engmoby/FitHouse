@@ -32,7 +32,7 @@
                                         aria-expanded="true" aria-controls="collapseOne6" data-expandable="false">
                                         <h4 class="panel-title">
 
-                                            {{'ProgramDays' | translate}} : {{counterDay=$index+1}}
+                                            {{'Day' | translate}} : {{counterDay=$index+1}}
                                             <!-- <i class="material-icons md-dark pmd-sm pmd-accordion-arrow">keyboard_arrow_down</i> -->
 
                                         </h4>
@@ -92,11 +92,17 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="res-menu" ng-repeat="meal in itemModel">
-                                                           <img src={{meal.imageUrl}} imageonload alt="">
+                                                            <img src={{meal.imageUrl}} imageonload alt="">
                                                             <!-- <img src="/assets/img/meal.jpeg" alt="" /> -->
-                                                            <h3> {{meal.itemNameDictionary[selectedLanguage] | limitTo:10}}<span>{{meal.price}}</span>
-                                                            </h3> <span
-                                                                class="menu-item">{{meal.itemDescriptionDictionary[selectedLanguage] | limitTo:10}}</span>
+                                                            <h3> {{meal.itemNameDictionary[selectedLanguage] }}
+                                                                <span>{{meal.totalPrice}}</span>
+                                                            </h3>
+                                                            <span
+                                                                class="menu-item">{{meal.itemDescriptionDictionary[selectedLanguage] | limitTo:20}}</span>
+                                                            <span> {{'fat' | translate}}:{{meal.fat}}</span>
+                                                            <span> {{'carbs' | translate}}:{{meal.carbs}}</span>
+                                                            <span> {{'protein' | translate}}:{{meal.protein}}</span>
+                                                            <span> {{'calories' | translate}}:{{meal.calories}}</span>
                                                         </div>
                                                     </div>
 
@@ -109,8 +115,8 @@
                         </div>
                     </div>
 
-                </div>
-                <div class="head-typo typo-com collap-expand">
+                </div> 
+                <div ng-show="!stepTwoProgramForm.$invalid" class="head-typo typo-com collap-expand">
                     <h4>{{'addressLbl' | translate}}</h4>
                     <div class="col-md-12">
                         <div class="head-typo typo-com collap-expand book-form inn-com-form">
@@ -168,7 +174,7 @@
                                     ng-model="CustomCtrl.orderType.type" type="radio" id="test2" />
                                 <label for="test2">{{'PickUp' | translate}}</label>
                             </p> -->
-                                <div class="row" ng-if="CustomCtrl.orderType.type == 'delivery'">
+                                <div class="row form-group" ng-if="CustomCtrl.orderType.type == 'delivery'">
                                     <div class="col-md-6">
                                         <div>
                                             <div
@@ -176,9 +182,24 @@
                                                 <label for="first-name">{{'SelectAddress' | translate}}</label>
 
                                                 <div ng-repeat="address in CustomCtrl.userAddresses">
-                                                    <label>
-                                                        <input name="group3" ng-change="CustomCtrl.addressInfo(address)"
+                                                    <p>
+
+                                                        <p>
+                                                            <input ng-change="CustomCtrl.addressInfo(address)"
+                                                                name="group2" type="radio"
+                                                                id="address{{address.addressId}}"
+                                                                ng-model="addresses.address"
+                                                                value="{{address.addressId}}" />
+                                                            <label for="address{{address.addressId}}">
+                                                                {{'appartmentNo' | translate}}: {{address.appartmentNo}}
+                                                                <br> {{'FLoor' | translate}} : {{address.floor}}
+                                                                <br> {{'description' | translate}}
+                                                                :{{address.description}}</label>
+                                                        </p>
+
+                                                        <!-- <input ng-change="CustomCtrl.addressInfo(address)" name="group2"
                                                             type="radio" ng-model="CustomCtrl.addresses.address"
+                                                            id="address{{address.addressId}}"
                                                             value="{{address.addressId}}"
                                                             ng-required="CustomCtrl.orderType.type == 'delivery'">
                                                         <label for="addressRadio{{address.addressId}}">
@@ -186,8 +207,8 @@
                                                             <br> {{'FLoor' | translate}} : {{address.floor}}
                                                             <br> {{'appartmentNo' | translate}} :
                                                             {{address.description}}
-                                                        </label>
-                                                    </label>
+                                                        </label> -->
+                                                    </p>
                                                 </div>
                                             </div>
                                         </div>
@@ -252,6 +273,7 @@
                             </div>
                         </div>
                     </div>
+                </div>
                     <div class="row">
                         <div class="col-md-10"></div>
                         <div class="col-md-4">

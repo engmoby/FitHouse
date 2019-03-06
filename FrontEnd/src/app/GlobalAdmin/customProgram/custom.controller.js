@@ -259,18 +259,7 @@
 			vm.Total = vm.ProgramTotalPrice + vm.DeliveryFees;
 			//GetBranchDelivery();
 		}
-		function GetBranchDelivery() {
-			var temp = new BranchResource();
-			temp.$getBranch({ branchId: vm.selectedBranchId }).then(function (results) {
-				vm.DeliveryFees = results.deliveryPrice;
-				// blockUI.stop();
 
-			},
-				function (data, status) {
-					//   blockUI.stop();
-					ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-				});
-		}
 
 		vm.orderType = {
 			type: 'delivery'
@@ -304,11 +293,32 @@
 				});
 		}
 		vm.addressInfo = function (address) {
+			debugger;
 			vm.addressDetails = address;
 			vm.selectedBranchId = vm.addressDetails.branchId;
 			GetBranchDelivery();
-			debugger;
-			vm.Total = vm.ProgramTotalPrice + vm.DeliveryFees;
+			//	vm.Total = vm.ProgramTotalPrice + vm.DeliveryFees;
+		}
+		function GetBranchDelivery() {
+			var temp = new BranchResource();
+			temp.$getBranch({ branchId: vm.selectedBranchId }).then(function (results) {
+				if (results.deliveryPrice == null) {
+					vm.DeliveryFees = 0;
+				}
+				else {
+					vm.DeliveryFees = results.deliveryPrice;
+				}
+
+				vm.Total = vm.ProgramTotalPrice + vm.DeliveryFees;
+
+				//vm.DeliveryFees = results.deliveryPrice;
+				// blockUI.stop();
+
+			},
+				function (data, status) {
+					//   blockUI.stop();
+					ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+				});
 		}
 	}
 

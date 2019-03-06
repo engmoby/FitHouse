@@ -104,9 +104,9 @@
                             </h4>
 
                         </div>
-                        <!-- <div class="hp-amini detai-2p">
+                        <div class="hp-amini detai-2p">
                             <p>{{progDetailsPrepService.programDescriptionDictionary[selectedLanguage]}}</p>
-                        </div> -->
+                        </div>
                     </div>
 
                     <div class="hp-section">
@@ -122,7 +122,7 @@
                                 <li class="active">
                                     <a data-toggle="tab" data-target="#home" style="cursor: pointer;">
                                         <!-- <img src="images/icon/a9.png" alt=""> -->
-                                        <span>{{'Details' | translate}}</span>
+                                        <span>{{'orderdetails' | translate}}</span>
                                     </a>
                                 </li>
                                 <li>
@@ -189,7 +189,11 @@
                                                                                         <span>{{item.price}}</span>
                                                                                     </h3>
                                                                                     <span
-                                                                                        class="menu-item">{{item.itemDescriptionDictionary[selectedLanguage]    | limitTo:50}}</span>
+                                                                                        class="menu-item">{{item.itemDescriptionDictionary[selectedLanguage] }}</span>
+                                                                                        <span> {{'fat' | translate}}:{{item.fat}}</span>
+                                                                                        <span> {{'carbs' | translate}}:{{item.carbs}}</span>
+                                                                                        <span> {{'protein' | translate}}:{{item.protein}}</span>
+                                                                                        <span> {{'calories' | translate}}:{{item.calories}}</span>
                                                                                 </div>
 
                                                                             </li>
@@ -254,7 +258,7 @@
                                             <p>
                                                 <input ng-change="typeChanged()" ng-model="orderType.type" name="group1"
                                                     type="radio" id="test2" value="pickup" />
-                                                <label for="test2">{{'PickUp' | translate}}</label>
+                                                <label for="test2">{{'Pickup' | translate}}</label>
                                             </p>
 
                                             <div ng-if="orderType.type == 'delivery'" class="row form-group">
@@ -273,9 +277,11 @@
                                                                         ng-model="addresses.address"
                                                                         value="{{address.addressId}}" />
                                                                     <label
-                                                                        for="address{{address.addressId}}">{{address.appartmentNo}},
-                                                                        {{address.description}}, {{'Floor'
-                                                                        | translate}} {{address.floor}}</label>
+                                                                        for="address{{address.addressId}}">{{'appartmentNo' | translate}}:
+                                                                        {{address.appartmentNo}}
+                                                                        <br> {{'FLoor' | translate}} : {{address.floor}}
+                                                                        <br> {{'description' | translate}} :
+                                                                        {{address.description}}</label>
                                                                 </p>
                                                                 <!-- <label>
                                                                         <input ng-change="addressInfo(address)" type="radio" ng-model="addresses.address" value="{{address.addressId}}"> {{address.appartmentNo}}, {{address.description}},
@@ -348,15 +354,16 @@
                                             </div>
 
                                             <div class="input-field col s12 m4 l2">
-                                                Price:{{ progDetailsPrepService.price}}
-                                                <br> Delivery:{{ DeliveryFees}}
-                                                <br>Discount :{{ settingsPrepService.programDiscount}} %
-                                                <br>Total :{{ Total}}
+                                                {{'price' | translate}}:{{ progDetailsPrepService.price}}
+                                                <br> {{'DeliveryPrice' | translate}}:{{ DeliveryFees}}
+                                                <br>{{'ProgramDiscount' | translate}}
+                                                :{{ settingsPrepService.programDiscount}} %
+                                                <br>{{'Total' | translate}} :{{ Total}}
                                                 <br>
                                                 <button style="background-color: #e4e5e6;color: black!important;"
                                                     class="btn pmd-ripple-effect btn-primary" ng-click="Order()"
                                                     ng-disabled="orderForm.$invalid  || selectedBranchId <= 0 || (addressValidation == false && orderType.type == 'delivery') && !dateIsValid">
-                                                    {{'next' | translate}}</button>
+                                                    {{'Save' | translate}}</button>
                                                 <!-- ng-disabled="orderForm.$invalid || !dateIsValid || addressValidation == false" -->
                                             </div>
                                         </div>
