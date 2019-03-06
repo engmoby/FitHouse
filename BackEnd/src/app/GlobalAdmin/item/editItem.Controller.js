@@ -3,9 +3,9 @@
 
 	angular
 		.module('home')
-		.controller('editItemController', ['$scope', '$http', '$translate', '$stateParams', 'appCONSTANTS', '$state', 'ItemResource', 'ToastService', 'itemPrepService', editItemController])
+		.controller('editItemController', ['$scope','blockUI', '$http', '$translate', '$stateParams', 'appCONSTANTS', '$state', 'ItemResource', 'ToastService', 'itemPrepService', editItemController])
 
-	function editItemController($scope, $http, $translate, $stateParams, appCONSTANTS, $state, ItemResource, ToastService, itemPrepService) {
+	function editItemController($scope,blockUI, $http, $translate, $stateParams, appCONSTANTS, $state, ItemResource, ToastService, itemPrepService) {
 		var vm = this;
 		vm.disable = false;
 		vm.language = appCONSTANTS.supportedLanguage;
@@ -16,6 +16,7 @@
 			$state.go('Items', { categoryId: $stateParams.categoryId });
 		}
 		vm.updateItem = function () {
+            blockUI.start("Loading...");
 			var updatedItem = new Object();
 			updatedItem.itemNameDictionary = vm.item.itemNameDictionary;
 			updatedItem.itemDescriptionDictionary = vm.item.itemDescriptionDictionary;
@@ -46,10 +47,12 @@
 				data: model
 			}).then(
 				function (data, status) {
+                    blockUI.stop();
 					ToastService.show("right", "bottom", "fadeInUp", $translate.instant('ItemUpdateSuccess'), "success");
 					$state.go('Items', { categoryId: $stateParams.categoryId });
 				},
 				function (data, status) {
+                    blockUI.stop();
 					ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
 				}
 			);

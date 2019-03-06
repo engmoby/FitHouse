@@ -17,8 +17,7 @@
         .hideHTML {
             display: none !important;
         }
-        
-</style>
+    </style>
 </head>
 
 <body>
@@ -29,10 +28,11 @@
                 <div class="mm-logo">
                     <a ng-click="$state.go('program');">
                         <img src="/assets/img/logo-os-white.png" alt="Fit House Restaurant" id="logo" ng-cloak
-                            data-height-percentage="84" data-actual-width="700" data-actual-height="198" style="width: 180px; " />
+                            data-height-percentage="84" data-actual-width="700" data-actual-height="198"
+                            style="width: 180px; " />
                     </a>
                 </div>
-                <div class="mm-icon">
+                <div class="mm-icon" ng-show="isLoggedIn()" ng-init="logoutFlag=false">
                     <span>
                         <i class="fa fa-bars show-menu" aria-hidden="true"></i>
                     </span>
@@ -134,13 +134,15 @@
                     <div class="logo">
                         <a ng-click="$state.go('program');" style="cursor: pointer;">
                             <img src="/assets/img/logo-os-white.png" alt="Fit House Restaurant" id="logo"
-                                data-height-percentage="84" data-actual-width="700" data-actual-height="198" style="width: 180px; " />
+                                data-height-percentage="84" data-actual-width="700" data-actual-height="198"
+                                style="width: 180px; " />
                         </a>
                     </div>
                     <div class="menu-bar" ng-show="isLoggedIn()" ng-cloak ng-init="logoutFlag=false">
                         <ul>
                             <li>
-                                <a ng-click="$state.go('program');" style="cursor: pointer;">{{'Programs' | translate}}</a>
+                                <a ng-click="$state.go('program');"
+                                    style="cursor: pointer;">{{'Programs' | translate}}</a>
                             </li>
                             <li>
                                 <a ng-click="$state.go('homePage');" style="cursor: pointer;" class='dropdown-button'
@@ -150,7 +152,8 @@
                                 <a ng-click="$state.go('meal');" style="cursor: pointer;">{{'Meals' | translate}}</a>
                             </li>
                             <li>
-                                <a ng-click="$state.go('history');" style="cursor: pointer;">{{'History' | translate}}</a>
+                                <a ng-click="$state.go('history');"
+                                    style="cursor: pointer;">{{'History' | translate}}</a>
                             </li>
                             <li>
                                 <a ng-click="$state.go('profile', {userId: user.id});" style="cursor: pointer;">{{'Profile'
@@ -197,7 +200,9 @@
                         </ul>
                     </div>
                     <div class="foot-com foot-2">
-                        <h5>{{'Mobile' | translate}} +01 4214 4214
+                        <h5>
+                            {{'copyrigth' | translate}}
+                            <!-- {{'Mobile' | translate}} +01 4214 4214 -->
                         </h5>
                     </div>
                     <div class="foot-com foot-3">

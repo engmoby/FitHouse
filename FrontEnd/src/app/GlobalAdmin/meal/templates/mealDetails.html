@@ -25,9 +25,9 @@
                             </h4>
 
                         </div>
-                        <div class="hp-amini detai-2p">
+                        <!-- <div class="hp-amini detai-2p">
                             <p>{{mealPrepService.mealDescriptionDictionary[selectedLanguage]}}</p>
-                        </div>
+                        </div> -->
                     </div>
 
                     <div class="hp-section">
@@ -68,12 +68,16 @@
                                                 <!-- {{detail}} -->
                                                 <div class="res-menu">
                                                     <!-- {{item.itemNameDictionary[selectedLanguage]}} -->
-                                                    <img src="/assets/img/meal.jpeg" alt="" />
+                                                    <img src={{detail.item.imageUrl}} imageonload alt=""> 
                                                     <h3> {{detail.item.itemNameDictionary[selectedLanguage]}}
                                                         <span>{{detail.item.price}}</span>
                                                     </h3>
                                                     <span class="menu-item">{{detail.item.itemDescriptionDictionary[selectedLanguage] }}</span>
-                                                    <!-- | limitTo:10 -->
+                                                    <span> {{'fat' | translate}}:{{detail.item.fat}}</span>
+                                                    <span> {{'carbs' | translate}}:{{detail.item.carbs}}</span>
+                                                    <span> {{'protein' | translate}}:{{detail.item.protein}}</span>
+                                                    <span> {{'calories' | translate}}:{{detail.item.calories}}</span>
+                                                      <!-- | limitTo:10 -->
                                                 </div>
 
                                             </li>

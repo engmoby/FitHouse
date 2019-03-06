@@ -23,6 +23,7 @@
         vm.language = appCONSTANTS.supportedLanguage;
     
         vm.editProgram = function () {
+            blockUI.start("Loading...");
             var program = new EditProgramByIdResource();
             program.programDiscount = vm.programModel.programDiscount;
             program.programNameDictionary = vm.programModel.programNameDictionary;
@@ -33,11 +34,13 @@
 
             program.$update().then(
                 function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('EditedSuccessfully'), "success");
+				blockUI.stop();
+                ToastService.show("right", "bottom", "fadeInUp", $translate.instant('EditedSuccessfully'), "success");
 
                 },
                 function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+				blockUI.stop();
+                ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 }
             );
         }

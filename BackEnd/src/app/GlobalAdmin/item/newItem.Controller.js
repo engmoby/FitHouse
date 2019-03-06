@@ -3,9 +3,9 @@
 
 	angular
 		.module('home')
-		.controller('newItemController', ['$scope', '$translate', '$http', '$stateParams', 'appCONSTANTS', '$state', 'ToastService', 'TranslateItemResource', 'defaultItemsPrepService', newItemController])
+		.controller('newItemController', ['$scope', 'blockUI','$translate', '$http', '$stateParams', 'appCONSTANTS', '$state', 'ToastService', 'TranslateItemResource', 'defaultItemsPrepService', newItemController])
 
-	function newItemController($scope, $translate, $http, $stateParams, appCONSTANTS, $state, ToastService, TranslateItemResource, defaultItemsPrepService) {
+	function newItemController($scope,blockUI, $translate, $http, $stateParams, appCONSTANTS, $state, ToastService, TranslateItemResource, defaultItemsPrepService) {
 		var vm = this;
 		vm.disable = true;
 		vm.language = appCONSTANTS.supportedLanguage;
@@ -32,6 +32,7 @@
 
 		}
 		vm.addNewItem = function () {
+            blockUI.start("Loading...");
 			vm.isChanged = true;
 			var newItem = new Object();
 			newItem.itemNameDictionary = vm.itemNameDictionary;
@@ -61,12 +62,14 @@
 				data: model
 			}).then(
 				function (data, status) {
+                    blockUI.stop();
 					ToastService.show("right", "bottom", "fadeInUp", $translate.instant('itemAddSuccess'), "success");
 					$state.go('Items', { categoryId: $stateParams.categoryId });
 					vm.isChanged = false;
 
 				},
 				function (data, status) {
+                    blockUI.stop();
 					vm.isChanged = false;
 					ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
 				}

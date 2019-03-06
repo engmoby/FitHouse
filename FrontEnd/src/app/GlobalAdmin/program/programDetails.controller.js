@@ -246,7 +246,7 @@
         }
 
         $scope.Order = function () {
-            // blockUI.start($translate.instant('loading'));
+          blockUI.start($translate.instant('loading'));
 
             var order = new OrderResource();
 
@@ -269,7 +269,7 @@
 
             order.$createOrder().then(
                 function (data, status) {
-                    // blockUI.stop();
+                     blockUI.stop();
 
                     // ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
                     localStorage.setItem('OrderSummary', JSON.stringify(data));
@@ -277,7 +277,7 @@
 
                 },
                 function (data, status) {
-                    // blockUI.stop();
+                      blockUI.stop();
 
                     // ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 }

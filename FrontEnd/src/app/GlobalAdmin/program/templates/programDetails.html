@@ -122,7 +122,7 @@
                                 <li class="active">
                                     <a data-toggle="tab" data-target="#home" style="cursor: pointer;">
                                         <!-- <img src="images/icon/a9.png" alt=""> -->
-                                        <span>{{'Details' | translate}}</span>
+                                        <span>{{'orderdetails' | translate}}</span>
                                     </a>
                                 </li>
                                 <li>
@@ -141,40 +141,65 @@
                             <div class="tab-content">
                                 <div id="home" class="tab-pane fade in active tab-space">
                                     <div ng-init="counterDay = 0; counterMeal = 0">
-                                        <div class="panel-group pmd-accordion pmd-accordion-inbox" id="accordion6" role="tablist" aria-multiselectable="true">
-                                            <div ng-repeat="n in [].constructor(progDetailsPrepService.programDays)  track by $index" class="panel panel-default">
-                                                <div class="panel-heading" role="tab" id="headingOne" ng-init="counterDay=counterDay+1;" data-toggle="collapse" data-parent="#accordion6" ng-init="n=false" ng-click="n=!n;"
-                                                aria-expanded="true" aria-controls="collapseOne6" data-expandable="false">
+                                        <div class="panel-group pmd-accordion pmd-accordion-inbox" id="accordion6"
+                                            role="tablist" aria-multiselectable="true">
+                                            <div ng-repeat="n in [].constructor(progDetailsPrepService.programDays)  track by $index"
+                                                class="panel panel-default">
+                                                <div class="panel-heading" role="tab" id="headingOne"
+                                                    ng-init="counterDay=counterDay+1;" data-toggle="collapse"
+                                                    data-parent="#accordion6" ng-init="n=false" ng-click="n=!n;"
+                                                    aria-expanded="true" aria-controls="collapseOne6"
+                                                    data-expandable="false">
                                                     <h4 class="panel-title">
-                                                        <a >
-                                                            {{'Day' | translate}} #{{counterDay=$index+1}}
-                                                            <i class="material-icons md-dark pmd-sm pmd-accordion-arrow">keyboard_arrow_down</i>
+                                                        <a>
+                                                            {{'Day' | translate}} {{counterDay=$index+1}}
+                                                            <i
+                                                                class="material-icons md-dark pmd-sm pmd-accordion-arrow">keyboard_arrow_down</i>
                                                         </a>
                                                     </h4>
                                                 </div>
-                                                <div ng-show="n == true" id="collapseOne6" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                                                <div ng-show="n == true" id="collapseOne6"
+                                                    class="panel-collapse collapse in" role="tabpanel"
+                                                    aria-labelledby="headingOne">
                                                     <div class="panel-body">
                                                         <ul>
 
-                                                            <li ng-repeat="meal in [].constructor(progDetailsPrepService.noOfMeals)  track by $index">
+                                                            <li
+                                                                ng-repeat="meal in [].constructor(progDetailsPrepService.noOfMeals)  track by $index">
                                                                 <h4>
-                                                                    <a ng-init="counterMeal=counterMeal+1;" ng-click="showDetails = ! showDetails;">{{'Meal' | translate}} #{{counterMeal=$index+1}}</a>
+                                                                    <a ng-init="counterMeal=counterMeal+1;"
+                                                                        ng-click="showDetails = ! showDetails;">{{'Meal' | translate}}
+                                                                        {{counterMeal=$index+1}}</a>
                                                                     <!-- <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="progDetailsPrepService.ShowProgramMeal(progDetailsPrepService.programDetails.programId, counterDay, counterMeal)">mode_edit</i> -->
                                                                 </h4>
                                                                 <div ng-show="showDetails">
-                                                                    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-                                                                        <label for="first-name">{{'Items' | translate}}</label>
+                                                                    <div
+                                                                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                                                        <label
+                                                                            for="first-name">{{'Item' | translate}}</label>
                                                                         <ul>
-                                                                            <li ng-repeat="detail in progDetailsPrepService.programDetails | filter:{dayNumber:counterDay, mealNumberPerDay: counterMeal} ">
-                                                                                <div class="res-menu" ng-repeat="item in progDetailsPrepService.items |filter :{itemId:detail.itemId}">
-                                                                                    <!-- {{item.itemNameDictionary[selectedLanguage]}} -->
-                                                                                    <img src="/assets/img/meal.jpeg" alt="" />
-                                                                                    <h3> {{item.itemNameDictionary[selectedLanguage]
-                                                                                        | limitTo:10}}
-                                                                                        <span>{{item.price}}</span>
+                                                                            <li
+                                                                                ng-repeat="detail in progDetailsPrepService.programDetails | filter:{dayNumber:counterDay, mealNumberPerDay: counterMeal} :true ">
+                                                                                <div class="res-menu">
+                                                                                  
+                                                                                    <img src={{detail.item.imageUrl}}
+                                                                                        imageonload alt="">
+                                                                                    <h3>
+                                                                                        {{detail.item.itemNameDictionary[selectedLanguage]}}
+                                                                                        <!-- {{item.itemNameDictionary[selectedLanguage]}} -->
+                                                                                        <span>{{detail.item.totalPrice}}</span>
                                                                                     </h3>
-                                                                                    <span class="menu-item">{{item.itemDescriptionDictionary[selectedLanguage]
-                                                                                        | limitTo:10}}</span>
+
+                                                                                    <span
+                                                                                        class="menu-item">{{item.itemDescriptionDictionary[selectedLanguage] }}</span>
+                                                                                    <span>
+                                                                                        {{'fat' | translate}}:{{detail.item.fat}}</span>
+                                                                                    <span>
+                                                                                        {{'carbs' | translate}}:{{detail.item.carbs}}</span>
+                                                                                    <span>
+                                                                                        {{'protein' | translate}}:{{detail.item.protein}}</span>
+                                                                                    <span>
+                                                                                        {{'calories' | translate}}:{{detail.item.calories}}</span>
                                                                                 </div>
 
                                                                             </li>
@@ -193,8 +218,9 @@
                                     <div class="hp-main-overview">
                                         <ul>
                                             <li>{{'ExcludedDays' | translate}}:
-                                                <span ng-if="progDetailsPrepService.days.length > 0" ng-repeat="day in progDetailsPrepService.days">
-                                                    {{day.dayNameDictionary[selectedLanguage]}}, 
+                                                <span ng-if="progDetailsPrepService.days.length > 0"
+                                                    ng-repeat="day in progDetailsPrepService.days">
+                                                    {{day.dayNameDictionary[selectedLanguage]}},
                                                 </span>
                                                 <span ng-if="progDetailsPrepService.days.length == 0">
                                                     {{'NoExcludedDays' | translate}}
@@ -223,34 +249,45 @@
                                         <!-- {{itemDatetime}} -->
                                         <div class="col-md-6">
                                             <h5>{{'OrderDate' | translate}}</h5>
-                                            <input name="itemDatetime" required ng-model="itemDatetime" type="text" id="startdate" class="form-control" ng-change="dateChange();"
-                                            />
+                                            <input name="itemDatetime" required ng-model="itemDatetime" type="text"
+                                                id="startdate" class="form-control" ng-change="dateChange();" />
                                         </div>
 
 
                                         <div class="col-md-12">
                                             <h5>{{'OrderType' | translate}}</h5>
                                             <p>
-                                                <input ng-change="typeChanged()" ng-model="orderType.type" name="group1" type="radio" id="test1" value="delivery" />
+                                                <input ng-change="typeChanged()" ng-model="orderType.type" name="group1"
+                                                    type="radio" id="test1" value="delivery" />
                                                 <label for="test1">{{'Delivery' | translate}}</label>
                                             </p>
                                             <p>
-                                                <input ng-change="typeChanged()" ng-model="orderType.type" name="group1" type="radio" id="test2" value="pickup" />
-                                                <label for="test2">{{'PickUp' | translate}}</label>
+                                                <input ng-change="typeChanged()" ng-model="orderType.type" name="group1"
+                                                    type="radio" id="test2" value="pickup" />
+                                                <label for="test2">{{'Pickup' | translate}}</label>
                                             </p>
 
                                             <div ng-if="orderType.type == 'delivery'" class="row form-group">
                                                 <div class="col-md-6">
                                                     <div>
-                                                        <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-                                                            <label for="first-name">{{'SelectAddress' | translate}}</label>
+                                                        <div
+                                                            class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                                            <label
+                                                                for="first-name">{{'SelectAddress' | translate}}</label>
                                                             <!-- {{addresses.address}} -->
                                                             <div ng-repeat="address in userAddresses">
                                                                 <p>
-                                                                    <input ng-change="addressInfo(address)" name="group2" type="radio" id="address{{address.addressId}}" ng-model="addresses.address"
+                                                                    <input ng-change="addressInfo(address)"
+                                                                        name="group2" type="radio"
+                                                                        id="address{{address.addressId}}"
+                                                                        ng-model="addresses.address"
                                                                         value="{{address.addressId}}" />
-                                                                    <label for="address{{address.addressId}}">{{address.appartmentNo}}, {{address.description}}, {{'Floor'
-                                                                        | translate}} {{address.floor}}</label>
+                                                                    <label
+                                                                        for="address{{address.addressId}}">{{'appartmentNo' | translate}}:
+                                                                        {{address.appartmentNo}}
+                                                                        <br> {{'FLoor' | translate}} : {{address.floor}}
+                                                                        <br> {{'description' | translate}} :
+                                                                        {{address.description}}</label>
                                                                 </p>
                                                                 <!-- <label>
                                                                         <input ng-change="addressInfo(address)" type="radio" ng-model="addresses.address" value="{{address.addressId}}"> {{address.appartmentNo}}, {{address.description}},
@@ -265,34 +302,56 @@
                                             <div class="row form-group">
                                                 <div class="col-md-6">
                                                     <div ng-show="orderType.type == 'pickup'">
-                                                        <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                                        <div
+                                                            class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                                                             <label for="first-name">{{'Country' | translate}}</label>
-                                                            <select ng-required="orderType.type == 'pickup'" style="width:100% !important" class="select-tags form-control pmd-select2-tags"
-                                                                ng-change="countryChange()" ng-model="selectedCountryId" ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in counties">
+                                                            <select ng-required="orderType.type == 'pickup'"
+                                                                style="width:100% !important"
+                                                                class="select-tags form-control pmd-select2-tags"
+                                                                ng-change="countryChange()" ng-model="selectedCountryId"
+                                                                ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in counties">
                                                             </select>
                                                         </div>
-                                                        <div ng-show=" selectedCountryId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                                        <div ng-show=" selectedCountryId > 0"
+                                                            class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                                                             <label for="first-name">{{'Region' | translate}}</label>
-                                                            <select ng-required="orderType.type == 'pickup'" style="width:100% !important" class="select-tags form-control pmd-select2-tags"
-                                                                ng-change="regionChange()" ng-model="selectedRegionId" ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in regions">
+                                                            <select ng-required="orderType.type == 'pickup'"
+                                                                style="width:100% !important"
+                                                                class="select-tags form-control pmd-select2-tags"
+                                                                ng-change="regionChange()" ng-model="selectedRegionId"
+                                                                ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in regions">
                                                             </select>
                                                         </div>
-                                                        <div ng-show=" selectedRegionId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                                        <div ng-show=" selectedRegionId > 0"
+                                                            class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                                                             <label for="first-name">{{'City' | translate}}</label>
-                                                            <select ng-required="selectedRegionId > 0 && orderType.type == 'pickup'" style="width:100% !important" class="select-tags form-control pmd-select2-tags"
-                                                                ng-change="cityChange()" ng-model="selectedCityId" ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in cities">
+                                                            <select
+                                                                ng-required="selectedRegionId > 0 && orderType.type == 'pickup'"
+                                                                style="width:100% !important"
+                                                                class="select-tags form-control pmd-select2-tags"
+                                                                ng-change="cityChange()" ng-model="selectedCityId"
+                                                                ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in cities">
                                                             </select>
                                                         </div>
-                                                        <div ng-show=" selectedCityId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                                        <div ng-show=" selectedCityId > 0"
+                                                            class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                                                             <label for="first-name">{{'Area' | translate}}</label>
-                                                            <select ng-required=" selectedCityId > 0 && orderType.type == 'pickup'" style="width:100% !important" class="select-tags form-control pmd-select2-tags"
-                                                                ng-change="areaChange()" ng-model="selectedAreaId" ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in area">
+                                                            <select
+                                                                ng-required=" selectedCityId > 0 && orderType.type == 'pickup'"
+                                                                style="width:100% !important"
+                                                                class="select-tags form-control pmd-select2-tags"
+                                                                ng-change="areaChange()" ng-model="selectedAreaId"
+                                                                ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in area">
                                                             </select>
                                                         </div>
-                                                        <div ng-show=" selectedAreaId > 0" class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                                        <div ng-show=" selectedAreaId > 0"
+                                                            class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                                                             <label for="first-name">{{'Branch' | translate}}</label>
-                                                            <select ng-required=" selectedAreaId > 0  && orderType.type == 'pickup'" class="form-control select-with-search pmd-select2-tags"
-                                                                ng-change="branchChange()" ng-model="selectedBranchId" ng-options="a.branchId as a.titleDictionary[selectedLanguage] for a in branchList"></select>
+                                                            <select
+                                                                ng-required=" selectedAreaId > 0  && orderType.type == 'pickup'"
+                                                                class="form-control select-with-search pmd-select2-tags"
+                                                                ng-change="branchChange()" ng-model="selectedBranchId"
+                                                                ng-options="a.branchId as a.titleDictionary[selectedLanguage] for a in branchList"></select>
                                                         </div>
 
                                                     </div>
@@ -301,14 +360,16 @@
                                             </div>
 
                                             <div class="input-field col s12 m4 l2">
-                                                Price:{{ progDetailsPrepService.price}}
-                                                <br> Delivery:{{ DeliveryFees}}
-                                                <br>Discount :{{ settingsPrepService.programDiscount}} %
-                                                <br>Total :{{ Total}}
+                                                {{'price' | translate}}:{{ progDetailsPrepService.price}}
+                                                <br> {{'DeliveryPrice' | translate}}:{{ DeliveryFees}}
+                                                <br>{{'ProgramDiscount' | translate}}
+                                                :{{ settingsPrepService.programDiscount}} %
+                                                <br>{{'Total' | translate}} :{{ Total}}
                                                 <br>
-                                                <button style="background-color: #e4e5e6;color: black!important;" class="btn pmd-ripple-effect btn-primary" ng-click="Order()"
+                                                <button style="background-color: #e4e5e6;color: black!important;"
+                                                    class="btn pmd-ripple-effect btn-primary" ng-click="Order()"
                                                     ng-disabled="orderForm.$invalid  || selectedBranchId <= 0 || (addressValidation == false && orderType.type == 'delivery') && !dateIsValid">
-                                                    {{'next' | translate}}</button>
+                                                    {{'Save' | translate}}</button>
                                                 <!-- ng-disabled="orderForm.$invalid || !dateIsValid || addressValidation == false" -->
                                             </div>
                                         </div>

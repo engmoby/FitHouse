@@ -9,7 +9,7 @@
                 <div class="hp-section">
                     <div class="hp-sub-tit">
                         <h4>
-                            <span>{{'MealDetails' | translate}}</span>
+                            <span>{{'orderdetails' | translate}}</span>
                         </h4> 
                     </div>
                     <div class="hp-over">
@@ -17,7 +17,7 @@
                             <li class="active">
                                 <a data-toggle="tab" data-target="#home" style="cursor: pointer;">
                                     <!-- <img src="/assets/img/cropped-favicon-32x32.png" alt=""> -->
-                                    <span >{{'Details' | translate}}</span>
+                                    <span >{{'orderdetails' | translate}}</span>
                                 </a>
                             </li>
                             <li>
@@ -31,19 +31,23 @@
                             <div id="home" class="tab-pane fade in active tab-space">
                                 <div
                                     class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-                                    <label for="first-name">{{'Items' | translate}}</label>
+                                    <label for="first-name">{{'Item' | translate}}</label>
                                     <ul>
                                         <li ng-repeat="detail in OrderMealPrepService.mealDetails">
                                             <!-- {{detail}} -->
                                             <div class="res-menu">
-                                                <!-- {{item.itemNameDictionary[selectedLanguage]}} -->
-                                                <img src="/assets/img/meal.jpeg" alt="" />
+                                                <!-- {{item.itemNameDictionary[selectedLanguage]}} --> 
+                                                <img src={{detail.item.imageUrl}} imageonload alt=""> 
                                                 <h3> {{detail.item.itemNameDictionary[selectedLanguage]}}
-                                                    <span>{{detail.item.price}}</span>
+                                                    <span>{{detail.item.totalPrice}}</span>
                                                 </h3>
                                                 <span
                                                     class="menu-item">{{detail.item.itemDescriptionDictionary[selectedLanguage] }}</span>
-                                                <!-- | limitTo:10 -->
+                                                    <span> {{'fat' | translate}}:{{detail.item.fat}}</span>
+                                                    <span> {{'carbs' | translate}}:{{detail.item.carbs}}</span>
+                                                    <span> {{'protein' | translate}}:{{detail.item.protein}}</span>
+                                                    <span> {{'calories' | translate}}:{{detail.item.calories}}</span>
+                                                       <!-- | limitTo:10 -->
                                             </div>
 
                                         </li>
@@ -53,19 +57,19 @@
                             <div id="menu1" class="tab-pane fade in   tab-space">
                                 <div class="hp-main-overview">
                                     <ul>
-                                        <li>{{'Fats' | translate}}:
+                                        <li>{{'fat' | translate}}:
                                             <span>{{fats}}</span>
                                         </li>
-                                        <li>{{'Carbs' | translate}}:
+                                        <li>{{'carbs' | translate}}:
                                             <span>{{carbs}}</span>
                                         </li>
-                                        <li>{{'Protein' | translate}}:
+                                        <li>{{'protein' | translate}}:
                                             <span>{{protein}}</span>
                                         </li>
-                                        <li>{{'Calories' | translate}}:
+                                        <li>{{'calories' | translate}}:
                                             <span>{{calories}}</span>
                                         </li>
-                                        <li>{{'TotalPrice' | translate}}:
+                                        <li>{{'Total' | translate}}:
                                             <span class="ov-yes">{{OrderMealPrepService.mealPrice}}</span>
                                         </li>
                                     </ul>

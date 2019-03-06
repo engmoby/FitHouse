@@ -21,7 +21,7 @@
 
         $scope.itemsssPrepService = itemsssPrepService;
         $scope.itemList = [];
-
+        debugger;
         vm.listOfDetails = progDetailsPrepService.programDetails;
         vm.testItem = vm.listOfDetails.filter(x => (x.dayNumber == DayCount && x.mealNumberPerDay == MealCount));
         //console.log(testItem);
@@ -46,6 +46,7 @@
 
 
         vm.UpdateProgram = function () {
+            blockUI.start("Loading...");
             var test = new UpdateProgramDetailsResource();
             test.items = $scope.itemList;
             test.programDays = DayCount;
@@ -54,13 +55,15 @@
 
             test.$updateProgramDetails().then(
                 function (data, status) {
-                    $uibModalInstance.dismiss();
+				blockUI.stop();
+                $uibModalInstance.dismiss();
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('EditedSuccessfully'), "success");
                     callBackFunction();
 
                 },
                 function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+				blockUI.stop();
+                ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 }
             );
 

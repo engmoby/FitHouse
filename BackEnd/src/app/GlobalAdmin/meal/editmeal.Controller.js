@@ -3,9 +3,9 @@
 
 	angular
 		.module('home')
-		.controller('editMealController', ['$scope', '$filter', '$http', '$translate', '$stateParams', 'appCONSTANTS', '$state', 'MealResource', 'itemsssPrepService', 'ToastService', 'mealPrepService', editMealController])
+		.controller('editMealController', ['$scope', 'blockUI','$filter', '$http', '$translate', '$stateParams', 'appCONSTANTS', '$state', 'MealResource', 'itemsssPrepService', 'ToastService', 'mealPrepService', editMealController])
 
-	function editMealController($scope, $filter, $http, $translate, $stateParams, appCONSTANTS, $state, MealResource, itemsssPrepService, ToastService, mealPrepService) {
+	function editMealController($scope, blockUI,$filter, $http, $translate, $stateParams, appCONSTANTS, $state, MealResource, itemsssPrepService, ToastService, mealPrepService) {
 		var vm = this;
 		vm.language = appCONSTANTS.supportedLanguage;
 		vm.meal = mealPrepService;
@@ -26,8 +26,10 @@
 			$state.go('Meal');
 		}
 		vm.updateMeal = function () {
+            blockUI.start("Loading...");
 
 			if ($scope.selectedItemList.length == 0) {
+				blockUI.stop();
 				ToastService.show("right", "bottom", "fadeInUp", $translate.instant('mustchooseitem'), "success");
 				return
 			}
@@ -66,10 +68,12 @@
 				data: model
 			}).then(
 				function (data, status) {
+                    blockUI.stop();
 					ToastService.show("right", "bottom", "fadeInUp", $translate.instant('MealUpdateSuccess'), "success");
 					$state.go('Meal');
 				},
 				function (data, status) {
+                    blockUI.stop();
 					ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
 				}
 			);
@@ -139,7 +143,7 @@
 		var isMealImageChange = false;
 		$scope.AddMealImage = function (element) {
 			var logoFile = element[0];
-debugger;
+			debugger;
 			var allowedImageTypes = ['image/jpg', 'image/png', 'image/jpeg']
 
 			if (logoFile && logoFile.size >= 0 && ((logoFile.size / (1024 * 1000)) < 2)) {

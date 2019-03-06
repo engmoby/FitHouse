@@ -1,59 +1,43 @@
-<div class="inn-body-section pad-bot-55">
-    <div class="container">
+<div class="hom-com ng-scope">
+        <div class="container">
         <div class="row">
             <div class="page-head">
                 <h2>{{'Meals' | translate}}</h2>
-                <div class="head-title">
+                <!-- <div class="head-title">
                     <div class="hl-1"></div>
                     <div class="hl-2"></div>
                     <div class="hl-3"></div>
                 </div>
-                <p>{{'MealsDescription' | translate}}</p>
+                <p>{{'MealsDescription' | translate}}</p> -->
             </div>
             <!--ROOM SECTION-->
 
-            <div ng-click="$state.go('mealDetails', {mealId: Meal.mealId});" style="cursor: pointer !important;" ng-repeat="Meal in mealsPrepService"
-                class="room">
+            <div ng-click="$state.go('mealDetails', {mealId: Meal.mealId});" style="cursor: pointer !important;"
+                ng-repeat="Meal in mealsPrepService" class="room">
                 <!-- {{Meal.imageUrl}} -->
 
                 <div class="ribbon ribbon-top-left">
                     <span>{{'Meal' | translate}}</span>
                 </div>
                 <!--ROOM IMAGE-->
-                <div ng-if="Meal.imageUrl == null" class="r1 r-com">
+                <!-- <div ng-if="Meal.imageUrl == null" class="r1 r-com">
                     <img src="https://fithouseksa.com/wp-content/uploads/2018/07/Grilled-steak.png" alt="" />
                 </div>
                 <div ng-if="Meal.imageUrl != null" class="r1 r-com">
                     <img src={{Meal.imageUrl}} alt="" />
+                </div> -->
+                <div class="r1 r-com">
+                    <img src={{Meal.imageUrl}} imageonload alt="">
                 </div>
                 <!--ROOM RATING-->
                 <div class="r2 r-com">
-                    <h4>{{Meal.mealDescriptionDictionary[selectedLanguage]}}</h4>
-                    <div class="r2-ratt">
-                        <i></i>
-                        <i></i>
-                        <i></i>
-                        <i></i>
-                        <i></i>
-                        <img src="images/h-trip.png" alt="" />
-                        <span></span>
-                    </div>
-                    <ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                    </ul>
+                    <h4>{{Meal.mealDescriptionDictionary[selectedLanguage] | limitTo:15}}</h4>
                 </div>
                 <!--ROOM AMINITIES-->
                 <div class="r3 r-com">
-                    <ul>
-                        <li>{{'NumberOfItems' | translate}}: {{Meal.mealDetails.length}}</li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                    </ul>
+                    <p>
+                         {{'NumberOfItems' | translate}}: {{Meal.mealDetails.length}} 
+                    </p>
                 </div>
                 <!--ROOM PRICE-->
                 <div class="r4 r-com">
@@ -62,13 +46,14 @@
                         <span class="room-price-1"></span>
                         <span class="room-price"></span>
                     </p>
-                    <p>{{'NonRefundable' | translate}}</p>
+                    <!-- <p>{{'NonRefundable' | translate}}</p> -->
                 </div>
                 <!--ROOM BOOKING BUTTON-->
                 <div class="r5 r-com">
-                    <div class="r2-available">{{'Available' | translate}}</div>
+                    <!-- <div class="r2-available">{{'Available' | translate}}</div> -->
                     <p></p>
-                    <a ng-click="$state.go('mealDetails', {mealId: Meal.mealId});" class="inn-room-book">{{'Book' | translate}}</a>
+                    <a ng-click="$state.go('mealDetails', {mealId: Meal.mealId});"
+                        class="inn-room-book">{{'Order' | translate}}</a>
                 </div>
             </div>
 
