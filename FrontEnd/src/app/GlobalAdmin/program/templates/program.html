@@ -11,7 +11,7 @@
                     <div class="hl-2"></div>
                     <div class="hl-3"></div>
                 </div>
-                <p>{{'ProgramsDescription' | translate}}</p>
+                <!-- <p>{{'ProgramsDescription' | translate}}</p> -->
             </div>
             <!--ROOM SECTION-->
             <div style="cursor: pointer !important;" ng-click="$state.go('programDetails', {programId: Program.programId});" ng-repeat="Program in programPrepService"
@@ -60,13 +60,13 @@
                         <span class="room-price-1"></span>
                         <span class="room-price"></span>
                     </p>
-                    <p>{{'NonRefundable' | translate}}</p>
+                    <!-- <p>{{'NonRefundable' | translate}}</p> -->
                 </div>
                 <!--ROOM BOOKING BUTTON-->
                 <div class="r5 r-com">
-                    <div class="r2-available">{{'Available' | translate}}</div>
+                    <!-- <div class="r2-available">{{'Available' | translate}}</div> -->
                     <p></p>
-                    <a ng-click="$state.go('programDetails', {programId: Program.programId});" class="inn-room-book">{{'Book' | translate}}</a>
+                    <a ng-click="$state.go('programDetails', {programId: Program.programId});" class="inn-room-book">{{'Order' | translate}}</a>
                 </div>
             </div>
             <!--END ROOM SECTION-->

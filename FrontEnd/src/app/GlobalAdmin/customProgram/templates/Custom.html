@@ -92,8 +92,7 @@
                                                     </div>
                                                     <div class="row">
                                                         <div class="res-menu" ng-repeat="meal in itemModel">
-                                                            {{meal.imageUrl}} <img src={{meal.imageUrl}} imageonload
-                                                                alt="">
+                                                           <img src={{meal.imageUrl}} imageonload alt="">
                                                             <!-- <img src="/assets/img/meal.jpeg" alt="" /> -->
                                                             <h3> {{meal.itemNameDictionary[selectedLanguage] | limitTo:10}}<span>{{meal.price}}</span>
                                                             </h3> <span

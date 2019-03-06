@@ -3,10 +3,10 @@
 
     angular
         .module('home')
-        .controller('editBranchDialogController', ['$scope', '$http', '$state', 'appCONSTANTS', '$translate', 'BranchResource', 'ToastService',
+        .controller('editBranchDialogController', ['$scope', 'blockUI','$http', '$state', 'appCONSTANTS', '$translate', 'BranchResource', 'ToastService',
             'BranchByIdPrepService','$stateParams','AreaByIdPrepService','CityByIdPrepService', 'RegionByIdPrepService', editBranchDialogController])
 
-    function editBranchDialogController($scope, $http, $state, appCONSTANTS, $translate, BranchResource, ToastService,
+    function editBranchDialogController($scope,blockUI, $http, $state, appCONSTANTS, $translate, BranchResource, ToastService,
          BranchByIdPrepService,$stateParams,AreaByIdPrepService,CityByIdPrepService, RegionByIdPrepService) {
         var vm = this;
         vm.language = appCONSTANTS.supportedLanguage;
@@ -21,6 +21,7 @@
             $state.go('Area', { countryId: $stateParams.countryId, regionId: $stateParams.regionId, cityId: $stateParams.cityId });
         }
         vm.UpdateBranch = function () {
+            blockUI.start("Loading...");
             var updateObj = new BranchResource();
             updateObj.BranchId = vm.Branch.branchId;
             updateObj.titleDictionary = vm.Branch.titleDictionary;
@@ -28,13 +29,15 @@
             updateObj.IsStatic = false;
             updateObj.$update().then(
                 function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                blockUI.stop();
+                ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
 
                     $state.go('Area', { countryId: $stateParams.countryId, regionId: $stateParams.regionId, cityId: $stateParams.cityId },{ reload: true });
 
                 },
                 function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                blockUI.stop();
+                ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 }
             );
         }

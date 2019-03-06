@@ -20,7 +20,7 @@
         $scope.totalCount = CategoryPrepService.totalCount;
         $scope.CategoryList = CategoryPrepService;
         console.log(CategoryPrepService);
- 
+
         function refreshCategorys() {
             blockUI.start("Loading...");
 

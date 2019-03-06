@@ -623,10 +623,18 @@ angular.module('core')
         "loading": "loading...",
         "History": "Orders",
         "Profile": "Profile", 
+        "Open": "Open", 
+        "Prepering": "Prepering", 
+        "thanks": "Thanks for applying in our system.", 
+        "Overview": "Overview", 
       }
 
       var ar_translations = {
+        "thanks": "شكرا لاستخدامك النظام الخاص بنا ", 
 
+        "Overview": "نظرة عامة", 
+        "Open": "0", 
+        "Prepering": "Prepering", 
         "loading": "تحميل ...",
         "History": "الطلبات",
         "Profile": "الملف الشخصي", 

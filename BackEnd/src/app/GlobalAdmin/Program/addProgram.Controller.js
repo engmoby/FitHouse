@@ -62,7 +62,7 @@
             //     vm.ProgramVAT = vm.ProgramVAT + vm.itemList[i].vat;
             //     vm.ProgramTotalPrice = (vm.ProgramPrice + vm.ProgramVAT) - vm.ProgramDiscount;
             // }
-            vm.ProgramTotalPrice = vm.totalPrice - (vm.totalPrice * (vm.ProgramDiscount/100));
+            vm.ProgramTotalPrice = vm.totalPrice - (vm.totalPrice * (vm.ProgramDiscount / 100));
             vm.ProgramTotalPriceBefore = vm.totalPrice;
         }
 
@@ -97,10 +97,10 @@
                 vm.ProgramVAT = vm.ProgramVAT + vm.itemList[i].vat;
                 vm.totalPrice += vm.itemList[i].totalPrice;
             }
-            vm.ProgramTotalPrice = vm.totalPrice - (vm.totalPrice * (vm.ProgramDiscount/100));
+            vm.ProgramTotalPrice = vm.totalPrice - (vm.totalPrice * (vm.ProgramDiscount / 100));
             vm.ProgramTotalPriceBefore = vm.totalPrice;
         }
-       
+
 
         //Model
         vm.currentStep = 1;
@@ -160,6 +160,7 @@
         }
 
         vm.AddNewProgram = function () {
+            blockUI.start("Loading...");
             var newProgram = new AddProgramResource();
             newProgram.programNameDictionary = vm.titleDictionary;
             newProgram.programDescriptionDictionary = vm.descriptionDictionary;
@@ -178,9 +179,11 @@
             newProgram.$create().then(
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+                    blockUI.stop();
                     $state.go('program');
                 },
                 function (data, status) {
+                    blockUI.stop();
                     ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 }
             );

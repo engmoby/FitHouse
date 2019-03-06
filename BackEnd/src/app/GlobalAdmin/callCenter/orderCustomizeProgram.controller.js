@@ -321,6 +321,7 @@
         }
 
         vm.AddNewProgram = function () {
+            blockUI.start("Loading...");
             var newProgram = new AddProgramResource();
 
             // newProgram.programNameDictionary = vm.titleDictionary;
@@ -355,11 +356,13 @@
             newProgram.days = vm.SelectedDays;
             newProgram.$create().then(
                 function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+                blockUI.stop();
+                ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
                     $state.go('callCenter');
                 },
                 function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                blockUI.stop();
+                ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 }
             );
         }

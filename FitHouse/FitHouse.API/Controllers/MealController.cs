@@ -115,6 +115,11 @@ namespace FitHouse.API.Controllers
         {
             var Meal = Mapper.Map<MealModel>(_MealFacade.GetMeal(MealId, Language));
             Meal.ImageUrl = Url.Link("MealImage", new { Meal.MealId });
+            foreach (var itemModel in Meal.MealDetails)
+            {
+                itemModel.Item.ImageUrl = Url.Link("ItemImage", new { itemModel.Item.CategoryId, itemModel.Item.ItemId });
+
+            }
             return Ok(Meal);
         }
 

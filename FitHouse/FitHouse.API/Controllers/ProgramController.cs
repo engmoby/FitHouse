@@ -8,6 +8,7 @@ using System.Web.Http.Description;
 using AutoMapper;
 using FitHouse.API.Infrastructure;
 using FitHouse.API.Models;
+using FitHouse.BLL.DataServices.Interfaces;
 using FitHouse.BLL.DTOs;
 using FitHouse.BLL.Services.Interfaces;
 using FitHouse.Common.CustomException;
@@ -17,12 +18,16 @@ namespace FitHouse.API.Controllers
     public class ProgramController : BaseApiController
     {
         private readonly IProgramFacade _programFacade;
+        private readonly IProgramService _programService;
         private readonly IDayFacade _dayFacade;
         private readonly IItemFacade _itemFacade;
-        public ProgramController(IItemFacade itemFacade, IProgramFacade programFacade, IDayFacade dayFacade)
+        private readonly IProgramDetailService _programDetailService;
+        public ProgramController(IItemFacade itemFacade, IProgramFacade programFacade, IDayFacade dayFacade, IProgramService programService, IProgramDetailService programDetailService)
         {
             _programFacade = programFacade;
             _dayFacade = dayFacade;
+            _programService = programService;
+            _programDetailService = programDetailService;
             _itemFacade = itemFacade;
         }
 
@@ -81,6 +86,15 @@ namespace FitHouse.API.Controllers
         [HttpPost]
         public IHttpActionResult EditProgram([FromBody] ProgramModel programModel)
         {
+            if (!programModel.IsActive || programModel.IsDeleted)
+            {
+
+                var checkIfUsedOfProgram = _programDetailService.Queryable().Where(x => x.ProgramId == programModel.ProgramId);
+                if (checkIfUsedOfProgram.Any())
+                    throw new ValidationException(ErrorCodes.RecordIsUsedInAnotherModule);
+
+            }
+
             var program = _programFacade.EditProgram(Mapper.Map<ProgramDto>(programModel), UserId);
 
             return Ok(program);

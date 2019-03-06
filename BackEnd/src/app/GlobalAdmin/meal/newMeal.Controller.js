@@ -3,9 +3,9 @@
 
 	angular
 		.module('home')
-		.controller('newMealController', ['$scope', '$translate', '$http', '$stateParams', 'appCONSTANTS', '$state', 'ToastService', 'itemsssPrepService', newMealController])
+		.controller('newMealController', ['$scope','blockUI', '$translate', '$http', '$stateParams', 'appCONSTANTS', '$state', 'ToastService', 'itemsssPrepService', newMealController])
 
-	function newMealController($scope, $translate, $http, $stateParams, appCONSTANTS, $state, ToastService, itemsssPrepService) {
+	function newMealController($scope,blockUI, $translate, $http, $stateParams, appCONSTANTS, $state, ToastService, itemsssPrepService) {
 		var vm = this;
 		vm.totalPrice = 0;
 		vm.mealDiscount = 0;
@@ -89,9 +89,11 @@
 		}
 		vm.addNewMeal = function () {
 
+            blockUI.start("Loading...");
 
 
 			if ($scope.selectedItemList.length == 0) {
+				blockUI.stop();
 				ToastService.show("right", "bottom", "fadeInUp", $translate.instant('mustchooseitem'), "success");
 				return
 			}
@@ -139,12 +141,14 @@
 				data: model
 			}).then(
 				function (data, status) {
+                    blockUI.stop();
 					ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
 					$state.go('Meal');
 					vm.isChanged = false;
 
 				},
 				function (data, status) {
+                    blockUI.stop();
 					vm.isChanged = false;
 					ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
 				}

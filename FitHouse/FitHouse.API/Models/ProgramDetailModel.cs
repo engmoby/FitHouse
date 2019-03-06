@@ -11,7 +11,7 @@ namespace FitHouse.API.Models
         public long ProgramId { get; set; }
         public long ItemId { get; set; }
         //public ProgramModel Program { get; set; }
-        //public ItemModel Item { get; set; }
+         public ItemModel Item { get; set; }
         public long DayNumber { get; set; }
         public long MealNumberPerDay { get; set; }
         public DateTime DayDateTime { get; set; }

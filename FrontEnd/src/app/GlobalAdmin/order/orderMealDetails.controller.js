@@ -12,6 +12,7 @@
         , itemsssPrepService, OrderResource, RegionResource, BranchResource, CityResource, AreaResource
     ) {
 
+       debugger;
         $scope.OrderMealPrepService = OrderMealPrepService;
         $scope.itemsssPrepService = itemsssPrepService;
         $scope.Total = 0;
