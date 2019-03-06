@@ -27,12 +27,12 @@
         $scope.DeliveryFees = 0;
         $scope.Total = 0;
 
-        for (var i = 0; i < $scope.progDetailsPrepService.items.length; i++) {
-            $scope.fats += $scope.progDetailsPrepService.items[i].fat;
-            $scope.carbs += $scope.progDetailsPrepService.items[i].carbs;
-            $scope.protein += $scope.progDetailsPrepService.items[i].protein;
-            $scope.calories += $scope.progDetailsPrepService.items[i].calories;
-        }
+        // for (var i = 0; i < $scope.progDetailsPrepService.items.length; i++) {
+        //     $scope.fats += $scope.progDetailsPrepService.items[i].fat;
+        //     $scope.carbs += $scope.progDetailsPrepService.items[i].carbs;
+        //     $scope.protein += $scope.progDetailsPrepService.items[i].protein;
+        //     $scope.calories += $scope.progDetailsPrepService.items[i].calories;
+        // }
 
         $scope.style = function () {
             return {

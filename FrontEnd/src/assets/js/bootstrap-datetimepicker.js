@@ -2616,10 +2616,10 @@
                 }
             },
             enter: function () {
-                this.hide();
+                // this.hide();
             },
             escape: function () {
-                this.hide();
+                // this.hide();
             },
             //tab: function (widget) { //this break the flow of the form. disabling for now
             //    var toggle = widget.find('.picker-switch a[data-action="togglePicker"]');
