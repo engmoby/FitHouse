@@ -34,6 +34,9 @@
 /*-------------------------------------------------------*/
 
 @media screen and (max-width: 992px) {
+    .r1 img{
+        width: 65% !important;
+    }
     .foot-1 {
         display: none
     }

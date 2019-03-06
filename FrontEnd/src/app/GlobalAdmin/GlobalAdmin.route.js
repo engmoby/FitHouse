@@ -7,13 +7,13 @@
 
             $stateProvider
                 .state('homePage', {
-                    url: '/homePage',
+                    url: '/CustomProgram',
                     templateUrl: './app/GlobalAdmin/user/templates/home.html',
                     controller: 'homePageController',
                     'controllerAs': 'homePageCtrl',
                     resolve: {
-                        mealsPrepService: mealsPrepService,
-                        programPrepService: programPrepService,
+                        // mealsPrepService: mealsPrepService,
+                        // programPrepService: programPrepService,
                         settingsPrepService: settingsPrepService,
                         daysPrepService: daysPrepService
                     }
