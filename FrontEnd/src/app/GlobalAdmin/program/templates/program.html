@@ -1,7 +1,7 @@
 <!-- <div class="main" >  -->
 <!-- ng-style="style()" -->
 <br>
-<div class="inn-body-section pad-bot-55">
+<div class="hom-com ng-scope">
     <div class="container">
         <div class="row">
             <div class="page-head">
@@ -14,8 +14,9 @@
                 <!-- <p>{{'ProgramsDescription' | translate}}</p> -->
             </div>
             <!--ROOM SECTION-->
-            <div style="cursor: pointer !important;" ng-click="$state.go('programDetails', {programId: Program.programId});" ng-repeat="Program in programPrepService"
-                class="room">
+            <div style="cursor: pointer !important;"
+                ng-click="$state.go('programDetails', {programId: Program.programId});"
+                ng-repeat="Program in programPrepService" class="room">
 
                 <div class="ribbon ribbon-top-left">
                     <span>{{'Program' | translate}}</span>
@@ -36,21 +37,18 @@
                         <img src="images/h-trip.png" alt="" />
                         <span></span>
                     </div> -->
-                    <ul>
+                    <!-- <ul>
                         <li></li>
                         <li></li>
                         <li></li>
                         <li></li>
-                    </ul>
+                    </ul> -->
                 </div>
                 <!--ROOM AMINITIES-->
                 <div class="r3 r-com">
                     <ul>
                         <li>{{'ProgramDays' | translate}}: {{Program.programDays}}</li>
-                        <li>{{'MealPerDay' | translate}}: {{Program.noOfMeals}}</li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
+                        <li>{{'MealPerDay' | translate}}: {{Program.noOfMeals}}</li> 
                     </ul>
                 </div>
                 <!--ROOM PRICE-->
@@ -66,7 +64,8 @@
                 <div class="r5 r-com">
                     <!-- <div class="r2-available">{{'Available' | translate}}</div> -->
                     <p></p>
-                    <a ng-click="$state.go('programDetails', {programId: Program.programId});" class="inn-room-book">{{'Order' | translate}}</a>
+                    <a ng-click="$state.go('programDetails', {programId: Program.programId});"
+                        class="inn-room-book">{{'Order' | translate}}</a>
                 </div>
             </div>
             <!--END ROOM SECTION-->

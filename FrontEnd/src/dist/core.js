@@ -54,8 +54,8 @@
 	angular
 		.module('core')
 		.constant('appCONSTANTS', {
-			'API_URL': 'http://localhost:32569/api/',
-		//	 'API_URL': 'http://fithouse.azurewebsites.net/api/',
+		//	'API_URL': 'http://localhost:32569/api/',
+			 'API_URL': 'http://fithouse.azurewebsites.net/api/',
 
 			'defaultLanguage': 'en',
 			'supportedLanguage': {
@@ -1211,25 +1211,25 @@ angular.module('core')
                 $state.go(toState.name, toParams, { reload: true });
             }
         });
-        // $transitions.onStart({}, function (transition) {
-        //     if (authorizationService.isLoggedIn()) {
-        //         var user = authorizationService.getUser();
-        //         // var authorize = false;
-        //         // if (transition._targetState._identifier.self != undefined) {
-        //         //     if (transition._targetState._identifier.self.data.permissions.only != undefined) {
-        //         //         transition._targetState._identifier.self.data.permissions.only.forEach(function (element) {
-        //         //             if (user.PermissionId.includes(element.toString()))
-        //         //                 authorize = true;
-        //         //         }, this);
-        //         //         if (!authorize)
-        //         //             $state.go(transition._targetState._identifier.self.data.permissions.redirectTo)
-        //         //     }
-        //         // }
-        //     }
-        //     else {
-        //         $state.go('login');
-        //     }
-        // });
+        $transitions.onStart({}, function (transition) {
+            if (authorizationService.isLoggedIn()) {
+                var user = authorizationService.getUser();
+                // var authorize = false;
+                // if (transition._targetState._identifier.self != undefined) {
+                //     if (transition._targetState._identifier.self.data.permissions.only != undefined) {
+                //         transition._targetState._identifier.self.data.permissions.only.forEach(function (element) {
+                //             if (user.PermissionId.includes(element.toString()))
+                //                 authorize = true;
+                //         }, this);
+                //         if (!authorize)
+                //             $state.go(transition._targetState._identifier.self.data.permissions.redirectTo)
+                //     }
+                // }
+            }
+            else {
+                $state.go('login');
+            }
+        });
         $scope.$watch(function () { return $localStorage.authInfo; }, function (newVal, oldVal) {
             if (oldVal != undefined && newVal === undefined && $localStorage.authInfo == undefined) {
                 console.log('logout');

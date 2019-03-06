@@ -152,7 +152,7 @@
                                                     data-expandable="false">
                                                     <h4 class="panel-title">
                                                         <a>
-                                                            {{'Day' | translate}} #{{counterDay=$index+1}}
+                                                            {{'Day' | translate}} {{counterDay=$index+1}}
                                                             <i
                                                                 class="material-icons md-dark pmd-sm pmd-accordion-arrow">keyboard_arrow_down</i>
                                                         </a>
@@ -169,7 +169,7 @@
                                                                 <h4>
                                                                     <a ng-init="counterMeal=counterMeal+1;"
                                                                         ng-click="showDetails = ! showDetails;">{{'Meal' | translate}}
-                                                                        #{{counterMeal=$index+1}}</a>
+                                                                        {{counterMeal=$index+1}}</a>
                                                                     <!-- <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="progDetailsPrepService.ShowProgramMeal(progDetailsPrepService.programDetails.programId, counterDay, counterMeal)">mode_edit</i> -->
                                                                 </h4>
                                                                 <div ng-show="showDetails">
@@ -179,21 +179,27 @@
                                                                             for="first-name">{{'Item' | translate}}</label>
                                                                         <ul>
                                                                             <li
-                                                                                ng-repeat="detail in progDetailsPrepService.programDetails | filter:{dayNumber:counterDay, mealNumberPerDay: counterMeal} ">
-                                                                                <div class="res-menu"
-                                                                                    ng-repeat="item in progDetailsPrepService.items |filter :{itemId:detail.itemId}">
-                                                                                    <!-- {{item.itemNameDictionary[selectedLanguage]}} -->
-                                                                                    <img src="/assets/img/meal.jpeg"
-                                                                                        alt="" />
-                                                                                    <h3> {{item.itemNameDictionary[selectedLanguage]}}
-                                                                                        <span>{{item.price}}</span>
+                                                                                ng-repeat="detail in progDetailsPrepService.programDetails | filter:{dayNumber:counterDay, mealNumberPerDay: counterMeal} :true ">
+                                                                                <div class="res-menu">
+                                                                                  
+                                                                                    <img src={{detail.item.imageUrl}}
+                                                                                        imageonload alt="">
+                                                                                    <h3>
+                                                                                        {{detail.item.itemNameDictionary[selectedLanguage]}}
+                                                                                        <!-- {{item.itemNameDictionary[selectedLanguage]}} -->
+                                                                                        <span>{{detail.item.totalPrice}}</span>
                                                                                     </h3>
+
                                                                                     <span
                                                                                         class="menu-item">{{item.itemDescriptionDictionary[selectedLanguage] }}</span>
-                                                                                        <span> {{'fat' | translate}}:{{item.fat}}</span>
-                                                                                        <span> {{'carbs' | translate}}:{{item.carbs}}</span>
-                                                                                        <span> {{'protein' | translate}}:{{item.protein}}</span>
-                                                                                        <span> {{'calories' | translate}}:{{item.calories}}</span>
+                                                                                    <span>
+                                                                                        {{'fat' | translate}}:{{detail.item.fat}}</span>
+                                                                                    <span>
+                                                                                        {{'carbs' | translate}}:{{detail.item.carbs}}</span>
+                                                                                    <span>
+                                                                                        {{'protein' | translate}}:{{detail.item.protein}}</span>
+                                                                                    <span>
+                                                                                        {{'calories' | translate}}:{{detail.item.calories}}</span>
                                                                                 </div>
 
                                                                             </li>

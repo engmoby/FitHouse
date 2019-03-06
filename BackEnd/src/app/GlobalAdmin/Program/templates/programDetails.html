@@ -17,7 +17,7 @@
             <div ng-show="n == true" id="collapseOne6" class="panel-collapse collapse in" role="tabpanel"
                 aria-labelledby="headingOne">
                 <div class="panel-body">
-                    <ul> 
+                    <ul>
                         <li
                             ng-repeat="meal in [].constructor(programDetailsCtrl.programDetails.noOfMeals)  track by $index">
                             <h4>
@@ -28,28 +28,17 @@
                                     ng-click="programDetailsCtrl.ShowProgramMeal(programDetailsCtrl.programDetails.programId, counterDay, counterMeal)">mode_edit</i>
 
                             </h4>
+ 
                             <div ng-show="showDetails">
                                 <div
                                     class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                                     <label for="first-name">{{'SelectItems' | translate}}</label>
-                                    {{programDetailsCtrl.programDetails.programId}}, {{counterDay}}, {{counterMeal}}
-
-                                    <!-- 
-                                    <div ng-repeat="detail in programDetailsCtrl.programDetails.programDetails 
-                                   | filter:{dayNumber:counterDay, mealNumberPerDay: counterMeal}">
-                                        <span>
-                                            {{detail.item.itemId}}+
-                                            {{detail.item.itemNameDictionary[selectedLanguage]}}
-                                        </span>
-                                    </div> -->
-                                    <!-- {{programDetailsCtrl.record}} -->
-
-                                    <ul>
-                                        <!-- ({{programDetailsCtrl.programDetails}}) -->
-                                        <li ng-repeat="detail in programDetailsCtrl.programDetails.programDetails | filter:{dayNumber:counterDay, mealNumberPerDay: counterMeal } ">
-                                         {{counterDay}} + {{counterMeal}} + {{detail.item.itemId}}+
-                                            {{detail.item.itemNameDictionary[selectedLanguage]}}
-                                            +{{detail.programDetailId}}
+                                   
+                                    <ul> 
+                                        <li
+                                             ng-repeat="detail in programDetailsCtrl.programDetails.programDetails | filter:{dayNumber:counterDay, mealNumberPerDay: counterMeal } : true">  
+                                            
+                                            {{detail.item.itemNameDictionary[selectedLanguage]}} 
                                             <!-- <div
                                                 ng-repeat="item in programDetailsCtrl.programDetails.items |filter :{itemId:detail.itemId}">
                                                 {{detail.itemId}}<br> {{item.itemNameDictionary[selectedLanguage]}}

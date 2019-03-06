@@ -1,14 +1,14 @@
-<div class="inn-body-section pad-bot-55">
-    <div class="container">
+<div class="hom-com ng-scope">
+        <div class="container">
         <div class="row">
             <div class="page-head">
                 <h2>{{'Meals' | translate}}</h2>
-                <div class="head-title">
+                <!-- <div class="head-title">
                     <div class="hl-1"></div>
                     <div class="hl-2"></div>
                     <div class="hl-3"></div>
                 </div>
-                <p>{{'MealsDescription' | translate}}</p>
+                <p>{{'MealsDescription' | translate}}</p> -->
             </div>
             <!--ROOM SECTION-->
 
@@ -32,31 +32,12 @@
                 <!--ROOM RATING-->
                 <div class="r2 r-com">
                     <h4>{{Meal.mealDescriptionDictionary[selectedLanguage] | limitTo:15}}</h4>
-                    <div class="r2-ratt">
-                        <i></i>
-                        <i></i>
-                        <i></i>
-                        <i></i>
-                        <i></i>
-                        <img src="images/h-trip.png" alt="" />
-                        <span></span>
-                    </div>
-                    <ul>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                    </ul>
                 </div>
                 <!--ROOM AMINITIES-->
                 <div class="r3 r-com">
-                    <ul>
-                        <li>{{'NumberOfItems' | translate}}: {{Meal.mealDetails.length}}</li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                        <li></li>
-                    </ul>
+                    <p>
+                         {{'NumberOfItems' | translate}}: {{Meal.mealDetails.length}} 
+                    </p>
                 </div>
                 <!--ROOM PRICE-->
                 <div class="r4 r-com">

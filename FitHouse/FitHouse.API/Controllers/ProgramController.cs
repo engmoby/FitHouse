@@ -107,15 +107,19 @@ namespace FitHouse.API.Controllers
         {
             var details = _programFacade.GetProgramItems(programId);
             var detailsModel = Mapper.Map<List<ProgramDetailModel>>(details);
+            foreach (var itemModel in detailsModel)
+            {
+                itemModel.Item.ImageUrl = Url.Link("ItemImage", new { itemModel.Item.CategoryId, itemModel.Item.ItemId });
 
-            var items = Mapper.Map<List<ItemProgramModel>>(_itemFacade.GetItemsById(details));
+            }
+           // var items = Mapper.Map<List<ItemProgramModel>>(_itemFacade.GetItemsById(details));
 
             var days = Mapper.Map<List<DayModel>>(_dayFacade.GetExcludesDays(programId));
 
             var program = Mapper.Map<ProgramModel>(_programFacade.GetProgramDetails(programId));
             program.ProgramDetails = detailsModel;
             program.Days = days;
-            program.Items = items;
+           // program.Items = items;
 
             return Ok(program);
         }

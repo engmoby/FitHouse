@@ -972,7 +972,7 @@
 		}
 
 
-		vm.orderType = {
+				vm.orderType = {
 			type: 'delivery'
 		};
 		vm.addresses = {
@@ -1008,13 +1008,13 @@
 			var temp = new BranchResource();
 			temp.$getBranch({ branchId: vm.selectedBranchId }).then(function (results) {
 				if (results.deliveryPrice == null) {
-					vm.DeliveryFees = 0;
-				}
-				else {
-					vm.DeliveryFees = results.deliveryPrice;
-				}
+                    vm.DeliveryFees = 0;
+                }
+                else {
+                    vm.DeliveryFees = results.deliveryPrice;
+                }
 
-				vm.Total = vm.ProgramTotalPrice + vm.DeliveryFees;
+                     vm.Total = vm.ProgramTotalPrice + vm.DeliveryFees;
 
 
 			},

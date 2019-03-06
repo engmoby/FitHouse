@@ -802,17 +802,17 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 
 angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/meal/templates/meal.html',
-    '<div class="inn-body-section pad-bot-55">\n' +
-    '    <div class="container">\n' +
+    '<div class="hom-com ng-scope">\n' +
+    '        <div class="container">\n' +
     '        <div class="row">\n' +
     '            <div class="page-head">\n' +
     '                <h2>{{\'Meals\' | translate}}</h2>\n' +
-    '                <div class="head-title">\n' +
+    '                <!-- <div class="head-title">\n' +
     '                    <div class="hl-1"></div>\n' +
     '                    <div class="hl-2"></div>\n' +
     '                    <div class="hl-3"></div>\n' +
     '                </div>\n' +
-    '                <p>{{\'MealsDescription\' | translate}}</p>\n' +
+    '                <p>{{\'MealsDescription\' | translate}}</p> -->\n' +
     '            </div>\n' +
     '            <!--ROOM SECTION-->\n' +
     '\n' +
@@ -836,31 +836,12 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                <!--ROOM RATING-->\n' +
     '                <div class="r2 r-com">\n' +
     '                    <h4>{{Meal.mealDescriptionDictionary[selectedLanguage] | limitTo:15}}</h4>\n' +
-    '                    <div class="r2-ratt">\n' +
-    '                        <i></i>\n' +
-    '                        <i></i>\n' +
-    '                        <i></i>\n' +
-    '                        <i></i>\n' +
-    '                        <i></i>\n' +
-    '                        <img src="images/h-trip.png" alt="" />\n' +
-    '                        <span></span>\n' +
-    '                    </div>\n' +
-    '                    <ul>\n' +
-    '                        <li></li>\n' +
-    '                        <li></li>\n' +
-    '                        <li></li>\n' +
-    '                        <li></li>\n' +
-    '                    </ul>\n' +
     '                </div>\n' +
     '                <!--ROOM AMINITIES-->\n' +
     '                <div class="r3 r-com">\n' +
-    '                    <ul>\n' +
-    '                        <li>{{\'NumberOfItems\' | translate}}: {{Meal.mealDetails.length}}</li>\n' +
-    '                        <li></li>\n' +
-    '                        <li></li>\n' +
-    '                        <li></li>\n' +
-    '                        <li></li>\n' +
-    '                    </ul>\n' +
+    '                    <p>\n' +
+    '                         {{\'NumberOfItems\' | translate}}: {{Meal.mealDetails.length}} \n' +
+    '                    </p>\n' +
     '                </div>\n' +
     '                <!--ROOM PRICE-->\n' +
     '                <div class="r4 r-com">\n' +
@@ -958,7 +939,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                                <!-- {{detail}} -->\n' +
     '                                                <div class="res-menu">\n' +
     '                                                    <!-- {{item.itemNameDictionary[selectedLanguage]}} -->\n' +
-    '                                                    <img src="/assets/img/meal.jpeg" alt="" />\n' +
+    '                                                    <img src={{detail.item.imageUrl}} imageonload alt=""> \n' +
     '                                                    <h3> {{detail.item.itemNameDictionary[selectedLanguage]}}\n' +
     '                                                        <span>{{detail.item.price}}</span>\n' +
     '                                                    </h3>\n' +
@@ -1376,7 +1357,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '<!-- <div class="main" >  -->\n' +
     '<!-- ng-style="style()" -->\n' +
     '<br>\n' +
-    '<div class="inn-body-section pad-bot-55">\n' +
+    '<div class="hom-com ng-scope">\n' +
     '    <div class="container">\n' +
     '        <div class="row">\n' +
     '            <div class="page-head">\n' +
@@ -1389,8 +1370,9 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                <!-- <p>{{\'ProgramsDescription\' | translate}}</p> -->\n' +
     '            </div>\n' +
     '            <!--ROOM SECTION-->\n' +
-    '            <div style="cursor: pointer !important;" ng-click="$state.go(\'programDetails\', {programId: Program.programId});" ng-repeat="Program in programPrepService"\n' +
-    '                class="room">\n' +
+    '            <div style="cursor: pointer !important;"\n' +
+    '                ng-click="$state.go(\'programDetails\', {programId: Program.programId});"\n' +
+    '                ng-repeat="Program in programPrepService" class="room">\n' +
     '\n' +
     '                <div class="ribbon ribbon-top-left">\n' +
     '                    <span>{{\'Program\' | translate}}</span>\n' +
@@ -1411,21 +1393,18 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                        <img src="images/h-trip.png" alt="" />\n' +
     '                        <span></span>\n' +
     '                    </div> -->\n' +
-    '                    <ul>\n' +
+    '                    <!-- <ul>\n' +
     '                        <li></li>\n' +
     '                        <li></li>\n' +
     '                        <li></li>\n' +
     '                        <li></li>\n' +
-    '                    </ul>\n' +
+    '                    </ul> -->\n' +
     '                </div>\n' +
     '                <!--ROOM AMINITIES-->\n' +
     '                <div class="r3 r-com">\n' +
     '                    <ul>\n' +
     '                        <li>{{\'ProgramDays\' | translate}}: {{Program.programDays}}</li>\n' +
-    '                        <li>{{\'MealPerDay\' | translate}}: {{Program.noOfMeals}}</li>\n' +
-    '                        <li></li>\n' +
-    '                        <li></li>\n' +
-    '                        <li></li>\n' +
+    '                        <li>{{\'MealPerDay\' | translate}}: {{Program.noOfMeals}}</li> \n' +
     '                    </ul>\n' +
     '                </div>\n' +
     '                <!--ROOM PRICE-->\n' +
@@ -1441,7 +1420,8 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                <div class="r5 r-com">\n' +
     '                    <!-- <div class="r2-available">{{\'Available\' | translate}}</div> -->\n' +
     '                    <p></p>\n' +
-    '                    <a ng-click="$state.go(\'programDetails\', {programId: Program.programId});" class="inn-room-book">{{\'Order\' | translate}}</a>\n' +
+    '                    <a ng-click="$state.go(\'programDetails\', {programId: Program.programId});"\n' +
+    '                        class="inn-room-book">{{\'Order\' | translate}}</a>\n' +
     '                </div>\n' +
     '            </div>\n' +
     '            <!--END ROOM SECTION-->\n' +
@@ -1608,7 +1588,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                                    data-expandable="false">\n' +
     '                                                    <h4 class="panel-title">\n' +
     '                                                        <a>\n' +
-    '                                                            {{\'Day\' | translate}} #{{counterDay=$index+1}}\n' +
+    '                                                            {{\'Day\' | translate}} {{counterDay=$index+1}}\n' +
     '                                                            <i\n' +
     '                                                                class="material-icons md-dark pmd-sm pmd-accordion-arrow">keyboard_arrow_down</i>\n' +
     '                                                        </a>\n' +
@@ -1625,7 +1605,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                                                <h4>\n' +
     '                                                                    <a ng-init="counterMeal=counterMeal+1;"\n' +
     '                                                                        ng-click="showDetails = ! showDetails;">{{\'Meal\' | translate}}\n' +
-    '                                                                        #{{counterMeal=$index+1}}</a>\n' +
+    '                                                                        {{counterMeal=$index+1}}</a>\n' +
     '                                                                    <!-- <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="progDetailsPrepService.ShowProgramMeal(progDetailsPrepService.programDetails.programId, counterDay, counterMeal)">mode_edit</i> -->\n' +
     '                                                                </h4>\n' +
     '                                                                <div ng-show="showDetails">\n' +
@@ -1635,21 +1615,27 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                                                            for="first-name">{{\'Item\' | translate}}</label>\n' +
     '                                                                        <ul>\n' +
     '                                                                            <li\n' +
-    '                                                                                ng-repeat="detail in progDetailsPrepService.programDetails | filter:{dayNumber:counterDay, mealNumberPerDay: counterMeal} ">\n' +
-    '                                                                                <div class="res-menu"\n' +
-    '                                                                                    ng-repeat="item in progDetailsPrepService.items |filter :{itemId:detail.itemId}">\n' +
-    '                                                                                    <!-- {{item.itemNameDictionary[selectedLanguage]}} -->\n' +
-    '                                                                                    <img src="/assets/img/meal.jpeg"\n' +
-    '                                                                                        alt="" />\n' +
-    '                                                                                    <h3> {{item.itemNameDictionary[selectedLanguage]}}\n' +
-    '                                                                                        <span>{{item.price}}</span>\n' +
+    '                                                                                ng-repeat="detail in progDetailsPrepService.programDetails | filter:{dayNumber:counterDay, mealNumberPerDay: counterMeal} :true ">\n' +
+    '                                                                                <div class="res-menu">\n' +
+    '                                                                                  \n' +
+    '                                                                                    <img src={{detail.item.imageUrl}}\n' +
+    '                                                                                        imageonload alt="">\n' +
+    '                                                                                    <h3>\n' +
+    '                                                                                        {{detail.item.itemNameDictionary[selectedLanguage]}}\n' +
+    '                                                                                        <!-- {{item.itemNameDictionary[selectedLanguage]}} -->\n' +
+    '                                                                                        <span>{{detail.item.totalPrice}}</span>\n' +
     '                                                                                    </h3>\n' +
+    '\n' +
     '                                                                                    <span\n' +
     '                                                                                        class="menu-item">{{item.itemDescriptionDictionary[selectedLanguage] }}</span>\n' +
-    '                                                                                        <span> {{\'fat\' | translate}}:{{item.fat}}</span>\n' +
-    '                                                                                        <span> {{\'carbs\' | translate}}:{{item.carbs}}</span>\n' +
-    '                                                                                        <span> {{\'protein\' | translate}}:{{item.protein}}</span>\n' +
-    '                                                                                        <span> {{\'calories\' | translate}}:{{item.calories}}</span>\n' +
+    '                                                                                    <span>\n' +
+    '                                                                                        {{\'fat\' | translate}}:{{detail.item.fat}}</span>\n' +
+    '                                                                                    <span>\n' +
+    '                                                                                        {{\'carbs\' | translate}}:{{detail.item.carbs}}</span>\n' +
+    '                                                                                    <span>\n' +
+    '                                                                                        {{\'protein\' | translate}}:{{detail.item.protein}}</span>\n' +
+    '                                                                                    <span>\n' +
+    '                                                                                        {{\'calories\' | translate}}:{{detail.item.calories}}</span>\n' +
     '                                                                                </div>\n' +
     '\n' +
     '                                                                            </li>\n' +

@@ -259,7 +259,7 @@
 			vm.Total = vm.ProgramTotalPrice + vm.DeliveryFees;
 			//GetBranchDelivery();
 		}
-
+		
 
 		vm.orderType = {
 			type: 'delivery'
@@ -297,20 +297,20 @@
 			vm.addressDetails = address;
 			vm.selectedBranchId = vm.addressDetails.branchId;
 			GetBranchDelivery();
-			//	vm.Total = vm.ProgramTotalPrice + vm.DeliveryFees;
+		//	vm.Total = vm.ProgramTotalPrice + vm.DeliveryFees;
 		}
 		function GetBranchDelivery() {
 			var temp = new BranchResource();
 			temp.$getBranch({ branchId: vm.selectedBranchId }).then(function (results) {
 				if (results.deliveryPrice == null) {
-					vm.DeliveryFees = 0;
-				}
-				else {
-					vm.DeliveryFees = results.deliveryPrice;
-				}
-
-				vm.Total = vm.ProgramTotalPrice + vm.DeliveryFees;
-
+                    vm.DeliveryFees = 0;
+                }
+                else {
+                    vm.DeliveryFees = results.deliveryPrice;
+                }
+ 
+                    vm.Total = vm.ProgramTotalPrice + vm.DeliveryFees;
+				 
 				//vm.DeliveryFees = results.deliveryPrice;
 				// blockUI.stop();
 
