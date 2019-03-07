@@ -20,33 +20,33 @@
 		});
 	});
 
-	// $(function () {
-
-	// 	$('#startdate').datetimepicker({
-	// 		widgetPositioning: { vertical: "top" },
-
-	// 		minDate: new Date()
-
-	// 	}
-	// 	)
-	// 	// .on('dp.change', function (e) {
-
-	// 	// 	angular.element(document.getElementById('startdate')).scope().dateChange();
-	// 	// });
-	// });
-
 	$(function () {
 		var today = new Date();
-		var tomorrow = new Date();
-		$('#startdate').datepicker(
-			{
-				minDate: tomorrow.setDate(today.getDate() + 1)
-			}
-		).on('dp.change', function (e) {
-			debugger;
+        today.setDate(today.getDate()+1)
+		$('#startdate').datetimepicker({
+			widgetPositioning: { vertical: "top" },
+
+			minDate: today
+
+		})
+		.on('dp.change', function (e) {
+
 			angular.element(document.getElementById('startdate')).scope().dateChange();
 		});
 	});
+
+	// $(function () {
+	// 	var today = new Date();
+	// 	var tomorrow = new Date();
+	// 	$('#startdate').datepicker(
+	// 		{
+	// 			minDate: tomorrow.setDate(today.getDate() + 1)
+	// 		}
+	// 	).on('dp.change', function (e) {
+	// 		debugger;
+	// 		angular.element(document.getElementById('startdate')).scope().dateChange();
+	// 	});
+	// });
 
 </script>
 
@@ -187,7 +187,7 @@
 						<div class="row">
 							<div class="input-field col s12">
 
-								<input name="itemDatetime" required ng-model="itemDatetime" type="text" id="startdate"
+								<input name="itemDatetime"  ng-model="itemDatetime" type="text" id="startdate"
 									class="form-control" placeholder="{{'startDate' | translate}}" />
 								<!-- <label for="from"></label> -->
 							</div>
@@ -204,7 +204,7 @@
 					 
 						<div class="row">
 							<div class="input-field col s12">
-								<input ng-disabled="cutomizeProgram.$invalid" type="submit" class="form-btn"
+								<input ng-disabled="cutomizeProgram.$invalid  || !dateIsValid" type="submit" class="form-btn"
 									ng-click="submitCustomise()" value="{{'MakeOrder' | translate}}">
 
 								<!-- <button style="width: 90%; height: 50%;" class="form-btn" ng-disabled="cutomizeProgram.$invalid  || settingsPrepService.minNoDaysPerProgram > programDaysCount" ng-click="submitCustomise()"></button> -->

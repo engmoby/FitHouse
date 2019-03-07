@@ -55,11 +55,11 @@
         }
 
         $scope.dateChange = function () {
-            debugger;
+            // debugger;
                if ($('#startdate').data('date') == null || $('#startdate').data('date') == "") {
                    $scope.dateIsValid = false;
                      $scope.$apply();
-               } else if (!$scope.orderForm.isInValid) {
+               } else if (!$scope.cutomizeProgram.isInValid) {
                    $scope.dateIsValid = true;
                     $scope.$apply();
                }

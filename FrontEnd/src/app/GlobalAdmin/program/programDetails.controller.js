@@ -107,7 +107,7 @@
             if ($('#startdate').data('date') == null || $('#startdate').data('date') == "") {
                 $scope.dateIsValid = false;
                  // $scope.$apply();
-            } else if (!$scope.orderForm.isInValid) {
+            } else if ($scope.orderForm.$valid) {
                 $scope.dateIsValid = true;
                 // $scope.$apply();
             }

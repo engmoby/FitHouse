@@ -1,28 +1,31 @@
 <script>
+    // $(function () {
+    //     var today = new Date();
+    //     var tomorrow = new Date();
+    //     $('#startdate').datepicker(
+    //         {
+    //             minDate: tomorrow.setDate(today.getDate() + 1)
+    //         }
+    //     ).on('dp.change', function (e) {
+    //         debugger;
+    //         angular.element(document.getElementById('startdate')).scope().dateChange();
+    //     });
+    // });
     $(function () {
         var today = new Date();
-        var tomorrow = new Date();
-        $('#startdate').datepicker(
-            {
-                minDate: tomorrow.setDate(today.getDate() + 1)
-            }
-        ).on('dp.change', function (e) {
+        today.setDate(today.getDate()+1)
+        
+        $('#startdate').datetimepicker({
+            widgetPositioning: { vertical: "bottom" },
+
+            minDate: today,
+
+        })
+        .on('dp.change', function (e) {
             debugger;
             angular.element(document.getElementById('startdate')).scope().dateChange();
         });
     });
-    // $(function () {
-    //     $('#startdate').datetimepicker({
-    //         widgetPositioning: { vertical: "bottom" },
-
-    //         minDate: new Date()
-
-    //     })
-    //     // .on('dp.change', function (e) {
-    //     //     debugger;
-    //     //     angular.element(document.getElementById('startdate')).scope().dateChange();
-    //     // });
-    // });
 </script>
 
 <!-- <div class="menu-section">
@@ -247,7 +250,7 @@
                                         <!-- {{itemDatetime}} -->
                                         <div class="col-md-6">
                                             <h5>{{'startDate' | translate}}</h5>
-                                            <input name="itemDatetime" required ng-model="itemDatetime" type="text"
+                                            <input name="itemDatetime"  ng-model="itemDatetime" type="text"
                                                 id="startdate" class="form-control" ng-change="dateChange();" />
                                         </div>
 
@@ -352,7 +355,7 @@
                                                 <button style="background-color: #e4e5e6;color: black!important;"
                                                     class="btn pmd-ripple-effect btn-primary" ng-click="Order()"
                                                     ng-disabled="orderForm.$invalid  || selectedBranchId <= 0 || 
-                                                    (addressValidation == false && orderType.type == 'delivery') && !dateIsValid">
+                                                    (addressValidation == false && orderType.type == 'delivery') || !dateIsValid">
                                                     {{'Order' | translate}}</button>
                                                 <!-- ng-disabled="orderForm.$invalid || !dateIsValid || addressValidation == false" -->
                                             </div>
