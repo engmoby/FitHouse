@@ -1,28 +1,28 @@
 <script>
-    // $(function () {
-    //     var today = new Date();
-    //     var tomorrow = new Date();
-    //     $('#startdate').datepicker(
-    //         {
-    //             minDate: tomorrow.setDate(today.getDate() + 1)
-    //         }
-    //     ).on('dp.change', function (e) {
-    //         debugger;
-    //         angular.element(document.getElementById('startdate')).scope().dateChange();
-    //     });
-    // });
     $(function () {
-        $('#startdate').datetimepicker({
-            widgetPositioning: { vertical: "bottom" },
-
-            minDate: new Date()
-
-        })
-        // .on('dp.change', function (e) {
-        //     debugger;
-        //     angular.element(document.getElementById('startdate')).scope().dateChange();
-        // });
+        var today = new Date();
+        var tomorrow = new Date();
+        $('#startdate').datepicker(
+            {
+                minDate: tomorrow.setDate(today.getDate() + 1)
+            }
+        ).on('dp.change', function (e) {
+            debugger;
+            angular.element(document.getElementById('startdate')).scope().dateChange();
+        });
     });
+    // $(function () {
+    //     $('#startdate').datetimepicker({
+    //         widgetPositioning: { vertical: "bottom" },
+
+    //         minDate: new Date()
+
+    //     })
+    //     // .on('dp.change', function (e) {
+    //     //     debugger;
+    //     //     angular.element(document.getElementById('startdate')).scope().dateChange();
+    //     // });
+    // });
 </script>
 
 <!-- <div class="menu-section">
@@ -341,7 +341,7 @@
                                                 </div>
 
                                             </div>
-
+ 
                                             <div class="input-field col s12 m4 l2">
                                                 {{'price' | translate}}:{{ progDetailsPrepService.price}}
                                                 <br> {{'DeliveryPrice' | translate}}:{{ DeliveryFees}}
@@ -351,7 +351,8 @@
                                                 <br>
                                                 <button style="background-color: #e4e5e6;color: black!important;"
                                                     class="btn pmd-ripple-effect btn-primary" ng-click="Order()"
-                                                    ng-disabled="orderForm.$invalid  || selectedBranchId <= 0 || (addressValidation == false && orderType.type == 'delivery') && !dateIsValid">
+                                                    ng-disabled="orderForm.$invalid  || selectedBranchId <= 0 || 
+                                                    (addressValidation == false && orderType.type == 'delivery') && !dateIsValid">
                                                     {{'Order' | translate}}</button>
                                                 <!-- ng-disabled="orderForm.$invalid || !dateIsValid || addressValidation == false" -->
                                             </div>

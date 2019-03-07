@@ -3,11 +3,11 @@
 
     angular
         .module('home')
-        .controller('mealDetailsController', ['$scope', '$stateParams', '$state', '$translate', 'appCONSTANTS'
+        .controller('mealDetailsController', ['$scope', 'blockUI','$stateParams', '$state', '$translate', 'appCONSTANTS'
             , '$filter', 'mealPrepService', 'itemsssPrepService', 'OrderResource'
             , 'RegionResource', 'BranchResource', 'CityResource', 'AreaResource', 'CountriesPrepService', mealDetailsController])
 
-    function mealDetailsController($scope, $stateParams, $state, $translate, appCONSTANTS
+    function mealDetailsController($scope,blockUI, $stateParams, $state, $translate, appCONSTANTS
         , $filter, mealPrepService
         , itemsssPrepService, OrderResource, RegionResource, BranchResource, CityResource, AreaResource
         , CountriesPrepService) {
@@ -222,7 +222,7 @@
         }
 
         $scope.Order = function () {
-            // blockUI.start($translate.instant('loading'));
+            blockUI.start($translate.instant('loading'));
 
             var order = new OrderResource();
 
@@ -236,7 +236,7 @@
 
             order.$createOrder().then(
                 function (data, status) {
-                    // blockUI.stop();
+                     blockUI.stop();
 
                     // ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
 
@@ -246,7 +246,7 @@
                     $state.go('Summary');
                 },
                 function (data, status) {
-                    // blockUI.stop();
+                    blockUI.stop();
 
                     // ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 }

@@ -3,11 +3,11 @@
 
     angular
         .module('home')
-        .controller('programDetailsController', ['$scope', '$state', '$stateParams', '$translate', 'appCONSTANTS'
+        .controller('programDetailsController', ['$scope','blockUI', '$state', '$stateParams', '$translate', 'appCONSTANTS'
             , '$filter', 'progDetailsPrepService', 'itemsssPrepService', 'OrderResource'
             , 'RegionResource', 'CityResource', 'AreaResource', 'CountriesPrepService', 'BranchResource', 'settingsPrepService', programDetailsController])
 
-    function programDetailsController($scope, $state, $stateParams, $translate, appCONSTANTS
+    function programDetailsController($scope,blockUI, $state, $stateParams, $translate, appCONSTANTS
         , $filter, progDetailsPrepService
         , itemsssPrepService, OrderResource, RegionResource, CityResource, AreaResource
         , CountriesPrepService, BranchResource, settingsPrepService) {
@@ -66,6 +66,7 @@
 
         $scope.addressValidation = false;
         $scope.addressInfo = function (address) {
+        debugger;
             $scope.addressDetails = address;
             $scope.addressValidation = true;
             $scope.selectedBranchId = $scope.addressDetails.branchId;
@@ -101,10 +102,11 @@
 
         $scope.dateIsValid = false;
         $scope.dateChange = function () {
+         debugger;
             if ($('#startdate').data('date') == null || $('#startdate').data('date') == "") {
                 $scope.dateIsValid = false;
-                // $scope.$apply();
-            } else if (!$scope.orderProgramForm.isInValid) {
+                 // $scope.$apply();
+            } else if (!$scope.orderForm.isInValid) {
                 $scope.dateIsValid = true;
                 // $scope.$apply();
             }

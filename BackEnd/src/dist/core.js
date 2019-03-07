@@ -263,7 +263,7 @@ angular.module('core')
         "FirstNameLbl": "FirstName",
         "LastNameLbl": "lastName",
         "EmailLbl": "Email",
-        "Phone1Lbl": "Phone1",
+        "Phone1Lbl": "Phone",
         "Phone2Lbl": "Phone2",
         "FirstNameLengthError": "FirstName is required",
         "LastNameLengthError": "LastName is required",

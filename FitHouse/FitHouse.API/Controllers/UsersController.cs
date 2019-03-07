@@ -53,7 +53,20 @@ namespace FitHouse.API.Controllers
             results.TotalCount = getAllDataForuser.TotalCount; 
             return PagedResponse("GetAllUsers", Page, PageSize, results.TotalCount, userList ); 
         }
-         
+
+
+        [Route("api/Users/GetAllClients", Name = "GetAllClients")]
+        [HttpGet]
+        public IHttpActionResult GetAllClients(int page = Page, int pagesize = PageSize)
+        {
+            var getAllDataForuser = _userService.GetAllClients(page, pagesize);
+            var userList = Mapper.Map<List<UserModel>>(getAllDataForuser.Data);
+            PagedResultsDto results = new PagedResultsDto();
+            results.TotalCount = getAllDataForuser.TotalCount;
+            return PagedResponse("GetAllClients", Page, PageSize, results.TotalCount, userList);
+        }
+
+
         [Route("api/Users/GetUserById", Name = "GetUserById")]
         [HttpGet]
         public IHttpActionResult GetUserById(long userId)

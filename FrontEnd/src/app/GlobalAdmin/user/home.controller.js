@@ -54,6 +54,18 @@
             };
         }
 
+        $scope.dateChange = function () {
+            debugger;
+               if ($('#startdate').data('date') == null || $('#startdate').data('date') == "") {
+                   $scope.dateIsValid = false;
+                     $scope.$apply();
+               } else if (!$scope.orderForm.isInValid) {
+                   $scope.dateIsValid = true;
+                    $scope.$apply();
+               }
+           }
+   
+
     }
 
 }

@@ -21,21 +21,82 @@
         vm.close = function () {
             $state.go('users');
         }
-
+        vm.counties = [];
+        vm.regions = [];
+        vm.cities = [];
+        vm.area = [];
+        vm.branchList = [];
         vm.show = true;
         $scope.roleList = RolePrepService.results;
         vm.selectedUserRoles = [];
         $scope.userObj = EditUserPrepService;
         $scope.userObj.confirmPassword = $scope.userObj.password;
         console.log($scope.userObj);
-        init();
+
+
+        vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
+        vm.selectedCountryId = 0;
+        vm.counties = vm.counties.concat(CountriesPrepService.results)
+
         var i;
         for (i = 0; i < $scope.userObj.userRoles.length; i++) {
             var indexRate = $scope.roleList.indexOf($filter('filter')($scope.roleList, { 'roleId': $scope.userObj.userRoles[i].roleId }, true)[0]);
             vm.selectedUserRoles.push($scope.roleList[indexRate]);
 
         }
+        if ($scope.userObj.areaId == null) {
+            vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
+            vm.selectedCountryId = 0;
+            vm.counties = vm.counties.concat(CountriesPrepService.results)
+        }
+        else {
+            
+          //  vm.counties = vm.counties.concat(CountriesPrepService.results)
+            vm.selectedCountryId = $scope.userObj.countryId;
 
+            /*region */
+            var temp = new RegionResource();
+            temp.$getAllRegions({ countryId: vm.selectedCountryId, pageSize: 0 }).then(function (results) {
+               //vm.selectedRegionId = 0;
+               vm.regions = vm.regions.concat(results.results);
+               vm.selectedRegionId = $scope.userObj.regionId;
+            },
+               function (data, status) {
+                   ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+               });
+            // var temp = new RegionResource();
+            // temp.$getRegion({ regionId: $scope.userObj.regionId }).then(function (results) {
+            //     vm.selectedRegionId = $scope.userObj.regionId;
+            //    // vm.regions = vm.regions.concat(results);
+            // },
+            //     function (data, status) {
+            //         ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+            //     });
+
+            /*city */
+
+            var temp = new CityResource();
+            temp.$getCity({ cityId: $scope.userObj.cityId }).then(function (results) {
+                vm.selectedCityId = $scope.userObj.cityId;
+                vm.cities = vm.cities.concat(results);
+            },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+
+            /*area */
+            var temp = new AreaResource();
+            temp.$getArea({ areaId: $scope.userObj.areaId }).then(function (results) {
+                
+                vm.selectedAreaId = $scope.userObj.areaId;
+                vm.area = vm.area.concat(results);
+                areaChange();
+            },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+            vm.selectedBranchId = $scope.userObj.branchesId;
+        }
 
         $scope.Updateclient = function () {
             blockUI.start("Loading...");
@@ -71,109 +132,42 @@
         blockUI.stop();
 
 
-        function init() {
-            vm.counties = [];
-            //   vm.selectedCountry = $scope.userObj.branch.area.city.region.country;// { countryId: 0, titleDictionary: { "en-us": "All Countries", "ar-eg": "كل البلاد" } };
-            vm.counties.push(vm.selectedCountry);
-            vm.counties = vm.counties.concat(CountriesPrepService.results)
-            //   vm.selectedRegion = $scope.userObj.branch.area.city.region;// { regionId: 0, titleDictionary: { "en-us": "All Regions", "ar-eg": "كل الأقاليم" } };
-            vm.regions = [];
-            vm.regions.push(vm.selectedRegion);
-            //   vm.selectedCity = $scope.userObj.branch.area.city;//{ cityId: 0, titleDictionary: { "en-us": "All Cities", "ar-eg": "كل المدن" } };
-            vm.cities = [];
-            vm.cities.push(vm.selectedCity);
-            //  vm.selectedArea = $scope.userObj.branch.area;// { areaId: 0, titleDictionary: { "en-us": "All Areas", "ar-eg": "كل المناطق" } };
-            vm.areaList = [];
-            vm.areaList.push(vm.selectedArea);
-            //   vm.selectedBranch = $scope.userObj.branch;// { branchId: 0, titleDictionary: { "en-us": "All Branches", "ar-eg": "كل الفروع" } };
-            vm.branchList = [];
-            vm.branchList.push(vm.selectedBranch);
-            debugger;
-            // console.log(vm.counties);
-            // var indexCountry = vm.counties.indexOf($filter('filter')(vm.counties, { 'countryId': $scope.userObj.countryId }, true)[0]);
-            // vm.selectedCountry = vm.counties[indexCountry];
-
-            // funcCountryChange();
-
-        }
-        function funcCountryChange() {
-            vm.selectedRegion = { regionId: 0, titleDictionary: { "en-us": "All Regions", "ar-eg": "كل الأقاليم" } };
-            vm.selectedCity = { cityId: 0, titleDictionary: { "en-us": "All Cities", "ar-eg": "كل المدن" } };
-            vm.selectedArea = { areaId: 0, titleDictionary: { "en-us": "All Areas", "ar-eg": "كل المناطق" } };
-            vm.regions = [];
-            vm.cities = [vm.selectedCity];
-            vm.areaList = [vm.selectedArea];
-            vm.regions.push(vm.selectedRegion);
-
-            vm.branchList = [];
-            vm.selectedBranch = { branchId: 0, titleDictionary: { "en-us": "All Branches", "ar-eg": "كل الفروع" } };
-            vm.branchList.push(vm.selectedBranch);
-
-
-            RegionResource.getAllRegions({ countryId: $scope.userObj.countryId, pageSize: 0 }).$promise.then(function (results) {
-
-                vm.regions = vm.regions.concat(results.results);
-
-                var indexregion = vm.regions.indexOf($filter('filter')(vm.regions, { 'regionId': $scope.userObj.regionId }, true)[0]);
-                vm.selectedRegion = vm.regions[indexregion];
-                funcregionChange();
-            },
-                function (data, status) {
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
-            // blockUI.stop();
-        }
-
-
         vm.countryChange = function () {
-            funcCountryChange();
-        }
-        function funcregionChange() {
-            if (vm.selectedRegion.regionId != undefined) {
+            // vm.counties.splice(0, 1);
+            if (vm.selectedCountryId != undefined) {
+                for (var i = vm.counties.length - 1; i >= 0; i--) {
+                    if (vm.counties[i].countryId == 0) {
+                        vm.counties.splice(i, 1);
+                    }
+                }
+                vm.regions = [];
                 vm.cities = [];
-                vm.areaList = [];
-                vm.selectedCity = { cityId: 0, titleDictionary: { "en-us": "All Cities", "ar-eg": "كل المدن" } };
-                vm.selectedArea = { areaId: 0, titleDictionary: { "en-us": "All Areas", "ar-eg": "كل المناطق" } };
-                vm.cities.push(vm.selectedCity);
-                vm.areaList = [vm.selectedArea];
-
-                vm.branchList = [];
-                vm.selectedBranch = { branchId: 0, titleDictionary: { "en-us": "All Branches", "ar-eg": "كل الفروع" } };
-                vm.branchList.push(vm.selectedBranch);
-                CityResource.getAllCities({ regionId: vm.selectedRegion.regionId, pageSize: 0 }).$promise.then(function (results) {
-
-                    vm.cities = vm.cities.concat(results.results);
-
-                    var indexcity = vm.cities.indexOf($filter('filter')(vm.cities, { 'cityId': $scope.userObj.cityId }, true)[0]);
-                    vm.selectedCity = vm.cities[indexcity];
-                    funcCityChange();
+                vm.area = [];
+                vm.regions.push({ regionId: 0, titleDictionary: { "en": "Select Region", "ar": "اختار اقليم" } });
+                RegionResource.getAllRegions({ countryId: vm.selectedCountryId, pageSize: 0 }).$promise.then(function (results) {
+                    vm.selectedRegionId = 0;
+                    vm.regions = vm.regions.concat(results.results);
                 },
                     function (data, status) {
                         ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
                     });
+                blockUI.stop();
             }
         }
         vm.regionChange = function () {
-            funcregionChange();
-        }
-
-        function funcCityChange() {
-
-            if (vm.selectedCity.cityId != undefined) {
-                vm.areaList = [];
-                vm.selectedArea = { areaId: 0, titleDictionary: { "en-us": "All Areas", "ar-eg": "كل المناطق" } };
-                vm.areaList.push(vm.selectedArea);
-
-                vm.branchList = [];
-                vm.selectedBranch = { branchId: 0, titleDictionary: { "en-us": "All Branches", "ar-eg": "كل الفروع" } };
-                vm.branchList.push(vm.selectedBranch);
-                AreaResource.getAllAreas({ cityId: vm.selectedCity.cityId, pageSize: 0 }).$promise.then(function (results) {
-                    vm.areaList = vm.areaList.concat(results.results);
-
-                    var indexarea = vm.areaList.indexOf($filter('filter')(vm.areaList, { 'areaId': $scope.userObj.areaId }, true)[0]);
-                    vm.selectedArea = vm.areaList[indexarea];
-                    funcAreaChange();
-
+            // vm.regions.splice(0, 1);
+            if (vm.selectedRegionId != undefined) {
+                for (var i = vm.regions.length - 1; i >= 0; i--) {
+                    if (vm.regions[i].regionId == 0) {
+                        vm.regions.splice(i, 1);
+                    }
+                }
+                vm.cities = [];
+                vm.area = [];
+                vm.cities.push({ cityId: 0, titleDictionary: { "en": "Select City", "ar": "اختار مدينة" } });
+                CityResource.getAllCities({ regionId: vm.selectedRegionId, pageSize: 0 }).$promise.then(function (results) {
+                    vm.selectedCityId = 0;
+                    vm.cities = vm.cities.concat(results.results);
                 },
                     function (data, status) {
                         ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
@@ -181,22 +175,52 @@
             }
         }
         vm.cityChange = function () {
-            funcCityChange();
+            // vm.cities.splice(0, 1);
+            if (vm.selectedCityId != undefined) {
+                for (var i = vm.cities.length - 1; i >= 0; i--) {
+                    if (vm.cities[i].cityId == 0) {
+                        vm.cities.splice(i, 1);
+                    }
+                }
+                vm.area = [];
+                vm.area.push({ areaId: 0, titleDictionary: { "en": "Select Area", "ar": "اختار منطقه" } });
+                AreaResource.getAllAreas({ cityId: vm.selectedCityId, pageSize: 0 }).$promise.then(function (results) {
+                    vm.selectedAreaId = 0;
+                    vm.area = vm.area.concat(results.results);
+                },
+                    function (data, status) {
+                        ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                    });
+            }
         }
-        function funcAreaChange() {
-            vm.branchList = [];
-            vm.selectedBranch = { branchId: 0, titleDictionary: { "en-us": "All Branches", "ar-eg": "كل الفروع" } };
-            vm.branchList.push(vm.selectedBranch);
-            if (vm.selectedArea.areaId > 0)
-                vm.branchList = vm.branchList.concat(vm.selectedArea.branches);
+        function areaChange() { 
+            // vm.area.splice(0, 1);
+            if (vm.selectedAreaId != undefined && vm.selectedAreaId > 0) {
+                for (var i = vm.area.length - 1; i >= 0; i--) {
+                    if (vm.area[i].areaId == 0) {
+                        vm.area.splice(i, 1);
+                    }
+                }
 
+                vm.branchList = [];
+               // vm.branchList = vm.area.branches;
+                // vm.branchList.push({ branchId: 0, titleDictionary: { "en": "Select Branch", "ar": "اختار فرع" } });
+                // vm.selectedBranchId = 0;
+              //  vm.selecteArea = vm.area.concat($filter('filter')(vm.area, { areaId: vm.selectedAreaId })[0].branches);
+                var indexarea = vm.area.indexOf($filter('filter')(vm.area, { 'areaId': vm.selectedAreaId }, true)[0]);
+                 vm.selecteArea = vm.area[indexarea];
 
-            var indexbranch = vm.branchList.indexOf($filter('filter')(vm.branchList, { 'branchId': $scope.userObj.branchId }, true)[0]);
-            vm.selectedBranch = vm.branchList[indexbranch];
+                //  var indexbranch = vm.branchList.indexOf($filter('filter')(vm.branchList, { 'branchId': $scope.userObj.branchId }, true)[0]);
+
+                debugger;
+                vm.selectedBranchId = vm.selecteArea.branches[0].branchId;
+                vm.branchList.push(vm.selecteArea.branches[0]);
+                //alert(vm.selectedBranchId);
+            }
 
         }
         vm.areaChange = function () {
-            funcAreaChange();
+            areaChange();
         }
     }
 

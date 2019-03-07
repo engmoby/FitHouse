@@ -20,18 +20,32 @@
 		});
 	});
 
+	// $(function () {
+
+	// 	$('#startdate').datetimepicker({
+	// 		widgetPositioning: { vertical: "top" },
+
+	// 		minDate: new Date()
+
+	// 	}
+	// 	)
+	// 	// .on('dp.change', function (e) {
+
+	// 	// 	angular.element(document.getElementById('startdate')).scope().dateChange();
+	// 	// });
+	// });
+
 	$(function () {
-
-		$('#startdate').datetimepicker({widgetPositioning:{vertical:"top"},
-			
-				minDate: new Date()
-
+		var today = new Date();
+		var tomorrow = new Date();
+		$('#startdate').datepicker(
+			{
+				minDate: tomorrow.setDate(today.getDate() + 1)
 			}
-		)
-		// .on('dp.change', function (e) {
-			
-		// 	angular.element(document.getElementById('startdate')).scope().dateChange();
-		// });
+		).on('dp.change', function (e) {
+			debugger;
+			angular.element(document.getElementById('startdate')).scope().dateChange();
+		});
 	});
 
 </script>
@@ -187,11 +201,11 @@
 								</div>
 							</div>
 						</div>
+					 
 						<div class="row">
 							<div class="input-field col s12">
-								<input
-									ng-disabled="cutomizeProgram.$invalid  || settingsPrepService.minNoDaysPerProgram > programDaysCount"
-									type="button" class="form-btn" ng-click="submitCustomise()" value="{{'MakeOrder' | translate}}"  >
+								<input ng-disabled="cutomizeProgram.$invalid" type="submit" class="form-btn"
+									ng-click="submitCustomise()" value="{{'MakeOrder' | translate}}">
 
 								<!-- <button style="width: 90%; height: 50%;" class="form-btn" ng-disabled="cutomizeProgram.$invalid  || settingsPrepService.minNoDaysPerProgram > programDaysCount" ng-click="submitCustomise()"></button> -->
 							</div>

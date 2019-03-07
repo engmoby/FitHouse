@@ -249,6 +249,46 @@
                 })
 
 
+                .state('clients', {
+                    url: '/clients',
+                    templateUrl: './app/GlobalAdmin/client/templates/client.html',
+                    controller: 'clientController',
+                    'controllerAs': 'clientCtrl',
+                    resolve: {
+                        clientPrepService: clientPrepService,
+                        RolePrepService: RolePrepService,
+                        CountriesPrepService: CountriesPrepService,
+                    },
+                    data: {
+                        permissions: {
+                            only: ['1'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                }) 
+
+                .state('editClient', {
+                    url: '/editClient/:userId',
+                    templateUrl: './app/GlobalAdmin/client/templates/editClient.html',
+                    controller: 'editClientController',
+                    'controllerAs': 'editClientCtrl',
+                    resolve: {
+                        EditClientPrepService: EditClientPrepService,
+                        RolePrepService: AllRolePrepService,
+                        CountriesPrepService: CountriesPrepService,
+
+                    },
+                    data: {
+                        permissions: {
+                            only: ['1'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
+
                 .state('Role', {
                     url: '/Role',
                     templateUrl: './app/GlobalAdmin/Role/templates/Role.html',
@@ -736,6 +776,17 @@
     userConsumedPrepService.$inject = ['UserResource']
     function userConsumedPrepService(UserResource) {
         return UserResource.getUserLimit().$promise;
+    }
+
+    /*Client */
+    clientPrepService.$inject = ['ClientResource']
+    function clientPrepService(ClientResource) {
+        return ClientResource.getAllClients().$promise;
+    }
+
+    EditClientPrepService.$inject = ['ClientResource', '$stateParams']
+    function EditClientPrepService(GetClientResource, $stateParams) {
+        return GetClientResource.getClient({ clientId: $stateParams.clientId }).$promise;
     }
 
     /*Role */

@@ -1,0 +1,54 @@
+<div>
+    <!-- <div style="margin-bottom:10px">
+        <button style="background-color: #e4e5e6;color: black!important;" ng-click="$state.go('addClient');"
+            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddClientBtn' | translate}}</button>
+
+    </div> -->
+    <div ng-if="clientCtrl.clientList.results.length == 0">
+        <span>{{'NoclientAvailable' | translate}}</span>
+    </div>
+
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="clientList.length >0">
+
+        <div class="table-responsive">
+            <table class="table pmd-table table-hover">
+                <thead>
+                    <tr>
+                        <th>{{'clientName' | translate}}</th>
+                        <th>{{'EmailLbl' | translate}}</th>
+                        <th>{{'Phone1Lbl' | translate}}</th>
+                        <th>{{'Status' | translate}}</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr ng-repeat="client in clientList">
+                        <td data-title="Name" width="20%">{{client.firstName}} {{client.lastName}}</td>
+                        <td data-title="Name" width="20%">{{client.email}} </td>
+
+                        <td data-title="Description">{{client.phone}}</td>
+                        <td>
+                            <div class="btn-switch" ng-class="{'btn-switch--on':client.isActive}" ng-model="client.isActive"
+                                ng-click="clientCtrl.UpdateClient(client)">
+
+                                <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':client.isActive}"
+                                    ng-model="client.isActive" ng-click="clientCtrl.UpdateClient(client)">
+                                </div>
+                        </td>
+                        <td width="30%">
+                            <i class="material-icons md-dark pmd-md cursorPointer font25"
+                                ng-click="$state.go('editClient', {userId: client.userId});">mode_edit</i>
+                            <!-- <i class="material-icons pmd-md deleteButton cursorPointer font25" ng-click="CategoryCtrl.openDeleteDialog(Category,Category.titleDictionary[selectedLanguage],Category.categoryId)">delete</i> -->
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+    </div>
+
+    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"
+        paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true"
+        disabled-class="hide">
+    </div>
+</div>
