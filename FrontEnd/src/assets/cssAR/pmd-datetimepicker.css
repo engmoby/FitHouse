@@ -217,7 +217,7 @@
 
 .clockpickerseconds,
 .clockpickerr,
-.clockpickerminute { border-radius:500px; -moz-border-radius:500px; -ms-border-radius:500px; -webkit-border-radius:500px; -o-border-radius:500px; width: 270px; height: 270px; margin:30px 0; /* background:url(sm.png) center no-repeat; background-size:auto 77%;*/}
+.clockpickerminute { border-radius:500px; -moz-border-radius:500px; -ms-border-radius:500px; -webkit-border-radius:500px; -o-border-radius:500px; width: 270px; height: 270px; margin:10px 0; /* background:url(sm.png) center no-repeat; background-size:auto 77%;*/}
 
 
 .timepicker .clockpickerseconds .second,

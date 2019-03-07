@@ -1,11 +1,12 @@
 <script>
     $(function () {
-        $('#startdate').datepicker(
-            {
-                minDate: new Date()
+        $('#startdate').datetimepicker({
+             widgetPositioning: { vertical: "top" },//,inline:true,sideBySide:true,
+
+            minDate: new Date()
             }
         ).on('dp.change', function (e) {
-            debugger;
+            // debugger;
             angular.element(document.getElementById('startdate')).scope().dateChange();
         });
     });
@@ -30,7 +31,7 @@
                         </div> -->
                     </div>
 
-                    <div class="hp-section">
+                    <div class="hp-section" style="overflow: unset !important">
                         <div class="hp-sub-tit">
                             <h4>
                                 <span>{{'MealDetails' | translate}}</span>
@@ -110,7 +111,7 @@
                                         <!-- {{itemDatetime}} -->
                                         <div class="col-md-6">
                                             <h5>{{'startDate' | translate}}</h5>
-                                            <input name="itemDatetime" required ng-model="itemDatetime" type="text" id="startdate" class="form-control" ng-change="dateChange();"
+                                            <input name="itemDatetime"  ng-model="itemDatetime" type="text" id="startdate" class="form-control" ng-change="dateChange();"
                                             />
                                         </div>
 
@@ -156,7 +157,8 @@
                                                 {{'Pricelbl' | translate}}:{{ mealPrepService.mealPrice}}
                                                 <br>
                                                 <!-- {{areaChanged}} -->
-                                                <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="areaChanged == false || orderForm.$invalid || selectedBranchId <= 0 && !dateIsValid"
+                                                {{orderForm.$invalid}}
+                                                {{dateIsValid}}<button style="background-color: #e4e5e6;color: black!important;" ng-disabled="areaChanged == false || orderForm.$invalid || selectedBranchId <= 0 || !dateIsValid"
                                                     class="btn pmd-ripple-effect btn-primary" type="button" ng-click="Order();">
                                                     {{'Order' | translate}}</button>
 

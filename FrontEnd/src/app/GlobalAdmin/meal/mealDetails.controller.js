@@ -67,29 +67,32 @@
         $scope.dateIsValid = false;
         $scope.dateChange = function () {
 
-
-            if ($scope.itemDatetime == null || $scope.itemDatetime == "") {
+            if ($('#startdate').data('date')== null || $('#startdate').data('date') == "") {
+                // if ($scope.itemDatetime == null || $scope.itemDatetime == "") {
                 $scope.dateIsValid = false;
                 // $scope.$apply();
-            } else if (!$scope.orderForm.isInValid) {
+            } else if ($scope.orderForm.$valid) {
 
-                var GivenDate = $scope.itemDatetime;
-                var CurrentDate = new Date();
-                GivenDate = new Date(GivenDate);
+                $scope.dateIsValid = true;
 
-                GivenDate.setHours(CurrentDate.getHours());
-                GivenDate.setMinutes(CurrentDate.getMinutes());
-                GivenDate.setSeconds(CurrentDate.getSeconds());
+                // var GivenDate = $scope.itemDatetime;
+                // var GivenDate = $('#startdate').data('date')
+                // var CurrentDate = new Date();
+                // GivenDate = new Date(GivenDate);
 
-                if (GivenDate > CurrentDate) {
-                    // alert('Given date is greater than the current date.');
-                    $scope.dateIsValid = true;
-                }
-                else {
-                    // alert('Given date is not greater than the current date.');
-                    //$scope.dateIsValid = false;
+                // GivenDate.setHours(CurrentDate.getHours());
+                // GivenDate.setMinutes(CurrentDate.getMinutes());
+                // GivenDate.setSeconds(CurrentDate.getSeconds());
 
-                }
+                // if (GivenDate >= CurrentDate) {
+                //     // alert('Given date is greater than the current date.');
+                //     $scope.dateIsValid = true;
+                // }
+                // else {
+                //     // alert('Given date is not greater than the current date.');
+                //     //$scope.dateIsValid = false;
+
+                // }
                 // $scope.$apply();
             }
         }
