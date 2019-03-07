@@ -740,10 +740,10 @@
 
 	angular
 		.module('home')
-		.controller('CustomController', ['$scope', '$filter', '$timeout', '$state', 'UserAddressesResource', 'BranchResource', '$translate', 'RegionResource', 'CityResource',
+		.controller('CustomController', ['$scope', 'blockUI', '$filter', '$timeout', '$state', 'UserAddressesResource', 'BranchResource', '$translate', 'RegionResource', 'CityResource',
 			'AreaResource', 'CountriesPrepService', 'CustomResource', 'itemsPrepService', 'ToastService', CustomController])
 
-	function CustomController($scope, $filter, $timeout, $state, UserAddressesResource, BranchResource, $translate, RegionResource, CityResource, AreaResource, CountriesPrepService,
+	function CustomController($scope,blockUI, $filter, $timeout, $state, UserAddressesResource, BranchResource, $translate, RegionResource, CityResource, AreaResource, CountriesPrepService,
 		CustomResource, itemsPrepService, ToastService) {
 
 		var vm = this;
@@ -764,20 +764,6 @@
 		vm.Total = 0;
 		vm.DeliveryFees = 0;
 		debugger;
-		if (vm.order != null) {
-			$timeout(function () {
-				vm.order = JSON.parse(localStorage.getItem("OrderSummary"));
-				localStorage.removeItem("OrderSummary");
-				localStorage.removeItem("itemDatetime");
-				localStorage.removeItem("isSnack");
-				localStorage.removeItem("isBreakFast");
-				localStorage.removeItem("dayList");
-				localStorage.removeItem("mealPerDay");
-				localStorage.removeItem("programDaysCount");
-				localStorage.removeItem("ProgramDiscount");
-				$state.go('homePage')
-			}, 10000);
-		}
 		$scope.getData = function (itemModel, day, meal) {
 
 			var differntMeal = $filter('filter')(vm.itemList, x => (x.dayNumber == day && x.mealNumberPerDay != meal) || (x.dayNumber != day));
@@ -816,7 +802,8 @@
 		}
 
 		vm.AddNewProgram = function () {
-			var newProgram = new CustomResource();
+			blockUI.start($translate.instant('loading'));
+				var newProgram = new CustomResource();
 			newProgram.isActive = true;
 			newProgram.programDays = vm.daysCount;
 			newProgram.noOfMeals = vm.mealsCount;
@@ -844,11 +831,13 @@
 			}
 			newProgram.$create().then(
 				function (data, status) {
+					blockUI.stop();
 					debugger;
 					localStorage.setItem('OrderSummary', JSON.stringify(data));
 					$state.go('Summary');
 				},
 				function (data, status) {
+					blockUI.stop();
 				}
 			);
 		}
@@ -1525,21 +1514,20 @@
     function orderProgramDetailscontroller($scope, $stateParams, $translate, appCONSTANTS
         , $filter, OrderprogDetailsPrepService
         , itemsssPrepService) {
-        debugger;
         $scope.OrderprogDetailsPrepService = OrderprogDetailsPrepService;
         $scope.itemsssPrepService = itemsssPrepService;
         $scope.clientId = localStorage.getItem('ClientId');
 
-         $scope.fats = 0;
+        $scope.fats = 0;
         $scope.carbs = 0;
         $scope.protein = 0;
         $scope.calories = 0;
 
-        for (var i = 0; i < $scope.OrderprogDetailsPrepService.items.length; i++) {
-            $scope.fats += $scope.OrderprogDetailsPrepService.items[i].fat;
-            $scope.carbs += $scope.OrderprogDetailsPrepService.items[i].carbs;
-            $scope.protein += $scope.OrderprogDetailsPrepService.items[i].protein;
-            $scope.calories += $scope.OrderprogDetailsPrepService.items[i].calories;
+        for (var i = 0; i < $scope.OrderprogDetailsPrepService.programDetails.length; i++) { 
+            $scope.fats = $scope.OrderprogDetailsPrepService.programDetails[i].item.fat; 
+            $scope.carbs += $scope.OrderprogDetailsPrepService.programDetails[i].item.carbs;
+            $scope.protein += $scope.OrderprogDetailsPrepService.programDetails[i].item.protein;
+            $scope.calories += $scope.OrderprogDetailsPrepService.programDetails[i].item.calories;
         }
 
 
@@ -1685,11 +1673,11 @@
         $scope.DeliveryFees = 0;
         $scope.Total = 0;
 
-        for (var i = 0; i < $scope.progDetailsPrepService.items.length; i++) {
-            $scope.fats += $scope.progDetailsPrepService.items[i].fat;
-            $scope.carbs += $scope.progDetailsPrepService.items[i].carbs;
-            $scope.protein += $scope.progDetailsPrepService.items[i].protein;
-            $scope.calories += $scope.progDetailsPrepService.items[i].calories;
+        for (var i = 0; i < $scope.progDetailsPrepService.programDetails.length; i++) {
+            $scope.fats += $scope.progDetailsPrepService.programDetails[i].item.fat;
+            $scope.carbs += $scope.progDetailsPrepService.programDetails[i].item.carbs;
+            $scope.protein += $scope.progDetailsPrepService.programDetails[i].item.protein;
+            $scope.calories += $scope.progDetailsPrepService.programDetails[i].item.calories;
         }
 
         $scope.style = function () {

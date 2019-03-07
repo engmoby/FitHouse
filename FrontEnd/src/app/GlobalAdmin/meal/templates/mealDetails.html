@@ -62,7 +62,7 @@
                             <div class="tab-content">
                                 <div id="home" class="tab-pane fade in active tab-space">
                                     <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-                                        <label for="first-name">{{'Items' | translate}}</label>
+                                        <label for="first-name">{{'Item' | translate}}</label>
                                         <ul>
                                             <li ng-repeat="detail in mealPrepService.mealDetails">
                                                 <!-- {{detail}} -->
@@ -70,7 +70,7 @@
                                                     <!-- {{item.itemNameDictionary[selectedLanguage]}} -->
                                                     <img src={{detail.item.imageUrl}} imageonload alt=""> 
                                                     <h3> {{detail.item.itemNameDictionary[selectedLanguage]}}
-                                                        <span>{{detail.item.price}}</span>
+                                                        <span>{{detail.item.totalPrice}}</span>
                                                     </h3>
                                                     <span class="menu-item">{{detail.item.itemDescriptionDictionary[selectedLanguage] }}</span>
                                                     <span> {{'fat' | translate}}:{{detail.item.fat}}</span>
@@ -87,19 +87,19 @@
                                 <div id="menu1" class="tab-pane fade in   tab-space">
                                     <div class="hp-main-overview">
                                         <ul>
-                                            <li>{{'Fats' | translate}}:
-                                                <span>{{fats}}</span>
-                                            </li>
-                                            <li>{{'Carbs' | translate}}:
-                                                <span>{{carbs}}</span>
-                                            </li>
-                                            <li>{{'Protein' | translate}}:
-                                                <span>{{protein}}</span>
-                                            </li>
-                                            <li>{{'Calories' | translate}}:
-                                                <span>{{calories}}</span>
-                                            </li>
-                                            <li>{{'TotalPrice' | translate}}:
+                                                <li>{{'fat' | translate}}:
+                                                        <span>{{fats}}</span>
+                                                    </li>
+                                                    <li>{{'carbs' | translate}}:
+                                                        <span>{{carbs}}</span>
+                                                    </li>
+                                                    <li>{{'protein' | translate}}:
+                                                        <span>{{protein}}</span>
+                                                    </li>
+                                                    <li>{{'calories' | translate}}:
+                                                        <span>{{calories}}</span>
+                                                    </li>
+                                                    <li>{{'Total' | translate}}:
                                                 <span class="ov-yes">{{mealPrepService.mealPrice}}</span>
                                             </li>
                                         </ul>
@@ -109,7 +109,7 @@
                                     <form name="orderForm">
                                         <!-- {{itemDatetime}} -->
                                         <div class="col-md-6">
-                                            <h5>{{'OrderDate' | translate}}</h5>
+                                            <h5>{{'startDate' | translate}}</h5>
                                             <input name="itemDatetime" required ng-model="itemDatetime" type="text" id="startdate" class="form-control" ng-change="dateChange();"
                                             />
                                         </div>
@@ -153,12 +153,12 @@
                                                 <!-- ng-disabled="orderForm.$invalid || !dateIsValid || addressValidation == false" -->
 
 
-                                                Price:{{ mealPrepService.mealPrice}}
+                                                {{'Pricelbl' | translate}}:{{ mealPrepService.mealPrice}}
                                                 <br>
                                                 <!-- {{areaChanged}} -->
                                                 <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="areaChanged == false || orderForm.$invalid || selectedBranchId <= 0 && !dateIsValid"
                                                     class="btn pmd-ripple-effect btn-primary" type="button" ng-click="Order();">
-                                                    {{'order' | translate}}</button>
+                                                    {{'Order' | translate}}</button>
 
                                             </div>
                                         </div>

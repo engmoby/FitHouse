@@ -116,6 +116,7 @@
                     </div>
 
                 </div> 
+                {{!stepTwoProgramForm.$invalid}}
                 <div ng-show="!stepTwoProgramForm.$invalid" class="head-typo typo-com collap-expand">
                     <h4>{{'addressLbl' | translate}}</h4>
                     <div class="col-md-12">
@@ -285,7 +286,7 @@
                                 ng-disabled="stepTwoProgramForm.$invalid || CustomCtrl.selectedBranchId <= 0"
                                 class="btn pmd-ripple-effect btn-primary" type="button"
                                 ng-click="CustomCtrl.AddNewProgram();">
-                                {{'Save' | translate}}</button>
+                                {{'Order' | translate}}</button>
                         </div>
                     </div>
             </form>

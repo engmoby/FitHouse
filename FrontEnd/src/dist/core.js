@@ -54,8 +54,8 @@
 	angular
 		.module('core')
 		.constant('appCONSTANTS', {
-		//	'API_URL': 'http://localhost:32569/api/',
-			 'API_URL': 'http://fithouse.azurewebsites.net/api/',
+			'API_URL': 'http://localhost:32569/api/',
+		//	 'API_URL': 'http://fithouse.azurewebsites.net/api/',
 
 			'defaultLanguage': 'en',
 			'supportedLanguage': {
@@ -632,12 +632,20 @@ angular.module('core')
         "copyrigth": "© 2019 Fit House | All rights reserved", 
         "NoAddressAvailable": "No Address yet", 
 
+        "NoExcludedDays": "No Excluded Days", 
+        "ExcludedDays": "Excluded Days", 
+        "MealDetails": "Meal Details", 
+        "Details": "Details", 
       }
 
       var ar_translations = {
+        "Details": "التفاصيل", 
+        "MealDetails": "تفاصيل الوجبه", 
         "thanks": "شكرا لاستخدامك النظام الخاص بنا ", 
         "NumberOfItems": "عدد الوجبات", 
         "NoAddressAvailable": "لا توجد عناوين حتي الان", 
+        "NoExcludedDays": "لا توجد أيام مستبعدة", 
+        "ExcludedDays": " أيام مستبعدة", 
 
         "copyrigth": " حقوق الملكيه لسنه  2019 Fit House", 
         "NoOrdersAvailable":"لا يوجد طلبات حتي الان", 

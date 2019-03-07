@@ -40,7 +40,7 @@
                                                 data-expandable="false">
                                                 <h4 class="panel-title">
                                                     <a>
-                                                        {{'ProgramDays' | translate}} {{counterDay=$index+1}}
+                                                        {{'Day' | translate}} {{counterDay=$index+1}}
                                                         <i
                                                             class="material-icons md-dark pmd-sm pmd-accordion-arrow">keyboard_arrow_down</i>
                                                     </a>
@@ -67,21 +67,26 @@
                                                                         for="first-name">{{'Item' | translate}}</label>
                                                                     <ul>
                                                                         <li
-                                                                            ng-repeat="detail in OrderprogDetailsPrepService.programDetails | filter:{dayNumber:counterDay, mealNumberPerDay: counterMeal} ">
-                                                                            <div class="res-menu"
-                                                                                ng-repeat="item in OrderprogDetailsPrepService.items |filter :{itemId:detail.itemId}">
+                                                                            ng-repeat="detail in OrderprogDetailsPrepService.programDetails | filter:{dayNumber:counterDay, mealNumberPerDay: counterMeal} :true">
+                                                                            <div class="res-menu">
                                                                                 <!-- {{item.itemNameDictionary[selectedLanguage]}} -->
-                                                                                <img src={{item.imageUrl}} imageonload alt=""> 
+                                                                                <img src={{detail.item.imageUrl}}
+                                                                                    imageonload alt="">
 
-                                                                                <h3> {{item.itemNameDictionary[selectedLanguage]}}
-                                                                                    <span>{{item.totalPrice}}</span>
+                                                                                <h3> {{detail.item.itemNameDictionary[selectedLanguage]}}
+                                                                                    <span>{{detail.item.totalPrice}}</span>
                                                                                 </h3>
-                                                                                <span class="menu-item">{{item.itemDescriptionDictionary[selectedLanguage]}}</span>
-                                                                                <span> {{'fat' | translate}}:{{item.fat}}</span>
-                                                                                <span> {{'carbs' | translate}}:{{item.carbs}}</span>
-                                                                                <span> {{'protein' | translate}}:{{item.protein}}</span>
-                                                                                <span> {{'calories' | translate}}:{{item.calories}}</span>
-                                                                             </div>
+                                                                                <span
+                                                                                    class="menu-item">{{detail.item.itemDescriptionDictionary[selectedLanguage]}}</span>
+                                                                                <span>
+                                                                                    {{'fat' | translate}}:{{detail.item.fat}}</span>
+                                                                                <span>
+                                                                                    {{'carbs' | translate}}:{{detail.item.carbs}}</span>
+                                                                                <span>
+                                                                                    {{'protein' | translate}}:{{detail.item.protein}}</span>
+                                                                                <span>
+                                                                                    {{'calories' | translate}}:{{detail.item.calories}}</span>
+                                                                            </div>
 
                                                                         </li>
                                                                     </ul>
@@ -97,7 +102,7 @@
                             </div>
                             <div id="menu1" class="tab-pane fade in   tab-space">
                                 <div class="hp-main-overview">
-                                    <ul>
+                                     <ul>
                                         <li>{{'fat' | translate}}:
                                             <span>{{fats}}</span>
                                         </li>

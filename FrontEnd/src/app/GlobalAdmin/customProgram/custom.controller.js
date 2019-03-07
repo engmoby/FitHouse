@@ -3,10 +3,10 @@
 
 	angular
 		.module('home')
-		.controller('CustomController', ['$scope', '$filter', '$timeout', '$state', 'UserAddressesResource', 'BranchResource', '$translate', 'RegionResource', 'CityResource',
+		.controller('CustomController', ['$scope', 'blockUI', '$filter', '$timeout', '$state', 'UserAddressesResource', 'BranchResource', '$translate', 'RegionResource', 'CityResource',
 			'AreaResource', 'CountriesPrepService', 'CustomResource', 'itemsPrepService', 'ToastService', CustomController])
 
-	function CustomController($scope, $filter, $timeout, $state, UserAddressesResource, BranchResource, $translate, RegionResource, CityResource, AreaResource, CountriesPrepService,
+	function CustomController($scope,blockUI, $filter, $timeout, $state, UserAddressesResource, BranchResource, $translate, RegionResource, CityResource, AreaResource, CountriesPrepService,
 		CustomResource, itemsPrepService, ToastService) {
 
 		var vm = this;
@@ -27,21 +27,21 @@
 		vm.Total = 0;
 		vm.DeliveryFees = 0;
 		debugger;
-		if (vm.order != null) {
-			//10 seconds delay
-			$timeout(function () {
-				vm.order = JSON.parse(localStorage.getItem("OrderSummary"));
-				localStorage.removeItem("OrderSummary");
-				localStorage.removeItem("itemDatetime");
-				localStorage.removeItem("isSnack");
-				localStorage.removeItem("isBreakFast");
-				localStorage.removeItem("dayList");
-				localStorage.removeItem("mealPerDay");
-				localStorage.removeItem("programDaysCount");
-				localStorage.removeItem("ProgramDiscount");
-				$state.go('homePage')
-			}, 10000);
-		}
+		// if (vm.order != null) {
+		// 	//10 seconds delay
+		// 	$timeout(function () {
+		// 		vm.order = JSON.parse(localStorage.getItem("OrderSummary"));
+		// 		localStorage.removeItem("OrderSummary");
+		// 		localStorage.removeItem("itemDatetime");
+		// 		localStorage.removeItem("isSnack");
+		// 		localStorage.removeItem("isBreakFast");
+		// 		localStorage.removeItem("dayList");
+		// 		localStorage.removeItem("mealPerDay");
+		// 		localStorage.removeItem("programDaysCount");
+		// 		localStorage.removeItem("ProgramDiscount");
+		// 		$state.go('homePage')
+		// 	}, 10000);
+		// }
 		$scope.getData = function (itemModel, day, meal) {
 
 			var differntMeal = $filter('filter')(vm.itemList, x => (x.dayNumber == day && x.mealNumberPerDay != meal) || (x.dayNumber != day));
@@ -85,7 +85,8 @@
 		}
 
 		vm.AddNewProgram = function () {
-			var newProgram = new CustomResource();
+			blockUI.start($translate.instant('loading'));
+				var newProgram = new CustomResource();
 			newProgram.isActive = true;
 			newProgram.programDays = vm.daysCount;
 			newProgram.noOfMeals = vm.mealsCount;
@@ -114,11 +115,13 @@
 			newProgram.$create().then(
 				function (data, status) {
 					//	ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+					blockUI.stop();
 					debugger;
 					localStorage.setItem('OrderSummary', JSON.stringify(data));
 					$state.go('Summary');
 				},
 				function (data, status) {
+					blockUI.stop();
 					//	ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
 				}
 			);

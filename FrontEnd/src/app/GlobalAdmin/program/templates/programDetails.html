@@ -226,19 +226,19 @@
                                                     {{'NoExcludedDays' | translate}}
                                                 </span>
                                             </li>
-                                            <li>{{'Fats' | translate}}:
+                                            <li>{{'fat' | translate}}:
                                                 <span>{{fats}}</span>
                                             </li>
-                                            <li>{{'Carbs' | translate}}:
+                                            <li>{{'carbs' | translate}}:
                                                 <span>{{carbs}}</span>
                                             </li>
-                                            <li>{{'Protein' | translate}}:
+                                            <li>{{'protein' | translate}}:
                                                 <span>{{protein}}</span>
                                             </li>
-                                            <li>{{'Calories' | translate}}:
+                                            <li>{{'calories' | translate}}:
                                                 <span>{{calories}}</span>
                                             </li>
-                                            <li>{{'TotalPrice' | translate}}:
+                                            <li>{{'Total' | translate}}:
                                                 <span>{{progDetailsPrepService.price}}</span>
                                             </li>
                                         </ul>
@@ -248,7 +248,7 @@
                                     <form name="orderForm">
                                         <!-- {{itemDatetime}} -->
                                         <div class="col-md-6">
-                                            <h5>{{'OrderDate' | translate}}</h5>
+                                            <h5>{{'startDate' | translate}}</h5>
                                             <input name="itemDatetime" required ng-model="itemDatetime" type="text"
                                                 id="startdate" class="form-control" ng-change="dateChange();" />
                                         </div>
@@ -369,7 +369,7 @@
                                                 <button style="background-color: #e4e5e6;color: black!important;"
                                                     class="btn pmd-ripple-effect btn-primary" ng-click="Order()"
                                                     ng-disabled="orderForm.$invalid  || selectedBranchId <= 0 || (addressValidation == false && orderType.type == 'delivery') && !dateIsValid">
-                                                    {{'Save' | translate}}</button>
+                                                    {{'Order' | translate}}</button>
                                                 <!-- ng-disabled="orderForm.$invalid || !dateIsValid || addressValidation == false" -->
                                             </div>
                                         </div>
