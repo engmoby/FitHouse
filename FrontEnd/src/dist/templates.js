@@ -453,12 +453,12 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                            <div class="col-md-12">\n' +
     '                                <h5>{{\'OrderType\' | translate}}</h5>\n' +
     '                                <p>\n' +
-    '                                    <input ng-model="CustomCtrl.orderType.type" name="group1" type="radio" id="test1"\n' +
+    '                                    <input ng-model="CustomCtrl.orderType.type" ng-change="CustomCtrl.typeChanged()" name="group1" type="radio" id="test1"\n' +
     '                                        value="delivery" />\n' +
     '                                    <label for="test1">{{\'Delivery\' | translate}}</label>\n' +
     '                                </p>\n' +
     '                                <p>\n' +
-    '                                    <input ng-model="CustomCtrl.orderType.type" name="group1" type="radio" id="test2"\n' +
+    '                                    <input ng-model="CustomCtrl.orderType.type" ng-change="CustomCtrl.typeChanged()"name="group1" type="radio" id="test2"\n' +
     '                                        value="pickup" />\n' +
     '                                    <label for="test2">{{\'Pickup\' | translate}}</label>\n' +
     '                                </p>\n' +
@@ -874,12 +874,13 @@ angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/meal/templates/mealDetails.html',
     '<script>\n' +
     '    $(function () {\n' +
-    '        $(\'#startdate\').datepicker(\n' +
-    '            {\n' +
-    '                minDate: new Date()\n' +
+    '        $(\'#startdate\').datetimepicker({\n' +
+    '             widgetPositioning: { vertical: "top" },//,inline:true,sideBySide:true,\n' +
+    '\n' +
+    '            minDate: new Date()\n' +
     '            }\n' +
     '        ).on(\'dp.change\', function (e) {\n' +
-    '            debugger;\n' +
+    '            // debugger;\n' +
     '            angular.element(document.getElementById(\'startdate\')).scope().dateChange();\n' +
     '        });\n' +
     '    });\n' +
@@ -904,7 +905,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                        </div> -->\n' +
     '                    </div>\n' +
     '\n' +
-    '                    <div class="hp-section">\n' +
+    '                    <div class="hp-section" style="overflow: unset !important">\n' +
     '                        <div class="hp-sub-tit">\n' +
     '                            <h4>\n' +
     '                                <span>{{\'MealDetails\' | translate}}</span>\n' +
@@ -984,7 +985,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                        <!-- {{itemDatetime}} -->\n' +
     '                                        <div class="col-md-6">\n' +
     '                                            <h5>{{\'startDate\' | translate}}</h5>\n' +
-    '                                            <input name="itemDatetime" required ng-model="itemDatetime" type="text" id="startdate" class="form-control" ng-change="dateChange();"\n' +
+    '                                            <input name="itemDatetime"  ng-model="itemDatetime" type="text" id="startdate" class="form-control" ng-change="dateChange();"\n' +
     '                                            />\n' +
     '                                        </div>\n' +
     '\n' +
@@ -1030,7 +1031,8 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                                {{\'Pricelbl\' | translate}}:{{ mealPrepService.mealPrice}} SR\n' +
     '                                                <br>\n' +
     '                                                <!-- {{areaChanged}} -->\n' +
-    '                                                <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="areaChanged == false || orderForm.$invalid || selectedBranchId <= 0 && !dateIsValid"\n' +
+    '                                                {{orderForm.$invalid}}\n' +
+    '                                                {{dateIsValid}}<button style="background-color: #e4e5e6;color: black!important;" ng-disabled="areaChanged == false || orderForm.$invalid || selectedBranchId <= 0 || !dateIsValid"\n' +
     '                                                    class="btn pmd-ripple-effect btn-primary" type="button" ng-click="Order();">\n' +
     '                                                    {{\'Order\' | translate}}</button>\n' +
     '\n' +
@@ -1443,30 +1445,33 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/program/templates/programDetails.html',
     '<script>\n' +
+    '    // $(function () {\n' +
+    '    //     var today = new Date();\n' +
+    '    //     var tomorrow = new Date();\n' +
+    '    //     $(\'#startdate\').datepicker(\n' +
+    '    //         {\n' +
+    '    //             minDate: tomorrow.setDate(today.getDate() + 1)\n' +
+    '    //         }\n' +
+    '    //     ).on(\'dp.change\', function (e) {\n' +
+    '    //         debugger;\n' +
+    '    //         angular.element(document.getElementById(\'startdate\')).scope().dateChange();\n' +
+    '    //     });\n' +
+    '    // });\n' +
     '    $(function () {\n' +
     '        var today = new Date();\n' +
-    '        var tomorrow = new Date();\n' +
-    '        $(\'#startdate\').datepicker(\n' +
-    '            {\n' +
-    '                minDate: tomorrow.setDate(today.getDate() + 1)\n' +
-    '            }\n' +
-    '        ).on(\'dp.change\', function (e) {\n' +
+    '        today.setDate(today.getDate()+1)\n' +
+    '        \n' +
+    '        $(\'#startdate\').datetimepicker({\n' +
+    '            widgetPositioning: { vertical: "bottom" },\n' +
+    '\n' +
+    '            minDate: today,\n' +
+    '\n' +
+    '        })\n' +
+    '        .on(\'dp.change\', function (e) {\n' +
     '            debugger;\n' +
     '            angular.element(document.getElementById(\'startdate\')).scope().dateChange();\n' +
     '        });\n' +
     '    });\n' +
-    '    // $(function () {\n' +
-    '    //     $(\'#startdate\').datetimepicker({\n' +
-    '    //         widgetPositioning: { vertical: "bottom" },\n' +
-    '\n' +
-    '    //         minDate: new Date()\n' +
-    '\n' +
-    '    //     })\n' +
-    '    //     // .on(\'dp.change\', function (e) {\n' +
-    '    //     //     debugger;\n' +
-    '    //     //     angular.element(document.getElementById(\'startdate\')).scope().dateChange();\n' +
-    '    //     // });\n' +
-    '    // });\n' +
     '</script>\n' +
     '\n' +
     '<!-- <div class="menu-section">\n' +
@@ -1691,7 +1696,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                        <!-- {{itemDatetime}} -->\n' +
     '                                        <div class="col-md-6">\n' +
     '                                            <h5>{{\'startDate\' | translate}}</h5>\n' +
-    '                                            <input name="itemDatetime" required ng-model="itemDatetime" type="text"\n' +
+    '                                            <input name="itemDatetime"  ng-model="itemDatetime" type="text"\n' +
     '                                                id="startdate" class="form-control" ng-change="dateChange();" />\n' +
     '                                        </div>\n' +
     '\n' +
@@ -1796,7 +1801,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                                <button style="background-color: #e4e5e6;color: black!important;"\n' +
     '                                                    class="btn pmd-ripple-effect btn-primary" ng-click="Order()"\n' +
     '                                                    ng-disabled="orderForm.$invalid  || selectedBranchId <= 0 || \n' +
-    '                                                    (addressValidation == false && orderType.type == \'delivery\') && !dateIsValid">\n' +
+    '                                                    (addressValidation == false && orderType.type == \'delivery\') || !dateIsValid">\n' +
     '                                                    {{\'Order\' | translate}}</button>\n' +
     '                                                <!-- ng-disabled="orderForm.$invalid || !dateIsValid || addressValidation == false" -->\n' +
     '                                            </div>\n' +
@@ -1815,7 +1820,8 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '    </div>\n' +
     '\n' +
     '    <!-- </section> -->\n' +
-    '    <!--END HEADER SECTION-->');
+    '    <!--END HEADER SECTION-->\n' +
+    '');
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
@@ -2503,33 +2509,33 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '		});\n' +
     '	});\n' +
     '\n' +
-    '	// $(function () {\n' +
-    '\n' +
-    '	// 	$(\'#startdate\').datetimepicker({\n' +
-    '	// 		widgetPositioning: { vertical: "top" },\n' +
-    '\n' +
-    '	// 		minDate: new Date()\n' +
-    '\n' +
-    '	// 	}\n' +
-    '	// 	)\n' +
-    '	// 	// .on(\'dp.change\', function (e) {\n' +
-    '\n' +
-    '	// 	// 	angular.element(document.getElementById(\'startdate\')).scope().dateChange();\n' +
-    '	// 	// });\n' +
-    '	// });\n' +
-    '\n' +
     '	$(function () {\n' +
     '		var today = new Date();\n' +
-    '		var tomorrow = new Date();\n' +
-    '		$(\'#startdate\').datepicker(\n' +
-    '			{\n' +
-    '				minDate: tomorrow.setDate(today.getDate() + 1)\n' +
-    '			}\n' +
-    '		).on(\'dp.change\', function (e) {\n' +
-    '			debugger;\n' +
+    '        today.setDate(today.getDate()+1)\n' +
+    '		$(\'#startdate\').datetimepicker({\n' +
+    '			widgetPositioning: { vertical: "top" },\n' +
+    '\n' +
+    '			minDate: today\n' +
+    '\n' +
+    '		})\n' +
+    '		.on(\'dp.change\', function (e) {\n' +
+    '\n' +
     '			angular.element(document.getElementById(\'startdate\')).scope().dateChange();\n' +
     '		});\n' +
     '	});\n' +
+    '\n' +
+    '	// $(function () {\n' +
+    '	// 	var today = new Date();\n' +
+    '	// 	var tomorrow = new Date();\n' +
+    '	// 	$(\'#startdate\').datepicker(\n' +
+    '	// 		{\n' +
+    '	// 			minDate: tomorrow.setDate(today.getDate() + 1)\n' +
+    '	// 		}\n' +
+    '	// 	).on(\'dp.change\', function (e) {\n' +
+    '	// 		debugger;\n' +
+    '	// 		angular.element(document.getElementById(\'startdate\')).scope().dateChange();\n' +
+    '	// 	});\n' +
+    '	// });\n' +
     '\n' +
     '</script>\n' +
     '\n' +
@@ -2670,7 +2676,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '						<div class="row">\n' +
     '							<div class="input-field col s12">\n' +
     '\n' +
-    '								<input name="itemDatetime" required ng-model="itemDatetime" type="text" id="startdate"\n' +
+    '								<input name="itemDatetime"  ng-model="itemDatetime" type="text" id="startdate"\n' +
     '									class="form-control" placeholder="{{\'startDate\' | translate}}" />\n' +
     '								<!-- <label for="from"></label> -->\n' +
     '							</div>\n' +
@@ -2687,7 +2693,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '					 \n' +
     '						<div class="row">\n' +
     '							<div class="input-field col s12">\n' +
-    '								<input ng-disabled="cutomizeProgram.$invalid" type="submit" class="form-btn"\n' +
+    '								<input ng-disabled="cutomizeProgram.$invalid  || !dateIsValid" type="submit" class="form-btn"\n' +
     '									ng-click="submitCustomise()" value="{{\'MakeOrder\' | translate}}">\n' +
     '\n' +
     '								<!-- <button style="width: 90%; height: 50%;" class="form-btn" ng-disabled="cutomizeProgram.$invalid  || settingsPrepService.minNoDaysPerProgram > programDaysCount" ng-click="submitCustomise()"></button> -->\n' +

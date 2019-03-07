@@ -202,8 +202,8 @@
 				function (data, status) {
 					//  ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
 				});
-				vm.selectedBranchId = 0;
-				vm.DeliveryFees = 0;
+			vm.selectedBranchId = 0;
+			vm.DeliveryFees = 0;
 			//  blockUI.stop();
 		}
 		vm.regionChange = function () {
@@ -268,14 +268,26 @@
 			vm.Total = vm.ProgramTotalPrice + vm.DeliveryFees;
 			//GetBranchDelivery();
 		}
-	
+
 		vm.orderType = {
 			type: 'delivery'
 		};
 		vm.addresses = {
 			address: 0
 		};
-	 
+		vm.typeChanged = function () {
+			debugger;
+			if (vm.orderType.type == 'delivery') {
+				vm.DeliveryFees = 0;
+				vm.Total = 0;
+				vm.selectedBranchId = 0;
+			}
+			else {
+				vm.DeliveryFees = 0;
+				vm.Total = 0;
+				vm.addresses.address = null;
+			}
+		}
 
 		vm.changeOrderType = function () {
 			if (vm.orderType.type == 'delivery' || vm.orderType.type == 'true') {

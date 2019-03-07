@@ -133,12 +133,12 @@
                             <div class="col-md-12">
                                 <h5>{{'OrderType' | translate}}</h5>
                                 <p>
-                                    <input ng-model="CustomCtrl.orderType.type" name="group1" type="radio" id="test1"
+                                    <input ng-model="CustomCtrl.orderType.type" ng-change="CustomCtrl.typeChanged()" name="group1" type="radio" id="test1"
                                         value="delivery" />
                                     <label for="test1">{{'Delivery' | translate}}</label>
                                 </p>
                                 <p>
-                                    <input ng-model="CustomCtrl.orderType.type" name="group1" type="radio" id="test2"
+                                    <input ng-model="CustomCtrl.orderType.type" ng-change="CustomCtrl.typeChanged()"name="group1" type="radio" id="test2"
                                         value="pickup" />
                                     <label for="test2">{{'Pickup' | translate}}</label>
                                 </p>

@@ -11,6 +11,7 @@
         , $filter, progDetailsPrepService
         , itemsssPrepService, OrderResource, RegionResource, CityResource, AreaResource
         , CountriesPrepService, BranchResource, settingsPrepService) {
+			blockUI.start($translate.instant('loading'));
 
         $scope.progDetailsPrepService = progDetailsPrepService;
         $scope.settingsPrepService = settingsPrepService;
@@ -43,6 +44,7 @@
                 'width': '100%'
             };
         }
+        blockUI.stop();
 
         $scope.orderType = {
             type: 'delivery'
