@@ -25,11 +25,13 @@
 		$('#startdate').datetimepicker({widgetPositioning:{vertical:"top"},
 			
 				minDate: new Date()
+
 			}
-		).on('dp.change', function (e) {
+		)
+		// .on('dp.change', function (e) {
 			
-			angular.element(document.getElementById('startdate')).scope().dateChange();
-		});
+		// 	angular.element(document.getElementById('startdate')).scope().dateChange();
+		// });
 	});
 
 </script>
@@ -172,8 +174,8 @@
 							<div class="input-field col s12">
 
 								<input name="itemDatetime" required ng-model="itemDatetime" type="text" id="startdate"
-									class="form-control" />
-								<label for="from">{{'startDate' | translate}}</label>
+									class="form-control" placeholder="{{'startDate' | translate}}" />
+								<!-- <label for="from"></label> -->
 							</div>
 						</div>
 						<div class="row">

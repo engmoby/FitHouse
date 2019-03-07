@@ -4,12 +4,12 @@ $(document).ready(function() {
     //LEFT MOBILE MENU OPEN
     $(".show-menu").on('click', function() {
         if(localStorage["ngStorage-language"] == '"en"'){
-            $(".mm-menu").css('right', '-25%');
+            $(".mm-menu").css('right', '-50%');
             $(".mm-menu").css('left', 'unset');
         }
         else{
             $(".mm-menu").css('right', 'unset');
-            $(".mm-menu").css('left', '-25%');
+            $(".mm-menu").css('left', '-50%');
         }
     });
 
