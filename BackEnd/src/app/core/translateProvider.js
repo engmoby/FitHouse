@@ -334,10 +334,12 @@
         "deleteConfirmationLbl":"Are you sure you want to delete: ",
         "deleteBtn": "Delete",
         "cancelBtn": "Cancel",
+        "refresh": "Refresh",
         
       }
 
       var ar_translations = {
+        "refresh": "تحديث",
         "deleteBtn": "مسح",
         "cancelBtn": "الغاء",
         "deleteConfirmationLbl":"هل أنت متأكد من أنك تريد مسح: ",

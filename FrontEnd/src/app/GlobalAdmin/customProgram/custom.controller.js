@@ -6,7 +6,7 @@
 		.controller('CustomController', ['$scope', 'blockUI', '$filter', '$timeout', '$state', 'UserAddressesResource', 'BranchResource', '$translate', 'RegionResource', 'CityResource',
 			'AreaResource', 'CountriesPrepService', 'CustomResource', 'itemsPrepService', 'ToastService', CustomController])
 
-	function CustomController($scope,blockUI, $filter, $timeout, $state, UserAddressesResource, BranchResource, $translate, RegionResource, CityResource, AreaResource, CountriesPrepService,
+	function CustomController($scope, blockUI, $filter, $timeout, $state, UserAddressesResource, BranchResource, $translate, RegionResource, CityResource, AreaResource, CountriesPrepService,
 		CustomResource, itemsPrepService, ToastService) {
 
 		var vm = this;
@@ -14,6 +14,7 @@
 		vm.itemList = [];
 		vm.counties = [];
 		vm.validate = false;
+		vm.ProgramTotalPrice = 0;
 		vm.ProgramDiscount = JSON.parse(localStorage.getItem("ProgramDiscount"));
 		vm.daysCount = JSON.parse(localStorage.getItem("programDaysCount"));
 		vm.mealsCount = JSON.parse(localStorage.getItem("mealPerDay"));
@@ -82,11 +83,14 @@
 
 				//$scope.selectedItemList = model;
 			});
+
+			vm.Total = vm.ProgramTotalPrice + vm.DeliveryFees;
+
 		}
 
 		vm.AddNewProgram = function () {
 			blockUI.start($translate.instant('loading'));
-				var newProgram = new CustomResource();
+			var newProgram = new CustomResource();
 			newProgram.isActive = true;
 			newProgram.programDays = vm.daysCount;
 			newProgram.noOfMeals = vm.mealsCount;
@@ -198,6 +202,8 @@
 				function (data, status) {
 					//  ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
 				});
+				vm.selectedBranchId = 0;
+				vm.DeliveryFees = 0;
 			//  blockUI.stop();
 		}
 		vm.regionChange = function () {
@@ -262,17 +268,20 @@
 			vm.Total = vm.ProgramTotalPrice + vm.DeliveryFees;
 			//GetBranchDelivery();
 		}
-		
-
+	
 		vm.orderType = {
 			type: 'delivery'
 		};
 		vm.addresses = {
 			address: 0
 		};
+	 
+
 		vm.changeOrderType = function () {
 			if (vm.orderType.type == 'delivery' || vm.orderType.type == 'true') {
 				vm.orderType.type = 'pickup'
+				// vm.selectedBranchId=0;
+				// vm.DeliveryFees=0;
 				// if (CustomCtrl.selectedCityId > 0)
 				// 	vm.validate = false;
 				vm.addressDetails.address = null;
@@ -300,20 +309,20 @@
 			vm.addressDetails = address;
 			vm.selectedBranchId = vm.addressDetails.branchId;
 			GetBranchDelivery();
-		//	vm.Total = vm.ProgramTotalPrice + vm.DeliveryFees;
+			//	vm.Total = vm.ProgramTotalPrice + vm.DeliveryFees;
 		}
 		function GetBranchDelivery() {
 			var temp = new BranchResource();
 			temp.$getBranch({ branchId: vm.selectedBranchId }).then(function (results) {
 				if (results.deliveryPrice == null) {
-                    vm.DeliveryFees = 0;
-                }
-                else {
-                    vm.DeliveryFees = results.deliveryPrice;
-                }
- 
-                    vm.Total = vm.ProgramTotalPrice + vm.DeliveryFees;
-				 
+					vm.DeliveryFees = 0;
+				}
+				else {
+					vm.DeliveryFees = results.deliveryPrice;
+				}
+
+				vm.Total = vm.ProgramTotalPrice + vm.DeliveryFees;
+
 				//vm.DeliveryFees = results.deliveryPrice;
 				// blockUI.stop();
 

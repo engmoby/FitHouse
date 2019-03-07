@@ -1,4 +1,3 @@
- 
 <!-- <div class="inn-body-section pad-bot-55"> -->
 <div class="hom-com ng-scope">
     <div class="container">
@@ -10,22 +9,22 @@
                     <div class="hp-sub-tit">
                         <h4>
                             <span>{{'orderdetails' | translate}}</span>
-                        </h4> 
+                        </h4>
                     </div>
                     <div class="hp-over">
                         <ul class="nav nav-tabs hp-over-nav">
                             <li class="active">
                                 <a data-toggle="tab" data-target="#home" style="cursor: pointer;">
                                     <!-- <img src="/assets/img/cropped-favicon-32x32.png" alt=""> -->
-                                    <span >{{'orderdetails' | translate}}</span>
+                                    <span>{{'orderdetails' | translate}}</span>
                                 </a>
                             </li>
                             <li>
                                 <a data-toggle="tab" data-target="#menu1" style="cursor: pointer;">
                                     <!-- <img src="/assets/img/cropped-favicon-32x32.png" alt=""> -->
-                                    <span >{{'Summary' | translate}}</span>
+                                    <span>{{'Summary' | translate}}</span>
                                 </a>
-                            </li> 
+                            </li>
                         </ul>
                         <div class="tab-content">
                             <div id="home" class="tab-pane fade in active tab-space">
@@ -36,18 +35,18 @@
                                         <li ng-repeat="detail in OrderMealPrepService.mealDetails">
                                             <!-- {{detail}} -->
                                             <div class="res-menu">
-                                                <!-- {{item.itemNameDictionary[selectedLanguage]}} --> 
-                                                <img src={{detail.item.imageUrl}} imageonload alt=""> 
+                                                <!-- {{item.itemNameDictionary[selectedLanguage]}} -->
+                                                <img src={{detail.item.imageUrl}} imageonload alt="">
                                                 <h3> {{detail.item.itemNameDictionary[selectedLanguage]}}
-                                                    <span>{{detail.item.totalPrice}}</span>
+                                                    <!-- <span>{{detail.item.totalPrice}}</span> -->
                                                 </h3>
                                                 <span
                                                     class="menu-item">{{detail.item.itemDescriptionDictionary[selectedLanguage] }}</span>
-                                                    <span> {{'fat' | translate}}:{{detail.item.fat}}</span>
-                                                    <span> {{'carbs' | translate}}:{{detail.item.carbs}}</span>
-                                                    <span> {{'protein' | translate}}:{{detail.item.protein}}</span>
-                                                    <span> {{'calories' | translate}}:{{detail.item.calories}}</span>
-                                                       <!-- | limitTo:10 -->
+                                                <span> {{'fat' | translate}}:{{detail.item.fat}}</span>
+                                                <span> {{'carbs' | translate}}:{{detail.item.carbs}}</span>
+                                                <span> {{'protein' | translate}}:{{detail.item.protein}}</span>
+                                                <span> {{'calories' | translate}}:{{detail.item.calories}}</span>
+                                                <!-- | limitTo:10 -->
                                             </div>
 
                                         </li>
@@ -70,11 +69,12 @@
                                             <span>{{calories}}</span>
                                         </li>
                                         <li>{{'Total' | translate}}:
-                                            <span class="ov-yes">{{OrderMealPrepService.mealPrice}}</span>
+                                            <span style="width: 74px !important;"
+                                                class="ov-yes">{{OrderMealPrepService.mealPrice}} SR</span>
                                         </li>
                                     </ul>
                                 </div>
-                            </div> 
+                            </div>
                         </div>
                     </div>
 

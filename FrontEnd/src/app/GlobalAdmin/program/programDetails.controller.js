@@ -52,10 +52,11 @@
         };
 
         $scope.typeChanged = function () {
+          debugger;
             if ($scope.orderType.type == 'delivery') {
                 $scope.DeliveryFees = 0;
                 $scope.Total = 0;
-                $scope.selectedAreaId = 0;
+                $scope.selectedBranchId = 0;
             }
             else {
                 $scope.DeliveryFees = 0;

@@ -95,7 +95,7 @@
                                                             <img src={{meal.imageUrl}} imageonload alt="">
                                                             <!-- <img src="/assets/img/meal.jpeg" alt="" /> -->
                                                             <h3> {{meal.itemNameDictionary[selectedLanguage] }}
-                                                                <span>{{meal.totalPrice}}</span>
+                                                                <span>{{meal.totalPrice}} SR</span>
                                                             </h3>
                                                             <span
                                                                 class="menu-item">{{meal.itemDescriptionDictionary[selectedLanguage] | limitTo:20}}</span>
@@ -115,9 +115,10 @@
                         </div>
                     </div>
 
-                </div> 
-                {{!stepTwoProgramForm.$invalid}}
-                <div ng-show="!stepTwoProgramForm.$invalid" class="head-typo typo-com collap-expand">
+                </div>
+
+                <!-- <div ng-show="!stepTwoProgramForm.$invalid" class="head-typo typo-com collap-expand"> -->
+                <div class="head-typo typo-com collap-expand">
                     <h4>{{'addressLbl' | translate}}</h4>
                     <div class="col-md-12">
                         <div class="head-typo typo-com collap-expand book-form inn-com-form">
@@ -275,20 +276,20 @@
                         </div>
                     </div>
                 </div>
-                    <div class="row">
-                        <div class="col-md-10"></div>
-                        <div class="col-md-4">
-                            {{'price' | translate}}:{{ CustomCtrl.ProgramTotalPrice}}
-                            <br> {{'DeliveryPrice' | translate}}:{{ CustomCtrl.DeliveryFees}}
-                            <br>{{'Total' | translate}} :{{ CustomCtrl.Total}}
-                            <br>
-                            <button style="background-color: #e4e5e6;color: black!important;"
-                                ng-disabled="stepTwoProgramForm.$invalid || CustomCtrl.selectedBranchId <= 0"
-                                class="btn pmd-ripple-effect btn-primary" type="button"
-                                ng-click="CustomCtrl.AddNewProgram();">
-                                {{'Order' | translate}}</button>
-                        </div>
+                <div class="row">
+                    <div class="col-md-10"></div>
+                    <div class="col-md-4">
+                        {{'price' | translate}}:{{ CustomCtrl.ProgramTotalPrice}} SR
+                        <br> {{'DeliveryPrice' | translate}}:{{ CustomCtrl.DeliveryFees}} SR
+                        <br>{{'Total' | translate}} :{{ CustomCtrl.Total}} SR
+                        <br>
+                        <button style="background-color: #e4e5e6;color: black!important;"
+                            ng-disabled="stepTwoProgramForm.$invalid || CustomCtrl.selectedBranchId <= 0"
+                            class="btn pmd-ripple-effect btn-primary" type="button"
+                            ng-click="CustomCtrl.AddNewProgram();">
+                            {{'Order' | translate}}</button>
                     </div>
+                </div>
             </form>
 
 

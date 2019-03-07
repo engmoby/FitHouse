@@ -1,8 +1,17 @@
+<style>
+    .hideTogle {
+        display: none;
+
+    }
+</style>
 <div>
     <div ng-if="PickupList.results.length == 0">
         <span>{{'NoPickupsAvailable' | translate}}</span>
     </div>
-    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="PickupList.results.length > 0">
+    <button class="btn pmd-ripple-effect btn-default" style="background-color: #e4e5e6;color: black!important;" type="button" ng-click="changePage(1)">{{'refresh' |
+        translate}}</button>
+        
+        <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="PickupList.results.length > 0">
         <div class="table-responsive"></div>
         <table class="table pmd-table table-hover">
             <thead>
@@ -28,7 +37,7 @@
 
                         <h4>{{ pickup.price}}</h4>
                     </td>
-                    <td>
+                    <td >
                         <div class="btn-switch" ng-class="{'btn-switch--on':pickup.isPaid}" ng-model="pickup.isPaid"
                             ng-click="UpdatePickup(pickup)">
 

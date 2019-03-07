@@ -62,7 +62,10 @@
 
 
         function change(order) {
-
+            if (order.orderStatus == 4) {
+                ToastService.show("right", "bottom", "fadeInUp", 'cant change deleviered order', "success");
+                return;
+            }
             var updateObj = new OrdersResource();
             updateObj.OrderId = order.orderId;
 

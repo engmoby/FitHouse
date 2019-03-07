@@ -172,6 +172,7 @@ namespace FitHouse.BLL.Services
                 order.OrderStartDate = programDto.Day;
                 order.AddressId = (programDto.AddressId == 0) ? null : programDto.AddressId;
                 order.BranchId = programDto.branchId;
+                order.Price = programDto.Price;
                 var rm = new Random();
                 order.OrderCode = rm.Next(10000, 1000000).ToString();
                 var lastDate = order.OrderStartDate;

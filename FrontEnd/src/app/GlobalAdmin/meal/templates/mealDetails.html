@@ -70,7 +70,7 @@
                                                     <!-- {{item.itemNameDictionary[selectedLanguage]}} -->
                                                     <img src={{detail.item.imageUrl}} imageonload alt=""> 
                                                     <h3> {{detail.item.itemNameDictionary[selectedLanguage]}}
-                                                        <span>{{detail.item.totalPrice}}</span>
+                                                        <!-- <span>{{detail.item.totalPrice}}</span> -->
                                                     </h3>
                                                     <span class="menu-item">{{detail.item.itemDescriptionDictionary[selectedLanguage] }}</span>
                                                     <span> {{'fat' | translate}}:{{detail.item.fat}}</span>
@@ -100,7 +100,7 @@
                                                         <span>{{calories}}</span>
                                                     </li>
                                                     <li>{{'Total' | translate}}:
-                                                <span class="ov-yes">{{mealPrepService.mealPrice}}</span>
+                                                <span style="width: 74px !important;" class="ov-yes">{{mealPrepService.mealPrice}} SR</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -153,7 +153,7 @@
                                                 <!-- ng-disabled="orderForm.$invalid || !dateIsValid || addressValidation == false" -->
 
 
-                                                {{'Pricelbl' | translate}}:{{ mealPrepService.mealPrice}}
+                                                {{'Pricelbl' | translate}}:{{ mealPrepService.mealPrice}} SR
                                                 <br>
                                                 <!-- {{areaChanged}} -->
                                                 <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="areaChanged == false || orderForm.$invalid || selectedBranchId <= 0 && !dateIsValid"

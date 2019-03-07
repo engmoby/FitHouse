@@ -74,7 +74,7 @@
                                                                                     imageonload alt="">
 
                                                                                 <h3> {{detail.item.itemNameDictionary[selectedLanguage]}}
-                                                                                    <span>{{detail.item.totalPrice}}</span>
+                                                                                    <!-- <span>{{detail.item.totalPrice}}</span> -->
                                                                                 </h3>
                                                                                 <span
                                                                                     class="menu-item">{{detail.item.itemDescriptionDictionary[selectedLanguage]}}</span>
@@ -116,7 +116,7 @@
                                             <span>{{calories}}</span>
                                         </li>
                                         <li>{{'Total' | translate}}:
-                                            <span class="ov-yes">{{OrderprogDetailsPrepService.price}}</span>
+                                            <span style="width: 74px !important;" class="ov-yes">{{OrderprogDetailsPrepService.price}} SR</span>
                                         </li>
                                     </ul>
                                 </div>

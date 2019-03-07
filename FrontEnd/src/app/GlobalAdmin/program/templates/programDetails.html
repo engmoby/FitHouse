@@ -182,7 +182,7 @@
                                                                                     <h3>
                                                                                         {{detail.item.itemNameDictionary[selectedLanguage]}}
                                                                                         <!-- {{item.itemNameDictionary[selectedLanguage]}} -->
-                                                                                        <span>{{detail.item.totalPrice}}</span>
+                                                                                        <!-- <span>{{detail.item.totalPrice}}</span> -->
                                                                                     </h3>
 
                                                                                     <span class="menu-item">{{item.itemDescriptionDictionary[selectedLanguage]
@@ -237,7 +237,7 @@
                                                 <span>{{calories}}</span>
                                             </li>
                                             <li>{{'Total' | translate}}:
-                                                <span>{{progDetailsPrepService.price}}</span>
+                                                <span>{{progDetailsPrepService.price}} SR</span>
                                             </li>
                                         </ul>
                                     </div>
@@ -343,11 +343,11 @@
                                             </div>
  
                                             <div class="input-field col s12 m4 l2">
-                                                {{'price' | translate}}:{{ progDetailsPrepService.price}}
-                                                <br> {{'DeliveryPrice' | translate}}:{{ DeliveryFees}}
+                                                {{'price' | translate}}:{{ progDetailsPrepService.price}} SR
+                                                <br> {{'DeliveryPrice' | translate}}:{{ DeliveryFees}} SR 
                                                 <br>{{'ProgramDiscount' | translate}}
                                                 :{{ settingsPrepService.programDiscount}} %
-                                                <br>{{'Total' | translate}} :{{ Total}}
+                                                <br>{{'Total' | translate}} :{{ Total}} SR
                                                 <br>
                                                 <button style="background-color: #e4e5e6;color: black!important;"
                                                     class="btn pmd-ripple-effect btn-primary" ng-click="Order()"

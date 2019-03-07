@@ -243,7 +243,7 @@
                     // localStorage.setItem('data', JSON.stringify(data.userId));
                     //  $state.go('meals');
                     localStorage.setItem('OrderSummary', JSON.stringify(data));
-                    $state.go('Summary');
+                    $state.go('summaryProgram');
                 },
                 function (data, status) {
                     blockUI.stop();

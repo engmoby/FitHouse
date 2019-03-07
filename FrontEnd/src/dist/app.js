@@ -743,7 +743,7 @@
 		.controller('CustomController', ['$scope', 'blockUI', '$filter', '$timeout', '$state', 'UserAddressesResource', 'BranchResource', '$translate', 'RegionResource', 'CityResource',
 			'AreaResource', 'CountriesPrepService', 'CustomResource', 'itemsPrepService', 'ToastService', CustomController])
 
-	function CustomController($scope,blockUI, $filter, $timeout, $state, UserAddressesResource, BranchResource, $translate, RegionResource, CityResource, AreaResource, CountriesPrepService,
+	function CustomController($scope, blockUI, $filter, $timeout, $state, UserAddressesResource, BranchResource, $translate, RegionResource, CityResource, AreaResource, CountriesPrepService,
 		CustomResource, itemsPrepService, ToastService) {
 
 		var vm = this;
@@ -751,6 +751,7 @@
 		vm.itemList = [];
 		vm.counties = [];
 		vm.validate = false;
+		vm.ProgramTotalPrice = 0;
 		vm.ProgramDiscount = JSON.parse(localStorage.getItem("ProgramDiscount"));
 		vm.daysCount = JSON.parse(localStorage.getItem("programDaysCount"));
 		vm.mealsCount = JSON.parse(localStorage.getItem("mealPerDay"));
@@ -799,11 +800,14 @@
 				vm.fat = (element.fat == null) ? 0 : $scope.sum(vm.itemList, 'fat');
 
 			});
+
+			vm.Total = vm.ProgramTotalPrice + vm.DeliveryFees;
+
 		}
 
 		vm.AddNewProgram = function () {
 			blockUI.start($translate.instant('loading'));
-				var newProgram = new CustomResource();
+			var newProgram = new CustomResource();
 			newProgram.isActive = true;
 			newProgram.programDays = vm.daysCount;
 			newProgram.noOfMeals = vm.mealsCount;
@@ -900,6 +904,8 @@
 			},
 				function (data, status) {
 				});
+				vm.selectedBranchId = 0;
+				vm.DeliveryFees = 0;
 		}
 		vm.regionChange = function () {
 			if (vm.selectedRegionId != undefined) {
@@ -960,14 +966,15 @@
 			vm.Total = vm.ProgramTotalPrice + vm.DeliveryFees;
 		}
 
-
-				vm.orderType = {
+			vm.orderType = {
 			type: 'delivery'
 		};
 		vm.addresses = {
 			address: 0
 		};
-		vm.changeOrderType = function () {
+
+
+	 		vm.changeOrderType = function () {
 			if (vm.orderType.type == 'delivery' || vm.orderType.type == 'true') {
 				vm.orderType.type = 'pickup'
 				vm.addressDetails.address = null;
@@ -997,13 +1004,13 @@
 			var temp = new BranchResource();
 			temp.$getBranch({ branchId: vm.selectedBranchId }).then(function (results) {
 				if (results.deliveryPrice == null) {
-                    vm.DeliveryFees = 0;
-                }
-                else {
-                    vm.DeliveryFees = results.deliveryPrice;
-                }
+					vm.DeliveryFees = 0;
+				}
+				else {
+					vm.DeliveryFees = results.deliveryPrice;
+				}
 
-                     vm.Total = vm.ProgramTotalPrice + vm.DeliveryFees;
+				vm.Total = vm.ProgramTotalPrice + vm.DeliveryFees;
 
 
 			},
@@ -1349,7 +1356,7 @@
 
 
                     localStorage.setItem('OrderSummary', JSON.stringify(data));
-                    $state.go('Summary');
+                    $state.go('summaryProgram');
                 },
                 function (data, status) {
                     blockUI.stop();
@@ -1701,10 +1708,11 @@
         };
 
         $scope.typeChanged = function () {
+          debugger;
             if ($scope.orderType.type == 'delivery') {
                 $scope.DeliveryFees = 0;
                 $scope.Total = 0;
-                $scope.selectedAreaId = 0;
+                $scope.selectedBranchId = 0;
             }
             else {
                 $scope.DeliveryFees = 0;
