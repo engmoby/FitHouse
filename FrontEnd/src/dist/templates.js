@@ -317,6 +317,565 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/meal/templates/meal.html',
+    '<div class="hom-com ng-scope">\n' +
+    '        <div class="container">\n' +
+    '        <div class="row">\n' +
+    '            <div class="page-head">\n' +
+    '                <h2>{{\'Meals\' | translate}}</h2>\n' +
+    '                <!-- <div class="head-title">\n' +
+    '                    <div class="hl-1"></div>\n' +
+    '                    <div class="hl-2"></div>\n' +
+    '                    <div class="hl-3"></div>\n' +
+    '                </div>\n' +
+    '                <p>{{\'MealsDescription\' | translate}}</p> -->\n' +
+    '            </div>\n' +
+    '            <!--ROOM SECTION-->\n' +
+    '\n' +
+    '            <div ng-click="$state.go(\'mealDetails\', {mealId: Meal.mealId});" style="cursor: pointer !important;"\n' +
+    '                ng-repeat="Meal in mealsPrepService" class="room">\n' +
+    '                <!-- {{Meal.imageUrl}} -->\n' +
+    '\n' +
+    '                <div class="ribbon ribbon-top-left">\n' +
+    '                    <span>{{\'Meal\' | translate}}</span>\n' +
+    '                </div>\n' +
+    '                <!--ROOM IMAGE-->\n' +
+    '                <!-- <div ng-if="Meal.imageUrl == null" class="r1 r-com">\n' +
+    '                    <img src="https://fithouseksa.com/wp-content/uploads/2018/07/Grilled-steak.png" alt="" />\n' +
+    '                </div>\n' +
+    '                <div ng-if="Meal.imageUrl != null" class="r1 r-com">\n' +
+    '                    <img src={{Meal.imageUrl}} alt="" />\n' +
+    '                </div> -->\n' +
+    '                <div class="r1 r-com">\n' +
+    '                    <img src={{Meal.imageUrl}} imageonload alt="">\n' +
+    '                </div>\n' +
+    '                <!--ROOM RATING-->\n' +
+    '                <div class="r2 r-com">\n' +
+    '                    <h4>{{Meal.mealDescriptionDictionary[selectedLanguage] | limitTo:15}}</h4>\n' +
+    '                </div>\n' +
+    '                <!--ROOM AMINITIES-->\n' +
+    '                <div class="r3 r-com">\n' +
+    '                    <p>\n' +
+    '                         {{\'NumberOfItems\' | translate}}: {{Meal.mealDetails.length}} \n' +
+    '                    </p>\n' +
+    '                </div>\n' +
+    '                <!--ROOM PRICE-->\n' +
+    '                <div class="r4 r-com">\n' +
+    '                    <p>{{Meal.mealPrice}} SR</p>\n' +
+    '                    <p>\n' +
+    '                        <span class="room-price-1"></span>\n' +
+    '                        <span class="room-price"></span>\n' +
+    '                    </p>\n' +
+    '                    <!-- <p>{{\'NonRefundable\' | translate}}</p> -->\n' +
+    '                </div>\n' +
+    '                <!--ROOM BOOKING BUTTON-->\n' +
+    '                <div class="r5 r-com">\n' +
+    '                    <!-- <div class="r2-available">{{\'Available\' | translate}}</div> -->\n' +
+    '                    <p></p>\n' +
+    '                    <a ng-click="$state.go(\'mealDetails\', {mealId: Meal.mealId});"\n' +
+    '                        class="inn-room-book">{{\'Order\' | translate}}</a>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '\n' +
+    '            <!--END ROOM SECTION-->\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/meal/templates/mealDetails.html',
+    '<script>\n' +
+    '    $(function () {\n' +
+    '        $(\'#startdate\').datetimepicker({\n' +
+    '             widgetPositioning: { vertical: "top" },//,inline:true,sideBySide:true,\n' +
+    '\n' +
+    '            minDate: new Date()\n' +
+    '            }\n' +
+    '        ).on(\'dp.change\', function (e) {\n' +
+    '            // debugger;\n' +
+    '            angular.element(document.getElementById(\'startdate\')).scope().dateChange();\n' +
+    '        });\n' +
+    '    });\n' +
+    '</script>\n' +
+    '<div class="hp-banner">\n' +
+    '    <img src="images/detailed-banner.jpg" alt=""> </div>\n' +
+    '\n' +
+    '<div class="hom-com">\n' +
+    '    <div class="container">\n' +
+    '        <div class="row">\n' +
+    '            <div class="col-md-12">\n' +
+    '                <div class="row">\n' +
+    '                    <div class="hp-section">\n' +
+    '                        <div class="hp-sub-tit">\n' +
+    '                            <h4>\n' +
+    '                                <span>{{mealPrepService.mealNameDictionary[selectedLanguage]}}</span>\n' +
+    '                            </h4>\n' +
+    '\n' +
+    '                        </div>\n' +
+    '                        <!-- <div class="hp-amini detai-2p">\n' +
+    '                            <p>{{mealPrepService.mealDescriptionDictionary[selectedLanguage]}}</p>\n' +
+    '                        </div> -->\n' +
+    '                    </div>\n' +
+    '\n' +
+    '                    <div class="hp-section" style="overflow: unset !important">\n' +
+    '                        <div class="hp-sub-tit">\n' +
+    '                            <h4>\n' +
+    '                                <span>{{\'MealDetails\' | translate}}</span>\n' +
+    '                            </h4>\n' +
+    '                            <!-- <p>Aliquam id tempor sem. Cras molestie risus et lobortis congue. Donec id est consectetur,\n' +
+    '                                        cursus tellus at, mattis lacus.</p> -->\n' +
+    '                        </div>\n' +
+    '                        <div class="hp-over">\n' +
+    '                            <ul class="nav nav-tabs hp-over-nav">\n' +
+    '                                <li class="active">\n' +
+    '                                    <a data-toggle="tab" data-target="#home" style="cursor: pointer;">\n' +
+    '                                        <!-- <img src="/assets/img/cropped-favicon-32x32.png" alt=""> -->\n' +
+    '                                        <span>{{\'Details\' | translate}}</span>\n' +
+    '                                    </a>\n' +
+    '                                </li>\n' +
+    '                                <li>\n' +
+    '                                    <a data-toggle="tab" data-target="#menu1" style="cursor: pointer;">\n' +
+    '                                        <!-- <img src="/assets/img/cropped-favicon-32x32.png" alt=""> -->\n' +
+    '                                        <span>{{\'Summary\' | translate}}</span>\n' +
+    '                                    </a>\n' +
+    '                                </li>\n' +
+    '                                <li>\n' +
+    '                                    <a data-toggle="tab" data-target="#menu2" style="cursor: pointer;">\n' +
+    '                                        <!-- <img src="/assets/img/cropped-favicon-32x32.png" alt=""> -->\n' +
+    '                                        <span>{{\'Order\' | translate}}</span>\n' +
+    '                                    </a>\n' +
+    '                                </li>\n' +
+    '                            </ul>\n' +
+    '                            <div class="tab-content">\n' +
+    '                                <div id="home" class="tab-pane fade in active tab-space">\n' +
+    '                                    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                                        <label for="first-name">{{\'Item\' | translate}}</label>\n' +
+    '                                        <ul>\n' +
+    '                                            <li ng-repeat="detail in mealPrepService.mealDetails">\n' +
+    '                                                <!-- {{detail}} -->\n' +
+    '                                                <div class="res-menu">\n' +
+    '                                                    <!-- {{item.itemNameDictionary[selectedLanguage]}} -->\n' +
+    '                                                    <img src={{detail.item.imageUrl}} imageonload alt=""> \n' +
+    '                                                    <h3> {{detail.item.itemNameDictionary[selectedLanguage]}}\n' +
+    '                                                        <!-- <span>{{detail.item.totalPrice}}</span> -->\n' +
+    '                                                    </h3>\n' +
+    '                                                    <span class="menu-item">{{detail.item.itemDescriptionDictionary[selectedLanguage] }}</span>\n' +
+    '                                                    <span> {{\'fat\' | translate}}:{{detail.item.fat}}</span>\n' +
+    '                                                    <span> {{\'carbs\' | translate}}:{{detail.item.carbs}}</span>\n' +
+    '                                                    <span> {{\'protein\' | translate}}:{{detail.item.protein}}</span>\n' +
+    '                                                    <span> {{\'calories\' | translate}}:{{detail.item.calories}}</span>\n' +
+    '                                                      <!-- | limitTo:10 -->\n' +
+    '                                                </div>\n' +
+    '\n' +
+    '                                            </li>\n' +
+    '                                        </ul>\n' +
+    '                                    </div>\n' +
+    '                                </div>\n' +
+    '                                <div id="menu1" class="tab-pane fade in   tab-space">\n' +
+    '                                    <div class="hp-main-overview">\n' +
+    '                                        <ul>\n' +
+    '                                                <li>{{\'fat\' | translate}}:\n' +
+    '                                                        <span>{{fats}}</span>\n' +
+    '                                                    </li>\n' +
+    '                                                    <li>{{\'carbs\' | translate}}:\n' +
+    '                                                        <span>{{carbs}}</span>\n' +
+    '                                                    </li>\n' +
+    '                                                    <li>{{\'protein\' | translate}}:\n' +
+    '                                                        <span>{{protein}}</span>\n' +
+    '                                                    </li>\n' +
+    '                                                    <li>{{\'calories\' | translate}}:\n' +
+    '                                                        <span>{{calories}}</span>\n' +
+    '                                                    </li>\n' +
+    '                                                    <li>{{\'Total\' | translate}}:\n' +
+    '                                                <span style="width: 74px !important;" class="ov-yes">{{mealPrepService.mealPrice}} SR</span>\n' +
+    '                                            </li>\n' +
+    '                                        </ul>\n' +
+    '                                    </div>\n' +
+    '                                </div>\n' +
+    '                                <div id="menu2" class="tab-pane fade in   tab-space">\n' +
+    '                                    <form name="orderForm">\n' +
+    '                                        <!-- {{itemDatetime}} -->\n' +
+    '                                        <div class="col-md-6">\n' +
+    '                                            <h5>{{\'startDate\' | translate}}</h5>\n' +
+    '                                            <input name="itemDatetime"  ng-model="itemDatetime" type="text" id="startdate" class="form-control" ng-change="dateChange();"\n' +
+    '                                            />\n' +
+    '                                        </div>\n' +
+    '\n' +
+    '\n' +
+    '                                        <div class="col-md-12">\n' +
+    '\n' +
+    '                                            <div class="row">\n' +
+    '                                                <div class="input-field col s6">\n' +
+    '                                                    <select style="width:100% !important" required class=" select-tags form-control pmd-select2-tags" name="country" ng-change="countryChange()"\n' +
+    '                                                        ng-model="selectedCountryId" ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in counties">\n' +
+    '                                                    </select>\n' +
+    '                                                </div>\n' +
+    '                                                <div class="input-field col s6" ng-show="selectedCountryId > 0">\n' +
+    '                                                    <select style="width:100% !important" ng-required="selectedCountryId > 0" class="select-tags form-control pmd-select2-tags"\n' +
+    '                                                        ng-change="regionChange()" ng-model="selectedRegionId" ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in regions">\n' +
+    '                                                    </select>\n' +
+    '                                                </div>\n' +
+    '                                            </div>\n' +
+    '                                            <div class="row">\n' +
+    '                                                <div class="input-field col s6" ng-show="selectedRegionId > 0">\n' +
+    '                                                    <select ng-required="selectedRegionId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
+    '                                                        ng-change="cityChange()" ng-model="selectedCityId" ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in cities">\n' +
+    '                                                    </select>\n' +
+    '                                                </div>\n' +
+    '                                                <div class="input-field col s6" ng-show="selectedCityId > 0">\n' +
+    '                                                    <select ng-required="selectedCityId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
+    '                                                        ng-change="areaChange()" ng-model="selectedAreaId" ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in area">\n' +
+    '                                                    </select>\n' +
+    '                                                </div>\n' +
+    '                                                <div class="input-field col s6" ng-show="selectedAreaId > 0">\n' +
+    '                                                    <select ng-required="selectedAreaId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
+    '                                                        ng-change="branchChange()" ng-model="selectedBranchId" ng-options="group.branchId as group.titleDictionary[selectedLanguage] for group in branchList">\n' +
+    '                                                    </select>\n' +
+    '                                                </div>\n' +
+    '                                            </div>\n' +
+    '                                            <div class="input-field col s12 m4 l2">\n' +
+    '                                                <!-- <input type="submit" class="form-btn" ng-click="Order()"\n' +
+    '                                                        ng-disabled="orderForm.$invalid"> -->\n' +
+    '                                                <!-- ng-disabled="orderForm.$invalid || addressValidation == false">   -->\n' +
+    '                                                <!-- ng-disabled="orderForm.$invalid || !dateIsValid || addressValidation == false" -->\n' +
+    '\n' +
+    '\n' +
+    '                                                {{\'Pricelbl\' | translate}}:{{ mealPrepService.mealPrice}} SR\n' +
+    '                                                <br>\n' +
+    '                                                <!-- {{areaChanged}} -->\n' +
+    '                                                {{orderForm.$invalid}}\n' +
+    '                                                {{dateIsValid}}<button style="background-color: #e4e5e6;color: black!important;" ng-disabled="areaChanged == false || orderForm.$invalid || selectedBranchId <= 0 || !dateIsValid"\n' +
+    '                                                    class="btn pmd-ripple-effect btn-primary" type="button" ng-click="Order();">\n' +
+    '                                                    {{\'Order\' | translate}}</button>\n' +
+    '\n' +
+    '                                            </div>\n' +
+    '                                        </div>\n' +
+    '                                    </form>\n' +
+    '\n' +
+    '                                </div>\n' +
+    '                            </div>\n' +
+    '                        </div>\n' +
+    '\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '\n' +
+    '            </div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '\n' +
+    '    <!--END HEADER SECTION-->');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/order/templates/Order.html',
+    ' \n' +
+    '<div class="inn-body-section pad-bot-55">\n' +
+    '    <div class="container">\n' +
+    '\n' +
+    '        <div class="row">\n' +
+    '            <!--TYPOGRAPHY SECTION-->\n' +
+    '            <div class="col-md-12">\n' +
+    '                <div class="head-typo typo-com">\n' +
+    '                    <h3>{{\'History\' | translate}}</h3>\n' +
+    '\n' +
+    '                    <div ng-if="OrderList.results.length == 0">\n' +
+    '                        <span>{{\'NoOrdersAvailable\' | translate}}</span>\n' +
+    '                    </div>\n' +
+    '                    <div class="table-responsive" ng-if="OrderList.results.length > 0">\n' +
+    '\n' +
+    '                        <table class="table">\n' +
+    '                            <thead>\n' +
+    '                                <tr>\n' +
+    '                                    <th>{{\'OrderCode\' | translate}}</th>\n' +
+    '                                    <th>{{\'Date\' | translate}}</th>\n' +
+    '                                    <th>{{\'startDate\' | translate}}</th>\n' +
+    '                                    <th>{{\'Pricelbl\' | translate}}</th>\n' +
+    '                                    <th>{{\'Delvery/Takeaway\' | translate}}</th>\n' +
+    '                                    <th>{{\'Ordertype\' | translate}}</th>\n' +
+    '                                    <th>{{\'status\' | translate}}</th>\n' +
+    '                                    <th></th>\n' +
+    '                                </tr>\n' +
+    '                            </thead>\n' +
+    '                            <tbody>\n' +
+    '                                <tr ng-repeat="order in OrderList.results">\n' +
+    '                                    <td data-title="Name">#{{order.orderCode}} </td>\n' +
+    '\n' +
+    '                                    <td data-title="Name">{{order.orderDate | date : "d/MMM/yy h:mm a" }} </td>\n' +
+    '                                    <td data-title="Name">{{order.orderStartDate | date : "d/MMM/yy h:mm a"}} </td>\n' +
+    '                                    <td data-title="Name"> \n' +
+    '                                        <h4>{{ order.price}} SR</h4>\n' +
+    '                                    </td>\n' +
+    '                                    <td data-title="Name">\n' +
+    '                                        <img ng-if="order.isDelivery == true" src="assets\\img\\delivery.png"\n' +
+    '                                            title="delivery">\n' +
+    '                                        <img ng-if="order.isDelivery == false" src="assets\\img\\takeaway.png"\n' +
+    '                                            title="take away" style="width: 44px;height: 39px;">\n' +
+    '                                    </td>\n' +
+    '\n' +
+    '                                    <td data-title="Name">\n' +
+    '                                        <img ng-if="order.type == 0" src="assets\\img\\program.png" title="program">\n' +
+    '                                        <img ng-if="order.type == 1" src="assets\\img\\meal.png" title="meal">\n' +
+    '                                        <img ng-if="order.type == 2" src="assets\\img\\item.png" title="item">\n' +
+    '                                    </td>\n' +
+    '                                    <td data-title="orderStatus"> \n' +
+    '                                        <span class="ov-yes" ng-if="order.orderStatus == 0"> {{\'Open\' | translate}}</span>\n' +
+    '                                        <span class="ov-yes" ng-if="order.orderStatus == 1">{{\'Pending\' | translate}}</span>\n' +
+    '                                        <span class="ov-yes" ng-if="order.orderStatus == 2">{{\'Prepering\' | translate}}</span>\n' +
+    '                                        <span class="ov-yes" ng-if="order.orderStatus == 3">{{\'OnTheWay\' | translate}}</span>\n' +
+    '                                        <span class="ov-yes" ng-if="order.orderStatus == 4">{{\'Deliverd\' | translate}}</span>\n' +
+    '                                        <span class="ov-yes" ng-if="order.orderStatus == 5">{{\'NotDeliverd\' | translate}}</span>\n' +
+    '                                        <span class="ov-yes" ng-if="order.orderStatus == 6">{{\'KitchenFinished\' | translate}}</span>\n' +
+    '                                    </td>\n' +
+    '                                    \n' +
+    '                                    <td> <a ng-if="!order.isProgram" style="cursor: pointer;"\n' +
+    '                                            ng-click="$state.go(\'orderDetails\', {id: order.orderDetails[0].mealId});"\n' +
+    '                                            class="cursorPointer">{{\'ItemsBtn\'|translate}}</a>\n' +
+    '                                        <a ng-if="order.isProgram" style="cursor: pointer;"\n' +
+    '                                            ng-click="$state.go(\'orderProgramDetails\', {programId: order.orderDetails[0].programId});"\n' +
+    '                                            class="cursorPointer">{{\'ItemsBtn\'|translate}}</a>\n' +
+    '                                    </td>\n' +
+    '\n' +
+    '                                </tr>\n' +
+    '                            </tbody>\n' +
+    '                        </table>\n' +
+    '                    </div>\n' +
+    '                    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
+    '                        paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"\n' +
+    '                        hide-if-empty="true" disabled-class="hide">\n' +
+    '                    </div>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/order/templates/OrderDetails.html',
+    '<!-- <div class="inn-body-section pad-bot-55"> -->\n' +
+    '<div class="hom-com ng-scope">\n' +
+    '    <div class="container">\n' +
+    '\n' +
+    '        <div class="row">\n' +
+    '            <!--TYPOGRAPHY SECTION-->\n' +
+    '            <div class="col-md-12">\n' +
+    '                <div class="hp-section">\n' +
+    '                    <div class="hp-sub-tit">\n' +
+    '                        <h4>\n' +
+    '                            <span>{{\'orderdetails\' | translate}}</span>\n' +
+    '                        </h4>\n' +
+    '                    </div>\n' +
+    '                    <div class="hp-over">\n' +
+    '                        <ul class="nav nav-tabs hp-over-nav">\n' +
+    '                            <li class="active">\n' +
+    '                                <a data-toggle="tab" data-target="#home" style="cursor: pointer;">\n' +
+    '                                    <!-- <img src="/assets/img/cropped-favicon-32x32.png" alt=""> -->\n' +
+    '                                    <span>{{\'orderdetails\' | translate}}</span>\n' +
+    '                                </a>\n' +
+    '                            </li>\n' +
+    '                            <li>\n' +
+    '                                <a data-toggle="tab" data-target="#menu1" style="cursor: pointer;">\n' +
+    '                                    <!-- <img src="/assets/img/cropped-favicon-32x32.png" alt=""> -->\n' +
+    '                                    <span>{{\'Summary\' | translate}}</span>\n' +
+    '                                </a>\n' +
+    '                            </li>\n' +
+    '                        </ul>\n' +
+    '                        <div class="tab-content">\n' +
+    '                            <div id="home" class="tab-pane fade in active tab-space">\n' +
+    '                                <div\n' +
+    '                                    class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                                    <label for="first-name">{{\'Item\' | translate}}</label>\n' +
+    '                                    <ul>\n' +
+    '                                        <li ng-repeat="detail in OrderMealPrepService.mealDetails">\n' +
+    '                                            <!-- {{detail}} -->\n' +
+    '                                            <div class="res-menu">\n' +
+    '                                                <!-- {{item.itemNameDictionary[selectedLanguage]}} -->\n' +
+    '                                                <img src={{detail.item.imageUrl}} imageonload alt="">\n' +
+    '                                                <h3> {{detail.item.itemNameDictionary[selectedLanguage]}}\n' +
+    '                                                    <!-- <span>{{detail.item.totalPrice}}</span> -->\n' +
+    '                                                </h3>\n' +
+    '                                                <span\n' +
+    '                                                    class="menu-item">{{detail.item.itemDescriptionDictionary[selectedLanguage] }}</span>\n' +
+    '                                                <span> {{\'fat\' | translate}}:{{detail.item.fat}}</span>\n' +
+    '                                                <span> {{\'carbs\' | translate}}:{{detail.item.carbs}}</span>\n' +
+    '                                                <span> {{\'protein\' | translate}}:{{detail.item.protein}}</span>\n' +
+    '                                                <span> {{\'calories\' | translate}}:{{detail.item.calories}}</span>\n' +
+    '                                                <!-- | limitTo:10 -->\n' +
+    '                                            </div>\n' +
+    '\n' +
+    '                                        </li>\n' +
+    '                                    </ul>\n' +
+    '                                </div>\n' +
+    '                            </div>\n' +
+    '                            <div id="menu1" class="tab-pane fade in   tab-space">\n' +
+    '                                <div class="hp-main-overview">\n' +
+    '                                    <ul>\n' +
+    '                                        <li>{{\'fat\' | translate}}:\n' +
+    '                                            <span>{{fats}}</span>\n' +
+    '                                        </li>\n' +
+    '                                        <li>{{\'carbs\' | translate}}:\n' +
+    '                                            <span>{{carbs}}</span>\n' +
+    '                                        </li>\n' +
+    '                                        <li>{{\'protein\' | translate}}:\n' +
+    '                                            <span>{{protein}}</span>\n' +
+    '                                        </li>\n' +
+    '                                        <li>{{\'calories\' | translate}}:\n' +
+    '                                            <span>{{calories}}</span>\n' +
+    '                                        </li>\n' +
+    '                                        <li>{{\'Total\' | translate}}:\n' +
+    '                                            <span style="width: 74px !important;"\n' +
+    '                                                class="ov-yes">{{OrderMealPrepService.mealPrice}} SR</span>\n' +
+    '                                        </li>\n' +
+    '                                    </ul>\n' +
+    '                                </div>\n' +
+    '                            </div>\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/GlobalAdmin/order/templates/OrderProgramDetails.html',
+    '<!-- <div class="inn-body-section pad-bot-55"> -->\n' +
+    '<div class="hom-com ng-scope">\n' +
+    '    <div class="container">\n' +
+    '\n' +
+    '        <div class="row">\n' +
+    '            <!--TYPOGRAPHY SECTION-->\n' +
+    '            <div class="col-md-12">\n' +
+    '                <div class="hp-section">\n' +
+    '                    <div class="hp-sub-tit">\n' +
+    '                        <h4>\n' +
+    '                            <span>{{\'orderdetails\' | translate}}</span>\n' +
+    '                        </h4>\n' +
+    '                    </div>\n' +
+    '                    <div class="hp-over">\n' +
+    '                        <ul class="nav nav-tabs hp-over-nav">\n' +
+    '                            <li class="active">\n' +
+    '                                <a data-toggle="tab" data-target="#home" style="cursor: pointer;">\n' +
+    '                                    <!-- <img src="/assets/img/cropped-favicon-32x32.png" alt=""> -->\n' +
+    '                                    <span>{{\'orderdetails\' | translate}}</span>\n' +
+    '                                </a>\n' +
+    '                            </li>\n' +
+    '                            <li>\n' +
+    '                                <a data-toggle="tab" data-target="#menu1" style="cursor: pointer;">\n' +
+    '                                    <!-- <img src="/assets/img/cropped-favicon-32x32.png" alt=""> -->\n' +
+    '                                    <span>{{\'Summary\' | translate}}</span>\n' +
+    '                                </a>\n' +
+    '                            </li>\n' +
+    '                        </ul>\n' +
+    '                        <div class="tab-content">\n' +
+    '                            <div id="home" class="tab-pane fade in active tab-space">\n' +
+    '                                <div ng-init="counterDay = 0; counterMeal = 0">\n' +
+    '                                    <div class="panel-group pmd-accordion pmd-accordion-inbox" id="accordion6"\n' +
+    '                                        role="tablist" aria-multiselectable="true">\n' +
+    '                                        <div ng-repeat="n in [].constructor(OrderprogDetailsPrepService.programDays)  track by $index"\n' +
+    '                                            class="panel panel-default">\n' +
+    '                                            <div class="panel-heading" role="tab" id="headingOne"\n' +
+    '                                                ng-init="counterDay=counterDay+1;" data-toggle="collapse"\n' +
+    '                                                data-parent="#accordion6" ng-init="n=false" ng-click="n=!n;"\n' +
+    '                                                aria-expanded="true" aria-controls="collapseOne6"\n' +
+    '                                                data-expandable="false">\n' +
+    '                                                <h4 class="panel-title">\n' +
+    '                                                    <a>\n' +
+    '                                                        {{\'Day\' | translate}} {{counterDay=$index+1}}\n' +
+    '                                                        <i\n' +
+    '                                                            class="material-icons md-dark pmd-sm pmd-accordion-arrow">keyboard_arrow_down</i>\n' +
+    '                                                    </a>\n' +
+    '                                                </h4>\n' +
+    '                                            </div>\n' +
+    '                                            <div ng-show="n == true" id="collapseOne6"\n' +
+    '                                                class="panel-collapse collapse in" role="tabpanel"\n' +
+    '                                                aria-labelledby="headingOne">\n' +
+    '                                                <div class="panel-body">\n' +
+    '                                                    <ul>\n' +
+    '\n' +
+    '                                                        <li\n' +
+    '                                                            ng-repeat="meal in [].constructor(OrderprogDetailsPrepService.noOfMeals)  track by $index">\n' +
+    '                                                            <h4>\n' +
+    '                                                                <a ng-init="counterMeal=counterMeal+1;"\n' +
+    '                                                                    ng-click="showDetails = ! showDetails;">{{\'Meals\' | translate}}\n' +
+    '                                                                    {{counterMeal=$index+1}}</a>\n' +
+    '                                                                <!-- <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="OrderprogDetailsPrepService.ShowProgramMeal(OrderprogDetailsPrepService.programDetails.programId, counterDay, counterMeal)">mode_edit</i> -->\n' +
+    '                                                            </h4>\n' +
+    '                                                            <div ng-show="showDetails">\n' +
+    '                                                                <div\n' +
+    '                                                                    class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                                                                    <label\n' +
+    '                                                                        for="first-name">{{\'Item\' | translate}}</label>\n' +
+    '                                                                    <ul>\n' +
+    '                                                                        <li\n' +
+    '                                                                            ng-repeat="detail in OrderprogDetailsPrepService.programDetails | filter:{dayNumber:counterDay, mealNumberPerDay: counterMeal} :true">\n' +
+    '                                                                            <div class="res-menu">\n' +
+    '                                                                                <!-- {{item.itemNameDictionary[selectedLanguage]}} -->\n' +
+    '                                                                                <img src={{detail.item.imageUrl}}\n' +
+    '                                                                                    imageonload alt="">\n' +
+    '\n' +
+    '                                                                                <h3> {{detail.item.itemNameDictionary[selectedLanguage]}}\n' +
+    '                                                                                    <!-- <span>{{detail.item.totalPrice}}</span> -->\n' +
+    '                                                                                </h3>\n' +
+    '                                                                                <span\n' +
+    '                                                                                    class="menu-item">{{detail.item.itemDescriptionDictionary[selectedLanguage]}}</span>\n' +
+    '                                                                                <span>\n' +
+    '                                                                                    {{\'fat\' | translate}}:{{detail.item.fat}}</span>\n' +
+    '                                                                                <span>\n' +
+    '                                                                                    {{\'carbs\' | translate}}:{{detail.item.carbs}}</span>\n' +
+    '                                                                                <span>\n' +
+    '                                                                                    {{\'protein\' | translate}}:{{detail.item.protein}}</span>\n' +
+    '                                                                                <span>\n' +
+    '                                                                                    {{\'calories\' | translate}}:{{detail.item.calories}}</span>\n' +
+    '                                                                            </div>\n' +
+    '\n' +
+    '                                                                        </li>\n' +
+    '                                                                    </ul>\n' +
+    '                                                                </div>\n' +
+    '                                                            </div>\n' +
+    '                                                        </li>\n' +
+    '                                                    </ul>\n' +
+    '                                                </div>\n' +
+    '                                            </div>\n' +
+    '                                        </div>\n' +
+    '                                    </div>\n' +
+    '                                </div>\n' +
+    '                            </div>\n' +
+    '                            <div id="menu1" class="tab-pane fade in   tab-space">\n' +
+    '                                <div class="hp-main-overview">\n' +
+    '                                     <ul>\n' +
+    '                                        <li>{{\'fat\' | translate}}:\n' +
+    '                                            <span>{{fats}}</span>\n' +
+    '                                        </li>\n' +
+    '                                        <li>{{\'carbs\' | translate}}:\n' +
+    '                                            <span>{{carbs}}</span>\n' +
+    '                                        </li>\n' +
+    '                                        <li>{{\'protein\' | translate}}:\n' +
+    '                                            <span>{{protein}}</span>\n' +
+    '                                        </li>\n' +
+    '                                        <li>{{\'calories\' | translate}}:\n' +
+    '                                            <span>{{calories}}</span>\n' +
+    '                                        </li>\n' +
+    '                                        <li>{{\'Total\' | translate}}:\n' +
+    '                                            <span style="width: 74px !important;" class="ov-yes">{{OrderprogDetailsPrepService.price}} SR</span>\n' +
+    '                                        </li>\n' +
+    '                                    </ul>\n' +
+    '                                </div>\n' +
+    '                            </div>\n' +
+    '                        </div>\n' +
+    '                    </div>\n' +
+    '\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '        </div>\n' +
+    '    </div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/customProgram/templates/Custom.html',
     '<!--TOP SECTION-->\n' +
     '<div class="inn-body-section pad-bot-55">\n' +
@@ -804,563 +1363,6 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/meal/templates/meal.html',
-    '<div class="hom-com ng-scope">\n' +
-    '        <div class="container">\n' +
-    '        <div class="row">\n' +
-    '            <div class="page-head">\n' +
-    '                <h2>{{\'Meals\' | translate}}</h2>\n' +
-    '                <!-- <div class="head-title">\n' +
-    '                    <div class="hl-1"></div>\n' +
-    '                    <div class="hl-2"></div>\n' +
-    '                    <div class="hl-3"></div>\n' +
-    '                </div>\n' +
-    '                <p>{{\'MealsDescription\' | translate}}</p> -->\n' +
-    '            </div>\n' +
-    '            <!--ROOM SECTION-->\n' +
-    '\n' +
-    '            <div ng-click="$state.go(\'mealDetails\', {mealId: Meal.mealId});" style="cursor: pointer !important;"\n' +
-    '                ng-repeat="Meal in mealsPrepService" class="room">\n' +
-    '                <!-- {{Meal.imageUrl}} -->\n' +
-    '\n' +
-    '                <div class="ribbon ribbon-top-left">\n' +
-    '                    <span>{{\'Meal\' | translate}}</span>\n' +
-    '                </div>\n' +
-    '                <!--ROOM IMAGE-->\n' +
-    '                <!-- <div ng-if="Meal.imageUrl == null" class="r1 r-com">\n' +
-    '                    <img src="https://fithouseksa.com/wp-content/uploads/2018/07/Grilled-steak.png" alt="" />\n' +
-    '                </div>\n' +
-    '                <div ng-if="Meal.imageUrl != null" class="r1 r-com">\n' +
-    '                    <img src={{Meal.imageUrl}} alt="" />\n' +
-    '                </div> -->\n' +
-    '                <div class="r1 r-com">\n' +
-    '                    <img src={{Meal.imageUrl}} imageonload alt="">\n' +
-    '                </div>\n' +
-    '                <!--ROOM RATING-->\n' +
-    '                <div class="r2 r-com">\n' +
-    '                    <h4>{{Meal.mealDescriptionDictionary[selectedLanguage] | limitTo:15}}</h4>\n' +
-    '                </div>\n' +
-    '                <!--ROOM AMINITIES-->\n' +
-    '                <div class="r3 r-com">\n' +
-    '                    <p>\n' +
-    '                         {{\'NumberOfItems\' | translate}}: {{Meal.mealDetails.length}} \n' +
-    '                    </p>\n' +
-    '                </div>\n' +
-    '                <!--ROOM PRICE-->\n' +
-    '                <div class="r4 r-com">\n' +
-    '                    <p>{{Meal.mealPrice}} SR</p>\n' +
-    '                    <p>\n' +
-    '                        <span class="room-price-1"></span>\n' +
-    '                        <span class="room-price"></span>\n' +
-    '                    </p>\n' +
-    '                    <!-- <p>{{\'NonRefundable\' | translate}}</p> -->\n' +
-    '                </div>\n' +
-    '                <!--ROOM BOOKING BUTTON-->\n' +
-    '                <div class="r5 r-com">\n' +
-    '                    <!-- <div class="r2-available">{{\'Available\' | translate}}</div> -->\n' +
-    '                    <p></p>\n' +
-    '                    <a ng-click="$state.go(\'mealDetails\', {mealId: Meal.mealId});"\n' +
-    '                        class="inn-room-book">{{\'Order\' | translate}}</a>\n' +
-    '                </div>\n' +
-    '            </div>\n' +
-    '\n' +
-    '            <!--END ROOM SECTION-->\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/meal/templates/mealDetails.html',
-    '<script>\n' +
-    '    $(function () {\n' +
-    '        $(\'#startdate\').datepicker(\n' +
-    '            {\n' +
-    '                minDate: new Date()\n' +
-    '            }\n' +
-    '        ).on(\'dp.change\', function (e) {\n' +
-    '            debugger;\n' +
-    '            angular.element(document.getElementById(\'startdate\')).scope().dateChange();\n' +
-    '        });\n' +
-    '    });\n' +
-    '</script>\n' +
-    '<div class="hp-banner">\n' +
-    '    <img src="images/detailed-banner.jpg" alt=""> </div>\n' +
-    '\n' +
-    '<div class="hom-com">\n' +
-    '    <div class="container">\n' +
-    '        <div class="row">\n' +
-    '            <div class="col-md-12">\n' +
-    '                <div class="row">\n' +
-    '                    <div class="hp-section">\n' +
-    '                        <div class="hp-sub-tit">\n' +
-    '                            <h4>\n' +
-    '                                <span>{{mealPrepService.mealNameDictionary[selectedLanguage]}}</span>\n' +
-    '                            </h4>\n' +
-    '\n' +
-    '                        </div>\n' +
-    '                        <!-- <div class="hp-amini detai-2p">\n' +
-    '                            <p>{{mealPrepService.mealDescriptionDictionary[selectedLanguage]}}</p>\n' +
-    '                        </div> -->\n' +
-    '                    </div>\n' +
-    '\n' +
-    '                    <div class="hp-section">\n' +
-    '                        <div class="hp-sub-tit">\n' +
-    '                            <h4>\n' +
-    '                                <span>{{\'MealDetails\' | translate}}</span>\n' +
-    '                            </h4>\n' +
-    '                            <!-- <p>Aliquam id tempor sem. Cras molestie risus et lobortis congue. Donec id est consectetur,\n' +
-    '                                        cursus tellus at, mattis lacus.</p> -->\n' +
-    '                        </div>\n' +
-    '                        <div class="hp-over">\n' +
-    '                            <ul class="nav nav-tabs hp-over-nav">\n' +
-    '                                <li class="active">\n' +
-    '                                    <a data-toggle="tab" data-target="#home" style="cursor: pointer;">\n' +
-    '                                        <!-- <img src="/assets/img/cropped-favicon-32x32.png" alt=""> -->\n' +
-    '                                        <span>{{\'Details\' | translate}}</span>\n' +
-    '                                    </a>\n' +
-    '                                </li>\n' +
-    '                                <li>\n' +
-    '                                    <a data-toggle="tab" data-target="#menu1" style="cursor: pointer;">\n' +
-    '                                        <!-- <img src="/assets/img/cropped-favicon-32x32.png" alt=""> -->\n' +
-    '                                        <span>{{\'Summary\' | translate}}</span>\n' +
-    '                                    </a>\n' +
-    '                                </li>\n' +
-    '                                <li>\n' +
-    '                                    <a data-toggle="tab" data-target="#menu2" style="cursor: pointer;">\n' +
-    '                                        <!-- <img src="/assets/img/cropped-favicon-32x32.png" alt=""> -->\n' +
-    '                                        <span>{{\'Order\' | translate}}</span>\n' +
-    '                                    </a>\n' +
-    '                                </li>\n' +
-    '                            </ul>\n' +
-    '                            <div class="tab-content">\n' +
-    '                                <div id="home" class="tab-pane fade in active tab-space">\n' +
-    '                                    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                                        <label for="first-name">{{\'Item\' | translate}}</label>\n' +
-    '                                        <ul>\n' +
-    '                                            <li ng-repeat="detail in mealPrepService.mealDetails">\n' +
-    '                                                <!-- {{detail}} -->\n' +
-    '                                                <div class="res-menu">\n' +
-    '                                                    <!-- {{item.itemNameDictionary[selectedLanguage]}} -->\n' +
-    '                                                    <img src={{detail.item.imageUrl}} imageonload alt=""> \n' +
-    '                                                    <h3> {{detail.item.itemNameDictionary[selectedLanguage]}}\n' +
-    '                                                        <!-- <span>{{detail.item.totalPrice}}</span> -->\n' +
-    '                                                    </h3>\n' +
-    '                                                    <span class="menu-item">{{detail.item.itemDescriptionDictionary[selectedLanguage] }}</span>\n' +
-    '                                                    <span> {{\'fat\' | translate}}:{{detail.item.fat}}</span>\n' +
-    '                                                    <span> {{\'carbs\' | translate}}:{{detail.item.carbs}}</span>\n' +
-    '                                                    <span> {{\'protein\' | translate}}:{{detail.item.protein}}</span>\n' +
-    '                                                    <span> {{\'calories\' | translate}}:{{detail.item.calories}}</span>\n' +
-    '                                                      <!-- | limitTo:10 -->\n' +
-    '                                                </div>\n' +
-    '\n' +
-    '                                            </li>\n' +
-    '                                        </ul>\n' +
-    '                                    </div>\n' +
-    '                                </div>\n' +
-    '                                <div id="menu1" class="tab-pane fade in   tab-space">\n' +
-    '                                    <div class="hp-main-overview">\n' +
-    '                                        <ul>\n' +
-    '                                                <li>{{\'fat\' | translate}}:\n' +
-    '                                                        <span>{{fats}}</span>\n' +
-    '                                                    </li>\n' +
-    '                                                    <li>{{\'carbs\' | translate}}:\n' +
-    '                                                        <span>{{carbs}}</span>\n' +
-    '                                                    </li>\n' +
-    '                                                    <li>{{\'protein\' | translate}}:\n' +
-    '                                                        <span>{{protein}}</span>\n' +
-    '                                                    </li>\n' +
-    '                                                    <li>{{\'calories\' | translate}}:\n' +
-    '                                                        <span>{{calories}}</span>\n' +
-    '                                                    </li>\n' +
-    '                                                    <li>{{\'Total\' | translate}}:\n' +
-    '                                                <span style="width: 74px !important;" class="ov-yes">{{mealPrepService.mealPrice}} SR</span>\n' +
-    '                                            </li>\n' +
-    '                                        </ul>\n' +
-    '                                    </div>\n' +
-    '                                </div>\n' +
-    '                                <div id="menu2" class="tab-pane fade in   tab-space">\n' +
-    '                                    <form name="orderForm">\n' +
-    '                                        <!-- {{itemDatetime}} -->\n' +
-    '                                        <div class="col-md-6">\n' +
-    '                                            <h5>{{\'startDate\' | translate}}</h5>\n' +
-    '                                            <input name="itemDatetime" required ng-model="itemDatetime" type="text" id="startdate" class="form-control" ng-change="dateChange();"\n' +
-    '                                            />\n' +
-    '                                        </div>\n' +
-    '\n' +
-    '\n' +
-    '                                        <div class="col-md-12">\n' +
-    '\n' +
-    '                                            <div class="row">\n' +
-    '                                                <div class="input-field col s6">\n' +
-    '                                                    <select style="width:100% !important" required class=" select-tags form-control pmd-select2-tags" name="country" ng-change="countryChange()"\n' +
-    '                                                        ng-model="selectedCountryId" ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in counties">\n' +
-    '                                                    </select>\n' +
-    '                                                </div>\n' +
-    '                                                <div class="input-field col s6" ng-show="selectedCountryId > 0">\n' +
-    '                                                    <select style="width:100% !important" ng-required="selectedCountryId > 0" class="select-tags form-control pmd-select2-tags"\n' +
-    '                                                        ng-change="regionChange()" ng-model="selectedRegionId" ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in regions">\n' +
-    '                                                    </select>\n' +
-    '                                                </div>\n' +
-    '                                            </div>\n' +
-    '                                            <div class="row">\n' +
-    '                                                <div class="input-field col s6" ng-show="selectedRegionId > 0">\n' +
-    '                                                    <select ng-required="selectedRegionId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
-    '                                                        ng-change="cityChange()" ng-model="selectedCityId" ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in cities">\n' +
-    '                                                    </select>\n' +
-    '                                                </div>\n' +
-    '                                                <div class="input-field col s6" ng-show="selectedCityId > 0">\n' +
-    '                                                    <select ng-required="selectedCityId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
-    '                                                        ng-change="areaChange()" ng-model="selectedAreaId" ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in area">\n' +
-    '                                                    </select>\n' +
-    '                                                </div>\n' +
-    '                                                <div class="input-field col s6" ng-show="selectedAreaId > 0">\n' +
-    '                                                    <select ng-required="selectedAreaId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
-    '                                                        ng-change="branchChange()" ng-model="selectedBranchId" ng-options="group.branchId as group.titleDictionary[selectedLanguage] for group in branchList">\n' +
-    '                                                    </select>\n' +
-    '                                                </div>\n' +
-    '                                            </div>\n' +
-    '                                            <div class="input-field col s12 m4 l2">\n' +
-    '                                                <!-- <input type="submit" class="form-btn" ng-click="Order()"\n' +
-    '                                                        ng-disabled="orderForm.$invalid"> -->\n' +
-    '                                                <!-- ng-disabled="orderForm.$invalid || addressValidation == false">   -->\n' +
-    '                                                <!-- ng-disabled="orderForm.$invalid || !dateIsValid || addressValidation == false" -->\n' +
-    '\n' +
-    '\n' +
-    '                                                {{\'Pricelbl\' | translate}}:{{ mealPrepService.mealPrice}} SR\n' +
-    '                                                <br>\n' +
-    '                                                <!-- {{areaChanged}} -->\n' +
-    '                                                <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="areaChanged == false || orderForm.$invalid || selectedBranchId <= 0 && !dateIsValid"\n' +
-    '                                                    class="btn pmd-ripple-effect btn-primary" type="button" ng-click="Order();">\n' +
-    '                                                    {{\'Order\' | translate}}</button>\n' +
-    '\n' +
-    '                                            </div>\n' +
-    '                                        </div>\n' +
-    '                                    </form>\n' +
-    '\n' +
-    '                                </div>\n' +
-    '                            </div>\n' +
-    '                        </div>\n' +
-    '\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '\n' +
-    '            </div>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '\n' +
-    '    <!--END HEADER SECTION-->');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/order/templates/Order.html',
-    ' \n' +
-    '<div class="inn-body-section pad-bot-55">\n' +
-    '    <div class="container">\n' +
-    '\n' +
-    '        <div class="row">\n' +
-    '            <!--TYPOGRAPHY SECTION-->\n' +
-    '            <div class="col-md-12">\n' +
-    '                <div class="head-typo typo-com">\n' +
-    '                    <h3>{{\'History\' | translate}}</h3>\n' +
-    '\n' +
-    '                    <div ng-if="OrderList.results.length == 0">\n' +
-    '                        <span>{{\'NoOrdersAvailable\' | translate}}</span>\n' +
-    '                    </div>\n' +
-    '                    <div class="table-responsive" ng-if="OrderList.results.length > 0">\n' +
-    '\n' +
-    '                        <table class="table">\n' +
-    '                            <thead>\n' +
-    '                                <tr>\n' +
-    '                                    <th>{{\'OrderCode\' | translate}}</th>\n' +
-    '                                    <th>{{\'Date\' | translate}}</th>\n' +
-    '                                    <th>{{\'startDate\' | translate}}</th>\n' +
-    '                                    <th>{{\'Pricelbl\' | translate}}</th>\n' +
-    '                                    <th>{{\'Delvery/Takeaway\' | translate}}</th>\n' +
-    '                                    <th>{{\'Ordertype\' | translate}}</th>\n' +
-    '                                    <th>{{\'status\' | translate}}</th>\n' +
-    '                                    <th></th>\n' +
-    '                                </tr>\n' +
-    '                            </thead>\n' +
-    '                            <tbody>\n' +
-    '                                <tr ng-repeat="order in OrderList.results">\n' +
-    '                                    <td data-title="Name">#{{order.orderCode}} </td>\n' +
-    '\n' +
-    '                                    <td data-title="Name">{{order.orderDate | date : "d/MMM/yy h:mm a" }} </td>\n' +
-    '                                    <td data-title="Name">{{order.orderStartDate | date : "d/MMM/yy h:mm a"}} </td>\n' +
-    '                                    <td data-title="Name"> \n' +
-    '                                        <h4>{{ order.price}} SR</h4>\n' +
-    '                                    </td>\n' +
-    '                                    <td data-title="Name">\n' +
-    '                                        <img ng-if="order.isDelivery == true" src="assets\\img\\delivery.png"\n' +
-    '                                            title="delivery">\n' +
-    '                                        <img ng-if="order.isDelivery == false" src="assets\\img\\takeaway.png"\n' +
-    '                                            title="take away" style="width: 44px;height: 39px;">\n' +
-    '                                    </td>\n' +
-    '\n' +
-    '                                    <td data-title="Name">\n' +
-    '                                        <img ng-if="order.type == 0" src="assets\\img\\program.png" title="program">\n' +
-    '                                        <img ng-if="order.type == 1" src="assets\\img\\meal.png" title="meal">\n' +
-    '                                        <img ng-if="order.type == 2" src="assets\\img\\item.png" title="item">\n' +
-    '                                    </td>\n' +
-    '                                    <td data-title="orderStatus"> \n' +
-    '                                        <span class="ov-yes" ng-if="order.orderStatus == 0"> {{\'Open\' | translate}}</span>\n' +
-    '                                        <span class="ov-yes" ng-if="order.orderStatus == 1">{{\'Pending\' | translate}}</span>\n' +
-    '                                        <span class="ov-yes" ng-if="order.orderStatus == 2">{{\'Prepering\' | translate}}</span>\n' +
-    '                                        <span class="ov-yes" ng-if="order.orderStatus == 3">{{\'OnTheWay\' | translate}}</span>\n' +
-    '                                        <span class="ov-yes" ng-if="order.orderStatus == 4">{{\'Deliverd\' | translate}}</span>\n' +
-    '                                        <span class="ov-yes" ng-if="order.orderStatus == 5">{{\'NotDeliverd\' | translate}}</span>\n' +
-    '                                        <span class="ov-yes" ng-if="order.orderStatus == 6">{{\'KitchenFinished\' | translate}}</span>\n' +
-    '                                    </td>\n' +
-    '                                    \n' +
-    '                                    <td> <a ng-if="!order.isProgram" style="cursor: pointer;"\n' +
-    '                                            ng-click="$state.go(\'orderDetails\', {id: order.orderDetails[0].mealId});"\n' +
-    '                                            class="cursorPointer">{{\'ItemsBtn\'|translate}}</a>\n' +
-    '                                        <a ng-if="order.isProgram" style="cursor: pointer;"\n' +
-    '                                            ng-click="$state.go(\'orderProgramDetails\', {programId: order.orderDetails[0].programId});"\n' +
-    '                                            class="cursorPointer">{{\'ItemsBtn\'|translate}}</a>\n' +
-    '                                    </td>\n' +
-    '\n' +
-    '                                </tr>\n' +
-    '                            </tbody>\n' +
-    '                        </table>\n' +
-    '                    </div>\n' +
-    '                    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
-    '                        paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"\n' +
-    '                        hide-if-empty="true" disabled-class="hide">\n' +
-    '                    </div>\n' +
-    '                </div>\n' +
-    '            </div>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/order/templates/OrderDetails.html',
-    '<!-- <div class="inn-body-section pad-bot-55"> -->\n' +
-    '<div class="hom-com ng-scope">\n' +
-    '    <div class="container">\n' +
-    '\n' +
-    '        <div class="row">\n' +
-    '            <!--TYPOGRAPHY SECTION-->\n' +
-    '            <div class="col-md-12">\n' +
-    '                <div class="hp-section">\n' +
-    '                    <div class="hp-sub-tit">\n' +
-    '                        <h4>\n' +
-    '                            <span>{{\'orderdetails\' | translate}}</span>\n' +
-    '                        </h4>\n' +
-    '                    </div>\n' +
-    '                    <div class="hp-over">\n' +
-    '                        <ul class="nav nav-tabs hp-over-nav">\n' +
-    '                            <li class="active">\n' +
-    '                                <a data-toggle="tab" data-target="#home" style="cursor: pointer;">\n' +
-    '                                    <!-- <img src="/assets/img/cropped-favicon-32x32.png" alt=""> -->\n' +
-    '                                    <span>{{\'orderdetails\' | translate}}</span>\n' +
-    '                                </a>\n' +
-    '                            </li>\n' +
-    '                            <li>\n' +
-    '                                <a data-toggle="tab" data-target="#menu1" style="cursor: pointer;">\n' +
-    '                                    <!-- <img src="/assets/img/cropped-favicon-32x32.png" alt=""> -->\n' +
-    '                                    <span>{{\'Summary\' | translate}}</span>\n' +
-    '                                </a>\n' +
-    '                            </li>\n' +
-    '                        </ul>\n' +
-    '                        <div class="tab-content">\n' +
-    '                            <div id="home" class="tab-pane fade in active tab-space">\n' +
-    '                                <div\n' +
-    '                                    class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                                    <label for="first-name">{{\'Item\' | translate}}</label>\n' +
-    '                                    <ul>\n' +
-    '                                        <li ng-repeat="detail in OrderMealPrepService.mealDetails">\n' +
-    '                                            <!-- {{detail}} -->\n' +
-    '                                            <div class="res-menu">\n' +
-    '                                                <!-- {{item.itemNameDictionary[selectedLanguage]}} -->\n' +
-    '                                                <img src={{detail.item.imageUrl}} imageonload alt="">\n' +
-    '                                                <h3> {{detail.item.itemNameDictionary[selectedLanguage]}}\n' +
-    '                                                    <!-- <span>{{detail.item.totalPrice}}</span> -->\n' +
-    '                                                </h3>\n' +
-    '                                                <span\n' +
-    '                                                    class="menu-item">{{detail.item.itemDescriptionDictionary[selectedLanguage] }}</span>\n' +
-    '                                                <span> {{\'fat\' | translate}}:{{detail.item.fat}}</span>\n' +
-    '                                                <span> {{\'carbs\' | translate}}:{{detail.item.carbs}}</span>\n' +
-    '                                                <span> {{\'protein\' | translate}}:{{detail.item.protein}}</span>\n' +
-    '                                                <span> {{\'calories\' | translate}}:{{detail.item.calories}}</span>\n' +
-    '                                                <!-- | limitTo:10 -->\n' +
-    '                                            </div>\n' +
-    '\n' +
-    '                                        </li>\n' +
-    '                                    </ul>\n' +
-    '                                </div>\n' +
-    '                            </div>\n' +
-    '                            <div id="menu1" class="tab-pane fade in   tab-space">\n' +
-    '                                <div class="hp-main-overview">\n' +
-    '                                    <ul>\n' +
-    '                                        <li>{{\'fat\' | translate}}:\n' +
-    '                                            <span>{{fats}}</span>\n' +
-    '                                        </li>\n' +
-    '                                        <li>{{\'carbs\' | translate}}:\n' +
-    '                                            <span>{{carbs}}</span>\n' +
-    '                                        </li>\n' +
-    '                                        <li>{{\'protein\' | translate}}:\n' +
-    '                                            <span>{{protein}}</span>\n' +
-    '                                        </li>\n' +
-    '                                        <li>{{\'calories\' | translate}}:\n' +
-    '                                            <span>{{calories}}</span>\n' +
-    '                                        </li>\n' +
-    '                                        <li>{{\'Total\' | translate}}:\n' +
-    '                                            <span style="width: 74px !important;"\n' +
-    '                                                class="ov-yes">{{OrderMealPrepService.mealPrice}} SR</span>\n' +
-    '                                        </li>\n' +
-    '                                    </ul>\n' +
-    '                                </div>\n' +
-    '                            </div>\n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
-    '\n' +
-    '                </div>\n' +
-    '            </div>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/GlobalAdmin/order/templates/OrderProgramDetails.html',
-    '<!-- <div class="inn-body-section pad-bot-55"> -->\n' +
-    '<div class="hom-com ng-scope">\n' +
-    '    <div class="container">\n' +
-    '\n' +
-    '        <div class="row">\n' +
-    '            <!--TYPOGRAPHY SECTION-->\n' +
-    '            <div class="col-md-12">\n' +
-    '                <div class="hp-section">\n' +
-    '                    <div class="hp-sub-tit">\n' +
-    '                        <h4>\n' +
-    '                            <span>{{\'orderdetails\' | translate}}</span>\n' +
-    '                        </h4>\n' +
-    '                    </div>\n' +
-    '                    <div class="hp-over">\n' +
-    '                        <ul class="nav nav-tabs hp-over-nav">\n' +
-    '                            <li class="active">\n' +
-    '                                <a data-toggle="tab" data-target="#home" style="cursor: pointer;">\n' +
-    '                                    <!-- <img src="/assets/img/cropped-favicon-32x32.png" alt=""> -->\n' +
-    '                                    <span>{{\'orderdetails\' | translate}}</span>\n' +
-    '                                </a>\n' +
-    '                            </li>\n' +
-    '                            <li>\n' +
-    '                                <a data-toggle="tab" data-target="#menu1" style="cursor: pointer;">\n' +
-    '                                    <!-- <img src="/assets/img/cropped-favicon-32x32.png" alt=""> -->\n' +
-    '                                    <span>{{\'Summary\' | translate}}</span>\n' +
-    '                                </a>\n' +
-    '                            </li>\n' +
-    '                        </ul>\n' +
-    '                        <div class="tab-content">\n' +
-    '                            <div id="home" class="tab-pane fade in active tab-space">\n' +
-    '                                <div ng-init="counterDay = 0; counterMeal = 0">\n' +
-    '                                    <div class="panel-group pmd-accordion pmd-accordion-inbox" id="accordion6"\n' +
-    '                                        role="tablist" aria-multiselectable="true">\n' +
-    '                                        <div ng-repeat="n in [].constructor(OrderprogDetailsPrepService.programDays)  track by $index"\n' +
-    '                                            class="panel panel-default">\n' +
-    '                                            <div class="panel-heading" role="tab" id="headingOne"\n' +
-    '                                                ng-init="counterDay=counterDay+1;" data-toggle="collapse"\n' +
-    '                                                data-parent="#accordion6" ng-init="n=false" ng-click="n=!n;"\n' +
-    '                                                aria-expanded="true" aria-controls="collapseOne6"\n' +
-    '                                                data-expandable="false">\n' +
-    '                                                <h4 class="panel-title">\n' +
-    '                                                    <a>\n' +
-    '                                                        {{\'Day\' | translate}} {{counterDay=$index+1}}\n' +
-    '                                                        <i\n' +
-    '                                                            class="material-icons md-dark pmd-sm pmd-accordion-arrow">keyboard_arrow_down</i>\n' +
-    '                                                    </a>\n' +
-    '                                                </h4>\n' +
-    '                                            </div>\n' +
-    '                                            <div ng-show="n == true" id="collapseOne6"\n' +
-    '                                                class="panel-collapse collapse in" role="tabpanel"\n' +
-    '                                                aria-labelledby="headingOne">\n' +
-    '                                                <div class="panel-body">\n' +
-    '                                                    <ul>\n' +
-    '\n' +
-    '                                                        <li\n' +
-    '                                                            ng-repeat="meal in [].constructor(OrderprogDetailsPrepService.noOfMeals)  track by $index">\n' +
-    '                                                            <h4>\n' +
-    '                                                                <a ng-init="counterMeal=counterMeal+1;"\n' +
-    '                                                                    ng-click="showDetails = ! showDetails;">{{\'Meals\' | translate}}\n' +
-    '                                                                    {{counterMeal=$index+1}}</a>\n' +
-    '                                                                <!-- <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="OrderprogDetailsPrepService.ShowProgramMeal(OrderprogDetailsPrepService.programDetails.programId, counterDay, counterMeal)">mode_edit</i> -->\n' +
-    '                                                            </h4>\n' +
-    '                                                            <div ng-show="showDetails">\n' +
-    '                                                                <div\n' +
-    '                                                                    class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                                                                    <label\n' +
-    '                                                                        for="first-name">{{\'Item\' | translate}}</label>\n' +
-    '                                                                    <ul>\n' +
-    '                                                                        <li\n' +
-    '                                                                            ng-repeat="detail in OrderprogDetailsPrepService.programDetails | filter:{dayNumber:counterDay, mealNumberPerDay: counterMeal} :true">\n' +
-    '                                                                            <div class="res-menu">\n' +
-    '                                                                                <!-- {{item.itemNameDictionary[selectedLanguage]}} -->\n' +
-    '                                                                                <img src={{detail.item.imageUrl}}\n' +
-    '                                                                                    imageonload alt="">\n' +
-    '\n' +
-    '                                                                                <h3> {{detail.item.itemNameDictionary[selectedLanguage]}}\n' +
-    '                                                                                    <!-- <span>{{detail.item.totalPrice}}</span> -->\n' +
-    '                                                                                </h3>\n' +
-    '                                                                                <span\n' +
-    '                                                                                    class="menu-item">{{detail.item.itemDescriptionDictionary[selectedLanguage]}}</span>\n' +
-    '                                                                                <span>\n' +
-    '                                                                                    {{\'fat\' | translate}}:{{detail.item.fat}}</span>\n' +
-    '                                                                                <span>\n' +
-    '                                                                                    {{\'carbs\' | translate}}:{{detail.item.carbs}}</span>\n' +
-    '                                                                                <span>\n' +
-    '                                                                                    {{\'protein\' | translate}}:{{detail.item.protein}}</span>\n' +
-    '                                                                                <span>\n' +
-    '                                                                                    {{\'calories\' | translate}}:{{detail.item.calories}}</span>\n' +
-    '                                                                            </div>\n' +
-    '\n' +
-    '                                                                        </li>\n' +
-    '                                                                    </ul>\n' +
-    '                                                                </div>\n' +
-    '                                                            </div>\n' +
-    '                                                        </li>\n' +
-    '                                                    </ul>\n' +
-    '                                                </div>\n' +
-    '                                            </div>\n' +
-    '                                        </div>\n' +
-    '                                    </div>\n' +
-    '                                </div>\n' +
-    '                            </div>\n' +
-    '                            <div id="menu1" class="tab-pane fade in   tab-space">\n' +
-    '                                <div class="hp-main-overview">\n' +
-    '                                     <ul>\n' +
-    '                                        <li>{{\'fat\' | translate}}:\n' +
-    '                                            <span>{{fats}}</span>\n' +
-    '                                        </li>\n' +
-    '                                        <li>{{\'carbs\' | translate}}:\n' +
-    '                                            <span>{{carbs}}</span>\n' +
-    '                                        </li>\n' +
-    '                                        <li>{{\'protein\' | translate}}:\n' +
-    '                                            <span>{{protein}}</span>\n' +
-    '                                        </li>\n' +
-    '                                        <li>{{\'calories\' | translate}}:\n' +
-    '                                            <span>{{calories}}</span>\n' +
-    '                                        </li>\n' +
-    '                                        <li>{{\'Total\' | translate}}:\n' +
-    '                                            <span style="width: 74px !important;" class="ov-yes">{{OrderprogDetailsPrepService.price}} SR</span>\n' +
-    '                                        </li>\n' +
-    '                                    </ul>\n' +
-    '                                </div>\n' +
-    '                            </div>\n' +
-    '                        </div>\n' +
-    '                    </div>\n' +
-    '\n' +
-    '                </div>\n' +
-    '            </div>\n' +
-    '        </div>\n' +
-    '    </div>\n' +
-    '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/program/templates/program.html',
     '<!-- <div class="main" >  -->\n' +
     '<!-- ng-style="style()" -->\n' +
@@ -1443,30 +1445,33 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/program/templates/programDetails.html',
     '<script>\n' +
+    '    // $(function () {\n' +
+    '    //     var today = new Date();\n' +
+    '    //     var tomorrow = new Date();\n' +
+    '    //     $(\'#startdate\').datepicker(\n' +
+    '    //         {\n' +
+    '    //             minDate: tomorrow.setDate(today.getDate() + 1)\n' +
+    '    //         }\n' +
+    '    //     ).on(\'dp.change\', function (e) {\n' +
+    '    //         debugger;\n' +
+    '    //         angular.element(document.getElementById(\'startdate\')).scope().dateChange();\n' +
+    '    //     });\n' +
+    '    // });\n' +
     '    $(function () {\n' +
     '        var today = new Date();\n' +
-    '        var tomorrow = new Date();\n' +
-    '        $(\'#startdate\').datepicker(\n' +
-    '            {\n' +
-    '                minDate: tomorrow.setDate(today.getDate() + 1)\n' +
-    '            }\n' +
-    '        ).on(\'dp.change\', function (e) {\n' +
+    '        today.setDate(today.getDate()+1)\n' +
+    '        \n' +
+    '        $(\'#startdate\').datetimepicker({\n' +
+    '            widgetPositioning: { vertical: "bottom" },\n' +
+    '\n' +
+    '            minDate: today,\n' +
+    '\n' +
+    '        })\n' +
+    '        .on(\'dp.change\', function (e) {\n' +
     '            debugger;\n' +
     '            angular.element(document.getElementById(\'startdate\')).scope().dateChange();\n' +
     '        });\n' +
     '    });\n' +
-    '    // $(function () {\n' +
-    '    //     $(\'#startdate\').datetimepicker({\n' +
-    '    //         widgetPositioning: { vertical: "bottom" },\n' +
-    '\n' +
-    '    //         minDate: new Date()\n' +
-    '\n' +
-    '    //     })\n' +
-    '    //     // .on(\'dp.change\', function (e) {\n' +
-    '    //     //     debugger;\n' +
-    '    //     //     angular.element(document.getElementById(\'startdate\')).scope().dateChange();\n' +
-    '    //     // });\n' +
-    '    // });\n' +
     '</script>\n' +
     '\n' +
     '<!-- <div class="menu-section">\n' +
@@ -1691,7 +1696,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                        <!-- {{itemDatetime}} -->\n' +
     '                                        <div class="col-md-6">\n' +
     '                                            <h5>{{\'startDate\' | translate}}</h5>\n' +
-    '                                            <input name="itemDatetime" required ng-model="itemDatetime" type="text"\n' +
+    '                                            <input name="itemDatetime"  ng-model="itemDatetime" type="text"\n' +
     '                                                id="startdate" class="form-control" ng-change="dateChange();" />\n' +
     '                                        </div>\n' +
     '\n' +
@@ -1796,7 +1801,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                                <button style="background-color: #e4e5e6;color: black!important;"\n' +
     '                                                    class="btn pmd-ripple-effect btn-primary" ng-click="Order()"\n' +
     '                                                    ng-disabled="orderForm.$invalid  || selectedBranchId <= 0 || \n' +
-    '                                                    (addressValidation == false && orderType.type == \'delivery\') && !dateIsValid">\n' +
+    '                                                    (addressValidation == false && orderType.type == \'delivery\') || !dateIsValid">\n' +
     '                                                    {{\'Order\' | translate}}</button>\n' +
     '                                                <!-- ng-disabled="orderForm.$invalid || !dateIsValid || addressValidation == false" -->\n' +
     '                                            </div>\n' +
@@ -1815,7 +1820,8 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '    </div>\n' +
     '\n' +
     '    <!-- </section> -->\n' +
-    '    <!--END HEADER SECTION-->');
+    '    <!--END HEADER SECTION-->\n' +
+    '');
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
@@ -2503,33 +2509,33 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '		});\n' +
     '	});\n' +
     '\n' +
-    '	// $(function () {\n' +
-    '\n' +
-    '	// 	$(\'#startdate\').datetimepicker({\n' +
-    '	// 		widgetPositioning: { vertical: "top" },\n' +
-    '\n' +
-    '	// 		minDate: new Date()\n' +
-    '\n' +
-    '	// 	}\n' +
-    '	// 	)\n' +
-    '	// 	// .on(\'dp.change\', function (e) {\n' +
-    '\n' +
-    '	// 	// 	angular.element(document.getElementById(\'startdate\')).scope().dateChange();\n' +
-    '	// 	// });\n' +
-    '	// });\n' +
-    '\n' +
     '	$(function () {\n' +
     '		var today = new Date();\n' +
-    '		var tomorrow = new Date();\n' +
-    '		$(\'#startdate\').datepicker(\n' +
-    '			{\n' +
-    '				minDate: tomorrow.setDate(today.getDate() + 1)\n' +
-    '			}\n' +
-    '		).on(\'dp.change\', function (e) {\n' +
-    '			debugger;\n' +
+    '        today.setDate(today.getDate()+1)\n' +
+    '		$(\'#startdate\').datetimepicker({\n' +
+    '			widgetPositioning: { vertical: "top" },\n' +
+    '\n' +
+    '			minDate: today\n' +
+    '\n' +
+    '		})\n' +
+    '		.on(\'dp.change\', function (e) {\n' +
+    '\n' +
     '			angular.element(document.getElementById(\'startdate\')).scope().dateChange();\n' +
     '		});\n' +
     '	});\n' +
+    '\n' +
+    '	// $(function () {\n' +
+    '	// 	var today = new Date();\n' +
+    '	// 	var tomorrow = new Date();\n' +
+    '	// 	$(\'#startdate\').datepicker(\n' +
+    '	// 		{\n' +
+    '	// 			minDate: tomorrow.setDate(today.getDate() + 1)\n' +
+    '	// 		}\n' +
+    '	// 	).on(\'dp.change\', function (e) {\n' +
+    '	// 		debugger;\n' +
+    '	// 		angular.element(document.getElementById(\'startdate\')).scope().dateChange();\n' +
+    '	// 	});\n' +
+    '	// });\n' +
     '\n' +
     '</script>\n' +
     '\n' +
@@ -2670,7 +2676,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '						<div class="row">\n' +
     '							<div class="input-field col s12">\n' +
     '\n' +
-    '								<input name="itemDatetime" required ng-model="itemDatetime" type="text" id="startdate"\n' +
+    '								<input name="itemDatetime"  ng-model="itemDatetime" type="text" id="startdate"\n' +
     '									class="form-control" placeholder="{{\'startDate\' | translate}}" />\n' +
     '								<!-- <label for="from"></label> -->\n' +
     '							</div>\n' +
@@ -2687,7 +2693,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '					 \n' +
     '						<div class="row">\n' +
     '							<div class="input-field col s12">\n' +
-    '								<input ng-disabled="cutomizeProgram.$invalid" type="submit" class="form-btn"\n' +
+    '								<input ng-disabled="cutomizeProgram.$invalid  || !dateIsValid" type="submit" class="form-btn"\n' +
     '									ng-click="submitCustomise()" value="{{\'MakeOrder\' | translate}}">\n' +
     '\n' +
     '								<!-- <button style="width: 90%; height: 50%;" class="form-btn" ng-disabled="cutomizeProgram.$invalid  || settingsPrepService.minNoDaysPerProgram > programDaysCount" ng-click="submitCustomise()"></button> -->\n' +
