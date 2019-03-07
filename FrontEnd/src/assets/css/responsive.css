@@ -201,9 +201,9 @@
 /*-------------------------------------------------------*/
 
 @media screen and (max-width: 767px) {
-    .foot-2 {
+    /* .foot-2 {
         display: none
-    }
+    } */
     .foot-4 {
         display: none
     }
