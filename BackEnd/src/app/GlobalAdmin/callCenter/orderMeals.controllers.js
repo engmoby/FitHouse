@@ -141,26 +141,41 @@
 
         vm.TotalPrice = 0;
         $scope.getData = function (itemModel) {
+            vm.mealPrice = 0;
+            debugger;
+            //meal 
             vm.itemList = [];
+            //    vm.itemList.push(itemModel);
+            //    vm.TotalPrice += itemModel.mealPrice;
+
             itemModel.forEach(element => {
+                // vm.TotalPrice = element.mealPrice;
                 vm.itemList.push(element);
-                vm.TotalPrice += element.totalPrice;
             });
 
-            
+
+            if (itemModel.length == 0) {
+                vm.TotalPrice = "";
+            } else {
+                for (var i = 0; i < vm.itemList.length; i++) {
+                    var icount = i;
+                    var item = vm.itemList[i].mealPrice;
+                    vm.TotalPrice += vm.itemList[i].mealPrice;
+                }
+            }
         }
 
         vm.mealSearch = function () {
-            var k = OrderResource.getMealItems({mealId:vm.meal.mealId}).$promise.then(function (results) {
+            var k = OrderResource.getMealItems({ mealId: vm.meal.mealId }).$promise.then(function (results) {
                 vm.mealItemss = results;
                 blockUI.stop();
                 vm.flag = true;
 
             },
-            function (data, status) {
-                blockUI.stop();
-                ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-            });
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
         }
 
         vm.dateIsValid = false;

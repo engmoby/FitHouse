@@ -5,13 +5,13 @@
         .module('home')
         .controller('orderProgramscontroller', ['$scope', 'blockUI', '$filter', '$translate',
             '$state', '$localStorage', 'authorizationService', 'appCONSTANTS', 'ToastService', '$stateParams'
-            , 'programsPrepService', 'RegionResource', 'CityResource', 'AreaResource', 'CountriesPrepService'
+            , 'programsPrepService', 'RegionResource', 'CityResource', 'AreaResource', 'CountriesPrepService','BranchResource'
             , 'OrderResource', 'GetProgramDetailResource', orderProgramscontroller]);
 
 
     function orderProgramscontroller($scope, blockUI, $filter, $translate, $state, $localStorage, authorizationService, appCONSTANTS, ToastService
         , $stateParams, programsPrepService, RegionResource, CityResource, AreaResource
-        , CountriesPrepService, OrderResource, GetProgramDetailResource) {
+        , CountriesPrepService, BranchResource,OrderResource, GetProgramDetailResource) {
 
         // $('.pmd-sidebar-nav>li>a').removeClass("active")
         // $($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
@@ -19,6 +19,7 @@
         // blockUI.start("Loading...");
 
         var vm = this;
+        vm.DeliveryFees = 0;
         vm.language = appCONSTANTS.supportedLanguage;
 
         $scope.itemModel = [];
@@ -140,11 +141,17 @@
                     vm.branchList.splice(i, 1);
                 }
             }
+            vm.DeliveryFees = 0;
+			vm.Total = vm.TotalPrice + vm.DeliveryFees;
         }
 
         vm.TotalPrice = 0;
         $scope.getData = function (itemModel) {
-            vm.itemList = [];
+          
+            debugger;
+           //program
+           
+           vm.itemList = [];
             vm.itemList.push(itemModel);
             vm.TotalPrice += itemModel.price;
             // itemModel.forEach(element => {
@@ -152,6 +159,20 @@
             // });
         }
 
+        vm.typeChanged = function () {
+			debugger;
+			if (vm.orderType.type == 'delivery') {
+				vm.DeliveryFees = 0;
+				vm.Total = 0;
+				vm.selectedBranchId = 0;
+			}
+			else {
+				vm.DeliveryFees = 0;
+				vm.Total = 0;
+				vm.addresses.address = null;
+				vm.selectedBranchId = 0;
+			}
+		}
         vm.orderType = {
             type: 'delivery'
         };
@@ -171,13 +192,34 @@
                     ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
                 });
         }
-
+ 
         vm.addressValidation = false;
         vm.addressInfo = function (address) {
            vm.addressDetails = address;
            vm.addressValidation = true;
+           vm.selectedBranchId = vm.addressDetails.branchId;
+           GetBranchDelivery();
         }
 
+		function GetBranchDelivery() {
+			var temp = new BranchResource();
+			temp.$getBranch({ branchId: vm.selectedBranchId }).then(function (results) {
+				if (results.deliveryPrice == null) {
+					vm.DeliveryFees = 0;
+				}
+				else {
+					vm.DeliveryFees = results.deliveryPrice;
+				}
+
+				vm.Total = vm.TotalPrice + vm.DeliveryFees;
+                 
+
+			},
+				function (data, status) {
+					//   blockUI.stop();
+					ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+				});
+		}
         vm.programSearch = function () {
             var k = GetProgramDetailResource.getProgramDetail({ programId: vm.program.programId }).$promise.then(function (results) {
                 vm.mealItemss = results;
@@ -214,6 +256,7 @@
             order.isByAdmin = true;
             // order.branchId = vm.selectedBranchId;
             order.userId = vm.clientId;
+            order.price = vm.Total;
             order.day = $('#startdate').val();
 
             if (vm.orderType.type == "delivery") {

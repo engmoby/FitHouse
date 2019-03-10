@@ -31,7 +31,7 @@
         vm.selectedUserRoles = [];
         $scope.userObj = EditUserPrepService;
         $scope.userObj.confirmPassword = $scope.userObj.password;
-        console.log($scope.userObj);
+      
 
 
         vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });

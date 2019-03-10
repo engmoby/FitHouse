@@ -270,7 +270,7 @@
 
                 .state('editClient', {
                     url: '/editClient/:userId',
-                    templateUrl: './app/GlobalAdmin/client/templates/editClient.html',
+                    templateUrl: './app/GlobalAdmin/client/templates/editUser.html',
                     controller: 'editClientController',
                     'controllerAs': 'editClientCtrl',
                     resolve: {
@@ -786,7 +786,7 @@
 
     EditClientPrepService.$inject = ['ClientResource', '$stateParams']
     function EditClientPrepService(GetClientResource, $stateParams) {
-        return GetClientResource.getClient({ clientId: $stateParams.clientId }).$promise;
+        return GetClientResource.getClient({ userId: $stateParams.userId }).$promise;
     }
 
     /*Role */

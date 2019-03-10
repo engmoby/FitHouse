@@ -3,19 +3,17 @@
 
 	angular
 		.module('home')
-		.controller('newMealController', ['$scope','blockUI', '$translate', '$http', '$stateParams', 'appCONSTANTS', '$state', 'ToastService', 'itemsssPrepService', newMealController])
+		.controller('newMealController', ['$scope', 'blockUI', '$translate', '$http', '$stateParams', 'appCONSTANTS', '$state', 'ToastService', 'itemsssPrepService', newMealController])
 
-	function newMealController($scope,blockUI, $translate, $http, $stateParams, appCONSTANTS, $state, ToastService, itemsssPrepService) {
+	function newMealController($scope, blockUI, $translate, $http, $stateParams, appCONSTANTS, $state, ToastService, itemsssPrepService) {
 		var vm = this;
 		vm.totalPrice = 0;
 		vm.mealDiscount = 0;
-
+		vm.isChanged = false;
+		vm.itemModel = "";
 		vm.itemsList = itemsssPrepService;
 		vm.language = appCONSTANTS.supportedLanguage;
 		$scope.selectedItemList = [];
-
-		vm.isChanged = false;
-		vm.itemModel = "";
 
 		vm.close = function () {
 			$state.go('Meal');
@@ -27,16 +25,11 @@
 		};
 		vm.addItemToList = function (model) {
 			//	if (model != null) {
-			vm.carbs = $scope.sum(model, 'carbs');
-			vm.calories = $scope.sum(model, 'calories');
-			vm.protein = $scope.sum(model, 'protein');
-			vm.cost = $scope.sum(model, 'cost');
-			vm.price = $scope.sum(model, 'price');
-			vm.vat = $scope.sum(model, 'vat');
-			vm.totalPrice = $scope.sum(model, 'totalPrice');
+
+			debugger;
 
 			$scope.selectedItemList = model;
-			if ($scope.selectedItemList.length == 0) {
+			if ($scope.selectedItemList == null) {
 				vm.mealtotalDiscount = "";
 				vm.mealDiscount = "";
 				vm.carbs = "";
@@ -44,7 +37,16 @@
 				vm.protein = "";
 				vm.cost = "";
 				vm.vat = "";
-				vm.totalPrice = "";
+				vm.price = "";
+				vm.totalPrice = ""; 
+			} else {
+				vm.carbs = $scope.sum(model, 'carbs');
+				vm.calories = $scope.sum(model, 'calories');
+				vm.protein = $scope.sum(model, 'protein');
+				vm.cost = $scope.sum(model, 'cost');
+				vm.price = $scope.sum(model, 'price');
+				vm.vat = $scope.sum(model, 'vat');
+				vm.totalPrice = $scope.sum(model, 'totalPrice');
 			}
 			calclulateWithDicscount();
 			var discountPresantage = vm.totalPrice * vm.mealDiscount / 100;
@@ -89,7 +91,7 @@
 		}
 		vm.addNewMeal = function () {
 
-            blockUI.start("Loading...");
+			blockUI.start("Loading...");
 
 
 			if ($scope.selectedItemList.length == 0) {
@@ -129,7 +131,7 @@
 					}
 				);
 			});
-			newMeal.MealDetails = vm.sendSelected;
+			newMeal.mealDetails = vm.sendSelected;
 			var model = new FormData();
 			model.append('data', JSON.stringify(newMeal));
 			model.append('file', mealImage);
@@ -141,14 +143,14 @@
 				data: model
 			}).then(
 				function (data, status) {
-                    blockUI.stop();
+					blockUI.stop();
 					ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
 					$state.go('Meal');
 					vm.isChanged = false;
 
 				},
 				function (data, status) {
-                    blockUI.stop();
+					blockUI.stop();
 					vm.isChanged = false;
 					ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
 				}

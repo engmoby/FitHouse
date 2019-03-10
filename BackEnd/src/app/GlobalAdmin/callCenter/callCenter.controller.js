@@ -167,7 +167,7 @@
             vm.currentStep = newStep;
         }
 
-        vm.Phone = localStorage.getItem('Phone');
+        //vm.Phone = localStorage.getItem('Phone');
 
         vm.ValidateUser = function () {
             blockUI.start("Loading...");
@@ -175,8 +175,8 @@
             var k = UserResource.validate({ phone: vm.Phone }).$promise.then(function (results) {
                 vm.userOrder = results;
                 $scope.flag = true;
-                localStorage.setItem('Phone', vm.Phone);
-                ToastService.show("right", "bottom", "fadeInUp", $translate.instant('ClientFound'), "success");
+               // localStorage.setItem('Phone', vm.Phone);
+               // ToastService.show("right", "bottom", "fadeInUp", $translate.instant('ClientFound'), "success");
                 blockUI.stop();
 
             },

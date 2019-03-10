@@ -1,6 +1,5 @@
 <div class="modal-content">
-    <div class="modal-header bordered">
-
+    <div class="modal-header bordered"> 
         <h2 class="pmd-card-title-text"> {{'BasicInfoLbl' | translate}}</h2>
     </div>
 
@@ -33,7 +32,7 @@
             <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">
                 <label for="first-name">{{'EmailLbl' | translate}}</label>
 
-                <input ng-disabled="true" required type="text" class="mat-input form-control" name="email"
+                <input required type="text" class="mat-input form-control" name="email"
                     ng-model="userObj.email" ng-minlength="3" ng-maxlength="50">
                 <div ng-messages="newclientForm.email.$error">
                     <div ng-if="newclientForm.email.$error.required && !newclientForm.email.$pristine">{{'lastName' |

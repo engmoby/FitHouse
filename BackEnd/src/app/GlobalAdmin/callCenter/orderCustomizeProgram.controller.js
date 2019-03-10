@@ -293,6 +293,20 @@
             address: 0
         };
 
+        vm.typeChanged = function () {
+			debugger;
+			if (vm.orderType.type == 'delivery') {
+				vm.DeliveryFees = 0;
+				vm.Total = 0;
+				vm.selectedBranchId = 0;
+			}
+			else {
+				vm.DeliveryFees = 0;
+				vm.Total = 0;
+				vm.addresses.address = null;
+				vm.selectedBranchId = 0;
+			}
+		}
         if (vm.orderType.type == 'delivery') {
             var k = OrderResource.getUserAddresses({ userId: vm.clientId }).$promise.then(function (results) {
                 vm.userAddresses = results;

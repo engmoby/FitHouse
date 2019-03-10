@@ -291,11 +291,7 @@
 
 		vm.changeOrderType = function () {
 			if (vm.orderType.type == 'delivery' || vm.orderType.type == 'true') {
-				vm.orderType.type = 'pickup'
-				// vm.selectedBranchId=0;
-				// vm.DeliveryFees=0;
-				// if (CustomCtrl.selectedCityId > 0)
-				// 	vm.validate = false;
+				vm.orderType.type = 'pickup' 
 				vm.addressDetails.address = null;
 			} else {
 				vm.orderType.type = 'delivery'
@@ -334,9 +330,7 @@
 				}
 
 				vm.Total = vm.ProgramTotalPrice + vm.DeliveryFees;
-
-				//vm.DeliveryFees = results.deliveryPrice;
-				// blockUI.stop();
+                 
 
 			},
 				function (data, status) {
