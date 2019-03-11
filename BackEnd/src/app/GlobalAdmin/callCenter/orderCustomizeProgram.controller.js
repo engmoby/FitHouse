@@ -184,8 +184,14 @@
 
         vm.deletedItem = false;
         vm.ConvertToNumber = function () {
-            vm.daysCount = parseInt(vm.ProgramDaysCount, 10);
-            vm.mealsCount = parseInt(vm.MealPerDay, 10);
+            if ((vm.ProgramDaysCount != null && vm.ProgramDaysCount != 0) || (vm.MealPerDay != null && vm.MealPerDay != 0)) {
+                vm.daysCount = parseInt(vm.ProgramDaysCount, 10);
+                vm.mealsCount = parseInt(vm.MealPerDay, 10);
+            }
+            else {
+                vm.ProgramDaysCount = "";
+                vm.MealPerDay = "";
+            }
         }
 
         $scope.discountChange = function () {
@@ -202,7 +208,7 @@
             //     // vm.ProgramTotalPrice = (vm.ProgramTotalPrice + vm.totalPrice + vm.DeliveryFees) - vm.ProgramDiscount;
             //     // vm.ProgramTotalPriceBefore = vm.ProgramTotalPriceBefore + vm.totalPrice + vm.DeliveryFees;
             // }
-            vm.ProgramTotalPrice = (vm.totalPrice + vm.DeliveryFees) - (vm.totalPrice * (vm.ProgramDiscount/100));
+            vm.ProgramTotalPrice = (vm.totalPrice + vm.DeliveryFees) - (vm.totalPrice * (vm.ProgramDiscount / 100));
             vm.ProgramTotalPriceBefore = vm.totalPrice + vm.DeliveryFees;
         }
 
@@ -238,7 +244,7 @@
                 // vm.ProgramTotalPriceBefore = vm.ProgramTotalPriceBefore + vm.totalPrice + vm.DeliveryFees;
 
             }
-            vm.ProgramTotalPrice = (vm.totalPrice + vm.DeliveryFees) - (vm.totalPrice * (vm.ProgramDiscount/100));
+            vm.ProgramTotalPrice = (vm.totalPrice + vm.DeliveryFees) - (vm.totalPrice * (vm.ProgramDiscount / 100));
             vm.ProgramTotalPriceBefore = vm.totalPrice + vm.DeliveryFees;
         }
         //Model
@@ -294,19 +300,19 @@
         };
 
         vm.typeChanged = function () {
-			debugger;
-			if (vm.orderType.type == 'delivery') {
-				vm.DeliveryFees = 0;
-				vm.Total = 0;
-				vm.selectedBranchId = 0;
-			}
-			else {
-				vm.DeliveryFees = 0;
-				vm.Total = 0;
-				vm.addresses.address = null;
-				vm.selectedBranchId = 0;
-			}
-		}
+            debugger;
+            if (vm.orderType.type == 'delivery') {
+                vm.DeliveryFees = 0;
+                vm.Total = 0;
+                vm.selectedBranchId = 0;
+            }
+            else {
+                vm.DeliveryFees = 0;
+                vm.Total = 0;
+                vm.addresses.address = null;
+                vm.selectedBranchId = 0;
+            }
+        }
         if (vm.orderType.type == 'delivery') {
             var k = OrderResource.getUserAddresses({ userId: vm.clientId }).$promise.then(function (results) {
                 vm.userAddresses = results;
@@ -327,10 +333,10 @@
         $scope.dateChange = function () {
             if ($('#startdate').data('date') == null || $('#startdate').data('date') == "") {
                 vm.dateIsValid = false;
-                $scope.$apply();
-            } else if (!$scope.orderItemForm.isInValid) {
+                //  $scope.$apply();
+            } else {
                 vm.dateIsValid = true;
-                $scope.$apply();
+                //$scope.$apply();
             }
         }
 
@@ -370,13 +376,13 @@
             newProgram.days = vm.SelectedDays;
             newProgram.$create().then(
                 function (data, status) {
-                blockUI.stop();
-                ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
                     $state.go('callCenter');
                 },
                 function (data, status) {
-                blockUI.stop();
-                ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 }
             );
         }

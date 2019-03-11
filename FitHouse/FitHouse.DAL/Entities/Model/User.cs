@@ -41,5 +41,8 @@ namespace FitHouse.DAL.Entities.Model
         [ForeignKey("BranchId")]
         public virtual Branch Branch { get; set; }
 
+        //public int Weight { get; set; }
+        //public int Length { get; set; }
+
     }
 }

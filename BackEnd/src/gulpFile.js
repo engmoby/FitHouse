@@ -110,8 +110,8 @@ var runSequence = require('run-sequence').use(gulp);
     
   ],
   cssAR: [
-    './node_modules/propellerkit/dist/css/bootstrap.min.css',
-    './node_modules/propellerkit/dist/css/propeller.min.css',
+    // './node_modules/propellerkit/dist/css/bootstrap.min.css',
+    // './node_modules/propellerkit/dist/css/propeller.min.css',
     './node_modules/select2/dist/css/select2.min.css',
     './node_modules/select2-bootstrap-theme/dist/select2-bootstrap.min.css',
     './assets/cssAR/*.css',

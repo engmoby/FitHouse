@@ -47,8 +47,16 @@
         vm.deletedItem = false;
 
         vm.ConvertToNumber = function () {
-            vm.daysCount = parseInt(vm.ProgramDaysCount, 10);
-            vm.mealsCount = parseInt(vm.MealPerDay, 10);
+            // vm.daysCount = parseInt(vm.ProgramDaysCount, 10);
+            // vm.mealsCount = parseInt(vm.MealPerDay, 10);
+            if ((vm.ProgramDaysCount != null && vm.ProgramDaysCount != 0) || (vm.MealPerDay != null && vm.MealPerDay != 0)) {
+                vm.daysCount = parseInt(vm.ProgramDaysCount, 10);
+                vm.mealsCount = parseInt(vm.MealPerDay, 10);
+            }
+            else {
+                vm.ProgramDaysCount = "";
+                vm.MealPerDay = "";
+            }
         }
 
         $scope.discountChange = function () {

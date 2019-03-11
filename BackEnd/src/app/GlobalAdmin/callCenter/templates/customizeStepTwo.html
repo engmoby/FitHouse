@@ -5,35 +5,35 @@
             class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
             <label for="first-name">{{'ProgramDaysCount' | translate}}</label>
 
-            <input ng-change="orderCustomizeProgramCtrl.ConvertToNumber();" required type="text"
-                class="mat-input form-control" name="programDaysCount" numbers-only
-                ng-model="orderCustomizeProgramCtrl.ProgramDaysCount" minlength="1" maxlength="2">
+            <input ng-change="orderCustomizeProgramCtrl.ConvertToNumber();" required type="number"
+                class="mat-input form-control" name="programDaysCount" positive
+                ng-model="orderCustomizeProgramCtrl.ProgramDaysCount" minlength="0" maxlength="2">
             <div ng-messages="newProgramForm2.programDaysCount.$error">
                 <div
                     ng-if="newProgramForm2.programDaysCount.$error.required && !newProgramForm2.programDaysCount.$pristine">
-                    {{'PhoneReqError' | translate}}
+                    {{'requiredErr' | translate}}
                 </div>
                 <div
                     ng-if="(newProgramForm2.programDaysCount.$error.minlength || newProgramForm2.programDaysCount.$error.maxlength)">
                     {{'maxlength' | translate}}</div>
                 <div
                     ng-if="orderCustomizeProgramCtrl.Setting.minNoDaysPerProgram > orderCustomizeProgramCtrl.ProgramDaysCount">
-                    {{'ProgramDaysMinValue' | translate}}</div>
+                    {{'ProgramDaysMinValue' | translate}}{{orderCustomizeProgramCtrl.Setting.minNoDaysPerProgram}}</div>
             </div>
         </div>
 
         <div
             class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
             <label for="first-name">{{'MealPerDay' | translate}}</label>
-            <input ng-change="orderCustomizeProgramCtrl.ConvertToNumber();" required type="text" numbers-only
+            <input ng-change="orderCustomizeProgramCtrl.ConvertToNumber();" required type="number" positive
                 class="mat-input form-control" name="mealPerDay" ng-model="orderCustomizeProgramCtrl.MealPerDay"
-                minlength="1" maxlength="2">
-            <div ng-messages="newProgramForm2.mealPerDay.$error" class="error">
+                minlength="0" maxlength="2">
+            <div ng-messages="newProgramForm2.mealPerDay.$error">
                 <div ng-if="newProgramForm2.mealPerDay.$error.required && !newProgramForm2.mealPerDay.$pristine">
-                    {{'MealPerDayReqError' | translate}}</div>
+                    {{'requiredErr' | translate}}</div>
                 <div
                     ng-if="(newProgramForm2.mealPerDay.$error.minlength || newProgramForm2.mealPerDay.$error.maxlength)">
-                    {{'MealPerDayLengthError' | translate}}</div>
+                    {{'maxlength' | translate}}</div>
             </div>
         </div>
     </div>
@@ -64,7 +64,7 @@
                                 <a ng-init="counterDay=counterDay+1;" data-toggle="collapse" data-parent="#accordion6"
                                     ng-init="n=false" ng-click="n=!n;" aria-expanded="true" aria-controls="collapseOne6"
                                     data-expandable="false">
-                                    {{'Day' | translate}} #{{counterDay=$index+1}}
+                                    {{'Day' | translate}} {{counterDay=$index+1}}
                                     <i class="material-icons md-dark pmd-sm pmd-accordion-arrow">keyboard_arrow_down</i>
                                 </a>
                             </h4>
@@ -78,7 +78,7 @@
                                         <h4>
                                             <a ng-init="counterMeal=counterMeal+1;"
                                                 ng-click="showDetails = ! showDetails; orderCustomizeProgramCtrl.showDDL(); ">{{'Meal' | translate}}
-                                                #{{counterMeal=$index+1}}</a>
+                                                {{counterMeal=$index+1}}</a>
                                         </h4>
                                         <div ng-show="showDetails">
                                             <div

@@ -40,6 +40,8 @@
             //var permisison15 = new Permission { IsDeleted = false, IsStatic = true };
             //var permisison16 = new Permission { IsDeleted = false, IsStatic = true };
             //var permisison17 = new Permission { IsDeleted = false, IsStatic = true };
+            var permisison18 = new Permission { IsDeleted = false, IsStatic = true };
+            var permisison19 = new Permission { IsDeleted = false, IsStatic = true };
 
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison3);
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison4);
@@ -56,9 +58,20 @@
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison15);
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison16);
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison17);
+            //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison18);
+            //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison19);
 
 
 
+            //var permissionTreanslation31 = new PermissionTranslation { Language = "en", Title = "Reports", Permission = permisison19 };
+            //var permissionTreanslation32 = new PermissionTranslation { Language = "ar", Title = "تقارير", Permission = permisison19 };
+            //context.PermissionTranslations.AddOrUpdate(h => h.PermissionTranslationId, permissionTreanslation31);
+            //context.PermissionTranslations.AddOrUpdate(h => h.PermissionTranslationId, permissionTreanslation32);
+
+            //var permissionTreanslation30 = new PermissionTranslation { Language = "en", Title = "Client", Permission = permisison18 };
+            //var permissionTreanslation29 = new PermissionTranslation { Language = "ar", Title = "العملاء", Permission = permisison18 };
+            //context.PermissionTranslations.AddOrUpdate(h => h.PermissionTranslationId, permissionTreanslation29);
+            //context.PermissionTranslations.AddOrUpdate(h => h.PermissionTranslationId, permissionTreanslation30);
 
             //var permissionTreanslation27 = new PermissionTranslation { Language = "en", Title = "Take Away", Permission = permisison16 };
             //var permissionTreanslation28 = new PermissionTranslation { Language = "ar", Title = "تاك اواي", Permission = permisison16 };

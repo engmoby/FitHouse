@@ -13,7 +13,7 @@
 	<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 	<link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Roboto:400,500,700,400italic'>
 	<link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
-	<link rel="stylesheet" ng-href="bundle-{{selectedLanguage}}.css?v=972469e33b3677e2ea1a1b3b48396f4e" />
+	<link rel="stylesheet" ng-href="bundle-{{selectedLanguage}}.css?v=26fb8ae252a4e9b31070c6d601f2681d" />
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.1/nv.d3.min.css" />
 
 
@@ -90,19 +90,7 @@
 	style="background-position: top left;
 background-image: linear-gradient(180deg,rgba(255,255,255,0.5) 0%,rgba(243,197,52,0.13) 89%),url(https://fithouseksa.com/wp-content/uploads/2018/07/fat-running.png)!important;">
 	
-	<li ng-repeat="detail in mealPrepService.mealDetails} ">
-		<div class="res-menu" ng-repeat="item in itemsssPrepService |filter :{itemId:detail.itemId}">
-			{{itemsssPrepService |filter :{itemId:detail.itemId}}}
-			<!-- {{item.itemNameDictionary[selectedLanguage]}} -->
-			<img src="/assets/img/meal.jpeg" alt="" />
-			<h3> {{item.itemNameDictionary[selectedLanguage]}}
-				<span>{{item.price}}</span>
-			</h3>
-			<span class="menu-item">{{item.itemDescriptionDictionary[selectedLanguage] }}</span>
-			<!-- | limitTo:10 -->
-		</div>
-
-	</li>
+ 
 	<nav class="navbar navbar-inverse navbar-fixed-top pmd-navbar pmd-z-depth" ng-show="isLoggedIn()"
 		style="    background-image: linear-gradient(90deg,#9a3ea6 0%,#bc4abf 100%)!important; ">
 
@@ -182,7 +170,15 @@ background-image: linear-gradient(180deg,rgba(255,255,255,0.5) 0%,rgba(243,197,5
 				</ul>
 			</li>
 			<!-- End user info -->
+			<li ng-show="user.PermissionId.indexOf('15') !== -1">
+				<a class="pmd-ripple-effect" ng-click="$state.go('clients');">
+					<i class="media-left media-middle">
+						<img src="/assets/img/iconmus.png" style="    max-height: 35px;">
 
+					</i>
+					<span class="media-body">{{'Reports' | translate}}</span>
+				</a>
+			</li>
 			<li ng-show="user.PermissionId.indexOf('10') !== -1">
 				<a class="pmd-ripple-effect" ng-click="$state.go('Role');">
 					<i class="media-left media-middle">
@@ -225,13 +221,13 @@ background-image: linear-gradient(180deg,rgba(255,255,255,0.5) 0%,rgba(243,197,5
 					<span class="media-body">{{'users' | translate}}</span>
 				</a>
 			</li>
-			<li ng-show="user.PermissionId.indexOf('4') !== -1">
+			<li ng-show="user.PermissionId.indexOf('16') !== -1">
 				<a class="pmd-ripple-effect" ng-click="$state.go('clients');">
 					<i class="media-left media-middle">
 						<img src="/assets/img/iconmus.png" style="    max-height: 35px;">
 
 					</i>
-					<span class="media-body">{{'clients' | translate}}</span>
+					<span class="media-body">{{'Client' | translate}}</span>
 				</a>
 			</li>
 			<li ng-show="user.PermissionId.indexOf('5') !== -1">
@@ -347,7 +343,7 @@ background-image: linear-gradient(180deg,rgba(255,255,255,0.5) 0%,rgba(243,197,5
 	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.3/jquery.min.js"></script>
 
 
-	<script src="libs.js?v=972469e33b3677e2ea1a1b3b48396f4e"></script>
+	<script src="libs.js?v=26fb8ae252a4e9b31070c6d601f2681d"></script>
 
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.6/d3.min.js"></script>
 	<script src="https://cdnjs.cloudflare.com/ajax/libs/nvd3/1.8.1/nv.d3.min.js"></script>
@@ -357,9 +353,9 @@ background-image: linear-gradient(180deg,rgba(255,255,255,0.5) 0%,rgba(243,197,5
 	<script src="http://cdnjs.cloudflare.com/ajax/libs/stackblur-canvas/1.4.1/stackblur.min.js"></script>
 	<script src="http://cdn.jsdelivr.net/npm/canvg/dist/browser/canvg.min.js"></script>
 
-	<script src="core.js?v=972469e33b3677e2ea1a1b3b48396f4e"></script>
-	<script src="app.js?v=972469e33b3677e2ea1a1b3b48396f4e"></script>
-	<script src="templates.js?v=972469e33b3677e2ea1a1b3b48396f4e"></script>
+	<script src="core.js?v=26fb8ae252a4e9b31070c6d601f2681d"></script>
+	<script src="app.js?v=26fb8ae252a4e9b31070c6d601f2681d"></script>
+	<script src="templates.js?v=26fb8ae252a4e9b31070c6d601f2681d"></script>
 
 	<script src="https://rawgithub.com/McNull/angular-block-ui/bower/angular-block-ui.min.js"></script>
 	<link rel="stylesheet" href="https://rawgithub.com/McNull/angular-block-ui/bower/angular-block-ui.min.css">

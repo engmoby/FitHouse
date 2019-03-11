@@ -114,14 +114,17 @@
                                     class="btn btn-default" name="previous" type="button" ng-click="orderCustomizeProgramCtrl.gotoStep(orderCustomizeProgramCtrl.currentStep - 1)">
                                     <i class="fa fa-arrow-left"></i>{{'PreviousStep' | translate}}</button>
                                 <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="orderCustomizeProgramCtrl.currentStep >= orderCustomizeProgramCtrl.steps.length"
-                                    class="btn btn-primary" name="next" type="button" ng-click="orderCustomizeProgramCtrl.gotoStep(orderCustomizeProgramCtrl.currentStep + 1)">{{'NextStep' | translate}}
+                                    class="btn btn-primary" name="next" type="button" ng-click="orderCustomizeProgramCtrl.gotoStep(orderCustomizeProgramCtrl.currentStep + 1)">{{'NextSتتتتtep' | translate}}
                                     <i class="fa fa-arrow-right"></i>
                                 </button>
                             </span>
                             <!-- {{orderCustomizeProgramCtrl.Setting.minNoDaysPerProgram}} / {{orderCustomizeProgramCtrl.ProgramDaysCount}} -->
-                            <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="(orderCustomizeProgramCtrl.currentStep != orderCustomizeProgramCtrl.steps.length) || (orderCustomizeProgramCtrl.Setting.minNoDaysPerProgram > orderCustomizeProgramCtrl.ProgramDaysCount)"
+                            <button style="background-color: #e4e5e6;color: black!important;"
+                             ng-disabled="(orderCustomizeProgramCtrl.currentStep != orderCustomizeProgramCtrl.steps.length) ||
+                              (orderCustomizeProgramCtrl.Setting.minNoDaysPerProgram > orderCustomizeProgramCtrl.ProgramDaysCount)
+                              || !orderCustomizeProgramCtrl.dateIsValid"
                                 class="btn btn-success" name="next" type="button" ng-click="orderCustomizeProgramCtrl.AddNewProgram()">
-                                <i class="fa fa-floppy-o"></i>{{'Save' | translate}}</button>
+                                <i class="fa fa-floppy-o"></i>{{'Save2' | translate}}</button>
                         </div>
                     </div>
                 </div>

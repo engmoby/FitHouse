@@ -39,7 +39,7 @@
 
     <div class="row">
         <div
-            class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+            class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
             <label for="regular1" class="control-label">{{'orderPickDateTime' | translate}}</label>
             <div class="form-group pmd-textfield pmd-textfield-floating-label">
                 <input ng-model="orderCustomizeProgramCtrl.itemDatetime" type="text"
@@ -48,26 +48,11 @@
         </div>
     </div>
 
-    <!-- <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-        <label for="first-name">{{'ProgramPrice' | translate}}</label>
-        <input disabled type="number" class="mat-input form-control" name="programPrice" ng-model="orderCustomizeProgramCtrl.ProgramPrice">
-    </div>
-
-    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-        <label for="first-name">{{'ProgramCost' | translate}}</label>
-        <input disabled type="number" class="mat-input form-control" name="programCost" ng-model="orderCustomizeProgramCtrl.ProgramCost">
-    </div>
-
-    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-        <label for="first-name">{{'ProgramVAT' | translate}}</label>
-        <input disabled type="number" class="mat-input form-control" name="programVAT" ng-model="orderCustomizeProgramCtrl.ProgramVAT">
-    </div> -->
-
     <div class="row">
-        <div class="col-md-9">
+        <div class="col-md-4">
             <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                 <label for="first-name">{{'ProgramDiscount' | translate}}</label>
-                <input minlength="1" maxlength="3" ng-change="discountChange();" required type="number"
+                <input minlength="1" maxlength="3" positive ng-change="discountChange();" required type="number"
                     class="mat-input form-control" name="programDiscount"
                     ng-model="orderCustomizeProgramCtrl.ProgramDiscount">
             </div>
@@ -146,8 +131,10 @@
                         <label>
                             <input ng-change="orderCustomizeProgramCtrl.addressInfo(address)" type="radio"
                                 ng-model="orderCustomizeProgramCtrl.addresses.address" value="{{address.addressId}}">
-                            {{address.appartmentNo}}, {{address.description}}, {{'Floor' | translate}} {{address.floor}}
-                            <!-- {{addressInfo}} -->
+                            {{'appartmentNo' | translate}}: {{address.appartmentNo}}
+                            <br> {{'FLoor' | translate}} : {{address.floor}}
+                            <br> {{'description' | translate}}
+                            :{{address.description}}</label>
                         </label>
                     </div>
                 </div>
@@ -211,17 +198,21 @@
     </div>
 
     <div class="pmd-modal-action text-right">
-
+        {{'price' | translate}}:{{ orderProgramsCtrl.TotalPrice}} SR
+        <br> {{'DeliveryPrice' | translate}}:{{ orderProgramsCtrl.DeliveryFees}} SR
+        <br>{{'orderProgramsCtrl.ProgramDiscount' | translate}}
+        <br>{{'Total' | translate}} :{{ orderProgramsCtrl.Total}} SR
+        <br>
 
         <button style="background-color: #e4e5e6;color: black!important;" class="btn pmd-ripple-effect btn-primary"
             type="button" ng-click="$state.go('callCenter');">{{'Back' | translate}}</button>
 
-
+        {{orderCustomizeProgramCtrl.dateIsValid}}
         <!-- || (orderCustomizeProgramCtrl.Setting.minNoDaysPerProgram > orderCustomizeProgramCtrl.ProgramDaysCount) -->
-        <button style="background-color: #e4e5e6;color: black!important;"
-            ng-disabled="(orderCustomizeProgramCtrl.currentStep != orderCustomizeProgramCtrl.steps.length)"
-            class="btn btn-success" name="next" type="button" ng-click="orderCustomizeProgramCtrl.AddNewProgram()">
-            <i class="fa fa-floppy-o"></i>{{'Save' | translate}}</button>
+        <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="(orderCustomizeProgramCtrl.currentStep != orderCustomizeProgramCtrl.steps.length)||
+             !orderCustomizeProgramCtrl.dateIsValid" class="btn btn-success" name="next" type="button"
+            ng-click="orderCustomizeProgramCtrl.AddNewProgram()">
+            <i class="fa fa-floppy-o"></i>{{'Save111' | translate}}</button>
 
     </div>
 </form>

@@ -6,12 +6,12 @@
         .controller('editProgramController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate',
             '$state', '$localStorage',
             'authorizationService', 'appCONSTANTS',
-            'ToastService', '$stateParams','programByIdPrepService', 'EditProgramByIdResource', '$uibModal', editProgramController]);
+            'ToastService', '$stateParams', 'programByIdPrepService', 'EditProgramByIdResource', '$uibModal', editProgramController]);
 
 
     function editProgramController($rootScope, blockUI, $scope, $filter, $translate,
         $state, $localStorage, authorizationService,
-        appCONSTANTS, ToastService, $stateParams,programByIdPrepService, EditProgramByIdResource, $uibModal) {
+        appCONSTANTS, ToastService, $stateParams, programByIdPrepService, EditProgramByIdResource, $uibModal) {
 
         // $('.pmd-sidebar-nav>li>a').removeClass("active")
         // $($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
@@ -19,12 +19,13 @@
         // blockUI.start("Loading...");
 
         var vm = this;
-        vm.programModel=programByIdPrepService;
+        vm.programModel = programByIdPrepService;
         vm.language = appCONSTANTS.supportedLanguage;
-    
+       // vm.programModel.price = vm.programModel.price - (vm.programModel.price * vm.programModel.programDiscount / 100);
         vm.editProgram = function () {
             blockUI.start("Loading...");
             var program = new EditProgramByIdResource();
+        //    program.price = vm.programModel.price;
             program.programDiscount = vm.programModel.programDiscount;
             program.programNameDictionary = vm.programModel.programNameDictionary;
             program.programDescriptionDictionary = vm.programModel.programDescriptionDictionary;
@@ -34,18 +35,25 @@
 
             program.$update().then(
                 function (data, status) {
-				blockUI.stop();
-                ToastService.show("right", "bottom", "fadeInUp", $translate.instant('EditedSuccessfully'), "success");
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('EditedSuccessfully'), "success");
 
                 },
                 function (data, status) {
-				blockUI.stop();
-                ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 }
             );
         }
 
-   
+
+        // $scope.discountChange = function () { 
+        //     vm.programModel.price = vm.programModel.price - (vm.programModel.price * vm.programModel.programDiscount / 100);
+        // }
+
+
+
+
     }
 
 })();
