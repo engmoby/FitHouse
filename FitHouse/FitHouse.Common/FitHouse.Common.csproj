@@ -32,7 +32,9 @@
   <ItemGroup>
     <Reference Include="Microsoft.JScript" />
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -47,6 +49,7 @@
     <Compile Include="CustomException\ValidationException.cs" />
     <Compile Include="Enums.cs" />
     <Compile Include="HashHelper.cs" />
+    <Compile Include="MailHelper.cs" />
     <Compile Include="PasswordHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Strings.cs" />
