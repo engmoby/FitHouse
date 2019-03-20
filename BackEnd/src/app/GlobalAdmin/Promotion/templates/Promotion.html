@@ -1,0 +1,62 @@
+<div>
+
+    <!--TYPOGRAPHY SECTION-->
+    <div class="col-md-12">
+        <div class="head-typo typo-com">
+            <div style="margin-bottom:10px">
+                <button style="background-color: #e4e5e6;color: black!important;" ng-click="$state.go('newPromotion');"
+                    class="btn pmd-ripple-effect btn-primary pmd-z-depth"
+                    type="button">{{'AddBtn' | translate}}</button>
+
+            </div>
+            <div ng-if="PromotionList.results.length == 0">
+                <span>{{'NoPromotionAvailable' | translate}}</span>
+            </div>
+            <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="PromotionList.results.length > 0">
+                <div class="table-responsive"></div>
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>{{'titleLbl' | translate}}</th>
+                            <th>{{'value' | translate}}</th>
+                            <th>{{'startDateLbl' | translate}}</th>
+                            <th>{{'enddateLbl' | translate}}</th>
+                            <th>{{'Meal' | translate}} </th>
+                            <th>{{'Program' | translate}} </th>
+                            <th>{{'CustomizeProgram' | translate}} </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="promotion in PromotionList.results" style="text-align: center;">
+                            <td data-title="Name">{{promotion.title}}</td>
+                            <td data-title="Name">{{promotion.value}}</td>
+                            <td data-title="Name">{{promotion.startDate| date : "d/MMM/yy h:mm a"}}</td>
+                            <td data-title="Name">{{promotion.endDate| date : "d/MMM/yy h:mm a"}}</td>
+                            <td data-title="Name">
+                                <input type="checkbox" ng-model="promotion.isMeal" name="name" ng-disabled="true">
+                            </td>
+                            <td data-title="Name">
+                                <input type="checkbox" ng-model="promotion.isProgram" name="name" ng-disabled="true">
+                            </td>
+                            <td data-title="Name">
+                                <input type="checkbox" ng-model="promotion.isCustomProgram" name="name"
+                                    ng-disabled="true">
+                            </td>
+
+                            <td ng-show="!promotion.IsUsed">
+                                <i class="material-icons md-dark pmd-md cursorPointer font25" style="cursor: pointer;"
+                                    ng-click="$state.go('editPromotion',{promotionId: promotion.promotionId});">mode_edit</i>
+
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"
+                paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true"
+                hide-if-empty="true" disabled-class="hide">
+            </div>
+        </div>
+    </div>
+</div>

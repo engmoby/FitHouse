@@ -98,6 +98,8 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataServices\Interfaces\IPromotionService.cs" />
+    <Compile Include="DataServices\PromotionService.cs" />
     <Compile Include="DataServices\AddressService.cs" />
     <Compile Include="DataServices\Interfaces\IAddressService.cs" />
     <Compile Include="DataServices\Interfaces\ILogService.cs" />
@@ -168,6 +170,7 @@
     <Compile Include="DataServices\BranchTranslationService.cs" />
     <Compile Include="DataServices\RefreshTokenService.cs" />
     <Compile Include="DataServices\UserService.cs" />
+    <Compile Include="DTOs\PromotionDto.cs" />
     <Compile Include="DTOs\LogDto.cs" />
     <Compile Include="DTOs\AddressDto.cs" />
     <Compile Include="DTOs\AdminDto.cs" />
@@ -206,6 +209,8 @@
     <Compile Include="DTOs\BranchDto.cs" />
     <Compile Include="DTOs\UserDto.cs" />
     <Compile Include="FitHouseBLLConfig.cs" />
+    <Compile Include="Services\Interfaces\IPromotionFacade.cs" />
+    <Compile Include="Services\PromotionFacade.cs" />
     <Compile Include="Services\Interfaces\ILogFacade.cs" />
     <Compile Include="Services\Interfaces\IAddressFacade.cs" />
     <Compile Include="Services\LogFacade.cs" />

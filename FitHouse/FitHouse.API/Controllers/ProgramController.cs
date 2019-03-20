@@ -18,16 +18,18 @@ namespace FitHouse.API.Controllers
     public class ProgramController : BaseApiController
     {
         private readonly IProgramFacade _programFacade;
+        private readonly IOrderDetailsService _orderDetailsService;
         private readonly IProgramService _programService;
         private readonly IDayFacade _dayFacade;
         private readonly IItemFacade _itemFacade;
         private readonly IProgramDetailService _programDetailService;
-        public ProgramController(IItemFacade itemFacade, IProgramFacade programFacade, IDayFacade dayFacade, IProgramService programService, IProgramDetailService programDetailService)
+        public ProgramController(IItemFacade itemFacade, IProgramFacade programFacade, IDayFacade dayFacade, IProgramService programService, IProgramDetailService programDetailService, IOrderDetailsService orderDetailsService)
         {
             _programFacade = programFacade;
             _dayFacade = dayFacade;
             _programService = programService;
             _programDetailService = programDetailService;
+            _orderDetailsService = orderDetailsService;
             _itemFacade = itemFacade;
         }
 
@@ -89,7 +91,7 @@ namespace FitHouse.API.Controllers
             if (!programModel.IsActive || programModel.IsDeleted)
             {
 
-                var checkIfUsedOfProgram = _programDetailService.Queryable().Where(x => x.ProgramId == programModel.ProgramId);
+                var checkIfUsedOfProgram = _orderDetailsService.Queryable().Where(x => x.ProgramId == programModel.ProgramId);
                 if (checkIfUsedOfProgram.Any())
                     throw new ValidationException(ErrorCodes.RecordIsUsedInAnotherModule);
 

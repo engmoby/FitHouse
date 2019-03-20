@@ -171,7 +171,7 @@
         <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
             <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                 <label for="first-name">{{'ProgramDiscount' | translate}}</label>
-                <input required type="number" class="mat-input form-control" name="programDiscount" ng-model="settingCtrl.programDiscount"
+                <input required type="number" class="mat-input form-control" name="programDiscount" ng-model="settingsPrepService.programDiscount"
                     minlength="1" maxlength="2">
                 <div ng-messages="settingForm.programDiscount.$error" class="error">
                     <div ng-if="settingForm.programDiscount.$error.required && !settingForm.programDiscount.$pristine">{{'minDaysReqError' | translate}}</div>

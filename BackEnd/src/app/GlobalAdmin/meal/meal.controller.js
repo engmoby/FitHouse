@@ -10,7 +10,7 @@
 		var vm = this;
 		vm.meals = mealsPrepService;  
 		$('.pmd-sidebar-nav>li>a').removeClass("active")
-		$($('.pmd-sidebar-nav').children()[5].children[0]).addClass("active")
+		$($('.pmd-sidebar-nav').children()[7].children[0]).addClass("active")
 
 		vm.Now = $scope.getCurrentTime();
 		function refreshMeals() {
@@ -66,6 +66,7 @@
 		function Activate(meal) {
 			ActivateMealResource.Activate({ mealId: meal.mealId })
 				.$promise.then(function (result) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
 					meal.isActive = true;
 				},
 					function (data, status) {
@@ -78,6 +79,7 @@
 		function Deactivate(meal) {
 			DeactivateMealResource.Deactivate({ mealId: meal.mealId })
 				.$promise.then(function (result) {
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
 					meal.isActive = false;
 				},
 					function (data, status) {

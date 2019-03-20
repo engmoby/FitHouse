@@ -263,7 +263,7 @@ namespace FitHouse.BLL.Services
             {
                 order.IsProgram = true;
                 order.OrderStartDate = orderDto.Day;
-                order.Price = orderDto.Programs[0].Price;
+                order.Price = orderDto.Price;
 
                 foreach (var detail in orderDto.Programs)
                 {

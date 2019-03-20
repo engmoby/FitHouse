@@ -37,7 +37,7 @@
         $scope.init();
 
         $scope.submit = function (username, password) {
-            blockUI.start('Loading...');
+           // blockUI.start('Loaaaaaaading...');
 
             authorizationService.isPasswordchanged = false;
             $('#passwordChanged').hide();

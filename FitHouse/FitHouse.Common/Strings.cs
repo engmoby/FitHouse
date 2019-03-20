@@ -5,6 +5,9 @@ namespace FitHouse.Common
 {
     public class Strings
     {
+        static readonly DateTime ThisTime = DateTime.Now;
+        static readonly TimeZoneInfo Tst = TimeZoneInfo.FindSystemTimeZoneById("Arab Standard Time");
+        static readonly DateTime TstTime = TimeZoneInfo.ConvertTime(ThisTime, TimeZoneInfo.Local, Tst);
 
         public const string JWT = "JWT";
         public const string userID = "UserID";
@@ -14,7 +17,7 @@ namespace FitHouse.Common
        // public const string TenantId = "TenantId";
         public const string PermissionId = "PermissionId";
         public const string TypeId = "TypeId";
-        public static DateTime CurrentDateTime = DateTime.Now;
+        public static DateTime CurrentDateTime = TstTime;
         public static long Code = 001;
 
 

@@ -36,11 +36,13 @@
             debugger;
             vm.show = false;
             var newClient = new ClientResource();
-            newClient.clientId = $scope.clientObj.clientId;
+            newClient.userId = $scope.clientObj.userId;
             newClient.firstName = $scope.clientObj.firstName;
             newClient.lastName = $scope.clientObj.lastName;
             newClient.phone = $scope.clientObj.phone;
             newClient.email = $scope.clientObj.email;
+            newClient.length = $scope.clientObj.length;
+            newClient.weight = $scope.clientObj.weight;
             newClient.password = $scope.clientObj.password;
             newClient.isActive = true;
             newClient.branchId = vm.selectedBranchId;//1;

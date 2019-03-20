@@ -46,6 +46,7 @@ namespace FitHouse.DAL.Entities
         public DbSet<Setting> Settings { get; set; }
         public DbSet<Status> Statuses { get; set; }
         public DbSet<StatusTranslation> StatusTranslations { get; set; }
+        public DbSet<Promotion> Promotion { get; set; }
 
 
 

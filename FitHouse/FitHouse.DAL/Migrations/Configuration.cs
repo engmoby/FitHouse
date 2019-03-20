@@ -40,8 +40,9 @@
             //var permisison15 = new Permission { IsDeleted = false, IsStatic = true };
             //var permisison16 = new Permission { IsDeleted = false, IsStatic = true };
             //var permisison17 = new Permission { IsDeleted = false, IsStatic = true };
-            var permisison18 = new Permission { IsDeleted = false, IsStatic = true };
-            var permisison19 = new Permission { IsDeleted = false, IsStatic = true };
+            //var permisison18 = new Permission { IsDeleted = false, IsStatic = true };
+            //var permisison19 = new Permission { IsDeleted = false, IsStatic = true };
+           // var permisison20 = new Permission { IsDeleted = false, IsStatic = true };
 
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison3);
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison4);
@@ -60,8 +61,13 @@
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison17);
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison18);
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison19);
+            // context.Permissions.AddOrUpdate(h => h.PermissionId, permisison20);
 
 
+            //var permissionTreanslation34 = new PermissionTranslation { Language = "en", Title = "Promotion", Permission = permisison20 };
+            //var permissionTreanslation33 = new PermissionTranslation { Language = "ar", Title = "ترويج", Permission = permisison20 };
+            //context.PermissionTranslations.AddOrUpdate(h => h.PermissionTranslationId, permissionTreanslation34);
+            //context.PermissionTranslations.AddOrUpdate(h => h.PermissionTranslationId, permissionTreanslation33);
 
             //var permissionTreanslation31 = new PermissionTranslation { Language = "en", Title = "Reports", Permission = permisison19 };
             //var permissionTreanslation32 = new PermissionTranslation { Language = "ar", Title = "تقارير", Permission = permisison19 };

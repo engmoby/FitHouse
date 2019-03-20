@@ -1,6 +1,7 @@
 <div>
     <div style="margin-bottom:10px">
-        <button style="background-color: #e4e5e6;color: black!important;" ng-click="$state.go('newRole');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddBtn'
+        <button style="background-color: #e4e5e6;color: black!important;" ng-click="$state.go('newRole');"
+            class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{'AddBtn'
             | translate}}</button>
 
     </div>
@@ -31,14 +32,17 @@
                     </td>
 
                     <td width="30%" ng-show="!role.isStatic">
-                        <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editrole',{roleId: role.roleId});">mode_edit</i>
-                        <i class="material-icons pmd-md deleteButton cursorPointer font25" ng-click="RoleCtrl.openDeleteDialog(role,role.titleDictionary[selectedLanguage],role.roleId)">delete</i>
+                        <i class="material-icons md-dark pmd-md cursorPointer font25"
+                            ng-click="$state.go('editrole',{roleId: role.roleId});">mode_edit</i>
+                        <i class="material-icons pmd-md deleteButton cursorPointer font25"
+                            ng-click="RoleCtrl.openDeleteDialog(role,role.titleDictionary[selectedLanguage],role.roleId)">delete</i>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount" paging-action="changePage(page)"
-        flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">
+    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"
+        paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true"
+        disabled-class="hide">
     </div>
 </div>

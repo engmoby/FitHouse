@@ -55,7 +55,8 @@
 		.module('core')
 		.constant('appCONSTANTS', {
 		//	'API_URL': 'http://localhost:32569/api/',
-			 'API_URL': 'http://fithouse.azurewebsites.net/api/',
+			// 'API_URL': 'http://fithouse.azurewebsites.net/api/',
+				'API_URL': 'http://fithouse-testing.azurewebsites.net/api/',
 
 			'defaultLanguage': 'en',
 			'supportedLanguage': {
@@ -636,9 +637,21 @@ angular.module('core')
         "ExcludedDays": "Excluded Days", 
         "MealDetails": "Meal Details", 
         "Details": "Details", 
-      }
+        "wrongpattern": "wrong pattern", 
+        "PromotionLbl": "Promotion",
+        "CheckPromotion": "Check Promotion",
+        "maxlength": "Length Error",
+        "RepeatDayOne": "Repeat the first day meals for the rest of the week?",
+        }
 
       var ar_translations = {
+        
+        "RepeatDayOne": "تكرار وجبات اليوم الأول لباقي الأسبوع؟",
+        "maxlength": "خطأ في عدد الارقام", 
+        "PromotionLbl": "ترويج",
+        "CheckPromotion": "تحقق الترويج",
+
+        "wrongpattern": "نمط خاطئ", 
         "Details": "التفاصيل", 
         "MealDetails": "تفاصيل الوجبه", 
         "thanks": "شكرا لاستخدامك النظام الخاص بنا ", 
@@ -1191,7 +1204,7 @@ angular.module('core')
         $scope.init();
 
         $scope.submit = function (username, password) {
-            blockUI.start('Loading...');
+           // blockUI.start('Loaaaaaaading...');
 
             authorizationService.isPasswordchanged = false;
             $('#passwordChanged').hide();

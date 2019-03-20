@@ -137,6 +137,8 @@ namespace FitHouse.BLL
             mapperConfiguration.CreateMap<Log, LogDto>();
 
 
+            mapperConfiguration.CreateMap<PromotionDto, Promotion>();
+            mapperConfiguration.CreateMap<Promotion, PromotionDto>();
             Mapper.Initialize(mapperConfiguration);
         }
 
@@ -188,6 +190,7 @@ namespace FitHouse.BLL
                 .RegisterType<ISettingService, SettingService>(new PerResolveLifetimeManager())
 
                 .RegisterType<ILogService, LogService>(new PerResolveLifetimeManager())
+                .RegisterType<IPromotionService, PromotionService>(new PerResolveLifetimeManager())
 
                 ;
         }

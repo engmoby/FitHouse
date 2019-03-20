@@ -3,6 +3,7 @@
 		$(".select-add-tags").select2({
 			tags: true,
 			theme: "bootstrap",
+            maximumSelectionLength: 5,
 			insertTag: function (data, tag) {
 				// Insert the tag at the end of the results
 				data.push(tag);
@@ -163,7 +164,7 @@
 							<label>{{'SelectExcludeDays' | translate}}</label>
 
 							<div class="input-field col s12">
-								<select style="width:100% !important" class="form-control select-tags pmd-select2-tags"
+								<select style="width:100% !important" class="form-control select-add-tags"
 									multiple ng-model="SelectedDays"
 									ng-options="day as day.dayNameDictionary[selectedLanguage] for day in dayList">
 								</select>

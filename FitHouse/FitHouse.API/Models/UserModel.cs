@@ -39,5 +39,7 @@ namespace FitHouse.API.Models
         public string Description { get; set; }
         public bool IsAddress { get; set; }
 
+        public int? Weight { get; set; }
+        public int? Length { get; set; }
     }
 }

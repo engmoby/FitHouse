@@ -148,7 +148,7 @@
         "Checkbox": "Checkbox",
         "Rate": "Rate",
         "LikeDislike": "Like or dislike",
-        "value": "Answer",
+        "value": "Promotion Value",
         "note": "note",
         "questionEn": "Option english",
         "questionAr": "Option arabic",
@@ -340,15 +340,33 @@
 
         "ProgramDaysMinValue": "Minimum Program Days Value is : ",
         "maxlength": "Length Error",
+        "wrongpattern": "wrong pattern", 
 
-      }
+        "MakeitPrepering": "Make it Prepering", 
+        "NoPickupsAvailable": "No Pickups Available",
+        "PromotionLbl": "Promotion",
+        "NewPromotionLbl": "New Promotion",
+        "UpdatePromotionLbl": "Update Promotion",
+        "NoPromotionAvailable": "No Promotion Available",
+        "CheckPromotion": "Check Promotion",
+ }
 
       var ar_translations = {
+        "CheckPromotion": "تحقق الترويج",
+ 
+        "PromotionLbl": "ترويج",
+        "NewPromotionLbl": " ترويج جديد",
+        "UpdatePromotionLbl": "تحديث ترويج",
+        "NoPromotionAvailable": "لا يوجد ترويج متاح",
+        
+        "NoPickupsAvailable": "لا التقاط المتاحة",
+        "MakeitPrepering": "اجعلها تحضير", 
+        "wrongpattern": "نمط خاطئ", 
         "maxlength": "خطأ في عدد الارقام", 
         "ProgramDaysMinValue": "الحد الأدنى من قيمة أيام البرنامج هو: ",
 
         "Reports": "التقارير",
-        "ClientFound": "العملاء",
+        "Client": "العملاء",
         "refresh": "تحديث",
         "deleteBtn": "مسح",
         "cancelBtn": "الغاء",
@@ -647,7 +665,7 @@
         "Checkbox": "اختيار",
         "Rate": "تقييم",
         "LikeDislike": "اعجاب او رفض",
-        "value": "أجابة",
+        "value": "قيمه الترويج",
         "note": "ملحوظه",
         "questionEn": "اختيار انجليزي",
         "questionAr": "اختيار عربي",

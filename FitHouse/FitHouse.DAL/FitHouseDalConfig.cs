@@ -55,6 +55,7 @@ namespace FitHouse.DAL
                 .RegisterType<IRepositoryAsync<Setting>, Repository<Setting>>(new PerResolveLifetimeManager())
                 .RegisterType<IRepositoryAsync<Log>, Repository<Log>>(new PerResolveLifetimeManager())
                 .RegisterType<IRepositoryAsync<Address>, Repository<Address>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<Promotion>, Repository<Promotion>>(new PerResolveLifetimeManager())
                 ;
 
 
