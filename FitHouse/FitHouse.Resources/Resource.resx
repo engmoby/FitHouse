@@ -165,6 +165,18 @@
   <data name="ProgramNotFound" xml:space="preserve">
     <value>Program Not Found</value>
   </data>
+  <data name="PromoCodeFinished" xml:space="preserve">
+    <value>Promo Code Finished</value>
+  </data>
+  <data name="PromoCodeNotAllowed" xml:space="preserve">
+    <value>Promo Code Not Allowed</value>
+  </data>
+  <data name="PromoCodeNotExist" xml:space="preserve">
+    <value>Promo Code Not Exist</value>
+  </data>
+  <data name="PromoCodeNotStart" xml:space="preserve">
+    <value>Promo Code Not Start</value>
+  </data>
   <data name="RecordIsUsedInAnotherModule" xml:space="preserve">
     <value>This Record Is Used In Another Module</value>
   </data>

@@ -31,7 +31,8 @@
         {
             Program,
             Meal,
-            Item
+            Item,
+            CustomProgram
         }
         public enum Modules
         {

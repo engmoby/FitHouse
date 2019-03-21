@@ -8,6 +8,7 @@ using FitHouse.API.Models;
 using FitHouse.BLL.DataServices.Interfaces;
 using FitHouse.BLL.DTOs;
 using FitHouse.BLL.Services.Interfaces;
+using FitHouse.Common;
 using FitHouse.Common.CustomException;
 
 namespace FitHouse.API.Controllers
@@ -17,16 +18,19 @@ namespace FitHouse.API.Controllers
         private readonly IRoleFacade _roleFacade;
         private readonly IRolePermissionService _rolePermissionService;
         private readonly IUserRoleService _userRoleService;
-        public RoleController(IRoleFacade roleFacade, IUserRoleService userRoleService)
+        public RoleController(IRoleFacade roleFacade, IUserRoleService userRoleService, IRolePermissionService rolePermissionService)
         {
             _roleFacade = roleFacade;
             _userRoleService = userRoleService;
+            _rolePermissionService = rolePermissionService;
         }
 
         [Route("api/Roles/GetAllRoles", Name = "GetAllRoles")]
         [HttpGet]
         public IHttpActionResult GetAllRoles(int page = Page, int pagesize = PageSize)
         {
+          //  MailHelper.SendMail("goodmoin", "hello", "m.abdo@gmggroupsoft.com");
+           //MailHelper.PopulateBody("goodmoin", "http://fithouse-testing.azurewebsites.net","Abdo","12345678", "a.tarek@gmggroupsoft.com"); 
             PagedResultsDto roleObj = _roleFacade.GetAllRoles(page, pagesize,UserId);
             var data = Mapper.Map<List<RoleModel>>(roleObj.Data);
             return PagedResponse("GetAllRoles", page, pagesize, roleObj.TotalCount, data );

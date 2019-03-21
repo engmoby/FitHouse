@@ -3,27 +3,36 @@
 
     angular
         .module('home')
-        .controller('mealDetailsController', ['$scope', 'blockUI','$stateParams', '$state', '$translate', 'appCONSTANTS'
+        .controller('mealDetailsController', ['$scope', 'blockUI', '$stateParams', '$state', '$translate', 'appCONSTANTS'
             , '$filter', 'mealPrepService', 'itemsssPrepService', 'OrderResource'
-            , 'RegionResource', 'BranchResource', 'CityResource', 'AreaResource', 'CountriesPrepService', mealDetailsController])
+            , 'RegionResource', 'BranchResource', 'CityResource', 'AreaResource', 'CountriesPrepService', 'PromotionResource', 'settingsPrepService', mealDetailsController])
 
-    function mealDetailsController($scope,blockUI, $stateParams, $state, $translate, appCONSTANTS
+    function mealDetailsController($scope, blockUI, $stateParams, $state, $translate, appCONSTANTS
         , $filter, mealPrepService
         , itemsssPrepService, OrderResource, RegionResource, BranchResource, CityResource, AreaResource
-        , CountriesPrepService) {
+        , CountriesPrepService, PromotionResource, settingsPrepService) {
 
         $scope.mealPrepService = mealPrepService;
         $scope.itemsssPrepService = itemsssPrepService;
+        $scope.settingsPrepService = settingsPrepService;
         $scope.Total = 0;
         var vm = this;
         $scope.clientId = $scope.user.id;
         // localStorage.getItem('ClientId');
+
+        $scope.btnCheckValid = true;
+        $scope.promotionValue = 0;
+        $scope.promotionError = null;
         $scope.DeliveryFees = 0;
         $scope.counties = [];
         $scope.fats = 0;
         $scope.carbs = 0;
         $scope.protein = 0;
         $scope.calories = 0;
+        $scope.discount = ($scope.mealPrepService.mealDiscount == 0) ? $scope.settingsPrepService.programDiscount : $scope.mealPrepService.mealDiscount;
+
+        $scope.Total = $scope.mealPrepService.mealPrice - ($scope.mealPrepService.mealPrice * ($scope.discount / 100));
+
 
         for (var i = 0; i < $scope.mealPrepService.mealDetails.length; i++) {
             /*var differntItem = $scope.itemsssPrepService.filter(x => (x.itemSizeId == $scope.mealPrepService.mealDetails[i].itemSizeId));
@@ -72,7 +81,7 @@
         $scope.dateIsValid = false;
         $scope.dateChange = function () {
 
-            if ($('#startdate').data('date')== null || $('#startdate').data('date') == "") {
+            if ($('#startdate').data('date') == null || $('#startdate').data('date') == "") {
                 // if ($scope.itemDatetime == null || $scope.itemDatetime == "") {
                 $scope.dateIsValid = false;
                 // $scope.$apply();
@@ -244,7 +253,7 @@
 
             order.$createOrder().then(
                 function (data, status) {
-                     blockUI.stop();
+                    blockUI.stop();
 
                     // ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
 
@@ -261,6 +270,35 @@
             );
         }
 
+        $scope.checkPromotion = function (promoTitle) {
+            blockUI.start($translate.instant('loading'));
+
+            var promotion = new PromotionResource();
+            promotion.title = promoTitle;
+            promotion.type = "Meal";
+
+
+            promotion.$CheckPromotion().then(
+                function (data, status) {
+                    debugger;
+                    blockUI.stop();
+                    $scope.btnCheckValid = false;
+                    $scope.promotionValue = data;
+                    var promoValue = ($scope.Total * $scope.promotionValue.value / 100);
+                    $scope.Total = $scope.Total - promoValue;
+                    // $scope.mealPrepService.mealPrice = $scope.mealPrepService.mealPrice - ($scope.mealPrepService.mealPrice * $scope.promotionValue.value / 100);
+                    $scope.promotionError = null;
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+                    $scope.btnCheckValid = true;
+                    $scope.promotionError = data.data.message;
+                    $scope.promotionValue = null;
+
+                }
+            );
+        }
 
     }
 

@@ -73,6 +73,7 @@ namespace FitHouse.API
                 .RegisterType<ILogFacade, LogFacade>(new PerResolveLifetimeManager())
                 .RegisterType<IAddressFacade, AddressFacade>(new PerResolveLifetimeManager())
                 .RegisterType<ISizeFacade, SizeFacade>(new PerResolveLifetimeManager())
+                .RegisterType<IPromotionFacade, PromotionFacade>(new PerResolveLifetimeManager())
 
                 ;
 

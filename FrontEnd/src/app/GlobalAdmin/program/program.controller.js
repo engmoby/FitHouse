@@ -3,12 +3,15 @@
 
     angular
         .module('home')
-        .controller('programController', ['$scope', '$stateParams', '$translate', 'appCONSTANTS', 'programPrepService'
+        .controller('programController', ['$scope', 'blockUI', '$stateParams', '$translate', 'settingsPrepService', 'programPrepService'
             , programController])
 
-    function programController($scope, $stateParams, $translate, appCONSTANTS, programPrepService) {
+    function programController($scope, blockUI, $stateParams, $translate, settingsPrepService, programPrepService) {
+        $scope.settingsPrepService = settingsPrepService;
+        localStorage.setItem('ProgramDiscount', $scope.settingsPrepService.programDiscount);
 
         $scope.programPrepService = programPrepService.results;
+        blockUI.stop();
 
         $scope.style = function () {
             return {

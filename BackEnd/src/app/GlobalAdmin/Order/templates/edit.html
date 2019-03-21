@@ -21,7 +21,7 @@
                             <input type="text" ng-model="editOrderCtrl.Order.orderStartDate"
                                 ng-change="editOrderCtrl.changeDate" id="startdate" class="form-control" />
                         </div>
-                        {{editOrderCtrl.Order.orderStartDate}}
+
                     </div>
 
                     <div
@@ -33,14 +33,14 @@
 
                     <div
                         class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-                        <label for="first-name">{{'username' | translate}} </label>
+                        <label for="first-name">{{'userName' | translate}} </label>
                         <label for="first-name" class="mat-input form-control">{{editOrderCtrl.Order.user.firstName}}
                             {{editOrderCtrl.Order.user.lastName}}</label>
                     </div>
 
                     <div
                         class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-                        <label>{{'orderCode' | translate}} </label>
+                        <label>{{'OrderCode' | translate}} </label>
                         <label class="mat-input form-control"> {{editOrderCtrl.Order.orderCode}}</label>
                     </div>
 
@@ -48,7 +48,8 @@
                         class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                         <label>{{'status' | translate}} </label>
                         <br>
-                        <input type="checkbox" ng-model="orderStatus" value="1">Make it Prepering</input>
+                        <input type="checkbox" ng-model="orderStatus"
+                            value="1">{{'MakeitPrepering' | translate}}</input>
                     </div>
 
 
@@ -225,7 +226,7 @@
         $('#startdate').datetimepicker(
             {
                 minDate: new Date(),
-             //   format: 'DD/MM/YYYY HH:mm:ss'
+                //   format: 'DD/MM/YYYY HH:mm:ss'
                 //  format: "DD-MM-YYYY"
             }
         ).on('dp.change', function (e) {

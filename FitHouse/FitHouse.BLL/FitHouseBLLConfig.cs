@@ -149,6 +149,8 @@ namespace FitHouse.BLL
                 .ForMember(dto => dto.ItemId, m => m.MapFrom(src => src.ItemId))
                 .ForMember(dto => dto.VAT, m => m.MapFrom(src => src.Item.VAT));
 
+            mapperConfiguration.CreateMap<PromotionDto, Promotion>();
+            mapperConfiguration.CreateMap<Promotion, PromotionDto>();
             Mapper.Initialize(mapperConfiguration);
         }
 
@@ -203,6 +205,8 @@ namespace FitHouse.BLL
                 .RegisterType<ISizeService, SizeService>(new PerResolveLifetimeManager())
                 .RegisterType<ISizeTranslationService, SizeTranslationService>(new PerResolveLifetimeManager())
                 .RegisterType<IItemSizeService, ItemSizeService>(new PerResolveLifetimeManager())
+                .RegisterType<IPromotionService, PromotionService>(new PerResolveLifetimeManager())
+
                 ;
         }
 

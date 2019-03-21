@@ -64,7 +64,6 @@
         <label for="first-name">{{'phoneLbl' | translate}}</label>
         <input required type="text" class="mat-input form-control" name="phone" numbers-only
             ng-model="callCenterCtrl.Phone" ng-minlength="10" ng-maxlength="50">
-        <!-- <span class="error" ng-show="newCallCenterForm.phone.$error.pattern">{{'NotPhoneNumber' | translate}}   </span> -->
         <div ng-messages="newCallCenterForm.phone.$error">
             <div ng-if="newCallCenterForm.phone.$error.required && !newCallCenterForm.phone.$pristine">
                 {{'PhoneReqError' | translate}}
@@ -75,26 +74,53 @@
     </div>
 
     <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+        <label for="first-name">{{'Length' | translate}}</label>
+        <input type="number" class="mat-input form-control" name="length" ng-model="callCenterCtrl.Length" positive
+            ng-pattern="/^[1-9]+[0-9]*$/" ng-minlength="1" ng-maxlength="3">
+        <div ng-messages="newCallCenterForm.length.$error" class="error">
+            <div ng-if="(newCallCenterForm.length.$error.minlength || newCallCenterForm.length.$error.maxlength)">
+                {{'maxlength' | translate}}</div>
+            <div ng-if="newCallCenterForm.length.$error.pattern && !newCallCenterForm.length.$pristine">
+                {{'wrongpattern' | translate}}</div>
+        </div>
+    </div>
+
+    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+        <label for="first-name">{{'Weight' | translate}}</label>
+        <input type="number" class="mat-input form-control" name="weight" ng-model="callCenterCtrl.Weight" positive
+            ng-pattern="/^[1-9]+[0-9]*$/" ng-minweight="1" ng-maxlength="3">
+        <div ng-messages="newCallCenterForm.weight.$error" class="error">
+            <div ng-if="(newCallCenterForm.weight.$error.minweight || newCallCenterForm.weight.$error.maxlength)">
+                {{'maxlength' | translate}}</div>
+            <div ng-if="newCallCenterForm.weight.$error.pattern && !newCallCenterForm.weight.$pristine">
+                {{'wrongpattern' | translate}}</div>
+        </div>
+    </div>
+    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
         <label for="first-name">{{'FLoor' | translate}}</label>
         <input required type="number" class="mat-input form-control" name="floor" ng-model="callCenterCtrl.FLoor"
-            ng-minlength="1" ng-maxlength="4">
-        <div ng-messages="newProgramForm.floor.$error" class="error">
-            <div ng-if="newProgramForm.floor.$error.required && !newProgramForm.floor.$pristine">
+            positive ng-pattern="/^[1-9]+[0-9]*$/" ng-minlength="1" ng-maxlength="4">
+        <div ng-messages="newCallCenterForm.floor.$error" class="error">
+            <div ng-if="newCallCenterForm.floor.$error.required && !newCallCenterForm.floor.$pristine">
                 {{'ProgramDaysCountReqError' | translate}}</div>
-            <div ng-if="(newProgramForm.floor.$error.minlength || newProgramForm.floor.$error.maxlength)">
+            <div ng-if="(newCallCenterForm.floor.$error.minlength || newCallCenterForm.floor.$error.maxlength)">
                 {{'ProgramDaysCountLengthError' | translate}}</div>
+            <div ng-if="newCallCenterForm.floor.$error.pattern && !newCallCenterForm.floor.$pristine">
+                {{'wrongpattern' | translate}}</div>
         </div>
     </div>
 
     <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
         <label for="first-name">{{'ApartmentNumber' | translate}}</label>
-        <input required type="number" class="mat-input form-control" name="appartmentNo"
-            ng-model="callCenterCtrl.AppartmentNo" ng-minlength="1" ng-maxlength="4">
-        <div ng-messages="newProgramForm.appartmentNo.$error" class="error">
-            <div ng-if="newProgramForm.appartmentNo.$error.required && !newProgramForm.appartmentNo.$pristine">
+        <input required type="number" class="mat-input form-control" name="appartmentNo" positive
+            ng-pattern="/^[1-9]+[0-9]*$/" ng-model="callCenterCtrl.AppartmentNo" ng-minlength="1" ng-maxlength="4">
+        <div ng-messages="newCallCenterForm.appartmentNo.$error" class="error">
+            <div ng-if="newCallCenterForm.appartmentNo.$error.required && !newCallCenterForm.appartmentNo.$pristine">
                 {{'ProgramDaysCountReqError' | translate}}</div>
-            <div ng-if="(newProgramForm.appartmentNo.$error.minlength || newProgramForm.appartmentNo.$error.maxlength)">
+            <div ng-if="(newCallCenterForm.appartmentNo.$error.minlength || newCallCenterForm.appartmentNo.$error.maxlength)">
                 {{'ProgramDaysCountLengthError' | translate}}</div>
+            <div ng-if="newCallCenterForm.appartmentNo.$error.pattern && !newCallCenterForm.appartmentNo.$pristine">
+                {{'wrongpattern' | translate}}</div>
         </div>
     </div>
 

@@ -9,8 +9,14 @@
         .factory('CityResource', ['$resource', 'appCONSTANTS', CityResource])
         .factory('AreaResource', ['$resource', 'appCONSTANTS', AreaResource])
         .factory('CountryResource', ['$resource', 'appCONSTANTS', CountryResource])
+        .factory('PromotionResource', ['$resource', 'appCONSTANTS', PromotionResource])
         ;
 
+    function PromotionResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Promotion', {}, {
+            CheckPromotion: { method: 'POST', url: appCONSTANTS.API_URL + 'Promotion/CheckPromotion', useToken: true },
+        })
+    }
     function OrderResource($resource, appCONSTANTS) {
         return $resource(appCONSTANTS.API_URL + 'Orders', {}, {
             createOrder: { method: 'POST', url: appCONSTANTS.API_URL + 'Orders/CreateOrder', useToken: true },

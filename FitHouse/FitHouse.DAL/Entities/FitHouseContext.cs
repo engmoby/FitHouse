@@ -49,6 +49,7 @@ namespace FitHouse.DAL.Entities
         public DbSet<Size> Sizes { get; set; }
         public DbSet<SizeTranslation> SizeTranslations { get; set; }
         public DbSet<ItemSize> ItemSizes { get; set; }
+        public DbSet<Promotion> Promotion { get; set; }
 
 
 

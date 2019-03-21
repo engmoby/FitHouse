@@ -18,7 +18,7 @@ namespace FitHouse.API
             mapperConfiguration.CreateMap<UserDto, UserModel>();
 
             mapperConfiguration.CreateMap<UserRoleModel, UserRoleDto>();
-            mapperConfiguration.CreateMap<UserRoleDto, UserRoleModel>(); 
+            mapperConfiguration.CreateMap<UserRoleDto, UserRoleModel>();
 
             mapperConfiguration.CreateMap<RoleModel, RoleDto>();
             mapperConfiguration.CreateMap<RoleDto, RoleModel>();
@@ -27,7 +27,7 @@ namespace FitHouse.API
             mapperConfiguration.CreateMap<AreaDto, AreaModel>();
 
             mapperConfiguration.CreateMap<BranchModel, BranchDto>();
-            mapperConfiguration.CreateMap<BranchDto, BranchModel>();  
+            mapperConfiguration.CreateMap<BranchDto, BranchModel>();
 
             mapperConfiguration.CreateMap<CategoryModel, CategoryDto>();
             mapperConfiguration.CreateMap<CategoryDto, CategoryModel>();
@@ -41,10 +41,10 @@ namespace FitHouse.API
 
             mapperConfiguration.CreateMap<PermissionModel, RolePermissionDto>();
             mapperConfiguration.CreateMap<RolePermissionDto, PermissionModel>();
-              
-            mapperConfiguration.CreateMap<AdminModel, AdminDto>(); 
 
-            mapperConfiguration.CreateMap<SettingModel, SettingDto>(); 
+            mapperConfiguration.CreateMap<AdminModel, AdminDto>();
+
+            mapperConfiguration.CreateMap<SettingModel, SettingDto>();
             mapperConfiguration.CreateMap<SettingDto, SettingModel>();
 
 
@@ -85,7 +85,7 @@ namespace FitHouse.API
             mapperConfiguration.CreateMap<LogModel, LogDto>();
             mapperConfiguration.CreateMap<LogDto, LogModel>();
 
-            mapperConfiguration.CreateMap<MealDto, MealModel>().ReverseMap(); 
+            mapperConfiguration.CreateMap<MealDto, MealModel>().ReverseMap();
             mapperConfiguration.CreateMap<MealDetailDto, MealDetailModel>().ReverseMap();
 
             mapperConfiguration.CreateMap<SizeModel, SizeDto>();
@@ -94,6 +94,10 @@ namespace FitHouse.API
 
             mapperConfiguration.CreateMap<ItemSizeModel, ItemSizeDto>();
             mapperConfiguration.CreateMap<ItemSizeDto, ItemSizeModel>();
+
+
+            mapperConfiguration.CreateMap<PromotionDto, PromotionModel>().ReverseMap();
+            mapperConfiguration.CreateMap<PromotionModel, PromotionDto>().ReverseMap();
 
             FitHouseBllConfig.RegisterMappings(mapperConfiguration);
 

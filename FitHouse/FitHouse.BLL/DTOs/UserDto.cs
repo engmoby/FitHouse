@@ -41,5 +41,7 @@ namespace FitHouse.BLL.DTOs
         public bool IsAddress { get; set; }
 
 
+        public int? Weight { get; set; }
+        public int? Length { get; set; }
     }
 }

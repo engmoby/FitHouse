@@ -1,0 +1,127 @@
+<div class="modal-content">
+    <div class="modal-header bordered">
+        <h2 class="pmd-card-title-text">{{'UpdatePromotionLbl' | translate}}</h2>
+    </div>
+
+    <div class="modal-body">
+        <form class="form-horizontal" name="promotionForm">
+
+            <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">
+                <label for="first-name"> {{ 'titleLbl' | translate}} </label>
+                <input required type="text" class="mat-input form-control" name="title"
+                    ng-model="editPromotionCtrl.Promotion.title" ng-minlength="3" ng-maxlength="255">
+                <div ng-messages="promotionForm.title.$error">
+                    <div ng-show="promotionForm.title.$error.required && !promotionForm.title.$pristine">
+                        {{'requiredErr' | translate}}</div>
+                    <div
+                        ng-show="(promotionForm.title.$error.minlength || promotionForm.title.$error.maxlength) && !promotionForm.title.$error.required">
+                        {{'NameLengthError255' | translate}}</div>
+                </div>
+            </div>
+
+
+            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                <label for="first-name">{{'value' | translate}}</label>
+                <input required type="number" class="mat-input form-control" name="value" ng-pattern="/^[1-9]+[0-9]*$/"
+                    ng-model="editPromotionCtrl.Promotion.value" ng-minlength="1" ng-maxlength="3">
+                <div ng-messages="promotionForm.value.$error">
+                    <div ng-if="promotionForm.value.$error.required && !promotionForm.value.$pristine">
+                        {{'requiredErr' | translate}}</div>
+                    <div ng-if="(promotionForm.value.$error.minlength || promotionForm.value.$error.maxlength)">
+                        {{'maxlength' | translate}}</div>
+                    <div ng-if="promotionForm.value.$error.pattern && !promotionForm.value.$pristine">
+                        {{'wrongpattern' | translate}}</div>
+                </div>
+            </div>
+
+            <div class="row">
+
+                <div
+                    class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+
+                    <label for="regular1" class="control-label">{{'startDateLbl' | translate}}</label>
+                    <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                        <input type="text" ng-model="editPromotionCtrl.Promotion.startDate"
+                            ng-change="editPromotionCtrl.dateChange" id="startdate" class="form-control" />
+                    </div>
+
+                </div>
+                <div
+                    class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                    <label for="regular1" class="control-label">{{'enddateLbl' | translate}}</label>
+                    <div class="form-group pmd-textfield pmd-textfield-floating-label">
+                        <input type="text" ng-model="editPromotionCtrl.Promotion.endDate"
+                            ng-change="editPromotionCtrl.dateChange" id="enddate" class="form-control" />
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div
+                    class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                    <input type="checkbox"
+                        ng-model="editPromotionCtrl.Promotion.isProgram">{{'Program' | translate}}</input>
+                </div>
+                <div
+                    class="col-md-2 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                    <input type="checkbox" ng-model="editPromotionCtrl.Promotion.isMeal">{{'Meal' | translate}}</input>
+                </div>
+
+                <div
+                    class="col-md-4 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+
+                    <input type="checkbox"
+                        ng-model="editPromotionCtrl.Promotion.isCustomProgram">{{'CustomizeProgram' | translate}}</input>
+                </div>
+            </div>
+        </form>
+
+    </div>
+
+    <div class="pmd-modal-action text-right">
+        <button style="background-color: #e4e5e6;color: black!important;"
+            ng-disabled="promotionForm.$invalid || !editPromotionCtrl.dateIsValid||
+            (editPromotionCtrl.IsProgram ==false && editPromotionCtrl.IsMeal ==false && editPromotionCtrl.IsCustomProgram ==false)"
+            class="btn pmd-ripple-effect btn-primary" type="button"
+            ng-click="editPromotionCtrl.UpdatePromotion()">{{'saveChangesBtn' | translate}}</button>
+
+        <button class="btn pmd-ripple-effect btn-default" type="button"
+            ng-click="$state.go('Promotion');">{{'DiscardBtn' | translate}}</button>
+    </div>
+</div>
+
+
+<script type="text/javascript">
+    $(function () {
+        $('#startdate').datetimepicker(
+            {
+                minDate: new Date(),
+                format: 'MM/DD/YYYY hh:mm a'
+
+            }
+        );
+        $('#enddate').datetimepicker(
+            {
+                format: 'MM/DD/YYYY hh:mm a',
+                useCurrent: false
+            }
+        );
+        $("#startdate").on("dp.change", function (e) {
+            debugger;
+            $('#enddate').data("DateTimePicker").minDate(e.date);
+            angular.element(document.getElementById('startdate')).scope().dateChange();
+
+        });
+        // Start date picke on chagne event [select maxmimum date for start date datepicker]
+        $("#enddate").on("dp.change", function (e) {
+            debugger;
+            // var endDate = new Date($('#startdate').val());
+            // var startDate = new Date(e.date);
+            // if (endDate >= startDate)
+            //     $scope.promotionForm.$valid;
+            angular.element(document.getElementById('enddate')).scope().dateChange();
+            $('#startdate').data("DateTimePicker").maxDate(e.date);
+        });
+
+    });
+
+</script>

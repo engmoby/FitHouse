@@ -71,7 +71,29 @@
                                 length must be 8-25 char.</div>
                         </div>
                     </div>
-
+                    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                        <label for="first-name">{{'Length' | translate}}</label>
+                        <input type="number" class="mat-input form-control" name="length" ng-model="userObj.length" positive
+                            ng-pattern="/^[1-9]+[0-9]*$/" ng-minlength="1" ng-maxlength="3">
+                        <div ng-messages="newclientForm.length.$error" class="error">
+                            <div ng-if="(newclientForm.length.$error.minlength || newclientForm.length.$error.maxlength)">
+                                {{'maxlength' | translate}}</div>
+                            <div ng-if="newclientForm.length.$error.pattern && !newclientForm.length.$pristine">
+                                {{'wrongpattern' | translate}}</div>
+                        </div>
+                    </div>
+                
+                    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                        <label for="first-name">{{'Weight' | translate}}</label>
+                        <input type="number" class="mat-input form-control" name="weight" ng-model="userObj.weight" positive
+                            ng-pattern="/^[1-9]+[0-9]*$/" ng-minweight="1" ng-maxlength="3">
+                        <div ng-messages="newclientForm.weight.$error" class="error">
+                            <div ng-if="(newclientForm.weight.$error.minweight || newclientForm.weight.$error.maxlength)">
+                                {{'maxlength' | translate}}</div>
+                            <div ng-if="newclientForm.weight.$error.pattern && !newclientForm.weight.$pristine">
+                                {{'wrongpattern' | translate}}</div>
+                        </div>
+                    </div>
                     <div
                         class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                         <label for="first-name">{{'ConfirmPasswordLbl' | translate}}</label>
@@ -120,7 +142,7 @@
                             ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in editUserCtrl.area">
                         </select>
                     </div>
-                    {{editUserCtrl.selectedBranchId}}
+                    <!-- {{editUserCtrl.selectedBranchId}} -->
                     <div class="pmd-modal-action text-right">
                         <button style="background-color: #e4e5e6;color: black!important;"
                             ng-disabled="newclientForm.$invalid || !editUserCtrl.show && editUserCtrl.selectedBranchId <= 0"

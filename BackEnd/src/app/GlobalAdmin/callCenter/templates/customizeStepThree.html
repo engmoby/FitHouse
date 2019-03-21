@@ -43,58 +43,11 @@
             <label for="regular1" class="control-label">{{'orderPickDateTime' | translate}}</label>
             <div class="form-group pmd-textfield pmd-textfield-floating-label">
                 <input ng-model="orderCustomizeProgramCtrl.itemDatetime" type="text"
-                    ng-change="orderCustomizeProgramCtrl.dateChange" id="startdate" class="form-control" />
+                    ng-change="orderCustomizeProgramCtrl.dateChange()" id="startdate" class="form-control" />
             </div>
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-4">
-            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-                <label for="first-name">{{'ProgramDiscount' | translate}}</label>
-                <input minlength="1" maxlength="3" positive ng-change="discountChange();" required type="number"
-                    class="mat-input form-control" name="programDiscount"
-                    ng-model="orderCustomizeProgramCtrl.ProgramDiscount">
-            </div>
-            <div ng-messages="newProgram3Form.programDiscount.$error" class="error">
-                <div
-                    ng-if="(newProgram3Form.programDiscount.$error.minlength || newProgram3Form.programDiscount.$error.maxlength)">
-                    {{'programDiscountLengthError' | translate}}</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-9">
-            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-                <label for="first-name">{{'DeliveryPrice' | translate}}</label>
-                <input disabled type="number" class="mat-input form-control" name="deliveryPrice"
-                    ng-model="orderCustomizeProgramCtrl.DeliveryFees">
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-9">
-            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-                <label for="first-name">{{'PriceBeforeDiscount' | translate}}</label>
-                <input disabled type="number" class="mat-input form-control" name="priceBeforeDiscount"
-                    ng-model="orderCustomizeProgramCtrl.ProgramTotalPriceBefore">
-            </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="col-md-9">
-            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-                <label for="first-name">{{'PriceAfterDiscount' | translate}}</label>
-                <input disabled type="number" class="mat-input form-control" name="priceAfterDiscount"
-                    ng-model="orderCustomizeProgramCtrl.ProgramTotalPrice">
-            </div>
-        </div>
-    </div>
-
-    <hr>
 
     <div class="row">
         <div class="col-md-3">
@@ -106,11 +59,13 @@
         <div class="col-md-3">
             <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                 <label>
-                    <input type="radio" ng-model="orderCustomizeProgramCtrl.orderType.type" value="delivery">
+                    <input type="radio" ng-model="orderCustomizeProgramCtrl.orderType.type"
+                        ng-change="orderCustomizeProgramCtrl.typeChanged()" value="delivery">
                     {{'Deivery' | translate}}
                 </label>
                 <label style="margin-left:3em">
-                    <input type="radio" ng-model="orderCustomizeProgramCtrl.orderType.type" value="pickup">
+                    <input type="radio" ng-model="orderCustomizeProgramCtrl.orderType.type"
+                        ng-change="orderCustomizeProgramCtrl.typeChanged()" value="pickup">
                     {{'Pickup' | translate}}
                 </label>
                 <br />
@@ -196,23 +151,56 @@
             </div>
         </div>
     </div>
+    
+    <div class="row">
+        <div class="input-field col s2">
+            <input required type="text" class="mat-input" name="title"
+                placeholder="{{'PromotionLbl' | translate}}" ng-model="Title" minlength="3" maxlength="255">
+            <div ng-messages="newProgram3Form.title.$error">
+                <div ng-show="newProgram3Form.title.$error.required && !newProgram3Form.title.$pristine">
+                    {{'requiredErr' | translate}}</div>
+                <div
+                    ng-show="(newProgram3Form.title.$error.minlength || newProgram3Form.title.$error.maxlength) && !newProgram3Form.title.$error.required">
+                    {{'NameLengthError255' | translate}}</div>
+            </div>
+        </div>
 
-    <div class="pmd-modal-action text-right">
-        {{'price' | translate}}:{{ orderProgramsCtrl.TotalPrice}} SR
-        <br> {{'DeliveryPrice' | translate}}:{{ orderProgramsCtrl.DeliveryFees}} SR
-        <br>{{'orderProgramsCtrl.ProgramDiscount' | translate}}
-        <br>{{'Total' | translate}} :{{ orderProgramsCtrl.Total}} SR
+        <div class="input-field col s2">
+            <button style="background-color: #e4e5e6;color: black!important;"
+                class="btn pmd-ripple-effect btn-primary" ng-click="checkPromotion(Title)"
+                ng-disabled="orderCustomizeProgramCtrl.itemList.length <= 0 ||!btnCheckValid|| Title==null ">
+                {{'CheckPromotion' | translate}}</button>
+
+        </div>
         <br>
 
+    </div>
+
+    <span class="input-field col s6" ng-show="promotionValue == null">
+        {{ promotionError}}</span>
+
+    <!-- <span class="input-field col s6" ng-show="promotionError== null">
+        {{'value' | translate}}: {{ promotionValue.value}}
+    </span> -->
+   
+    {{'Pricelbl' | translate}}:{{orderCustomizeProgramCtrl.totalPrice | number:2}} SR
+    <!-- {{'Pricelbl' | translate}}:{{orderCustomizeProgramCtrl.totalPrice | number:0}} SR  -->
+    <br>{{'ProgramDiscount' | translate}} : {{ orderCustomizeProgramCtrl.ProgramDiscount}} %
+    <br> {{'DeliveryPrice' | translate}}:{{ orderCustomizeProgramCtrl.DeliveryFees}} SR
+    <br>{{'Total' | translate}} :{{ orderCustomizeProgramCtrl.Total| number:2}} SR
+    <br>
+
+    <div class="pmd-modal-action text-right">
+
         <button style="background-color: #e4e5e6;color: black!important;" class="btn pmd-ripple-effect btn-primary"
-            type="button" ng-click="$state.go('callCenter');">{{'Back' | translate}}</button>
+            type="button" ng-click="$state.go('callCenter');">{{'PreviousStep' | translate}}</button>
 
-        {{orderCustomizeProgramCtrl.dateIsValid}}
-        <!-- || (orderCustomizeProgramCtrl.Setting.minNoDaysPerProgram > orderCustomizeProgramCtrl.ProgramDaysCount) -->
-        <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="(orderCustomizeProgramCtrl.currentStep != orderCustomizeProgramCtrl.steps.length)||
-             !orderCustomizeProgramCtrl.dateIsValid" class="btn btn-success" name="next" type="button"
-            ng-click="orderCustomizeProgramCtrl.AddNewProgram()">
-            <i class="fa fa-floppy-o"></i>{{'Save111' | translate}}</button>
+        <button style="background-color: #e4e5e6;color: black!important;"
+            ng-disabled="orderCustomizeProgramCtrl.selectedBranchId  <= 0 || !orderCustomizeProgramCtrl.dateIsValid"
+            class="btn btn-success" name="next" type="button" ng-click="orderCustomizeProgramCtrl.AddNewProgram()">
+            {{'Save' | translate}}</button>
 
+        <!-- ng-disabled="(orderCustomizeProgramCtrl.currentStep != orderCustomizeProgramCtrl.steps.length)||
+        !orderCustomizeProgramCtrl.dateIsValid"  -->
     </div>
 </form>

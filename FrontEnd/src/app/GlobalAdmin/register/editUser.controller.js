@@ -94,6 +94,8 @@
             newClient.lastName = $scope.userObj.lastName;
             newClient.phone = $scope.userObj.phone;
             newClient.email = $scope.userObj.email;
+            newClient.length = $scope.userObj.length;
+            newClient.weight = $scope.userObj.weight;
             newClient.password = $scope.userObj.password;
             newClient.isActive = true;
             newClient.branchId = vm.selectedBranchId;//1;
@@ -104,7 +106,7 @@
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
                     vm.show = true;
                     localStorage.setItem('data', JSON.stringify(data.userId));
-                    $state.go('users');
+                    //$state.go('users');
 
                 },
                 function (data, status) {

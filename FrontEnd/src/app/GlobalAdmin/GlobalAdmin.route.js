@@ -99,7 +99,8 @@
                     controller: 'programController',
                     'controllerAs': 'programCtrl',
                     resolve: {
-                        programPrepService: programNoPagePrepService
+                        programPrepService: programNoPagePrepService,
+                        settingsPrepService: settingsPrepService
                     }
                 })
 
@@ -134,7 +135,8 @@
                     resolve: {
                         mealPrepService: mealPrepService,
                         itemsssPrepService: itemsssPrepService,
-                        CountriesPrepService: CountriesPrepService
+                        CountriesPrepService: CountriesPrepService,
+                        settingsPrepService: settingsPrepService
                     }
                 })
 

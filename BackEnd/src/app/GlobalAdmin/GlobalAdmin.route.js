@@ -137,8 +137,9 @@
                     controller: 'orderMealscontroller',
                     'controllerAs': 'orderMealsCtrl',
                     resolve: {
-                        mealsPrepService: mealsPrepService,
-                        CountriesPrepService: CountriesPrepService
+                        CallCentermealsPrepService: CallCentermealsPrepService,
+                        CountriesPrepService: CountriesPrepService,
+                        settingsPrepService: settingsPrepService
                     },
                     data: {
                         permissions: {
@@ -156,7 +157,8 @@
                     'controllerAs': 'orderProgramsCtrl',
                     resolve: {
                         programsPrepService: programsPrepService,
-                        CountriesPrepService: CountriesPrepService
+                        CountriesPrepService: CountriesPrepService,
+                        settingsPrepService: settingsPrepService
                     },
                     data: {
                         permissions: {
@@ -790,6 +792,53 @@
                 })
 
 
+
+                .state('Promotion', {
+                    url: '/Promotion',
+                    templateUrl: './app/GlobalAdmin/Promotion/templates/Promotion.html',
+                    controller: 'PromotionController',
+                    'controllerAs': 'promotionCtrl',
+                    data: {
+                        permissions: {
+                            only: ['17'],
+                            redirectTo: 'root'
+                        },
+                        displayName: 'Category'
+                    },
+                    resolve: {
+                        PromotionsPrepService: PromotionsPrepService
+                    }
+                })
+                .state('newPromotion', {
+                    url: '/newPromotion',
+                    templateUrl: './app/GlobalAdmin/Promotion/templates/new.html',
+                    controller: 'newPromotionController',
+                    'controllerAs': 'newPromotionCtrl',
+                    data: {
+                        permissions: {
+                            only: ['17'],
+                            redirectTo: 'root'
+                        },
+                        displayName: 'promotions'
+                    }
+                })
+                .state('editPromotion', {
+                    url: '/editpromotion/:promotionId',
+                    templateUrl: './app/GlobalAdmin/Promotion/templates/edit.html',
+                    controller: 'editPromotionController',
+                    'controllerAs': 'editPromotionCtrl',
+                    data: {
+                        permissions: {
+                            only: ['17'],
+                            redirectTo: 'root'
+                        },
+                        displayName: 'Category'
+                    },
+                    resolve: {
+                        PromotionByIdPrepService: PromotionByIdPrepService
+                    }
+                })
+
         });
 
     // Program
@@ -916,11 +965,6 @@
         return GetProgramResource.gatAllPrograms().$promise;
     }
 
-    // programByIdPrepService.$inject = ['GetProgramByIdResource']
-    // function programByIdPrepService(GetProgramByIdResource) {
-    //     return GetProgramByIdResource.getProgramById().$promise;
-    // }
-
     CategoryByIdPrepService.$inject = ['CategoryResource', '$stateParams']
     function CategoryByIdPrepService(CategoryResource, $stateParams) {
         return CategoryResource.getCategory({ categoryId: $stateParams.categoryId }).$promise;
@@ -953,7 +997,11 @@
 
     programsPrepService.$inject = ['GetProgramResource', '$stateParams']
     function programsPrepService(GetProgramResource, $stateParams) {
-        return GetProgramResource.gatAllPrograms().$promise;
+        return GetProgramResource.gatAllPrograms({ pageSize: 0 }).$promise;
+    }
+    CallCentermealsPrepService.$inject = ['GetMealsResource', '$stateParams']
+    function CallCentermealsPrepService(GetMealsResource, $stateParams) {
+        return GetMealsResource.getAllMeals({ pageSize: 0 }).$promise;
     }
 
     mealPrepService.$inject = ['MealResource', '$stateParams']
@@ -1052,5 +1100,22 @@
     function sizePrepService(SizeResource, $stateParams) {
         return SizeResource.getSize({ sizeId: $stateParams.sizeId }).$promise;
     }
+
+
+
+
+    /*Promotions */
+    PromotionsPrepService.$inject = ['PromotionResource']
+    function PromotionsPrepService(PromotionResource) {
+        return PromotionResource.getAllPromotion().$promise;
+    }
+
+    PromotionByIdPrepService.$inject = ['PromotionResource', '$stateParams']
+    function PromotionByIdPrepService(PromotionResource, $stateParams) {
+        return PromotionResource.getPromotion({ promotionId: $stateParams.promotionId }).$promise;
+    }
+
+     
+
 
 }());

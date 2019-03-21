@@ -15,14 +15,14 @@
         appCONSTANTS, ToastService, $stateParams, $uibModal, settingsPrepService
         , BranchPrepService, AddSettingsResource, UpdateSettingsResource) {
 
-        // $('.pmd-sidebar-nav>li>a').removeClass("active")
-        // $($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
+        $('.pmd-sidebar-nav>li>a').removeClass("active")
+        $($('.pmd-sidebar-nav').children()[14].children[0]).addClass("active")
 
         // blockUI.start("Loading...");
 
         var vm = this;
         $scope.settingsPrepService = settingsPrepService;
-
+        console.log($scope.settingsPrepService);
         vm.orderType = {
             type: 'item'
         };

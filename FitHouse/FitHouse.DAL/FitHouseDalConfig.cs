@@ -58,6 +58,7 @@ namespace FitHouse.DAL
                 .RegisterType<IRepositoryAsync<Size>, Repository<Size>>(new PerResolveLifetimeManager())
                 .RegisterType<IRepositoryAsync<SizeTranslation>, Repository<SizeTranslation>>(new PerResolveLifetimeManager())
                 .RegisterType<IRepositoryAsync<ItemSize>, Repository<ItemSize>>(new PerResolveLifetimeManager())
+                .RegisterType<IRepositoryAsync<Promotion>, Repository<Promotion>>(new PerResolveLifetimeManager())
                 ;
 
 

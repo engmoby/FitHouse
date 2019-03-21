@@ -64,6 +64,10 @@
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison20);
 
 
+            //var permissionTreanslation34 = new PermissionTranslation { Language = "en", Title = "Promotion", Permission = permisison20 };
+            //var permissionTreanslation33 = new PermissionTranslation { Language = "ar", Title = "ترويج", Permission = permisison20 };
+            //context.PermissionTranslations.AddOrUpdate(h => h.PermissionTranslationId, permissionTreanslation34);
+            //context.PermissionTranslations.AddOrUpdate(h => h.PermissionTranslationId, permissionTreanslation33);
 
             //var permissionTreanslation31 = new PermissionTranslation { Language = "en", Title = "Reports", Permission = permisison19 };
             //var permissionTreanslation32 = new PermissionTranslation { Language = "ar", Title = "تقارير", Permission = permisison19 };
