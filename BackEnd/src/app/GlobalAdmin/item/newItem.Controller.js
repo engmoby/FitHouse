@@ -3,12 +3,17 @@
 
 	angular
 		.module('home')
-		.controller('newItemController', ['$scope', 'blockUI','$translate', '$http', '$stateParams', 'appCONSTANTS', '$state', 'ToastService', 'TranslateItemResource', 'defaultItemsPrepService', newItemController])
+		.controller('newItemController', ['$scope', 'blockUI','$translate', '$http', '$stateParams', 'appCONSTANTS',
+		 '$state', 'ToastService', 'TranslateItemResource', 'defaultItemsPrepService','allSizesPrepService', newItemController])
 
-	function newItemController($scope,blockUI, $translate, $http, $stateParams, appCONSTANTS, $state, ToastService, TranslateItemResource, defaultItemsPrepService) {
+	function newItemController($scope,blockUI, $translate, $http, $stateParams, appCONSTANTS, 
+		$state, ToastService, TranslateItemResource, defaultItemsPrepService,allSizesPrepService) {
 		var vm = this;
-		vm.disable = true;
+		// vm.disable = true;
 		vm.language = appCONSTANTS.supportedLanguage;
+		vm.Sizes = allSizesPrepService.results;
+		vm.SelectedSize = [];
+
 
 		vm.close = function () {
 			$state.go('Items', { categoryId: $stateParams.categoryId });
@@ -16,21 +21,21 @@
 
 		vm.isChanged = false;
 
-		vm.calclulate = function () {
-			if (vm.price <= vm.cost) {
-				vm.disable = true;
-				ToastService.show("right", "bottom", "fadeInUp", $translate.instant('costandprice'), "success");
-				return;
-			} else
-				vm.disable = false;
-			if (vm.vat !== undefined) {
-				var vatPresantage = vm.price * vm.vat / 100;
-				vm.totalPrice = vm.price + vatPresantage;
-			}
-			else
-				vm.totalPrice = vm.price;
+		// vm.calclulate = function () {
+		// 	if (vm.price <= vm.cost) {
+		// 		vm.disable = true;
+		// 		ToastService.show("right", "bottom", "fadeInUp", $translate.instant('costandprice'), "success");
+		// 		return;
+		// 	} else
+		// 		vm.disable = false;
+		// 	if (vm.vat !== undefined) {
+		// 		var vatPresantage = vm.price * vm.vat / 100;
+		// 		vm.totalPrice = vm.price + vatPresantage;
+		// 	}
+		// 	else
+		// 		vm.totalPrice = vm.price;
 
-		}
+		// }
 		vm.addNewItem = function () {
             blockUI.start("Loading...");
 			vm.isChanged = true;
@@ -38,15 +43,19 @@
 			newItem.itemNameDictionary = vm.itemNameDictionary;
 			newItem.itemDescriptionDictionary = vm.itemDescriptionDictionary;
 			newItem.categoryId = $stateParams.categoryId;
-			newItem.itemSize = (vm.itemSize == null) ? 0 : vm.itemSize;
-			newItem.fat = (vm.fat == null) ? 0 : vm.fat;
-			newItem.carbs = (vm.carbs == null) ? 0 : vm.carbs;
-			newItem.calories = (vm.calories == null) ? 0 : vm.calories;
-			newItem.protein = (vm.protein == null) ? 0 : vm.protein;
-			newItem.cost = vm.cost;
-			newItem.price = vm.price;
+			// newItem.itemSize = (vm.itemSize == null) ? 0 : vm.itemSize;
+			// newItem.fat = (vm.fat == null) ? 0 : vm.fat;
+			// newItem.carbs = (vm.carbs == null) ? 0 : vm.carbs;
+			// newItem.calories = (vm.calories == null) ? 0 : vm.calories;
+			// newItem.protein = (vm.protein == null) ? 0 : vm.protein;
+			// newItem.cost = vm.cost;
+			// newItem.price = vm.price;
 			newItem.vat = (vm.vat == null) ? 0 : vm.vat;
-			newItem.totalPrice = vm.totalPrice;
+			// newItem.totalPrice = vm.totalPrice;
+			newItem.itemSizes = [];
+			vm.SelectedSize.forEach(function(element) {
+            	newItem.itemSizes.push(element);
+			}, this);
 			newItem.isActive = true;
 			debugger;
 

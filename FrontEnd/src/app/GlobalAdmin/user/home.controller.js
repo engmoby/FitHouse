@@ -38,7 +38,8 @@
             localStorage.setItem('dayList', JSON.stringify($scope.SelectedDays));
             localStorage.setItem('isBreakFast', $scope.isBreakFast);
             localStorage.setItem('isSnack', $scope.isSnack);
-            localStorage.setItem('itemDatetime', $scope.itemDatetime);
+            /*localStorage.setItem('itemDatetime', $scope.itemDatetime);*/
+            localStorage.setItem('itemDatetime',  $('#startdate').val());
             /*add here the disacount value*/
             localStorage.setItem('ProgramDiscount', $scope.settingsPrepService.programDiscount);
             $state.go('Custom');

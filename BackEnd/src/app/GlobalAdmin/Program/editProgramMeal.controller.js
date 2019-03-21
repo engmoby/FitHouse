@@ -5,13 +5,13 @@
         .module('home')
         .controller('editProgramMealController', ['$scope', 'blockUI', '$filter', '$translate',
             '$state', '$localStorage', 'authorizationService', 'appCONSTANTS', 'ToastService', '$stateParams'
-            , 'ProgramId', 'DayCount', 'MealCount', 'progDetailsPrepService', 'itemsssPrepService'
+            , 'ProgramId', 'DayCount', 'MealCount', 'progDetailsPrepService', 'AllcategoriesPrepService', 'CategoryResource', 'ItemResource'
             , '$uibModalInstance', 'callBackFunction', 'UpdateProgramDetailsResource', editProgramMealController]);
 
 
     function editProgramMealController($scope, blockUI, $filter, $translate,
         $state, $localStorage, authorizationService, appCONSTANTS, ToastService, $stateParams,
-        ProgramId, DayCount, MealCount, progDetailsPrepService, itemsssPrepService,
+        ProgramId, DayCount, MealCount, progDetailsPrepService, AllcategoriesPrepService, CategoryResource, ItemResource,
         $uibModalInstance, callBackFunction, UpdateProgramDetailsResource) {
         //console.log(progDetailsPrepService);
 
@@ -19,7 +19,11 @@
         var vm = this;
         vm.language = appCONSTANTS.supportedLanguage;
 
-        $scope.itemsssPrepService = itemsssPrepService;
+        // $scope.itemsssPrepService = itemsssPrepService;
+        vm.categories = AllcategoriesPrepService;
+		vm.items = [];
+        vm.itemSizes = [];
+        
         $scope.itemList = [];
         debugger;
         vm.listOfDetails = progDetailsPrepService.programDetails;
@@ -27,11 +31,30 @@
         //console.log(testItem);
 
 
-        var i;
-        for (i = 0; i < vm.testItem.length; i++) {
-            var indexRate = $scope.itemsssPrepService.indexOf($filter('filter')($scope.itemsssPrepService, { 'itemId': vm.testItem[i].itemId }, true)[0]);
-            $scope.itemList.push($scope.itemsssPrepService[indexRate]);
+        vm.changeCategory = function (selectedCategoryId) {
+			CategoryResource.GetAllActiveItems({ categoryId: selectedCategoryId,pagesize:0 }).$promise.then(function (results) {
+				vm.items = results.results;
+			},
+				function (data, status) {
+					ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+				});
+		}
 
+		vm.changeItem = function (selectedItemId) {
+			ItemResource.GetAllItemSizes({ itemId: selectedItemId }).$promise.then(function (results) {
+				vm.itemSizes = results;
+			},
+				function (data, status) {
+					ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+				});
+		}
+        vm.removeItem = function (index) {
+            $scope.itemList.splice(index,1);
+        }
+        for (var i = 0; i < vm.testItem.length; i++) {
+            // var indexRate = $scope.itemsssPrepService.indexOf($filter('filter')($scope.itemsssPrepService, { 'itemId': vm.testItem[i].itemId }, true)[0]);
+            // $scope.itemList.push($scope.itemsssPrepService[indexRate]);
+            $scope.itemList.push(vm.testItem[i].itemSize)
         }
 
         // var differntMeal = vm.itemList.filter(x => (x.dayNumber == day && x.mealNumberPerDay != meal) || (x.dayNumber != day));
@@ -44,7 +67,13 @@
             // callBackFunction();
         }
 
-
+        vm.addItemToList = function (model) {
+			$scope.itemList.push(model);
+			vm.selectedCategoryId = 0;
+			vm.selectedItem = null;
+			vm.selectedItemSize = null;
+        
+        }
         vm.UpdateProgram = function () {
             blockUI.start("Loading...");
             var test = new UpdateProgramDetailsResource();

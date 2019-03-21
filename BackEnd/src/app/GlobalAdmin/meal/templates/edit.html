@@ -70,8 +70,34 @@
 				</div>
 			</div>
 			<div class="row">
-				<div
-					class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+					<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+							<label for="first-name">{{'SelectCategory' | translate}}</label>
+							<select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" ng-model="editMealCtrl.selectedCategoryId"
+							 ng-change="editMealCtrl.changeCategory(editMealCtrl.selectedCategoryId)">
+								<option ng-repeat="category in editMealCtrl.categories" ng-value="{{category.categoryId}}">{{category.titleDictionary[selectedLanguage]}}</option>
+							</select>
+						</div>
+						<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+							<label for="first-name">{{'SelectItems' | translate}}</label>
+							<select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" ng-model="editMealCtrl.selectedItem"
+							 ng-change="editMealCtrl.changeItem(editMealCtrl.selectedItem.itemId)">
+								<option ng-repeat="item in editMealCtrl.items" ng-value="{{item}}">{{item.itemNameDictionary[selectedLanguage]}}</option>
+							</select>
+						</div>
+						<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+							<label for="first-name">{{'selectSizeLbl' | translate}}</label>
+							<select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" ng-model="editMealCtrl.selectedItemSize">
+								<option ng-repeat="item in editMealCtrl.itemSizes" ng-value="{{item}}">{{item.sizeNameDictionary[selectedLanguage]}}</option>
+							</select>
+						</div>
+		
+						<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+							<button style="background-color: #e4e5e6;color: black!important;" ng-disabled="editMealCtrl.selectedCategoryId <= 0 || editMealCtrl.selectedItem == null || editMealCtrl.selectedItemSize == null"
+							 class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editMealCtrl.addItemToList(editMealCtrl.selectedItemSize)">
+								{{'addItemBtn' | translate}}</button>
+						</div>
+
+				<!-- <div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 					<label for="first-name">{{'SelectItems' | translate}}</label>
 					<select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" multiple
 						ng-model="editMealCtrl.itemModel" ng-change="editMealCtrl.addItemToList(editMealCtrl.itemModel)"
@@ -79,18 +105,20 @@
 							 group by item.category.titleDictionary[selectedLanguage]
 							for item  in editMealCtrl.itemsList">
 					</select>
-				</div>
-				<div
-					class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+				</div> -->
+				
+			</div>
+			<div class=" form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 
 					<table class="table pmd-table table-hover">
 						<thead>
 							<tr>
 								<th>{{'Name' | translate}}</th>
+							<th>{{'SizeName' | translate}}</th>
 								<th>{{'carb' | translate}}</th>
 								<th>{{'calories' | translate}}</th>
 								<th>{{'protein' | translate}}</th>
-								<th>{{'costlbl' | translate}}</th>
+								<!-- <th>{{'costlbl' | translate}}</th> -->
 								<th>{{'Pricelbl' | translate}}</th>
 								<th>{{'vat' | translate}}</th>
 								<th>{{'total' | translate}}</th>
@@ -98,22 +126,22 @@
 							</tr>
 						</thead>
 						<tbody>
-							<tr ng-repeat="meal in editMealCtrl.itemModel">
+							<tr ng-repeat="meal in selectedItemList">
 								<td data-title="Name" width="15%">
 									{{meal.itemNameDictionary[selectedLanguage] | limitTo:10}}</td>
+									<td data-title="Description">{{meal.sizeNameDictionary[selectedLanguage]}}</td>
 								<td data-title="Description">{{meal.carbs}}</td>
 								<td data-title="Description">{{meal.calories}}</td>
 								<td data-title="Description">{{meal.protein}}</td>
-								<td data-title="Description">{{meal.cost}}</td>
+								<!-- <td data-title="Description">{{meal.cost}}</td> -->
 								<td data-title="Description">{{meal.price}}</td>
 								<td data-title="Description">{{meal.vat}}</td>
 								<td data-title="totalPrice">{{meal.totalPrice}}</td>
-
+								<td><td><i class="material-icons pmd-md deleteButton cursorPointer font25" ng-click="editMealCtrl.removeItem($index)">delete</i></td></td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
-			</div>
 			<div class="row">
 
 				<!-- <div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">

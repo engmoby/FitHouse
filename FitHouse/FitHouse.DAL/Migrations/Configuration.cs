@@ -42,6 +42,7 @@
             //var permisison17 = new Permission { IsDeleted = false, IsStatic = true };
             var permisison18 = new Permission { IsDeleted = false, IsStatic = true };
             var permisison19 = new Permission { IsDeleted = false, IsStatic = true };
+            var permisison20 = new Permission { IsDeleted = false, IsStatic = true };
 
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison3);
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison4);
@@ -60,6 +61,7 @@
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison17);
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison18);
             //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison19);
+            //context.Permissions.AddOrUpdate(h => h.PermissionId, permisison20);
 
 
 
@@ -178,7 +180,10 @@
             //context.PermissionTranslations.AddOrUpdate(h => h.PermissionTranslationId, permissionTreanslation29);
             //context.PermissionTranslations.AddOrUpdate(h => h.PermissionTranslationId, permissionTreanslation30);
 
-
+            //var permissionTreanslation35 = new PermissionTranslation { Language = "en", Title = "Sizes", Permission = permisison20 };
+            //var permissionTreanslation36 = new PermissionTranslation { Language = "ar", Title = "أحجام", Permission = permisison20 };
+            //context.PermissionTranslations.AddOrUpdate(h => h.PermissionTranslationId, permissionTreanslation35);
+            //context.PermissionTranslations.AddOrUpdate(h => h.PermissionTranslationId, permissionTreanslation36);
 
             //Role adminRole = new Role { IsDeleted = false };
             //context.Roles.AddOrUpdate(adminRole);
@@ -210,6 +215,8 @@
             //    new RolePermission { ActionId = 1, Role = adminRole, Permission = permisison10 });
             //context.RolePermissions.AddOrUpdate(
             //    new RolePermission { ActionId = 1, RoleId = 1, Permission = permisison11 });
+            //context.RolePermissions.AddOrUpdate(
+            //    new RolePermission { ActionId = 1, RoleId = 1, Permission = permisison20 });
 
             //var day1 = new Day { IsDeleted = false, IsActive = true };
             //context.Days.AddOrUpdate(h => h.DayId, day1);
@@ -260,6 +267,8 @@
             //    new DayTranslation { Language = "en", Title = "Friday", Day = day7 });
             //context.DayTranslations.AddOrUpdate(
             //    new DayTranslation { Language = "ar", Title = "الجمعه", Day = day7 });
+
+
         }
     }
 

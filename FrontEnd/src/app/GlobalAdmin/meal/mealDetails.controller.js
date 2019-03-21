@@ -26,12 +26,17 @@
         $scope.calories = 0;
 
         for (var i = 0; i < $scope.mealPrepService.mealDetails.length; i++) {
-            var differntItem = $scope.itemsssPrepService.filter(x => (x.itemId == $scope.mealPrepService.mealDetails[i].itemId));
+            /*var differntItem = $scope.itemsssPrepService.filter(x => (x.itemSizeId == $scope.mealPrepService.mealDetails[i].itemSizeId));
 
             $scope.fats += differntItem[0].fat;
             $scope.carbs += differntItem[0].carbs;
             $scope.protein += differntItem[0].protein;
-            $scope.calories += differntItem[0].calories;
+            $scope.calories += differntItem[0].calories;*/
+
+            $scope.fats += mealPrepService.mealDetails[i].itemSize.fat;
+            $scope.carbs += mealPrepService.mealDetails[i].itemSize.carbs;
+            $scope.protein += mealPrepService.mealDetails[i].itemSize.protein;
+            $scope.calories += mealPrepService.mealDetails[i].itemSize.calories;
         }
 
         $scope.style = function () {

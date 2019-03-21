@@ -29,10 +29,10 @@
         $scope.Total = 0;
 
         for (var i = 0; i < $scope.progDetailsPrepService.programDetails.length; i++) {
-            $scope.fats += $scope.progDetailsPrepService.programDetails[i].item.fat;
-            $scope.carbs += $scope.progDetailsPrepService.programDetails[i].item.carbs;
-            $scope.protein += $scope.progDetailsPrepService.programDetails[i].item.protein;
-            $scope.calories += $scope.progDetailsPrepService.programDetails[i].item.calories;
+            $scope.fats += $scope.progDetailsPrepService.programDetails[i].itemSize.fat;
+            $scope.carbs += $scope.progDetailsPrepService.programDetails[i].itemSize.carbs;
+            $scope.protein += $scope.progDetailsPrepService.programDetails[i].itemSize.protein;
+            $scope.calories += $scope.progDetailsPrepService.programDetails[i].itemSize.calories;
         }
 
         $scope.style = function () {

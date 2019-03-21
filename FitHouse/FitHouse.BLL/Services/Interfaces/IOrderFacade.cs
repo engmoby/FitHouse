@@ -12,7 +12,7 @@ namespace FitHouse.BLL.Services.Interfaces
         PagedResultsDto GetAllOrdersForDelivery(long branchId, int page, int pageSize);
         PagedResultsDto GetAllOrdersForKitchen(long branchId, int page, int pageSize);
         PagedResultsDto GetAllOrdersForPickup(long branchId, int page, int pageSize);
-        List<ItemDto> GetOrderItems(long orderId, long programId, long dayNumber);
+        List<ItemSizeDto> GetOrderItems(long orderId, long programId, long dayNumber);
         OrderCallCenterDto CreateOrder(OrderCallCenterDto order, long userId);
 
         bool ChangeOrderDetailsStatus(long orderDetailsId, int status);

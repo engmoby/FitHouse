@@ -29,63 +29,65 @@
                         <div class="tab-content">
                             <div id="home" class="tab-pane fade in active tab-space">
                                 <div ng-init="counterDay = 0; counterMeal = 0">
-                                    <div class="panel-group pmd-accordion pmd-accordion-inbox" id="accordion6"
-                                        role="tablist" aria-multiselectable="true">
+                                    <div class="panel-group pmd-accordion pmd-accordion-inbox" id="accordion6" role="tablist"
+                                        aria-multiselectable="true">
                                         <div ng-repeat="n in [].constructor(OrderprogDetailsPrepService.programDays)  track by $index"
                                             class="panel panel-default">
-                                            <div class="panel-heading" role="tab" id="headingOne"
-                                                ng-init="counterDay=counterDay+1;" data-toggle="collapse"
-                                                data-parent="#accordion6" ng-init="n=false" ng-click="n=!n;"
-                                                aria-expanded="true" aria-controls="collapseOne6"
+                                            <div class="panel-heading" role="tab" id="headingOne" ng-init="counterDay=counterDay+1;"
+                                                data-toggle="collapse" data-parent="#accordion6" ng-init="n=false"
+                                                ng-click="n=!n;" aria-expanded="true" aria-controls="collapseOne6"
                                                 data-expandable="false">
                                                 <h4 class="panel-title">
                                                     <a>
                                                         {{'Day' | translate}} {{counterDay=$index+1}}
-                                                        <i
-                                                            class="material-icons md-dark pmd-sm pmd-accordion-arrow">keyboard_arrow_down</i>
+                                                        <i class="material-icons md-dark pmd-sm pmd-accordion-arrow">keyboard_arrow_down</i>
                                                     </a>
                                                 </h4>
                                             </div>
-                                            <div ng-show="n == true" id="collapseOne6"
-                                                class="panel-collapse collapse in" role="tabpanel"
-                                                aria-labelledby="headingOne">
+                                            <div ng-show="n == true" id="collapseOne6" class="panel-collapse collapse in"
+                                                role="tabpanel" aria-labelledby="headingOne">
                                                 <div class="panel-body">
                                                     <ul>
 
-                                                        <li
-                                                            ng-repeat="meal in [].constructor(OrderprogDetailsPrepService.noOfMeals)  track by $index">
+                                                        <li ng-repeat="meal in [].constructor(OrderprogDetailsPrepService.noOfMeals)  track by $index">
                                                             <h4>
-                                                                <a ng-init="counterMeal=counterMeal+1;"
-                                                                    ng-click="showDetails = ! showDetails;">{{'Meals' | translate}}
+                                                                <a ng-init="counterMeal=counterMeal+1;" ng-click="showDetails = ! showDetails;">{{'Meals'
+                                                                    | translate}}
                                                                     {{counterMeal=$index+1}}</a>
                                                                 <!-- <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="OrderprogDetailsPrepService.ShowProgramMeal(OrderprogDetailsPrepService.programDetails.programId, counterDay, counterMeal)">mode_edit</i> -->
                                                             </h4>
                                                             <div ng-show="showDetails">
-                                                                <div
-                                                                    class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-                                                                    <label
-                                                                        for="first-name">{{'Item' | translate}}</label>
+                                                                <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                                                    <label for="first-name">{{'Item' | translate}}</label>
                                                                     <ul>
-                                                                        <li
-                                                                            ng-repeat="detail in OrderprogDetailsPrepService.programDetails | filter:{dayNumber:counterDay, mealNumberPerDay: counterMeal} :true">
+                                                                        <li ng-repeat="detail in OrderprogDetailsPrepService.programDetails | filter:{dayNumber:counterDay, mealNumberPerDay: counterMeal} :true">
                                                                             <div class="res-menu">
                                                                                 <!-- {{item.itemNameDictionary[selectedLanguage]}} -->
-                                                                                <img src={{detail.item.imageUrl}}
+                                                                                <img src={{detail.itemSize.imageUrl}}
                                                                                     imageonload alt="">
 
-                                                                                <h3> {{detail.item.itemNameDictionary[selectedLanguage]}}
-                                                                                    <!-- <span>{{detail.item.totalPrice}}</span> -->
+                                                                                <h3>
+                                                                                    {{detail.itemSize.itemNameDictionary[selectedLanguage]}}
+                                                                                    <!-- <span>{{detail.itemSize.totalPrice}}</span> -->
+                                                                                    <span>{{detail.itemSize.sizeNameDictionary[selectedLanguage]}}</span>
                                                                                 </h3>
-                                                                                <span
-                                                                                    class="menu-item">{{detail.item.itemDescriptionDictionary[selectedLanguage]}}</span>
+                                                                                <span class="menu-item">{{detail.itemSize.itemDescriptionDictionary[selectedLanguage]}}</span>
                                                                                 <span>
-                                                                                    {{'fat' | translate}}:{{detail.item.fat}}</span>
+                                                                                    {{'fat' |
+                                                                                    translate}}:{{detail.itemSize.fat}}</span>
                                                                                 <span>
-                                                                                    {{'carbs' | translate}}:{{detail.item.carbs}}</span>
+                                                                                    {{'carbs' |
+                                                                                    translate}}:{{detail.itemSize.carbs}}</span>
                                                                                 <span>
-                                                                                    {{'protein' | translate}}:{{detail.item.protein}}</span>
+                                                                                    {{'protein' |
+                                                                                    translate}}:{{detail.itemSize.protein}}</span>
                                                                                 <span>
-                                                                                    {{'calories' | translate}}:{{detail.item.calories}}</span>
+                                                                                    {{'calories' |
+                                                                                    translate}}:{{detail.itemSize.calories}}</span>
+
+                                                                                <!-- <span>
+                                                                                    {{'itemSize' |
+                                                                                    translate}}:{{detail.itemSize.sizeNameDictionary[selectedLanguage]}}</span> -->
                                                                             </div>
 
                                                                         </li>
@@ -102,7 +104,7 @@
                             </div>
                             <div id="menu1" class="tab-pane fade in   tab-space">
                                 <div class="hp-main-overview">
-                                     <ul>
+                                    <ul>
                                         <li>{{'fat' | translate}}:
                                             <span>{{fats}}</span>
                                         </li>
@@ -116,7 +118,8 @@
                                             <span>{{calories}}</span>
                                         </li>
                                         <li>{{'Total' | translate}}:
-                                            <span style="width: 74px !important;" class="ov-yes">{{OrderprogDetailsPrepService.price}} SR</span>
+                                            <span style="width: 74px !important;" class="ov-yes">{{OrderprogDetailsPrepService.price}}
+                                                SR</span>
                                         </li>
                                     </ul>
                                 </div>

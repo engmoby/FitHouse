@@ -38,7 +38,9 @@
                                         <li
                                              ng-repeat="detail in programDetailsCtrl.programDetails.programDetails | filter:{dayNumber:counterDay, mealNumberPerDay: counterMeal } : true">  
                                             
-                                            {{detail.item.itemNameDictionary[selectedLanguage]}} 
+                                            {{detail.itemSize.itemNameDictionary[selectedLanguage]}} /
+                                            {{detail.itemSize.sizeNameDictionary[selectedLanguage]}} 
+
                                             <!-- <div
                                                 ng-repeat="item in programDetailsCtrl.programDetails.items |filter :{itemId:detail.itemId}">
                                                 {{detail.itemId}}<br> {{item.itemNameDictionary[selectedLanguage]}}

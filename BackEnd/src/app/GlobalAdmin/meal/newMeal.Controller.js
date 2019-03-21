@@ -3,17 +3,39 @@
 
 	angular
 		.module('home')
-		.controller('newMealController', ['$scope', 'blockUI', '$translate', '$http', '$stateParams', 'appCONSTANTS', '$state', 'ToastService', 'itemsssPrepService', newMealController])
+		.controller('newMealController', ['$scope', 'blockUI', '$translate', '$http', '$stateParams', 'appCONSTANTS',
+			'$state', 'ToastService', 'AllcategoriesPrepService', 'CategoryResource', 'ItemResource', newMealController])
 
-	function newMealController($scope, blockUI, $translate, $http, $stateParams, appCONSTANTS, $state, ToastService, itemsssPrepService) {
+	function newMealController($scope, blockUI, $translate, $http, $stateParams, appCONSTANTS,
+		$state, ToastService, AllcategoriesPrepService, CategoryResource, ItemResource) {
 		var vm = this;
 		vm.totalPrice = 0;
 		vm.mealDiscount = 0;
 		vm.isChanged = false;
 		vm.itemModel = "";
-		vm.itemsList = itemsssPrepService;
+		vm.categories = AllcategoriesPrepService;
+		vm.items = [];
+		vm.itemSizes = [];
 		vm.language = appCONSTANTS.supportedLanguage;
 		$scope.selectedItemList = [];
+		vm.changeCategory = function (selectedCategoryId) {
+			CategoryResource.GetAllActiveItems({ categoryId: selectedCategoryId,pagesize:0 }).$promise.then(function (results) {
+				vm.items = results.results;
+			},
+				function (data, status) {
+					ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+				});
+		}
+
+		vm.changeItem = function (selectedItemId) {
+			ItemResource.GetAllItemSizes({ itemId: selectedItemId }).$promise.then(function (results) {
+				vm.itemSizes = results;
+			},
+				function (data, status) {
+					ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+				});
+		}
+		
 
 		vm.close = function () {
 			$state.go('Meal');
@@ -26,9 +48,13 @@
 		vm.addItemToList = function (model) {
 			//	if (model != null) {
 
-			debugger;
-
-			$scope.selectedItemList = model;
+			model.itemNameDictionary = vm.selectedItem.itemNameDictionary;
+			model.sizeNameDictionary = vm.selectedItemSize.sizeNameDictionary;
+			model.vat = vm.selectedItem.vat;
+			$scope.selectedItemList.push(model);
+			vm.selectedCategoryId = 0;
+			vm.selectedItem = null;
+			vm.selectedItemSize = null;
 			if ($scope.selectedItemList == null) {
 				vm.mealtotalDiscount = "";
 				vm.mealDiscount = "";
@@ -38,20 +64,42 @@
 				vm.cost = "";
 				vm.vat = "";
 				vm.price = "";
-				vm.totalPrice = ""; 
+				vm.totalPrice = "";
 			} else {
-				vm.carbs = $scope.sum(model, 'carbs');
-				vm.calories = $scope.sum(model, 'calories');
-				vm.protein = $scope.sum(model, 'protein');
-				vm.cost = $scope.sum(model, 'cost');
-				vm.price = $scope.sum(model, 'price');
-				vm.vat = $scope.sum(model, 'vat');
-				vm.totalPrice = $scope.sum(model, 'totalPrice');
+				vm.carbs = $scope.sum($scope.selectedItemList, 'carbs');
+				vm.calories = $scope.sum($scope.selectedItemList, 'calories');
+				vm.protein = $scope.sum($scope.selectedItemList, 'protein');
+				vm.cost = $scope.sum($scope.selectedItemList, 'cost');
+				vm.price = $scope.sum($scope.selectedItemList, 'price');
+				vm.vat = $scope.sum($scope.selectedItemList, 'vat');
+				vm.totalPrice = $scope.sum($scope.selectedItemList, 'totalPrice');
 			}
 			calclulateWithDicscount();
 			var discountPresantage = vm.totalPrice * vm.mealDiscount / 100;
 			vm.mealtotalDiscount = vm.totalPrice - discountPresantage;
 			//	} 
+		}
+		vm.removeItem = function(index){
+			$scope.selectedItemList.splice(index,1);
+			if ($scope.selectedItemList == null) {
+				vm.mealtotalDiscount = "";
+				vm.mealDiscount = "";
+				vm.carbs = "";
+				vm.calories = "";
+				vm.protein = "";
+				vm.cost = "";
+				vm.vat = "";
+				vm.price = "";
+				vm.totalPrice = "";
+			} else {
+				vm.carbs = $scope.sum($scope.selectedItemList, 'carbs');
+				vm.calories = $scope.sum($scope.selectedItemList, 'calories');
+				vm.protein = $scope.sum($scope.selectedItemList, 'protein');
+				vm.cost = $scope.sum($scope.selectedItemList, 'cost');
+				vm.price = $scope.sum($scope.selectedItemList, 'price');
+				vm.vat = $scope.sum($scope.selectedItemList, 'vat');
+				vm.totalPrice = $scope.sum($scope.selectedItemList, 'totalPrice');
+			}
 		}
 		function calclulateWithDicscount() {
 			var vatPresantage = (vm.price * vm.vat) / 100;
@@ -127,7 +175,7 @@
 			$scope.selectedItemList.forEach(element => {
 				vm.sendSelected.push(
 					{
-						itemId: element.itemId
+						itemSizeId: element.itemSizeId
 					}
 				);
 			});

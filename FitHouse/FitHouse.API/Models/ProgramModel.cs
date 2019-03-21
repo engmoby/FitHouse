@@ -29,7 +29,7 @@ namespace FitHouse.API.Models
         public Dictionary<string, string> ProgramNameDictionary { get; set; }
         public Dictionary<string, string> ProgramDescriptionDictionary { get; set; }
         public List<ProgramDetailModel> ProgramDetails { get; set; }
-        public List<ItemProgramModel> Items { get; set; }
+        public List<ItemSizeModel> Items { get; set; }
         public List<DayModel> Days { get; set; }
         public DateTime Day { get; set; }
 

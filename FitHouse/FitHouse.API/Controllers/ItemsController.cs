@@ -210,5 +210,14 @@ namespace FitHouse.API.Controllers
             }
         }
 
+
+
+        [Route("api/Items/{itemId:long}/sizes", Name = "GetAllItemSizes")]
+        [HttpGet]
+        public IHttpActionResult GetAllItemSizes(long itemId)
+        {
+            var items = Mapper.Map<List<ItemSizeModel>>(_itemFacade.GetAllItemSizes(itemId));
+            return Ok(items);
+        }
     }
 }

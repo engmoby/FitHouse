@@ -180,28 +180,33 @@
                                                                             <li ng-repeat="detail in progDetailsPrepService.programDetails | filter:{dayNumber:counterDay, mealNumberPerDay: counterMeal} :true ">
                                                                                 <div class="res-menu">
 
-                                                                                    <img src={{detail.item.imageUrl}}
+                                                                                    <img src={{detail.itemSize.imageUrl}}
                                                                                         imageonload alt="">
                                                                                     <h3>
-                                                                                        {{detail.item.itemNameDictionary[selectedLanguage]}}
+                                                                                        {{detail.itemSize.itemNameDictionary[selectedLanguage]}}
                                                                                         <!-- {{item.itemNameDictionary[selectedLanguage]}} -->
                                                                                         <!-- <span>{{detail.item.totalPrice}}</span> -->
+                                                                                        <span>{{detail.itemSize.sizeNameDictionary[selectedLanguage]}}</span>
                                                                                     </h3>
 
-                                                                                    <span class="menu-item">{{item.itemDescriptionDictionary[selectedLanguage]
+                                                                                    <span class="menu-item">{{itemSize.itemDescriptionDictionary[selectedLanguage]
                                                                                         }}</span>
                                                                                     <span>
                                                                                         {{'fat' |
-                                                                                        translate}}:{{detail.item.fat}}</span>
+                                                                                        translate}}:{{detail.itemSize.fat}}</span>
                                                                                     <span>
                                                                                         {{'carbs' |
-                                                                                        translate}}:{{detail.item.carbs}}</span>
+                                                                                        translate}}:{{detail.itemSize.carbs}}</span>
                                                                                     <span>
                                                                                         {{'protein' |
-                                                                                        translate}}:{{detail.item.protein}}</span>
+                                                                                        translate}}:{{detail.itemSize.protein}}</span>
                                                                                     <span>
                                                                                         {{'calories' |
-                                                                                        translate}}:{{detail.item.calories}}</span>
+                                                                                        translate}}:{{detail.itemSize.calories}}</span>
+                                                                                        
+                                                                                    <!-- <span>
+                                                                                            {{'itemSize' |
+                                                                                            translate}}:{{detail.itemSize.sizeNameDictionary[selectedLanguage]}}</span> -->
                                                                                 </div>
 
                                                                             </li>

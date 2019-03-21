@@ -19,11 +19,13 @@ namespace FitHouse.BLL.Services
         private readonly IItemService _itemService;
         private readonly IItemTranslationService _itemTranslationService;
         private readonly IManageStorage _manageStorage;
+        private readonly IItemSizeService _itemSizeService;
         private ICategoryTranslationService _categoryTranslationService;
         private IMealDetailsService _mealDetailsService;
         private IProgramDetailService _programDetailService;
         public ItemFacade(ICategoryService categoryService, IItemService itemService, IItemTranslationService itemTranslationService, IManageStorage manageStorage,
-              ICategoryTranslationService categoryTranslationService, IUnitOfWorkAsync unitOfWork, IProgramDetailService programDetailService, IMealDetailsService mealDetailsService) : base(unitOfWork)
+              ICategoryTranslationService categoryTranslationService, IUnitOfWorkAsync unitOfWork, IProgramDetailService programDetailService, IMealDetailsService mealDetailsService,
+              IItemSizeService itemSizeService) : base(unitOfWork)
         {
             _categoryService = categoryService;
             _itemService = itemService;
@@ -32,6 +34,7 @@ namespace FitHouse.BLL.Services
             _categoryTranslationService = categoryTranslationService;
             _programDetailService = programDetailService;
             _mealDetailsService = mealDetailsService;
+            _itemSizeService = itemSizeService;
         }
 
         public ItemFacade(ICategoryService categoryService, IItemService itemService, IItemTranslationService itemTranslationService, IManageStorage manageStorage,
@@ -48,23 +51,24 @@ namespace FitHouse.BLL.Services
 
         public List<ItemProgramDto> GetItemsById(List<ProgramDetailDto> programDetails)
         {
-            var items = new List<ItemProgramDto>();
-            foreach (var detail in programDetails)
-            {
+            throw new NotImplementedException();
+            //var items = new List<ItemProgramDto>();
+            //foreach (var detail in programDetails)
+            //{
                
-                //if(!items.Contains(item))
-                var itemValidation = new ItemProgramDto();
-                itemValidation = items.FirstOrDefault(x => x.ItemId == detail.ItemId);
+            //    //if(!items.Contains(item))
+            //    var itemValidation = new ItemProgramDto();
+            //    itemValidation = items.FirstOrDefault(x => x.ItemId == detail.ItemId);
 
-                if (itemValidation == null)
-                {
-                    var item = Mapper.Map<ItemProgramDto>(_itemService.GetProgamItem(detail.ItemId));
-                    items.Add(item);
-                }
+            //    if (itemValidation == null)
+            //    {
+            //        var item = Mapper.Map<ItemProgramDto>(_itemService.GetProgamItem(detail.ItemId));
+            //        items.Add(item);
+            //    }
 
 
-            }
-            return items;
+            //}
+            //return items;
         }
 
         public void AddItem(ItemDto itemDto, string path)
@@ -83,6 +87,21 @@ namespace FitHouse.BLL.Services
                     Language = itemName.Key.ToLower()
                 });
             }
+            //foreach (var itemSize in itemDto.ItemSizes)
+            //{
+            //    item.ItemSizes.Add(new ItemSize
+            //    {
+            //        Calories = itemSize.Calories,
+            //        Carbs = itemSize.Carbs,
+            //        Cost = itemSize.Cost,
+            //        Fat = itemSize.Fat,
+            //        Price = itemSize.Price,
+            //        Protein = itemSize.Protein,
+            //        TotalPrice = itemSize.TotalPrice,
+            //        SizeId = itemSize.SizeId
+            //    });
+            //}
+            _itemSizeService.InsertRange(item.ItemSizes);
             _itemTranslationService.InsertRange(item.ItemTranslations);
             _itemService.Insert(item);
 
@@ -174,15 +193,15 @@ namespace FitHouse.BLL.Services
 
             if (!item.IsActive)
             {
-                var checkIfUsed = _programDetailService.Queryable().Where(x => x.ItemId == item.ItemId);
+                var checkIfUsed = _programDetailService.Queryable().Where(x => x.ItemSize.ItemId == item.ItemId);
                 if (checkIfUsed.Any()) 
                     throw new ValidationException(ErrorCodes.RecordIsUsedInAnotherModule);
 
-                var checkIfUsedOfMeal = _mealDetailsService.Queryable().Where(x => x.ItemId == item.ItemId);
+                var checkIfUsedOfMeal = _mealDetailsService.Queryable().Where(x => x.ItemSize.ItemId == item.ItemId);
                 if (checkIfUsedOfMeal.Any()) 
                     throw new ValidationException(ErrorCodes.RecordIsUsedInAnotherModule);
 
-                var checkIfUsedOfProgram = _programDetailService.Queryable().Where(x => x.ItemId == item.ItemId);
+                var checkIfUsedOfProgram = _programDetailService.Queryable().Where(x => x.ItemSize.ItemId == item.ItemId);
                 if (checkIfUsedOfProgram.Any())
                     throw new ValidationException(ErrorCodes.RecordIsUsedInAnotherModule);
 
@@ -208,15 +227,15 @@ namespace FitHouse.BLL.Services
 
             if (item.IsDeleted)
             {
-                var checkIfUsed = _programDetailService.Queryable().Where(x => x.ItemId == item.ItemId);
+                var checkIfUsed = _programDetailService.Queryable().Where(x => x.ItemSize.ItemId == item.ItemId);
                 if (checkIfUsed.Any()) 
                     throw new ValidationException(ErrorCodes.RecordIsUsedInAnotherModule);
                 
-                var checkIfUsedOfMeal = _mealDetailsService.Queryable().Where(x => x.ItemId == item.ItemId);
+                var checkIfUsedOfMeal = _mealDetailsService.Queryable().Where(x => x.ItemSize.ItemId == item.ItemId);
                 if (checkIfUsedOfMeal.Any())
                     throw new ValidationException(ErrorCodes.RecordIsUsedInAnotherModule);
 
-                var checkIfUsedOfProgram = _programDetailService.Queryable().Where(x => x.ItemId == item.ItemId);
+                var checkIfUsedOfProgram = _programDetailService.Queryable().Where(x => x.ItemSize.ItemId == item.ItemId);
                 if (checkIfUsedOfProgram.Any())
                     throw new ValidationException(ErrorCodes.RecordIsUsedInAnotherModule);
             }
@@ -267,15 +286,55 @@ namespace FitHouse.BLL.Services
                     itemTranslation.Description = itemDto.ItemDescriptionDictionary[itemName.Key];
                 }
             }
-            item.Calories = itemDto.Calories;
-            item.ItemSize = itemDto.ItemSize;
-            item.Fat = itemDto.Fat;
-            item.Protein = itemDto.Protein;
-            item.Carbs = itemDto.Carbs;
-            item.Cost = itemDto.Cost;
+            //item.Calories = itemDto.Calories;
+            //item.ItemSize = itemDto.ItemSize;
+            //item.Fat = itemDto.Fat;
+            //item.Protein = itemDto.Protein;
+            //item.Carbs = itemDto.Carbs;
+            //item.Cost = itemDto.Cost;
             item.VAT = itemDto.VAT;
-            item.Price = itemDto.Price;
-            item.TotalPrice = itemDto.TotalPrice;
+            //item.Price = itemDto.Price;
+            //item.TotalPrice = itemDto.TotalPrice;
+
+
+            var itemsizes = _itemSizeService.Query(p => p.ItemId == itemDto.ItemId).Select().ToList();
+            foreach (var itemSize in itemDto.ItemSizes)
+            {
+                if (itemsizes.Any(t => t.ItemSizeId == itemSize.ItemSizeId))
+                {
+                    var updatedItemSize = itemsizes.FirstOrDefault(t => t.ItemSizeId == itemSize.ItemSizeId);
+
+                    updatedItemSize.Calories = itemSize.Calories;
+                    updatedItemSize.Fat = itemSize.Fat;
+                    updatedItemSize.Protein = itemSize.Protein;
+                    updatedItemSize.Carbs = itemSize.Carbs;
+                    updatedItemSize.Cost = itemSize.Cost;
+                    updatedItemSize.Price = itemSize.Price;
+                    updatedItemSize.TotalPrice = itemSize.TotalPrice;
+                    updatedItemSize.SizeId = itemSize.SizeId;
+
+                    itemsizes.Remove(updatedItemSize);
+                }
+                else
+                {
+                    _itemSizeService.Insert(new ItemSize
+                    {
+                        Calories = itemSize.Calories,
+                        Carbs = itemSize.Carbs,
+                        Cost = itemSize.Cost,
+                        Fat = itemSize.Fat,
+                        Price = itemSize.Price,
+                        Protein = itemSize.Protein,
+                        TotalPrice = itemSize.TotalPrice,
+                        SizeId = itemSize.SizeId,
+                        ItemId = itemDto.ItemId
+                    });
+                }
+            }
+            itemsizes.ForEach(t => _itemSizeService.Delete(t));
+
+
+
             _itemService.Update(item);
             SaveChanges();
             if (itemDto.IsImageChange)
@@ -318,5 +377,11 @@ namespace FitHouse.BLL.Services
             if (_itemTranslationService.CheckItemNameExistForCategory(itemDto.ItemName, language, itemDto.ItemId, itemDto.CategoryId))
                 throw new ValidationException(ErrorCodes.ItemNameAlreadyExist);
         }
+
+        public List<ItemSizeDto> GetAllItemSizes(long itemId)
+        {
+            return Mapper.Map<List<ItemSizeDto>>(_itemService.Find(itemId).ItemSizes.ToList());
+        }
+        
     }
 }

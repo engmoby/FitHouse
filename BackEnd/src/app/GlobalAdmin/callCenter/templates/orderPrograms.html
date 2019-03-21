@@ -71,7 +71,7 @@
                                         <a ng-init="counterDay=counterDay+1;" data-toggle="collapse"
                                             data-parent="#accordion6" ng-init="n=false" ng-click="n=!n;"
                                             aria-expanded="true" aria-controls="collapseOne6" data-expandable="false">
-                                            {{'Day' | translate}} #{{counterDay=$index+1}}
+                                            {{'Day' | translate}} {{counterDay=$index+1}}
                                             <i
                                                 class="material-icons md-dark pmd-sm pmd-accordion-arrow">keyboard_arrow_down</i>
                                         </a>
@@ -86,7 +86,7 @@
                                                 <h4>
                                                     <a ng-init="counterMeal=counterMeal+1;"
                                                         ng-click="showDetails = ! showDetails; orderProgramsCtrl.showDDL(); ">{{'Meal' | translate}}
-                                                        #{{counterMeal=$index+1}}</a>
+                                                        {{counterMeal=$index+1}}</a>
                                                 </h4>
                                                 <div ng-show="showDetails">
                                                     <div
@@ -95,9 +95,10 @@
                                                         <ul>
                                                             <li
                                                                 ng-repeat="detail in orderProgramsCtrl.mealItemss.programDetails | filter:{dayNumber:counterDay, mealNumberPerDay: counterMeal} ">
-                                                                <div
-                                                                    ng-repeat="item in orderProgramsCtrl.mealItemss.items |filter :{itemId:detail.itemId}">
-                                                                    {{item.itemNameDictionary[selectedLanguage]}}
+                                                                <div>
+                                                                    <!-- ng-repeat="item in orderProgramsCtrl.mealItemss.items |filter :{itemSizeId:detail.itemSizeId}"> -->
+                                                                    {{detail.itemSize.itemNameDictionary[selectedLanguage]}} /
+                                                                    {{detail.itemSize.sizeNameDictionary[selectedLanguage]}} 
                                                                 </div>
                                                             </li>
                                                         </ul>

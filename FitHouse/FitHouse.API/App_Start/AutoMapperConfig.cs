@@ -88,6 +88,13 @@ namespace FitHouse.API
             mapperConfiguration.CreateMap<MealDto, MealModel>().ReverseMap(); 
             mapperConfiguration.CreateMap<MealDetailDto, MealDetailModel>().ReverseMap();
 
+            mapperConfiguration.CreateMap<SizeModel, SizeDto>();
+            mapperConfiguration.CreateMap<SizeDto, SizeModel>();
+
+
+            mapperConfiguration.CreateMap<ItemSizeModel, ItemSizeDto>();
+            mapperConfiguration.CreateMap<ItemSizeDto, ItemSizeModel>();
+
             FitHouseBllConfig.RegisterMappings(mapperConfiguration);
 
         }

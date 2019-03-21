@@ -10,9 +10,9 @@ namespace FitHouse.BLL.DTOs
     {
         public long ProgramDetailId { get; set; }
         public long ProgramId { get; set; }
-        public long ItemId { get; set; }
+        public long ItemSizeId { get; set; }
         //public ProgramDto Program { get; set; }
-        public ItemDto Item { get; set; }
+        public ItemSizeDto ItemSize { get; set; }
         public long DayNumber { get; set; }
         public long MealNumberPerDay { get; set; }
         public DateTime DayDateTime { get; set; }

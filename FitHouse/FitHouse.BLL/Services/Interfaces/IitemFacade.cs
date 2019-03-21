@@ -16,5 +16,7 @@ namespace FitHouse.BLL.Services.Interfaces
         PagedResultsDto GetActivatedItemsByCategoryId(string language, long categoryId, int page, int pageSize);
         List<ItemProgramDto> GetAllItems();
         List<ItemProgramDto> GetItemsById(List<ProgramDetailDto> programDetails);
+
+        List<ItemSizeDto> GetAllItemSizes(long itemId);
     }
 }

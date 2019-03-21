@@ -9,6 +9,8 @@
     .factory('CityResource', ['$resource', 'appCONSTANTS', CityResource])
     .factory('AreaResource', ['$resource', 'appCONSTANTS', AreaResource])
     .factory('BranchResource', ['$resource', 'appCONSTANTS', BranchResource]) 
+    .factory('CategoryResource', ['$resource', 'appCONSTANTS', CategoryResource]) 
+    .factory('ItemResource', ['$resource', 'appCONSTANTS', ItemResource])
     ;
 
   function CustomResource($resource, appCONSTANTS) {
@@ -64,5 +66,19 @@
     return $resource(appCONSTANTS.API_URL + 'Branchs/', {}, { 
         getBranch: { method: 'GET', url: appCONSTANTS.API_URL + 'Branchs/GetBranchById/:BranchId', useToken: false }
     })
+}
+
+function CategoryResource($resource, appCONSTANTS) {
+  return $resource(appCONSTANTS.API_URL + 'Category/', {}, {
+      GetAllActiveCategories: { method: 'GET', url: appCONSTANTS.API_URL + 'Category/GetAllActiveCategories', useToken: true, isArray:true},
+      GetAllActiveItems: { method: 'GET', url: appCONSTANTS.API_URL + 'Categories/:categoryId/GetAllActiveItems', useToken: true}
+  })
 } 
+
+function ItemResource($resource, appCONSTANTS) {
+  return $resource(appCONSTANTS.API_URL + 'Items/:itemId', {}, {
+    GetAllItemSizes: { method: 'GET', url: appCONSTANTS.API_URL + 'Items/:itemId/sizes', useToken: true, isArray:true},
+  })
+}
+
 }());

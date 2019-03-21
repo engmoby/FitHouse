@@ -126,7 +126,7 @@ namespace FitHouse.API.Controllers
         public IHttpActionResult GetOrderItems(long orderId, long programId, long dayNumber)
         {
             var reurnOrder = _orderFacade.GetOrderItems(orderId, programId, dayNumber);
-            var data = Mapper.Map<List<ItemModel>>(reurnOrder);
+            var data = Mapper.Map<List<ItemSizeModel>>(reurnOrder);
             return PagedResponse("GetOrderItems", Page, PageSize, reurnOrder.Count, data);
 
             // return Ok(reurnOrder);

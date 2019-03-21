@@ -144,7 +144,7 @@
                     controller: 'CustomController',
                     'controllerAs': 'CustomCtrl',
                     resolve: {
-                        itemsPrepService: itemsPrepService,
+                        AllcategoriesPrepService: AllcategoriesPrepService,
                         CountriesPrepService: CountriesPrepService
                     }
                 })
@@ -155,7 +155,7 @@
                     controller: 'CustomController',
                     'controllerAs': 'CustomCtrl',
                     resolve: {
-                        itemsPrepService: itemsPrepService,
+                        AllcategoriesPrepService: AllcategoriesPrepService,
                         CountriesPrepService: CountriesPrepService
                     }
                 })
@@ -313,4 +313,11 @@
     function AddressByIdPrepService(AddressResource, $stateParams) {
         return AddressResource.getAddress({ addressId: $stateParams.addressId }).$promise;
     }
+
+    AllcategoriesPrepService.$inject = ['CategoryResource']
+    function AllcategoriesPrepService(CategoryResource) {
+        return CategoryResource.GetAllActiveCategories().$promise;
+    }
+
+
 }());

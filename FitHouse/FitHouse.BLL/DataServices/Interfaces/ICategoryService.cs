@@ -9,5 +9,7 @@ namespace FitHouse.BLL.DataServices.Interfaces
     {
          PagedResultsDto GetAllCategorys(int page, int pageSize);
         List<Category> GetAllCategs();
+        List<Category> GetAllActiveCategories();
+
     }
 }

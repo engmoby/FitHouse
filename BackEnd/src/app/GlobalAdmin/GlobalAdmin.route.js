@@ -30,7 +30,7 @@
                     'controllerAs': 'programDetailsCtrl',
                     resolve: {
                         progDetailsPrepService: progDetailsPrepService,
-                        itemsssPrepService: itemsssPrepService
+                        AllcategoriesPrepService: AllcategoriesPrepService
                     },
                     data: {
                         permissions: {
@@ -49,7 +49,7 @@
                     resolve: {
                         settingsPrepService: settingsPrepService,
                         daysPrepService: daysPrepService,
-                        itemsssPrepService: itemsssPrepService
+                        AllcategoriesPrepService: AllcategoriesPrepService
                     },
                     data: {
                         permissions: {
@@ -66,7 +66,7 @@
                     controller: 'editProgramController',
                     'controllerAs': 'editProgramCtrl',
                     resolve: {
-                        programByIdPrepService: programByIdPrepService
+                        programByIdPrepService: programByIdPrepService,
                     },
                     data: {
                         permissions: {
@@ -175,7 +175,7 @@
                     resolve: {
                         daysPrepService: daysPrepService,
                         settingsPrepService: settingsPrepService,
-                        itemsssPrepService: itemsssPrepService,
+                        AllcategoriesPrepService: AllcategoriesPrepService,
                         CountriesPrepService: CountriesPrepService
                     },
                     data: {
@@ -266,7 +266,7 @@
                         }
                     }
 
-                }) 
+                })
 
                 .state('editClient', {
                     url: '/editClient/:userId',
@@ -532,7 +532,7 @@
                     'controllerAs': 'itemCtrl',
                     data: {
                         permissions: {
-                            only: ['RestaurantAdmin'],
+                            only: ['6'],
                             redirectTo: 'root'
                         },
                         displayName: 'Category'
@@ -548,13 +548,14 @@
                     'controllerAs': 'newItemCtrl',
                     data: {
                         permissions: {
-                            only: ['RestaurantAdmin'],
+                            only: ['6'],
                             redirectTo: 'root'
                         },
                         displayName: 'Items'
                     },
                     resolve: {
                         defaultItemsPrepService: defaultItemsPrepService,
+                        allSizesPrepService:allSizesPrepService
                     }
                 })
                 .state('editItem', {
@@ -564,13 +565,14 @@
                     'controllerAs': 'editItemCtrl',
                     data: {
                         permissions: {
-                            only: ['RestaurantAdmin'],
+                            only: ['6'],
                             redirectTo: 'root'
                         },
                         displayName: 'Items'
                     },
                     resolve: {
                         itemPrepService: itemPrepService,
+                        allSizesPrepService:allSizesPrepService
                     }
                 })
 
@@ -604,7 +606,7 @@
                         displayName: 'meals'
                     },
                     resolve: {
-                        itemsssPrepService: itemsssPrepService
+                        AllcategoriesPrepService: AllcategoriesPrepService
                     }
                 })
                 .state('editMeal', {
@@ -621,7 +623,7 @@
                     },
                     resolve: {
                         mealPrepService: mealPrepService,
-                        itemsssPrepService: itemsssPrepService
+                        AllcategoriesPrepService: AllcategoriesPrepService
                     }
                 })
 
@@ -742,6 +744,48 @@
                             only: ['10'],
                             redirectTo: 'root'
                         }
+                    }
+                }).state('size', {
+                    url: '/size',
+                    templateUrl: './app/GlobalAdmin/size/templates/size.html',
+                    controller: 'sizeController',
+                    'controllerAs': 'sizeCtrl',
+                    data: {
+                        permissions: {
+                            only: ['18'],
+                            redirectTo: 'root'
+                        }
+                    },
+                    resolve: {
+                        sizesPrepService: sizesPrepService
+                    }
+
+                })
+                .state('newsize', {
+                    url: '/Newsize',
+                    templateUrl: './app/GlobalAdmin/size/templates/newSize.html',
+                    controller: 'sizeDialogController',
+                    'controllerAs': 'sizeDlCtrl',
+                    data: {
+                        permissions: {
+                            only: ['18'],
+                            redirectTo: 'root'
+                        }
+                    }
+                })
+                .state('editsize', {
+                    url: '/size/:sizeId',
+                    templateUrl: './app/GlobalAdmin/size/templates/editSize.html',
+                    controller: 'editSizeDialogController',
+                    'controllerAs': 'editSizeDlCtrl',
+                    data: {
+                        permissions: {
+                            only: ['18'],
+                            redirectTo: 'root'
+                        }
+                    },
+                    resolve: {
+                        sizePrepService: sizePrepService
                     }
                 })
 
@@ -926,6 +970,11 @@
             return null;
     }
 
+    AllcategoriesPrepService.$inject = ['CategoryResource']
+    function AllcategoriesPrepService(CategoryResource) {
+        return CategoryResource.GetAllActiveCategories().$promise;
+    }
+
     /*Orders */
     ordersPrepService.$inject = ['OrdersResource', '$stateParams']
     function ordersPrepService(OrdersResource, $stateParams) {
@@ -989,4 +1038,19 @@
     function KitchenByIdPrepService(KitchensResource, $stateParams) {
         return KitchensResource.getFullKitchen({ orderId: $stateParams.orderId }).$promise;
     }
+    sizesPrepService.$inject = ['SizeResource']
+    function sizesPrepService(SizeResource) {
+        return SizeResource.getAllSizes().$promise;
+    }
+
+    allSizesPrepService.$inject = ['SizeResource']
+    function allSizesPrepService(SizeResource) {
+        return SizeResource.getAllSizes({pageSize:0}).$promise;
+    }
+
+    sizePrepService.$inject = ['SizeResource', '$stateParams']
+    function sizePrepService(SizeResource, $stateParams) {
+        return SizeResource.getSize({ sizeId: $stateParams.sizeId }).$promise;
+    }
+
 }());

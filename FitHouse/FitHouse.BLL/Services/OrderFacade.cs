@@ -157,9 +157,9 @@ namespace FitHouse.BLL.Services
         {
             return _orderService.GetAllOrdersForKitchen(branchId, page, pageSize);
         }
-        public List<ItemDto> GetOrderItems(long orderId, long programId, long dayNumber)
+        public List<ItemSizeDto> GetOrderItems(long orderId, long programId, long dayNumber)
         {
-            var items = new List<ItemDto>();
+            var items = new List<ItemSizeDto>();
             if (programId == 0)
             {
                 var getOrderDetails = _orderDetailsService.Queryable().Where(x => x.OrderId == orderId);
@@ -168,15 +168,15 @@ namespace FitHouse.BLL.Services
                     if (orderDetail.Item != null)
                     {
                         var item = _itemService.Find(orderDetail.ItemId);
-                        if (item != null) items.Add(Mapper.Map<ItemDto>(item));
+                        if (item != null) items.Add(Mapper.Map<ItemSizeDto>(item));
                     }
                     else
                     {
                         var meal = _mealservice.Find(orderDetail.MealId);
                         foreach (var mealMealDetail in meal.MealDetails)
                         {
-                            var item = _itemService.Find(mealMealDetail.ItemId);
-                            if (item != null) items.Add(Mapper.Map<ItemDto>(item));
+                            var item = mealMealDetail.ItemSize;
+                            if (item != null) items.Add(Mapper.Map<ItemSizeDto>(item));
                         }
 
                     }
@@ -187,8 +187,8 @@ namespace FitHouse.BLL.Services
                 var getprogramDetail = _programDetailService.Queryable().Where(x => x.ProgramId == programId && x.DayNumber == dayNumber);
                 foreach (var programDetail in getprogramDetail)
                 {
-                    var item = _itemService.Find(programDetail.ItemId);
-                    if (item != null) items.Add(Mapper.Map<ItemDto>(item));
+                    var item = programDetail.ItemSize;
+                    if (item != null) items.Add(Mapper.Map<ItemSizeDto>(item));
                 }
 
             }

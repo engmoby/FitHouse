@@ -4,13 +4,13 @@
 	angular
 		.module('home')
 		.controller('CustomController', ['$scope', 'blockUI', '$filter', '$timeout', '$state', 'UserAddressesResource', 'BranchResource', '$translate', 'RegionResource', 'CityResource',
-			'AreaResource', 'CountriesPrepService', 'CustomResource', 'itemsPrepService', 'ToastService', CustomController])
+			'AreaResource', 'CountriesPrepService', 'CustomResource', 'AllcategoriesPrepService', 'CategoryResource', 'ItemResource', 'ToastService', CustomController])
 
 	function CustomController($scope, blockUI, $filter, $timeout, $state, UserAddressesResource, BranchResource, $translate, RegionResource, CityResource, AreaResource, CountriesPrepService,
-		CustomResource, itemsPrepService, ToastService) {
+		CustomResource, AllcategoriesPrepService, CategoryResource, ItemResource, ToastService) {
 
 		var vm = this;
-		vm.ItemCategorized = itemsPrepService;
+		// vm.ItemCategorized = itemsPrepService;
 		vm.itemList = [];
 		vm.counties = [];
 		vm.validate = false;
@@ -27,7 +27,10 @@
 		vm.order = JSON.parse(localStorage.getItem("OrderSummary"));
 		vm.Total = 0;
 		vm.DeliveryFees = 0;
-		debugger;
+		vm.categories = AllcategoriesPrepService;
+		vm.items = [];
+		vm.itemSizes = [];
+
 		// if (vm.order != null) {
 		// 	//10 seconds delay
 		// 	$timeout(function () {
@@ -43,18 +46,52 @@
 		// 		$state.go('homePage')
 		// 	}, 10000);
 		// }
-		$scope.getData = function (itemModel, day, meal) {
+		vm.changeCategory = function (selectedCategoryId, meal) {
+			CategoryResource.GetAllActiveItems({ categoryId: selectedCategoryId, pagesize: 0 }).$promise.then(function (results) {
+				meal.items = results.results;
+			},
+				function (data, status) {
+					ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+				});
+		}
 
-			var differntMeal = $filter('filter')(vm.itemList, x => (x.dayNumber == day && x.mealNumberPerDay != meal) || (x.dayNumber != day));
-			//var differntMeal = vm.itemList.filter(x => (x.dayNumber == day && x.mealNumberPerDay != meal) || (x.dayNumber != day));
-			vm.itemList = [];
-			vm.itemList = angular.copy(differntMeal);
+		vm.changeItem = function (selectedItemId, meal) {
+			ItemResource.GetAllItemSizes({ itemId: selectedItemId }).$promise.then(function (results) {
+				meal.itemSizes = results;
+			},
+				function (data, status) {
+					ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+				});
+		}
 
-			itemModel.forEach(element => {
-				element.dayNumber = day;
-				element.mealNumberPerDay = meal;
-				vm.itemList.push(element);
-			});
+		vm.removeItem = function (item, meal) {
+			// meal.selectedItemList.splice(index, 1);
+			meal.selectedItemList.splice(meal.selectedItemList.indexOf(item), 1);
+			vm.itemList.splice(vm.itemList.indexOf(item), 1);
+		}
+		vm.removeItem = function (item, meal) {
+            // meal.selectedItemList.splice(index, 1);
+            meal.selectedItemList.splice(meal.selectedItemList.indexOf(item), 1);
+            vm.itemList.splice(vm.itemList.indexOf(item), 1);
+        }
+		$scope.getData = function (itemModel, day, mealNumber, meal) {
+
+			// var differntMeal = $filter('filter')(vm.itemList, x => (x.dayNumber == day && x.mealNumberPerDay != meal) || (x.dayNumber != day));
+			// //var differntMeal = vm.itemList.filter(x => (x.dayNumber == day && x.mealNumberPerDay != meal) || (x.dayNumber != day));
+			// vm.itemList = [];
+			// vm.itemList = angular.copy(differntMeal);
+
+			// itemModel.forEach(element => {
+			meal.selectedCategoryId = 0;
+			meal.selectedItem = null;
+			meal.selectedItemSize = null;
+			itemModel.dayNumber = day;
+			itemModel.mealNumberPerDay = mealNumber;
+			vm.itemList.push(itemModel);
+            if (meal.selectedItemList == null)
+                meal.selectedItemList = [];
+            meal.selectedItemList.push(itemModel)
+			// });
 			vm.ProgramPrice = 0;
 			vm.ProgramCost = 0;
 			vm.ProgramVAT = 0;
@@ -291,7 +328,7 @@
 
 		vm.changeOrderType = function () {
 			if (vm.orderType.type == 'delivery' || vm.orderType.type == 'true') {
-				vm.orderType.type = 'pickup' 
+				vm.orderType.type = 'pickup'
 				vm.addressDetails.address = null;
 			} else {
 				vm.orderType.type = 'delivery'
@@ -330,7 +367,7 @@
 				}
 
 				vm.Total = vm.ProgramTotalPrice + vm.DeliveryFees;
-                 
+
 
 			},
 				function (data, status) {

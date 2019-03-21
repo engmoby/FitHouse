@@ -373,6 +373,10 @@
         "ExcludedDays": "Excluded Days", 
         "MealDetails": "Meal Details", 
         "Details": "Details", 
+        "addItemBtn": "Add item",
+        "SelectCategory":"Select category",
+        "selectSizeLbl":"Select Size",
+        
       }
 
       var ar_translations = {
@@ -755,7 +759,10 @@
         "CompleteBtn": "اكتمال",
         "history": "سجل",
         "modifyBy": "تعديل بواسطة",
-        "modifyTime": "تاريخ التعديل"
+        "modifyTime": "تاريخ التعديل", 
+        "addItemBtn": "أضف منتج",
+        "SelectCategory":"أختار قسم",
+        "selectSizeLbl":"أختار حجم",
       }
 
       $translateProvider.translations('en', en_translations);

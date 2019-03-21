@@ -5,12 +5,12 @@
         .module('home')
         .controller('programDetailsController', ['$scope', 'blockUI', '$filter', '$translate',
             '$state', '$localStorage', 'authorizationService', 'appCONSTANTS', 'ToastService', '$stateParams', 'progDetailsPrepService'
-            , 'itemsssPrepService', '$uibModal', 'GetProgramDetailResource', programDetailsController]);
+            , 'AllcategoriesPrepService', '$uibModal', 'GetProgramDetailResource', programDetailsController]);
 
 
     function programDetailsController($scope, blockUI, $filter, $translate, $state, $localStorage, authorizationService,
         appCONSTANTS, ToastService, $stateParams, progDetailsPrepService,
-        itemsssPrepService, $uibModal, GetProgramDetailResource) {
+        AllcategoriesPrepService, $uibModal, GetProgramDetailResource) {
 
         var vm = this;
         vm.language = appCONSTANTS.supportedLanguage;
@@ -34,11 +34,11 @@
                 controller: 'editProgramMealController',
                 controllerAs: 'editProgramMealCtrl',
                 resolve: {
-                    itemsssPrepService: function () { return itemsssPrepService; },
+                    AllcategoriesPrepService: function () { return AllcategoriesPrepService; },
                     ProgramId: function () { return programId },
                     DayCount: function () { return dayCount },
                     MealCount: function () { return mealCount },
-                    progDetailsPrepService: function () { return progDetailsPrepService },
+                    progDetailsPrepService: function () { return vm.programDetails  },
                     callBackFunction: function () { return refreshPrograms }
                 }
             });

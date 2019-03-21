@@ -55,7 +55,7 @@ namespace FitHouse.API.Controllers
         public IHttpActionResult UpdateProgramDetails([FromBody] ProgramModel programModel)
         {
 
-            var program = _programFacade.UpdateProgramDetails(programModel.ProgramId, programModel.ProgramDays, programModel.NoOfMeals, Mapper.Map<List<ItemProgramDto>>(programModel.Items));
+            var program = _programFacade.UpdateProgramDetails(programModel.ProgramId, programModel.ProgramDays, programModel.NoOfMeals, Mapper.Map<List<ItemSizeDto>>(programModel.Items));
 
             return Ok();
         }
@@ -109,8 +109,8 @@ namespace FitHouse.API.Controllers
             var detailsModel = Mapper.Map<List<ProgramDetailModel>>(details);
             foreach (var itemModel in detailsModel)
             {
-                itemModel.Item.ImageUrl = Url.Link("ItemImage", new { itemModel.Item.CategoryId, itemModel.Item.ItemId });
-
+                itemModel.ItemSize.ImageUrl = Url.Link("ItemImage", new { itemModel.ItemSize.CategoryId, itemModel.ItemSize.ItemId });
+                
             }
            // var items = Mapper.Map<List<ItemProgramModel>>(_itemFacade.GetItemsById(details));
 

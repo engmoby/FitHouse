@@ -75,15 +75,15 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="meal in editOrderCtrl.Order.orderDetails">
-                                    <td data-title="Name" width="15%">{{meal.item.itemNameDictionary[selectedLanguage]
+                                    <td data-title="Name" width="15%">{{meal.itemSize.itemNameDictionary[selectedLanguage]
                                         | limitTo:10}}</td>
-                                    <td data-title="Description">{{meal.item.carbs}}</td>
-                                    <td data-title="Description">{{meal.item.calories}}</td>
-                                    <td data-title="Description">{{meal.item.protein}}</td>
-                                    <td data-title="Description">{{meal.item.cost}}</td>
-                                    <td data-title="Description">{{meal.item.price}}</td>
-                                    <td data-title="Description">{{meal.item.vat}}</td>
-                                    <td data-title="totalPrice">{{meal.item.totalPrice}}</td>
+                                    <td data-title="Description">{{meal.itemSize.carbs}}</td>
+                                    <td data-title="Description">{{meal.itemSize.calories}}</td>
+                                    <td data-title="Description">{{meal.itemSize.protein}}</td>
+                                    <td data-title="Description">{{meal.itemSize.cost}}</td>
+                                    <td data-title="Description">{{meal.itemSize.price}}</td>
+                                    <td data-title="Description">{{meal.itemSize.vat}}</td>
+                                    <td data-title="totalPrice">{{meal.itemSize.totalPrice}}</td>
 
                                 </tr>
                             </tbody>
@@ -137,16 +137,17 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
+                                                        
                                                         <tr ng-repeat="meal in request.meal.mealDetails">
-                                                            <td data-title="Name" width="15%">{{meal.item.itemNameDictionary[selectedLanguage]
+                                                            <td data-title="Name" width="15%">{{meal.itemSize.itemNameDictionary[selectedLanguage]
                                                                 | limitTo:10}}</td>
-                                                            <td data-title="Description">{{meal.item.carbs}}</td>
-                                                            <td data-title="Description">{{meal.item.calories}}</td>
-                                                            <td data-title="Description">{{meal.item.protein}}</td>
-                                                            <td data-title="Description">{{meal.item.cost}}</td>
-                                                            <td data-title="Description">{{meal.item.price}}</td>
-                                                            <td data-title="Description">{{meal.item.vat}}</td>
-                                                            <td data-title="totalPrice">{{meal.item.totalPrice}}</td>
+                                                            <td data-title="Description">{{meal.itemSize.carbs}}</td>
+                                                            <td data-title="Description">{{meal.itemSize.calories}}</td>
+                                                            <td data-title="Description">{{meal.itemSize.protein}}</td>
+                                                            <td data-title="Description">{{meal.itemSize.cost}}</td>
+                                                            <td data-title="Description">{{meal.itemSize.price}}</td>
+                                                            <td data-title="Description">{{meal.itemSize.vat}}</td>
+                                                            <td data-title="totalPrice">{{meal.itemSize.totalPrice}}</td>
 
                                                         </tr>
                                                     </tbody>

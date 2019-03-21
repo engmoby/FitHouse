@@ -36,16 +36,21 @@
                                             <!-- {{detail}} -->
                                             <div class="res-menu">
                                                 <!-- {{item.itemNameDictionary[selectedLanguage]}} -->
-                                                <img src={{detail.item.imageUrl}} imageonload alt="">
-                                                <h3> {{detail.item.itemNameDictionary[selectedLanguage]}}
+                                                <img src={{detail.itemSize.imageUrl}} imageonload alt="">
+                                                <h3> {{detail.itemSize.itemNameDictionary[selectedLanguage]}}
                                                     <!-- <span>{{detail.item.totalPrice}}</span> -->
+                                                    <span>{{detail.itemSize.sizeNameDictionary[selectedLanguage]}}</span>
                                                 </h3>
                                                 <span
-                                                    class="menu-item">{{detail.item.itemDescriptionDictionary[selectedLanguage] }}</span>
-                                                <span> {{'fat' | translate}}:{{detail.item.fat}}</span>
-                                                <span> {{'carbs' | translate}}:{{detail.item.carbs}}</span>
-                                                <span> {{'protein' | translate}}:{{detail.item.protein}}</span>
-                                                <span> {{'calories' | translate}}:{{detail.item.calories}}</span>
+                                                    class="menu-item">{{detail.itemSize.itemDescriptionDictionary[selectedLanguage] }}</span>
+                                                <span> {{'fat' | translate}}:{{detail.itemSize.fat}}</span>
+                                                <span> {{'carbs' | translate}}:{{detail.itemSize.carbs}}</span>
+                                                <span> {{'protein' | translate}}:{{detail.itemSize.protein}}</span>
+                                                <span> {{'calories' | translate}}:{{detail.itemSize.calories}}</span>
+                                                
+                                                <!-- <span>
+                                                        {{'itemSize' |
+                                                        translate}}:{{detail.itemSize.sizeNameDictionary[selectedLanguage]}}</span> -->
                                                 <!-- | limitTo:10 -->
                                             </div>
 

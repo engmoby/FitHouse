@@ -17,9 +17,9 @@ namespace FitHouse.DAL.Entities.Model
         [ForeignKey("Program")]
         public long ProgramId { get; set; }
         public virtual Program Program { get; set; }
-        [ForeignKey("Item")]
-        public long ItemId { get; set; }
-        public virtual Item Item { get; set; }
+        [ForeignKey("ItemSize")]
+        public long ItemSizeId { get; set; }
+        public virtual ItemSize ItemSize { get; set; }
         public long DayNumber { get; set; }
         public long MealNumberPerDay { get; set; }
         public DateTime DayDateTime { get; set; }

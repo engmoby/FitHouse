@@ -3,25 +3,64 @@
 
 	angular
 		.module('home')
-		.controller('editMealController', ['$scope', 'blockUI', '$filter', '$http', '$translate', '$stateParams', 'appCONSTANTS', '$state', 'MealResource', 'itemsssPrepService', 'ToastService', 'mealPrepService', editMealController])
+		.controller('editMealController', ['$scope', 'blockUI', '$filter', '$http', '$translate', '$stateParams',
+		 'appCONSTANTS', '$state', 'MealResource', 'ToastService', 'mealPrepService',
+		 'AllcategoriesPrepService', 'CategoryResource', 'ItemResource', editMealController])
 
-	function editMealController($scope, blockUI, $filter, $http, $translate, $stateParams, appCONSTANTS, $state, MealResource, itemsssPrepService, ToastService, mealPrepService) {
+	function editMealController($scope, blockUI, $filter, $http, $translate, $stateParams, appCONSTANTS,
+		 $state, MealResource, ToastService, mealPrepService,
+		 AllcategoriesPrepService, CategoryResource, ItemResource) {
 		var vm = this;
 		vm.language = appCONSTANTS.supportedLanguage;
 		vm.meal = mealPrepService;
-		vm.itemsList = itemsssPrepService;
+		// vm.itemsList = itemsssPrepService;
 		vm.itemModel = [];
+		vm.categories = AllcategoriesPrepService;
+		vm.items = [];
+		vm.itemSizes = [];
+		$scope.selectedItemList = [];
 		if (vm.meal.imageUrl != null)
 			vm.meal.imageUrl = vm.meal.imageUrl + "?date=" + $scope.getCurrentTime();
 
 		var i;
-		debugger;
-		for (i = 0; i < vm.meal.mealDetails.length; i++) {
-			var indexRate = vm.itemsList.indexOf($filter('filter')(vm.itemsList, { 'itemId': vm.meal.mealDetails[i].itemId }, true)[0]);
-			vm.itemModel.push(vm.itemsList[indexRate]);
-
+		vm.changeCategory = function (selectedCategoryId) {
+			CategoryResource.GetAllActiveItems({ categoryId: selectedCategoryId,pagesize:0 }).$promise.then(function (results) {
+				vm.items = results.results;
+			},
+				function (data, status) {
+					ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+				});
 		}
-		bindItemsTocalculate(vm.itemModel);
+
+		vm.changeItem = function (selectedItemId) {
+			ItemResource.GetAllItemSizes({ itemId: selectedItemId }).$promise.then(function (results) {
+				vm.itemSizes = results;
+			},
+				function (data, status) {
+					ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+				});
+		}
+
+		
+		for (i = 0; i < vm.meal.mealDetails.length; i++) {
+			// var indexRate = vm.itemsList.indexOf($filter('filter')(vm.itemsList, { 'itemId': vm.meal.mealDetails[i].itemId }, true)[0]);
+			// vm.meal.mealDetails[i].itemSize.vat = vm.meal.mealDetails[i].
+			// vm.itemModel.push(vm.meal.mealDetails[i].itemSize);
+			$scope.selectedItemList.push(vm.meal.mealDetails[i].itemSize)
+		}
+		$scope.sum = function (items, prop) {
+			SumItem(items, prop);
+			// return items.reduce(function (a, b) {
+			// 	return a + b[prop];
+			// }, 0);
+		};
+		function SumItem(items, prop) {
+			return items.reduce(function (a, b) {
+				return a + b[prop];
+			}, 0);
+		}
+		// vm.itemModel = angular.copy(mealPrepService.mealDetails)
+		bindItemsTocalculate($scope.selectedItemList);
 		vm.close = function () {
 			$state.go('Meal');
 		}
@@ -41,7 +80,7 @@
 
 			updatedMeal.mealId = vm.meal.mealId;
 			updatedMeal.isImageChange = isMealImageChange;
-			debugger;
+			
 			updatedMeal.mealPrice = vm.mealtotalDiscount;
 			if (vm.meal.mealDiscount == null)
 				updatedMeal.mealDiscount = 0;
@@ -51,7 +90,7 @@
 			$scope.selectedItemList.forEach(element => {
 				vm.sendSelected.push(
 					{
-						itemId: element.itemId
+						itemSizeId: element.itemSizeId
 					}
 				);
 			});
@@ -78,40 +117,30 @@
 				}
 			);
 		}
-		$scope.sum = function (items, prop) {
-			SumItem(items, prop);
-			// return items.reduce(function (a, b) {
-			// 	return a + b[prop];
-			// }, 0);
-		};
-		function SumItem(items, prop) {
-			return items.reduce(function (a, b) {
-				return a + b[prop];
-			}, 0);
-		}
 		function bindItemsTocalculate(model) {
-			debugger;
-			$scope.selectedItemList = model;
+			
+			// model.itemNameDictionary = vm.selectedItem.itemNameDictionary;
+			// model.sizeNameDictionary = vm.selectedItemSize.sizeNameDictionary;
+			// model.vat = vm.selectedItem.vat;
+			
 			if ($scope.selectedItemList == null) {
-				vm.mealtotalDiscount = "";
+				vm.meal.mealtotalDiscount = "";
 				vm.meal.mealDiscount = "";
-				vm.mealtotalDiscount = ""; 
 				vm.meal.carbs = "";
 				vm.meal.calories = "";
 				vm.meal.protein = "";
 				vm.meal.cost = "";
 				vm.meal.vat = "";
 				vm.meal.price = "";
-				vm.meal.totalPrice = ""; 
-			
+				vm.meal.totalPrice = "";
 			} else {
-				vm.meal.carbs = SumItem(model, 'carbs');
-				vm.meal.calories = SumItem(model, 'calories');
-				vm.meal.protein = SumItem(model, 'protein');
-				vm.meal.cost = SumItem(model, 'cost');
-				vm.meal.price = SumItem(model, 'price');
-				vm.meal.vat = SumItem(model, 'vat');
-				vm.meal.totalPrice = SumItem(model, 'totalPrice');
+				vm.meal.carbs = SumItem($scope.selectedItemList, 'carbs');
+				vm.meal.calories = SumItem($scope.selectedItemList, 'calories');
+				vm.meal.protein = SumItem($scope.selectedItemList, 'protein');
+				vm.meal.cost = SumItem($scope.selectedItemList, 'cost');
+				vm.meal.price = SumItem($scope.selectedItemList, 'price');
+				vm.meal.vat = SumItem($scope.selectedItemList, 'vat');
+				vm.meal.totalPrice = SumItem($scope.selectedItemList, 'totalPrice');
 			}
 
 			calclulateWithDicscount();
@@ -121,8 +150,36 @@
 
 
 		}
+		vm.removeItem = function(index){
+			$scope.selectedItemList.splice(index,1);
+			// $scope.selectedItemList.splice(index,1);
+
+			if ($scope.selectedItemList == null) {
+				vm.meal.mealtotalDiscount = "";
+				vm.meal.mealDiscount = "";
+				vm.meal.carbs = "";
+				vm.meal.calories = "";
+				vm.meal.protein = "";
+				vm.meal.cost = "";
+				vm.meal.vat = "";
+				vm.meal.price = "";
+				vm.meal.totalPrice = "";
+			} else {
+				vm.meal.carbs = SumItem($scope.selectedItemList, 'carbs');
+				vm.meal.calories = SumItem($scope.selectedItemList, 'calories');
+				vm.meal.protein = SumItem($scope.selectedItemList, 'protein');
+				vm.meal.cost = SumItem($scope.selectedItemList, 'cost');
+				vm.meal.price = SumItem($scope.selectedItemList, 'price');
+				vm.meal.vat = SumItem($scope.selectedItemList, 'vat');
+				vm.meal.totalPrice = SumItem($scope.selectedItemList, 'totalPrice');
+			}
+		}
 		vm.addItemToList = function (model) {
-			bindItemsTocalculate(model)
+			$scope.selectedItemList.push(model);
+			vm.selectedCategoryId = 0;
+			vm.selectedItem = null;
+			vm.selectedItemSize = null;
+			bindItemsTocalculate(model);
 		}
 		function calclulateWithDicscount() {
 			var vatPresantage = (vm.meal.price * vm.meal.vat) / 100;

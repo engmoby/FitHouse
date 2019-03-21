@@ -127,5 +127,10 @@ namespace FitHouse.BLL.Services
                     throw new ValidationException(ErrorCodes.NameIsExist);
             }
         }
+
+        public List<CategoryDto> GetAllActiveCategories()
+        {
+            return Mapper.Map<List<CategoryDto>>(_categoryService.GetAllActiveCategories());
+        }
     }
 }

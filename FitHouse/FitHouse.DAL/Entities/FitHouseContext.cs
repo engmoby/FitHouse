@@ -46,6 +46,9 @@ namespace FitHouse.DAL.Entities
         public DbSet<Setting> Settings { get; set; }
         public DbSet<Status> Statuses { get; set; }
         public DbSet<StatusTranslation> StatusTranslations { get; set; }
+        public DbSet<Size> Sizes { get; set; }
+        public DbSet<SizeTranslation> SizeTranslations { get; set; }
+        public DbSet<ItemSize> ItemSizes { get; set; }
 
 
 

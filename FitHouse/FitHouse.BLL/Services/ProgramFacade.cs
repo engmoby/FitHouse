@@ -50,7 +50,7 @@ namespace FitHouse.BLL.Services
         }
         
         public ProgramDto UpdateProgramDetails(long programId, long dayCount, long mealCount,
-            List<ItemProgramDto> itemss)
+            List<ItemSizeDto> itemss)
         {
 
             var program = _programService.Find(programId);
@@ -71,7 +71,7 @@ namespace FitHouse.BLL.Services
 
             //add new data
             var detailInfo = new List<ProgramDetail>();
-            var items = Mapper.Map<List<Item>>(itemss);
+            var items = Mapper.Map<List<ItemSize>>(itemss);
             foreach (var item in items)
             {
                 var det = new ProgramDetail();
@@ -79,7 +79,7 @@ namespace FitHouse.BLL.Services
                 det.DayNumber = dayCount;
                 det.IsActive = true;
                 det.IsDeleted = false;
-                det.ItemId = item.ItemId;
+                det.ItemSizeId = item.ItemSizeId;
                 det.ProgramId = program.ProgramId;
                 det.MealNumberPerDay = mealCount;
                 detailInfo.Add(det);
@@ -120,7 +120,7 @@ namespace FitHouse.BLL.Services
                 det.DayNumber = detail.DayNumber;
                 det.IsActive = true;
                 det.IsDeleted = false;
-                det.ItemId = detail.ItemId;
+                det.ItemSizeId = detail.ItemSizeId;
                 //det.ProgramId = programObj.ProgramId;
                 det.MealNumberPerDay = detail.MealNumberPerDay;
                 detailInfo.Add(det);
