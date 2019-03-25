@@ -3,10 +3,10 @@
 
 	angular
 		.module('home')
-		.controller('CustomController', ['$scope', 'blockUI', 'PromotionResource','$filter', '$timeout', '$state', 'UserAddressesResource', 'BranchResource', '$translate', 'RegionResource', 'CityResource',
+		.controller('CustomController', ['$scope', 'blockUI', 'PromotionResource', '$filter', '$timeout', '$state', 'UserAddressesResource', 'BranchResource', '$translate', 'RegionResource', 'CityResource',
 			'AreaResource', 'CountriesPrepService', 'CustomResource', 'AllcategoriesPrepService', 'CategoryResource', 'ItemResource', 'ToastService', CustomController])
 
-	function CustomController($scope, blockUI, PromotionResource , $filter, $timeout, $state, UserAddressesResource, BranchResource, $translate, RegionResource, CityResource, AreaResource, CountriesPrepService,
+	function CustomController($scope, blockUI, PromotionResource, $filter, $timeout, $state, UserAddressesResource, BranchResource, $translate, RegionResource, CityResource, AreaResource, CountriesPrepService,
 		CustomResource, AllcategoriesPrepService, CategoryResource, ItemResource, ToastService) {
 
 		var vm = this;
@@ -23,8 +23,8 @@
 		vm.daysCount = JSON.parse(localStorage.getItem("programDaysCount"));
 		vm.mealsCount = JSON.parse(localStorage.getItem("mealPerDay"));
 		vm.IsBreakFast = JSON.parse(localStorage.getItem("isBreakFast"));
-		vm.SelectedDays = JSON.parse(localStorage.getItem("dayList"));
 		vm.IsSnack = JSON.parse(localStorage.getItem("isSnack"));
+		vm.SelectedDays = JSON.parse(localStorage.getItem("dayList"));
 		vm.startDate = localStorage.getItem("itemDatetime");
 		var user = JSON.parse(localStorage.getItem("ngStorage-authInfo"));
 		vm.clientId = user.UserId;
@@ -93,11 +93,11 @@
 			vm.itemList.splice(vm.itemList.indexOf(item), 1);
 		}
 		vm.removeItem = function (item, meal) {
-            // meal.selectedItemList.splice(index, 1);
-            meal.selectedItemList.splice(meal.selectedItemList.indexOf(item), 1);
-            vm.itemList.splice(vm.itemList.indexOf(item), 1);
-        }
-		$scope.getData = function (itemModel, day, mealNumber, meal) {
+			// meal.selectedItemList.splice(index, 1);
+			meal.selectedItemList.splice(meal.selectedItemList.indexOf(item), 1);
+			vm.itemList.splice(vm.itemList.indexOf(item), 1);
+		}
+		$scope.getData = function (itemModel, day, mealNumber, meal,type) {
 
 			// var differntMeal = $filter('filter')(vm.itemList, x => (x.dayNumber == day && x.mealNumberPerDay != meal) || (x.dayNumber != day));
 			// //var differntMeal = vm.itemList.filter(x => (x.dayNumber == day && x.mealNumberPerDay != meal) || (x.dayNumber != day));
@@ -110,10 +110,12 @@
 			meal.selectedItemSize = null;
 			itemModel.dayNumber = day;
 			itemModel.mealNumberPerDay = mealNumber;
+			itemModel.itemType = type;
+
 			vm.itemList.push(itemModel);
-            if (meal.selectedItemList == null)
-                meal.selectedItemList = [];
-            meal.selectedItemList.push(itemModel)
+			if (meal.selectedItemList == null)
+				meal.selectedItemList = [];
+			meal.selectedItemList.push(itemModel)
 			// });
 			vm.ProgramPrice = 0;
 			vm.ProgramCost = 0;

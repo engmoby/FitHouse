@@ -277,11 +277,13 @@
     <Compile Include="Controllers\ItemsController.cs" />
     <Compile Include="Controllers\MealController.cs" />
     <Compile Include="Controllers\ProgramController.cs" />
+    <Compile Include="Controllers\PromotionController.cs" />
     <Compile Include="Controllers\RegionsController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\AddressController.cs" />
     <Compile Include="Controllers\SettingController.cs" />
     <Compile Include="Controllers\SizesController.cs" />
+    <Compile Include="MailHelper.cs" />
     <Compile Include="Models\ItemSizeModel.cs" />
     <Compile Include="Models\LogModel.cs" />
     <Compile Include="Models\AddressModel.cs" />
@@ -307,6 +309,7 @@
     <Compile Include="Models\ProgramDetailModel.cs" />
     <Compile Include="Models\ProgramModel.cs" />
     <Compile Include="Models\ProgramTranslationModel.cs" />
+    <Compile Include="Models\PromorionModel.cs" />
     <Compile Include="Models\RegionModel.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Infrastructure\ActionResult\PagedResponseActionResult.cs" />
@@ -792,16 +795,14 @@
     <Content Include="App_Data\error-2019-03-11060403Z-96b21268-b0d8-4dd0-8954-793df0336f97.xml" />
     <Content Include="App_Data\error-2019-03-11060405Z-8cf2d4fb-6499-4c7a-9dec-3d1110617e25.xml" />
     <Content Include="App_Data\error-2019-03-11082011Z-12cb41b3-32de-4abf-ad60-88eca2a0c264.xml" />
-    <Content Include="App_Data\FitHouse.mdf" />
-    <Content Include="App_Data\FitHouse_log.ldf">
-      <DependentUpon>FitHouse.mdf</DependentUpon>
-    </Content>
     <Content Include="App_Readme\Elmah.txt" />
     <Content Include="Areas\HelpPage\HelpPage.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="MealMailTemplate.html" />
+    <Content Include="OrderMailTemplate.html" />
     <Content Include="MailTemplate.html" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />

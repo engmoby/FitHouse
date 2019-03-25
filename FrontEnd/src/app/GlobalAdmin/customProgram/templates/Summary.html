@@ -27,7 +27,7 @@
 											<li>{{'OrderCode' | translate}} :
 												<span>#{{CustomCtrl.order.orderCode}}</span>
 											</li>
-											<li>{{'Pricelbl' | translate}}: <span>{{CustomCtrl.order.price}} SR</span>
+											<li>{{'Pricelbl' | translate}}: <span>{{CustomCtrl.order.price | number:2}} SR</span>
 											</li>
 											<li>{{'Ordertype' | translate}} :
 												<span> ( {{CustomCtrl.order.isProgram ? 'Program' : 'Meal'}} ) </span>

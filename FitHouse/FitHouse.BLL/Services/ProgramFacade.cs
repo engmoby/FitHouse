@@ -123,6 +123,7 @@ namespace FitHouse.BLL.Services
                 det.ItemSizeId = detail.ItemSizeId;
                 //det.ProgramId = programObj.ProgramId;
                 det.MealNumberPerDay = detail.MealNumberPerDay;
+                det.ItemType = detail.ItemType;
                 detailInfo.Add(det);
             }
             programObj.ProgramDetails = detailInfo;

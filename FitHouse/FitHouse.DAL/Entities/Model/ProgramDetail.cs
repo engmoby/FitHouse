@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FitHouse.Common;
 using Repository.Pattern.Ef6;
 
 namespace FitHouse.DAL.Entities.Model
@@ -25,5 +26,6 @@ namespace FitHouse.DAL.Entities.Model
         public DateTime DayDateTime { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
+        public virtual Enums.ItemType ItemType { get; set; }
     }
 }

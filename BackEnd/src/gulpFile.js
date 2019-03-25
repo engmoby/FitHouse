@@ -252,7 +252,7 @@ gulp.task('copy-index', function() {
 gulp.task('serve', function() {
   gulp.src(paths.build)
     .pipe(webserver({
-      port: 9091,
+      port: 9092,
       host: 'localhost',
       livereload: true,
       open: true

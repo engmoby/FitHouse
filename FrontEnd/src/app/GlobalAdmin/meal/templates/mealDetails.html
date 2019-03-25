@@ -11,8 +11,8 @@
         });
     });
 </script>
-<div class="hp-banner">
-    <img src="images/detailed-banner.jpg" alt=""> </div>
+<!-- <div class="hp-banner">
+    <img src="images/detailed-banner.jpg" alt=""> </div> -->
 
 <div class="hom-com">
     <div class="container">
@@ -80,7 +80,8 @@
                                                     <span> {{'fat' | translate}}:{{detail.itemSize.fat}}</span>
                                                     <span> {{'carbs' | translate}}:{{detail.itemSize.carbs}}</span>
                                                     <span> {{'protein' | translate}}:{{detail.itemSize.protein}}</span>
-                                                    <span> {{'calories' | translate}}:{{detail.itemSize.calories}}</span>
+                                                    <span>
+                                                        {{'calories' | translate}}:{{detail.itemSize.calories}}</span>
                                                     <!-- <span>
                                                         {{'itemSize' |
                                                         translate}}:{{detail.itemSize.sizeNameDictionary[selectedLanguage]}}</span> -->
@@ -107,7 +108,8 @@
                                                 <span>{{calories}}</span>
                                             </li>
                                             <li>{{'Total' | translate}}:
-                                                <span style="width: 74px !important;" class="ov-yes">{{mealPrepService.mealPrice}}
+                                                <span style="width: 74px !important;"
+                                                    class="ov-yes">{{mealPrepService.mealPrice}}
                                                     SR</span>
                                             </li>
                                         </ul>
@@ -117,8 +119,8 @@
                                     <form name="orderForm">
                                         <div class="col-md-6">
                                             <h5>{{'startDate' | translate}}</h5>
-                                            <input name="itemDatetime" ng-model="itemDatetime" type="text" id="startdate"
-                                                class="form-control" ng-change="dateChange();" />
+                                            <input name="itemDatetime" ng-model="itemDatetime" type="text"
+                                                id="startdate" class="form-control" ng-change="dateChange();" />
                                         </div>
 
 
@@ -171,9 +173,9 @@
 
                                             <div class="row">
                                                 <div class="input-field col s2">
-                                                    <input required type="text" class="mat-input form-control"
-                                                        name="title" placeholder="{{'PromotionLbl' | translate}}"
-                                                        ng-model="Title" minlength="3" maxlength="255">
+                                                    <input type="text" class="mat-input form-control" name="title"
+                                                        placeholder="{{'PromotionLbl' | translate}}" ng-model="Title"
+                                                        minlength="3" maxlength="255">
                                                     <div ng-messages="orderForm.title.$error">
                                                         <div
                                                             ng-show="orderForm.title.$error.required && !orderForm.title.$pristine">

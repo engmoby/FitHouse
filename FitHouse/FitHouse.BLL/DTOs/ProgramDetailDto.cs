@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FitHouse.Common;
 
 namespace FitHouse.BLL.DTOs
 {
@@ -18,5 +19,7 @@ namespace FitHouse.BLL.DTOs
         public DateTime DayDateTime { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
+        public virtual Enums.ItemType ItemType { get; set; }
+
     }
 }

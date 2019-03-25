@@ -34,25 +34,32 @@
             Item,
             CustomProgram
         }
+
+        public enum ItemType
+        {
+            Normal,
+            BreakFast,
+            Snacks
+        }
         public enum Modules
         {
-           Role,
-           User,
-           Category,
-           Item,
-           Branch,
-           Meal,
-           Program
+            Role,
+            User,
+            Category,
+            Item,
+            Branch,
+            Meal,
+            Program
         }
         public enum Actions
         {
-           GetAll,
-           Create,
-           Update,
-           Edit,
-           Delete,
-           Activate,
-           Deactivate
+            GetAll,
+            Create,
+            Update,
+            Edit,
+            Delete,
+            Activate,
+            Deactivate
         }
     }
 }

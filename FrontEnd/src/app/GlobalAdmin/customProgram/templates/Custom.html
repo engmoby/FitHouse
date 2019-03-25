@@ -41,6 +41,170 @@
                                         </h4>
                                     </a>
                                 </div>
+                                <div ng-show="showDetails">
+
+                                    <div ng-if="CustomCtrl.IsBreakFast==true">
+                                        {{'Breakfast' | translate}}
+                                        <div class="row">
+                                            <div
+                                                class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                                <label for="first-name">{{'SelectCategory' | translate}}</label>
+                                                <select style="width:100% !important"
+                                                    class="form-control select-add-tags pmd-select2-tags"
+                                                    ng-model="meal.selectedCategoryId"
+                                                    ng-change="CustomCtrl.changeCategory(meal.selectedCategoryId,meal)">
+                                                    <option ng-repeat="category in CustomCtrl.categories"
+                                                        ng-value="{{category.categoryId}}">
+                                                        {{category.titleDictionary[selectedLanguage]}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div
+                                                class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                                <label for="first-name">{{'SelectItems' | translate}}</label>
+                                                <select style="width:100% !important"
+                                                    class="form-control select-add-tags pmd-select2-tags"
+                                                    ng-model="meal.selectedItem"
+                                                    ng-change="CustomCtrl.changeItem(meal.selectedItem.itemId,meal)">
+                                                    <option ng-repeat="item in meal.items" ng-value="{{item}}">
+                                                        {{item.itemNameDictionary[selectedLanguage]}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div
+                                                class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                                <label for="first-name">{{'selectSizeLbl' | translate}}</label>
+                                                <select style="width:100% !important"
+                                                    class="form-control select-add-tags pmd-select2-tags"
+                                                    ng-model="meal.selectedItemSize">
+                                                    <option ng-repeat="item in meal.itemSizes" ng-value="{{item}}">
+                                                        {{item.sizeNameDictionary[selectedLanguage]}}
+                                                    </option>
+                                                </select>
+                                            </div>
+
+                                            <div
+                                                class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                                <button
+                                                    style="background-color: #e4e5e6;color: black!important;     margin-top: 38px;"
+                                                    ng-disabled="meal.selectedCategoryId <= 0 || meal.selectedItem == null || meal.selectedItemSize == null"
+                                                    class="btn pmd-ripple-effect btn-primary" type="button"
+                                                    ng-click="getData(meal.selectedItemSize,counterDay,counterMeal,meal,'BreakFast')">
+                                                    {{'addItemBtn' | translate}}</button>
+                                            </div>
+                                        </div>
+                                        <div
+                                            class=" form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+
+                                            <table class="table pmd-table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>{{'Name' | translate}}</th>
+                                                        <th>{{'itemSize' | translate}}</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="itemSize in meal.selectedItemList">
+                                                        <td data-title="Name" width="15%">
+                                                            {{itemSize.itemNameDictionary[selectedLanguage] | limitTo:10}}
+                                                        </td>
+                                                        <td data-title="Description">
+                                                            {{itemSize.sizeNameDictionary[selectedLanguage]}}
+                                                        </td>
+                                                        <td><i class="material-icons pmd-md deleteButton cursorPointer font25"
+                                                                ng-click="CustomCtrl.removeItem(itemSize,meal)">delete</i>
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <input type="number" name="ddl{{counterDay}}{{counterMeal}}" hidden
+                                            ng-model="meal.selectedItemList.length" min="1" required>
+                                    </div>
+                                    <div ng-if="CustomCtrl.IsSnack==true">
+                                        {{'Snack' | translate}}
+                                        <div class="row">
+                                            <div
+                                                class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                                <label for="first-name">{{'SelectCategory' | translate}}</label>
+                                                <select style="width:100% !important"
+                                                    class="form-control select-add-tags pmd-select2-tags"
+                                                    ng-model="meal.selectedCategoryId"
+                                                    ng-change="CustomCtrl.changeCategory(meal.selectedCategoryId,meal)">
+                                                    <option ng-repeat="category in CustomCtrl.categories"
+                                                        ng-value="{{category.categoryId}}">
+                                                        {{category.titleDictionary[selectedLanguage]}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div
+                                                class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                                <label for="first-name">{{'SelectItems' | translate}}</label>
+                                                <select style="width:100% !important"
+                                                    class="form-control select-add-tags pmd-select2-tags"
+                                                    ng-model="meal.selectedItem"
+                                                    ng-change="CustomCtrl.changeItem(meal.selectedItem.itemId,meal)">
+                                                    <option ng-repeat="item in meal.items" ng-value="{{item}}">
+                                                        {{item.itemNameDictionary[selectedLanguage]}}
+                                                    </option>
+                                                </select>
+                                            </div>
+                                            <div
+                                                class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                                <label for="first-name">{{'selectSizeLbl' | translate}}</label>
+                                                <select style="width:100% !important"
+                                                    class="form-control select-add-tags pmd-select2-tags"
+                                                    ng-model="meal.selectedItemSize">
+                                                    <option ng-repeat="item in meal.itemSizes" ng-value="{{item}}">
+                                                        {{item.sizeNameDictionary[selectedLanguage]}}
+                                                    </option>
+                                                </select>
+                                            </div>
+
+                                            <div
+                                                class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                                <button
+                                                    style="background-color: #e4e5e6;color: black!important;     margin-top: 38px;"
+                                                    ng-disabled="meal.selectedCategoryId <= 0 || meal.selectedItem == null || meal.selectedItemSize == null"
+                                                    class="btn pmd-ripple-effect btn-primary" type="button"
+                                                    ng-click="getData(meal.selectedItemSize,counterDay,counterMeal,meal,'Snacks')">
+                                                    {{'addItemBtn' | translate}}</button>
+                                            </div>
+                                        </div>
+
+                                        <div
+                                            class=" form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+
+                                            <table class="table pmd-table table-hover">
+                                                <thead>
+                                                    <tr>
+                                                        <th>{{'Name' | translate}}</th>
+                                                        <th>{{'itemSize' | translate}}</th>
+                                                        <th></th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody>
+                                                    <tr ng-repeat="itemSize in meal.selectedItemList">
+                                                        <td data-title="Name" width="15%">
+                                                            {{itemSize.itemNameDictionary[selectedLanguage] | limitTo:10}}
+                                                        </td>
+                                                        <td data-title="Description">
+                                                            {{itemSize.sizeNameDictionary[selectedLanguage]}}
+                                                        </td>
+                                                        <td><i class="material-icons pmd-md deleteButton cursorPointer font25"
+                                                                ng-click="CustomCtrl.removeItem(itemSize,meal)">delete</i>
+                                                        </td>
+
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                        <input type="number" name="ddl{{counterDay}}{{counterMeal}}" hidden
+                                            ng-model="meal.selectedItemList.length" min="1" required>
+                                    </div>
+                                </div>
 
                                 <div ng-show="n == true" id="collapseOne6" class="panel-collapse collapse in"
                                     role="tabpanel" aria-labelledby="headingOne">
@@ -59,7 +223,6 @@
                                                         </a>
                                                     </h3>
 
-
                                                     <!-- </div> -->
 
 
@@ -67,62 +230,92 @@
                                                     <!--SERVICES SECTION-->
                                                     <!--END SERVICES SECTION-->
                                                 </div>
+
                                                 <!--END EVENT-->
 
                                                 <div ng-show="showDetails">
-                                                        <div class="row">
-                                                                <div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-                                                                    <label for="first-name">{{'SelectCategory' | translate}}</label>
-                                                                    <select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags"
-                                                                        ng-model="meal.selectedCategoryId" ng-change="CustomCtrl.changeCategory(meal.selectedCategoryId,meal)">
-                                                                        <option ng-repeat="category in CustomCtrl.categories"
-                                                                            ng-value="{{category.categoryId}}">{{category.titleDictionary[selectedLanguage]}}</option>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-                                                                    <label for="first-name">{{'SelectItems' | translate}}</label>
-                                                                    <select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags"
-                                                                        ng-model="meal.selectedItem" ng-change="CustomCtrl.changeItem(meal.selectedItem.itemId,meal)">
-                                                                        <option ng-repeat="item in meal.items" ng-value="{{item}}">{{item.itemNameDictionary[selectedLanguage]}}</option>
-                                                                    </select>
-                                                                </div>
-                                                                <div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-                                                                    <label for="first-name">{{'selectSizeLbl' | translate}}</label>
-                                                                    <select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags"
-                                                                        ng-model="meal.selectedItemSize">
-                                                                        <option ng-repeat="item in meal.itemSizes" ng-value="{{item}}">{{item.sizeNameDictionary[selectedLanguage]}}</option>
-                                                                    </select>
-                                                                </div>
-                
-                                                                <div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-                                                                    <button style="background-color: #e4e5e6;color: black!important;     margin-top: 38px;"
-                                                                        ng-disabled="meal.selectedCategoryId <= 0 || meal.selectedItem == null || meal.selectedItemSize == null"
-                                                                        class="btn pmd-ripple-effect btn-primary" type="button"
-                                                                        ng-click="getData(meal.selectedItemSize,counterDay,counterMeal,meal)">
-                                                                        {{'addItemBtn' | translate}}</button>
-                                                                </div>
-                                                            </div>
-                                                            <div class=" form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                                    <div class="row">
+                                                        <div
+                                                            class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                                            <label
+                                                                for="first-name">{{'SelectCategory' | translate}}</label>
+                                                            <select style="width:100% !important"
+                                                                class="form-control select-add-tags pmd-select2-tags"
+                                                                ng-model="meal.selectedCategoryId"
+                                                                ng-change="CustomCtrl.changeCategory(meal.selectedCategoryId,meal)">
+                                                                <option ng-repeat="category in CustomCtrl.categories"
+                                                                    ng-value="{{category.categoryId}}">
+                                                                    {{category.titleDictionary[selectedLanguage]}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                        <div
+                                                            class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                                            <label
+                                                                for="first-name">{{'SelectItems' | translate}}</label>
+                                                            <select style="width:100% !important"
+                                                                class="form-control select-add-tags pmd-select2-tags"
+                                                                ng-model="meal.selectedItem"
+                                                                ng-change="CustomCtrl.changeItem(meal.selectedItem.itemId,meal)">
+                                                                <option ng-repeat="item in meal.items"
+                                                                    ng-value="{{item}}">
+                                                                    {{item.itemNameDictionary[selectedLanguage]}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
+                                                        <div
+                                                            class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                                            <label
+                                                                for="first-name">{{'selectSizeLbl' | translate}}</label>
+                                                            <select style="width:100% !important"
+                                                                class="form-control select-add-tags pmd-select2-tags"
+                                                                ng-model="meal.selectedItemSize">
+                                                                <option ng-repeat="item in meal.itemSizes"
+                                                                    ng-value="{{item}}">
+                                                                    {{item.sizeNameDictionary[selectedLanguage]}}
+                                                                </option>
+                                                            </select>
+                                                        </div>
 
-                                                                    <table class="table pmd-table table-hover">
-                                                                        <thead>
-                                                                            <tr>
-                                                                                <th>{{'Name' | translate}}</th>
-                                                                                <th>{{'itemSize' | translate}}</th>
-                                                                                <th></th>
-                                                                            </tr>
-                                                                        </thead>
-                                                                        <tbody>
-                                                                            <tr ng-repeat="itemSize in meal.selectedItemList">
-                                                                                <td data-title="Name" width="15%">{{itemSize.itemNameDictionary[selectedLanguage] | limitTo:10}}</td>
-                                                                                <td data-title="Description">{{itemSize.sizeNameDictionary[selectedLanguage]}}</td>
-                                                                                <td><i class="material-icons pmd-md deleteButton cursorPointer font25" ng-click="CustomCtrl.removeItem(itemSize,meal)">delete</i></td>
-                                                    
-                                                                            </tr>
-                                                                        </tbody>
-                                                                    </table>
-                                                                </div>
-                                                                <input type="number" name="ddl{{counterDay}}{{counterMeal}}" hidden  ng-model="meal.selectedItemList.length" min="1" required>
+                                                        <div
+                                                            class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                                            <button
+                                                                style="background-color: #e4e5e6;color: black!important;     margin-top: 38px;"
+                                                                ng-disabled="meal.selectedCategoryId <= 0 || meal.selectedItem == null || meal.selectedItemSize == null"
+                                                                class="btn pmd-ripple-effect btn-primary" type="button"
+                                                                ng-click="getData(meal.selectedItemSize,counterDay,counterMeal,meal,'Normal')">
+                                                                {{'addItemBtn' | translate}}</button>
+                                                        </div>
+                                                    </div>
+                                                    <div
+                                                        class=" form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+
+                                                        <table class="table pmd-table table-hover">
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>{{'Name' | translate}}</th>
+                                                                    <th>{{'itemSize' | translate}}</th>
+                                                                    <th></th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody>
+                                                                <tr ng-repeat="itemSize in meal.selectedItemList">
+                                                                    <td data-title="Name" width="15%">
+                                                                        {{itemSize.itemNameDictionary[selectedLanguage] | limitTo:10}}
+                                                                    </td>
+                                                                    <td data-title="Description">
+                                                                        {{itemSize.sizeNameDictionary[selectedLanguage]}}
+                                                                    </td>
+                                                                    <td><i class="material-icons pmd-md deleteButton cursorPointer font25"
+                                                                            ng-click="CustomCtrl.removeItem(itemSize,meal)">delete</i>
+                                                                    </td>
+
+                                                                </tr>
+                                                            </tbody>
+                                                        </table>
+                                                    </div>
+                                                    <input type="number" name="ddl{{counterDay}}{{counterMeal}}" hidden
+                                                        ng-model="meal.selectedItemList.length" min="1" required>
                                                     <!-- <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                                                         <label for="first-name">{{'SelectItems' | translate}}</label>
                                                         <select required name="ddl{{counterDay}}{{counterMeal}}"
@@ -283,7 +476,7 @@
 
                 <div class="row">
                     <div class="input-field col s2">
-                        <input required type="text" class="mat-input form-control" name="title"
+                        <input type="text" class="mat-input form-control" name="title"
                             placeholder="{{'PromotionLbl' | translate}}" ng-model="Title" minlength="3" maxlength="255">
                         <div ng-messages="stepTwoProgramForm.title.$error">
                             <div

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using FitHouse.Common;
 
 namespace FitHouse.API.Models
 {
@@ -17,5 +18,7 @@ namespace FitHouse.API.Models
         public DateTime DayDateTime { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
+        public virtual Enums.ItemType ItemType { get; set; }
+
     }
 }

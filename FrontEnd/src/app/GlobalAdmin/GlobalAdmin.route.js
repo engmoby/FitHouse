@@ -158,7 +158,8 @@
                     'controllerAs': 'CustomCtrl',
                     resolve: {
                         AllcategoriesPrepService: AllcategoriesPrepService,
-                        CountriesPrepService: CountriesPrepService
+                        CountriesPrepService: CountriesPrepService,
+                        AllcategoriesPrepService: AllcategoriesPrepService
                     }
                 })
 
@@ -169,7 +170,8 @@
                     'controllerAs': 'CustomCtrl',
                     resolve: {
                         itemsPrepService: itemsPrepService,
-                        CountriesPrepService: CountriesPrepService
+                        CountriesPrepService: CountriesPrepService,
+                        AllcategoriesPrepService: AllcategoriesPrepService
                     }
                 })
 

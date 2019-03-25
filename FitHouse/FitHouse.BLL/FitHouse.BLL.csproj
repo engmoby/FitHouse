@@ -102,6 +102,7 @@
     <Compile Include="DataServices\Interfaces\IAddressService.cs" />
     <Compile Include="DataServices\Interfaces\ILogService.cs" />
     <Compile Include="DataServices\Interfaces\IItemSizeService.cs" />
+    <Compile Include="DataServices\Interfaces\IPromotionService.cs" />
     <Compile Include="DataServices\Interfaces\ISizeService.cs" />
     <Compile Include="DataServices\Interfaces\ISizeTranslationService.cs" />
     <Compile Include="DataServices\ItemSizeService.cs" />
@@ -158,6 +159,7 @@
     <Compile Include="DataServices\ProgramDetailService.cs" />
     <Compile Include="DataServices\ProgramService.cs" />
     <Compile Include="DataServices\ProgramTranslationService.cs" />
+    <Compile Include="DataServices\PromotionService.cs" />
     <Compile Include="DataServices\RegionService.cs" />
     <Compile Include="DataServices\RegionTranslationService.cs" />
     <Compile Include="DataServices\SettingService.cs" />
@@ -194,6 +196,7 @@
     <Compile Include="DTOs\MealDetailDto.cs" />
     <Compile Include="DTOs\MealDto.cs" />
     <Compile Include="DTOs\OrderFullDto.cs" />
+    <Compile Include="DTOs\PromotionDto.cs" />
     <Compile Include="DTOs\SettingDto.cs" />
     <Compile Include="DTOs\SizeDto.cs" />
     <Compile Include="DTOs\StatusDto.cs" />
@@ -216,6 +219,7 @@
     <Compile Include="FitHouseBLLConfig.cs" />
     <Compile Include="Services\Interfaces\ILogFacade.cs" />
     <Compile Include="Services\Interfaces\IAddressFacade.cs" />
+    <Compile Include="Services\Interfaces\IPromotionFacade.cs" />
     <Compile Include="Services\Interfaces\ISizeFacade.cs" />
     <Compile Include="Services\LogFacade.cs" />
     <Compile Include="Services\CityFacade.cs" />
@@ -252,6 +256,7 @@
     <Compile Include="Services\ProgExcludeDayFacade.cs" />
     <Compile Include="Services\ProgramDetailFacade.cs" />
     <Compile Include="Services\ProgramFacade.cs" />
+    <Compile Include="Services\PromotionFacade.cs" />
     <Compile Include="Services\RefreshTokenFacade.cs" />
     <Compile Include="Services\PermissionFacade.cs" />
     <Compile Include="Services\RegionFacade.cs" />

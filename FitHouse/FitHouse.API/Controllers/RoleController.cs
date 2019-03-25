@@ -29,11 +29,9 @@ namespace FitHouse.API.Controllers
         [HttpGet]
         public IHttpActionResult GetAllRoles(int page = Page, int pagesize = PageSize)
         {
-          //  MailHelper.SendMail("goodmoin", "hello", "m.abdo@gmggroupsoft.com");
-           //MailHelper.PopulateBody("goodmoin", "http://fithouse-testing.azurewebsites.net","Abdo","12345678", "a.tarek@gmggroupsoft.com"); 
-            PagedResultsDto roleObj = _roleFacade.GetAllRoles(page, pagesize,UserId);
+            PagedResultsDto roleObj = _roleFacade.GetAllRoles(page, pagesize, UserId);
             var data = Mapper.Map<List<RoleModel>>(roleObj.Data);
-            return PagedResponse("GetAllRoles", page, pagesize, roleObj.TotalCount, data );
+            return PagedResponse("GetAllRoles", page, pagesize, roleObj.TotalCount, data);
         }
 
         [Route("api/Roles/GetAllActivateRoles", Name = "GetAllGetAllActivateRolesRoles")]
@@ -66,7 +64,7 @@ namespace FitHouse.API.Controllers
                 var checkIfUsed = _userRoleService.Queryable().Where(x => x.RoleId == roleModel.RoleId);
                 if (checkIfUsed.Any())
                 {
-                    throw new ValidationException(ErrorCodes.RecordIsUsedInAnotherModule); 
+                    throw new ValidationException(ErrorCodes.RecordIsUsedInAnotherModule);
                 }
             }
 
