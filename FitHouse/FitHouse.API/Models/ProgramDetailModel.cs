@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using FitHouse.Common;
 
 namespace FitHouse.API.Models
 {
@@ -9,13 +10,15 @@ namespace FitHouse.API.Models
     {
         public long ProgramDetailId { get; set; }
         public long ProgramId { get; set; }
-        public long ItemId { get; set; }
+        public long ItemSizeId { get; set; }
         //public ProgramModel Program { get; set; }
-        //public ItemModel Item { get; set; }
+         public ItemSizeModel ItemSize { get; set; }
         public long DayNumber { get; set; }
         public long MealNumberPerDay { get; set; }
         public DateTime DayDateTime { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
+        public virtual Enums.ItemType ItemType { get; set; }
+
     }
 }

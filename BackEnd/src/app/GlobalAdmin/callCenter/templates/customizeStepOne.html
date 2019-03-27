@@ -3,6 +3,7 @@
         $(".select-add-tags").select2({
             tags: true,
             theme: "bootstrap",
+            maximumSelectionLength: 5,
             insertTag: function (data, tag) {
                 // Insert the tag at the end of the results
                 data.push(tag);
@@ -10,14 +11,14 @@
             }
         });
 
-        $(".select-tags").select2({
-            tags: false,
-            theme: "bootstrap",
-        });
+        // $(".select-tags").select2({
+        //     tags: false,
+        //     theme: "bootstrap",
+        //     maximumSelectionSize: 3  });
 
-        $(".select-with-search").select2({
-            theme: "bootstrap"
-        });
+        // $(".select-with-search").select2({
+        //     theme: "bootstrap",
+        //     maximumSelectionSize: 3  });
     });
 
     $(function () {
@@ -71,9 +72,11 @@
                 </div> -->
                 <div class="row">
                     <div class="col-md-12">
-                        <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                        <div
+                            class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                             <label for="first-name">{{'SelectExcludeDays' | translate}}</label>
-                            <select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" multiple ng-model="orderCustomizeProgramCtrl.SelectedDays"
+                            <select style="width:100% !important" class="form-control select-add-tags"
+                                multiple ng-model="orderCustomizeProgramCtrl.SelectedDays"
                                 ng-options="day as day.dayNameDictionary[selectedLanguage] for day in orderCustomizeProgramCtrl.dayList">
                             </select>
                         </div>
@@ -93,22 +96,17 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-9"></div>
-        <div class="col-md-1">
-            <div>
-                <button style="background-color: #e4e5e6;color: black!important;" class="btn pmd-ripple-effect btn-primary" type="button"
-                    ng-click="$state.go('callCenter');">{{'Back' | translate}}</button>
-            </div>
-        </div>
+    <div class="pmd-modal-action text-right">
 
-        <div class="col-md-1">
-            <div>
-                <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="newProgramForm.$invalid" class="btn pmd-ripple-effect btn-primary"
-                    type="button" ng-click="orderCustomizeProgramCtrl.gotoStep(2); orderCustomizeProgramCtrl.GetBranchDelivery();">
-                    {{'next' | translate}}</button>
-            </div>
-        </div>
+        <button style="background-color: #e4e5e6;color: black!important;" class="btn pmd-ripple-effect btn-primary"
+            type="button" ng-click="$state.go('callCenter');">{{'PreviousStep' | translate}}</button>
+
+
+        <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="newProgramForm.$invalid"
+            class="btn pmd-ripple-effect btn-primary" type="button"
+            ng-click="orderCustomizeProgramCtrl.gotoStep(2); orderCustomizeProgramCtrl.GetBranchDelivery();">
+            {{'NextStep' | translate}}</button>
+
     </div>
 </form>
 <!-- -------------------- -->

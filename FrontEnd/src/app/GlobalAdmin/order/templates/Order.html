@@ -6,7 +6,7 @@
             <!--TYPOGRAPHY SECTION-->
             <div class="col-md-12">
                 <div class="head-typo typo-com">
-                    <h3>{{'OrderHistory' | translate}}</h3>
+                    <h3>{{'History' | translate}}</h3>
 
                     <div ng-if="OrderList.results.length == 0">
                         <span>{{'NoOrdersAvailable' | translate}}</span>
@@ -19,7 +19,7 @@
                                     <th>{{'OrderCode' | translate}}</th>
                                     <th>{{'Date' | translate}}</th>
                                     <th>{{'startDate' | translate}}</th>
-                                    <th>{{'Price' | translate}}</th>
+                                    <th>{{'Pricelbl' | translate}}</th>
                                     <th>{{'Delvery/Takeaway' | translate}}</th>
                                     <th>{{'Ordertype' | translate}}</th>
                                     <th>{{'status' | translate}}</th>
@@ -33,7 +33,7 @@
                                     <td data-title="Name">{{order.orderDate | date : "d/MMM/yy h:mm a" }} </td>
                                     <td data-title="Name">{{order.orderStartDate | date : "d/MMM/yy h:mm a"}} </td>
                                     <td data-title="Name"> 
-                                        <h4>{{ order.price}}</h4>
+                                        <h4>{{ order.price}} SR</h4>
                                     </td>
                                     <td data-title="Name">
                                         <img ng-if="order.isDelivery == true" src="assets\img\delivery.png"

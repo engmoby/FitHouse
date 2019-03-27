@@ -8,9 +8,9 @@ namespace FitHouse.BLL.DTOs
         public long MealDetailId { get; set; }
          
         public long MealId { get; set; } 
-        public long ItemId { get; set; }
+        public long ItemSizeId { get; set; }
      //   public virtual MealDto Meal { get; set; }
-        public virtual ItemDto Item { get; set; }
+        public virtual ItemSizeDto ItemSize { get; set; }
         public long IsDeleted { get; set; }
         public bool IsActive { get; set; }
     }

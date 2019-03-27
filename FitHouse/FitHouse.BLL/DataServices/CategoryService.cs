@@ -32,5 +32,11 @@ namespace FitHouse.BLL.DataServices
             var categories = _repository.Query(x => !x.IsDeleted && x.IsActive).Select().ToList();
             return categories;
         }
+
+        public List<Category> GetAllActiveCategories()
+        {
+            var categories = _repository.Query(x => !x.IsDeleted && x.IsActive && x.Items.Count > 0).Select().ToList();
+            return categories;
+        }
     }
 }

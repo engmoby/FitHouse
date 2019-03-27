@@ -15,7 +15,7 @@
 .bootstrap-datetimepicker-widget table th { height: 32px; line-height: 32px; width: 32px; font-weight: normal; opacity: 0.74;}
 .bootstrap-datetimepicker-widget table td.today:before { display:none;}
 
-.bootstrap-datetimepicker-widget .accordion-toggle { text-align: center; background-color: #3472d8;}
+.bootstrap-datetimepicker-widget .accordion-toggle { text-align: center; background-color: #aa5195;}
 .bootstrap-datetimepicker-widget .accordion-toggle a { color: #fff; display:inline-block; padding:3px 0; cursor:pointer;}
 .bootstrap-datetimepicker-widget .accordion-toggle a:hover { background:none; color:#fff;} 
 .bootstrap-datetimepicker-widget table th.picker-switch { width: 145px; font-weight: bold; color: #000; }
@@ -50,7 +50,7 @@
 .timepicker .timeview { font-size: 42px;}
 
 /*google materail themes*/
-.topdateinfo{ background-color:#4285f4; text-align:center; color:#fff; line-height:1.0}
+.topdateinfo{ background-color:#aa5195; text-align:center; color:#fff; line-height:1.0;display: none;}
 .topdateinfo .dayname{ background-color:#3472d8; padding:8px 0; margin-bottom:0;}
 .topdateinfo .monthonly{ font-size:1.6rem; text-transform:uppercase;}
 .topdateinfo .dateonly{ font-size:3.5rem;}
@@ -101,7 +101,7 @@
 
 .timeview{ line-height:1;}
 .timepicker{ text-align:center;}
-.timepicker-picker{ background-color:#4285f4; color:#fff; font-size:3.5rem; padding-bottom:5px;}
+.timepicker-picker{ background-color:#aa5195; color:#fff; font-size:3.5rem; padding-bottom:5px;}
 .ampmvalue{ font-size:0.8125rem;}
 .timepicker-hours, .ampmview, .timepicker-minutes{ background-color:#fff;}
 .uparrow, .downarrow{ text-align:left; padding-left:42px;}
@@ -115,7 +115,7 @@
 
 
 /*bootstrap-datetimepicker*/
-.bootstrap-datetimepicker-widget{ z-index:999; width:300px; -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.16), 0 1px 3px 0 rgba(0, 0, 0, 0.12); -moz-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.16), 0 1px 3px 0 rgba(0, 0, 0, 0.12); box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.16), 0 1px 3px 0 rgba(0, 0, 0, 0.12);}
+.bootstrap-datetimepicker-widget{direction: ltr;  z-index:999; width:300px; -webkit-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.16), 0 1px 3px 0 rgba(0, 0, 0, 0.12); -moz-box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.16), 0 1px 3px 0 rgba(0, 0, 0, 0.12); box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.16), 0 1px 3px 0 rgba(0, 0, 0, 0.12);}
 
 .modal .bootstrap-datetimepicker-widget { box-shadow:none;}
 
@@ -167,7 +167,7 @@
 .bootstrap-datetimepicker-widget table td.second.active:hover span,
 .bootstrap-datetimepicker-widget table td.active span, 
 .bootstrap-datetimepicker-widget table td.active span:hover,
-.bootstrap-datetimepicker-widget table td span.active { background-color:#4285f4;}
+.bootstrap-datetimepicker-widget table td span.active { background-color:#aa5195;}
 
 .bootstrap-datetimepicker-widget table td.day.active:hover { color:#fff;}
 
@@ -212,12 +212,12 @@
 .timepicker .ampmview .btn-group .btn.active { opacity:1;}
 .timepicker .secondHnad,
 .timepicker .minuteHnad,
-.timepicker .hourHnad { position: absolute; top: 50%; left: 50%; height: 2px; background: #4285f4; right: 25px;	transform-origin: center left; -moz-transform-origin: center left; -ms-transform-origin: center left; -o-transform-origin: center left; -webkit-transform-origin: center left; transition:all ease-in-out 0.3s; }
+.timepicker .hourHnad { position: absolute; top: 50%; left: 50%; height: 2px; background: #aa5195; right: 25px;	transform-origin: center left; -moz-transform-origin: center left; -ms-transform-origin: center left; -o-transform-origin: center left; -webkit-transform-origin: center left; transition:all ease-in-out 0.3s; }
 .bootstrap-datetimepicker-widget .table-condensed .picker-switch { padding-top:8px;}
 
 .clockpickerseconds,
 .clockpickerr,
-.clockpickerminute { border-radius:500px; -moz-border-radius:500px; -ms-border-radius:500px; -webkit-border-radius:500px; -o-border-radius:500px; width: 270px; height: 270px; margin:30px 0; /* background:url(sm.png) center no-repeat; background-size:auto 77%;*/}
+.clockpickerminute { border-radius:500px; -moz-border-radius:500px; -ms-border-radius:500px; -webkit-border-radius:500px; -o-border-radius:500px; width: 270px; height: 270px; margin:10px 0; /* background:url(sm.png) center no-repeat; background-size:auto 77%;*/}
 
 
 .timepicker .clockpickerseconds .second,
@@ -230,10 +230,10 @@
 
 .timepicker .secondHnad:before,
 .timepicker .minuteHnad:before,
-.timepicker .hourHnad:before { width:7px; height:7px; content:""; left:-3px; top:50%; position:absolute; background:#4285f4; transform:translateY(-50%); -moz-transform:translateY(-50%); -ms-transform:translateY(-50%); -o-transform:translateY(-50%); -webkit-transform:translateY(-50%); border-radius:25px; -moz-border-radius:25px; -ms-border-radius:25px; -o-border-radius:25px; -webkit-border-radius:25px; }
+.timepicker .hourHnad:before { width:7px; height:7px; content:""; left:-3px; top:50%; position:absolute; background:#aa5195; transform:translateY(-50%); -moz-transform:translateY(-50%); -ms-transform:translateY(-50%); -o-transform:translateY(-50%); -webkit-transform:translateY(-50%); border-radius:25px; -moz-border-radius:25px; -ms-border-radius:25px; -o-border-radius:25px; -webkit-border-radius:25px; }
 .timepicker .secondHnad:after,
 .timepicker .minuteHnad:after,
-.timepicker .hourHnad:after { position: absolute; content: ""; width: 40px; height: 40px; background: #4285f4; right: 0; top: 50%; transform: translate(50%,-50%); -moz-transform: translate(50%,-50%);-ms-transform: translate(50%,-50%);-o-transform: translate(50%,-50%);-webkit-transform: translate(50%,-50%); border-radius: 50px; -moz-border-radius: 50px; -ms-border-radius: 50px; -o-border-radius: 50px; -webkit-border-radius: 50px;}
+.timepicker .hourHnad:after { position: absolute; content: ""; width: 40px; height: 40px; background: #aa5195; right: 0; top: 50%; transform: translate(50%,-50%); -moz-transform: translate(50%,-50%);-ms-transform: translate(50%,-50%);-o-transform: translate(50%,-50%);-webkit-transform: translate(50%,-50%); border-radius: 50px; -moz-border-radius: 50px; -ms-border-radius: 50px; -o-border-radius: 50px; -webkit-border-radius: 50px;}
 
 
 .timepicker .hourHnad.hourHnad-00,

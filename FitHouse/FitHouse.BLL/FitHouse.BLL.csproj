@@ -101,6 +101,11 @@
     <Compile Include="DataServices\AddressService.cs" />
     <Compile Include="DataServices\Interfaces\IAddressService.cs" />
     <Compile Include="DataServices\Interfaces\ILogService.cs" />
+    <Compile Include="DataServices\Interfaces\IItemSizeService.cs" />
+    <Compile Include="DataServices\Interfaces\IPromotionService.cs" />
+    <Compile Include="DataServices\Interfaces\ISizeService.cs" />
+    <Compile Include="DataServices\Interfaces\ISizeTranslationService.cs" />
+    <Compile Include="DataServices\ItemSizeService.cs" />
     <Compile Include="DataServices\LogService.cs" />
     <Compile Include="DataServices\Interfaces\IOrderService.cs" />
     <Compile Include="DataServices\Interfaces\IOrderDetailsService.cs" />
@@ -154,9 +159,12 @@
     <Compile Include="DataServices\ProgramDetailService.cs" />
     <Compile Include="DataServices\ProgramService.cs" />
     <Compile Include="DataServices\ProgramTranslationService.cs" />
+    <Compile Include="DataServices\PromotionService.cs" />
     <Compile Include="DataServices\RegionService.cs" />
     <Compile Include="DataServices\RegionTranslationService.cs" />
     <Compile Include="DataServices\SettingService.cs" />
+    <Compile Include="DataServices\SizeService.cs" />
+    <Compile Include="DataServices\SizeTranslationService.cs" />
     <Compile Include="DataServices\UserRoleService.cs" />
     <Compile Include="DataServices\RolePermissionService.cs" />
     <Compile Include="DataServices\RoleService.cs" />
@@ -168,6 +176,7 @@
     <Compile Include="DataServices\BranchTranslationService.cs" />
     <Compile Include="DataServices\RefreshTokenService.cs" />
     <Compile Include="DataServices\UserService.cs" />
+    <Compile Include="DTOs\ItemSizeDto.cs" />
     <Compile Include="DTOs\LogDto.cs" />
     <Compile Include="DTOs\AddressDto.cs" />
     <Compile Include="DTOs\AdminDto.cs" />
@@ -187,7 +196,9 @@
     <Compile Include="DTOs\MealDetailDto.cs" />
     <Compile Include="DTOs\MealDto.cs" />
     <Compile Include="DTOs\OrderFullDto.cs" />
+    <Compile Include="DTOs\PromotionDto.cs" />
     <Compile Include="DTOs\SettingDto.cs" />
+    <Compile Include="DTOs\SizeDto.cs" />
     <Compile Include="DTOs\StatusDto.cs" />
     <Compile Include="DTOs\PagedResultsDto.cs" />
     <Compile Include="DTOs\ProgExcludeDayDto.cs" />
@@ -208,6 +219,8 @@
     <Compile Include="FitHouseBLLConfig.cs" />
     <Compile Include="Services\Interfaces\ILogFacade.cs" />
     <Compile Include="Services\Interfaces\IAddressFacade.cs" />
+    <Compile Include="Services\Interfaces\IPromotionFacade.cs" />
+    <Compile Include="Services\Interfaces\ISizeFacade.cs" />
     <Compile Include="Services\LogFacade.cs" />
     <Compile Include="Services\CityFacade.cs" />
     <Compile Include="Services\CountryFacade.cs" />
@@ -243,6 +256,7 @@
     <Compile Include="Services\ProgExcludeDayFacade.cs" />
     <Compile Include="Services\ProgramDetailFacade.cs" />
     <Compile Include="Services\ProgramFacade.cs" />
+    <Compile Include="Services\PromotionFacade.cs" />
     <Compile Include="Services\RefreshTokenFacade.cs" />
     <Compile Include="Services\PermissionFacade.cs" />
     <Compile Include="Services\RegionFacade.cs" />
@@ -252,6 +266,7 @@
     <Compile Include="Services\BranchFacade.cs" />
     <Compile Include="Services\AddressFacade.cs" />
     <Compile Include="Services\SettingFacade.cs" />
+    <Compile Include="Services\SizeFacade.cs" />
     <Compile Include="Services\UserFacade.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

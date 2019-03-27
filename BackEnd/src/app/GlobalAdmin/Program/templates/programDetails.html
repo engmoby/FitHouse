@@ -1,12 +1,15 @@
 <div ng-init="counterDay = 0; counterMeal = 0">
-    <div class="panel-group pmd-accordion pmd-accordion-inbox" id="accordion6" role="tablist" aria-multiselectable="true">
+    <div class="panel-group pmd-accordion pmd-accordion-inbox" id="accordion6" role="tablist"
+        aria-multiselectable="true">
         <!-- {{programDetailsCtrl.programDetails.programDays}} / {{programDetailsCtrl.programDetails.noOfMeals}} -->
-        <div ng-repeat="n in [].constructor(programDetailsCtrl.programDetails.programDays)  track by $index" class="panel panel-default">
+        <div ng-repeat="n in [].constructor(programDetailsCtrl.programDetails.programDays)  track by $index"
+            class="panel panel-default">
             <div class="panel-heading" role="tab" id="headingOne">
                 <h4 class="panel-title">
-                    <a ng-init="counterDay=counterDay+1;" data-toggle="collapse" data-parent="#accordion6" ng-init="n=false"
-                        ng-click="n=!n;" aria-expanded="true" aria-controls="collapseOne6" data-expandable="false">
-                        {{'Day' | translate}} #{{counterDay=$index+1}}
+                    <a ng-init="counterDay=counterDay+1;" data-toggle="collapse" data-parent=" accordion6"
+                        ng-init="n=false" ng-click="n=!n;" aria-expanded="true" aria-controls="collapseOne6"
+                        data-expandable="false">
+                        {{'Day' | translate}} {{counterDay=$index+1}}
                         <i class="material-icons md-dark pmd-sm pmd-accordion-arrow">keyboard_arrow_down</i>
                     </a>
                 </h4>
@@ -15,22 +18,33 @@
                 aria-labelledby="headingOne">
                 <div class="panel-body">
                     <ul>
-
-                        <li ng-repeat="meal in [].constructor(programDetailsCtrl.programDetails.noOfMeals)  track by $index">
+                        <li
+                            ng-repeat="meal in [].constructor(programDetailsCtrl.programDetails.noOfMeals)  track by $index">
                             <h4>
-                                <a ng-init="counterMeal=counterMeal+1;" ng-click="showDetails = ! showDetails; programDetailsCtrl.showDDL(); ">{{'Meal'
-                                    | translate}} #{{counterMeal=$index+1}}</a>
-                                <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="programDetailsCtrl.ShowProgramMeal(programDetailsCtrl.programDetails.programId, counterDay, counterMeal)">mode_edit</i>
-                                <!-- {{programDetailsCtrl.programDetails.programId}}, {{counterDay}}, {{counterMeal}} -->
+                                <a ng-init="counterMeal=counterMeal+1;"
+                                    ng-click="showDetails = ! showDetails; programDetailsCtrl.showDDL(); ">{{'Meal' | translate}}
+                                    {{counterMeal=$index+1}}</a>
+                                <i class="material-icons md-dark pmd-md cursorPointer font25"
+                                    ng-click="programDetailsCtrl.ShowProgramMeal(programDetailsCtrl.programDetails.programId, counterDay, counterMeal)">mode_edit</i>
+
                             </h4>
+ 
                             <div ng-show="showDetails">
-                                <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                <div
+                                    class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                                     <label for="first-name">{{'SelectItems' | translate}}</label>
-                                    <ul>
-                                        <li ng-repeat="detail in programDetailsCtrl.programDetails.programDetails | filter:{dayNumber:counterDay, mealNumberPerDay: counterMeal} ">
-                                            <div ng-repeat="item in programDetailsCtrl.programDetails.items |filter :{itemId:detail.itemId}">
-                                                {{item.itemNameDictionary[selectedLanguage]}}
-                                            </div>
+                                   
+                                    <ul> 
+                                        <li
+                                             ng-repeat="detail in programDetailsCtrl.programDetails.programDetails | filter:{dayNumber:counterDay, mealNumberPerDay: counterMeal } : true">  
+                                            
+                                            {{detail.itemSize.itemNameDictionary[selectedLanguage]}} /
+                                            {{detail.itemSize.sizeNameDictionary[selectedLanguage]}} 
+
+                                            <!-- <div
+                                                ng-repeat="item in programDetailsCtrl.programDetails.items |filter :{itemId:detail.itemId}">
+                                                {{detail.itemId}}<br> {{item.itemNameDictionary[selectedLanguage]}}
+                                            </div> -->
                                         </li>
                                     </ul>
                                 </div>

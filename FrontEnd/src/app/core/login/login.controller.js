@@ -19,7 +19,8 @@
             //     $state.go('Area'); 
             // if ($scope.user.PermissionId[0] == 10)
             blockUI.stop();
-            $state.go('homePage');
+            // $state.go('homePage');
+            $state.go('program');
 
         }
         else {

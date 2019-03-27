@@ -59,7 +59,31 @@ namespace FitHouse.BLL.DataServices
             results.Data = userDto;
             return results;
         }
+        public PagedResultsDto GetAllClients(int page, int pageSize)
+        {
+            var query = Queryable().Where(x => x.Code != 0 && !x.IsStatic).OrderBy(x => x.UserId);
+            PagedResultsDto results = new PagedResultsDto();
+            results.TotalCount = query.Count(); //_repository.Query(x => !x.IsDeleted).Select().Count(x => !x.IsDeleted);
+            var modelReturn = query.OrderBy(x => x.UserId).Skip((page - 1) * pageSize).Take(pageSize).ToList();
 
+            //var userDto = new List<UserDto>();
+            //foreach (var user in modelReturn)
+            //{
+            //    userDto.Add(new UserDto
+            //    {
+            //        UserRoles = Mapper.Map<List<UserRole>, List<UserRoleDto>>(user.UserRoles as List<UserRole>),
+            //        UserId = user.UserId,
+            //        FirstName = user.FirstName,
+            //        LastName = user.LastName,
+            //        Email = user.Email,
+            //        Phone = user.Phone,
+            //        IsActive = user.IsActive
+            //    });
+            //}
+            results.Data = Mapper.Map<List<User>, List<UserDto>>(modelReturn);
+            //results.Data = userDto;
+            return results;
+        }
 
     }
 }

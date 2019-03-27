@@ -13,15 +13,17 @@
         $state, AddressResource, AddressPrepService, $localStorage, authorizationService,
         appCONSTANTS, ToastService) {
 
-        blockUI.start("Loading...");
+            blockUI.start($translate.instant('loading'));
 
         var vm = this;
 
         $scope.totalCount = AddressPrepService.totalCount;
         $scope.AddressList = AddressPrepService;
         console.log($scope.AddressList);
+        blockUI.stop();
+
         function refreshAddress() {
-            blockUI.start("Loading...");
+            blockUI.start($translate.instant('loading'));
 
             var k = AddressResource.getAllAddress({ page: vm.currentPage }).$promise.then(function (results) {
                 $scope.AddressList = results;
@@ -42,7 +44,6 @@
             vm.currentPage = page;
             refreshAddress();
         }
-        blockUI.stop();
 
     }
 

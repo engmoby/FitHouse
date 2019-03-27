@@ -3,6 +3,7 @@
         $(".select-add-tags").select2({
             tags: true,
             theme: "bootstrap",
+            maximumSelectionLength: 5,
             insertTag: function (data, tag) {
                 // Insert the tag at the end of the results
                 data.push(tag);
@@ -67,7 +68,7 @@
                     <div class="row">
                         <div class="col-md-6 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                             <label for="first-name">{{'SelectExcludeDays' | translate}}</label>
-                            <select ng-change="addProgramCtrl.ValidateExcludes()" style="width:100% !important" class="form-control select-tags pmd-select2-tags"
+                            <select ng-change="addProgramCtrl.ValidateExcludes()" style="width:100% !important" class="form-control select-add-tags"
                                 multiple ng-model="addProgramCtrl.SelectedDays" ng-options="day as day.dayNameDictionary[selectedLanguage] for day in addProgramCtrl.dayList">
                             </select>
                         </div>

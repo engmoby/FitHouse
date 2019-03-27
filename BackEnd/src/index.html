@@ -89,20 +89,8 @@
 <body
 	style="background-position: top left;
 background-image: linear-gradient(180deg,rgba(255,255,255,0.5) 0%,rgba(243,197,52,0.13) 89%),url(https://fithouseksa.com/wp-content/uploads/2018/07/fat-running.png)!important;">
-	
-	<li ng-repeat="detail in mealPrepService.mealDetails} ">
-		<div class="res-menu" ng-repeat="item in itemsssPrepService |filter :{itemId:detail.itemId}">
-			{{itemsssPrepService |filter :{itemId:detail.itemId}}}
-			<!-- {{item.itemNameDictionary[selectedLanguage]}} -->
-			<img src="/assets/img/meal.jpeg" alt="" />
-			<h3> {{item.itemNameDictionary[selectedLanguage]}}
-				<span>{{item.price}}</span>
-			</h3>
-			<span class="menu-item">{{item.itemDescriptionDictionary[selectedLanguage] }}</span>
-			<!-- | limitTo:10 -->
-		</div>
 
-	</li>
+
 	<nav class="navbar navbar-inverse navbar-fixed-top pmd-navbar pmd-z-depth" ng-show="isLoggedIn()"
 		style="    background-image: linear-gradient(90deg,#9a3ea6 0%,#bc4abf 100%)!important; ">
 
@@ -182,7 +170,15 @@ background-image: linear-gradient(180deg,rgba(255,255,255,0.5) 0%,rgba(243,197,5
 				</ul>
 			</li>
 			<!-- End user info -->
+			<li ng-show="user.PermissionId.indexOf('15') !== -1">
+				<a class="pmd-ripple-effect" ng-click="$state.go('clients');">
+					<i class="media-left media-middle">
+						<img src="/assets/img/iconmus.png" style="    max-height: 35px;">
 
+					</i>
+					<span class="media-body">{{'Reports' | translate}}</span>
+				</a>
+			</li>
 			<li ng-show="user.PermissionId.indexOf('10') !== -1">
 				<a class="pmd-ripple-effect" ng-click="$state.go('Role');">
 					<i class="media-left media-middle">
@@ -225,6 +221,15 @@ background-image: linear-gradient(180deg,rgba(255,255,255,0.5) 0%,rgba(243,197,5
 					<span class="media-body">{{'users' | translate}}</span>
 				</a>
 			</li>
+			<li ng-show="user.PermissionId.indexOf('16') !== -1">
+				<a class="pmd-ripple-effect" ng-click="$state.go('clients');">
+					<i class="media-left media-middle">
+						<img src="/assets/img/iconmus.png" style="    max-height: 35px;">
+
+					</i>
+					<span class="media-body">{{'Client' | translate}}</span>
+				</a>
+			</li>
 			<li ng-show="user.PermissionId.indexOf('5') !== -1">
 				<a class="pmd-ripple-effect" ng-click="$state.go('Category');">
 					<i class="media-left media-middle">
@@ -250,7 +255,7 @@ background-image: linear-gradient(180deg,rgba(255,255,255,0.5) 0%,rgba(243,197,5
 					<span class="media-body" ng-cloak>{{'Meal' | translate}}</span>
 				</a>
 			</li>
-			<li ng-show="user.PermissionId.indexOf('9') !== -1">
+			<li ng-show="user.PermissionId.indexOf('6') !== -1">
 				<a class="pmd-ripple-effect " ng-click="$state.go('program' );">
 					<i class="media-left media-middle">
 						<img src="/assets/img/iconmus.png" style="    max-height: 35px;">
@@ -307,7 +312,7 @@ background-image: linear-gradient(180deg,rgba(255,255,255,0.5) 0%,rgba(243,197,5
 					<span class="media-body" ng-cloak>{{'Kitchen' | translate}}</span>
 				</a>
 			</li>
-<!-- 
+			<!-- 
 			<li ng-show="user.PermissionId.indexOf('7') !== -1">
 				<a class="pmd-ripple-effect " ng-click="$state.go('Log')">
 					<i class="media-left media-middle">
@@ -325,6 +330,25 @@ background-image: linear-gradient(180deg,rgba(255,255,255,0.5) 0%,rgba(243,197,5
 
 					</i>
 					<span class="media-body" ng-cloak>{{'Settings' | translate}}</span>
+				</a>
+			</li> 
+			<li ng-show="user.PermissionId.indexOf('17') !== -1">
+				<a class="pmd-ripple-effect " ng-click="$state.go('Promotion');">
+					<i class="media-left media-middle">
+						<img src="/assets/img/iconmus.png" style="    max-height: 35px;">
+
+					</i>
+					<span class="media-body" ng-cloak>{{'PromotionLbl' | translate}}</span>
+				</a>
+			</li>
+			
+			<li ng-show="user.PermissionId.indexOf('18') !== -1">
+				<a class="pmd-ripple-effect " ng-click="$state.go('size');">
+					<i class="media-left media-middle">
+						<img src="/assets/img/iconmus.png" style="    max-height: 35px;">
+
+					</i>
+					<span class="media-body" ng-cloak>{{'Sizes' | translate}}</span>
 				</a>
 			</li>
 		</ul>

@@ -16,7 +16,7 @@ namespace FitHouse.BLL.Services.Interfaces
         ProgramDto GetProgramDetails(long programId);
         List<ProgramDetailDto> GetProgramItems(long programId);
         ProgramDto UpdateProgramDetails(long programId, long dayCount, long mealCount,
-            List<ItemProgramDto> items);
+            List<ItemSizeDto> items);
         ProgramDto UpdateProgram(ProgramDto programDto);
         ProgramDto GetProgramById(ProgramDto programDto);
         ProgramDto GetProgramById(long programId);

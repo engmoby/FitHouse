@@ -2,21 +2,58 @@
     <div class="container">
         <div class="row">
             <div class="head-typo typo-com collap-expand book-form inn-com-form">
-                <h2>{{'Address' | translate}} </h2>
+                <h2>{{'addressLbl' | translate}} </h2>
 
 
                 <form class="form-horizontal" name="addressForm">
 
                     <div
                         class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                        <label for="first-name">{{'Country' | translate}}</label>
+                        <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"
+                            ng-change="newAddressCtrl.countryChange()" ng-model="newAddressCtrl.selectedCountryId"
+                            ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in newAddressCtrl.counties">
+                        </select>
+                    </div>
+                    <div ng-show=" newAddressCtrl.selectedCountryId > 0"
+                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                        <label for="first-name">{{'Region' | translate}}</label>
+                        <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"
+                            ng-change="newAddressCtrl.regionChange()" ng-model="newAddressCtrl.selectedRegionId"
+                            ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in newAddressCtrl.regions">
+                        </select>
+                    </div>
+                    <div ng-show=" newAddressCtrl.selectedRegionId > 0"
+                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                        <label for="first-name">{{'City' | translate}}</label>
+                        <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"
+                            ng-change="newAddressCtrl.cityChange()" ng-model="newAddressCtrl.selectedCityId"
+                            ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in newAddressCtrl.cities">
+                        </select>
+                    </div>
+                    <div ng-show=" newAddressCtrl.selectedCityId > 0"
+                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                        <label for="first-name">{{'Area' | translate}}</label>
+                        <select ng-required="newAddressCtrl.selectedCityId > 0" style="width:100% !important"
+                            class="select-tags form-control pmd-select2-tags" ng-change="newAddressCtrl.areaChange()"
+                            ng-model="newAddressCtrl.selectedAreaId"
+                            ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in newAddressCtrl.area">
+                        </select>
+                    </div>
+
+                    <div
+                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                         <label for="first-name">{{'FLoor' | translate}}</label>
                         <input required type="number" class="mat-input form-control" name="floor"
-                            ng-model="newAddressCtrl.FLoor" ng-minlength="1" ng-maxlength="4">
+                            ng-pattern="/^[1-9]+[0-9]*$/" ng-model="newAddressCtrl.FLoor" ng-minlength="1"
+                            ng-maxlength="4">
                         <div ng-messages="addressForm.floor.$error" class="error">
                             <div ng-if="addressForm.floor.$error.required && !addressForm.floor.$pristine">
-                                {{'ProgramDaysCountReqError' | translate}}</div>
+                                {{'requiredErr' | translate}}</div>
                             <div ng-if="(addressForm.floor.$error.minlength || addressForm.floor.$error.maxlength)">
-                                {{'ProgramDaysCountLengthError' | translate}}</div>
+                                {{'maxlength' | translate}}</div>
+                            <div ng-if="addressForm.floor.$error.pattern && !addressForm.floor.$pristine">
+                                {{'wrongpattern' | translate}}</div>
                         </div>
                     </div>
 
@@ -24,14 +61,17 @@
                         class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                         <label for="first-name">{{'ApartmentNumber' | translate}}</label>
                         <input required type="number" class="mat-input form-control" name="appartmentNo"
-                            ng-model="newAddressCtrl.AppartmentNo" ng-minlength="1" ng-maxlength="4">
+                            ng-pattern="/^[1-9]+[0-9]*$/" ng-model="newAddressCtrl.AppartmentNo" ng-minlength="1"
+                            ng-maxlength="4">
                         <div ng-messages="addressForm.appartmentNo.$error" class="error">
                             <div
                                 ng-if="addressForm.appartmentNo.$error.required && !addressForm.appartmentNo.$pristine">
-                                {{'ProgramDaysCountReqError' | translate}}</div>
+                                {{'requiredErr' | translate}}</div>
                             <div
                                 ng-if="(addressForm.appartmentNo.$error.minlength || addressForm.appartmentNo.$error.maxlength)">
-                                {{'ProgramDaysCountLengthError' | translate}}</div>
+                                {{'maxlength' | translate}}</div>
+                            <div ng-if="addressForm.appartmentNo.$error.pattern && !addressForm.appartmentNo.$pristine">
+                                {{'wrongpattern' | translate}}</div>
                         </div>
                     </div>
 
@@ -50,40 +90,6 @@
                                 {{'NameLengthError255' | translate}}</div>
                         </div>
                     </div>
-
-                    <div
-                    class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-                    <label for="first-name">{{'Country' | translate}}</label>
-                    <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"
-                        ng-change="newAddressCtrl.countryChange()" ng-model="newAddressCtrl.selectedCountryId"
-                        ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in newAddressCtrl.counties">
-                    </select>
-                </div>
-                <div ng-show=" newAddressCtrl.selectedCountryId > 0"
-                    class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-                    <label for="first-name">{{'Region' | translate}}</label>
-                    <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"
-                        ng-change="newAddressCtrl.regionChange()" ng-model="newAddressCtrl.selectedRegionId"
-                        ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in newAddressCtrl.regions">
-                    </select>
-                </div>
-                <div ng-show=" newAddressCtrl.selectedRegionId > 0"
-                    class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-                    <label for="first-name">{{'City' | translate}}</label>
-                    <select style="width:100% !important" class="select-tags form-control pmd-select2-tags"
-                        ng-change="newAddressCtrl.cityChange()" ng-model="newAddressCtrl.selectedCityId"
-                        ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in newAddressCtrl.cities">
-                    </select>
-                </div>
-                <div ng-show=" newAddressCtrl.selectedCityId > 0"
-                    class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-                    <label for="first-name">{{'Area' | translate}}</label>
-                    <select ng-required="newAddressCtrl.selectedCityId > 0" style="width:100% !important"
-                        class="select-tags form-control pmd-select2-tags" ng-change="newAddressCtrl.areaChange()"
-                        ng-model="newAddressCtrl.selectedAreaId"
-                        ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in newAddressCtrl.area">
-                    </select>
-                </div>
 
                     <div class="pmd-modal-action text-right">
                         <button style="background-color: #e4e5e6;color: black!important;"

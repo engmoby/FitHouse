@@ -3,6 +3,7 @@
 		$(".select-add-tags").select2({
 			tags: true,
 			theme: "bootstrap",
+            maximumSelectionLength: 5,
 			insertTag: function (data, tag) {
 				// Insert the tag at the end of the results
 				data.push(tag);
@@ -21,16 +22,32 @@
 	});
 
 	$(function () {
+		var today = new Date();
+        today.setDate(today.getDate()+1)
+		$('#startdate').datetimepicker({
+			widgetPositioning: { vertical: "top" },
 
-		$('#startdate').datepicker(
-			{
-				minDate: new Date()
-			}
-		).on('dp.change', function (e) {
-			debugger;
+			minDate: today
+
+		})
+		.on('dp.change', function (e) {
+
 			angular.element(document.getElementById('startdate')).scope().dateChange();
 		});
 	});
+
+	// $(function () {
+	// 	var today = new Date();
+	// 	var tomorrow = new Date();
+	// 	$('#startdate').datepicker(
+	// 		{
+	// 			minDate: tomorrow.setDate(today.getDate() + 1)
+	// 		}
+	// 	).on('dp.change', function (e) {
+	// 		debugger;
+	// 		angular.element(document.getElementById('startdate')).scope().dateChange();
+	// 	});
+	// });
 
 </script>
 
@@ -75,19 +92,23 @@
 						<div class="row">
 							<div class="input-field col s6">
 								<div ng-messages="cutomizeProgram.programName.$error">
-									<div ng-if="cutomizeProgram.programName.$error.required && !cutomizeProgram.programName.$pristine">
+									<div
+										ng-if="cutomizeProgram.programName.$error.required && !cutomizeProgram.programName.$pristine">
 										{{'requiredField' | translate}}
 									</div>
-									<div ng-if="(cutomizeProgram.programName.$error.minlength || cutomizeProgram.programName.$error.maxlength)">
+									<div
+										ng-if="(cutomizeProgram.programName.$error.minlength || cutomizeProgram.programName.$error.maxlength)">
 										{{'minMaxLengthText' | translate}}</div>
 								</div>
 							</div>
 							<div class="input-field col s6">
 								<div ng-messages="cutomizeProgram.programDescription.$error">
-									<div ng-if="cutomizeProgram.programDescription.$error.required && !cutomizeProgram.programDescription.$pristine">
+									<div
+										ng-if="cutomizeProgram.programDescription.$error.required && !cutomizeProgram.programDescription.$pristine">
 										{{'requiredField' | translate}}
 									</div>
-									<div ng-if="(cutomizeProgram.programDescription.$error.minlength || cutomizeProgram.programDescription.$error.maxlength)">
+									<div
+										ng-if="(cutomizeProgram.programDescription.$error.minlength || cutomizeProgram.programDescription.$error.maxlength)">
 										{{'minMaxLengthText' | translate}}</div>
 								</div>
 							</div>
@@ -95,8 +116,8 @@
 						</div>
 						<div class="row">
 							<div class="input-field col s6">
-								<input required numbers-only type="text" class="validate" name="programDaysCount" ng-model="programDaysCount" minlength="1"
-								 maxlength="2">
+								<input required numbers-only type="text" class="validate" name="programDaysCount"
+									ng-model="programDaysCount" minlength="1" maxlength="2">
 								<label>{{'ProgramDaysCount' | translate}}</label>
 								<div ng-show="settingsPrepService.minNoDaysPerProgram > programDaysCount">
 									<p>{{'minAllowedDays= ' | translate}} {{settingsPrepService.minNoDaysPerProgram}}
@@ -104,7 +125,8 @@
 								</div>
 							</div>
 							<div class="input-field col s6">
-								<input required numbers-only type="text" class="validate" name="mealPerDay" ng-model="mealPerDay" minlength="1" maxlength="2">
+								<input required numbers-only type="text" class="validate" name="mealPerDay"
+									ng-model="mealPerDay" minlength="1" maxlength="2">
 								<label>{{'MealPerDay' | translate}}</label>
 							</div>
 						</div>
@@ -112,19 +134,23 @@
 						<div class="row">
 							<div class="input-field col s6">
 								<div ng-messages="cutomizeProgram.programDaysCount.$error">
-									<div ng-if="cutomizeProgram.programDaysCount.$error.required && !cutomizeProgram.programDaysCount.$pristine">
+									<div
+										ng-if="cutomizeProgram.programDaysCount.$error.required && !cutomizeProgram.programDaysCount.$pristine">
 										{{'requiredField' | translate}}
 									</div>
-									<div ng-if="(cutomizeProgram.programDaysCount.$error.minlength || cutomizeProgram.programDaysCount.$error.maxlength)">
+									<div
+										ng-if="(cutomizeProgram.programDaysCount.$error.minlength || cutomizeProgram.programDaysCount.$error.maxlength)">
 										{{'minMaxLengthNum' | translate}}</div>
 								</div>
 							</div>
 							<div class="input-field col s6">
 								<div ng-messages="cutomizeProgram.mealPerDay.$error">
-									<div ng-if="cutomizeProgram.mealPerDay.$error.required && !cutomizeProgram.mealPerDay.$pristine">
+									<div
+										ng-if="cutomizeProgram.mealPerDay.$error.required && !cutomizeProgram.mealPerDay.$pristine">
 										{{'requiredField' | translate}}
 									</div>
-									<div ng-if="(cutomizeProgram.mealPerDay.$error.minlength || cutomizeProgram.mealPerDay.$error.maxlength)">
+									<div
+										ng-if="(cutomizeProgram.mealPerDay.$error.minlength || cutomizeProgram.mealPerDay.$error.maxlength)">
 										{{'minMaxLengthNum' | translate}}</div>
 									<div ng-if="1 > mealPerDay">{{'minMealsIsOne' | translate}}</div>
 								</div>
@@ -138,8 +164,9 @@
 							<label>{{'SelectExcludeDays' | translate}}</label>
 
 							<div class="input-field col s12">
-								<select style="width:100% !important" class="form-control select-tags pmd-select2-tags" multiple ng-model="SelectedDays"
-								 ng-options="day as day.dayNameDictionary[selectedLanguage] for day in dayList">
+								<select style="width:100% !important" class="form-control select-add-tags"
+									multiple ng-model="SelectedDays"
+									ng-options="day as day.dayNameDictionary[selectedLanguage] for day in dayList">
 								</select>
 							</div>
 						</div>
@@ -148,35 +175,38 @@
 							<div class="col s6">
 								<span>
 									<input type="checkbox" id="test5" ng-model="isBreakFast" />
-									<label for="test5" class="labelCheckBox">{{'IsBreakFast' | translate}}</label>
+									<label for="test5" class="labelCheckBox">{{'Breakfast' | translate}}</label>
 								</span>
 							</div>
 							<div class="col s6">
 								<span>
 									<input type="checkbox" id="test6" ng-model="isSnack" />
-									<label for="test6" class="labelCheckBox">{{'IsSnack' | translate}}</label>
+									<label for="test6" class="labelCheckBox">{{'Snack' | translate}}</label>
 								</span>
 							</div>
 						</div>
 						<div class="row">
 							<div class="input-field col s12">
 
-								<input name="itemDatetime" required ng-model="itemDatetime" type="text" id="startdate" class="form-control" />
-								<label for="from">{{'OrderStartDate' | translate}}</label>
+								<input name="itemDatetime"  ng-model="itemDatetime" type="text" id="startdate"
+									class="form-control" placeholder="{{'startDate' | translate}}" />
+								<!-- <label for="from"></label> -->
 							</div>
 						</div>
 						<div class="row">
 							<div class="col s6">
 								<div ng-messages="cutomizeProgram.itemDatetime.$error">
-									<div ng-if="cutomizeProgram.itemDatetime.$error.required && !cutomizeProgram.itemDatetime.$pristine">
+									<div
+										ng-if="cutomizeProgram.itemDatetime.$error.required && !cutomizeProgram.itemDatetime.$pristine">
 										{{'requiredField' | translate}}</div>
 								</div>
 							</div>
 						</div>
+					 
 						<div class="row">
 							<div class="input-field col s12">
-								<input ng-disabled="cutomizeProgram.$invalid  || settingsPrepService.minNoDaysPerProgram > programDaysCount" type="submit"
-								 class="form-btn" ng-click="submitCustomise()">
+								<input ng-disabled="cutomizeProgram.$invalid  || !dateIsValid" type="submit" class="form-btn"
+									ng-click="submitCustomise()" value="{{'MakeOrder' | translate}}">
 
 								<!-- <button style="width: 90%; height: 50%;" class="form-btn" ng-disabled="cutomizeProgram.$invalid  || settingsPrepService.minNoDaysPerProgram > programDaysCount" ng-click="submitCustomise()"></button> -->
 							</div>
@@ -190,7 +220,7 @@
 </div>
 <!--End Check Availability SECTION-->
 <!--HOTEL ROOMS SECTION-->
-<div class="hom1 hom-com pad-bot-40">
+<!-- <div class="hom1 hom-com pad-bot-40">
 	<div class="container">
 		<div class="row">
 			<div class="hom1-title">
@@ -205,24 +235,25 @@
 		</div>
 		<div class="row">
 			<div class="to-ho-hotel">
-				<!-- HOTEL GRID -->
-				<div ng-repeat="n in [] | range:6">
-					<div ng-click="$state.go('mealDetails', {mealId: mealsPrepService[n].mealId});" style="cursor: pointer !important;" ng-if="mealsPrepService[n] != undefined"
-					 class="col-md-4">
-					 <!-- {{mealsPrepService[n].imageUrl}} -->
+				<!-- HOTEL GRID --
+				<!-- <div > --
+					<div ng-repeat="n in [] | range:6" ng-click="$state.go('mealDetails', {mealId: mealsPrepService[n].mealId});"
+						style="cursor: pointer !important;" ng-if="mealsPrepService[n] != undefined" class="col-md-4">
+						<!-- {{mealsPrepService[n].imageUrl}} --
 						<div class="to-ho-hotel-con">
 							<div ng-if="mealsPrepService[n].imageUrl == null" class="to-ho-hotel-con-1">
-								<!-- {{mealsPrepService[n].mealId}} -->
+								<!-- {{mealsPrepService[n].mealId}} --
 								<img src="https://fithouseksa.com/wp-content/uploads/2018/07/Grilled-steak.png" alt="">
 							</div>
 							<div ng-if="mealsPrepService[n].imageUrl != null" class="to-ho-hotel-con-1">
-								<!-- {{mealsPrepService[n].mealId}} -->
-								<img src={{mealsPrepService[n].imageUrl}} alt="">
+								<!-- {{mealsPrepService[n].mealId}} --
+								<img src={{mealsPrepService[n].imageUrl}} imageonload  alt="">
 							</div>
 							<div class="to-ho-hotel-con-23">
 								<div class="to-ho-hotel-con-2">
 									<a>
-										<h4>{{mealsPrepService[n].mealNameDictionary[selectedLanguage] | limitTo:10}}</h4>
+										<h4>{{mealsPrepService[n].mealNameDictionary[selectedLanguage] | limitTo:10}}
+										</h4>
 									</a>
 								</div>
 								<div class="to-ho-hotel-con-3">
@@ -245,15 +276,15 @@
 							</div>
 						</div>
 					</div>
-				</div>
+				<!-- </div> --
 			</div>
 		</div>
 	</div>
-</div>
+</div> -->
 <!--END HOTEL ROOMS-->
 
 <!--TOP SECTION-->
-<section>
+<!-- <section>
 
 	<div class="inn-body-section pad-bot-55">
 		<div class="container">
@@ -267,18 +298,19 @@
 					</div>
 					<p>{{'ProgramsDescription' | translate}}</p>
 				</div>
-				<!--ROOM SECTION-->
+				<!--ROOM SECTION--
 				<div ng-repeat="n in [] | range:6">
-					<div style="cursor: pointer !important;" ng-click="$state.go('programDetails', {programId: programPrepService[n].programId});"
-					 ng-if="programPrepService[n] != undefined" class="room">
+					<div style="cursor: pointer !important;"
+						ng-click="$state.go('programDetails', {programId: programPrepService[n].programId});"
+						ng-if="programPrepService[n] != undefined" class="room">
 						<div class="ribbon ribbon-top-left">
 							<span>{{'Program' | translate}}</span>
 						</div>
-						<!--ROOM IMAGE-->
+						<!--ROOM IMAGE--
 						<div class="r1 r-com">
 							<img src="https://fithouseksa.com/wp-content/uploads/2018/07/fithouse-icons6.png" alt="" />
 						</div>
-						<!--ROOM RATING-->
+						<!--ROOM RATING--
 						<div class="r2 r-com">
 							<h4>{{programPrepService[n].programNameDictionary[selectedLanguage] | limitTo:10}}</h4>
 							<div class="r2-ratt">
@@ -298,7 +330,7 @@
 								<li></li>
 							</ul>
 						</div>
-						<!--ROOM AMINITIES-->
+						<!--ROOM AMINITIES--
 						<div class="r3 r-com">
 							<ul>
 								<li>{{'ProgramDays' | translate}}: {{programPrepService[n].programDays}}</li>
@@ -308,7 +340,7 @@
 								<li></li>
 							</ul>
 						</div>
-						<!--ROOM PRICE-->
+						<!--ROOM PRICE--
 						<div class="r4 r-com">
 							<p></p>
 							<p>
@@ -317,21 +349,22 @@
 							</p>
 							<p>{{'NonRefundable' | translate}}</p>
 						</div>
-						<!--ROOM BOOKING BUTTON-->
+						<!--ROOM BOOKING BUTTON--
 						<div class="r5 r-com">
 							<div class="r2-available">Available</div>
 							<p></p>
-							<a style="cursor: pointer !important;" ng-click="$state.go('programDetails', {programId: programPrepService[n].programId});"
-							 class="inn-room-book">{{'Book' | translate}}</a>
+							<a style="cursor: pointer !important;"
+								ng-click="$state.go('programDetails', {programId: programPrepService[n].programId});"
+								class="inn-room-book">{{'Book' | translate}}</a>
 						</div>
 					</div>
-					<!--END ROOM SECTION-->
+					<!--END ROOM SECTION--
 				</div>
 
 			</div>
 		</div>
 	</div>
-</section>
+</section> -->
 
 
 

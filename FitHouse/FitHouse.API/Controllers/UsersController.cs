@@ -5,7 +5,8 @@ using FitHouse.API.Infrastructure;
 using FitHouse.API.Models;
 using FitHouse.BLL.DataServices.Interfaces;
 using FitHouse.BLL.DTOs;
-using FitHouse.BLL.Services.Interfaces; 
+using FitHouse.BLL.Services.Interfaces;
+using FitHouse.Common;
 
 namespace FitHouse.API.Controllers
 {
@@ -31,7 +32,12 @@ namespace FitHouse.API.Controllers
         [HttpPost]
         public IHttpActionResult RegisterUser([FromBody] UserModel userModel)
         {
-            var reurnUser = _userFacade.RegisterUser(Mapper.Map<UserDto>(userModel), UserId); 
+            var reurnUser = _userFacade.RegisterUser(Mapper.Map<UserDto>(userModel), UserId);
+
+            //  MailHelper.SendMail("goodmoin", "hello", "m.abdo@gmggroupsoft.com");
+             MailHelper.SendMailRegister("Fit House Registeration Confirm", "http://fithouse-testing.azurewebsites.net",
+                 userModel.FirstName+" "+ userModel.LastName, userModel.Password, userModel.Email); 
+
             return Ok(reurnUser);
         } 
         [Route("api/Users/EditRegisterUser", Name = "EditRegisterUser")]
@@ -53,7 +59,20 @@ namespace FitHouse.API.Controllers
             results.TotalCount = getAllDataForuser.TotalCount; 
             return PagedResponse("GetAllUsers", Page, PageSize, results.TotalCount, userList ); 
         }
-         
+
+
+        [Route("api/Users/GetAllClients", Name = "GetAllClients")]
+        [HttpGet]
+        public IHttpActionResult GetAllClients(int page = Page, int pagesize = PageSize)
+        {
+            var getAllDataForuser = _userService.GetAllClients(page, pagesize);
+            var userList = Mapper.Map<List<UserModel>>(getAllDataForuser.Data);
+            PagedResultsDto results = new PagedResultsDto();
+            results.TotalCount = getAllDataForuser.TotalCount;
+            return PagedResponse("GetAllClients", Page, PageSize, results.TotalCount, userList);
+        }
+
+
         [Route("api/Users/GetUserById", Name = "GetUserById")]
         [HttpGet]
         public IHttpActionResult GetUserById(long userId)

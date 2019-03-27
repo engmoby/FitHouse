@@ -41256,11 +41256,25 @@ $(document).ready(function() {
     "use strict";
 
     $(".show-menu").on('click', function() {
-        $(".mm-menu").css('right', '-25%');
+        if(localStorage["ngStorage-language"] == '"en"'){
+            $(".mm-menu").css('right', '-50%');
+            $(".mm-menu").css('left', 'unset');
+        }
+        else{
+            $(".mm-menu").css('right', 'unset');
+            $(".mm-menu").css('left', '-50%');
+        }
     });
 
     $(".hide-menu").on('click', function() {
-        $(".mm-menu").css('right', '-100%');
+        if(localStorage["ngStorage-language"] == '"en"'){
+            $(".mm-menu").css('right', '-100%');
+            $(".mm-menu").css('left', 'unset');
+        }
+        else{
+            $(".mm-menu").css('right', 'unset');
+            $(".mm-menu").css('left', '-100%');
+        }
     });
     $('.hp-view')
         .on('click', function() {

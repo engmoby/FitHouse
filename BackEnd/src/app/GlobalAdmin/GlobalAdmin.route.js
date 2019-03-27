@@ -30,7 +30,7 @@
                     'controllerAs': 'programDetailsCtrl',
                     resolve: {
                         progDetailsPrepService: progDetailsPrepService,
-                        itemsssPrepService: itemsssPrepService
+                        AllcategoriesPrepService: AllcategoriesPrepService
                     },
                     data: {
                         permissions: {
@@ -49,7 +49,7 @@
                     resolve: {
                         settingsPrepService: settingsPrepService,
                         daysPrepService: daysPrepService,
-                        itemsssPrepService: itemsssPrepService
+                        AllcategoriesPrepService: AllcategoriesPrepService
                     },
                     data: {
                         permissions: {
@@ -66,7 +66,7 @@
                     controller: 'editProgramController',
                     'controllerAs': 'editProgramCtrl',
                     resolve: {
-                        programByIdPrepService: programByIdPrepService
+                        programByIdPrepService: programByIdPrepService,
                     },
                     data: {
                         permissions: {
@@ -137,8 +137,9 @@
                     controller: 'orderMealscontroller',
                     'controllerAs': 'orderMealsCtrl',
                     resolve: {
-                        mealsPrepService: mealsPrepService,
-                        CountriesPrepService: CountriesPrepService
+                        CallCentermealsPrepService: CallCentermealsPrepService,
+                        CountriesPrepService: CountriesPrepService,
+                        settingsPrepService: settingsPrepService
                     },
                     data: {
                         permissions: {
@@ -156,7 +157,8 @@
                     'controllerAs': 'orderProgramsCtrl',
                     resolve: {
                         programsPrepService: programsPrepService,
-                        CountriesPrepService: CountriesPrepService
+                        CountriesPrepService: CountriesPrepService,
+                        settingsPrepService: settingsPrepService
                     },
                     data: {
                         permissions: {
@@ -175,7 +177,7 @@
                     resolve: {
                         daysPrepService: daysPrepService,
                         settingsPrepService: settingsPrepService,
-                        itemsssPrepService: itemsssPrepService,
+                        AllcategoriesPrepService: AllcategoriesPrepService,
                         CountriesPrepService: CountriesPrepService
                     },
                     data: {
@@ -235,6 +237,46 @@
                     'controllerAs': 'editUserCtrl',
                     resolve: {
                         EditUserPrepService: EditUserPrepService,
+                        RolePrepService: AllRolePrepService,
+                        CountriesPrepService: CountriesPrepService,
+
+                    },
+                    data: {
+                        permissions: {
+                            only: ['1'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
+
+                .state('clients', {
+                    url: '/clients',
+                    templateUrl: './app/GlobalAdmin/client/templates/client.html',
+                    controller: 'clientController',
+                    'controllerAs': 'clientCtrl',
+                    resolve: {
+                        clientPrepService: clientPrepService,
+                        RolePrepService: RolePrepService,
+                        CountriesPrepService: CountriesPrepService,
+                    },
+                    data: {
+                        permissions: {
+                            only: ['1'],
+                            redirectTo: 'root'
+                        }
+                    }
+
+                })
+
+                .state('editClient', {
+                    url: '/editClient/:userId',
+                    templateUrl: './app/GlobalAdmin/client/templates/editUser.html',
+                    controller: 'editClientController',
+                    'controllerAs': 'editClientCtrl',
+                    resolve: {
+                        EditClientPrepService: EditClientPrepService,
                         RolePrepService: AllRolePrepService,
                         CountriesPrepService: CountriesPrepService,
 
@@ -492,7 +534,7 @@
                     'controllerAs': 'itemCtrl',
                     data: {
                         permissions: {
-                            only: ['RestaurantAdmin'],
+                            only: ['6'],
                             redirectTo: 'root'
                         },
                         displayName: 'Category'
@@ -508,13 +550,14 @@
                     'controllerAs': 'newItemCtrl',
                     data: {
                         permissions: {
-                            only: ['RestaurantAdmin'],
+                            only: ['6'],
                             redirectTo: 'root'
                         },
                         displayName: 'Items'
                     },
                     resolve: {
                         defaultItemsPrepService: defaultItemsPrepService,
+                        allSizesPrepService:allSizesPrepService
                     }
                 })
                 .state('editItem', {
@@ -524,13 +567,14 @@
                     'controllerAs': 'editItemCtrl',
                     data: {
                         permissions: {
-                            only: ['RestaurantAdmin'],
+                            only: ['6'],
                             redirectTo: 'root'
                         },
                         displayName: 'Items'
                     },
                     resolve: {
                         itemPrepService: itemPrepService,
+                        allSizesPrepService:allSizesPrepService
                     }
                 })
 
@@ -564,7 +608,7 @@
                         displayName: 'meals'
                     },
                     resolve: {
-                        itemsssPrepService: itemsssPrepService
+                        AllcategoriesPrepService: AllcategoriesPrepService
                     }
                 })
                 .state('editMeal', {
@@ -581,7 +625,7 @@
                     },
                     resolve: {
                         mealPrepService: mealPrepService,
-                        itemsssPrepService: itemsssPrepService
+                        AllcategoriesPrepService: AllcategoriesPrepService
                     }
                 })
 
@@ -703,8 +747,97 @@
                             redirectTo: 'root'
                         }
                     }
+                }).state('size', {
+                    url: '/size',
+                    templateUrl: './app/GlobalAdmin/size/templates/size.html',
+                    controller: 'sizeController',
+                    'controllerAs': 'sizeCtrl',
+                    data: {
+                        permissions: {
+                            only: ['18'],
+                            redirectTo: 'root'
+                        }
+                    },
+                    resolve: {
+                        sizesPrepService: sizesPrepService
+                    }
+
+                })
+                .state('newsize', {
+                    url: '/Newsize',
+                    templateUrl: './app/GlobalAdmin/size/templates/newSize.html',
+                    controller: 'sizeDialogController',
+                    'controllerAs': 'sizeDlCtrl',
+                    data: {
+                        permissions: {
+                            only: ['18'],
+                            redirectTo: 'root'
+                        }
+                    }
+                })
+                .state('editsize', {
+                    url: '/size/:sizeId',
+                    templateUrl: './app/GlobalAdmin/size/templates/editSize.html',
+                    controller: 'editSizeDialogController',
+                    'controllerAs': 'editSizeDlCtrl',
+                    data: {
+                        permissions: {
+                            only: ['18'],
+                            redirectTo: 'root'
+                        }
+                    },
+                    resolve: {
+                        sizePrepService: sizePrepService
+                    }
                 })
 
+
+
+                .state('Promotion', {
+                    url: '/Promotion',
+                    templateUrl: './app/GlobalAdmin/Promotion/templates/Promotion.html',
+                    controller: 'PromotionController',
+                    'controllerAs': 'promotionCtrl',
+                    data: {
+                        permissions: {
+                            only: ['17'],
+                            redirectTo: 'root'
+                        },
+                        displayName: 'Category'
+                    },
+                    resolve: {
+                        PromotionsPrepService: PromotionsPrepService
+                    }
+                })
+                .state('newPromotion', {
+                    url: '/newPromotion',
+                    templateUrl: './app/GlobalAdmin/Promotion/templates/new.html',
+                    controller: 'newPromotionController',
+                    'controllerAs': 'newPromotionCtrl',
+                    data: {
+                        permissions: {
+                            only: ['17'],
+                            redirectTo: 'root'
+                        },
+                        displayName: 'promotions'
+                    }
+                })
+                .state('editPromotion', {
+                    url: '/editpromotion/:promotionId',
+                    templateUrl: './app/GlobalAdmin/Promotion/templates/edit.html',
+                    controller: 'editPromotionController',
+                    'controllerAs': 'editPromotionCtrl',
+                    data: {
+                        permissions: {
+                            only: ['17'],
+                            redirectTo: 'root'
+                        },
+                        displayName: 'Category'
+                    },
+                    resolve: {
+                        PromotionByIdPrepService: PromotionByIdPrepService
+                    }
+                })
 
         });
 
@@ -736,6 +869,17 @@
     userConsumedPrepService.$inject = ['UserResource']
     function userConsumedPrepService(UserResource) {
         return UserResource.getUserLimit().$promise;
+    }
+
+    /*Client */
+    clientPrepService.$inject = ['ClientResource']
+    function clientPrepService(ClientResource) {
+        return ClientResource.getAllClients().$promise;
+    }
+
+    EditClientPrepService.$inject = ['ClientResource', '$stateParams']
+    function EditClientPrepService(GetClientResource, $stateParams) {
+        return GetClientResource.getClient({ userId: $stateParams.userId }).$promise;
     }
 
     /*Role */
@@ -821,11 +965,6 @@
         return GetProgramResource.gatAllPrograms().$promise;
     }
 
-    // programByIdPrepService.$inject = ['GetProgramByIdResource']
-    // function programByIdPrepService(GetProgramByIdResource) {
-    //     return GetProgramByIdResource.getProgramById().$promise;
-    // }
-
     CategoryByIdPrepService.$inject = ['CategoryResource', '$stateParams']
     function CategoryByIdPrepService(CategoryResource, $stateParams) {
         return CategoryResource.getCategory({ categoryId: $stateParams.categoryId }).$promise;
@@ -858,7 +997,11 @@
 
     programsPrepService.$inject = ['GetProgramResource', '$stateParams']
     function programsPrepService(GetProgramResource, $stateParams) {
-        return GetProgramResource.gatAllPrograms().$promise;
+        return GetProgramResource.gatAllPrograms({ pageSize: 0 }).$promise;
+    }
+    CallCentermealsPrepService.$inject = ['GetMealsResource', '$stateParams']
+    function CallCentermealsPrepService(GetMealsResource, $stateParams) {
+        return GetMealsResource.getAllMeals({ pageSize: 0 }).$promise;
     }
 
     mealPrepService.$inject = ['MealResource', '$stateParams']
@@ -873,6 +1016,11 @@
         }
         else
             return null;
+    }
+
+    AllcategoriesPrepService.$inject = ['CategoryResource']
+    function AllcategoriesPrepService(CategoryResource) {
+        return CategoryResource.GetAllActiveCategories().$promise;
     }
 
     /*Orders */
@@ -938,4 +1086,36 @@
     function KitchenByIdPrepService(KitchensResource, $stateParams) {
         return KitchensResource.getFullKitchen({ orderId: $stateParams.orderId }).$promise;
     }
+    sizesPrepService.$inject = ['SizeResource']
+    function sizesPrepService(SizeResource) {
+        return SizeResource.getAllSizes().$promise;
+    }
+
+    allSizesPrepService.$inject = ['SizeResource']
+    function allSizesPrepService(SizeResource) {
+        return SizeResource.getAllSizes({pageSize:0}).$promise;
+    }
+
+    sizePrepService.$inject = ['SizeResource', '$stateParams']
+    function sizePrepService(SizeResource, $stateParams) {
+        return SizeResource.getSize({ sizeId: $stateParams.sizeId }).$promise;
+    }
+
+
+
+
+    /*Promotions */
+    PromotionsPrepService.$inject = ['PromotionResource']
+    function PromotionsPrepService(PromotionResource) {
+        return PromotionResource.getAllPromotion().$promise;
+    }
+
+    PromotionByIdPrepService.$inject = ['PromotionResource', '$stateParams']
+    function PromotionByIdPrepService(PromotionResource, $stateParams) {
+        return PromotionResource.getPromotion({ promotionId: $stateParams.promotionId }).$promise;
+    }
+
+     
+
+
 }());

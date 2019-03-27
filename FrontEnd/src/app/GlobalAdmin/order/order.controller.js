@@ -14,7 +14,7 @@
         $state, OrdersResource, ordersPrepService, $localStorage, authorizationService,
         appCONSTANTS, ToastService) {
 
-        blockUI.start("Loading..."); 
+       blockUI.start($translate.instant('loading')); 
         var vm = this;
 
         $scope.totalCount = ordersPrepService.totalCount;
@@ -42,7 +42,7 @@
         }
 
         function refreshOrders() {
-            blockUI.start("Loading...");
+           blockUI.start($translate.instant('loading'));
 
             var k = OrdersResource.getAllOrders({ page: vm.currentPage }).$promise.then(function (results) {
                 $scope.OrderList = results;

@@ -3,19 +3,58 @@
 
 	angular
 		.module('home')
-		.controller('editItemController', ['$scope', '$http', '$translate', '$stateParams', 'appCONSTANTS', '$state', 'ItemResource', 'ToastService', 'itemPrepService', editItemController])
+		.controller('editItemController', ['$scope', 'blockUI', '$http', '$translate', '$stateParams',
+			'appCONSTANTS', '$state', 'ItemResource', 'ToastService', 'itemPrepService', 'allSizesPrepService', editItemController])
 
-	function editItemController($scope, $http, $translate, $stateParams, appCONSTANTS, $state, ItemResource, ToastService, itemPrepService) {
+	function editItemController($scope, blockUI, $http, $translate, $stateParams,
+		appCONSTANTS, $state, ItemResource, ToastService, itemPrepService, allSizesPrepService) {
 		var vm = this;
-		vm.disable = false;
+		// vm.disable = false;
 		vm.language = appCONSTANTS.supportedLanguage;
-		vm.item = itemPrepService; 
+		vm.item = itemPrepService;
+		vm.Sizes = allSizesPrepService.results;
+		vm.SelectedSizeId = [];
+		vm.SelectedSize = [];
+		itemPrepService.itemSizes.forEach(function (element) {
+			var kk = vm.Sizes.filter(function (item) {
+				return (item.sizeId === element.sizeId);
+			})[0];
+			//   if(kk != null)
+			// 	kk.price = element.price;
+
+			vm.SelectedSizeId.push(element.sizeId)
+			element.sizeNameDictionary = kk.sizeNameDictionary;
+			vm.SelectedSize.push(element)
+		}, this);
+		vm.sizeChange = function () {
+			// vm.SelectedSize = []
+			for (var i = 0; i < vm.SelectedSizeId.length; i++) {
+				var size = vm.Sizes.filter(function (item) {
+					return (item.sizeId === vm.SelectedSizeId[i]);
+				})[0]
+				// if(size.price == undefined)
+				// size.price = 0;
+				var itemSizeExist = vm.SelectedSize.filter(function (element) {
+					return element.sizeId === size.sizeId
+				})
+				if (itemSizeExist.length == 0)
+					vm.SelectedSize.push(size)
+			}
+			vm.SelectedSize.forEach(element => {
+				var size = vm.SelectedSizeId.filter(function (item) {
+					return (element.sizeId === item);
+				})[0]
+				if(size == null)
+					vm.SelectedSize.pop(element);
+			});
+		}
 		console.log(vm.item);
 
 		vm.close = function () {
 			$state.go('Items', { categoryId: $stateParams.categoryId });
 		}
 		vm.updateItem = function () {
+			blockUI.start("Loading...");
 			var updatedItem = new Object();
 			updatedItem.itemNameDictionary = vm.item.itemNameDictionary;
 			updatedItem.itemDescriptionDictionary = vm.item.itemDescriptionDictionary;
@@ -24,16 +63,19 @@
 			updatedItem.itemId = vm.item.itemId;
 			updatedItem.isImageChange = isItemImageChange;
 
-			updatedItem.itemSize =(vm.item.itemSize == null) ? 0 : vm.item.itemSize;
-			updatedItem.fat = (vm.item.fat == null) ? 0 : vm.item.fat;
-			updatedItem.carbs = (vm.item.carbs == null) ? 0 : vm.item.carbs;
-			updatedItem.calories = (vm.item.calories == null) ? 0 : vm.item.calories;
-			updatedItem.protein = (vm.item.protein == null) ? 0 : vm.item.protein;
-			updatedItem.cost = vm.item.cost;
-			updatedItem.price = vm.item.price;
+			// updatedItem.itemSize =(vm.item.itemSize == null) ? 0 : vm.item.itemSize;
+			// updatedItem.fat = (vm.item.fat == null) ? 0 : vm.item.fat;
+			// updatedItem.carbs = (vm.item.carbs == null) ? 0 : vm.item.carbs;
+			// updatedItem.calories = (vm.item.calories == null) ? 0 : vm.item.calories;
+			// updatedItem.protein = (vm.item.protein == null) ? 0 : vm.item.protein;
+			// updatedItem.cost = vm.item.cost;
+			// updatedItem.price = vm.item.price;
 			updatedItem.vat = (vm.item.vat == null) ? 0 : vm.item.vat;
-			updatedItem.totalPrice = vm.item.totalPrice;
-
+			// updatedItem.totalPrice = vm.item.totalPrice;
+			updatedItem.itemSizes = [];
+			vm.SelectedSize.forEach(function (element) {
+				updatedItem.itemSizes.push(element);
+			}, this);
 
 			var model = new FormData();
 			model.append('data', JSON.stringify(updatedItem));
@@ -46,10 +88,12 @@
 				data: model
 			}).then(
 				function (data, status) {
+					blockUI.stop();
 					ToastService.show("right", "bottom", "fadeInUp", $translate.instant('ItemUpdateSuccess'), "success");
 					$state.go('Items', { categoryId: $stateParams.categoryId });
 				},
 				function (data, status) {
+					blockUI.stop();
 					ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
 				}
 			);
@@ -99,30 +143,30 @@
 
 		}
 
-		vm.calclulate = function () {
+		// vm.calclulate = function () {
 
-			if (vm.item.price <= vm.item.cost) {
-				vm.disable = true;
-				ToastService.show("right", "bottom", "fadeInUp", $translate.instant('costandprice'), "success");
-				return;
-			} else
-				vm.disable = false;
-			if (vm.item.vat !== undefined) {
-				var vatPresantage = vm.item.price * vm.item.vat / 100;
-				vm.item.totalPrice = vm.item.price + vatPresantage;
-			}
-			else
-				vm.item.totalPrice = vm.item.price;
+		// 	if (vm.item.price <= vm.item.cost) {
+		// 		vm.disable = true;
+		// 		ToastService.show("right", "bottom", "fadeInUp", $translate.instant('costandprice'), "success");
+		// 		return;
+		// 	} else
+		// 		vm.disable = false;
+		// 	if (vm.item.vat !== undefined) {
+		// 		var vatPresantage = vm.item.price * vm.item.vat / 100;
+		// 		vm.item.totalPrice = vm.item.price + vatPresantage;
+		// 	}
+		// 	else
+		// 		vm.item.totalPrice = vm.item.price;
 
 
 
-			// if (vm.item.vat !== undefined)
-			// 	var vatPresantage = vm.item.price * vm.item.vat / 100;
-			// else
-			// 	var vatPresantage = vm.item.price;
+		// 	// if (vm.item.vat !== undefined)
+		// 	// 	var vatPresantage = vm.item.price * vm.item.vat / 100;
+		// 	// else
+		// 	// 	var vatPresantage = vm.item.price;
 
-			// //var vatPresantage = vm.item.price * vm.item.vat / 100;
-			// vm.item.totalPrice = vm.item.price + vatPresantage;
-		}
+		// 	// //var vatPresantage = vm.item.price * vm.item.vat / 100;
+		// 	// vm.item.totalPrice = vm.item.price + vatPresantage;
+		// }
 	}
 }());

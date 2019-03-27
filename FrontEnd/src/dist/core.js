@@ -115,6 +115,152 @@
         });
      
 }());
+;
+angular.module('core')
+
+    .directive('equalto', function () {
+        return {
+            restrict: 'A',
+            require: 'ngModel',
+            scope: {
+                otherModelValue: '=equalto'
+            },
+            link: function (scope, element, attributes, ngModel) {
+
+                ngModel.$validators.equalto = function (modelValue) {
+                    return modelValue == scope.otherModelValue.$modelValue;
+                };
+                scope.$watch('otherModelValue.$modelValue', function () {
+                    ngModel.$validate();
+                }, true);
+
+            }
+        };
+    }
+
+    )
+
+    .directive('numbersOnly', function () {
+        return {
+            require: 'ngModel',
+            link: function (scope, element, attr, ngModelCtrl) {
+                function fromUser(text) {
+                    if (text) {
+                        var transformedInput = text.replace(/[^0-9]/g, '');
+
+                        if (transformedInput !== text) {
+                            ngModelCtrl.$setViewValue(transformedInput);
+                            ngModelCtrl.$render();
+                        }
+                        return transformedInput;
+                    }
+                    return undefined;
+                }
+                ngModelCtrl.$parsers.push(fromUser);
+            }
+        };
+    })
+    .directive('loadingPane', function ($timeout, $window) {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attr) {
+                var directiveId = 'loadingPane';
+
+                var targetElement;
+                var paneElement;
+                var throttledPosition;
+
+                function init(element) {
+                    targetElement = element;
+
+                    paneElement = angular.element('<div>');
+                    paneElement.addClass('loading-pane');
+
+                    if (attr['id']) {
+                        paneElement.attr('data-target-id', attr['id']);
+                    }
+
+                    var spinnerImage = angular.element('<div>');
+                    spinnerImage.addClass('spinner-image');
+                    spinnerImage.appendTo(paneElement);
+
+                    angular.element('body').append(paneElement);
+
+                    setZIndex();
+
+                    //reposition window after a while, just in case if:
+                    // - watched scope property will be set to true from the beginning
+                    // - and initial position of the target element will be shifted during page rendering
+                    $timeout(position, 100);
+                    $timeout(position, 200);
+                    $timeout(position, 300);
+
+                    throttledPosition = _.throttle(position, 50);
+                    angular.element($window).scroll(throttledPosition);
+                    angular.element($window).resize(throttledPosition);
+                }
+
+                function updateVisibility(isVisible) {
+                    if (isVisible) {
+                        show();
+                    } else {
+                        hide();
+                    }
+                }
+
+                function setZIndex() {
+                    var paneZIndex = 500;
+
+                    paneElement.css('zIndex', paneZIndex).find('.spinner-image').css('zIndex', paneZIndex + 1);
+                }
+
+                function position() {
+                    paneElement.css({
+                        'left': targetElement.offset().left,
+                        'top': targetElement.offset().top - $(window).scrollTop(),
+                        'width': targetElement.outerWidth(),
+                        'height': targetElement.outerHeight()
+                    });
+                }
+
+                function show() {
+                    paneElement.show();
+                    position();
+                }
+
+                function hide() {
+                    paneElement.hide();
+                }
+
+                init(element);
+
+                scope.$watch(attr[directiveId], function (newVal) {
+                    updateVisibility(newVal);
+                });
+
+                scope.$on('$destroy', function cleanup() {
+                    paneElement.remove();
+                    $(window).off('scroll', throttledPosition);
+                    $(window).off('resize', throttledPosition);
+                });
+            }
+        };
+    })
+    .directive('imageonload', function () {
+        return {
+            restrict: 'A',
+            link: function (scope, element, attrs) {
+                element.bind('load', function () {
+                   // alert('image is loaded');
+                });
+                element.bind('error', function () {
+                   // alert('image could not be loaded');
+                    attrs.$set('src', 'https://fithouseksa.com/wp-content/uploads/2018/07/Grilled-steak.png');
+                });
+            }
+        };
+    });
+;
 ;(function () {
   'use strict';
 
@@ -127,12 +273,12 @@
         "Mobile": "Mobile:",
         "LeadershipTeam": "Leadership Team",
         "Leadership": "Leadership",
-        "Home": "Home",
+        "Home": "Custom program",
         "AboutUs": "About Us",
         "ContactUs": "Contact Us",
         "Language": "Language",
         "customiseProgram": "Customise Program",
-        "DescribeCustomiseProgram": "Describe Customise Program as client want",
+        "DescribeCustomiseProgram": "create your own Program as you want",
         "ProgramName": "Program Name",
         "ProgramDescription": "Program Description",
         "SelectExcludeDays": "Excluded Days",
@@ -474,13 +620,55 @@
         "deleteConfirmationLbl": "Are you sure you want to delete: ",
         "deleteBtn": "Delete",
         "cancelBtn": "Cancel",
-        "loading": "Lodaing...",
+        "loading": "loading...",
         "History": "Orders",
         "Profile": "Profile", 
+        "Open": "Open", 
+        "Prepering": "Prepering", 
+        "thanks": "Thanks for applying in our system.", 
+        "Overview": "Overview", 
+        "NumberOfItems": "Number Of Items", 
+        "NoOrdersAvailable": "No Orders yet", 
+        "copyrigth": "© 2019 Fit House | All rights reserved", 
+        "NoAddressAvailable": "No Address yet", 
+
+        "NoExcludedDays": "No Excluded Days", 
+        "ExcludedDays": "Excluded Days", 
+        "MealDetails": "Meal Details", 
+        "Details": "Details", 
+        "wrongpattern": "wrong pattern", 
+        "PromotionLbl": "Promotion",
+        "CheckPromotion": "Check Promotion",
+        "maxlength": "Length Error",
+        "RepeatDayOne": "Repeat the first day meals for the rest of the week?",
+        
+        "addItemBtn": "Add item",
+        "SelectCategory":"Select category",
+        "selectSizeLbl":"Select Size",
+        
       }
 
       var ar_translations = {
+        
+        "RepeatDayOne": "تكرار وجبات اليوم الأول لباقي الأسبوع؟",
+        "maxlength": "خطأ في عدد الارقام", 
+        "PromotionLbl": "ترويج",
+        "CheckPromotion": "تحقق الترويج",
 
+        "wrongpattern": "نمط خاطئ", 
+        "Details": "التفاصيل", 
+        "MealDetails": "تفاصيل الوجبه", 
+        "thanks": "شكرا لاستخدامك النظام الخاص بنا ", 
+        "NumberOfItems": "عدد الوجبات", 
+        "NoAddressAvailable": "لا توجد عناوين حتي الان", 
+        "NoExcludedDays": "لا توجد أيام مستبعدة", 
+        "ExcludedDays": " أيام مستبعدة", 
+
+        "copyrigth": " حقوق الملكيه لسنه  2019 Fit House", 
+        "NoOrdersAvailable":"لا يوجد طلبات حتي الان", 
+        "Overview": "نظرة عامة", 
+        "Open": "0", 
+        "Prepering": "Prepering", 
         "loading": "تحميل ...",
         "History": "الطلبات",
         "Profile": "الملف الشخصي", 
@@ -497,14 +685,14 @@
         "ProgramDays": "عدد ايام البرنامج",
         "NonRefundable": "غير قابل للاسترداد",
 
-        "DescribeCustomiseProgram": "Describe Customise Program as client want",
+        "DescribeCustomiseProgram": "إنشاء البرنامج الخاص بك كما تريد",
         "customiseProgram": "انشاء برنامج",
         "Email": "البريد الالكتروني: ",
         "WhatsApp": "واتس اب: ",
         "Mobile": "رقم الجوال: ",
         "LeadershipTeam": "فريق القيادة",
         "Leadership": "القيادة",
-        "Home": "الرئيسيه",
+        "Home": "برنامج مخصص",
         "ContactUs": "تواصل",
         "AboutUs": "عن ميزاب",
         "Language": "اللغه",
@@ -591,7 +779,7 @@
         "LETSCREATEPROGRAM": "هيا لنضيف برنامج",
         "BaiscInfo": "معلومات اساسيه",
         "CreateMeal": "اضف الوجبه",
-        "Summary": "المختصر",
+        "Summary": "تفاصيل",
         "saveUser": "حفظ مستخدم",
         "Program": "البرنامج",
         "ProgramLbl": "برنامج جديد",
@@ -847,7 +1035,10 @@
         "CompleteBtn": "اكتمال",
         "history": "سجل",
         "modifyBy": "تعديل بواسطة",
-        "modifyTime": "تاريخ التعديل"
+        "modifyTime": "تاريخ التعديل", 
+        "addItemBtn": "أضف منتج",
+        "SelectCategory":"أختار قسم",
+        "selectSizeLbl":"أختار حجم",
       }
 
       $translateProvider.translations('en', en_translations);
@@ -967,7 +1158,8 @@
             //     $state.go('Area'); 
             // if ($scope.user.PermissionId[0] == 10)
             blockUI.stop();
-            $state.go('homePage');
+            // $state.go('homePage');
+            $state.go('program');
 
         }
         else {
@@ -985,12 +1177,13 @@
 
     angular
         .module('home')
-        .controller('homeCtrl', ['$rootScope', 'blockUI', '$transitions', '$translate', '$scope', 'appCONSTANTS', '$state', '_', 'authenticationService', 'authorizationService', '$localStorage', homeCtrl])
+        .controller('homeCtrl', ['$rootScope', 'blockUI', '$transitions', '$translate', '$scope', 'appCONSTANTS', '$state', '_', 'authenticationService', 'authorizationService', '$localStorage', '$timeout', homeCtrl])
 
-    function homeCtrl($rootScope, blockUI, $transitions, $translate, $scope, appCONSTANTS, $state, _, authenticationService, authorizationService, $localStorage) {
+    function homeCtrl($rootScope, blockUI, $transitions, $translate, $scope, appCONSTANTS, $state, _, authenticationService, authorizationService, $localStorage, $timeout) {
         $scope.$on('LOAD', function () { $scope.loading = true });
         $scope.$on('UNLOAD', function () { $scope.loading = false });
         var vm = this;
+
         $scope.emailEmpty = false;
         $scope.passwordEmpty = false;
         $scope.languages = [{
@@ -1008,6 +1201,7 @@
         else
             $scope.selectedLanguage = $localStorage.language;
 
+        
         $translate.use($scope.selectedLanguage);
         $scope.init =
             function () {
@@ -1017,7 +1211,7 @@
         $scope.init();
 
         $scope.submit = function (username, password) {
-            blockUI.start('Loading...');
+           // blockUI.start('Loaaaaaaading...');
 
             authorizationService.isPasswordchanged = false;
             $('#passwordChanged').hide();
@@ -1091,7 +1285,8 @@
                 else {
                     debugger;
                     blockUI.stop();
-                    $state.go('homePage');
+                    // $state.go('homePage');
+                    $state.go('program');
                 }
             }
             else {
@@ -1144,7 +1339,11 @@
             return (new Date()).getTime()
         }
 
+        $timeout(function () {
 
+            document.getElementById("sec1").classList.remove('hideHTML');
+            document.getElementById("sec2").classList.remove('hideHTML');
+        }, 100);
     }
 
 

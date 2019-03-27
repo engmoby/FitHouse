@@ -16,7 +16,7 @@
         , RegionResource) {
 
         $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[4].children[0]).addClass("active")
+        $($('.pmd-sidebar-nav').children()[11].children[0]).addClass("active")
 
         // blockUI.start("Loading...");
 
@@ -27,9 +27,8 @@
         vm.userOrder;
         $scope.flag = false;
 
-        // vm.orderType;
         vm.orderType = {
-            type: 'item'
+            type: 'meal'
         };
         vm.counties.push({ countryId: 0, titleDictionary: { "en": "Select Country", "ar": "اختار بلد" } });
         vm.selectedCountryId = 0;
@@ -167,7 +166,7 @@
             vm.currentStep = newStep;
         }
 
-        vm.Phone = localStorage.getItem('Phone');
+        //vm.Phone = localStorage.getItem('Phone');
 
         vm.ValidateUser = function () {
             blockUI.start("Loading...");
@@ -175,8 +174,8 @@
             var k = UserResource.validate({ phone: vm.Phone }).$promise.then(function (results) {
                 vm.userOrder = results;
                 $scope.flag = true;
-                localStorage.setItem('Phone', vm.Phone);
-                ToastService.show("right", "bottom", "fadeInUp", $translate.instant('ClientFound'), "success");
+               // localStorage.setItem('Phone', vm.Phone);
+               // ToastService.show("right", "bottom", "fadeInUp", $translate.instant('ClientFound'), "success");
                 blockUI.stop();
 
             },
@@ -228,6 +227,8 @@
             newClient.description = vm.AddressDescription;
             newClient.isAddress = true;
             newClient.code = 100;
+            newClient.length = vm.Length;
+            newClient.weight = vm.Weight;
           //  newClient.UserRoles = vm.selectedUserRoles;
             // newClient.branchId = vm.selectedBranchId;
             newClient.branchId = vm.branchList[0].branchId;

@@ -4,27 +4,42 @@ using AutoMapper;
 using Elmah.ContentSyndication;
 using FitHouse.API.Infrastructure;
 using FitHouse.API.Models;
+using FitHouse.BLL.DataServices.Interfaces;
 using FitHouse.BLL.DTOs;
 using FitHouse.BLL.Services.Interfaces;
+using FitHouse.Common;
 
 namespace FitHouse.API.Controllers
 {
     public class OrderController : BaseApiController
     {
         private readonly IOrderFacade _orderFacade;
+        private readonly IUserService _userService;
         private readonly IUserFacade _userFacade;
-        public OrderController(IOrderFacade orderFacade, IUserFacade userFacade)
+        public OrderController(IOrderFacade orderFacade, IUserFacade userFacade, IUserService userService)
         {
             _orderFacade = orderFacade;
             _userFacade = userFacade;
+            _userService = userService;
         }
 
         [Route("api/Orders/CreateOrder", Name = "CreateOrder")]
         [HttpPost]
         public IHttpActionResult CreateOrder([FromBody] OrderCallCenterModel orderModel)
         {
-
+            var userInfo = _userService.Find(orderModel.UserId);
             var order = _orderFacade.CreateOrder(Mapper.Map<OrderCallCenterDto>(orderModel), UserId);
+            if (orderModel.Type == Enums.OrderType.Program)
+            {
+                /*Program*/
+                MailHelper.SendMailOrder("Fit House Order", orderModel.Day.ToString("F"),
+                    userInfo.FirstName + " " + userInfo.LastName, order.OrderCode,orderModel.Price.ToString("F"), userInfo.Email);
+            }
+            if (orderModel.Type == Enums.OrderType.Meal) 
+                /*meal*/
+                MailHelper.SendMailOrderMeal("Fit House Order", orderModel.Day.ToString("F"),
+                    userInfo.FirstName + " " + userInfo.LastName, order.OrderCode,orderModel.Price.ToString("F"), orderModel, userInfo.Email);
+           
             return Ok(order);
         }
 
@@ -126,7 +141,7 @@ namespace FitHouse.API.Controllers
         public IHttpActionResult GetOrderItems(long orderId, long programId, long dayNumber)
         {
             var reurnOrder = _orderFacade.GetOrderItems(orderId, programId, dayNumber);
-            var data = Mapper.Map<List<ItemModel>>(reurnOrder);
+            var data = Mapper.Map<List<ItemSizeModel>>(reurnOrder);
             return PagedResponse("GetOrderItems", Page, PageSize, reurnOrder.Count, data);
 
             // return Ok(reurnOrder);
@@ -145,7 +160,7 @@ namespace FitHouse.API.Controllers
         [HttpPost]
         public IHttpActionResult ChangeOrderDetailsStatus(long orderDetailsId, int status)
         {
-            var reurnOrder = _orderFacade.ChangeOrderDetailsStatus(orderDetailsId, status); 
+            var reurnOrder = _orderFacade.ChangeOrderDetailsStatus(orderDetailsId, status);
             return Ok(reurnOrder);
         }
 
@@ -167,7 +182,7 @@ namespace FitHouse.API.Controllers
         [Route("api/Orders/GetOrderByClientId", Name = "GetOrderByClientId")]
         [HttpGet]
         public IHttpActionResult GetOrderByClientId(int page = Page, int pagesize = PageSize)
-        { 
+        {
             PagedResultsDto orderObj = _orderFacade.GetOrderByClientId(UserId, page, pagesize);
             var data = Mapper.Map<List<OrderFullDto>>(orderObj.Data);
             return PagedResponse("GetOrderByClientId", page, pagesize, orderObj.TotalCount, data);

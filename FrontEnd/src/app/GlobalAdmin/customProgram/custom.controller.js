@@ -3,57 +3,120 @@
 
 	angular
 		.module('home')
-		.controller('CustomController', ['$scope', '$filter', '$timeout', '$state', 'UserAddressesResource', 'BranchResource', '$translate', 'RegionResource', 'CityResource',
-			'AreaResource', 'CountriesPrepService', 'CustomResource', 'itemsPrepService', 'ToastService', CustomController])
+		.controller('CustomController', ['$scope', 'blockUI', 'PromotionResource', '$filter', '$timeout', '$state', 'UserAddressesResource', 'BranchResource', '$translate', 'RegionResource', 'CityResource',
+			'AreaResource', 'CountriesPrepService', 'CustomResource', 'AllcategoriesPrepService', 'CategoryResource', 'ItemResource', 'ToastService', CustomController])
 
-	function CustomController($scope, $filter, $timeout, $state, UserAddressesResource, BranchResource, $translate, RegionResource, CityResource, AreaResource, CountriesPrepService,
-		CustomResource, itemsPrepService, ToastService) {
+	function CustomController($scope, blockUI, PromotionResource, $filter, $timeout, $state, UserAddressesResource, BranchResource, $translate, RegionResource, CityResource, AreaResource, CountriesPrepService,
+		CustomResource, AllcategoriesPrepService, CategoryResource, ItemResource, ToastService) {
 
 		var vm = this;
-		vm.ItemCategorized = itemsPrepService;
+
+		$scope.btnCheckValid = true;
+		$scope.promotionValue = 0;
+		$scope.promotionError = null;
+		//vm.ItemCategorized = itemsPrepService;
 		vm.itemList = [];
 		vm.counties = [];
 		vm.validate = false;
+		vm.ProgramTotalPrice = 0;
 		vm.ProgramDiscount = JSON.parse(localStorage.getItem("ProgramDiscount"));
 		vm.daysCount = JSON.parse(localStorage.getItem("programDaysCount"));
 		vm.mealsCount = JSON.parse(localStorage.getItem("mealPerDay"));
 		vm.IsBreakFast = JSON.parse(localStorage.getItem("isBreakFast"));
-		vm.SelectedDays = JSON.parse(localStorage.getItem("dayList"));
 		vm.IsSnack = JSON.parse(localStorage.getItem("isSnack"));
+		vm.SelectedDays = JSON.parse(localStorage.getItem("dayList"));
 		vm.startDate = localStorage.getItem("itemDatetime");
 		var user = JSON.parse(localStorage.getItem("ngStorage-authInfo"));
 		vm.clientId = user.UserId;
 		vm.order = JSON.parse(localStorage.getItem("OrderSummary"));
 		vm.Total = 0;
 		vm.DeliveryFees = 0;
-		debugger;
-		if (vm.order != null) {
-			//10 seconds delay
-			$timeout(function () {
-				vm.order = JSON.parse(localStorage.getItem("OrderSummary"));
-				localStorage.removeItem("OrderSummary");
-				localStorage.removeItem("itemDatetime");
-				localStorage.removeItem("isSnack");
-				localStorage.removeItem("isBreakFast");
-				localStorage.removeItem("dayList");
-				localStorage.removeItem("mealPerDay");
-				localStorage.removeItem("programDaysCount");
-				localStorage.removeItem("ProgramDiscount");
-				$state.go('homePage')
-			}, 5000);
-		}
-		$scope.getData = function (itemModel, day, meal) {
+		vm.RepeatList = [];
+		vm.itemList = [];
+		vm.Repeat = function () {
+			var firstDay = $filter('filter')(vm.itemList, x => (x.dayNumber == 1));
 
-			var differntMeal = $filter('filter')(vm.itemList, x => (x.dayNumber == day && x.mealNumberPerDay != meal) || (x.dayNumber != day));
-			//var differntMeal = vm.itemList.filter(x => (x.dayNumber == day && x.mealNumberPerDay != meal) || (x.dayNumber != day));
-			vm.itemList = [];
-			vm.itemList = angular.copy(differntMeal);
-
-			itemModel.forEach(element => {
-				element.dayNumber = day;
-				element.mealNumberPerDay = meal;
-				vm.itemList.push(element);
+			firstDay.forEach(element => {
+				element.dayNumber = 1;
+				vm.RepeatList.push(element);
 			});
+
+			for (var i = 1; i < vm.daysCount; i++) {
+				for (var l = 0; l < firstDay.length; l++) {
+					firstDay[l].dayNumber = i + 1;
+					vm.RepeatList.push(firstDay[l]);
+				}
+			}
+			vm.itemList = vm.RepeatList;
+			$scope.itemModel = vm.RepeatList;
+		}
+
+		vm.categories = AllcategoriesPrepService;
+		vm.items = [];
+		vm.itemSizes = [];
+		// if (vm.order != null) {
+		// 	//10 seconds delay
+		// 	$timeout(function () {
+		// 		vm.order = JSON.parse(localStorage.getItem("OrderSummary"));
+		// 		localStorage.removeItem("OrderSummary");
+		// 		localStorage.removeItem("itemDatetime");
+		// 		localStorage.removeItem("isSnack");
+		// 		localStorage.removeItem("isBreakFast");
+		// 		localStorage.removeItem("dayList");
+		// 		localStorage.removeItem("mealPerDay");
+		// 		localStorage.removeItem("programDaysCount");
+		// 		localStorage.removeItem("ProgramDiscount");
+		// 		$state.go('homePage')
+		// 	}, 10000);
+		// }
+		vm.changeCategory = function (selectedCategoryId, meal) {
+			CategoryResource.GetAllActiveItems({ categoryId: selectedCategoryId, pagesize: 0 }).$promise.then(function (results) {
+				meal.items = results.results;
+			},
+				function (data, status) {
+					ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+				});
+		}
+
+		vm.changeItem = function (selectedItemId, meal) {
+			ItemResource.GetAllItemSizes({ itemId: selectedItemId }).$promise.then(function (results) {
+				meal.itemSizes = results;
+			},
+				function (data, status) {
+					ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+				});
+		}
+
+		vm.removeItem = function (item, meal) {
+			// meal.selectedItemList.splice(index, 1);
+			meal.selectedItemList.splice(meal.selectedItemList.indexOf(item), 1);
+			vm.itemList.splice(vm.itemList.indexOf(item), 1);
+		}
+		vm.removeItem = function (item, meal) {
+			// meal.selectedItemList.splice(index, 1);
+			meal.selectedItemList.splice(meal.selectedItemList.indexOf(item), 1);
+			vm.itemList.splice(vm.itemList.indexOf(item), 1);
+		}
+		$scope.getData = function (itemModel, day, mealNumber, meal,type) {
+
+			// var differntMeal = $filter('filter')(vm.itemList, x => (x.dayNumber == day && x.mealNumberPerDay != meal) || (x.dayNumber != day));
+			// //var differntMeal = vm.itemList.filter(x => (x.dayNumber == day && x.mealNumberPerDay != meal) || (x.dayNumber != day));
+			// vm.itemList = [];
+			// vm.itemList = angular.copy(differntMeal);
+
+			// itemModel.forEach(element => {
+			meal.selectedCategoryId = 0;
+			meal.selectedItem = null;
+			meal.selectedItemSize = null;
+			itemModel.dayNumber = day;
+			itemModel.mealNumberPerDay = mealNumber;
+			itemModel.itemType = type;
+
+			vm.itemList.push(itemModel);
+			if (meal.selectedItemList == null)
+				meal.selectedItemList = [];
+			meal.selectedItemList.push(itemModel)
+			// });
 			vm.ProgramPrice = 0;
 			vm.ProgramCost = 0;
 			vm.ProgramVAT = 0;
@@ -66,15 +129,26 @@
 				vm.ProgramVAT = vm.ProgramVAT + vm.itemList[i].vat;
 				vm.totalPrice += vm.itemList[i].totalPrice;
 			}
-			vm.ProgramTotalPrice = vm.totalPrice - (vm.totalPrice * (vm.ProgramDiscount / 100));
+			vm.ProgramTotalPrice = vm.totalPrice;//- (vm.totalPrice * (vm.ProgramDiscount / 100));
 			vm.ProgramTotalPriceBefore = vm.totalPrice;
 
-			// vm.ProgramTotalPrice = (vm.totalPrice + vm.DeliveryFees) - (vm.totalPrice * (vm.ProgramDiscount / 100));
-			// vm.ProgramTotalPriceBefore = vm.totalPrice + vm.DeliveryFees;
+			debugger;
+			vm.itemList.forEach(element => {
+				vm.carbs = (element.carbs == null) ? 0 : $scope.sum(vm.itemList, 'carbs');
+				vm.calories = (element.calories == null) ? 0 : $scope.sum(vm.itemList, 'calories');
+				vm.protein = (element.protein == null) ? 0 : $scope.sum(vm.itemList, 'protein');
+				vm.fat = (element.fat == null) ? 0 : $scope.sum(vm.itemList, 'fat');
+				//vm.price = $scope.sum(model, 'price');
+
+				//$scope.selectedItemList = model;
+			});
+
+			vm.Total = vm.totalPrice - (vm.totalPrice * (vm.ProgramDiscount / 100)) + vm.DeliveryFees;
 
 		}
 
 		vm.AddNewProgram = function () {
+			blockUI.start($translate.instant('loading'));
 			var newProgram = new CustomResource();
 			newProgram.isActive = true;
 			newProgram.programDays = vm.daysCount;
@@ -104,11 +178,13 @@
 			newProgram.$create().then(
 				function (data, status) {
 					//	ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+					blockUI.stop();
 					debugger;
 					localStorage.setItem('OrderSummary', JSON.stringify(data));
 					$state.go('Summary');
 				},
 				function (data, status) {
+					blockUI.stop();
 					//	ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
 				}
 			);
@@ -121,15 +197,15 @@
 			var modelList = [];
 			modelList = model;
 
-			modelList.forEach(element => {
-				vm.carbs = (element.carbs == null) ? 0 : $scope.sum(model, 'carbs');
-				vm.calories = (element.calories == null) ? 0 : $scope.sum(model, 'calories');
-				vm.protein = (element.protein == null) ? 0 : $scope.sum(model, 'protein');
-				vm.fat = (element.fat == null) ? 0 : $scope.sum(model, 'fat');
-				//vm.price = $scope.sum(model, 'price');
+			// modelList.forEach(element => {
+			// 	vm.carbs = (element.carbs == null) ? 0 : $scope.sum(model, 'carbs');
+			// 	vm.calories = (element.calories == null) ? 0 : $scope.sum(model, 'calories');
+			// 	vm.protein = (element.protein == null) ? 0 : $scope.sum(model, 'protein');
+			// 	vm.fat = (element.fat == null) ? 0 : $scope.sum(model, 'fat');
+			// 	//vm.price = $scope.sum(model, 'price');
 
-				$scope.selectedItemList = model;
-			});
+			// 	$scope.selectedItemList = model;
+			// });
 			//console.log($scope.selectedItemList);
 		}
 		$scope.sum = function (items, prop) {
@@ -185,6 +261,8 @@
 				function (data, status) {
 					//  ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
 				});
+			vm.selectedBranchId = 0;
+			vm.DeliveryFees = 0;
 			//  blockUI.stop();
 		}
 		vm.regionChange = function () {
@@ -249,18 +327,6 @@
 			vm.Total = vm.ProgramTotalPrice + vm.DeliveryFees;
 			//GetBranchDelivery();
 		}
-		function GetBranchDelivery() {
-			var temp = new BranchResource();
-			temp.$getBranch({ branchId: vm.selectedBranchId }).then(function (results) {
-				vm.DeliveryFees = results.deliveryPrice;
-				// blockUI.stop();
-
-			},
-				function (data, status) {
-					//   blockUI.stop();
-					ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-				});
-		}
 
 		vm.orderType = {
 			type: 'delivery'
@@ -268,12 +334,24 @@
 		vm.addresses = {
 			address: 0
 		};
+		vm.typeChanged = function () {
+			debugger;
+			if (vm.orderType.type == 'delivery') {
+				vm.DeliveryFees = 0;
+				vm.Total = 0;
+				vm.selectedBranchId = 0;
+			}
+			else {
+				vm.DeliveryFees = 0;
+				vm.Total = 0;
+				vm.addresses.address = null;
+			}
+		}
+
 		vm.changeOrderType = function () {
 			if (vm.orderType.type == 'delivery' || vm.orderType.type == 'true') {
 				vm.orderType.type = 'pickup'
-				// if (CustomCtrl.selectedCityId > 0)
-				// 	vm.validate = false;
-
+				vm.addressDetails.address = null;
 			} else {
 				vm.orderType.type = 'delivery'
 
@@ -294,11 +372,63 @@
 				});
 		}
 		vm.addressInfo = function (address) {
+			debugger;
 			vm.addressDetails = address;
 			vm.selectedBranchId = vm.addressDetails.branchId;
 			GetBranchDelivery();
-			debugger;
-			vm.Total = vm.ProgramTotalPrice + vm.DeliveryFees;
+			//	vm.Total = vm.ProgramTotalPrice + vm.DeliveryFees;
+		}
+		function GetBranchDelivery() {
+			var temp = new BranchResource();
+			temp.$getBranch({ branchId: vm.selectedBranchId }).then(function (results) {
+				if (results.deliveryPrice == null) {
+					vm.DeliveryFees = 0;
+				}
+				else {
+					vm.DeliveryFees = results.deliveryPrice;
+				}
+
+				vm.Total = vm.ProgramTotalPrice + vm.DeliveryFees;
+
+
+			},
+				function (data, status) {
+					//   blockUI.stop();
+					ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+				});
+		}
+
+
+		$scope.checkPromotion = function (promoTitle) {
+			blockUI.start($translate.instant('loading'));
+
+			var promotion = new PromotionResource();
+			promotion.title = promoTitle;
+			promotion.type = "CustomProgram";
+
+
+			promotion.$CheckPromotion().then(
+				function (data, status) {
+					debugger;
+					blockUI.stop();
+					$scope.btnCheckValid = false;
+					$scope.promotionValue = data;
+					// vm.ProgramTotalPrice = vm.ProgramTotalPrice - (vm.ProgramTotalPrice * $scope.promotionValue.value / 100);
+					// vm.Total = vm.ProgramTotalPrice;
+					$scope.promotionError = null;
+
+
+					var promoValue = (vm.Total * $scope.promotionValue.value / 100);
+					vm.Total = vm.Total - promoValue;
+				},
+				function (data, status) {
+					blockUI.stop();
+					$scope.btnCheckValid = true;
+					$scope.promotionError = data.data.message;
+					$scope.promotionValue = null;
+
+				}
+			);
 		}
 	}
 

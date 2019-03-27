@@ -11,9 +11,9 @@ namespace FitHouse.API.Models
         public long MealDetailId { get; set; }
 
         public long MealId { get; set; }
-        public long ItemId { get; set; }
+        public long ItemSizeId { get; set; }
         public virtual MealModel Meal { get; set; }
-        public virtual ItemModel Item { get; set; }
+        public virtual ItemSizeModel ItemSize { get; set; }
         public long IsDeleted { get; set; }
         public bool IsActive { get; set; }
 

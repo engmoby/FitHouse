@@ -8,8 +8,10 @@ using System.Web.Http.Description;
 using AutoMapper;
 using FitHouse.API.Infrastructure;
 using FitHouse.API.Models;
+using FitHouse.BLL.DataServices.Interfaces;
 using FitHouse.BLL.DTOs;
 using FitHouse.BLL.Services.Interfaces;
+using FitHouse.Common;
 using FitHouse.Common.CustomException;
 
 namespace FitHouse.API.Controllers
@@ -17,12 +19,20 @@ namespace FitHouse.API.Controllers
     public class ProgramController : BaseApiController
     {
         private readonly IProgramFacade _programFacade;
+        private readonly IUserService _userService;
+        private readonly IOrderDetailsService _orderDetailsService;
+        private readonly IProgramService _programService;
         private readonly IDayFacade _dayFacade;
         private readonly IItemFacade _itemFacade;
-        public ProgramController(IItemFacade itemFacade, IProgramFacade programFacade, IDayFacade dayFacade)
+        private readonly IProgramDetailService _programDetailService;
+        public ProgramController(IItemFacade itemFacade, IProgramFacade programFacade, IDayFacade dayFacade, IProgramService programService, IProgramDetailService programDetailService, IOrderDetailsService orderDetailsService, IUserService userService)
         {
             _programFacade = programFacade;
             _dayFacade = dayFacade;
+            _programService = programService;
+            _programDetailService = programDetailService;
+            _orderDetailsService = orderDetailsService;
+            _userService = userService;
             _itemFacade = itemFacade;
         }
 
@@ -30,8 +40,11 @@ namespace FitHouse.API.Controllers
         [HttpPost]
         public IHttpActionResult CreateProgram([FromBody] ProgramModel programModel)
         {
-
+            /*custom program*/
+            var userInfo = _userService.Find(programModel.UserId);
             var program = _programFacade.CreateProgram(Mapper.Map<ProgramDto>(programModel), UserId);
+            MailHelper.SendMailOrder("Fit House Order", programModel.Day.ToString("F"),
+                userInfo.FirstName + " " + userInfo.LastName, program.OrderCode, programModel.Price.ToString("F"), userInfo.Email);
 
             return Ok(program);
         }
@@ -50,7 +63,7 @@ namespace FitHouse.API.Controllers
         public IHttpActionResult UpdateProgramDetails([FromBody] ProgramModel programModel)
         {
 
-            var program = _programFacade.UpdateProgramDetails(programModel.ProgramId, programModel.ProgramDays, programModel.NoOfMeals, Mapper.Map<List<ItemProgramDto>>(programModel.Items));
+            var program = _programFacade.UpdateProgramDetails(programModel.ProgramId, programModel.ProgramDays, programModel.NoOfMeals, Mapper.Map<List<ItemSizeDto>>(programModel.Items));
 
             return Ok();
         }
@@ -81,6 +94,15 @@ namespace FitHouse.API.Controllers
         [HttpPost]
         public IHttpActionResult EditProgram([FromBody] ProgramModel programModel)
         {
+            if (!programModel.IsActive || programModel.IsDeleted)
+            {
+
+                var checkIfUsedOfProgram = _orderDetailsService.Queryable().Where(x => x.ProgramId == programModel.ProgramId);
+                if (checkIfUsedOfProgram.Any())
+                    throw new ValidationException(ErrorCodes.RecordIsUsedInAnotherModule);
+
+            }
+
             var program = _programFacade.EditProgram(Mapper.Map<ProgramDto>(programModel), UserId);
 
             return Ok(program);
@@ -93,15 +115,19 @@ namespace FitHouse.API.Controllers
         {
             var details = _programFacade.GetProgramItems(programId);
             var detailsModel = Mapper.Map<List<ProgramDetailModel>>(details);
+            foreach (var itemModel in detailsModel)
+            {
+                itemModel.ItemSize.ImageUrl = Url.Link("ItemImage", new { itemModel.ItemSize.CategoryId, itemModel.ItemSize.ItemId });
 
-            var items = Mapper.Map<List<ItemProgramModel>>(_itemFacade.GetItemsById(details));
+            }
+            // var items = Mapper.Map<List<ItemProgramModel>>(_itemFacade.GetItemsById(details));
 
             var days = Mapper.Map<List<DayModel>>(_dayFacade.GetExcludesDays(programId));
 
             var program = Mapper.Map<ProgramModel>(_programFacade.GetProgramDetails(programId));
             program.ProgramDetails = detailsModel;
             program.Days = days;
-            program.Items = items;
+            // program.Items = items;
 
             return Ok(program);
         }

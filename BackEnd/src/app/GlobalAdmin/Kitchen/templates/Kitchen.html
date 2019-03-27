@@ -2,8 +2,13 @@
     <div ng-if="kitchenList.results.length == 0">
         <span>{{'NokitchensAvailable' | translate}}</span>
     </div>
-    {{flag}}
+
+
     <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="kitchenList.results.length > 0">
+
+        <button class="btn pmd-ripple-effect btn-default" style="background-color: #e4e5e6;color: black!important;"
+            type="button" ng-click="changePage(1)">{{'refresh' |translate}}</button>
+
         <div class="table-responsive"></div>
         <table class="table pmd-table table-hover">
             <thead>
@@ -59,7 +64,7 @@
                                 <tr ng-repeat="item in kitchen.ItemList">
                                     <td data-title="Name" width="15%">{{item.itemNameDictionary[selectedLanguage]}}
                                     </td>
-                                    <td data-title="Description">{{item.itemSize}}</td>
+                                    <td data-title="Description">{{item.sizeNameDictionary[selectedLanguage]}}</td>
 
                                 </tr>
                             </tbody>

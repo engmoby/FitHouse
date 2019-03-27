@@ -15,7 +15,7 @@
         appCONSTANTS, ToastService, $uibModal) {
 
         $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[8].children[0]).addClass("active")
+        $($('.pmd-sidebar-nav').children()[10].children[0]).addClass("active")
 
         blockUI.start("Loading...");
 
@@ -23,7 +23,7 @@
 
         $scope.totalCount = pickupsPrepService.totalCount;
         $scope.PickupList = pickupsPrepService;
-   
+
         function refreshPickups() {
             blockUI.start("Loading...");
 
@@ -40,10 +40,11 @@
         }
 
         vm.changeStatus = function (orderId, status) {
+            blockUI.start("Loading...");
             var temp = new PickupsResource();
             temp.$ChangeOrderStatus({ orderId: orderId, status: status }).then(function (results) {
                 if (results = true)
-                refreshPickups();
+                    refreshPickups();
 
                 blockUI.stop();
 
@@ -56,17 +57,22 @@
 
         }
 
-        function change(order) { 
+        function change(order) {
+            if (order.orderStatus == 4) {
+                ToastService.show("right", "bottom", "fadeInUp", 'cant change deleviered order', "success");
+                return;
+            }
             var updateObj = new PickupsResource();
             updateObj.OrderId = order.orderId;
 
             updateObj.isPaid = (order.isPaid == true ? false : true);
             updateObj.OrderDetails = order.orderDetails;
+            updateObj.orderStatus = order.orderStatus;
             updateObj.$update().then(
                 function (data, status) {
 
 
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "error");
                     order.isPaid = updateObj.isPaid;
 
                 },
@@ -78,7 +84,10 @@
 
         }
         $scope.UpdatePickup = function (pickup) {
+            blockUI.start("Loading...");
             debugger; change(pickup);
+            blockUI.stop();
+
         }
 
 

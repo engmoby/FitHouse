@@ -24,27 +24,28 @@ namespace FitHouse.BLL.DataServices
             PagedResultsDto results = new PagedResultsDto();
             results.TotalCount = query.Select(x => x).Count();
             var data = query.OrderByDescending(x => x.OrderId).Skip((page - 1) * pageSize).Take(pageSize).ToList();
-            var orderDto = new List<OrderDto>();
+          //  var orderDto = new List<OrderDto>();
 
             //  orderDto = Mapper.Map<List<Order>, List<OrderDto>>(data);
-            foreach (var dto in data)
-            {
-                decimal price = 0;
-                if (dto.Type == Enums.OrderType.Item)
-                    price += dto.OrderDetails.Sum(dtoOrderDetail => dtoOrderDetail.Item.Price);
+            //foreach (var dto in data)
+            //{
+            //    decimal price = 0;
+            //    if (dto.Type == Enums.OrderType.Item)
+            //        price += dto.OrderDetails.Sum(dtoOrderDetail => dtoOrderDetail.Item.Price);
 
-                if (dto.Type == Enums.OrderType.Meal)
-                    price += dto.OrderDetails.Sum(dtoOrderDetail => dtoOrderDetail.Meal.MealPrice);
+            //    if (dto.Type == Enums.OrderType.Meal)
+            //        price += dto.OrderDetails.Sum(dtoOrderDetail => dtoOrderDetail.Meal.MealPrice);
 
-                if (dto.Type == Enums.OrderType.Program)
-                    foreach (var dtoOrderDetail in dto.OrderDetails)
-                        price = dtoOrderDetail.Program.Price;
+            //    if (dto.Type == Enums.OrderType.Program)
+            //        foreach (var dtoOrderDetail in dto.OrderDetails)
+            //            price = dtoOrderDetail.Program.Price;
 
-                var convertToDto = Mapper.Map<OrderDto>(dto);
-                convertToDto.Price = price;
-                orderDto.Add(convertToDto);
-            }
-            results.Data = orderDto;
+            //    var convertToDto = Mapper.Map<OrderDto>(dto);
+            //    convertToDto.Price = price;
+            //    orderDto.Add(convertToDto);
+            //}
+            //results.Data = orderDto;
+            results.Data = Mapper.Map<List<OrderDto>>(data);
 
             return results;
         }
@@ -161,13 +162,10 @@ namespace FitHouse.BLL.DataServices
 
             foreach (var order in query)
             {
-                foreach (var orderOrderDetail in order.OrderDetails)
-                {
-                    var day = orderOrderDetail.Day.Value.Day;
-                    var month = orderOrderDetail.Day.Value.Month;
-                    var yes = orderOrderDetail.Day.Value.Year;
+                //foreach (var orderOrderDetail in order.OrderDetails)
+                //{ 
 
-                }
+                //}
                 if (order.OrderDetails.Any(d => d.Day != null &&
                                                 d.Day.Value.Year == todaysDate.Year && d.Day.Value.Month == todaysDate.Month && d.Day.Value.Day == todaysDate.Day))
                 {
@@ -188,26 +186,26 @@ namespace FitHouse.BLL.DataServices
             results.TotalCount = queryReturn.Select(x => x).Count();
             var data = queryReturn.OrderByDescending(x => x.OrderId).ToList();
 
-            foreach (var dto in data)
-            {
-                decimal price = 0;
-                if (dto.Type == Enums.OrderType.Item)
-                    price += dto.OrderDetails.Sum(dtoOrderDetail => dtoOrderDetail.Item.Price);
+            //foreach (var dto in data)
+            //{
+            //    decimal price = 0;
+            //    if (dto.Type == Enums.OrderType.Item)
+            //        price += dto.OrderDetails.Sum(dtoOrderDetail => dtoOrderDetail.Item.Price);
 
-                if (dto.Type == Enums.OrderType.Meal)
-                    price += dto.OrderDetails.Sum(dtoOrderDetail => dtoOrderDetail.Meal.MealPrice);
+            //    if (dto.Type == Enums.OrderType.Meal)
+            //        price += dto.OrderDetails.Sum(dtoOrderDetail => dtoOrderDetail.Meal.MealPrice);
 
-                if (dto.Type == Enums.OrderType.Program)
-                    foreach (var dtoOrderDetail in dto.OrderDetails)
-                        price = dtoOrderDetail.Program.Price;
+            //    if (dto.Type == Enums.OrderType.Program)
+            //        foreach (var dtoOrderDetail in dto.OrderDetails)
+            //            price = dtoOrderDetail.Program.Price;
 
-                var convertToDto = Mapper.Map<OrderDto>(dto);
-                convertToDto.Price = price;
-                orderDto.Add(convertToDto);
-            }
-            results.Data = orderDto;
+            //    var convertToDto = Mapper.Map<OrderDto>(dto);
+            //    convertToDto.Price = price;
+            //    orderDto.Add(convertToDto);
+            //}
+           // results.Data = orderDto;
 
-            //  results.Data = Mapper.Map<List<Order>, List<OrderDto>>(data);
+              results.Data = Mapper.Map<List<Order>, List<OrderDto>>(data);
 
             return results;
         }

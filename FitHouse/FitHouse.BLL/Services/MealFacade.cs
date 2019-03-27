@@ -10,6 +10,7 @@ using FitHouse.Common.CustomException;
 using FitHouse.DAL.Entities.Model;
 using Microsoft.Practices.ObjectBuilder2;
 using Repository.Pattern.UnitOfWork;
+using System;
 
 namespace FitHouse.BLL.Services
 {
@@ -93,15 +94,16 @@ namespace FitHouse.BLL.Services
             return mealDto;
         }
 
-        public List<ItemProgramDto> GetMealItems(long mealId)
+        public List<ItemSizeDto> GetMealItems(long mealId)
         {
             var mealDetails = _mealDetailsService.GetMealItems(mealId);
             if (mealDetails == null) throw new NotFoundException(ErrorCodes.MealHasNoItems);
 
-            var items = new List<ItemProgramDto>();
+            var items = new List<ItemSizeDto>();
             foreach (var detail in mealDetails)
             {
-                var item = Mapper.Map<ItemProgramDto>(_itemService.GetItemById(detail.ItemId));
+                //var item = Mapper.Map<ItemProgramDto>(_itemService.GetItemById(detail.ItemId));
+                var item = Mapper.Map<ItemSizeDto>(detail.ItemSize);
                 if (item == null) throw new NotFoundException(ErrorCodes.ItemNotFound);
                 items.Add(item);
             }
@@ -236,7 +238,7 @@ namespace FitHouse.BLL.Services
             {
                 meal.MealDetails.Add(new MealDetail
                 {
-                    ItemId = roleper.ItemId
+                    ItemSizeId = roleper.ItemSizeId
                 });
             }
             meal.MealDiscount = mealDto.MealDiscount;

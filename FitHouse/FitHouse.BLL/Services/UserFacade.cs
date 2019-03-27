@@ -93,6 +93,8 @@ namespace FitHouse.BLL.Services
             userDto.LastName = getUserInfo.LastName;
             userDto.Email = getUserInfo.Email;
             userDto.Phone = getUserInfo.Phone;
+            userDto.Weight = getUserInfo.Weight;
+            userDto.Length = getUserInfo.Length;
             userDto.Password = PasswordHelper.Decrypt(getUserInfo.Password);
             if (getUserInfo.BranchId != null)
             {
@@ -164,6 +166,8 @@ namespace FitHouse.BLL.Services
                 //{
                 //    var getLatestCode = lastOrDefault.Code;
                 //}
+                userObj.Length = userDto.Length;
+                userObj.Weight = userDto.Weight;
                 userObj.UserCode = userDto.FirstName + userDto.Phone;
             }
             userObj.FirstName = userDto.FirstName;
@@ -222,8 +226,10 @@ namespace FitHouse.BLL.Services
             userObj.Phone = userDto.Phone ?? userObj.Phone;
             userObj.Password = (userDto.Password != null) ? PasswordHelper.Encrypt(userDto.Password) : userObj.Password;
             userObj.IsActive = (true) ? userDto.IsActive : userObj.IsActive;
-            userObj.IsDeleted = false;
+            userObj.IsDeleted = false; 
             userObj.Email = userDto.Email ?? userObj.Email;
+            userObj.Length = userDto.Length?? userObj.Length;
+            userObj.Weight = userDto.Weight ?? userObj.Weight;
             userObj.BranchId = (userDto.BranchId != 0) ? userDto.BranchId : userObj.BranchId;
 
             if (userDto.UserRoles.Any())

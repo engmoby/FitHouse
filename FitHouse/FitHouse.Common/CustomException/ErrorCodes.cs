@@ -100,6 +100,10 @@ namespace FitHouse.Common.CustomException
         MealNameExceedLength,
         EmptyMealDescription,
         EmptyMealName,
-        MealDeleted
+        MealDeleted,
+        PromoCodeNotStart,
+        PromoCodeFinished,
+        PromoCodeNotAllowed,
+        PromoCodeNotExist
     }
 }

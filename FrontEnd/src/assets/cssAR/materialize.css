@@ -4500,7 +4500,7 @@ button.btn-floating {
     cursor: pointer;
     line-height: 25px;
     width: 100%;
-    text-align: left;
+    text-align: right;
     text-transform: none;
     padding-bottom: 0px !important;
     padding-top: 5px;
@@ -5412,7 +5412,8 @@ textarea.materialize-textarea {
 /* Checked styles */
 
 [type="radio"]:checked + label:before {
-    border: 2px solid transparent;
+    border: 2px solid #5a5a5a;
+    background: green;
 }
 [type="radio"]:checked + label:after,
 [type="radio"].with-gap:checked + label:before,

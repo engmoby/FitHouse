@@ -81,6 +81,7 @@
     <Compile Include="Entities\Model\Day.cs" />
     <Compile Include="Entities\Model\DayTranslation.cs" />
     <Compile Include="Entities\Model\Item.cs" />
+    <Compile Include="Entities\Model\ItemSize.cs" />
     <Compile Include="Entities\Model\ItemTranslation.cs" />
     <Compile Include="Entities\Model\Log.cs" />
     <Compile Include="Entities\Model\Meal.cs" />
@@ -92,10 +93,13 @@
     <Compile Include="Entities\Model\Program.cs" />
     <Compile Include="Entities\Model\ProgramDetail.cs" />
     <Compile Include="Entities\Model\ProgramTranslation.cs" />
+    <Compile Include="Entities\Model\Promotion.cs" />
     <Compile Include="Entities\Model\Region.cs" />
     <Compile Include="Entities\Model\RegionTranslation.cs" />
     <Compile Include="Entities\Model\RolePermission.cs" />
     <Compile Include="Entities\Model\Setting.cs" />
+    <Compile Include="Entities\Model\Size.cs" />
+    <Compile Include="Entities\Model\SizeTranslation.cs" />
     <Compile Include="Entities\Model\Status.cs" />
     <Compile Include="Entities\Model\StatusTranslation.cs" />
     <Compile Include="Entities\Model\Address.cs" />

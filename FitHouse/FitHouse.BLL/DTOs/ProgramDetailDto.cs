@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FitHouse.Common;
 
 namespace FitHouse.BLL.DTOs
 {
@@ -10,13 +11,15 @@ namespace FitHouse.BLL.DTOs
     {
         public long ProgramDetailId { get; set; }
         public long ProgramId { get; set; }
-        public long ItemId { get; set; }
+        public long ItemSizeId { get; set; }
         //public ProgramDto Program { get; set; }
-        //public ItemDto Item { get; set; }
+        public ItemSizeDto ItemSize { get; set; }
         public long DayNumber { get; set; }
         public long MealNumberPerDay { get; set; }
         public DateTime DayDateTime { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
+        public virtual Enums.ItemType ItemType { get; set; }
+
     }
 }

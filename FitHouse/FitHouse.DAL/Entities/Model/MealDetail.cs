@@ -17,10 +17,10 @@ namespace FitHouse.DAL.Entities.Model
 
         [ForeignKey("Meal")]
         public long MealId { get; set; }
-        [ForeignKey("Item")]
-        public long ItemId { get; set; }
+        [ForeignKey("ItemSize")]
+        public long ItemSizeId { get; set; }
         public virtual Meal Meal { get; set; }
-        public virtual Item Item { get; set; }
+        public virtual ItemSize ItemSize { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
     }

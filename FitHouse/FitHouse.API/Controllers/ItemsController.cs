@@ -81,7 +81,11 @@ namespace FitHouse.API.Controllers
         public IHttpActionResult GetAllItems()
         {
             var items = Mapper.Map<List<ItemProgramModel>>(_itemFacade.GetAllItems());
+            foreach (var itemModel in items)
+            {
+                itemModel.ImageUrl = Url.Link("ItemImage", new {itemModel.CategoryId, itemModel.ItemId });
 
+            }
             return Ok(items);
         }
 
@@ -206,5 +210,14 @@ namespace FitHouse.API.Controllers
             }
         }
 
+
+
+        [Route("api/Items/{itemId:long}/sizes", Name = "GetAllItemSizes")]
+        [HttpGet]
+        public IHttpActionResult GetAllItemSizes(long itemId)
+        {
+            var items = Mapper.Map<List<ItemSizeModel>>(_itemFacade.GetAllItemSizes(itemId));
+            return Ok(items);
+        }
     }
 }

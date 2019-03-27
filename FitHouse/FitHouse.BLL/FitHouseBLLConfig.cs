@@ -52,7 +52,7 @@ namespace FitHouse.BLL
 
             mapperConfiguration.CreateMap<ProgramDto, Program>();
             mapperConfiguration.CreateMap<Program, ProgramDto>()
-                .ForMember(dto => dto.ProgramDetails, m => m.Ignore())
+                //.ForMember(dto => dto.ProgramDetails, m => m.Ignore())
                 .ForMember(dto => dto.ProgramNameDictionary, m => m.MapFrom(src => src.ProgramTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)))
                 .ForMember(dto => dto.ProgramDescriptionDictionary, m => m.MapFrom(src => src.ProgramTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Description)));
 
@@ -90,7 +90,8 @@ namespace FitHouse.BLL
             mapperConfiguration.CreateMap<ItemDto, Item>();
             mapperConfiguration.CreateMap<Item, ItemDto>()
                 .ForMember(dto => dto.ItemNameDictionary, m => m.MapFrom(src => src.ItemTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)))
-                .ForMember(dto => dto.ItemDescriptionDictionary, m => m.MapFrom(src => src.ItemTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Description)));
+                .ForMember(dto => dto.ItemDescriptionDictionary, m => m.MapFrom(src => src.ItemTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Description)))
+                .ForMember(dto => dto.ItemSizes, m => m.MapFrom(src => src.ItemSizes.ToList()));
             
             mapperConfiguration.CreateMap<CountryDto, Country>();
             mapperConfiguration.CreateMap<Country, CountryDto>()
@@ -136,7 +137,20 @@ namespace FitHouse.BLL
             mapperConfiguration.CreateMap<LogDto, Log>();
             mapperConfiguration.CreateMap<Log, LogDto>();
 
+            mapperConfiguration.CreateMap<SizeDto, Size>();
+            mapperConfiguration.CreateMap<Size, SizeDto>()
+                .ForMember(dto => dto.SizeNameDictionary, m => m.MapFrom(src => src.SizeTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.SizeName)));
 
+            mapperConfiguration.CreateMap<ItemSizeDto, ItemSize>();
+            mapperConfiguration.CreateMap<ItemSize, ItemSizeDto>()
+                .ForMember(dto => dto.SizeNameDictionary, m => m.MapFrom(src => src.Size.SizeTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.SizeName)))
+                .ForMember(dto => dto.ItemNameDictionary, m => m.MapFrom(src => src.Item.ItemTranslations.ToDictionary(translation => translation.Language.ToLower(), translation => translation.Title)))
+                .ForMember(dto => dto.CategoryId, m => m.MapFrom(src => src.Item.CategoryId))
+                .ForMember(dto => dto.ItemId, m => m.MapFrom(src => src.ItemId))
+                .ForMember(dto => dto.VAT, m => m.MapFrom(src => src.Item.VAT));
+
+            mapperConfiguration.CreateMap<PromotionDto, Promotion>();
+            mapperConfiguration.CreateMap<Promotion, PromotionDto>();
             Mapper.Initialize(mapperConfiguration);
         }
 
@@ -188,6 +202,10 @@ namespace FitHouse.BLL
                 .RegisterType<ISettingService, SettingService>(new PerResolveLifetimeManager())
 
                 .RegisterType<ILogService, LogService>(new PerResolveLifetimeManager())
+                .RegisterType<ISizeService, SizeService>(new PerResolveLifetimeManager())
+                .RegisterType<ISizeTranslationService, SizeTranslationService>(new PerResolveLifetimeManager())
+                .RegisterType<IItemSizeService, ItemSizeService>(new PerResolveLifetimeManager())
+                .RegisterType<IPromotionService, PromotionService>(new PerResolveLifetimeManager())
 
                 ;
         }

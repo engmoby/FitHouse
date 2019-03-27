@@ -3,16 +3,19 @@
 
     angular
         .module('home')
-        .controller('programDetailsController', ['$scope', '$state', '$stateParams', '$translate', 'appCONSTANTS'
+        .controller('programDetailsController', ['$scope', 'blockUI', '$state', '$stateParams', '$translate', 'appCONSTANTS'
             , '$filter', 'progDetailsPrepService', 'itemsssPrepService', 'OrderResource'
-            , 'RegionResource', 'CityResource', 'AreaResource', 'CountriesPrepService', 'BranchResource', 'settingsPrepService', programDetailsController])
+            , 'RegionResource', 'CityResource', 'AreaResource', 'CountriesPrepService', 'BranchResource',
+            'settingsPrepService', 'PromotionResource', programDetailsController])
 
-    function programDetailsController($scope, $state, $stateParams, $translate, appCONSTANTS
+    function programDetailsController($scope, blockUI, $state, $stateParams, $translate, appCONSTANTS
         , $filter, progDetailsPrepService
         , itemsssPrepService, OrderResource, RegionResource, CityResource, AreaResource
-        , CountriesPrepService, BranchResource, settingsPrepService) {
+        , CountriesPrepService, BranchResource, settingsPrepService, PromotionResource) {
 
-        $scope.progDetailsPrepService = progDetailsPrepService;
+        blockUI.start($translate.instant('loading'));
+
+        $scope.progDetailsPrepService = progDetailsPrepService; 
         $scope.settingsPrepService = settingsPrepService;
         $scope.itemsssPrepService = itemsssPrepService;
         // $scope.clientId = localStorage.getItem('ClientId');
@@ -20,18 +23,24 @@
 
         $scope.counties = [];
 
+        $scope.btnCheckValid = true;
+        $scope.promotionValue = 0;
+        $scope.promotionError = null;
         $scope.fats = 0;
         $scope.carbs = 0;
         $scope.protein = 0;
         $scope.calories = 0;
         $scope.DeliveryFees = 0;
         $scope.Total = 0;
-
-        for (var i = 0; i < $scope.progDetailsPrepService.items.length; i++) {
-            $scope.fats += $scope.progDetailsPrepService.items[i].fat;
-            $scope.carbs += $scope.progDetailsPrepService.items[i].carbs;
-            $scope.protein += $scope.progDetailsPrepService.items[i].protein;
-            $scope.calories += $scope.progDetailsPrepService.items[i].calories;
+        $scope.discount = ($scope.progDetailsPrepService.programDiscount == 0) ? $scope.settingsPrepService.programDiscount : $scope.progDetailsPrepService.programDiscount;
+      
+        $scope.Total =  $scope.progDetailsPrepService.price - ($scope.progDetailsPrepService.price * ($scope.discount / 100));
+        
+        for (var i = 0; i < $scope.progDetailsPrepService.programDetails.length; i++) {
+            $scope.fats += $scope.progDetailsPrepService.programDetails[i].itemSize.fat;
+            $scope.carbs += $scope.progDetailsPrepService.programDetails[i].itemSize.carbs;
+            $scope.protein += $scope.progDetailsPrepService.programDetails[i].itemSize.protein;
+            $scope.calories += $scope.progDetailsPrepService.programDetails[i].itemSize.calories;
         }
 
         $scope.style = function () {
@@ -43,6 +52,7 @@
                 'width': '100%'
             };
         }
+        blockUI.stop();
 
         $scope.orderType = {
             type: 'delivery'
@@ -52,10 +62,11 @@
         };
 
         $scope.typeChanged = function () {
+            debugger;
             if ($scope.orderType.type == 'delivery') {
                 $scope.DeliveryFees = 0;
                 $scope.Total = 0;
-                $scope.selectedAreaId = 0;
+                $scope.selectedBranchId = 0;
             }
             else {
                 $scope.DeliveryFees = 0;
@@ -66,6 +77,7 @@
 
         $scope.addressValidation = false;
         $scope.addressInfo = function (address) {
+            debugger;
             $scope.addressDetails = address;
             $scope.addressValidation = true;
             $scope.selectedBranchId = $scope.addressDetails.branchId;
@@ -84,11 +96,11 @@
                     $scope.DeliveryFees = results.deliveryPrice;
                 }
 
-                if ($scope.settingsPrepService.programDiscount == undefined || $scope.settingsPrepService.programDiscount == 0) {
+                if ($scope.discount == undefined || $scope.discount == 0) {
                     $scope.Total = $scope.progDetailsPrepService.price + $scope.DeliveryFees;
                 }
                 else {
-                    $scope.Total = ($scope.progDetailsPrepService.price + $scope.DeliveryFees) - ($scope.progDetailsPrepService.price * ($scope.settingsPrepService.programDiscount / 100));
+                    $scope.Total = ($scope.progDetailsPrepService.price + $scope.DeliveryFees) - ($scope.progDetailsPrepService.price * ($scope.discount / 100));
                 }
                 // blockUI.stop();
 
@@ -101,10 +113,11 @@
 
         $scope.dateIsValid = false;
         $scope.dateChange = function () {
+            debugger;
             if ($('#startdate').data('date') == null || $('#startdate').data('date') == "") {
                 $scope.dateIsValid = false;
                 // $scope.$apply();
-            } else if (!$scope.orderProgramForm.isInValid) {
+            } else if ($scope.orderForm.$valid) {
                 $scope.dateIsValid = true;
                 // $scope.$apply();
             }
@@ -237,16 +250,16 @@
             }
             $scope.DeliveryFees = 0;
             // $scope.Total = $scope.progDetailsPrepService.price - ($scope.progDetailsPrepService.price * ($scope.settingsPrepService.programDiscount / 100));
-            if ($scope.settingsPrepService.programDiscount == undefined || $scope.settingsPrepService.programDiscount == 0) {
+            if ($scope.discount == undefined || $scope.discount == 0) {
                 $scope.Total = $scope.progDetailsPrepService.price + $scope.DeliveryFees;
             }
             else {
-                $scope.Total = ($scope.progDetailsPrepService.price + $scope.DeliveryFees) - ($scope.progDetailsPrepService.price * ($scope.settingsPrepService.programDiscount / 100));
+                $scope.Total = ($scope.progDetailsPrepService.price + $scope.DeliveryFees) - ($scope.progDetailsPrepService.price * ($scope.discount / 100));
             }
         }
 
         $scope.Order = function () {
-            // blockUI.start($translate.instant('loading'));
+            blockUI.start($translate.instant('loading'));
 
             var order = new OrderResource();
 
@@ -269,7 +282,7 @@
 
             order.$createOrder().then(
                 function (data, status) {
-                    // blockUI.stop();
+                    blockUI.stop();
 
                     // ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
                     localStorage.setItem('OrderSummary', JSON.stringify(data));
@@ -277,14 +290,42 @@
 
                 },
                 function (data, status) {
-                    // blockUI.stop();
+                    blockUI.stop();
 
                     // ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 }
             );
         }
 
+        $scope.checkPromotion = function (promoTitle) {
+            blockUI.start($translate.instant('loading'));
 
+            var promotion = new PromotionResource();
+            promotion.title = promoTitle;
+            promotion.type = "Program";
+
+
+            promotion.$CheckPromotion().then(
+                function (data, status) {
+                    debugger;
+                    blockUI.stop();
+                    $scope.btnCheckValid = false;
+                    $scope.promotionValue = data;
+                    var promoValue = ($scope.Total * $scope.promotionValue.value / 100);
+                  //  $scope.progDetailsPrepService.price = $scope.progDetailsPrepService.price - promoValue;
+                    $scope.Total = $scope.Total - promoValue;
+                    $scope.promotionError = null;
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+                    $scope.btnCheckValid = true;
+                    $scope.promotionError = data.data.message;
+                    $scope.promotionValue = null;
+
+                }
+            );
+        }
     }
 
 }

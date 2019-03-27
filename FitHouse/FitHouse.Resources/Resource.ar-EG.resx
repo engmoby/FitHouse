@@ -162,6 +162,18 @@
   <data name="ProgramNotFound" xml:space="preserve">
     <value>البرنامج غير موجود</value>
   </data>
+  <data name="PromoCodeFinished" xml:space="preserve">
+    <value>الرمز الترويجي انتهى</value>
+  </data>
+  <data name="PromoCodeNotAllowed" xml:space="preserve">
+    <value>الرمز الترويجي غير مسموح به</value>
+  </data>
+  <data name="PromoCodeNotExist" xml:space="preserve">
+    <value>الرمز الترويجي غير موجود</value>
+  </data>
+  <data name="PromoCodeNotStart" xml:space="preserve">
+    <value>الرمز الترويجي لا يبدأ</value>
+  </data>
   <data name="RecordIsExist" xml:space="preserve">
     <value>موجود بالفعل</value>
   </data>

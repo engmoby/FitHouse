@@ -1,26 +1,41 @@
 <!-- Inbox like Accordion -->
 <form name="newProgramForm2">
     <div class="row">
-        <div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+        <div
+            class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
             <label for="first-name">{{'ProgramDaysCount' | translate}}</label>
 
-            <input ng-change="orderCustomizeProgramCtrl.ConvertToNumber();" required type="text" class="mat-input form-control" name="programDaysCount"
-                numbers-only ng-model="orderCustomizeProgramCtrl.ProgramDaysCount" minlength="1" maxlength="2">
+            <input ng-change="orderCustomizeProgramCtrl.ConvertToNumber();" required type="number"
+                class="mat-input form-control" name="programDaysCount" positive ng-pattern="/^[0-9]{1,5}$/"
+                ng-model="orderCustomizeProgramCtrl.ProgramDaysCount" minlength="0" maxlength="2">
             <div ng-messages="newProgramForm2.programDaysCount.$error">
-                <div ng-if="newProgramForm2.programDaysCount.$error.required && !newProgramForm2.programDaysCount.$pristine">{{'PhoneReqError' | translate}}
+                <div
+                    ng-if="newProgramForm2.programDaysCount.$error.required && !newProgramForm2.programDaysCount.$pristine">
+                    {{'requiredErr' | translate}}
                 </div>
-                <div ng-if="(newProgramForm2.programDaysCount.$error.minlength || newProgramForm2.programDaysCount.$error.maxlength)">{{'maxlength' | translate}}</div>
-                <div ng-if="orderCustomizeProgramCtrl.Setting.minNoDaysPerProgram > orderCustomizeProgramCtrl.ProgramDaysCount">{{'ProgramDaysMinValue' | translate}}</div>
+                <div
+                    ng-if="(newProgramForm2.programDaysCount.$error.minlength || newProgramForm2.programDaysCount.$error.maxlength)">
+                    {{'maxlength' | translate}}</div>
+                <div
+                    ng-if="orderCustomizeProgramCtrl.Setting.minNoDaysPerProgram > orderCustomizeProgramCtrl.ProgramDaysCount">
+                    {{'ProgramDaysMinValue' | translate}}{{orderCustomizeProgramCtrl.Setting.minNoDaysPerProgram}}</div>
             </div>
         </div>
 
-        <div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+        <div
+            class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
             <label for="first-name">{{'MealPerDay' | translate}}</label>
-            <input ng-change="orderCustomizeProgramCtrl.ConvertToNumber();" required type="text" numbers-only class="mat-input form-control"
-                name="mealPerDay" ng-model="orderCustomizeProgramCtrl.MealPerDay" minlength="1" maxlength="2">
-            <div ng-messages="newProgramForm2.mealPerDay.$error" class="error">
-                <div ng-if="newProgramForm2.mealPerDay.$error.required && !newProgramForm2.mealPerDay.$pristine">{{'MealPerDayReqError' | translate}}</div>
-                <div ng-if="(newProgramForm2.mealPerDay.$error.minlength || newProgramForm2.mealPerDay.$error.maxlength)">{{'MealPerDayLengthError' | translate}}</div>
+            <input ng-change="orderCustomizeProgramCtrl.ConvertToNumber();" required type="number" positive ng-pattern="/^[0-9]{1,5}$/"
+                class="mat-input form-control" name="mealPerDay" ng-model="orderCustomizeProgramCtrl.MealPerDay"
+                minlength="0" maxlength="2">
+            <div ng-messages="newProgramForm2.mealPerDay.$error">
+                <div ng-if="newProgramForm2.mealPerDay.$error.required && !newProgramForm2.mealPerDay.$pristine">
+                    {{'requiredErr' | translate}}</div>
+                <div
+                    ng-if="(newProgramForm2.mealPerDay.$error.minlength || newProgramForm2.mealPerDay.$error.maxlength)">
+                    {{'maxlength' | translate}}</div>
+                    <div ng-if="newProgramForm2.mealPerDay.$error.pattern && !newProgramForm2.mealPerDay.$pristine">
+                        {{'wrongpattern' | translate}}</div>
             </div>
         </div>
     </div>
@@ -42,39 +57,106 @@
     <div class="row">
         <div class="col-md-12">
             <div ng-init="counterDay = 0; counterMeal = 0">
-                <div class="panel-group pmd-accordion pmd-accordion-inbox" id="accordion6" role="tablist" aria-multiselectable="true">
-                    <div ng-repeat="n in [].constructor(orderCustomizeProgramCtrl.daysCount)  track by $index" class="panel panel-default">
+                <div class="panel-group pmd-accordion pmd-accordion-inbox" id="accordion6" role="tablist"
+                    aria-multiselectable="true">
+                    <div ng-repeat="n in [].constructor(orderCustomizeProgramCtrl.daysCount)  track by $index"
+                        class="panel panel-default">
                         <div class="panel-heading" role="tab" id="headingOne">
                             <h4 class="panel-title">
-                                <a ng-init="counterDay=counterDay+1;" data-toggle="collapse" data-parent="#accordion6" ng-init="n=false" ng-click="n=!n;"
-                                    aria-expanded="true" aria-controls="collapseOne6" data-expandable="false">
-                                    {{'Day' | translate}} #{{counterDay=$index+1}}
+                                <a ng-init="counterDay=counterDay+1;" data-toggle="collapse" data-parent="#accordion6"
+                                    ng-init="n=false" ng-click="n=!n;" aria-expanded="true" aria-controls="collapseOne6"
+                                    data-expandable="false">
+                                    {{'Day' | translate}} {{counterDay=$index+1}}
                                     <i class="material-icons md-dark pmd-sm pmd-accordion-arrow">keyboard_arrow_down</i>
                                 </a>
                             </h4>
                         </div>
-                        <div ng-show="n == true" id="collapseOne6" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+                        <div ng-show="n == true" id="collapseOne6" class="panel-collapse collapse in" role="tabpanel"
+                            aria-labelledby="headingOne">
                             <div class="panel-body">
                                 <ul>
-                                    <li ng-repeat="meal in [].constructor(orderCustomizeProgramCtrl.mealsCount)  track by $index">
+                                    <li
+                                        ng-repeat="meal in [].constructor(orderCustomizeProgramCtrl.mealsCount)  track by $index">
                                         <h4>
-                                            <a ng-init="counterMeal=counterMeal+1;" ng-click="showDetails = ! showDetails; orderCustomizeProgramCtrl.showDDL(); ">{{'Meal' | translate}} #{{counterMeal=$index+1}}</a>
+                                            <a ng-init="counterMeal=counterMeal+1;"
+                                                ng-click="showDetails = ! showDetails; orderCustomizeProgramCtrl.showDDL(); ">{{'Meal' | translate}}
+                                                {{counterMeal=$index+1}}</a>
                                         </h4>
                                         <div ng-show="showDetails">
-                                            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                                <div class="row">
+                                                        <div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                                            <label for="first-name">{{'SelectCategory' | translate}}</label>
+                                                            <select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags"
+                                                                ng-model="meal.selectedCategoryId" ng-change="orderCustomizeProgramCtrl.changeCategory(meal.selectedCategoryId,meal)">
+                                                                <option ng-repeat="category in orderCustomizeProgramCtrl.categories"
+                                                                    ng-value="{{category.categoryId}}">{{category.titleDictionary[selectedLanguage]}}</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                                            <label for="first-name">{{'SelectItems' | translate}}</label>
+                                                            <select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags"
+                                                                ng-model="meal.selectedItem" ng-change="orderCustomizeProgramCtrl.changeItem(meal.selectedItem.itemId,meal)">
+                                                                <option ng-repeat="item in meal.items" ng-value="{{item}}">{{item.itemNameDictionary[selectedLanguage]}}</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                                            <label for="first-name">{{'selectSizeLbl' | translate}}</label>
+                                                            <select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags"
+                                                                ng-model="meal.selectedItemSize">
+                                                                <option ng-repeat="item in meal.itemSizes" ng-value="{{item}}">{{item.sizeNameDictionary[selectedLanguage]}}</option>
+                                                            </select>
+                                                        </div>
+        
+                                                        <div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                                            <button style="background-color: #e4e5e6;color: black!important;"
+                                                                ng-disabled="meal.selectedCategoryId <= 0 || meal.selectedItem == null || meal.selectedItemSize == null"
+                                                                class="btn pmd-ripple-effect btn-primary" type="button"
+                                                                ng-click="getData(meal.selectedItemSize,counterDay,counterMeal,meal)">
+                                                                {{'addItemBtn' | translate}}</button>
+                                                        </div>
+                                                    </div>
+                                                    <div class=" form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+
+                                                            <table class="table pmd-table table-hover">
+                                                                <thead>
+                                                                    <tr>
+                                                                        <th>{{'Name' | translate}}</th>
+                                                                        <th>{{'SizeName' | translate}}</th>
+                                                                        <th></th>
+                                                                    </tr>
+                                                                </thead>
+                                                                <tbody>
+                                                                    <tr ng-repeat="itemSize in meal.selectedItemList">
+                                                                        <td data-title="Name" width="15%">{{itemSize.itemNameDictionary[selectedLanguage] | limitTo:10}}</td>
+                                                                        <td data-title="Description">{{itemSize.sizeNameDictionary[selectedLanguage]}}</td>
+                                                                        <td><i class="material-icons pmd-md deleteButton cursorPointer font25" ng-click="orderCustomizeProgramCtrl.removeItem(itemSize,meal)">delete</i></td>
+                                            
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                        </div>
+                                                        <input type="number" name="ddl{{counterDay}}{{counterMeal}}" hidden  ng-model="meal.selectedItemList.length" min="1" required>   
+                                            <!-- <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                                                 <label for="first-name">{{'SelectItems' | translate}}</label>
-                                                <select required name="ddl{{counterDay}}{{counterMeal}}" style="width:100% !important" class="form-control select-add-tags pmd-select2-tags"
-                                                    multiple ng-model="itemModel" ng-change="getData(itemModel,counterDay,counterMeal)"
-                                                    ng-options="item as item.itemNameDictionary[selectedLanguage] 
+                                                <select required name="ddl{{counterDay}}{{counterMeal}}"
+                                                    style="width:100% !important"
+                                                    class="form-control select-add-tags pmd-select2-tags" multiple
+                                                    ng-model="itemModel"
+                                                    ng-change="getData(itemModel,counterDay,counterMeal)" ng-options="item as item.itemNameDictionary[selectedLanguage] 
                                             group by item.category.titleDictionary[selectedLanguage]
                                             for item  in itemsssPrepService">
                                                 </select>
-                                                <div ng-messages="newProgramForm2.ddl{{counterDay}}{{counterMeal}}.$error">
+                                                <div
+                                                    ng-messages="newProgramForm2.ddl{{counterDay}}{{counterMeal}}.$error">
 
-                                                    <div ng-show="newProgramForm2.ddl{{counterDay}}{{counterMeal}}.$error.required && !newProgramForm2.ddl{{counterDay}}{{counterMeal}}.$pristine">{{'requiredErr' | translate}}</div>
-                                                    <div ng-show="(newProgramForm2.ddl{{counterDay}}{{counterMeal}}.$error.minlength || newProgramForm2.ddl{{counterDay}}{{counterMeal}}.$error.maxlength) && !newProgramForm2.ddl{{counterDay}}{{counterMeal}}.$error.required">{{'NameLengthError255' | translate}}</div>
+                                                    <div
+                                                        ng-show="newProgramForm2.ddl{{counterDay}}{{counterMeal}}.$error.required && !newProgramForm2.ddl{{counterDay}}{{counterMeal}}.$pristine">
+                                                        {{'requiredErr' | translate}}</div>
+                                                    <div
+                                                        ng-show="(newProgramForm2.ddl{{counterDay}}{{counterMeal}}.$error.minlength || newProgramForm2.ddl{{counterDay}}{{counterMeal}}.$error.maxlength) && !newProgramForm2.ddl{{counterDay}}{{counterMeal}}.$error.required">
+                                                        {{'NameLengthError255' | translate}}</div>
                                                 </div>
-                                            </div>
+                                            </div> -->
                                         </div>
                                     </li>
                                 </ul>
@@ -86,21 +168,17 @@
         </div>
     </div>
 
-    <div class="row">
-        <div class="col-md-9"></div>
-        <div class="col-md-1">
-            <div>
-                <button style="background-color: #e4e5e6;color: black!important;" class="btn pmd-ripple-effect btn-primary" type="button"
-                    ng-click="$state.go('callCenter');">{{'Back' | translate}}</button>
-            </div>
-        </div>
+    <div class="pmd-modal-action text-right">
 
-        <div class="col-md-1">
-            <div>
-                <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="(newProgramForm2.$invalid || (orderCustomizeProgramCtrl.daysCount == 0 || orderCustomizeProgramCtrl.mealsCount == 0) || (orderCustomizeProgramCtrl.Setting.minNoDaysPerProgram > orderCustomizeProgramCtrl.ProgramDaysCount))"
-                    class="btn pmd-ripple-effect btn-primary" type="button" ng-click="orderCustomizeProgramCtrl.gotoStep(3);">
-                    {{'next' | translate}}</button>
-            </div>
-        </div>
+        <button style="background-color: #e4e5e6;color: black!important;" class="btn pmd-ripple-effect btn-primary"
+            type="button" ng-click="$state.go('callCenter');">{{'PreviousStep' | translate}}</button>
+
+
+        <button style="background-color: #e4e5e6;color: black!important;"
+            ng-disabled="(newProgramForm2.$invalid || (orderCustomizeProgramCtrl.daysCount == 0 ||
+             orderCustomizeProgramCtrl.mealsCount == 0) || (orderCustomizeProgramCtrl.Setting.minNoDaysPerProgram > orderCustomizeProgramCtrl.ProgramDaysCount))"
+            class="btn pmd-ripple-effect btn-primary" type="button" ng-click="orderCustomizeProgramCtrl.gotoStep(3);">
+            {{'NextStep' | translate}}</button>
+
     </div>
 </form>

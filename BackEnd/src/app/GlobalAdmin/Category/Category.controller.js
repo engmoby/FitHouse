@@ -13,14 +13,14 @@
         $state, CategoryResource, $localStorage, authorizationService,
         appCONSTANTS, blockUI, $uibModal, CategoryPrepService, ToastService) {
         $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[4].children[0]).addClass("active")
+        $($('.pmd-sidebar-nav').children()[6].children[0]).addClass("active")
         debugger;
         var vm = this;
         vm.currentPage = 1;
         $scope.totalCount = CategoryPrepService.totalCount;
         $scope.CategoryList = CategoryPrepService;
         console.log(CategoryPrepService);
- 
+
         function refreshCategorys() {
             blockUI.start("Loading...");
 

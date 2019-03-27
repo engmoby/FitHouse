@@ -8,6 +8,7 @@ using FitHouse.API.Models;
 using FitHouse.BLL.DataServices.Interfaces;
 using FitHouse.BLL.DTOs;
 using FitHouse.BLL.Services.Interfaces;
+using FitHouse.Common;
 using FitHouse.Common.CustomException;
 
 namespace FitHouse.API.Controllers
@@ -17,19 +18,20 @@ namespace FitHouse.API.Controllers
         private readonly IRoleFacade _roleFacade;
         private readonly IRolePermissionService _rolePermissionService;
         private readonly IUserRoleService _userRoleService;
-        public RoleController(IRoleFacade roleFacade, IUserRoleService userRoleService)
+        public RoleController(IRoleFacade roleFacade, IUserRoleService userRoleService, IRolePermissionService rolePermissionService)
         {
             _roleFacade = roleFacade;
             _userRoleService = userRoleService;
+            _rolePermissionService = rolePermissionService;
         }
 
         [Route("api/Roles/GetAllRoles", Name = "GetAllRoles")]
         [HttpGet]
         public IHttpActionResult GetAllRoles(int page = Page, int pagesize = PageSize)
         {
-            PagedResultsDto roleObj = _roleFacade.GetAllRoles(page, pagesize,UserId);
+            PagedResultsDto roleObj = _roleFacade.GetAllRoles(page, pagesize, UserId);
             var data = Mapper.Map<List<RoleModel>>(roleObj.Data);
-            return PagedResponse("GetAllRoles", page, pagesize, roleObj.TotalCount, data );
+            return PagedResponse("GetAllRoles", page, pagesize, roleObj.TotalCount, data);
         }
 
         [Route("api/Roles/GetAllActivateRoles", Name = "GetAllGetAllActivateRolesRoles")]
@@ -62,7 +64,7 @@ namespace FitHouse.API.Controllers
                 var checkIfUsed = _userRoleService.Queryable().Where(x => x.RoleId == roleModel.RoleId);
                 if (checkIfUsed.Any())
                 {
-                    throw new ValidationException(ErrorCodes.RecordIsUsedInAnotherModule); 
+                    throw new ValidationException(ErrorCodes.RecordIsUsedInAnotherModule);
                 }
             }
 

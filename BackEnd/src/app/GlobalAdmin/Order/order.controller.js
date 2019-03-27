@@ -15,7 +15,7 @@
         appCONSTANTS, ToastService, $uibModal) {
 
         $('.pmd-sidebar-nav>li>a').removeClass("active")
-        $($('.pmd-sidebar-nav').children()[7].children[0]).addClass("active")
+        $($('.pmd-sidebar-nav').children()[9].children[0]).addClass("active")
 
         blockUI.start("Loading...");
 
@@ -62,7 +62,10 @@
 
 
         function change(order) {
-
+            if (order.orderStatus == 4) {
+                ToastService.show("right", "bottom", "fadeInUp", 'cant change deleviered order', "success");
+                return;
+            }
             var updateObj = new OrdersResource();
             updateObj.OrderId = order.orderId;
 

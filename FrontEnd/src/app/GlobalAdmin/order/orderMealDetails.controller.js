@@ -12,6 +12,7 @@
         , itemsssPrepService, OrderResource, RegionResource, BranchResource, CityResource, AreaResource
     ) {
 
+       debugger;
         $scope.OrderMealPrepService = OrderMealPrepService;
         $scope.itemsssPrepService = itemsssPrepService;
         $scope.Total = 0;
@@ -25,12 +26,16 @@
         $scope.calories = 0;
 
         for (var i = 0; i < $scope.OrderMealPrepService.mealDetails.length; i++) {
-            var differntItem = $scope.itemsssPrepService.filter(x => (x.itemId == $scope.OrderMealPrepService.mealDetails[i].itemId));
+            /*var differntItem = $scope.itemsssPrepService.filter(x => (x.itemId == $scope.OrderMealPrepService.mealDetails[i].itemId));
 
             $scope.fats += differntItem[0].fat;
             $scope.carbs += differntItem[0].carbs;
             $scope.protein += differntItem[0].protein;
-            $scope.calories += differntItem[0].calories;
+            $scope.calories += differntItem[0].calories;*/
+            $scope.fats += $scope.OrderMealPrepService.mealDetails[i].itemSize.fat;
+            $scope.carbs += $scope.OrderMealPrepService.mealDetails[i].itemSize.carbs;
+            $scope.protein += $scope.OrderMealPrepService.mealDetails[i].itemSize.protein;
+            $scope.calories += $scope.OrderMealPrepService.mealDetails[i].itemSize.calories;
         }
 
         $scope.style = function () {

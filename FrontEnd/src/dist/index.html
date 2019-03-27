@@ -13,23 +13,26 @@
     <link rel="shortcut icon" href="/assets/img/cropped-favicon-192x192.png" type="image/x-icon">
     <link rel="stylesheet" ng-href="bundle-{{selectedLanguage}}.css?v=8b8a2de367664177e0b43fdd94e188b0" />
     <script src="https://momentjs.com/downloads/moment.js"></script>
-    <mimeMap fileExtension="woff" mimeType="application/font-woff" /> 
-    <mimeMap fileExtension="woff2" mimeType="application/font-woff" /> 
+    <style>
+        .hideHTML {
+            display: none !important;
+        }
+    </style>
 </head>
 
 <body>
     <!--MOBILE MENU-->
-    <section>
+    <section ng-cloak id="sec1" class="hideHTML">
         <div class="mm">
             <div class="mm-inn">
                 <div class="mm-logo">
-                    <a ng-click="$state.go('homePage');">
-                        <img src="/assets/img/logo-os-white.png" alt="Fit House Restaurant" id="logo"
+                    <a ng-click="$state.go('program');">
+                        <img src="/assets/img/logo-os-white.png" alt="Fit House Restaurant" id="logo" ng-cloak
                             data-height-percentage="84" data-actual-width="700" data-actual-height="198"
                             style="width: 180px; " />
                     </a>
                 </div>
-                <div class="mm-icon">
+                <div class="mm-icon" ng-show="isLoggedIn()" ng-init="logoutFlag=false">
                     <span>
                         <i class="fa fa-bars show-menu" aria-hidden="true"></i>
                     </span>
@@ -41,33 +44,31 @@
                         </span>
                     </div>
                     <ul>
+                        <!-- </li> -->
+
+                        <li>
+                            <a ng-click="$state.go('program');" style="cursor: pointer;">{{'Programs' | translate}}</a>
                         </li>
                         <li>
-                                <a ng-click="$state.go('homePage');" style="cursor: pointer;" class='dropdown-button'
+                            <a ng-click="$state.go('homePage');" style="cursor: pointer;" class='dropdown-button'
                                 data-activates='drop-home'>{{'Home'| translate}}</a>
-                        </li>
-                        <li>
-                                <a ng-click="$state.go('program');"
-                                style="cursor: pointer;">{{'Programs' | translate}}</a>
                         </li>
                         <li>
                             <a ng-click="$state.go('meal');" style="cursor: pointer;">{{'Meals' | translate}}</a>
                         </li>
                         <li>
-                            <a ng-click="$state.go('history');"
-                                style="cursor: pointer;">{{'History' | translate}}</a>
+                            <a ng-click="$state.go('history');" style="cursor: pointer;">{{'History' | translate}}</a>
                         </li>
                         <li>
-                            <a ng-click="$state.go('profile', {userId: user.id});"
-                                style="cursor: pointer;">{{'Profile' | translate}}</a>
+                            <a ng-click="$state.go('profile', {userId: user.id});" style="cursor: pointer;">{{'Profile'
+                                | translate}}</a>
                         </li>
                         <li>
-                            <a ng-click="$state.go('Address', {userId: user.id});"
-                                style="cursor: pointer;">{{'Address' | translate}}</a>
+                            <a ng-click="$state.go('Address', {userId: user.id});" style="cursor: pointer;">{{'addressLbl'
+                                | translate}}</a>
                         </li>
                         <li>
-                            <a class='dropdown-button' href='#'
-                                data-activates='dropdown3'>{{'Language' | translate}}
+                            <a class='dropdown-button' href='#' data-activates='dropdown3'>{{'Language' | translate}}
                                 <i class="fa fa-angle-down"></i>
                             </a>
                         </li>
@@ -75,38 +76,38 @@
                         </li>
                     </ul>
                 </div>
-                <div class="all-drop-down">
-                        <!-- Dropdown Structure -->
-                        <ul id='dropdown3' class='dropdown-content drop-con-man'>
-                            <li>
-                                <a ng-click="changeLanguage('en')">English</a>
-                            </li>
-                            <li>
-                                <a ng-click="changeLanguage('ar')">عربي</a>
-                            </li>
-                        </ul>
+                <div class="all-drop-down" ng-cloak>
+                    <!-- Dropdown Structure -->
+                    <ul id='dropdown3' class='dropdown-content drop-con-man'>
+                        <li>
+                            <a ng-click="changeLanguage('en')">English</a>
+                        </li>
+                        <li>
+                            <a ng-click="changeLanguage('ar')">عربي</a>
+                        </li>
+                    </ul>
 
-                    </div>
+                </div>
             </div>
         </div>
     </section>
 
-    <section class="main">
+    <section class="main hideHTML" id="sec2" ng-cloak>
         <!--TOP SECTION-->
         <div class="menu-section">
             <div class="container">
                 <div class="row">
                     <div class="top-bar" ng-show="isLoggedIn()" ng-cloak ng-init="logoutFlag=false">
                         <ul>
-<!-- 
+                            <!-- 
                             <li> <select class="select-simple form-control pmd-select2" ng-model="selectedLanguage"
                                     ng-change="changeLanguage(selectedLanguage)">
                                     <option ng-selected="selectedLanguage == item.id" ng-repeat="item in languages"
                                         ng-value="item.id">{{item.label | translate}}</option>
                                 </select></li> -->
                             <li>
-                                <a class='dropdown-button' href='#'
-                                    data-activates='dropdown2'>{{'Language' | translate}}
+                                <a class='dropdown-button' href='#' data-activates='dropdown2'>{{'Language' |
+                                    translate}}
                                     <i class="fa fa-angle-down"></i>
                                 </a>
                             </li>
@@ -131,7 +132,7 @@
                 </div>
                 <div class="row">
                     <div class="logo">
-                        <a ng-click="$state.go('homePage');" style="cursor: pointer;">
+                        <a ng-click="$state.go('program');" style="cursor: pointer;">
                             <img src="/assets/img/logo-os-white.png" alt="Fit House Restaurant" id="logo"
                                 data-height-percentage="84" data-actual-width="700" data-actual-height="198"
                                 style="width: 180px; " />
@@ -140,12 +141,12 @@
                     <div class="menu-bar" ng-show="isLoggedIn()" ng-cloak ng-init="logoutFlag=false">
                         <ul>
                             <li>
-                                <a ng-click="$state.go('homePage');" style="cursor: pointer;" class='dropdown-button'
-                                    data-activates='drop-home'>{{'Home'| translate}}</a>
-                            </li>
-                            <li>
                                 <a ng-click="$state.go('program');"
                                     style="cursor: pointer;">{{'Programs' | translate}}</a>
+                            </li>
+                            <li>
+                                <a ng-click="$state.go('homePage');" style="cursor: pointer;" class='dropdown-button'
+                                    data-activates='drop-home'>{{'Home'| translate}}</a>
                             </li>
                             <li>
                                 <a ng-click="$state.go('meal');" style="cursor: pointer;">{{'Meals' | translate}}</a>
@@ -155,12 +156,12 @@
                                     style="cursor: pointer;">{{'History' | translate}}</a>
                             </li>
                             <li>
-                                <a ng-click="$state.go('profile', {userId: user.id});"
-                                    style="cursor: pointer;">{{'Profile' | translate}}</a>
+                                <a ng-click="$state.go('profile', {userId: user.id});" style="cursor: pointer;">{{'Profile'
+                                    | translate}}</a>
                             </li>
                             <li>
-                                <a ng-click="$state.go('Address', {userId: user.id});"
-                                    style="cursor: pointer;">{{'Address' | translate}}</a>
+                                <a ng-click="$state.go('Address', {userId: user.id});" style="cursor: pointer;">{{'addressLbl'
+                                    | translate}}</a>
                             </li>
                         </ul>
 
@@ -199,7 +200,9 @@
                         </ul>
                     </div>
                     <div class="foot-com foot-2">
-                        <h5>{{'Mobile' | translate}} +01 4214 4214
+                        <h5>
+                            {{'copyrigth' | translate}}
+                            <!-- {{'Mobile' | translate}} +966506139999 -->
                         </h5>
                     </div>
                     <div class="foot-com foot-3">
@@ -208,7 +211,7 @@
                     </div>
                     <div class="foot-com foot-4">
                         <!-- <a href="#"><img src="images/card.png" alt="" /> -->
-                        </a>
+                        <!-- </a> -->
                     </div>
                 </div>
             </div>

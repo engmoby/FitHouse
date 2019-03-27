@@ -1,24 +1,36 @@
 <div class="modal-content">
-        <div class="modal-header bordered">
-            <h2 class="pmd-card-title-text">{{'CallCenter' | translate}}</h2>
-        </div>
-        <div class="modal-body">
-            <div class="row">
-                <div id="wizard-container">
-                    <div id="wizard-step-container">
-                        <ul ng-init="counter = 0" class="nav nav-pills nav-justified">
-                            <li ng-repeat="step in callCenterCtrl.steps" ng-class="{'active':step.step == callCenterCtrl.currentStep}">
-                                <a ng-if="selectedLanguage == 'en'" style="background-color: #e4e5e6;color: black!important; margin-right: 2% !important;" ng-click="callCenterCtrl.gotoStep(step.step)" href="">{{step.nameEn}} </a>
-                                <a ng-if="selectedLanguage == 'ar'" style="background-color: #e4e5e6;color: black!important;" ng-click="callCenterCtrl.gotoStep(step.step)" href="">{{step.nameAr}} </a>
-                            </li>
-                        </ul>
-                    </div>
-    
-                    <div id="wizard-content-container">
-                        <ng-include src="callCenterCtrl.getStepTemplate()"></ng-include>
-                    </div>
-    
-                    <!-- <div id="wizard-navigation-container">
+    <div class="modal-header bordered">
+        <h2 class="pmd-card-title-text">{{'CallCenter' | translate}}</h2>
+    </div>
+    <div class="modal-body">
+        <div class="row">
+            <div id="wizard-container">
+                <div id="wizard-step-container">
+                    <ul ng-init="counter = 0" class="nav nav-pills nav-justified">
+
+                        <li><a style="background-color: #e4e5e6;color: black!important; margin-left: 55% !important;width: 35%;"
+                                ng-click="callCenterCtrl.gotoStep(2)" href="">{{'Order' | translate}}</a>
+                        </li>
+                        <li><a style="background-color: #e4e5e6;color: black!important;width: 35%;"
+                                ng-click="callCenterCtrl.gotoStep(1)" href="">{{'AddUserBtn' | translate}} </a>
+                        </li>
+                        <!-- <li ng-repeat="step in callCenterCtrl.steps"
+                            ng-class="{'active':step.step == callCenterCtrl.currentStep}">
+                            <a ng-if="selectedLanguage == 'en'"
+                                style="background-color: #e4e5e6;color: black!important; margin-left: 55% !important;width: 32%;"
+                                ng-click="callCenterCtrl.gotoStep(step.step)" href="">{{step.nameEn}} </a>
+                            <a ng-if="selectedLanguage == 'ar'"
+                                style="background-color: #e4e5e6;color: black!important;    width: 32%;"
+                                ng-click="callCenterCtrl.gotoStep(step.step)" href="">{{step.nameAr}} </a>
+                        </li> -->
+                    </ul>
+                </div>
+
+                <div id="wizard-content-container">
+                    <ng-include src="callCenterCtrl.getStepTemplate()"></ng-include>
+                </div>
+
+                <!-- <div id="wizard-navigation-container">
                         <div class="pull-right">
                             <span class="btn-group">
                                 <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="1 >= callCenterCtrl.currentStep" class="btn btn-default" name="previous" type="button" ng-click="callCenterCtrl.gotoStep(callCenterCtrl.currentStep - 1);">
@@ -28,13 +40,13 @@
                                     <i class="fa fa-arrow-right"></i>
                                 </button>
                             </span> -->
-                            <!-- {{addProgramCtrl.Setting.minNoDaysPerProgram}} / {{addProgramCtrl.ProgramDaysCount}} -->
-                            <!-- <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="(addProgramCtrl.currentStep != addProgramCtrl.steps.length) || (addProgramCtrl.Setting.minNoDaysPerProgram > addProgramCtrl.ProgramDaysCount)" class="btn btn-success" name="next" type="button"
+                <!-- {{addProgramCtrl.Setting.minNoDaysPerProgram}} / {{addProgramCtrl.ProgramDaysCount}} -->
+                <!-- <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="(addProgramCtrl.currentStep != addProgramCtrl.steps.length) || (addProgramCtrl.Setting.minNoDaysPerProgram > addProgramCtrl.ProgramDaysCount)" class="btn btn-success" name="next" type="button"
                                 ng-click="addProgramCtrl.AddNewProgram()">
                                 <i class="fa fa-floppy-o"></i>{{'Save' | translate}}</button> -->
-                        <!-- </div>
+                <!-- </div>
                     </div> -->
-                </div>
             </div>
         </div>
     </div>
+</div>

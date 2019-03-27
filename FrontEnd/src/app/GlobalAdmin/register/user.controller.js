@@ -124,6 +124,8 @@
             newClient.Email = $scope.Email;
             newClient.Phone = $scope.Phone;
             newClient.Password = $scope.Password;
+            newClient.length = $scope.Length;
+            newClient.weight = $scope.Weight;
             newClient.IsActive = true;
             newClient.IsAdmin = true;
             newClient.UserRoles = vm.selectedUserRoles;

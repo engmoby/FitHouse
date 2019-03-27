@@ -61,13 +61,6 @@ E:\Projects\Survey_Version2\Operation Survey\Frameworks\Service.Pattern\bin\Debu
 E:\Projects\Survey_Version2\Operation Survey\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.csprojResolveAssemblyReference.cache
 E:\Projects\Survey_Version2\Operation Survey\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.dll
 E:\Projects\Survey_Version2\Operation Survey\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.pdb
-E:\Projects\FitHouse\Project\FitHouse\FitHouse\Frameworks\Service.Pattern\bin\Debug\Service.Pattern.dll
-E:\Projects\FitHouse\Project\FitHouse\FitHouse\Frameworks\Service.Pattern\bin\Debug\Service.Pattern.pdb
-E:\Projects\FitHouse\Project\FitHouse\FitHouse\Frameworks\Service.Pattern\bin\Debug\Repository.Pattern.dll
-E:\Projects\FitHouse\Project\FitHouse\FitHouse\Frameworks\Service.Pattern\bin\Debug\Repository.Pattern.pdb
-E:\Projects\FitHouse\Project\FitHouse\FitHouse\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.csprojResolveAssemblyReference.cache
-E:\Projects\FitHouse\Project\FitHouse\FitHouse\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.dll
-E:\Projects\FitHouse\Project\FitHouse\FitHouse\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.pdb
 E:\Projects\FitHouse\FitHouse\Frameworks\Service.Pattern\bin\Debug\Service.Pattern.dll
 E:\Projects\FitHouse\FitHouse\Frameworks\Service.Pattern\bin\Debug\Service.Pattern.pdb
 E:\Projects\FitHouse\FitHouse\Frameworks\Service.Pattern\bin\Debug\Repository.Pattern.dll
@@ -75,3 +68,17 @@ E:\Projects\FitHouse\FitHouse\Frameworks\Service.Pattern\bin\Debug\Repository.Pa
 E:\Projects\FitHouse\FitHouse\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.csprojResolveAssemblyReference.cache
 E:\Projects\FitHouse\FitHouse\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.dll
 E:\Projects\FitHouse\FitHouse\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.pdb
+C:\Users\Sherif\Desktop\Projects\fithouse\FitHouse\Frameworks\Service.Pattern\bin\Debug\Service.Pattern.dll
+C:\Users\Sherif\Desktop\Projects\fithouse\FitHouse\Frameworks\Service.Pattern\bin\Debug\Service.Pattern.pdb
+C:\Users\Sherif\Desktop\Projects\fithouse\FitHouse\Frameworks\Service.Pattern\bin\Debug\Repository.Pattern.dll
+C:\Users\Sherif\Desktop\Projects\fithouse\FitHouse\Frameworks\Service.Pattern\bin\Debug\Repository.Pattern.pdb
+C:\Users\Sherif\Desktop\Projects\fithouse\FitHouse\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.csprojResolveAssemblyReference.cache
+C:\Users\Sherif\Desktop\Projects\fithouse\FitHouse\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.dll
+C:\Users\Sherif\Desktop\Projects\fithouse\FitHouse\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.pdb
+E:\Projects\FitHouse\Project\FitHouse\FitHouse\Frameworks\Service.Pattern\bin\Debug\Service.Pattern.dll
+E:\Projects\FitHouse\Project\FitHouse\FitHouse\Frameworks\Service.Pattern\bin\Debug\Service.Pattern.pdb
+E:\Projects\FitHouse\Project\FitHouse\FitHouse\Frameworks\Service.Pattern\bin\Debug\Repository.Pattern.dll
+E:\Projects\FitHouse\Project\FitHouse\FitHouse\Frameworks\Service.Pattern\bin\Debug\Repository.Pattern.pdb
+E:\Projects\FitHouse\Project\FitHouse\FitHouse\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.csprojResolveAssemblyReference.cache
+E:\Projects\FitHouse\Project\FitHouse\FitHouse\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.dll
+E:\Projects\FitHouse\Project\FitHouse\FitHouse\Frameworks\Service.Pattern\obj\Debug\Service.Pattern.pdb

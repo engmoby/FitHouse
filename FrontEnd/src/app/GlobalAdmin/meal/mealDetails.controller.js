@@ -3,35 +3,49 @@
 
     angular
         .module('home')
-        .controller('mealDetailsController', ['$scope', '$stateParams', '$state', '$translate', 'appCONSTANTS'
+        .controller('mealDetailsController', ['$scope', 'blockUI', '$stateParams', '$state', '$translate', 'appCONSTANTS'
             , '$filter', 'mealPrepService', 'itemsssPrepService', 'OrderResource'
-            , 'RegionResource', 'BranchResource', 'CityResource', 'AreaResource', 'CountriesPrepService', mealDetailsController])
+            , 'RegionResource', 'BranchResource', 'CityResource', 'AreaResource', 'CountriesPrepService', 'PromotionResource', 'settingsPrepService', mealDetailsController])
 
-    function mealDetailsController($scope, $stateParams, $state, $translate, appCONSTANTS
+    function mealDetailsController($scope, blockUI, $stateParams, $state, $translate, appCONSTANTS
         , $filter, mealPrepService
         , itemsssPrepService, OrderResource, RegionResource, BranchResource, CityResource, AreaResource
-        , CountriesPrepService) {
+        , CountriesPrepService, PromotionResource, settingsPrepService) {
 
         $scope.mealPrepService = mealPrepService;
         $scope.itemsssPrepService = itemsssPrepService;
+        $scope.settingsPrepService = settingsPrepService;
         $scope.Total = 0;
         var vm = this;
         $scope.clientId = $scope.user.id;
         // localStorage.getItem('ClientId');
+
+        $scope.btnCheckValid = true;
+        $scope.promotionValue = 0;
+        $scope.promotionError = null;
         $scope.DeliveryFees = 0;
         $scope.counties = [];
         $scope.fats = 0;
         $scope.carbs = 0;
         $scope.protein = 0;
         $scope.calories = 0;
+        $scope.discount = ($scope.mealPrepService.mealDiscount == 0) ? $scope.settingsPrepService.programDiscount : $scope.mealPrepService.mealDiscount;
+
+        $scope.Total = $scope.mealPrepService.mealPrice - ($scope.mealPrepService.mealPrice * ($scope.discount / 100));
+
 
         for (var i = 0; i < $scope.mealPrepService.mealDetails.length; i++) {
-            var differntItem = $scope.itemsssPrepService.filter(x => (x.itemId == $scope.mealPrepService.mealDetails[i].itemId));
+            /*var differntItem = $scope.itemsssPrepService.filter(x => (x.itemSizeId == $scope.mealPrepService.mealDetails[i].itemSizeId));
 
             $scope.fats += differntItem[0].fat;
             $scope.carbs += differntItem[0].carbs;
             $scope.protein += differntItem[0].protein;
-            $scope.calories += differntItem[0].calories;
+            $scope.calories += differntItem[0].calories;*/
+
+            $scope.fats += mealPrepService.mealDetails[i].itemSize.fat;
+            $scope.carbs += mealPrepService.mealDetails[i].itemSize.carbs;
+            $scope.protein += mealPrepService.mealDetails[i].itemSize.protein;
+            $scope.calories += mealPrepService.mealDetails[i].itemSize.calories;
         }
 
         $scope.style = function () {
@@ -67,29 +81,32 @@
         $scope.dateIsValid = false;
         $scope.dateChange = function () {
 
-
-            if ($scope.itemDatetime == null || $scope.itemDatetime == "") {
+            if ($('#startdate').data('date') == null || $('#startdate').data('date') == "") {
+                // if ($scope.itemDatetime == null || $scope.itemDatetime == "") {
                 $scope.dateIsValid = false;
                 // $scope.$apply();
-            } else if (!$scope.orderForm.isInValid) {
+            } else if ($scope.orderForm.$valid) {
 
-                var GivenDate = $scope.itemDatetime;
-                var CurrentDate = new Date();
-                GivenDate = new Date(GivenDate);
+                $scope.dateIsValid = true;
 
-                GivenDate.setHours(CurrentDate.getHours());
-                GivenDate.setMinutes(CurrentDate.getMinutes());
-                GivenDate.setSeconds(CurrentDate.getSeconds());
+                // var GivenDate = $scope.itemDatetime;
+                // var GivenDate = $('#startdate').data('date')
+                // var CurrentDate = new Date();
+                // GivenDate = new Date(GivenDate);
 
-                if (GivenDate > CurrentDate) {
-                    // alert('Given date is greater than the current date.');
-                    $scope.dateIsValid = true;
-                }
-                else {
-                    // alert('Given date is not greater than the current date.');
-                    //$scope.dateIsValid = false;
+                // GivenDate.setHours(CurrentDate.getHours());
+                // GivenDate.setMinutes(CurrentDate.getMinutes());
+                // GivenDate.setSeconds(CurrentDate.getSeconds());
 
-                }
+                // if (GivenDate >= CurrentDate) {
+                //     // alert('Given date is greater than the current date.');
+                //     $scope.dateIsValid = true;
+                // }
+                // else {
+                //     // alert('Given date is not greater than the current date.');
+                //     //$scope.dateIsValid = false;
+
+                // }
                 // $scope.$apply();
             }
         }
@@ -222,7 +239,7 @@
         }
 
         $scope.Order = function () {
-            // blockUI.start($translate.instant('loading'));
+            blockUI.start($translate.instant('loading'));
 
             var order = new OrderResource();
 
@@ -236,23 +253,52 @@
 
             order.$createOrder().then(
                 function (data, status) {
-                    // blockUI.stop();
+                    blockUI.stop();
 
                     // ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
 
                     // localStorage.setItem('data', JSON.stringify(data.userId));
                     //  $state.go('meals');
                     localStorage.setItem('OrderSummary', JSON.stringify(data));
-                    $state.go('Summary');
+                    $state.go('summaryProgram');
                 },
                 function (data, status) {
-                    // blockUI.stop();
+                    blockUI.stop();
 
                     // ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 }
             );
         }
 
+        $scope.checkPromotion = function (promoTitle) {
+            blockUI.start($translate.instant('loading'));
+
+            var promotion = new PromotionResource();
+            promotion.title = promoTitle;
+            promotion.type = "Meal";
+
+
+            promotion.$CheckPromotion().then(
+                function (data, status) {
+                    debugger;
+                    blockUI.stop();
+                    $scope.btnCheckValid = false;
+                    $scope.promotionValue = data;
+                    var promoValue = ($scope.Total * $scope.promotionValue.value / 100);
+                    $scope.Total = $scope.Total - promoValue;
+                    // $scope.mealPrepService.mealPrice = $scope.mealPrepService.mealPrice - ($scope.mealPrepService.mealPrice * $scope.promotionValue.value / 100);
+                    $scope.promotionError = null;
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+                    $scope.btnCheckValid = true;
+                    $scope.promotionError = data.data.message;
+                    $scope.promotionValue = null;
+
+                }
+            );
+        }
 
     }
 

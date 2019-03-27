@@ -7,13 +7,13 @@
 
             $stateProvider
                 .state('homePage', {
-                    url: '/homePage',
+                    url: '/CustomProgram',
                     templateUrl: './app/GlobalAdmin/user/templates/home.html',
                     controller: 'homePageController',
                     'controllerAs': 'homePageCtrl',
                     resolve: {
-                        mealsPrepService: mealsPrepService,
-                        programPrepService: programPrepService,
+                        // mealsPrepService: mealsPrepService,
+                        // programPrepService: programPrepService,
                         settingsPrepService: settingsPrepService,
                         daysPrepService: daysPrepService
                     }
@@ -99,7 +99,8 @@
                     controller: 'programController',
                     'controllerAs': 'programCtrl',
                     resolve: {
-                        programPrepService: programNoPagePrepService
+                        programPrepService: programNoPagePrepService,
+                        settingsPrepService: settingsPrepService
                     }
                 })
 
@@ -134,7 +135,8 @@
                     resolve: {
                         mealPrepService: mealPrepService,
                         itemsssPrepService: itemsssPrepService,
-                        CountriesPrepService: CountriesPrepService
+                        CountriesPrepService: CountriesPrepService,
+                        settingsPrepService: settingsPrepService
                     }
                 })
 
@@ -144,7 +146,7 @@
                     controller: 'CustomController',
                     'controllerAs': 'CustomCtrl',
                     resolve: {
-                        itemsPrepService: itemsPrepService,
+                        AllcategoriesPrepService: AllcategoriesPrepService,
                         CountriesPrepService: CountriesPrepService
                     }
                 })
@@ -155,8 +157,9 @@
                     controller: 'CustomController',
                     'controllerAs': 'CustomCtrl',
                     resolve: {
-                        itemsPrepService: itemsPrepService,
-                        CountriesPrepService: CountriesPrepService
+                        AllcategoriesPrepService: AllcategoriesPrepService,
+                        CountriesPrepService: CountriesPrepService,
+                        AllcategoriesPrepService: AllcategoriesPrepService
                     }
                 })
 
@@ -167,7 +170,8 @@
                     'controllerAs': 'CustomCtrl',
                     resolve: {
                         itemsPrepService: itemsPrepService,
-                        CountriesPrepService: CountriesPrepService
+                        CountriesPrepService: CountriesPrepService,
+                        AllcategoriesPrepService: AllcategoriesPrepService
                     }
                 })
 
@@ -313,4 +317,11 @@
     function AddressByIdPrepService(AddressResource, $stateParams) {
         return AddressResource.getAddress({ addressId: $stateParams.addressId }).$promise;
     }
+
+    AllcategoriesPrepService.$inject = ['CategoryResource']
+    function AllcategoriesPrepService(CategoryResource) {
+        return CategoryResource.GetAllActiveCategories().$promise;
+    }
+
+
 }());

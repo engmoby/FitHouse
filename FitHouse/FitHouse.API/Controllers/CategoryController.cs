@@ -70,15 +70,15 @@ namespace FitHouse.API.Controllers
                 var categoryItems = _categoryService.Find(categoryModel.CategoryId);
                 foreach (var categoryModelItem in categoryItems.Items)
                 {
-                    var checkIfUsed = _programDetailService.Queryable().Where(x => x.ItemId == categoryModelItem.ItemId);
+                    var checkIfUsed = _programDetailService.Queryable().Where(x => x.ItemSize.ItemId == categoryModelItem.ItemId);
                     if (checkIfUsed.Any())
                         throw new ValidationException(ErrorCodes.RecordIsUsedInAnotherModule);
 
-                    var checkIfUsedOfMeal = _mealDetailsService.Queryable().Where(x => x.ItemId == categoryModelItem.ItemId);
+                    var checkIfUsedOfMeal = _mealDetailsService.Queryable().Where(x => x.ItemSize.ItemId == categoryModelItem.ItemId);
                     if (checkIfUsedOfMeal.Any())
                         throw new ValidationException(ErrorCodes.RecordIsUsedInAnotherModule);
 
-                    var checkIfUsedOfProgram = _programDetailService.Queryable().Where(x => x.ItemId == categoryModelItem.ItemId);
+                    var checkIfUsedOfProgram = _programDetailService.Queryable().Where(x => x.ItemSize.ItemId == categoryModelItem.ItemId);
                     if (checkIfUsedOfProgram.Any())
                         throw new ValidationException(ErrorCodes.RecordIsUsedInAnotherModule);
                 }
@@ -117,6 +117,14 @@ namespace FitHouse.API.Controllers
             return PagedResponse("GetAllItemsForCategory", page, pagesize, items.TotalCount, data);
         }
 
+        [Route("api/Category/GetAllActiveCategories", Name = "GetAllActiveCategories")]
+        [HttpGet]
+        public IHttpActionResult GetAllActiveCategories()
+        {
+            var categories = Mapper.Map<List<CategoryModel>>(_categoryFacade.GetAllActiveCategories());
+
+            return Ok(categories);
+        }
 
         [Route("api/Categories/{categoryId:long}/GetAllActiveItems", Name = "GetAllActiveItems")]
         [HttpGet]

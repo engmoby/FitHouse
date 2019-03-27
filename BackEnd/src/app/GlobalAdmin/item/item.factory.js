@@ -16,7 +16,8 @@
         create: { method: 'POST', useToken: true },
         getItem: { method: 'GET', useToken: true },
         deleteItem: { method: 'DELETE', useToken: true },
-        update: { method: 'PUT', useToken: true }
+        update: { method: 'PUT', useToken: true },
+        GetAllItemSizes: { method: 'GET', url: appCONSTANTS.API_URL + 'Items/:itemId/sizes', useToken: true, isArray:true},
       })
     }
     function GetItemsResource($resource, appCONSTANTS) {

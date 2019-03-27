@@ -2,8 +2,12 @@
     <div ng-if="DeliveryList.results.length == 0">
         <span>{{'NoDeliverysAvailable' | translate}}</span>
     </div>
-    {{flag}}
+
     <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="DeliveryList.results.length > 0">
+
+        <button class="btn pmd-ripple-effect btn-default" style="background-color: #e4e5e6;color: black!important;"
+            type="button" ng-click="changePage(1)">{{'refresh' |translate}}</button>
+
         <div class="table-responsive"></div>
         <table class="table pmd-table table-hover">
             <thead>

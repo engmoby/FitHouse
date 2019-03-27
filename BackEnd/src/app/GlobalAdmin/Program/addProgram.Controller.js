@@ -5,11 +5,13 @@
         .module('home')
         .controller('addProgramController', ['$scope', 'blockUI', '$filter', '$translate',
             '$state', '$localStorage', 'authorizationService', 'appCONSTANTS', 'ToastService', '$stateParams',
-            'AddProgramResource', 'daysPrepService', 'settingsPrepService', 'itemsssPrepService', addProgramController]);
+            'AddProgramResource', 'daysPrepService', 'settingsPrepService',
+            'AllcategoriesPrepService', 'CategoryResource', 'ItemResource', addProgramController]);
 
 
     function addProgramController($scope, blockUI, $filter, $translate, $state, $localStorage, authorizationService,
-        appCONSTANTS, ToastService, $stateParams, AddProgramResource, daysPrepService, settingsPrepService, itemsssPrepService) {
+        appCONSTANTS, ToastService, $stateParams, AddProgramResource, daysPrepService, settingsPrepService,
+        AllcategoriesPrepService, CategoryResource, ItemResource) {
 
         // $('.pmd-sidebar-nav>li>a').removeClass("active")
         // $($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
@@ -34,7 +36,7 @@
         vm.ProgramTotalPrice = 0;
         vm.dayList = daysPrepService;
         // vm.CategoriesPrepService = CategoriesPrepService;
-        $scope.itemsssPrepService = itemsssPrepService;
+        // $scope.itemsssPrepService = itemsssPrepService;
         vm.itemList = [];
         //$scope.itemModel = [];
         //$scope.variableitemmodel;
@@ -46,9 +48,21 @@
 
         vm.deletedItem = false;
 
+        vm.categories = AllcategoriesPrepService;
+        vm.items = [];
+        vm.itemSizes = [];
+
         vm.ConvertToNumber = function () {
-            vm.daysCount = parseInt(vm.ProgramDaysCount, 10);
-            vm.mealsCount = parseInt(vm.MealPerDay, 10);
+            // vm.daysCount = parseInt(vm.ProgramDaysCount, 10);
+            // vm.mealsCount = parseInt(vm.MealPerDay, 10);
+            if ((vm.ProgramDaysCount != null && vm.ProgramDaysCount != 0) || (vm.MealPerDay != null && vm.MealPerDay != 0)) {
+                vm.daysCount = parseInt(vm.ProgramDaysCount, 10);
+                vm.mealsCount = parseInt(vm.MealPerDay, 10);
+            }
+            else {
+                vm.ProgramDaysCount = "";
+                vm.MealPerDay = "";
+            }
         }
 
         $scope.discountChange = function () {
@@ -62,26 +76,56 @@
             //     vm.ProgramVAT = vm.ProgramVAT + vm.itemList[i].vat;
             //     vm.ProgramTotalPrice = (vm.ProgramPrice + vm.ProgramVAT) - vm.ProgramDiscount;
             // }
-            vm.ProgramTotalPrice = vm.totalPrice - (vm.totalPrice * (vm.ProgramDiscount/100));
+            vm.ProgramTotalPrice = vm.totalPrice - (vm.totalPrice * (vm.ProgramDiscount / 100));
             vm.ProgramTotalPriceBefore = vm.totalPrice;
         }
 
-        $scope.getData = function (itemModel, day, meal) {
+        vm.changeCategory = function (selectedCategoryId, meal) {
+            CategoryResource.GetAllActiveItems({ categoryId: selectedCategoryId, pagesize: 0 }).$promise.then(function (results) {
+                meal.items = results.results;
+            },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                });
+        }
+
+        vm.changeItem = function (selectedItemId, meal) {
+            ItemResource.GetAllItemSizes({ itemId: selectedItemId }).$promise.then(function (results) {
+                meal.itemSizes = results;
+            },
+                function (data, status) {
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                });
+        }
+
+        vm.removeItem = function (item, meal) {
+            // meal.selectedItemList.splice(index, 1);
+            meal.selectedItemList.splice(meal.selectedItemList.indexOf(item), 1);
+            vm.itemList.splice(vm.itemList.indexOf(item), 1);
+        }
+
+        $scope.getData = function (itemModel, day, mealNumber, meal) {
 
 
             // debugger;
             // var allDayMeal = $scope.itemList.filter(x=>x.day == day && x.meal == meal);
-            var differntMeal = vm.itemList.filter(x => (x.dayNumber == day && x.mealNumberPerDay != meal) || (x.dayNumber != day));
-            vm.itemList = [];
-            vm.itemList = angular.copy(differntMeal);
+            // var differntMeal = vm.itemList.filter(x => (x.dayNumber == day && x.mealNumberPerDay != mealNumber) || (x.dayNumber != day));
+            // vm.itemList = [];
+            // vm.itemList = angular.copy(differntMeal);
 
-            itemModel.forEach(element => {
-                element.dayNumber = day;
-                element.mealNumberPerDay = meal;
-                // element.itemModel = element;
-                //$scope.itemList=[];
-                vm.itemList.push(element);
-            });
+            // itemModel.forEach(element => {
+            meal.selectedCategoryId = 0;
+            meal.selectedItem = null;
+            meal.selectedItemSize = null;
+            itemModel.dayNumber = day;
+            itemModel.mealNumberPerDay = mealNumber;
+            // element.itemModel = element;
+            //$scope.itemList=[];
+            vm.itemList.push(itemModel);
+            if (meal.selectedItemList == null)
+                meal.selectedItemList = [];
+            meal.selectedItemList.push(itemModel)
+            // });
 
             // console.log(vm.itemList);
 
@@ -97,10 +141,17 @@
                 vm.ProgramVAT = vm.ProgramVAT + vm.itemList[i].vat;
                 vm.totalPrice += vm.itemList[i].totalPrice;
             }
-            vm.ProgramTotalPrice = vm.totalPrice - (vm.totalPrice * (vm.ProgramDiscount/100));
+            vm.ProgramTotalPrice = vm.totalPrice - (vm.totalPrice * (vm.ProgramDiscount / 100));
             vm.ProgramTotalPriceBefore = vm.totalPrice;
         }
-       
+
+        // vm.validateMeal = function () {
+        //     var inValid = false
+        //     vm.itemList.forEach(element => {
+        //         if(element. == ProgramDaysCount)
+        //     });
+        //     return inValid;
+        // }
 
         //Model
         vm.currentStep = 1;
@@ -160,6 +211,7 @@
         }
 
         vm.AddNewProgram = function () {
+            blockUI.start("Loading...");
             var newProgram = new AddProgramResource();
             newProgram.programNameDictionary = vm.titleDictionary;
             newProgram.programDescriptionDictionary = vm.descriptionDictionary;
@@ -178,9 +230,11 @@
             newProgram.$create().then(
                 function (data, status) {
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+                    blockUI.stop();
                     $state.go('program');
                 },
                 function (data, status) {
+                    blockUI.stop();
                     ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 }
             );

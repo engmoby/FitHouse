@@ -4,6 +4,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using FitHouse.Common;
 using Repository.Pattern.Ef6;
 
 namespace FitHouse.DAL.Entities.Model
@@ -17,13 +18,14 @@ namespace FitHouse.DAL.Entities.Model
         [ForeignKey("Program")]
         public long ProgramId { get; set; }
         public virtual Program Program { get; set; }
-        [ForeignKey("Item")]
-        public long ItemId { get; set; }
-        public virtual Item Item { get; set; }
+        [ForeignKey("ItemSize")]
+        public long ItemSizeId { get; set; }
+        public virtual ItemSize ItemSize { get; set; }
         public long DayNumber { get; set; }
         public long MealNumberPerDay { get; set; }
         public DateTime DayDateTime { get; set; }
         public bool IsDeleted { get; set; }
         public bool IsActive { get; set; }
+        public virtual Enums.ItemType ItemType { get; set; }
     }
 }

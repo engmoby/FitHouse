@@ -12,5 +12,6 @@ namespace FitHouse.BLL.DataServices.Interfaces
         bool CheckPhoneDuplicated(string phone);
         User CheckUserIsDeleted(string firstName, string password);
         PagedResultsDto GetAllUsers(int page, int pageSize); 
+        PagedResultsDto GetAllClients(int page, int pageSize); 
     }
 }

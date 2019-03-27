@@ -14,15 +14,15 @@
                 return input;
             }
         })
-        .controller('homePageController', ['$scope', '$state', '$stateParams', '$translate','blockUI', 'appCONSTANTS', 'mealsPrepService', 'programPrepService', 'settingsPrepService'
+        .controller('homePageController', ['$scope', '$state', '$stateParams', '$translate','blockUI', 'appCONSTANTS', 'settingsPrepService'
             , 'daysPrepService', homePageController])
 
-    function homePageController($scope, $state, $stateParams, $translate, blockUI,appCONSTANTS, mealsPrepService, programPrepService
+    function homePageController($scope, $state, $stateParams, $translate, blockUI,appCONSTANTS
         , settingsPrepService, daysPrepService) {
            // blockUI.start($translate.instant('loading'));
 
-        $scope.mealsPrepService = mealsPrepService.results;
-        $scope.programPrepService = programPrepService.results;
+        // $scope.mealsPrepService = mealsPrepService.results;
+        // $scope.programPrepService = programPrepService.results;
         $scope.settingsPrepService = settingsPrepService;
         $scope.dayList = daysPrepService;
 		$scope.SelectedDays = [];
@@ -38,7 +38,8 @@
             localStorage.setItem('dayList', JSON.stringify($scope.SelectedDays));
             localStorage.setItem('isBreakFast', $scope.isBreakFast);
             localStorage.setItem('isSnack', $scope.isSnack);
-            localStorage.setItem('itemDatetime', $scope.itemDatetime);
+            /*localStorage.setItem('itemDatetime', $scope.itemDatetime);*/
+            localStorage.setItem('itemDatetime',  $('#startdate').val());
             /*add here the disacount value*/
             localStorage.setItem('ProgramDiscount', $scope.settingsPrepService.programDiscount);
             $state.go('Custom');
@@ -53,6 +54,18 @@
                 'width': '100%'
             };
         }
+
+        $scope.dateChange = function () {
+            // debugger;
+               if ($('#startdate').data('date') == null || $('#startdate').data('date') == "") {
+                   $scope.dateIsValid = false;
+                     $scope.$apply();
+               } else if (!$scope.cutomizeProgram.isInValid) {
+                   $scope.dateIsValid = true;
+                    $scope.$apply();
+               }
+           }
+   
 
     }
 

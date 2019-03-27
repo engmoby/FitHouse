@@ -205,6 +205,42 @@ namespace FitHouse.Resources {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Promo Code Finished.
+        /// </summary>
+        public static string PromoCodeFinished {
+            get {
+                return ResourceManager.GetString("PromoCodeFinished", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Promo Code Not Allowed.
+        /// </summary>
+        public static string PromoCodeNotAllowed {
+            get {
+                return ResourceManager.GetString("PromoCodeNotAllowed", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Promo Code Not Exist.
+        /// </summary>
+        public static string PromoCodeNotExist {
+            get {
+                return ResourceManager.GetString("PromoCodeNotExist", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Promo Code Not Start.
+        /// </summary>
+        public static string PromoCodeNotStart {
+            get {
+                return ResourceManager.GetString("PromoCodeNotStart", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to This Record Is Used In Another Module.
         /// </summary>
         public static string RecordIsUsedInAnotherModule {

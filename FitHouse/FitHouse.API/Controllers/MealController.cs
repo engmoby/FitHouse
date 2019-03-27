@@ -115,6 +115,11 @@ namespace FitHouse.API.Controllers
         {
             var Meal = Mapper.Map<MealModel>(_MealFacade.GetMeal(MealId, Language));
             Meal.ImageUrl = Url.Link("MealImage", new { Meal.MealId });
+            foreach (var itemModel in Meal.MealDetails)
+            {
+                itemModel.ItemSize.ImageUrl = Url.Link("ItemImage", new { itemModel.ItemSize.CategoryId, itemModel.ItemSize.ItemId });
+
+            }
             return Ok(Meal);
         }
 
@@ -123,7 +128,7 @@ namespace FitHouse.API.Controllers
         //[ResponseType(typeof(MealModel))]
         public IHttpActionResult GetMealItems(long MealId)
         {
-            var mealItems = Mapper.Map<List<ItemProgramModel>>(_MealFacade.GetMealItems(MealId));
+            var mealItems = Mapper.Map<List<ItemSizeModel>>(_MealFacade.GetMealItems(MealId));
             return Ok(mealItems);
         }
 

@@ -5,13 +5,13 @@
         .module('home')
         .controller('orderMealscontroller', ['$scope', 'blockUI', '$filter', '$translate',
             '$state', '$localStorage', 'authorizationService', 'appCONSTANTS', 'ToastService', '$stateParams'
-            , 'mealsPrepService', 'RegionResource', 'CityResource', 'AreaResource', 'CountriesPrepService'
-            , 'OrderResource', 'MealResource', orderMealscontroller]);
+            , 'CallCentermealsPrepService', 'RegionResource', 'CityResource', 'AreaResource', 'CountriesPrepService'
+            , 'OrderResource', 'MealResource', 'PromotionResource','settingsPrepService', orderMealscontroller]);
 
 
     function orderMealscontroller($scope, blockUI, $filter, $translate, $state, $localStorage, authorizationService, appCONSTANTS, ToastService
-        , $stateParams, mealsPrepService, RegionResource, CityResource, AreaResource
-        , CountriesPrepService, OrderResource, MealResource) {
+        , $stateParams, CallCentermealsPrepService, RegionResource, CityResource, AreaResource
+        , CountriesPrepService, OrderResource, MealResource, PromotionResource,settingsPrepService) {
 
         // $('.pmd-sidebar-nav>li>a').removeClass("active")
         // $($('.pmd-sidebar-nav').children()[3].children[0]).addClass("active")
@@ -19,12 +19,17 @@
         // blockUI.start("Loading...");
 
         var vm = this;
+        $scope.btnCheckValid = true;
+        $scope.promotionValue = 0;
+        $scope.promotionError = null;
+
         vm.language = appCONSTANTS.supportedLanguage;
 
         $scope.itemModel = [];
         vm.meal;
         vm.mealItemss;
-        $scope.mealsPrepService = mealsPrepService;
+        $scope.mealsPrepService = CallCentermealsPrepService;
+        $scope.settingsPrepService = settingsPrepService;
         vm.counties = [];
         vm.clientId = localStorage.getItem('ClientId');
         vm.flag = false;
@@ -141,26 +146,47 @@
 
         vm.TotalPrice = 0;
         $scope.getData = function (itemModel) {
+            vm.mealPrice = 0;
+            debugger;
+            //meal 
             vm.itemList = [];
-            itemModel.forEach(element => {
-                vm.itemList.push(element);
-                vm.TotalPrice += element.totalPrice;
-            });
+            vm.itemList.push(itemModel);
+            vm.TotalPrice = itemModel.mealPrice;
+          
+          
+            $scope.discount = (itemModel.mealDiscount == 0) ? $scope.settingsPrepService.programDiscount : itemModel.mealDiscount;
 
-            
+            $scope.Total = itemModel.mealPrice - (itemModel.mealPrice * ($scope.discount / 100));
+    
+            // itemModel.forEach(element => {
+            //     // vm.TotalPrice = element.mealPrice;
+            //     vm.itemList.push(element);
+            // });
+
+
+            if (itemModel.length == 0) {
+                vm.TotalPrice = "";
+            }
+            // else {
+            //     for (var i = 0; i < vm.itemList.length; i++) {
+            //         var icount = i;
+            //         var item = vm.itemList[i].mealPrice;
+            //         vm.TotalPrice += vm.itemList[i].mealPrice;
+            //     }
+            // }
         }
 
         vm.mealSearch = function () {
-            var k = OrderResource.getMealItems({mealId:vm.meal.mealId}).$promise.then(function (results) {
+            var k = OrderResource.getMealItems({ mealId: vm.meal.mealId }).$promise.then(function (results) {
                 vm.mealItemss = results;
                 blockUI.stop();
                 vm.flag = true;
 
             },
-            function (data, status) {
-                blockUI.stop();
-                ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-            });
+                function (data, status) {
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
         }
 
         vm.dateIsValid = false;
@@ -200,6 +226,39 @@
                     blockUI.stop();
 
                     ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+
+
+        $scope.checkPromotion = function (promoTitle) {
+            blockUI.start($translate.instant('loading'));
+
+            var promotion = new PromotionResource();
+            promotion.title = promoTitle;
+            promotion.type = "Program";
+
+
+            promotion.$CheckPromotion().then(
+                function (data, status) {
+                    debugger;
+                    blockUI.stop();
+                    $scope.btnCheckValid = false;
+                    $scope.promotionValue = data;
+                   // vm.TotalPrice = vm.TotalPrice - (vm.TotalPrice * $scope.promotionValue.value / 100);
+                   
+                    var promoValue = ($scope.Total * $scope.promotionValue.value / 100);
+                    $scope.Total = $scope.Total - promoValue;
+
+                    $scope.promotionError = null;
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+                    $scope.btnCheckValid = true;
+                    $scope.promotionError = data.data.message;
+                    $scope.promotionValue = null;
+
                 }
             );
         }

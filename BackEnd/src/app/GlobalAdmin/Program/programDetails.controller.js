@@ -5,18 +5,25 @@
         .module('home')
         .controller('programDetailsController', ['$scope', 'blockUI', '$filter', '$translate',
             '$state', '$localStorage', 'authorizationService', 'appCONSTANTS', 'ToastService', '$stateParams', 'progDetailsPrepService'
-            , 'itemsssPrepService', '$uibModal', 'GetProgramDetailResource', programDetailsController]);
+            , 'AllcategoriesPrepService', '$uibModal', 'GetProgramDetailResource', programDetailsController]);
 
 
     function programDetailsController($scope, blockUI, $filter, $translate, $state, $localStorage, authorizationService,
         appCONSTANTS, ToastService, $stateParams, progDetailsPrepService,
-        itemsssPrepService, $uibModal, GetProgramDetailResource) {
- 
+        AllcategoriesPrepService, $uibModal, GetProgramDetailResource) {
+
         var vm = this;
         vm.language = appCONSTANTS.supportedLanguage;
 
         vm.programDetails = progDetailsPrepService;
-        console.log("sdsdsd");
+        //console.log(vm.programDetails);
+        // debugger;
+        // for (var i = 0; i < vm.programDetails.programDetails.length; i++) {
+        //     if (vm.programDetails.programDetails[i].dayNumber == 1 && vm.programDetails.programDetails[i].mealNumberPerDay == 1) {
+        //         vm.record = vm.programDetails.programDetails[i].item;
+        //         console.log(vm.record);
+        //     }
+        // }
         console.log(vm.programDetails);
         vm.programId;
 
@@ -27,11 +34,11 @@
                 controller: 'editProgramMealController',
                 controllerAs: 'editProgramMealCtrl',
                 resolve: {
-                    itemsssPrepService: function () { return itemsssPrepService; },
+                    AllcategoriesPrepService: function () { return AllcategoriesPrepService; },
                     ProgramId: function () { return programId },
                     DayCount: function () { return dayCount },
                     MealCount: function () { return mealCount },
-                    progDetailsPrepService: function () { return progDetailsPrepService },
+                    progDetailsPrepService: function () { return vm.programDetails  },
                     callBackFunction: function () { return refreshPrograms }
                 }
             });
@@ -50,7 +57,7 @@
                     ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
                 });
         }
- 
+
     }
 
 })();

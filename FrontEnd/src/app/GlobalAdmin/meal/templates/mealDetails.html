@@ -1,17 +1,18 @@
 <script>
     $(function () {
-        $('#startdate').datepicker(
-            {
-                minDate: new Date()
-            }
+        $('#startdate').datetimepicker({
+            widgetPositioning: { vertical: "top" },//,inline:true,sideBySide:true,
+
+            minDate: new Date()
+        }
         ).on('dp.change', function (e) {
-            debugger;
+            // debugger;
             angular.element(document.getElementById('startdate')).scope().dateChange();
         });
     });
 </script>
-<div class="hp-banner">
-    <img src="images/detailed-banner.jpg" alt=""> </div>
+<!-- <div class="hp-banner">
+    <img src="images/detailed-banner.jpg" alt=""> </div> -->
 
 <div class="hom-com">
     <div class="container">
@@ -25,12 +26,12 @@
                             </h4>
 
                         </div>
-                        <div class="hp-amini detai-2p">
+                        <!-- <div class="hp-amini detai-2p">
                             <p>{{mealPrepService.mealDescriptionDictionary[selectedLanguage]}}</p>
-                        </div>
+                        </div> -->
                     </div>
 
-                    <div class="hp-section">
+                    <div class="hp-section" style="overflow: unset !important">
                         <div class="hp-sub-tit">
                             <h4>
                                 <span>{{'MealDetails' | translate}}</span>
@@ -61,18 +62,29 @@
                             </ul>
                             <div class="tab-content">
                                 <div id="home" class="tab-pane fade in active tab-space">
-                                    <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-                                        <label for="first-name">{{'Items' | translate}}</label>
+                                    <div
+                                        class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                        <label for="first-name">{{'Item' | translate}}</label>
                                         <ul>
                                             <li ng-repeat="detail in mealPrepService.mealDetails">
                                                 <!-- {{detail}} -->
                                                 <div class="res-menu">
                                                     <!-- {{item.itemNameDictionary[selectedLanguage]}} -->
-                                                    <img src="/assets/img/meal.jpeg" alt="" />
-                                                    <h3> {{detail.item.itemNameDictionary[selectedLanguage]}}
-                                                        <span>{{detail.item.price}}</span>
+                                                    <img src={{detail.itemSize.imageUrl}} imageonload alt="">
+                                                    <h3> {{detail.itemSize.itemNameDictionary[selectedLanguage]}}
+                                                        <!-- <span>{{detail.item.totalPrice}}</span> -->
+                                                        <span>{{detail.itemSize.sizeNameDictionary[selectedLanguage]}}</span>
                                                     </h3>
-                                                    <span class="menu-item">{{detail.item.itemDescriptionDictionary[selectedLanguage] }}</span>
+                                                    <span class="menu-item">{{detail.itemSize.itemDescriptionDictionary[selectedLanguage]
+                                                        }}</span>
+                                                    <span> {{'fat' | translate}}:{{detail.itemSize.fat}}</span>
+                                                    <span> {{'carbs' | translate}}:{{detail.itemSize.carbs}}</span>
+                                                    <span> {{'protein' | translate}}:{{detail.itemSize.protein}}</span>
+                                                    <span>
+                                                        {{'calories' | translate}}:{{detail.itemSize.calories}}</span>
+                                                    <!-- <span>
+                                                        {{'itemSize' |
+                                                        translate}}:{{detail.itemSize.sizeNameDictionary[selectedLanguage]}}</span> -->
                                                     <!-- | limitTo:10 -->
                                                 </div>
 
@@ -83,31 +95,32 @@
                                 <div id="menu1" class="tab-pane fade in   tab-space">
                                     <div class="hp-main-overview">
                                         <ul>
-                                            <li>{{'Fats' | translate}}:
+                                            <li>{{'fat' | translate}}:
                                                 <span>{{fats}}</span>
                                             </li>
-                                            <li>{{'Carbs' | translate}}:
+                                            <li>{{'carbs' | translate}}:
                                                 <span>{{carbs}}</span>
                                             </li>
-                                            <li>{{'Protein' | translate}}:
+                                            <li>{{'protein' | translate}}:
                                                 <span>{{protein}}</span>
                                             </li>
-                                            <li>{{'Calories' | translate}}:
+                                            <li>{{'calories' | translate}}:
                                                 <span>{{calories}}</span>
                                             </li>
-                                            <li>{{'TotalPrice' | translate}}:
-                                                <span class="ov-yes">{{mealPrepService.mealPrice}}</span>
+                                            <li>{{'Total' | translate}}:
+                                                <span style="width: 74px !important;"
+                                                    class="ov-yes">{{mealPrepService.mealPrice}}
+                                                    SR</span>
                                             </li>
                                         </ul>
                                     </div>
                                 </div>
                                 <div id="menu2" class="tab-pane fade in   tab-space">
                                     <form name="orderForm">
-                                        <!-- {{itemDatetime}} -->
                                         <div class="col-md-6">
-                                            <h5>{{'OrderDate' | translate}}</h5>
-                                            <input name="itemDatetime" required ng-model="itemDatetime" type="text" id="startdate" class="form-control" ng-change="dateChange();"
-                                            />
+                                            <h5>{{'startDate' | translate}}</h5>
+                                            <input name="itemDatetime" ng-model="itemDatetime" type="text"
+                                                id="startdate" class="form-control" ng-change="dateChange();" />
                                         </div>
 
 
@@ -115,46 +128,92 @@
 
                                             <div class="row">
                                                 <div class="input-field col s6">
-                                                    <select style="width:100% !important" required class=" select-tags form-control pmd-select2-tags" name="country" ng-change="countryChange()"
-                                                        ng-model="selectedCountryId" ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in counties">
+                                                    <select style="width:100% !important" required
+                                                        class=" select-tags form-control pmd-select2-tags"
+                                                        name="country" ng-change="countryChange()"
+                                                        ng-model="selectedCountryId"
+                                                        ng-options="group.countryId as group.titleDictionary[selectedLanguage] for group in counties">
                                                     </select>
                                                 </div>
                                                 <div class="input-field col s6" ng-show="selectedCountryId > 0">
-                                                    <select style="width:100% !important" ng-required="selectedCountryId > 0" class="select-tags form-control pmd-select2-tags"
-                                                        ng-change="regionChange()" ng-model="selectedRegionId" ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in regions">
+                                                    <select style="width:100% !important"
+                                                        ng-required="selectedCountryId > 0"
+                                                        class="select-tags form-control pmd-select2-tags"
+                                                        ng-change="regionChange()" ng-model="selectedRegionId"
+                                                        ng-options="group.regionId as group.titleDictionary[selectedLanguage] for group in regions">
                                                     </select>
                                                 </div>
                                             </div>
                                             <div class="row">
                                                 <div class="input-field col s6" ng-show="selectedRegionId > 0">
-                                                    <select ng-required="selectedRegionId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"
-                                                        ng-change="cityChange()" ng-model="selectedCityId" ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in cities">
+                                                    <select ng-required="selectedRegionId > 0"
+                                                        style="width:100% !important"
+                                                        class="select-tags form-control pmd-select2-tags"
+                                                        ng-change="cityChange()" ng-model="selectedCityId"
+                                                        ng-options="group.cityId as group.titleDictionary[selectedLanguage] for group in cities">
                                                     </select>
                                                 </div>
                                                 <div class="input-field col s6" ng-show="selectedCityId > 0">
-                                                    <select ng-required="selectedCityId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"
-                                                        ng-change="areaChange()" ng-model="selectedAreaId" ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in area">
+                                                    <select ng-required="selectedCityId > 0"
+                                                        style="width:100% !important"
+                                                        class="select-tags form-control pmd-select2-tags"
+                                                        ng-change="areaChange()" ng-model="selectedAreaId"
+                                                        ng-options="group.areaId as group.titleDictionary[selectedLanguage] for group in area">
                                                     </select>
                                                 </div>
                                                 <div class="input-field col s6" ng-show="selectedAreaId > 0">
-                                                    <select ng-required="selectedAreaId > 0" style="width:100% !important" class="select-tags form-control pmd-select2-tags"
-                                                        ng-change="branchChange()" ng-model="selectedBranchId" ng-options="group.branchId as group.titleDictionary[selectedLanguage] for group in branchList">
+                                                    <select ng-required="selectedAreaId > 0"
+                                                        style="width:100% !important"
+                                                        class="select-tags form-control pmd-select2-tags"
+                                                        ng-change="branchChange()" ng-model="selectedBranchId"
+                                                        ng-options="group.branchId as group.titleDictionary[selectedLanguage] for group in branchList">
                                                     </select>
                                                 </div>
                                             </div>
+
+                                            <div class="row">
+                                                <div class="input-field col s2">
+                                                    <input type="text" class="mat-input form-control" name="title"
+                                                        placeholder="{{'PromotionLbl' | translate}}" ng-model="Title"
+                                                        minlength="3" maxlength="255">
+                                                    <div ng-messages="orderForm.title.$error">
+                                                        <div
+                                                            ng-show="orderForm.title.$error.required && !orderForm.title.$pristine">
+                                                            {{'requiredErr' | translate}}</div>
+                                                        <div
+                                                            ng-show="(orderForm.title.$error.minlength || orderForm.title.$error.maxlength) && !orderForm.title.$error.required">
+                                                            {{'NameLengthError255' | translate}}</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="input-field col s6">
+                                                    <button style="background-color: #e4e5e6;color: black!important;"
+                                                        class="btn pmd-ripple-effect btn-primary"
+                                                        ng-click="checkPromotion(Title)"
+                                                        ng-disabled="!btnCheckValid|| Title==null ">
+                                                        {{'CheckPromotion' | translate}}</button>
+
+                                                </div>
+
+                                                <span class="input-field col s6" ng-show="promotionValue == null">
+                                                    {{ promotionError}}</span>
+                                                <!-- <span class="input-field col s6" ng-show="promotionError== null">
+                                                    {{ promotionValue.value}}
+                                                </span> -->
+
+                                            </div>
                                             <div class="input-field col s12 m4 l2">
-                                                <!-- <input type="submit" class="form-btn" ng-click="Order()"
-                                                        ng-disabled="orderForm.$invalid"> -->
-                                                <!-- ng-disabled="orderForm.$invalid || addressValidation == false">   -->
-                                                <!-- ng-disabled="orderForm.$invalid || !dateIsValid || addressValidation == false" -->
-
-
-                                                Price:{{ mealPrepService.mealPrice}}
+                                                {{'Pricelbl' | translate}}:{{ mealPrepService.mealPrice| number:2}} SR
+                                                <br>{{'ProgramDiscount' | translate}} : {{ discount}} %
+                                                <br>{{'Total' | translate}} :{{ Total | number:2}} SR
                                                 <br>
-                                                <!-- {{areaChanged}} -->
-                                                <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="areaChanged == false || orderForm.$invalid || selectedBranchId <= 0 && !dateIsValid"
-                                                    class="btn pmd-ripple-effect btn-primary" type="button" ng-click="Order();">
-                                                    {{'order' | translate}}</button>
+
+                                                <!-- {{areaChanged}} --> <button
+                                                    style="background-color: #e4e5e6;color: black!important;"
+                                                    ng-disabled="areaChanged == false || orderForm.$invalid || selectedBranchId <= 0 || !dateIsValid"
+                                                    class="btn pmd-ripple-effect btn-primary" type="button"
+                                                    ng-click="Order();">
+                                                    {{'Order' | translate}}</button>
 
                                             </div>
                                         </div>

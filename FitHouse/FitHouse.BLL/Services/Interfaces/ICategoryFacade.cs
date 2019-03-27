@@ -11,5 +11,7 @@ namespace FitHouse.BLL.Services.Interfaces
         CategoryDto EditCategory(CategoryDto userDto, int userId);
         PagedResultsDto GetAllCategorys(int page, int pageSize);
         List<CategoryProgramDto> GetAllCategs();
+
+        List<CategoryDto> GetAllActiveCategories();
     }
 }
