@@ -14,7 +14,8 @@
 
         var vm = this;
         vm.language = appCONSTANTS.supportedLanguage;
-
+        $scope.showBreakfast = false;
+        $scope.showSnack = false;
         vm.programDetails = progDetailsPrepService;
         //console.log(vm.programDetails);
         // debugger;
@@ -24,10 +25,10 @@
         //         console.log(vm.record);
         //     }
         // }
-        console.log(vm.programDetails);
+        // console.log(vm.programDetails);
         vm.programId;
 
-        vm.ShowProgramMeal = function (programId, dayCount, mealCount) {
+        vm.ShowProgramMeal = function (programId, dayCount, mealCount,itemType) {
             vm.programId = programId;
             $uibModal.open({
                 templateUrl: './app/GlobalAdmin/Program/templates/editProgramMeal.html',
@@ -38,7 +39,8 @@
                     ProgramId: function () { return programId },
                     DayCount: function () { return dayCount },
                     MealCount: function () { return mealCount },
-                    progDetailsPrepService: function () { return vm.programDetails  },
+                    itemType: function () { return itemType },
+                    progDetailsPrepService: function () { return vm.programDetails },
                     callBackFunction: function () { return refreshPrograms }
                 }
             });
