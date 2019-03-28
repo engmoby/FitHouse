@@ -779,8 +779,30 @@
 		vm.Total = 0;
 		vm.DeliveryFees = 0;
 		vm.RepeatList = [];
+		vm.daylistCount = []
+		for (var j = 0; j < vm.daysCount; j++) {
+			var m = []
+			for (var k = 0; k < vm.mealsCount; k++) {
+				m.push({ selectedItemList: [] })
+			}
+			vm.daylistCount.push({
+				meals: m
+			})
+		}
 		vm.itemList = [];
+		vm.today = new Date(vm.startDate);
+		for (var i = 1; i < vm.daysCount; i++) {
+			var date = new Date(vm.startDate);
+			var newdate = new Date(date);
+			newdate.setDate(newdate.getDate() + i);
+			vm.today = newdate;
+
+		}
 		vm.Repeat = function () {
+			debugger;
+			console.log(vm.daylistCount[0].meals[0].selectedItemList);
+			var dd = vm.daylistCount;
+
 			var firstDay = $filter('filter')(vm.itemList, x => (x.dayNumber == 1));
 
 			firstDay.forEach(element => {
@@ -790,12 +812,13 @@
 
 			for (var i = 1; i < vm.daysCount; i++) {
 				for (var l = 0; l < firstDay.length; l++) {
-					firstDay[l].dayNumber = i + 1;
-					vm.RepeatList.push(firstDay[l]);
+					vm.daylistCount[i].meals.forEach(element => {
+						element.selectedItemList.push(firstDay[l])
+					});
 				}
 			}
+			var fff= vm.daylistCount;
 			vm.itemList = vm.RepeatList;
-			$scope.itemModel = vm.RepeatList;
 		}
 
 		vm.categories = AllcategoriesPrepService;
@@ -823,12 +846,7 @@
 			meal.selectedItemList.splice(meal.selectedItemList.indexOf(item), 1);
 			vm.itemList.splice(vm.itemList.indexOf(item), 1);
 		}
-		vm.removeItem = function (item, meal) {
-			meal.selectedItemList.splice(meal.selectedItemList.indexOf(item), 1);
-			vm.itemList.splice(vm.itemList.indexOf(item), 1);
-		}
-		$scope.getData = function (itemModel, day, mealNumber, meal,type) {
-
+		$scope.getData = function (itemModel, day, mealNumber, meal, type) {
 
 			meal.selectedCategoryId = 0;
 			meal.selectedItem = null;

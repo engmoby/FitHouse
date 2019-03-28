@@ -41,10 +41,13 @@ namespace FitHouse.API.Controllers
         public IHttpActionResult CreateProgram([FromBody] ProgramModel programModel)
         {
             /*custom program*/
-            var userInfo = _userService.Find(programModel.UserId);
             var program = _programFacade.CreateProgram(Mapper.Map<ProgramDto>(programModel), UserId);
-            MailHelper.SendMailOrder("Fit House Order", programModel.Day.ToString("F"),
-                userInfo.FirstName + " " + userInfo.LastName, program.OrderCode, programModel.Price.ToString("F"), userInfo.Email);
+            if (programModel.IsOrdering)
+            {
+                var userInfo = _userService.Find(programModel.UserId);
+                MailHelper.SendMailOrder("Fit House Order", programModel.Day.ToString("F"),
+                    userInfo.FirstName + " " + userInfo.LastName, program.OrderCode, programModel.Price.ToString("F"), userInfo.Email);
+            }
 
             return Ok(program);
         }
@@ -63,7 +66,8 @@ namespace FitHouse.API.Controllers
         public IHttpActionResult UpdateProgramDetails([FromBody] ProgramModel programModel)
         {
 
-            var program = _programFacade.UpdateProgramDetails(programModel.ProgramId, programModel.ProgramDays, programModel.NoOfMeals, Mapper.Map<List<ItemSizeDto>>(programModel.Items));
+            var program = _programFacade.UpdateProgramDetails(programModel.ProgramId, programModel.ProgramDays, programModel.NoOfMeals, programModel.ItemType,
+                Mapper.Map<List<ItemSizeDto>>(programModel.Items));
 
             return Ok();
         }

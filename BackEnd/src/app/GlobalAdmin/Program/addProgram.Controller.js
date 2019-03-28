@@ -104,7 +104,7 @@
             vm.itemList.splice(vm.itemList.indexOf(item), 1);
         }
 
-        $scope.getData = function (itemModel, day, mealNumber, meal) {
+        $scope.getData = function (itemModel, day, mealNumber, meal, type) {
 
 
             // debugger;
@@ -119,6 +119,7 @@
             meal.selectedItemSize = null;
             itemModel.dayNumber = day;
             itemModel.mealNumberPerDay = mealNumber;
+            itemModel.itemType = type;
             // element.itemModel = element;
             //$scope.itemList=[];
             vm.itemList.push(itemModel);

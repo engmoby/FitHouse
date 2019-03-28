@@ -235,7 +235,7 @@
             vm.itemList.splice(vm.itemList.indexOf(item), 1);
         }
 
-        $scope.getData = function (itemModel, day, mealNumber, meal) {
+        $scope.getData = function (itemModel, day, mealNumber, meal, type) {
             // debugger;
             // var allDayMeal = $scope.itemList.filter(x=>x.day == day && x.meal == meal);
             // var differntMeal = vm.itemList.filter(x => (x.dayNumber == day && x.mealNumberPerDay != mealNumber) || (x.dayNumber != day));
@@ -248,6 +248,7 @@
             meal.selectedItemSize = null;
             itemModel.dayNumber = day;
             itemModel.mealNumberPerDay = mealNumber;
+            itemModel.itemType = type;
             // element.itemModel = element;
             //$scope.itemList=[];
             vm.itemList.push(itemModel);

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using FitHouse.Common;
 
 namespace FitHouse.API.Models
 {
@@ -32,6 +33,7 @@ namespace FitHouse.API.Models
         public List<ItemSizeModel> Items { get; set; }
         public List<DayModel> Days { get; set; }
         public DateTime Day { get; set; }
+        public virtual Enums.ItemType ItemType { get; set; }
 
 
     }

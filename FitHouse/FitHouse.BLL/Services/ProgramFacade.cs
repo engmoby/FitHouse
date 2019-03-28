@@ -19,13 +19,13 @@ namespace FitHouse.BLL.Services
         private readonly IProgramService _programService;
         private readonly IProgramTranslationService _programTranslationService;
         private readonly IProgramDetailService _programDetailService;
-        private readonly  IProgExcludeDayService _progExcludeDayService;
-        private readonly  IItemService _itemService;
-        private readonly  IOrderService _orderService;
-        private readonly  IOrderDetailsService _orderDetailsService;
-        private readonly  IUserService _userService;
+        private readonly IProgExcludeDayService _progExcludeDayService;
+        private readonly IItemService _itemService;
+        private readonly IOrderService _orderService;
+        private readonly IOrderDetailsService _orderDetailsService;
+        private readonly IUserService _userService;
 
-        public ProgramFacade(IUserService userService,IProgramService programService, IOrderService orderService, IOrderDetailsService orderDetailsService, IItemService itemService, IProgExcludeDayService progExcludeDayService, IProgramDetailService programDetailService, IUnitOfWorkAsync unitOfWork, IProgramTranslationService programTranslationService) : base(unitOfWork)
+        public ProgramFacade(IUserService userService, IProgramService programService, IOrderService orderService, IOrderDetailsService orderDetailsService, IItemService itemService, IProgExcludeDayService progExcludeDayService, IProgramDetailService programDetailService, IUnitOfWorkAsync unitOfWork, IProgramTranslationService programTranslationService) : base(unitOfWork)
         {
             _programService = programService;
             _programTranslationService = programTranslationService;
@@ -48,13 +48,12 @@ namespace FitHouse.BLL.Services
             var programs = _programService.GetAllActivePrograms(page, pageSize);
             return programs;
         }
-        
-        public ProgramDto UpdateProgramDetails(long programId, long dayCount, long mealCount,
-            List<ItemSizeDto> itemss)
+
+        public ProgramDto UpdateProgramDetails(long programId, long dayCount, long mealCount, Enums.ItemType itemType, List<ItemSizeDto> itemss)
         {
 
             var program = _programService.Find(programId);
-            if(program == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
+            if (program == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
 
             //Delete old data
 
@@ -62,11 +61,28 @@ namespace FitHouse.BLL.Services
             program.ProgramDetails.CopyTo(deleteuserRoles, 0);
             foreach (var detail in deleteuserRoles)
             {
-                if (detail.DayNumber == dayCount && detail.MealNumberPerDay == mealCount)
+                switch (itemType)
                 {
-                    _programDetailService.Delete(detail);
+                    case Enums.ItemType.Normal:
+                        if (detail.DayNumber == dayCount && detail.MealNumberPerDay == mealCount)
+                        {
+                            _programDetailService.Delete(detail);
+                        }
+                        break;
+                    case Enums.ItemType.BreakFast:
+                        if (detail.DayNumber == dayCount && detail.MealNumberPerDay == 0 && detail.ItemType == Enums.ItemType.BreakFast)
+                        {
+                            _programDetailService.Delete(detail);
+                        }
+                        break;
+                    case Enums.ItemType.Snacks:
+                        if (detail.DayNumber == dayCount && detail.MealNumberPerDay == 0 && detail.ItemType == Enums.ItemType.Snacks)
+                        {
+                            _programDetailService.Delete(detail);
+                        }
+                        break;
                 }
-
+                 
             }
 
             //add new data
@@ -82,9 +98,10 @@ namespace FitHouse.BLL.Services
                 det.ItemSizeId = item.ItemSizeId;
                 det.ProgramId = program.ProgramId;
                 det.MealNumberPerDay = mealCount;
+                det.ItemType = itemType;
                 detailInfo.Add(det);
             }
-            
+
             _programDetailService.InsertRange(detailInfo);
             SaveChanges();
 
@@ -115,7 +132,7 @@ namespace FitHouse.BLL.Services
 
             foreach (var detail in programObj.ProgramDetails)
             {
-                var det= new ProgramDetail();
+                var det = new ProgramDetail();
                 det.DayDateTime = DateTime.Now;
                 det.DayNumber = detail.DayNumber;
                 det.IsActive = true;
@@ -147,10 +164,10 @@ namespace FitHouse.BLL.Services
 
                 var user = _userService.Query(x => x.UserId == programDto.UserId).Select().FirstOrDefault();
                 if (user == null) throw new NotFoundException(ErrorCodes.UserNotFound);
-                
+
                 programObj.ProgramTranslations.Add(new ProgramTranslation
                 {
-                    Title = user.FirstName+DateTime.Now,
+                    Title = user.FirstName + DateTime.Now,
                     Language = "en",
                     Description = user.FirstName + DateTime.Now
                 });
@@ -161,9 +178,9 @@ namespace FitHouse.BLL.Services
                     Language = "ar",
                     Description = user.FirstName + DateTime.Now
                 });
-                
+
                 programObj.IsForClient = true;
-              
+
                 order.BranchId = programDto.branchId;
                 order.IsByAdmin = true;
                 order.IsDelivery = programDto.IsDelivery;
@@ -236,8 +253,8 @@ namespace FitHouse.BLL.Services
             _programTranslationService.InsertRange(programObj.ProgramTranslations);
             _programDetailService.InsertRange(programObj.ProgramDetails);
             _programService.Insert(programObj);
-            var orderDto= new OrderDto();
-          
+            var orderDto = new OrderDto();
+
             orderDto = Mapper.Map<OrderDto>(order);
             orderDto.OrderPrice = programDto.Price;
             SaveChanges();
@@ -354,7 +371,7 @@ namespace FitHouse.BLL.Services
         public List<ProgramDetailDto> GetProgramItems(long programId)
         {
             var details = _programDetailService.GetProgramDetails(programId);
-            
+
             return Mapper.Map<List<ProgramDetailDto>>(details);
         }
 
