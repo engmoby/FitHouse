@@ -51,7 +51,7 @@ namespace FitHouse.BLL.Services
         {
             var size = _sizeService.Find(sizeId);
             if (size == null) throw new NotFoundException(ErrorCodes.SizeNotFound);
-            if (_itemSizeService.Query(x => x.SizeId == sizeId && !x.Item.IsDeleted).Select().Any()) throw new ValidationException(ErrorCodes.SizeHasItems);
+            if (_itemSizeService.Query(x => x.SizeId == sizeId && !x.Item.IsDeleted).Select().Any()) throw new ValidationException(ErrorCodes.RecordIsUsedInAnotherModule);
             size.IsDeleted = true;
             _sizeService.Update(size);
             SaveChanges();

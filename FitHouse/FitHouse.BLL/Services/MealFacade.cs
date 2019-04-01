@@ -189,6 +189,11 @@ namespace FitHouse.BLL.Services
 
             if (meal.IsDeleted)
             {
+                var checkIfUsed = _orderDetailsService.Queryable().Where(x => x.MealId == mealId);
+                if (checkIfUsed.Any())
+                {
+                    throw new ValidationException(ErrorCodes.RecordIsUsedInAnotherModule);
+                }
                 //var checkIfUsed = _programDetailService.Queryable().Where(x => x.MealId == Meal.MealId);
                 //if (checkIfUsed.Any())
                 //{

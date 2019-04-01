@@ -26,8 +26,12 @@
 			element.sizeNameDictionary = kk.sizeNameDictionary;
 			vm.SelectedSize.push(element)
 		}, this);
+		
 		vm.sizeChange = function () {
 			// vm.SelectedSize = []
+			if(vm.SelectedSizeId == null){
+				vm.SelectedSizeId = []
+			}
 			for (var i = 0; i < vm.SelectedSizeId.length; i++) {
 				var size = vm.Sizes.filter(function (item) {
 					return (item.sizeId === vm.SelectedSizeId[i]);

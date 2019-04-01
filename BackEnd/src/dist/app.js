@@ -1,22 +1,22 @@
 (function() {
     'use strict';
-  
-    angular
+
+      angular
       .module('home')
       .config(config)
       .run(runBlock);
-  
-    config.$inject = ['ngProgressLiteProvider'];
+
+      config.$inject = ['ngProgressLiteProvider'];
     runBlock.$inject = ['$rootScope', 'ngProgressLite','$transitions','blockUI'];
-  
-    function config(ngProgressLiteProvider) {
+
+      function config(ngProgressLiteProvider) {
       ngProgressLiteProvider.settings.speed = 1000;
-  
-    }
-  
-    function runBlock($rootScope, ngProgressLite,$transitions,blockUI) {
-  
-      $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+
+      }
+
+      function runBlock($rootScope, ngProgressLite,$transitions,blockUI) {
+
+        $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
           startProgress();
       });
       $transitions.onStart({}, function(transition) {
@@ -29,22 +29,22 @@
         blockUI.stop();
       });
       var routingDoneEvents = ['$stateChangeSuccess', '$stateChangeError', '$stateNotFound'];
-  
-      angular.forEach(routingDoneEvents, function(event) {
+
+        angular.forEach(routingDoneEvents, function(event) {
         $rootScope.$on(event, function(event, toState, toParams, fromState, fromParams) {
           endProgress();
         });
       });
-  
-      function startProgress() {
+
+        function startProgress() {
         ngProgressLite.start();
       }
-  
-      function endProgress() {
+
+        function endProgress() {
         ngProgressLite.done();
       }
-  
-    }
+
+      }
   })();
   (function () {
     'use strict';
@@ -3400,19 +3400,25 @@
         }
 
         vm.changeCategory = function (selectedCategoryId, meal) {
+            meal.isloading = true;
             CategoryResource.GetAllActiveItems({ categoryId: selectedCategoryId, pagesize: 0 }).$promise.then(function (results) {
                 meal.items = results.results;
+                meal.isloading = false;
             },
                 function (data, status) {
+                    meal.isloading = false;
                     ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 });
         }
 
         vm.changeItem = function (selectedItemId, meal) {
+            meal.isloading = true;
             ItemResource.GetAllItemSizes({ itemId: selectedItemId }).$promise.then(function (results) {
                 meal.itemSizes = results;
+                meal.isloading = false;
             },
                 function (data, status) {
+                    meal.isloading = false;
                     ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 });
         }
@@ -3429,6 +3435,8 @@
             meal.selectedCategoryId = 0;
             meal.selectedItem = null;
             meal.selectedItemSize = null;
+            meal.items = [];
+            meal.itemSizes = [];
             itemModel.dayNumber = day;
             itemModel.mealNumberPerDay = mealNumber;
             vm.itemList.push(itemModel);
@@ -3613,34 +3621,40 @@
         vm.language = appCONSTANTS.supportedLanguage;
 
         vm.categories = AllcategoriesPrepService;
-		vm.items = [];
+        vm.items = [];
         vm.itemSizes = [];
 
-                $scope.itemList = [];
+        $scope.itemList = [];
         debugger;
         vm.listOfDetails = progDetailsPrepService.programDetails;
         vm.testItem = vm.listOfDetails.filter(x => (x.dayNumber == DayCount && x.mealNumberPerDay == MealCount));
 
 
         vm.changeCategory = function (selectedCategoryId) {
-			CategoryResource.GetAllActiveItems({ categoryId: selectedCategoryId,pagesize:0 }).$promise.then(function (results) {
-				vm.items = results.results;
-			},
-				function (data, status) {
-					ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-				});
-		}
+            vm.isloading = true;
+            CategoryResource.GetAllActiveItems({ categoryId: selectedCategoryId, pagesize: 0 }).$promise.then(function (results) {
+                vm.items = results.results;
+                vm.isloading = false;
+            },
+                function (data, status) {
+                    vm.isloading = false;
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                });
+        }
 
-		vm.changeItem = function (selectedItemId) {
-			ItemResource.GetAllItemSizes({ itemId: selectedItemId }).$promise.then(function (results) {
-				vm.itemSizes = results;
-			},
-				function (data, status) {
-					ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-				});
-		}
+        vm.changeItem = function (selectedItemId) {
+            vm.isloading = true;
+            ItemResource.GetAllItemSizes({ itemId: selectedItemId }).$promise.then(function (results) {
+                vm.itemSizes = results;
+                vm.isloading = false;
+            },
+                function (data, status) {
+                    vm.isloading = false;
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                });
+        }
         vm.removeItem = function (index) {
-            $scope.itemList.splice(index,1);
+            $scope.itemList.splice(index, 1);
         }
         for (var i = 0; i < vm.testItem.length; i++) {
             $scope.itemList.push(vm.testItem[i].itemSize)
@@ -3653,12 +3667,14 @@
         }
 
         vm.addItemToList = function (model) {
-			$scope.itemList.push(model);
-			vm.selectedCategoryId = 0;
-			vm.selectedItem = null;
-			vm.selectedItemSize = null;
+            $scope.itemList.push(model);
+            vm.selectedCategoryId = 0;
+            vm.selectedItem = null;
+            vm.selectedItemSize = null;
+            vm.items = [];
+            vm.itemSizes = [];
 
-                }
+        }
         vm.UpdateProgram = function () {
             blockUI.start("Loading...");
             var test = new UpdateProgramDetailsResource();
@@ -3669,15 +3685,15 @@
 
             test.$updateProgramDetails().then(
                 function (data, status) {
-				blockUI.stop();
-                $uibModalInstance.dismiss();
+                    blockUI.stop();
+                    $uibModalInstance.dismiss();
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('EditedSuccessfully'), "success");
                     callBackFunction();
 
                 },
                 function (data, status) {
-				blockUI.stop();
-                ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 }
             );
 
@@ -3740,6 +3756,219 @@
     }
 
 })();
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('newPromotionController', ['$scope', '$filter', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
+            'PromotionResource', 'ToastService', newPromotionController])
+
+    function newPromotionController($scope, $filter, blockUI, $http, $state, appCONSTANTS, $translate, PromotionResource,
+        ToastService) {
+        var vm = this;
+        vm.IsProgram = false;
+        vm.IsMeal = false;
+        vm.IsCustomProgram = false;
+        vm.dateIsValid = false;
+        $scope.dateChange = function () {
+            if ($('#startdate').data('date') == null || $('#startdate').data('date') == "" || $('#enddate').data('date') == null || $('#enddate').data('date') == "") {
+                vm.dateIsValid = false;
+                $scope.$apply();
+            } else if (!$scope.promotionForm.isInValid) {
+                vm.dateIsValid = true;
+                $scope.$apply();
+            }
+        }
+
+        vm.AddNewPromotion = function () {
+            debugger;
+            blockUI.start($translate.instant('loading'));
+            var newPromotion = new PromotionResource();
+            newPromotion.title = vm.Title;
+            newPromotion.value = vm.Value;
+            newPromotion.startDate = $('#startdate').val();
+            newPromotion.endDate = $('#enddate').val();
+            newPromotion.isCustomProgram = vm.IsCustomProgram;
+            newPromotion.isMeal = vm.IsMeal;
+            newPromotion.isProgram = vm.IsProgram;
+            newPromotion.$create().then(
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
+                    $state.go('Promotion');
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+
+
+    }
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('editPromotionController', ['$scope', 'blockUI', '$http', '$filter', '$state', 'appCONSTANTS', '$translate',
+            'PromotionResource', 'ToastService', 'PromotionByIdPrepService', editPromotionController])
+
+    function editPromotionController($scope, blockUI, $http, $filter, $state, appCONSTANTS, $translate, PromotionResource,
+        ToastService, PromotionByIdPrepService) {
+        var vm = this;
+
+              vm.IsProgram = false;
+        vm.IsMeal = false;
+        vm.IsCustomProgram = false;   
+        vm.Promotion = PromotionByIdPrepService;
+        vm.Promotion.value = parseInt(vm.Promotion.value);
+        vm.Promotion.startDate = vm.Promotion.startDate + "Z";
+        vm.Promotion.startDate = $filter('date')(new Date(vm.Promotion.startDate), "MM/dd/yyyy hh:mm a", "UTC");
+
+        vm.Promotion.endDate = vm.Promotion.endDate + "Z";
+        vm.Promotion.endDate = $filter('date')(new Date(vm.Promotion.endDate), "MM/dd/yyyy hh:mm a", "UTC");
+
+
+
+        console.log(vm.Promotion);
+        blockUI.stop();
+        vm.Close = function () {
+            $state.go('Promotion');
+
+        }
+
+        vm.UpdatePromotion = function () {
+            debugger;
+            blockUI.start($translate.instant('loading'));
+            var updateObj = new PromotionResource();
+            updateObj.promotionId = vm.Promotion.promotionId;
+            updateObj.title = vm.Promotion.title;
+            updateObj.value = vm.Promotion.value;
+            updateObj.startDate = vm.Promotion.startDate;
+            updateObj.endDate = vm.Promotion.endDate;
+            updateObj.isCustomProgram = vm.Promotion.isCustomProgram;
+            updateObj.isMeal = vm.Promotion.isMeal;
+            updateObj.isProgram = vm.Promotion.isProgram;
+            updateObj.$update().then(
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
+                    $state.go('Promotion');
+
+
+                },
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                }
+            );
+        }
+
+
+        vm.dateIsValid = true;
+        $scope.dateChange = function () {
+
+
+            if ($('#startdate').val() == null || $('#startdate').val() == "" || $('#enddate').val() == null || $('#enddate').val() == "") {
+                vm.dateIsValid = false;
+                $scope.$apply();
+            } else if (!$scope.promotionForm.isInValid) {
+
+                vm.Promotion.startDate = $('#startdate').val();
+                vm.Promotion.endDate = $('#enddate').val();
+                debugger;
+                var endDate = new Date(vm.Promotion.endDate);
+                var startDate = new Date(vm.Promotion.startDate);
+                if (startDate >= endDate) {
+                    $scope.promotionForm.$valid = false;
+                    vm.dateIsValid = false;
+                    $scope.$apply();
+
+                }
+                else {
+                    vm.dateIsValid = true;
+                    $scope.$apply();
+                }
+            }
+        }
+
+    }
+}());
+(function () {
+    'use strict';
+
+    angular
+        .module('home')
+        .controller('PromotionController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate',
+            '$state', 'PromotionResource', 'PromotionsPrepService', '$localStorage',
+            'authorizationService', 'appCONSTANTS',
+            'ToastService', PromotionController]);
+
+
+    function PromotionController($rootScope, blockUI, $scope, $filter, $translate,
+        $state, PromotionResource, PromotionsPrepService, $localStorage, authorizationService,
+        appCONSTANTS, ToastService) {
+            $('.pmd-sidebar-nav>li>a').removeClass("active")
+            $($('.pmd-sidebar-nav').children()[15].children[0]).addClass("active")
+
+                blockUI.start($translate.instant('loading'));
+
+        var vm = this;
+
+        $scope.totalCount = PromotionsPrepService.totalCount;
+        $scope.PromotionList = PromotionsPrepService;
+        console.log($scope.PromotionList);
+        blockUI.stop();
+
+        function refreshPromotion() {
+            blockUI.start($translate.instant('loading'));
+
+            var k = PromotionResource.getAllPromotion({ page: vm.currentPage }).$promise.then(function (results) {
+                $scope.PromotionList = results;
+                blockUI.stop();
+
+            },
+                function (data, status) {
+                    blockUI.stop();
+
+                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
+                });
+        }
+
+
+
+        vm.currentPage = 1;
+        $scope.changePage = function (page) {
+            vm.currentPage = page;
+            refreshPromotion();
+        }
+
+    }
+
+})();(function () {
+    angular
+        .module('home')
+        .factory('PromotionResource', ['$resource', 'appCONSTANTS', PromotionResource])
+
+    function PromotionResource($resource, appCONSTANTS) {
+        return $resource(appCONSTANTS.API_URL + 'Promotion/', {}, {
+            getAllPromotion: { method: 'GET', url: appCONSTANTS.API_URL + 'Promotion/GetAllPromotions', useToken: true },
+            create: { method: 'POST', useToken: true },
+            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Promotion/EditPromotion', useToken: true },
+            getPromotion: { method: 'GET', url: appCONSTANTS.API_URL + 'Promotion/GetPromotionById/:PromotionId', useToken: true },
+            CheckPromotion: { method: 'POST', url: appCONSTANTS.API_URL + 'Promotion/CheckPromotion', useToken: true }
+
+        })
+    }
+}());
 (function () {
     'use strict';
 
@@ -3982,219 +4211,6 @@
         blockUI.stop();
 
         	}	
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('newPromotionController', ['$scope', '$filter', 'blockUI', '$http', '$state', 'appCONSTANTS', '$translate',
-            'PromotionResource', 'ToastService', newPromotionController])
-
-    function newPromotionController($scope, $filter, blockUI, $http, $state, appCONSTANTS, $translate, PromotionResource,
-        ToastService) {
-        var vm = this;
-        vm.IsProgram = false;
-        vm.IsMeal = false;
-        vm.IsCustomProgram = false;
-        vm.dateIsValid = false;
-        $scope.dateChange = function () {
-            if ($('#startdate').data('date') == null || $('#startdate').data('date') == "" || $('#enddate').data('date') == null || $('#enddate').data('date') == "") {
-                vm.dateIsValid = false;
-                $scope.$apply();
-            } else if (!$scope.promotionForm.isInValid) {
-                vm.dateIsValid = true;
-                $scope.$apply();
-            }
-        }
-
-        vm.AddNewPromotion = function () {
-            debugger;
-            blockUI.start($translate.instant('loading'));
-            var newPromotion = new PromotionResource();
-            newPromotion.title = vm.Title;
-            newPromotion.value = vm.Value;
-            newPromotion.startDate = $('#startdate').val();
-            newPromotion.endDate = $('#enddate').val();
-            newPromotion.isCustomProgram = vm.IsCustomProgram;
-            newPromotion.isMeal = vm.IsMeal;
-            newPromotion.isProgram = vm.IsProgram;
-            newPromotion.$create().then(
-                function (data, status) {
-                    blockUI.stop();
-
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('AddedSuccessfully'), "success");
-                    $state.go('Promotion');
-
-                },
-                function (data, status) {
-                    blockUI.stop();
-
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-
-
-    }
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('editPromotionController', ['$scope', 'blockUI', '$http', '$filter', '$state', 'appCONSTANTS', '$translate',
-            'PromotionResource', 'ToastService', 'PromotionByIdPrepService', editPromotionController])
-
-    function editPromotionController($scope, blockUI, $http, $filter, $state, appCONSTANTS, $translate, PromotionResource,
-        ToastService, PromotionByIdPrepService) {
-        var vm = this;
-
-              vm.IsProgram = false;
-        vm.IsMeal = false;
-        vm.IsCustomProgram = false;   
-        vm.Promotion = PromotionByIdPrepService;
-        vm.Promotion.value = parseInt(vm.Promotion.value);
-        vm.Promotion.startDate = vm.Promotion.startDate + "Z";
-        vm.Promotion.startDate = $filter('date')(new Date(vm.Promotion.startDate), "MM/dd/yyyy hh:mm a", "UTC");
-
-        vm.Promotion.endDate = vm.Promotion.endDate + "Z";
-        vm.Promotion.endDate = $filter('date')(new Date(vm.Promotion.endDate), "MM/dd/yyyy hh:mm a", "UTC");
-
-
-
-        console.log(vm.Promotion);
-        blockUI.stop();
-        vm.Close = function () {
-            $state.go('Promotion');
-
-        }
-
-        vm.UpdatePromotion = function () {
-            debugger;
-            blockUI.start($translate.instant('loading'));
-            var updateObj = new PromotionResource();
-            updateObj.promotionId = vm.Promotion.promotionId;
-            updateObj.title = vm.Promotion.title;
-            updateObj.value = vm.Promotion.value;
-            updateObj.startDate = vm.Promotion.startDate;
-            updateObj.endDate = vm.Promotion.endDate;
-            updateObj.isCustomProgram = vm.Promotion.isCustomProgram;
-            updateObj.isMeal = vm.Promotion.isMeal;
-            updateObj.isProgram = vm.Promotion.isProgram;
-            updateObj.$update().then(
-                function (data, status) {
-                    blockUI.stop();
-
-                    ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Editeduccessfully'), "success");
-                    $state.go('Promotion');
-
-
-                },
-                function (data, status) {
-                    blockUI.stop();
-
-                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-                }
-            );
-        }
-
-
-        vm.dateIsValid = true;
-        $scope.dateChange = function () {
-
-
-            if ($('#startdate').val() == null || $('#startdate').val() == "" || $('#enddate').val() == null || $('#enddate').val() == "") {
-                vm.dateIsValid = false;
-                $scope.$apply();
-            } else if (!$scope.promotionForm.isInValid) {
-
-                vm.Promotion.startDate = $('#startdate').val();
-                vm.Promotion.endDate = $('#enddate').val();
-                debugger;
-                var endDate = new Date(vm.Promotion.endDate);
-                var startDate = new Date(vm.Promotion.startDate);
-                if (startDate >= endDate) {
-                    $scope.promotionForm.$valid = false;
-                    vm.dateIsValid = false;
-                    $scope.$apply();
-
-                }
-                else {
-                    vm.dateIsValid = true;
-                    $scope.$apply();
-                }
-            }
-        }
-
-    }
-}());
-(function () {
-    'use strict';
-
-    angular
-        .module('home')
-        .controller('PromotionController', ['$rootScope', 'blockUI', '$scope', '$filter', '$translate',
-            '$state', 'PromotionResource', 'PromotionsPrepService', '$localStorage',
-            'authorizationService', 'appCONSTANTS',
-            'ToastService', PromotionController]);
-
-
-    function PromotionController($rootScope, blockUI, $scope, $filter, $translate,
-        $state, PromotionResource, PromotionsPrepService, $localStorage, authorizationService,
-        appCONSTANTS, ToastService) {
-            $('.pmd-sidebar-nav>li>a').removeClass("active")
-            $($('.pmd-sidebar-nav').children()[15].children[0]).addClass("active")
-
-                blockUI.start($translate.instant('loading'));
-
-        var vm = this;
-
-        $scope.totalCount = PromotionsPrepService.totalCount;
-        $scope.PromotionList = PromotionsPrepService;
-        console.log($scope.PromotionList);
-        blockUI.stop();
-
-        function refreshPromotion() {
-            blockUI.start($translate.instant('loading'));
-
-            var k = PromotionResource.getAllPromotion({ page: vm.currentPage }).$promise.then(function (results) {
-                $scope.PromotionList = results;
-                blockUI.stop();
-
-            },
-                function (data, status) {
-                    blockUI.stop();
-
-                    ToastService.show("right", "bottom", "fadeInUp", data.message, "error");
-                });
-        }
-
-
-
-        vm.currentPage = 1;
-        $scope.changePage = function (page) {
-            vm.currentPage = page;
-            refreshPromotion();
-        }
-
-    }
-
-})();(function () {
-    angular
-        .module('home')
-        .factory('PromotionResource', ['$resource', 'appCONSTANTS', PromotionResource])
-
-    function PromotionResource($resource, appCONSTANTS) {
-        return $resource(appCONSTANTS.API_URL + 'Promotion/', {}, {
-            getAllPromotion: { method: 'GET', url: appCONSTANTS.API_URL + 'Promotion/GetAllPromotions', useToken: true },
-            create: { method: 'POST', useToken: true },
-            update: { method: 'POST', url: appCONSTANTS.API_URL + 'Promotion/EditPromotion', useToken: true },
-            getPromotion: { method: 'GET', url: appCONSTANTS.API_URL + 'Promotion/GetPromotionById/:PromotionId', useToken: true },
-            CheckPromotion: { method: 'POST', url: appCONSTANTS.API_URL + 'Promotion/CheckPromotion', useToken: true }
-
-        })
-    }
 }());
 (function () {
     'use strict';
@@ -6995,7 +7011,11 @@
 			element.sizeNameDictionary = kk.sizeNameDictionary;
 			vm.SelectedSize.push(element)
 		}, this);
-		vm.sizeChange = function () {
+
+				vm.sizeChange = function () {
+			if(vm.SelectedSizeId == null){
+				vm.SelectedSizeId = []
+			}
 			for (var i = 0; i < vm.SelectedSizeId.length; i++) {
 				var size = vm.Sizes.filter(function (item) {
 					return (item.sizeId === vm.SelectedSizeId[i]);
@@ -7391,19 +7411,25 @@
 
 		var i;
 		vm.changeCategory = function (selectedCategoryId) {
+			vm.isloading = true;
 			CategoryResource.GetAllActiveItems({ categoryId: selectedCategoryId,pagesize:0 }).$promise.then(function (results) {
 				vm.items = results.results;
+				vm.isloading = false;
 			},
 				function (data, status) {
+					vm.isloading = false;
 					ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
 				});
 		}
 
 		vm.changeItem = function (selectedItemId) {
+			vm.isloading = true;
 			ItemResource.GetAllItemSizes({ itemId: selectedItemId }).$promise.then(function (results) {
 				vm.itemSizes = results;
+				vm.isloading = false;
 			},
 				function (data, status) {
+					vm.isloading = false;
 					ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
 				});
 		}
@@ -7420,7 +7446,7 @@
 				return a + b[prop];
 			}, 0);
 		}
-		bindItemsTocalculate($scope.selectedItemList);
+		bindItemsTocalculate();
 		vm.close = function () {
 			$state.go('Meal');
 		}
@@ -7477,7 +7503,7 @@
 				}
 			);
 		}
-		function bindItemsTocalculate(model) {
+		function bindItemsTocalculate() {
 
 
 						if ($scope.selectedItemList == null) {
@@ -7486,6 +7512,7 @@
 				vm.meal.carbs = "";
 				vm.meal.calories = "";
 				vm.meal.protein = "";
+				vm.meal.fat = "";
 				vm.meal.cost = "";
 				vm.meal.vat = "";
 				vm.meal.price = "";
@@ -7494,6 +7521,7 @@
 				vm.meal.carbs = SumItem($scope.selectedItemList, 'carbs');
 				vm.meal.calories = SumItem($scope.selectedItemList, 'calories');
 				vm.meal.protein = SumItem($scope.selectedItemList, 'protein');
+				vm.meal.fat = SumItem($scope.selectedItemList, 'fat');
 				vm.meal.cost = SumItem($scope.selectedItemList, 'cost');
 				vm.meal.price = SumItem($scope.selectedItemList, 'price');
 				vm.meal.vat = SumItem($scope.selectedItemList, 'vat');
@@ -7516,6 +7544,7 @@
 				vm.meal.carbs = "";
 				vm.meal.calories = "";
 				vm.meal.protein = "";
+				vm.meal.fat = "";
 				vm.meal.cost = "";
 				vm.meal.vat = "";
 				vm.meal.price = "";
@@ -7524,18 +7553,22 @@
 				vm.meal.carbs = SumItem($scope.selectedItemList, 'carbs');
 				vm.meal.calories = SumItem($scope.selectedItemList, 'calories');
 				vm.meal.protein = SumItem($scope.selectedItemList, 'protein');
+				vm.meal.fat = SumItem($scope.selectedItemList, 'fat');
 				vm.meal.cost = SumItem($scope.selectedItemList, 'cost');
 				vm.meal.price = SumItem($scope.selectedItemList, 'price');
 				vm.meal.vat = SumItem($scope.selectedItemList, 'vat');
 				vm.meal.totalPrice = SumItem($scope.selectedItemList, 'totalPrice');
 			}
+			bindItemsTocalculate();
 		}
 		vm.addItemToList = function (model) {
 			$scope.selectedItemList.push(model);
 			vm.selectedCategoryId = 0;
 			vm.selectedItem = null;
 			vm.selectedItemSize = null;
-			bindItemsTocalculate(model);
+			vm.items = [];
+			vm.itemSizes = [];
+			bindItemsTocalculate();
 		}
 		function calclulateWithDicscount() {
 			var vatPresantage = (vm.meal.price * vm.meal.vat) / 100;
@@ -7772,19 +7805,25 @@
 		vm.language = appCONSTANTS.supportedLanguage;
 		$scope.selectedItemList = [];
 		vm.changeCategory = function (selectedCategoryId) {
+			vm.isloading = true;
 			CategoryResource.GetAllActiveItems({ categoryId: selectedCategoryId,pagesize:0 }).$promise.then(function (results) {
 				vm.items = results.results;
+				vm.isloading = false;
 			},
 				function (data, status) {
+					vm.isloading = false;
 					ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
 				});
 		}
 
 		vm.changeItem = function (selectedItemId) {
+			vm.isloading = true;
 			ItemResource.GetAllItemSizes({ itemId: selectedItemId }).$promise.then(function (results) {
 				vm.itemSizes = results;
+				vm.isloading = false;
 			},
 				function (data, status) {
+					vm.isloading = false;
 					ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
 				});
 		}
@@ -7807,12 +7846,15 @@
 			vm.selectedCategoryId = 0;
 			vm.selectedItem = null;
 			vm.selectedItemSize = null;
+			vm.items = [];
+			vm.itemSizes = [];
 			if ($scope.selectedItemList == null) {
 				vm.mealtotalDiscount = "";
 				vm.mealDiscount = "";
 				vm.carbs = "";
 				vm.calories = "";
 				vm.protein = "";
+				vm.fat = "";
 				vm.cost = "";
 				vm.vat = "";
 				vm.price = "";
@@ -7821,6 +7863,7 @@
 				vm.carbs = $scope.sum($scope.selectedItemList, 'carbs');
 				vm.calories = $scope.sum($scope.selectedItemList, 'calories');
 				vm.protein = $scope.sum($scope.selectedItemList, 'protein');
+				vm.fat = $scope.sum($scope.selectedItemList, 'fat');
 				vm.cost = $scope.sum($scope.selectedItemList, 'cost');
 				vm.price = $scope.sum($scope.selectedItemList, 'price');
 				vm.vat = $scope.sum($scope.selectedItemList, 'vat');
@@ -7838,6 +7881,7 @@
 				vm.carbs = "";
 				vm.calories = "";
 				vm.protein = "";
+				vm.fat = "";
 				vm.cost = "";
 				vm.vat = "";
 				vm.price = "";
@@ -7846,11 +7890,15 @@
 				vm.carbs = $scope.sum($scope.selectedItemList, 'carbs');
 				vm.calories = $scope.sum($scope.selectedItemList, 'calories');
 				vm.protein = $scope.sum($scope.selectedItemList, 'protein');
+				vm.fat = $scope.sum($scope.selectedItemList, 'fat');
 				vm.cost = $scope.sum($scope.selectedItemList, 'cost');
 				vm.price = $scope.sum($scope.selectedItemList, 'price');
 				vm.vat = $scope.sum($scope.selectedItemList, 'vat');
 				vm.totalPrice = $scope.sum($scope.selectedItemList, 'totalPrice');
 			}
+			calclulateWithDicscount();
+			var discountPresantage = vm.totalPrice * vm.mealDiscount / 100;
+			vm.mealtotalDiscount = vm.totalPrice - discountPresantage;
 		}
 		function calclulateWithDicscount() {
 			var vatPresantage = (vm.price * vm.vat) / 100;
@@ -7998,192 +8046,6 @@
 
 	}
 }());
-(function () {
-    'use strict';
-
-	    angular
-        .module('home')
-        .controller('sizeController', ['$scope','$translate', 'appCONSTANTS','$uibModal', 'SizeResource','sizesPrepService','ToastService',  sizeController])
-
-    function sizeController($scope ,$translate , appCONSTANTS,$uibModal, SizeResource,sizesPrepService,ToastService){
-
-        var vm = this;
-		vm.sizes = sizesPrepService;
-		$('.pmd-sidebar-nav>li>a').removeClass("active")
-		$($('.pmd-sidebar-nav').children()[1].children[0]).addClass("active")
-
-				function refreshSizes(){
-			var k = SizeResource.getAllSizes({page:vm.currentPage}).$promise.then(function(results) {
-				vm.sizes = results
-			},
-            function(data, status) {
-				ToastService.show("right","bottom","fadeInUp",data.message,"error");
-            });
-		}
-		vm.currentPage = 1;
-        vm.changePage = function (page) {
-            vm.currentPage = page;
-            refreshSizes();
-		}
-		vm.openSizeDialog = function(){		
-			if($scope.selectedLanguage != appCONSTANTS.defaultLanguage)
-			{
-				var englishSizes;
-				var k = SizeResource.getAllSizes({pagesize:0, lang: appCONSTANTS.defaultLanguage}).$promise.then(function(results) {
-					englishSizes = results;
-					var modalContent = $uibModal.open({
-						templateUrl: './app/RestaurantAdmin/templates/editSize.html',
-						controller: 'editSizeDialogController',
-						controllerAs: 'editSizeDlCtrl',
-						resolve:{
-							mode:function(){return "map"},
-							englishSizes: function(){return englishSizes.results;},
-							size:function(){ return null},
-							callBackFunction:function(){return refreshSizes;}
-						}
-
-											});
-				});
-			}
-			else{
-				var modalContent = $uibModal.open({
-					templateUrl: './app/RestaurantAdmin/templates/newSize.html',
-					controller: 'sizeDialogController',
-					controllerAs: 'sizeDlCtrl',
-					resolve:{
-						callBackFunction:function(){return refreshSizes;}
-					}
-
-									});
-			}
-		}
-		function confirmationDelete(model){
-			SizeResource.deleteSize({sizeId:model.sizeId}).$promise.then(function(results) {
-				ToastService.show("right","bottom","fadeInUp",$translate.instant('SizeDeleteSuccess'),"success");
-				refreshSizes();
-			},
-            function(data, status) {
-				ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
-            });
-		}
-		vm.openDeleteSizeDialog = function(name,id,model){			
-			var modalContent = $uibModal.open({
-				templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
-				controller: 'confirmDeleteDialogController',
-				controllerAs: 'deleteDlCtrl',
-				resolve: {
-					model: function () { return model },
-					itemName: function () { return name },
-					itemId: function() { return id },
-					message:function() { return null},
-					callBackFunction:function() { return confirmationDelete }
-				}
-
-							});
-		}
-
-				vm.openEditSizeDialog = function(index){
-			var modalContent = $uibModal.open({
-				templateUrl: './app/RestaurantAdmin/templates/editSize.html',
-				controller: 'editSizeDialogController',
-				controllerAs: 'editSizeDlCtrl',
-				resolve:{
-					mode:function(){return "edit"},
-					englishSizes: function(){return null;},
-					size:function(){ return vm.sizes.results[index]},
-					callBackFunction:function(){return refreshSizes;}
-				}
-
-							});
-
-					}
-
-
-
-							}
-
-	}
-());
-(function() {
-    angular
-      .module('home')
-      .factory('SizeResource', ['$resource', 'appCONSTANTS', SizeResource]);
-
-      function SizeResource($resource, appCONSTANTS) {
-      return $resource(appCONSTANTS.API_URL + 'Sizes/:sizeId', {}, {
-        getAllSizes: { method: 'GET', useToken: true, params:{lang:'@lang'} },
-        getSize: { method: 'GET', useToken: true },
-        create: { method: 'POST', useToken: true },
-        deleteSize: { method: 'DELETE', useToken: true },
-        update: { method: 'PUT', useToken: true }
-      })
-    }
-
-      }());
-  (function () {
-    'use strict';
-
-	    angular
-        .module('home')
-        .controller('editSizeDialogController', ['$state', 'appCONSTANTS','$translate', 'SizeResource','ToastService','sizePrepService',  editSizeDialogController])
-
-	function editSizeDialogController($state, appCONSTANTS, $translate, SizeResource,ToastService, sizePrepService){
-		var vm = this;
-		vm.language = appCONSTANTS.supportedLanguage;
-		vm.size = sizePrepService;
-		vm.close = function(){
-			$state.go('size');
-		}
-
-				vm.updateSize = function(){
-			var updateSize = new SizeResource();
-			updateSize.sizeNameDictionary = vm.size.sizeNameDictionary;
-			updateSize.sizeId = vm.size.sizeId;
-            updateSize.$update().then(
-                function(data, status) {
-					ToastService.show("right","bottom","fadeInUp",$translate.instant('UpdateSizeSuccess'),"success");
-					$state.go('size');
-
-					                },
-                function(data, status) {
-					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
-                }
-            );
-		}
-	}	
-}());
-(function () {
-    'use strict';
-
-	    angular
-        .module('home')
-        .controller('sizeDialogController', ['$state', 'appCONSTANTS','$translate' , 'SizeResource','ToastService','$rootScope',  sizeDialogController])
-
-	function sizeDialogController($state, appCONSTANTS, $translate , SizeResource,ToastService,$rootScope){
-		var vm = this;
-		vm.language = appCONSTANTS.supportedLanguage;
-		vm.close = function(){
-			$state.go('size');
-		}
-		vm.isChanged = false;
-		vm.AddNewSize = function(){
-			vm.isChanged = true;
-			var newSize = new SizeResource();
-            newSize.sizeNameDictionary = vm.sizeNameDictionary;
-            newSize.$create().then(
-                function(data, status) {
-					vm.isChanged = false;
-					ToastService.show("right","bottom","fadeInUp",$translate.instant('sizeAddSuccess'),"success");
-					$state.go('size');
-                },
-                function(data, status) {
-					vm.isChanged = false;
-					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
-                }
-            );
-		}
-	}	
-})();
 (function () {
     'use strict';
 
@@ -8499,6 +8361,193 @@
 
 }());
 
+(function () {
+    'use strict';
+	
+    angular
+        .module('home')
+        .controller('sizeController', ['$scope','$translate', 'appCONSTANTS','$uibModal', 'SizeResource','sizesPrepService','ToastService',  sizeController])
+
+    function sizeController($scope ,$translate , appCONSTANTS,$uibModal, SizeResource,sizesPrepService,ToastService){
+
+        var vm = this;
+		vm.sizes = sizesPrepService;
+		$('.pmd-sidebar-nav>li>a').removeClass("active")
+		$($('.pmd-sidebar-nav').children()[1].children[0]).addClass("active")
+		
+		function refreshSizes(){
+			var k = SizeResource.getAllSizes({page:vm.currentPage}).$promise.then(function(results) {
+				vm.sizes = results
+			},
+            function(data, status) {
+				ToastService.show("right","bottom","fadeInUp",data.message,"error");
+            });
+		}
+		vm.currentPage = 1;
+        vm.changePage = function (page) {
+            vm.currentPage = page;
+            refreshSizes();
+		}
+		vm.openSizeDialog = function(){		
+			if($scope.selectedLanguage != appCONSTANTS.defaultLanguage)
+			{
+				var englishSizes;
+				var k = SizeResource.getAllSizes({pagesize:0, lang: appCONSTANTS.defaultLanguage}).$promise.then(function(results) {
+					englishSizes = results;
+					var modalContent = $uibModal.open({
+						templateUrl: './app/RestaurantAdmin/templates/editSize.html',
+						controller: 'editSizeDialogController',
+						controllerAs: 'editSizeDlCtrl',
+						resolve:{
+							mode:function(){return "map"},
+							englishSizes: function(){return englishSizes.results;},
+							size:function(){ return null},
+							callBackFunction:function(){return refreshSizes;}
+						}
+						
+					});
+				});
+			}
+			else{
+				var modalContent = $uibModal.open({
+					templateUrl: './app/RestaurantAdmin/templates/newSize.html',
+					controller: 'sizeDialogController',
+					controllerAs: 'sizeDlCtrl',
+					resolve:{
+						callBackFunction:function(){return refreshSizes;}
+					}
+					
+				});
+			}
+		}
+		function confirmationDelete(model){
+			SizeResource.deleteSize({sizeId:model.sizeId}).$promise.then(function(results) {
+				ToastService.show("right","bottom","fadeInUp",$translate.instant('SizeDeleteSuccess'),"success");
+				vm.currentPage = 1;
+				refreshSizes();
+			},
+            function(data, status) {
+				ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
+            });
+		}
+		vm.openDeleteSizeDialog = function(name,id,model){			
+			var modalContent = $uibModal.open({
+				templateUrl: './app/core/Delete/templates/ConfirmDeleteDialog.html',
+				controller: 'confirmDeleteDialogController',
+				controllerAs: 'deleteDlCtrl',
+				resolve: {
+					model: function () { return model },
+					itemName: function () { return name },
+					itemId: function() { return id },
+					message:function() { return null},
+					callBackFunction:function() { return confirmationDelete }
+				}
+				
+			});
+		}
+		
+		vm.openEditSizeDialog = function(index){
+			var modalContent = $uibModal.open({
+				templateUrl: './app/RestaurantAdmin/templates/editSize.html',
+				controller: 'editSizeDialogController',
+				controllerAs: 'editSizeDlCtrl',
+				resolve:{
+					mode:function(){return "edit"},
+					englishSizes: function(){return null;},
+					size:function(){ return vm.sizes.results[index]},
+					callBackFunction:function(){return refreshSizes;}
+				}
+				
+			});
+			
+		}
+		
+		
+		
+	}
+	
+}
+());
+(function() {
+    angular
+      .module('home')
+      .factory('SizeResource', ['$resource', 'appCONSTANTS', SizeResource]);
+  
+    function SizeResource($resource, appCONSTANTS) {
+      return $resource(appCONSTANTS.API_URL + 'Sizes/:sizeId', {}, {
+        getAllSizes: { method: 'GET', useToken: true, params:{lang:'@lang'} },
+        getSize: { method: 'GET', useToken: true },
+        create: { method: 'POST', useToken: true },
+        deleteSize: { method: 'DELETE', useToken: true },
+        update: { method: 'PUT', useToken: true }
+      })
+    }
+    
+  }());
+  (function () {
+    'use strict';
+	
+    angular
+        .module('home')
+        .controller('editSizeDialogController', ['$state', 'appCONSTANTS','$translate', 'SizeResource','ToastService','sizePrepService',  editSizeDialogController])
+
+	function editSizeDialogController($state, appCONSTANTS, $translate, SizeResource,ToastService, sizePrepService){
+		var vm = this;
+		vm.language = appCONSTANTS.supportedLanguage;
+		vm.size = sizePrepService;
+		vm.close = function(){
+			$state.go('size');
+		}
+		
+		vm.updateSize = function(){
+			var updateSize = new SizeResource();
+			updateSize.sizeNameDictionary = vm.size.sizeNameDictionary;
+			updateSize.sizeId = vm.size.sizeId;
+            updateSize.$update().then(
+                function(data, status) {
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('UpdateSizeSuccess'),"success");
+					$state.go('size');
+					
+                },
+                function(data, status) {
+					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
+                }
+            );
+		}
+	}	
+}());
+(function () {
+    'use strict';
+	
+    angular
+        .module('home')
+        .controller('sizeDialogController', ['$state', 'appCONSTANTS','$translate' , 'SizeResource','ToastService','$rootScope',  sizeDialogController])
+
+	function sizeDialogController($state, appCONSTANTS, $translate , SizeResource,ToastService,$rootScope){
+		var vm = this;
+		vm.language = appCONSTANTS.supportedLanguage;
+		vm.close = function(){
+			$state.go('size');
+		}
+		vm.isChanged = false;
+		vm.AddNewSize = function(){
+			vm.isChanged = true;
+			var newSize = new SizeResource();
+            newSize.sizeNameDictionary = vm.sizeNameDictionary;
+            newSize.$create().then(
+                function(data, status) {
+					vm.isChanged = false;
+					ToastService.show("right","bottom","fadeInUp",$translate.instant('sizeAddSuccess'),"success");
+					$state.go('size');
+                },
+                function(data, status) {
+					vm.isChanged = false;
+					ToastService.show("right","bottom","fadeInUp",data.data.message,"error");
+                }
+            );
+		}
+	}	
+})();
 (function () {
     'use strict';
 

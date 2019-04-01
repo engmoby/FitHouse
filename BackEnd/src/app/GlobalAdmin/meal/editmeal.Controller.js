@@ -24,19 +24,25 @@
 
 		var i;
 		vm.changeCategory = function (selectedCategoryId) {
+			vm.isloading = true;
 			CategoryResource.GetAllActiveItems({ categoryId: selectedCategoryId,pagesize:0 }).$promise.then(function (results) {
 				vm.items = results.results;
+				vm.isloading = false;
 			},
 				function (data, status) {
+					vm.isloading = false;
 					ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
 				});
 		}
 
 		vm.changeItem = function (selectedItemId) {
+			vm.isloading = true;
 			ItemResource.GetAllItemSizes({ itemId: selectedItemId }).$promise.then(function (results) {
 				vm.itemSizes = results;
+				vm.isloading = false;
 			},
 				function (data, status) {
+					vm.isloading = false;
 					ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
 				});
 		}
@@ -60,7 +66,8 @@
 			}, 0);
 		}
 		// vm.itemModel = angular.copy(mealPrepService.mealDetails)
-		bindItemsTocalculate($scope.selectedItemList);
+		// bindItemsTocalculate($scope.selectedItemList);
+		bindItemsTocalculate();
 		vm.close = function () {
 			$state.go('Meal');
 		}
@@ -117,7 +124,7 @@
 				}
 			);
 		}
-		function bindItemsTocalculate(model) {
+		function bindItemsTocalculate() {
 			
 			// model.itemNameDictionary = vm.selectedItem.itemNameDictionary;
 			// model.sizeNameDictionary = vm.selectedItemSize.sizeNameDictionary;
@@ -129,6 +136,7 @@
 				vm.meal.carbs = "";
 				vm.meal.calories = "";
 				vm.meal.protein = "";
+				vm.meal.fat = "";
 				vm.meal.cost = "";
 				vm.meal.vat = "";
 				vm.meal.price = "";
@@ -137,6 +145,7 @@
 				vm.meal.carbs = SumItem($scope.selectedItemList, 'carbs');
 				vm.meal.calories = SumItem($scope.selectedItemList, 'calories');
 				vm.meal.protein = SumItem($scope.selectedItemList, 'protein');
+				vm.meal.fat = SumItem($scope.selectedItemList, 'fat');
 				vm.meal.cost = SumItem($scope.selectedItemList, 'cost');
 				vm.meal.price = SumItem($scope.selectedItemList, 'price');
 				vm.meal.vat = SumItem($scope.selectedItemList, 'vat');
@@ -160,6 +169,7 @@
 				vm.meal.carbs = "";
 				vm.meal.calories = "";
 				vm.meal.protein = "";
+				vm.meal.fat = "";
 				vm.meal.cost = "";
 				vm.meal.vat = "";
 				vm.meal.price = "";
@@ -168,18 +178,22 @@
 				vm.meal.carbs = SumItem($scope.selectedItemList, 'carbs');
 				vm.meal.calories = SumItem($scope.selectedItemList, 'calories');
 				vm.meal.protein = SumItem($scope.selectedItemList, 'protein');
+				vm.meal.fat = SumItem($scope.selectedItemList, 'fat');
 				vm.meal.cost = SumItem($scope.selectedItemList, 'cost');
 				vm.meal.price = SumItem($scope.selectedItemList, 'price');
 				vm.meal.vat = SumItem($scope.selectedItemList, 'vat');
 				vm.meal.totalPrice = SumItem($scope.selectedItemList, 'totalPrice');
 			}
+			bindItemsTocalculate();
 		}
 		vm.addItemToList = function (model) {
 			$scope.selectedItemList.push(model);
 			vm.selectedCategoryId = 0;
 			vm.selectedItem = null;
 			vm.selectedItemSize = null;
-			bindItemsTocalculate(model);
+			vm.items = [];
+			vm.itemSizes = [];
+			bindItemsTocalculate();
 		}
 		function calclulateWithDicscount() {
 			var vatPresantage = (vm.meal.price * vm.meal.vat) / 100;

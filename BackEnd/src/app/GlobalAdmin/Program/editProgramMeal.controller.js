@@ -21,9 +21,9 @@
 
         // $scope.itemsssPrepService = itemsssPrepService;
         vm.categories = AllcategoriesPrepService;
-		vm.items = [];
+        vm.items = [];
         vm.itemSizes = [];
-        
+
         $scope.itemList = [];
         debugger;
         vm.listOfDetails = progDetailsPrepService.programDetails;
@@ -32,24 +32,30 @@
 
 
         vm.changeCategory = function (selectedCategoryId) {
-			CategoryResource.GetAllActiveItems({ categoryId: selectedCategoryId,pagesize:0 }).$promise.then(function (results) {
-				vm.items = results.results;
-			},
-				function (data, status) {
-					ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-				});
-		}
+            vm.isloading = true;
+            CategoryResource.GetAllActiveItems({ categoryId: selectedCategoryId, pagesize: 0 }).$promise.then(function (results) {
+                vm.items = results.results;
+                vm.isloading = false;
+            },
+                function (data, status) {
+                    vm.isloading = false;
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                });
+        }
 
-		vm.changeItem = function (selectedItemId) {
-			ItemResource.GetAllItemSizes({ itemId: selectedItemId }).$promise.then(function (results) {
-				vm.itemSizes = results;
-			},
-				function (data, status) {
-					ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
-				});
-		}
+        vm.changeItem = function (selectedItemId) {
+            vm.isloading = true;
+            ItemResource.GetAllItemSizes({ itemId: selectedItemId }).$promise.then(function (results) {
+                vm.itemSizes = results;
+                vm.isloading = false;
+            },
+                function (data, status) {
+                    vm.isloading = false;
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                });
+        }
         vm.removeItem = function (index) {
-            $scope.itemList.splice(index,1);
+            $scope.itemList.splice(index, 1);
         }
         for (var i = 0; i < vm.testItem.length; i++) {
             // var indexRate = $scope.itemsssPrepService.indexOf($filter('filter')($scope.itemsssPrepService, { 'itemId': vm.testItem[i].itemId }, true)[0]);
@@ -68,11 +74,13 @@
         }
 
         vm.addItemToList = function (model) {
-			$scope.itemList.push(model);
-			vm.selectedCategoryId = 0;
-			vm.selectedItem = null;
-			vm.selectedItemSize = null;
-        
+            $scope.itemList.push(model);
+            vm.selectedCategoryId = 0;
+            vm.selectedItem = null;
+            vm.selectedItemSize = null;
+            vm.items = [];
+            vm.itemSizes = [];
+
         }
         vm.UpdateProgram = function () {
             blockUI.start("Loading...");
@@ -84,15 +92,15 @@
 
             test.$updateProgramDetails().then(
                 function (data, status) {
-				blockUI.stop();
-                $uibModalInstance.dismiss();
+                    blockUI.stop();
+                    $uibModalInstance.dismiss();
                     ToastService.show("right", "bottom", "fadeInUp", $translate.instant('EditedSuccessfully'), "success");
                     callBackFunction();
 
                 },
                 function (data, status) {
-				blockUI.stop();
-                ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
+                    blockUI.stop();
+                    ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 }
             );
 

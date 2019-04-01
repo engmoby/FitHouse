@@ -160,7 +160,7 @@
 				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 					<label for="first-name">{{'Total' | translate}} </label>
 					<input required type="number" readonly class="mat-input form-control" name="totalPrice" 
-					ng-model="newItemCtrl.SelectedSize[$index].totalPrice = newItemCtrl.SelectedSize[$index].price+ (newItemCtrl.SelectedSize[$index].price * newItemCtrl.vat/100) "
+					ng-model="newItemCtrl.SelectedSize[$index].totalPrice = newItemCtrl.SelectedSize[$index].price+ (newItemCtrl.SelectedSize[$index].price * (newItemCtrl.vat!=null?newItemCtrl.vat:0)/100) "
 					 min="1" ng-maxlength="12">
 					<div ng-messages="newItemForm.totalPrice.$error">
 						<div ng-if="newItemForm.totalPrice.$error.required && !newItemForm.totalPrice.$pristine">{{'requiredErr' |

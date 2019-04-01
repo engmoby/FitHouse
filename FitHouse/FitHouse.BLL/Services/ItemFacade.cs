@@ -139,7 +139,7 @@ namespace FitHouse.BLL.Services
                     throw new ValidationException(ErrorCodes.EmptyItemDescription);
                 if (itemName.Value.Length > 100)
                     throw new ValidationException(ErrorCodes.ItemNameExceedLength);
-                if (_itemTranslationService.CheckItemNameExistForCategory(itemName.Value, itemName.Key, itemDto.ItemId, itemDto.CategoryId)) throw new ValidationException(ErrorCodes.ItemNameAlreadyExist);
+                if (_itemTranslationService.CheckItemNameExistForCategory(itemName.Value, itemName.Key, itemDto.ItemId, itemDto.CategoryId)) throw new ValidationException(ErrorCodes.NameIsExist);
             }
         }
 
@@ -375,7 +375,7 @@ namespace FitHouse.BLL.Services
             if (itemDto.ItemName.Length > 100)
                 throw new ValidationException(ErrorCodes.ItemNameExceedLength);
             if (_itemTranslationService.CheckItemNameExistForCategory(itemDto.ItemName, language, itemDto.ItemId, itemDto.CategoryId))
-                throw new ValidationException(ErrorCodes.ItemNameAlreadyExist);
+                throw new ValidationException(ErrorCodes.NameIsExist);
         }
 
         public List<ItemSizeDto> GetAllItemSizes(long itemId)
