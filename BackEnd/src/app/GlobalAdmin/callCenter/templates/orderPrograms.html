@@ -80,6 +80,52 @@
                                 <div ng-show="n == true" id="collapseOne6" class="panel-collapse collapse in"
                                     role="tabpanel" aria-labelledby="headingOne">
                                     <div class="panel-body">
+                                        <div ng-if="orderProgramsCtrl.mealItemss.isBreakfast==true">
+                                            <h4>
+                                                <a
+                                                    ng-click="showBreakfast = ! showBreakfast;">{{'Breakfast' | translate}}</a>
+                                            </h4>
+
+                                            <div ng-show="showBreakfast">
+                                                <div
+                                                    class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                                    <label for="first-name">{{'SelectItems' | translate}}</label>
+                                                    <ul>
+                                                        <li
+                                                            ng-repeat="detail in orderProgramsCtrl.mealItemss.programDetails | filter:{dayNumber:counterDay, mealNumberPerDay: 0 ,itemType:1 } : true">
+
+                                                            {{detail.itemSize.itemNameDictionary[selectedLanguage]}} /
+                                                            {{detail.itemSize.sizeNameDictionary[selectedLanguage]}}
+
+                                                        </li>
+                                                    </ul>
+
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div ng-if="orderProgramsCtrl.mealItemss.isSnack==true">
+                                            <h4>
+                                                <a ng-click="showSnack = ! showSnack;">{{'Snack' | translate}}</a>
+
+                                            </h4>
+                                            <div ng-show="showSnack">
+                                                <div
+                                                    class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                                    <label for="first-name">{{'SelectItems' | translate}}</label>
+
+                                                    <ul>
+                                                        <li
+                                                            ng-repeat="detail in orderProgramsCtrl.mealItemss.programDetails | filter:{dayNumber:counterDay, mealNumberPerDay: 0 ,itemType:2 } : true">
+
+                                                            {{detail.itemSize.itemNameDictionary[selectedLanguage]}} /
+                                                            {{detail.itemSize.sizeNameDictionary[selectedLanguage]}}
+
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+                                        </div>
                                         <ul>
                                             <li
                                                 ng-repeat="meal in [].constructor(orderProgramsCtrl.mealItemss.noOfMeals)  track by $index">
@@ -97,8 +143,9 @@
                                                                 ng-repeat="detail in orderProgramsCtrl.mealItemss.programDetails | filter:{dayNumber:counterDay, mealNumberPerDay: counterMeal} ">
                                                                 <div>
                                                                     <!-- ng-repeat="item in orderProgramsCtrl.mealItemss.items |filter :{itemSizeId:detail.itemSizeId}"> -->
-                                                                    {{detail.itemSize.itemNameDictionary[selectedLanguage]}} /
-                                                                    {{detail.itemSize.sizeNameDictionary[selectedLanguage]}} 
+                                                                    {{detail.itemSize.itemNameDictionary[selectedLanguage]}}
+                                                                    /
+                                                                    {{detail.itemSize.sizeNameDictionary[selectedLanguage]}}
                                                                 </div>
                                                             </li>
                                                         </ul>
@@ -296,7 +343,7 @@
             <!-- <span class="input-field col s6" ng-show="promotionError== null">
                 {{'value' | translate}}: {{ promotionValue.value}}
             </span> -->
-            
+
             {{'Pricelbl' | translate}}:{{ orderProgramsCtrl.TotalPrice | number:2}} SR
             <br> {{'DeliveryPrice' | translate}}:{{ orderProgramsCtrl.DeliveryFees}} SR
             <br> {{'ProgramDiscount' | translate}}:{{ orderProgramsCtrl.discount}} %

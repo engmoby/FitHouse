@@ -26,6 +26,8 @@
         $scope.itemModel = [];
         $scope.settingsPrepService = settingsPrepService;
         $scope.programsPrepService = programsPrepService;
+        $scope.showBreakfast = false;
+        $scope.showSnack = false;
         vm.DeliveryFees = 0;
         vm.language = appCONSTANTS.supportedLanguage;
 
@@ -240,7 +242,7 @@
         vm.programSearch = function () {
             var k = GetProgramDetailResource.getProgramDetail({ programId: vm.program.programId }).$promise.then(function (results) {
                 vm.mealItemss = results;
-                console.log(vm.mealItemss);
+                console.log("sasa",vm.mealItemss);
                 blockUI.stop();
                 vm.flag = true;
 

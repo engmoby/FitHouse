@@ -17,6 +17,56 @@
             <div ng-show="n == true" id="collapseOne6" class="panel-collapse collapse in" role="tabpanel"
                 aria-labelledby="headingOne">
                 <div class="panel-body">
+                    <div ng-if="programDetailsCtrl.programDetails.isBreakfast==true">
+                        <h4>
+                            <a ng-click="showBreakfast = ! showBreakfast;">{{'Breakfast' | translate}}</a>
+                            <i class="material-icons md-dark pmd-md cursorPointer font25"
+                                ng-click="programDetailsCtrl.ShowProgramMeal(programDetailsCtrl.programDetails.programId, counterDay, counterMeal,'BreakFast')">mode_edit</i>
+
+                        </h4>
+
+                        <div ng-show="showBreakfast">
+                            <div
+                                class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                <label for="first-name">{{'SelectItems' | translate}}</label>
+                                <ul>
+                                    <li
+                                        ng-repeat="detail in programDetailsCtrl.programDetails.programDetails | filter:{dayNumber:counterDay, mealNumberPerDay: 0 ,itemType:1 } : true">
+
+                                        {{detail.itemSize.itemNameDictionary[selectedLanguage]}} /
+                                        {{detail.itemSize.sizeNameDictionary[selectedLanguage]}}
+
+                                    </li>
+                                </ul>
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div ng-if="programDetailsCtrl.programDetails.isSnack==true">
+                        <h4>
+                            <a ng-click="showSnack = ! showSnack;">{{'Snack' | translate}}</a>
+                            <i class="material-icons md-dark pmd-md cursorPointer font25"
+                                ng-click="programDetailsCtrl.ShowProgramMeal(programDetailsCtrl.programDetails.programId, counterDay, counterMeal,'Snacks')">mode_edit</i>
+
+                        </h4>
+                        <div ng-show="showSnack">
+                            <div
+                                class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                                <label for="first-name">{{'SelectItems' | translate}}</label>
+
+                                <ul>
+                                    <li
+                                        ng-repeat="detail in programDetailsCtrl.programDetails.programDetails | filter:{dayNumber:counterDay, mealNumberPerDay: 0 ,itemType:2 } : true">
+
+                                        {{detail.itemSize.itemNameDictionary[selectedLanguage]}} /
+                                        {{detail.itemSize.sizeNameDictionary[selectedLanguage]}}
+
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
                     <ul>
                         <li
                             ng-repeat="meal in [].constructor(programDetailsCtrl.programDetails.noOfMeals)  track by $index">
@@ -25,21 +75,21 @@
                                     ng-click="showDetails = ! showDetails; programDetailsCtrl.showDDL(); ">{{'Meal' | translate}}
                                     {{counterMeal=$index+1}}</a>
                                 <i class="material-icons md-dark pmd-md cursorPointer font25"
-                                    ng-click="programDetailsCtrl.ShowProgramMeal(programDetailsCtrl.programDetails.programId, counterDay, counterMeal)">mode_edit</i>
+                                    ng-click="programDetailsCtrl.ShowProgramMeal(programDetailsCtrl.programDetails.programId, counterDay, counterMeal,'Normal')">mode_edit</i>
 
                             </h4>
- 
+
                             <div ng-show="showDetails">
                                 <div
                                     class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                                     <label for="first-name">{{'SelectItems' | translate}}</label>
-                                   
-                                    <ul> 
+
+                                    <ul>
                                         <li
-                                             ng-repeat="detail in programDetailsCtrl.programDetails.programDetails | filter:{dayNumber:counterDay, mealNumberPerDay: counterMeal } : true">  
-                                            
+                                            ng-repeat="detail in programDetailsCtrl.programDetails.programDetails | filter:{dayNumber:counterDay, mealNumberPerDay: counterMeal } : true">
+
                                             {{detail.itemSize.itemNameDictionary[selectedLanguage]}} /
-                                            {{detail.itemSize.sizeNameDictionary[selectedLanguage]}} 
+                                            {{detail.itemSize.sizeNameDictionary[selectedLanguage]}}
 
                                             <!-- <div
                                                 ng-repeat="item in programDetailsCtrl.programDetails.items |filter :{itemId:detail.itemId}">

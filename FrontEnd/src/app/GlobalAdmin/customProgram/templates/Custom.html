@@ -25,8 +25,7 @@
                     <div ng-init="counterDay = 0; counterMeal = 0">
                         <div class="panel-group pmd-accordion pmd-accordion-inbox" id="accordion6" role="tablist"
                             aria-multiselectable="true">
-                            <div ng-repeat="n in [].constructor(CustomCtrl.daysCount)  track by $index"
-                                class="panel panel-default">
+                            <div ng-repeat="dayObj in  CustomCtrl.daylistCount " class="panel panel-default">
                                 <div class="panel-heading" role="tab" id="headingOne">
                                     <a ng-init="counterDay=counterDay+1;" data-toggle="collapse"
                                         data-parent="#accordion6" ng-init="n=false"
@@ -35,6 +34,9 @@
                                         <h4 class="panel-title">
 
                                             {{'Day' | translate}} : {{counterDay=$index+1}}
+                                            <!-- {{CustomCtrl.today | date:'EEE'}}
+                                            <input type="text" name="value{{counterDay}}" ng-model="CustomCtrl.today"> -->
+
                                             <i
                                                 class="material-icons md-dark pmd-sm pmd-accordion-arrow">keyboard_arrow_down</i>
 
@@ -211,7 +213,7 @@
                                     <div class="panel-body">
                                         <ul>
                                             <li
-                                                ng-repeat="meal in [].constructor(CustomCtrl.mealsCount)  track by $index">
+                                                ng-repeat="meal in dayObj.meals">
                                                 <!--EVENT-->
                                                 <div class="row events">
                                                     <!-- <div class="col-md-2"> <img src="/assets/img/meal.jpeg" alt="" />
@@ -221,6 +223,7 @@
                                                         <a ng-init="counterMeal=counterMeal+1;">{{'Meal' | translate}}
                                                             : {{counterMeal=$index+1}}
                                                         </a>
+                                                         
                                                     </h3>
 
                                                     <!-- </div> -->

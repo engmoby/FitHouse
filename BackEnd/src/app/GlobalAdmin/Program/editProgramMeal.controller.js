@@ -5,13 +5,13 @@
         .module('home')
         .controller('editProgramMealController', ['$scope', 'blockUI', '$filter', '$translate',
             '$state', '$localStorage', 'authorizationService', 'appCONSTANTS', 'ToastService', '$stateParams'
-            , 'ProgramId', 'DayCount', 'MealCount', 'progDetailsPrepService', 'AllcategoriesPrepService', 'CategoryResource', 'ItemResource'
+            , 'ProgramId', 'DayCount', 'MealCount', 'itemType', 'progDetailsPrepService', 'AllcategoriesPrepService', 'CategoryResource', 'ItemResource'
             , '$uibModalInstance', 'callBackFunction', 'UpdateProgramDetailsResource', editProgramMealController]);
 
 
     function editProgramMealController($scope, blockUI, $filter, $translate,
         $state, $localStorage, authorizationService, appCONSTANTS, ToastService, $stateParams,
-        ProgramId, DayCount, MealCount, progDetailsPrepService, AllcategoriesPrepService, CategoryResource, ItemResource,
+        ProgramId, DayCount, MealCount, itemType, progDetailsPrepService, AllcategoriesPrepService, CategoryResource, ItemResource,
         $uibModalInstance, callBackFunction, UpdateProgramDetailsResource) {
         //console.log(progDetailsPrepService);
 
@@ -27,7 +27,14 @@
         $scope.itemList = [];
         debugger;
         vm.listOfDetails = progDetailsPrepService.programDetails;
-        vm.testItem = vm.listOfDetails.filter(x => (x.dayNumber == DayCount && x.mealNumberPerDay == MealCount));
+        if (itemType == 'Normal')
+            vm.testItem = vm.listOfDetails.filter(x => (x.dayNumber == DayCount && x.mealNumberPerDay == MealCount));
+
+        if (itemType == 'BreakFast')
+            vm.testItem = vm.listOfDetails.filter(x => (x.dayNumber == DayCount && x.mealNumberPerDay == 0 && x.itemType == 1));
+
+        if (itemType == 'Snacks')
+            vm.testItem = vm.listOfDetails.filter(x => (x.dayNumber == DayCount && x.mealNumberPerDay == 0 && x.itemType == 2));
         //console.log(testItem);
 
 
@@ -89,7 +96,7 @@
             test.programDays = DayCount;
             test.noOfMeals = MealCount;
             test.programId = ProgramId;
-
+            test.itemType = itemType;
             test.$updateProgramDetails().then(
                 function (data, status) {
                     blockUI.stop();

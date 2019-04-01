@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using FitHouse.BLL.DTOs;
+using FitHouse.Common;
 
 namespace FitHouse.BLL.Services.Interfaces
 {
@@ -15,7 +16,7 @@ namespace FitHouse.BLL.Services.Interfaces
         ProgramDto EditProgram(ProgramDto programDto, int userId);
         ProgramDto GetProgramDetails(long programId);
         List<ProgramDetailDto> GetProgramItems(long programId);
-        ProgramDto UpdateProgramDetails(long programId, long dayCount, long mealCount,
+        ProgramDto UpdateProgramDetails(long programId, long dayCount, long mealCount,Enums.ItemType itemType,
             List<ItemSizeDto> items);
         ProgramDto UpdateProgram(ProgramDto programDto);
         ProgramDto GetProgramById(ProgramDto programDto);
