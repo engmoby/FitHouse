@@ -5,7 +5,7 @@
             class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
             <label for="first-name">{{'ProgramDaysCount' | translate}}</label>
 
-            <input ng-change="orderCustomizeProgramCtrl.ConvertToNumber();" required type="number"
+            <input ng-change="orderCustomizeProgramCtrl.ConvertToNumber();orderCustomizeProgramCtrl.changeDayCount();" required type="number"
                 class="mat-input form-control" name="programDaysCount" positive ng-pattern="/^[0-9]{1,5}$/"
                 ng-model="orderCustomizeProgramCtrl.ProgramDaysCount" minlength="0" maxlength="2">
             <div ng-messages="newProgramForm2.programDaysCount.$error">
@@ -25,7 +25,7 @@
         <div
             class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
             <label for="first-name">{{'MealPerDay' | translate}}</label>
-            <input ng-change="orderCustomizeProgramCtrl.ConvertToNumber();" required type="number" positive ng-pattern="/^[0-9]{1,5}$/"
+            <input ng-change="orderCustomizeProgramCtrl.ConvertToNumber(); orderCustomizeProgramCtrl.changeMealCount();" required type="number" positive ng-pattern="/^[0-9]{1,5}$/"
                 class="mat-input form-control" name="mealPerDay" ng-model="orderCustomizeProgramCtrl.MealPerDay"
                 minlength="0" maxlength="2">
             <div ng-messages="newProgramForm2.mealPerDay.$error">
@@ -61,7 +61,8 @@
             <div ng-init="counterDay = 0; counterMeal = 0">
                 <div class="panel-group pmd-accordion pmd-accordion-inbox" id="accordion6" role="tablist"
                     aria-multiselectable="true">
-                    <div ng-repeat="n in [].constructor(orderCustomizeProgramCtrl.daysCount)  track by $index"
+                    <!-- <div ng-repeat="n in [].constructor(orderCustomizeProgramCtrl.daysCount)  track by $index" -->
+                        <div ng-repeat="dayObj in orderCustomizeProgramCtrl.daylistCount"
                         class="panel panel-default">
                         <div class="panel-heading" role="tab" id="headingOne">
                             <h4 class="panel-title">
@@ -85,7 +86,7 @@
                                                     class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                                                     <label for="first-name">{{'SelectCategory' | translate}}</label>
                                                     <select style="width:100% !important"
-                                                        class="form-control select-add-tags pmd-select2-tags"
+                                                        class="form-control select-with-search pmd-select2-tags"
                                                         ng-model="meal.selectedCategoryId"
                                                         ng-change="orderCustomizeProgramCtrl.changeCategory(meal.selectedCategoryId,meal)">
                                                         <option ng-repeat="category in orderCustomizeProgramCtrl.categories"
@@ -98,7 +99,7 @@
                                                     class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                                                     <label for="first-name">{{'SelectItems' | translate}}</label>
                                                     <select style="width:100% !important"
-                                                        class="form-control select-add-tags pmd-select2-tags"
+                                                        class="form-control select-with-search pmd-select2-tags"
                                                         ng-model="meal.selectedItem"
                                                         ng-change="orderCustomizeProgramCtrl.changeItem(meal.selectedItem.itemId,meal)">
                                                         <option ng-repeat="item in meal.items" ng-value="{{item}}">
@@ -110,7 +111,7 @@
                                                     class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                                                     <label for="first-name">{{'selectSizeLbl' | translate}}</label>
                                                     <select style="width:100% !important"
-                                                        class="form-control select-add-tags pmd-select2-tags"
+                                                        class="form-control select-with-search pmd-select2-tags"
                                                         ng-model="meal.selectedItemSize">
                                                         <option ng-repeat="item in meal.itemSizes" ng-value="{{item}}">
                                                             {{item.sizeNameDictionary[selectedLanguage]}}
@@ -165,7 +166,7 @@
                                                     class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                                                     <label for="first-name">{{'SelectCategory' | translate}}</label>
                                                     <select style="width:100% !important"
-                                                        class="form-control select-add-tags pmd-select2-tags"
+                                                        class="form-control select-with-search pmd-select2-tags"
                                                         ng-model="meal.selectedCategoryId"
                                                         ng-change="orderCustomizeProgramCtrl.changeCategory(meal.selectedCategoryId,meal)">
                                                         <option ng-repeat="category in orderCustomizeProgramCtrl.categories"
@@ -178,7 +179,7 @@
                                                     class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                                                     <label for="first-name">{{'SelectItems' | translate}}</label>
                                                     <select style="width:100% !important"
-                                                        class="form-control select-add-tags pmd-select2-tags"
+                                                        class="form-control select-with-search pmd-select2-tags"
                                                         ng-model="meal.selectedItem"
                                                         ng-change="orderCustomizeProgramCtrl.changeItem(meal.selectedItem.itemId,meal)">
                                                         <option ng-repeat="item in meal.items" ng-value="{{item}}">
@@ -190,7 +191,7 @@
                                                     class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                                                     <label for="first-name">{{'selectSizeLbl' | translate}}</label>
                                                     <select style="width:100% !important"
-                                                        class="form-control select-add-tags pmd-select2-tags"
+                                                        class="form-control select-with-search pmd-select2-tags"
                                                         ng-model="meal.selectedItemSize">
                                                         <option ng-repeat="item in meal.itemSizes" ng-value="{{item}}">
                                                             {{item.sizeNameDictionary[selectedLanguage]}}
@@ -240,8 +241,7 @@
                                                 ng-model="meal.selectedItemList.length" min="1" required>
                                         </div>
                                 <ul>
-                                    <li
-                                        ng-repeat="meal in [].constructor(orderCustomizeProgramCtrl.mealsCount)  track by $index">
+                                    <li ng-repeat="meal in dayObj.meals">
                                         <h4>
                                             <a ng-init="counterMeal=counterMeal+1;"
                                                 ng-click="showDetails = ! showDetails; orderCustomizeProgramCtrl.showDDL(); ">{{'Meal' | translate}}
@@ -251,7 +251,7 @@
                                                 <div class="row">
                                                         <div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                                                             <label for="first-name">{{'SelectCategory' | translate}}</label>
-                                                            <select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags"
+                                                            <select style="width:100% !important" class="form-control select-with-search pmd-select2-tags"
                                                                 ng-model="meal.selectedCategoryId" ng-change="orderCustomizeProgramCtrl.changeCategory(meal.selectedCategoryId,meal)">
                                                                 <option ng-repeat="category in orderCustomizeProgramCtrl.categories"
                                                                     ng-value="{{category.categoryId}}">{{category.titleDictionary[selectedLanguage]}}</option>
@@ -259,14 +259,14 @@
                                                         </div>
                                                         <div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                                                             <label for="first-name">{{'SelectItems' | translate}}</label>
-                                                            <select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags"
+                                                            <select ng-disabled="meal.isloading" style="width:100% !important" class="form-control select-with-search pmd-select2-tags"
                                                                 ng-model="meal.selectedItem" ng-change="orderCustomizeProgramCtrl.changeItem(meal.selectedItem.itemId,meal)">
                                                                 <option ng-repeat="item in meal.items" ng-value="{{item}}">{{item.itemNameDictionary[selectedLanguage]}}</option>
                                                             </select>
                                                         </div>
                                                         <div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                                                             <label for="first-name">{{'selectSizeLbl' | translate}}</label>
-                                                            <select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags"
+                                                            <select ng-disabled="meal.isloading" style="width:100% !important" class="form-control select-with-search pmd-select2-tags"
                                                                 ng-model="meal.selectedItemSize">
                                                                 <option ng-repeat="item in meal.itemSizes" ng-value="{{item}}">{{item.sizeNameDictionary[selectedLanguage]}}</option>
                                                             </select>
@@ -278,6 +278,7 @@
                                                                 class="btn pmd-ripple-effect btn-primary" type="button"
                                                                 ng-click="getData(meal.selectedItemSize,counterDay,counterMeal,meal,'Normal')">
                                                                 {{'addItemBtn' | translate}}</button>
+                                                                <img ng-show="meal.isloading" src="assets/img/loading.gif" style="height: 40px;">
                                                         </div>
                                                     </div>
                                                     <div class=" form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">

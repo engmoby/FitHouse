@@ -51,7 +51,70 @@
         vm.categories = AllcategoriesPrepService;
         vm.items = [];
         vm.itemSizes = [];
-
+        vm.daylistCount = []
+        for (var j = 0; j < vm.daysCount; j++) {
+            var mealList = []
+            for (var k = 0; k < vm.mealsCount; k++) {
+                mealList.push({ selectedItemList: [] })
+            }
+            vm.daylistCount.push({
+                meals: mealList
+            })
+        }
+        vm.changeDayCount = function(){
+            if (vm.daysCount > vm.daylistCount.length) {
+                for (var j = vm.daylistCount.length; j < vm.daysCount; j++) {
+                    var mealList = []
+                    for (var k = 0; k < vm.mealsCount; k++) {
+                        mealList.push({ selectedItemList: [] })
+                    }
+                    vm.daylistCount.push({
+                        meals: mealList
+                    })
+                }
+            }
+            else if(vm.daysCount < vm.daylistCount.length){
+                for (var j = vm.daylistCount.length; j > vm.daysCount; j--) {
+                    vm.daylistCount.pop();
+                }
+            }
+            updateItemList();
+        }
+        vm.changeMealCount = function(){
+            vm.daylistCount.forEach(day => {
+                if (vm.mealsCount > day.meals.length) {
+                    for (var j = day.meals.length; j < vm.mealsCount; j++) {
+                        // var mealList = []
+                        // for (var k = 0; k < vm.mealsCount; k++) {
+                        //     mealList.push({ selectedItemList: [] })
+                        // }
+                        day.meals.push({
+                             selectedItemList: [] 
+                        })
+                    }
+                }
+                else if(vm.mealsCount < day.meals.length){
+                    for (var j = day.meals.length; j > vm.mealsCount; j--) {
+                        day.meals.pop();
+                    }
+                }
+            });
+            updateItemList();
+        }
+        function updateItemList(){
+            var temp = angular.copy(vm.itemList);
+            var deletedItems = vm.itemList.filter(x=>x.dayNumber > vm.daysCount || x.mealNumberPerDay > vm.mealsCount);
+            // vm.itemList.forEach(element => {
+            //     if(element.dayNumber > vm.daysCount || element.mealNumberPerDay > vm.mealsCount){
+            //         vm.itemList.splice(vm.itemList.indexOf(element), 1);
+            //     }
+            // });
+            deletedItems.forEach(element => {
+                
+                    vm.itemList.splice(vm.itemList.indexOf(element), 1);
+            });
+            console.log(vm.itemList);
+        }
         vm.ConvertToNumber = function () {
             // vm.daysCount = parseInt(vm.ProgramDaysCount, 10);
             // vm.mealsCount = parseInt(vm.MealPerDay, 10);
@@ -63,6 +126,18 @@
                 vm.ProgramDaysCount = "";
                 vm.MealPerDay = "";
             }
+            
+            // vm.dayList.forEach(day  => {
+            //     if (vm.mealsCount > day.meals.length) {
+            //         var mealList = []
+            //         for (var k = 0; k < vm.mealsCount; k++) {
+            //             mealList.push({ selectedItemList: [] })
+            //         }
+            //     }
+            //     else if(vm.daysCount > vm.dayList.length){
+            //         vm.dayList.pop();
+            //     }   
+            // });
         }
 
         $scope.discountChange = function () {
@@ -210,6 +285,10 @@
                 tags: false,
                 theme: "bootstrap",
             })
+
+            $('.select-with-search').select2({
+                theme: "bootstrap"
+            });
         }
 
         vm.DaysNotValid = false;

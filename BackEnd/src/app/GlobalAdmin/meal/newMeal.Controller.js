@@ -86,7 +86,7 @@
 			}
 			calclulateWithDicscount();
 			var discountPresantage = vm.totalPrice * vm.mealDiscount / 100;
-			vm.mealtotalDiscount = vm.totalPrice - discountPresantage;
+			vm.mealtotalDiscount = Math.round((vm.totalPrice - discountPresantage) * 100) / 100;
 			//	} 
 		}
 		vm.removeItem = function(index){
@@ -114,18 +114,18 @@
 			}
 			calclulateWithDicscount();
 			var discountPresantage = vm.totalPrice * vm.mealDiscount / 100;
-			vm.mealtotalDiscount = vm.totalPrice - discountPresantage;
+			vm.mealtotalDiscount = Math.round((vm.totalPrice - discountPresantage) * 100) / 100;
 		}
 		function calclulateWithDicscount() {
 			var vatPresantage = (vm.price * vm.vat) / 100;
 			var discountPresantage = vm.price * vm.mealDiscount / 100;
 			if (vm.mealDiscount == null) {
 				vm.totalPrice = vm.price + vatPresantage;
-				vm.mealtotalDiscount = vm.totalPrice;
+				vm.mealtotalDiscount = Math.round(vm.totalPrice * 100) / 100;
 			}
 			else {
 				vm.totalPrice = vm.price + vatPresantage - discountPresantage;
-				vm.mealtotalDiscount = vm.totalPrice;
+				vm.mealtotalDiscount = Math.round(vm.totalPrice * 100) / 100;
 			}
 			if (vm.vat == "") {
 				vm.vat = 0;
@@ -140,14 +140,14 @@
 		vm.calclulateDiscount = function () {
 
 			if (vm.mealtotalDiscount == "" || vm.mealtotalDiscount == null || vm.mealtotalDiscount == 0) {
-				vm.mealtotalDiscount = vm.totalPrice;
+				vm.mealtotalDiscount =Math.round(  vm.totalPrice * 100) / 100;
 				vm.mealDiscount = 0;
 				vm.flag = true;
 
 			}
 			else {
 				var discountPresantage = vm.totalPrice * vm.mealDiscount / 100;
-				vm.mealtotalDiscount = vm.totalPrice - discountPresantage;
+				vm.mealtotalDiscount = Math.round(( vm.totalPrice - discountPresantage)* 100) / 100;
 			}
 
 

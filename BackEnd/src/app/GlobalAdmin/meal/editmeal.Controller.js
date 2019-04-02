@@ -155,7 +155,7 @@
 			calclulateWithDicscount();
 			var discountPresantage = vm.meal.totalPrice * vm.meal.mealDiscount / 100;
 
-			vm.mealtotalDiscount = vm.meal.totalPrice - discountPresantage;
+			vm.mealtotalDiscount = Math.round((vm.meal.totalPrice - discountPresantage) * 100) / 100;
 
 
 		}
@@ -214,7 +214,7 @@
 		vm.calclulateDiscount = function () {
 			var discountPresantage = vm.meal.totalPrice * vm.meal.mealDiscount / 100;
 
-			vm.mealtotalDiscount = vm.meal.totalPrice - discountPresantage;
+			vm.mealtotalDiscount = Math.round((vm.meal.totalPrice - discountPresantage) * 100) / 100;
 		}
 		vm.LoadUploadLogo = function () {
 			$("#mealImage").click();

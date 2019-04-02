@@ -1,12 +1,12 @@
 <script type="text/javascript">
 	$(document).ready(function () {
-		$(".select-add-tags").select2({
-			tags: true,
+		$(".select-with-search").select2({
+			// tags: true,
 			theme: "bootstrap",
-			insertTag: function (data, tag) {
-				// Insert the tag at the end of the results
-				data.push(tag);
-			}
+			// insertTag: function (data, tag) {
+			// 	// Insert the tag at the end of the results
+			// 	data.push(tag);
+			// }
 		});
 	});
 </script>
@@ -59,21 +59,21 @@
 			<div class="row">
 				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 					<label for="first-name">{{'SelectCategory' | translate}}</label>
-					<select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" ng-model="newMealCtrl.selectedCategoryId"
+					<select style="width:100% !important" class="form-control select-with-search pmd-select2-tags" ng-model="newMealCtrl.selectedCategoryId"
 					 ng-change="newMealCtrl.changeCategory(newMealCtrl.selectedCategoryId)">
 						<option ng-repeat="category in newMealCtrl.categories" ng-value="{{category.categoryId}}">{{category.titleDictionary[selectedLanguage]}}</option>
 					</select>
 				</div>
 				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 					<label for="first-name">{{'SelectItems' | translate}}</label>
-					<select ng-disabled="newMealCtrl.isloading" style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" ng-model="newMealCtrl.selectedItem"
+					<select ng-disabled="newMealCtrl.isloading" style="width:100% !important" class="form-control select-with-search pmd-select2-tags" ng-model="newMealCtrl.selectedItem"
 					 ng-change="newMealCtrl.changeItem(newMealCtrl.selectedItem.itemId)">
 						<option ng-repeat="item in newMealCtrl.items" ng-value="{{item}}">{{item.itemNameDictionary[selectedLanguage]}}</option>
 					</select>
 				</div>
 				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 					<label for="first-name">{{'selectSizeLbl' | translate}}</label>
-					<select ng-disabled="newMealCtrl.isloading" style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" ng-model="newMealCtrl.selectedItemSize">
+					<select ng-disabled="newMealCtrl.isloading" style="width:100% !important" class="form-control select-with-search pmd-select2-tags" ng-model="newMealCtrl.selectedItemSize">
 						<option ng-repeat="item in newMealCtrl.itemSizes" ng-value="{{item}}">{{item.sizeNameDictionary[selectedLanguage]}}</option>
 					</select>
 				</div>
@@ -208,7 +208,7 @@
 				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 
 					<label for="first-name">{{'Total' | translate}} </label>
-					<input type="number" readonly class="mat-input form-control" name="totalPrice" ng-model="newMealCtrl.totalPrice"
+					<input type="number"  ng-change="newMealCtrl.calclulateDiscount()" class="mat-input form-control" name="totalPrice" ng-model="newMealCtrl.totalPrice"
 					 min="1" ng-maxlength="12">
 					<div ng-messages="newMealForm.totalPrice.$error">
 						<div ng-if="newMealForm.totalPrice.$error.required && !newMealForm.totalPrice.$pristine">{{'requiredErr' |
@@ -222,7 +222,7 @@
 
 					<label for="first-name">{{'mealDiscount' | translate}} </label>
 					<input type="number" ng-change="newMealCtrl.calclulateDiscount()" class="mat-input form-control" name="mealDiscount"
-					 ng-model="newMealCtrl.mealDiscount" minlength="1" maxlength="3">
+					 ng-model="newMealCtrl.mealDiscount" min="0" minlength="1" maxlength="3">
 					<div ng-messages="newMealForm.mealDiscount.$error">
 						<div ng-if="(newMealForm.mealDiscount.$error.minlength || newMealForm.mealDiscount.$error.maxlength)">{{'mealDiscountLengthError'
 							| translate}}</div>

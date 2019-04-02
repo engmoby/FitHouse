@@ -5,9 +5,9 @@
         // 	theme: "bootstrap",
         // 	minimumResultsForSearch: Infinity,
         // });
-        // $(".select-with-search").select2({
-        // 	theme: "bootstrap"
-        // });
+        $(".select-with-search").select2({
+        	theme: "bootstrap"
+        });
         // $(".select-tags").select2({
         // 	tags: false,
         // 	theme: "bootstrap",
@@ -47,21 +47,21 @@
             <div class="row">
 					<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 							<label for="first-name">{{'SelectCategory' | translate}}</label>
-							<select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" ng-model="editProgramMealCtrl.selectedCategoryId"
+							<select style="width:100% !important" class="form-control select-with-search pmd-select2-tags" ng-model="editProgramMealCtrl.selectedCategoryId"
 							 ng-change="editProgramMealCtrl.changeCategory(editProgramMealCtrl.selectedCategoryId)">
 								<option ng-repeat="category in editProgramMealCtrl.categories" ng-value="{{category.categoryId}}">{{category.titleDictionary[selectedLanguage]}}</option>
 							</select>
 						</div>
 						<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 							<label for="first-name">{{'SelectItems' | translate}}</label>
-							<select ng-disabled="editProgramMealCtrl.isloading" style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" ng-model="editProgramMealCtrl.selectedItem"
+							<select ng-disabled="editProgramMealCtrl.isloading" style="width:100% !important" class="form-control select-with-search pmd-select2-tags" ng-model="editProgramMealCtrl.selectedItem"
 							 ng-change="editProgramMealCtrl.changeItem(editProgramMealCtrl.selectedItem.itemId)">
 								<option ng-repeat="item in editProgramMealCtrl.items" ng-value="{{item}}">{{item.itemNameDictionary[selectedLanguage]}}</option>
 							</select>
 						</div>
 						<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 							<label for="first-name">{{'selectSizeLbl' | translate}}</label>
-							<select ng-disabled="editProgramMealCtrl.isloading" style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" ng-model="editProgramMealCtrl.selectedItemSize">
+							<select ng-disabled="editProgramMealCtrl.isloading" style="width:100% !important" class="form-control select-with-search pmd-select2-tags" ng-model="editProgramMealCtrl.selectedItemSize">
 								<option ng-repeat="item in editProgramMealCtrl.itemSizes" ng-value="{{item}}">{{item.sizeNameDictionary[selectedLanguage]}}</option>
 							</select>
 						</div>

@@ -51,7 +51,7 @@
         console.log(vm.itemList);
         vm.SelectedDays = [];
         vm.progCountList = [];
-
+        vm.daylistCount = []
         vm.Setting = settingsPrepService;
 
         vm.orderType = {
@@ -212,19 +212,25 @@
         }
 
         vm.changeCategory = function (selectedCategoryId, meal) {
+            meal.isloading = true;
             CategoryResource.GetAllActiveItems({ categoryId: selectedCategoryId, pagesize: 0 }).$promise.then(function (results) {
                 meal.items = results.results;
+                meal.isloading = false;
             },
                 function (data, status) {
+                    meal.isloading = false;
                     ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 });
         }
 
         vm.changeItem = function (selectedItemId, meal) {
+            meal.isloading = true;
             ItemResource.GetAllItemSizes({ itemId: selectedItemId }).$promise.then(function (results) {
                 meal.itemSizes = results;
+                meal.isloading = false;
             },
                 function (data, status) {
+                    meal.isloading = false;
                     ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 });
         }
@@ -246,6 +252,8 @@
             meal.selectedCategoryId = 0;
             meal.selectedItem = null;
             meal.selectedItemSize = null;
+            meal.items = [];
+            meal.itemSizes = [];
             itemModel.dayNumber = day;
             itemModel.mealNumberPerDay = mealNumber;
             itemModel.itemType = type;
@@ -323,6 +331,9 @@
                     // Insert the tag at the end of the results
                     data.push(tag);
                 }
+            });
+            $('.select-with-search').select2({
+                theme: "bootstrap"
             });
         }
 
@@ -479,6 +490,62 @@
 
                 }
             );
+        }
+        
+        
+        vm.changeDayCount = function(){
+            if (vm.daysCount > vm.daylistCount.length) {
+                for (var j = vm.daylistCount.length; j < vm.daysCount; j++) {
+                    var mealList = []
+                    for (var k = 0; k < vm.mealsCount; k++) {
+                        mealList.push({ selectedItemList: [] })
+                    }
+                    vm.daylistCount.push({
+                        meals: mealList
+                    })
+                }
+            }
+            else if(vm.daysCount < vm.daylistCount.length){
+                for (var j = vm.daylistCount.length; j > vm.daysCount; j--) {
+                    vm.daylistCount.pop();
+                }
+            }
+            updateItemList();
+        }
+        vm.changeMealCount = function(){
+            vm.daylistCount.forEach(day => {
+                if (vm.mealsCount > day.meals.length) {
+                    for (var j = day.meals.length; j < vm.mealsCount; j++) {
+                        // var mealList = []
+                        // for (var k = 0; k < vm.mealsCount; k++) {
+                        //     mealList.push({ selectedItemList: [] })
+                        // }
+                        day.meals.push({
+                             selectedItemList: [] 
+                        })
+                    }
+                }
+                else if(vm.mealsCount < day.meals.length){
+                    for (var j = day.meals.length; j > vm.mealsCount; j--) {
+                        day.meals.pop();
+                    }
+                }
+            });
+            updateItemList();
+        }
+        function updateItemList(){
+            var temp = angular.copy(vm.itemList);
+            var deletedItems = vm.itemList.filter(x=>x.dayNumber > vm.daysCount || x.mealNumberPerDay > vm.mealsCount);
+            // vm.itemList.forEach(element => {
+            //     if(element.dayNumber > vm.daysCount || element.mealNumberPerDay > vm.mealsCount){
+            //         vm.itemList.splice(vm.itemList.indexOf(element), 1);
+            //     }
+            // });
+            deletedItems.forEach(element => {
+                
+                    vm.itemList.splice(vm.itemList.indexOf(element), 1);
+            });
+            console.log(vm.itemList);
         }
     }
 
