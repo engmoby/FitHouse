@@ -245,6 +245,10 @@
         "ProgramDiscount": "Discount",
         "englishProgramName": "Program Name",
         "englishProgramDescription": "Program Description",
+
+        "arabicProgramName": "Arabic program Name",
+        "arabicProgramDescription": "Arabic program Description",
+
         "ProgramDaysCount": "Program Total Days",
         "MealPerDay": "Meals Per a day",
         "ProgramTotalPrice": "Program Total Price",
@@ -349,7 +353,25 @@
         "UpdatePromotionLbl": "Update Promotion",
         "NoPromotionAvailable": "No Promotion Available",
         "CheckPromotion": "Check Promotion",
-        "PriceShouldbeMoreThanCost": "Price Should be More Than Cost",
+
+        "size": "Sizes",
+        "AddSizeBtn": "Add new size",
+        "NoSizesAvailable": "there is no sizes.",
+        "sizeAddSuccess": "Size added successfully.",
+        "NewSizeLbl": "New size",
+        "UpdateSizeLbl": "Update size",
+        "UpdateSizeSuccess": "Size updated successfully.",
+        "SizeDeleteSuccess": "Size deleted successfully.",
+        "SizeLengthError": "Name length must be 1-10 characters.",
+        "DescLengthError":"Description length must be 3-300 characters.",
+        "englishdescLbl":"English Description",
+        "arabicdescLbl":"Arabic Description",
+        "selectSizeLbl":"Select Size",
+        "UploadImageBtn":"Select Image",
+        "NewMealtLbl":"New meal",
+        "SelectCategory":"Select category",
+        "SizeName":"size",
+        "addItemBtn": "Add item",
       }
 
       var ar_translations = {
@@ -481,6 +503,10 @@
         "ProgramTotalPrice": "اجمالي السعر",
         "englishProgramName": "اسم البرنامج",
         "englishProgramDescription": "شرح البرنامج",
+        
+        "arabicProgramName": "اسم البرنامج عربي",
+        "arabicProgramDescription": "شرح البرنامج عربي",
+
         "ProgramDaysCount": "عدد ايام البرنامج",
         "MealPerDay": "عدد الوجبات في اليوم",
         "Breakfast": "افطار",
@@ -709,7 +735,26 @@
         "CompleteBtn": "اكتمال",
         "history": "سجل",
         "modifyBy": "تعديل بواسطة",
-        "modifyTime": "تاريخ التعديل"
+        "modifyTime": "تاريخ التعديل",
+
+        "size": "احجام",
+        "AddSizeBtn": "اضف حجم جديد",
+        "NoSizesAvailable": ".لا يوجد احجام",
+        "sizeAddSuccess": ".تم ادخال الحجم لنجاح",
+        "NewSizeLbl": "حجم جديد",
+        "UpdateSizeLbl": "تحديث الحجم",
+        "UpdateSizeSuccess": ".تم تحديث الحجم بنجاح",
+        "SizeDeleteSuccess": ".تم حذف الحجم بنجاح",
+        "SizeLengthError": ".طول المقاس يجب من 1-10 حرف",
+        "DescLengthError":".طول الوصف يجب من 3-300 حرف",
+        "englishdescLbl":"وصف انجليزي",
+        "arabicdescLbl":"وصف عربي",
+        "selectSizeLbl":"اختار الحجم",
+        "UploadImageBtn":"اختار الصوره",
+        "NewMealtLbl":"وجبة جديده",
+        "SelectCategory":"أختار قسم",
+        "SizeName":"حجم",
+        "addItemBtn": "أضف منتج",
       }
 
       $translateProvider.translations('en', en_translations);

@@ -54,14 +54,14 @@
 						</div>
 						<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 							<label for="first-name">{{'SelectItems' | translate}}</label>
-							<select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" ng-model="editProgramMealCtrl.selectedItem"
+							<select ng-disabled="editProgramMealCtrl.isloading" style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" ng-model="editProgramMealCtrl.selectedItem"
 							 ng-change="editProgramMealCtrl.changeItem(editProgramMealCtrl.selectedItem.itemId)">
 								<option ng-repeat="item in editProgramMealCtrl.items" ng-value="{{item}}">{{item.itemNameDictionary[selectedLanguage]}}</option>
 							</select>
 						</div>
 						<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 							<label for="first-name">{{'selectSizeLbl' | translate}}</label>
-							<select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" ng-model="editProgramMealCtrl.selectedItemSize">
+							<select ng-disabled="editProgramMealCtrl.isloading" style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" ng-model="editProgramMealCtrl.selectedItemSize">
 								<option ng-repeat="item in editProgramMealCtrl.itemSizes" ng-value="{{item}}">{{item.sizeNameDictionary[selectedLanguage]}}</option>
 							</select>
 						</div>
@@ -70,6 +70,8 @@
 							<button style="background-color: #e4e5e6;color: black!important;" ng-disabled="editProgramMealCtrl.selectedCategoryId <= 0 || editProgramMealCtrl.selectedItem == null || editProgramMealCtrl.selectedItemSize == null"
 							 class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editProgramMealCtrl.addItemToList(editProgramMealCtrl.selectedItemSize)">
 								{{'addItemBtn' | translate}}</button>
+								<img ng-show="editProgramMealCtrl.isloading" src="assets/img/loading.gif" style="height: 40px;">
+
 						</div>
 
 				<!-- <div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">

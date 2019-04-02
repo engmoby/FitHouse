@@ -39,19 +39,25 @@
 
 
         vm.changeCategory = function (selectedCategoryId) {
+            vm.isloading = true;
             CategoryResource.GetAllActiveItems({ categoryId: selectedCategoryId, pagesize: 0 }).$promise.then(function (results) {
                 vm.items = results.results;
+                vm.isloading = false;
             },
                 function (data, status) {
+                    vm.isloading = false;
                     ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 });
         }
 
         vm.changeItem = function (selectedItemId) {
+            vm.isloading = true;
             ItemResource.GetAllItemSizes({ itemId: selectedItemId }).$promise.then(function (results) {
                 vm.itemSizes = results;
+                vm.isloading = false;
             },
                 function (data, status) {
+                    vm.isloading = false;
                     ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 });
         }
@@ -79,6 +85,8 @@
             vm.selectedCategoryId = 0;
             vm.selectedItem = null;
             vm.selectedItemSize = null;
+            vm.items = [];
+            vm.itemSizes = [];
 
         }
         vm.UpdateProgram = function () {

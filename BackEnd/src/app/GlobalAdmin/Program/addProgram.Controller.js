@@ -81,19 +81,25 @@
         }
 
         vm.changeCategory = function (selectedCategoryId, meal) {
+            meal.isloading = true;
             CategoryResource.GetAllActiveItems({ categoryId: selectedCategoryId, pagesize: 0 }).$promise.then(function (results) {
                 meal.items = results.results;
+                meal.isloading = false;
             },
                 function (data, status) {
+                    meal.isloading = false;
                     ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 });
         }
 
         vm.changeItem = function (selectedItemId, meal) {
+            meal.isloading = true;
             ItemResource.GetAllItemSizes({ itemId: selectedItemId }).$promise.then(function (results) {
                 meal.itemSizes = results;
+                meal.isloading = false;
             },
                 function (data, status) {
+                    meal.isloading = false;
                     ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
                 });
         }
@@ -117,6 +123,8 @@
             meal.selectedCategoryId = 0;
             meal.selectedItem = null;
             meal.selectedItemSize = null;
+            meal.items = [];
+            meal.itemSizes = [];
             itemModel.dayNumber = day;
             itemModel.mealNumberPerDay = mealNumber;
             itemModel.itemType = type;

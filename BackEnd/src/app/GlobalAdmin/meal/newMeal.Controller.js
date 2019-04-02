@@ -19,19 +19,25 @@
 		vm.language = appCONSTANTS.supportedLanguage;
 		$scope.selectedItemList = [];
 		vm.changeCategory = function (selectedCategoryId) {
+			vm.isloading = true;
 			CategoryResource.GetAllActiveItems({ categoryId: selectedCategoryId,pagesize:0 }).$promise.then(function (results) {
 				vm.items = results.results;
+				vm.isloading = false;
 			},
 				function (data, status) {
+					vm.isloading = false;
 					ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
 				});
 		}
 
 		vm.changeItem = function (selectedItemId) {
+			vm.isloading = true;
 			ItemResource.GetAllItemSizes({ itemId: selectedItemId }).$promise.then(function (results) {
 				vm.itemSizes = results;
+				vm.isloading = false;
 			},
 				function (data, status) {
+					vm.isloading = false;
 					ToastService.show("right", "bottom", "fadeInUp", data.data.message, "error");
 				});
 		}
@@ -55,12 +61,15 @@
 			vm.selectedCategoryId = 0;
 			vm.selectedItem = null;
 			vm.selectedItemSize = null;
+			vm.items = [];
+			vm.itemSizes = [];
 			if ($scope.selectedItemList == null) {
 				vm.mealtotalDiscount = "";
 				vm.mealDiscount = "";
 				vm.carbs = "";
 				vm.calories = "";
 				vm.protein = "";
+				vm.fat = "";
 				vm.cost = "";
 				vm.vat = "";
 				vm.price = "";
@@ -69,6 +78,7 @@
 				vm.carbs = $scope.sum($scope.selectedItemList, 'carbs');
 				vm.calories = $scope.sum($scope.selectedItemList, 'calories');
 				vm.protein = $scope.sum($scope.selectedItemList, 'protein');
+				vm.fat = $scope.sum($scope.selectedItemList, 'fat');
 				vm.cost = $scope.sum($scope.selectedItemList, 'cost');
 				vm.price = $scope.sum($scope.selectedItemList, 'price');
 				vm.vat = $scope.sum($scope.selectedItemList, 'vat');
@@ -87,6 +97,7 @@
 				vm.carbs = "";
 				vm.calories = "";
 				vm.protein = "";
+				vm.fat = "";
 				vm.cost = "";
 				vm.vat = "";
 				vm.price = "";
@@ -95,11 +106,15 @@
 				vm.carbs = $scope.sum($scope.selectedItemList, 'carbs');
 				vm.calories = $scope.sum($scope.selectedItemList, 'calories');
 				vm.protein = $scope.sum($scope.selectedItemList, 'protein');
+				vm.fat = $scope.sum($scope.selectedItemList, 'fat');
 				vm.cost = $scope.sum($scope.selectedItemList, 'cost');
 				vm.price = $scope.sum($scope.selectedItemList, 'price');
 				vm.vat = $scope.sum($scope.selectedItemList, 'vat');
 				vm.totalPrice = $scope.sum($scope.selectedItemList, 'totalPrice');
 			}
+			calclulateWithDicscount();
+			var discountPresantage = vm.totalPrice * vm.mealDiscount / 100;
+			vm.mealtotalDiscount = vm.totalPrice - discountPresantage;
 		}
 		function calclulateWithDicscount() {
 			var vatPresantage = (vm.price * vm.vat) / 100;

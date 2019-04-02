@@ -49,7 +49,7 @@
 								</div>
 								<div
 									class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-									<label for="first-name">{{ lang.value+'DescriptionLbl' | translate}}</label>
+									<label for="first-name">{{ lang.value+'descLbl' | translate}}</label>
 									<textarea required class="form-control"
 										name="mealDescriptionDictionary{{lang.value+'Name'}}"
 										ng-model="editMealCtrl.meal.mealDescriptionDictionary[lang.key]"
@@ -79,14 +79,14 @@
 						</div>
 						<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 							<label for="first-name">{{'SelectItems' | translate}}</label>
-							<select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" ng-model="editMealCtrl.selectedItem"
+							<select ng-disabled="editMealCtrl.isloading" style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" ng-model="editMealCtrl.selectedItem"
 							 ng-change="editMealCtrl.changeItem(editMealCtrl.selectedItem.itemId)">
 								<option ng-repeat="item in editMealCtrl.items" ng-value="{{item}}">{{item.itemNameDictionary[selectedLanguage]}}</option>
 							</select>
 						</div>
 						<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 							<label for="first-name">{{'selectSizeLbl' | translate}}</label>
-							<select style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" ng-model="editMealCtrl.selectedItemSize">
+							<select ng-disabled="editMealCtrl.isloading" style="width:100% !important" class="form-control select-add-tags pmd-select2-tags" ng-model="editMealCtrl.selectedItemSize">
 								<option ng-repeat="item in editMealCtrl.itemSizes" ng-value="{{item}}">{{item.sizeNameDictionary[selectedLanguage]}}</option>
 							</select>
 						</div>
@@ -95,6 +95,7 @@
 							<button style="background-color: #e4e5e6;color: black!important;" ng-disabled="editMealCtrl.selectedCategoryId <= 0 || editMealCtrl.selectedItem == null || editMealCtrl.selectedItemSize == null"
 							 class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editMealCtrl.addItemToList(editMealCtrl.selectedItemSize)">
 								{{'addItemBtn' | translate}}</button>
+								<img ng-show="editMealCtrl.isloading" src="assets/img/loading.gif" style="height: 40px;">
 						</div>
 
 				<!-- <div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
@@ -118,6 +119,7 @@
 								<th>{{'carb' | translate}}</th>
 								<th>{{'calories' | translate}}</th>
 								<th>{{'protein' | translate}}</th>
+								<th>{{'fat' | translate}}</th>
 								<!-- <th>{{'costlbl' | translate}}</th> -->
 								<th>{{'Pricelbl' | translate}}</th>
 								<th>{{'vat' | translate}}</th>
@@ -133,6 +135,7 @@
 								<td data-title="Description">{{meal.carbs}}</td>
 								<td data-title="Description">{{meal.calories}}</td>
 								<td data-title="Description">{{meal.protein}}</td>
+								<td data-title="Description">{{meal.fat}}</td>
 								<!-- <td data-title="Description">{{meal.cost}}</td> -->
 								<td data-title="Description">{{meal.price}}</td>
 								<td data-title="Description">{{meal.vat}}</td>
@@ -161,7 +164,7 @@
 					class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 					<label for="first-name">{{'carbs' | translate}} </label>
 					<input type="number" readonly class="mat-input form-control" name="carbs"
-						ng-model="editMealCtrl.meal.carbs" min="1" ng-maxlength="12">
+						ng-model="editMealCtrl.meal.carbs"  ng-maxlength="12">
 					<div ng-messages="editMealForm.carbs.$error">
 						<div ng-if="editMealForm.carbs.$error.required && !editMealForm.carbs.$pristine">
 							{{'requiredErr' | translate}}</div>
@@ -173,7 +176,7 @@
 					class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 					<label for="first-name">{{'calories' | translate}} </label>
 					<input type="number" readonly class="mat-input form-control" name="calories"
-						ng-model="editMealCtrl.meal.calories" min="1" ng-maxlength="12">
+						ng-model="editMealCtrl.meal.calories"  ng-maxlength="12">
 					<div ng-messages="editMealForm.calories.$error">
 						<div ng-if="editMealForm.calories.$error.required && !editMealForm.calories.$pristine">{{'requiredErr' |
 							translate}}</div>
@@ -186,13 +189,18 @@
 					class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 					<label for="first-name">{{'protein' | translate}} </label>
 					<input type="number" readonly class="mat-input form-control" name="protein"
-						ng-model="editMealCtrl.meal.protein" min="1" ng-maxlength="12">
+						ng-model="editMealCtrl.meal.protein" ng-maxlength="12">
 					<div ng-messages="editMealForm.protein.$error">
 						<div ng-if="editMealForm.protein.$error.required && !editMealForm.protein.$pristine">{{'requiredErr' |
 							translate}}</div>
 						<div ng-if="editMealForm.protein.$error.maxlength">{{'proteinLengthError' | translate}}</div>
 					</div>
 				</div>
+				
+				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed"><label
+					for="first-name">{{'fat' | translate}} </label>
+				   <input type="number" readonly class="mat-input form-control" name="fat" ng-model="editMealCtrl.meal.fat">
+			   </div>
 
 			</div>
 			<div class="row">
@@ -225,7 +233,7 @@
 
 					<label for="first-name">{{'vat' | translate}} </label>
 					<input type="number" readonly ng-change="editMealCtrl.calclulate()" class="mat-input form-control"
-						name="vat" ng-model="editMealCtrl.meal.vat" min="1" ng-maxlength="12">
+						name="vat" ng-model="editMealCtrl.meal.vat"  ng-maxlength="12">
 					<div ng-messages="editMealForm.vat.$error">
 						<div ng-if="editMealForm.vat.$error.required && !editMealForm.vat.$pristine">
 							{{'requiredErr' | translate}}</div>

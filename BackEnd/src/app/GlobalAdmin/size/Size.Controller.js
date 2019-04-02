@@ -60,6 +60,7 @@
 		function confirmationDelete(model){
 			SizeResource.deleteSize({sizeId:model.sizeId}).$promise.then(function(results) {
 				ToastService.show("right","bottom","fadeInUp",$translate.instant('SizeDeleteSuccess'),"success");
+				vm.currentPage = 1;
 				refreshSizes();
 			},
             function(data, status) {

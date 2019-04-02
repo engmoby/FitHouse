@@ -5,7 +5,7 @@
             class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
             <label for="first-name">{{'ProgramDaysCount' | translate}}</label>
             <input ng-change="addProgramCtrl.ConvertToNumber();" required type="number" class="mat-input form-control"
-                name="programDaysCount" ng-model="addProgramCtrl.ProgramDaysCount" minlength="0" maxlength="2">
+                name="programDaysCount" ng-model="addProgramCtrl.ProgramDaysCount" min="1" minlength="0" maxlength="2">
 
             <div ng-messages="stepTwoProgramForm.programDaysCount.$error">
                 <div
@@ -22,7 +22,7 @@
             class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
             <label for="first-name">{{'MealPerDay' | translate}}</label>
             <input ng-change="addProgramCtrl.ConvertToNumber();" required type="number" class="mat-input form-control"
-                name="mealPerDay" ng-model="addProgramCtrl.MealPerDay" minlength="0" maxlength="2">
+                name="mealPerDay" ng-model="addProgramCtrl.MealPerDay" min="1" minlength="0" maxlength="2">
             <div ng-messages="stepTwoProgramForm.mealPerDay.$error" class="error">
                 <div ng-if="stepTwoProgramForm.mealPerDay.$error.required && !stepTwoProgramForm.mealPerDay.$pristine">
                     {{'requiredErr' | translate}}</div>
@@ -258,19 +258,15 @@
                                                 <div
                                                     class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                                                     <label for="first-name">{{'SelectItems' | translate}}</label>
-                                                    <select style="width:100% !important"
-                                                        class="form-control select-add-tags pmd-select2-tags"
-                                                        ng-model="meal.selectedItem"
-                                                        ng-change="addProgramCtrl.changeItem(meal.selectedItem.itemId,meal)">
-                                                        <option ng-repeat="item in meal.items" ng-value="{{item}}">
-                                                            {{item.itemNameDictionary[selectedLanguage]}}</option>
+                                                    <select ng-disabled="meal.isloading" style="width:100% !important" class="form-control select-add-tags pmd-select2-tags"
+                                                        ng-model="meal.selectedItem" ng-change="addProgramCtrl.changeItem(meal.selectedItem.itemId,meal)">
+                                                        <option ng-repeat="item in meal.items" ng-value="{{item}}">{{item.itemNameDictionary[selectedLanguage]}}</option>
                                                     </select>
                                                 </div>
                                                 <div
                                                     class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                                                     <label for="first-name">{{'selectSizeLbl' | translate}}</label>
-                                                    <select style="width:100% !important"
-                                                        class="form-control select-add-tags pmd-select2-tags"
+                                                    <select ng-disabled="meal.isloading" style="width:100% !important" class="form-control select-add-tags pmd-select2-tags"
                                                         ng-model="meal.selectedItemSize">
                                                         <option ng-repeat="item in meal.itemSizes" ng-value="{{item}}">
                                                             {{item.sizeNameDictionary[selectedLanguage]}}</option>
@@ -284,6 +280,8 @@
                                                         class="btn pmd-ripple-effect btn-primary" type="button"
                                                         ng-click="getData(meal.selectedItemSize,counterDay,counterMeal,meal,'Normal')">
                                                         {{'addItemBtn' | translate}}</button>
+                                                        <img ng-show="meal.isloading" src="assets/img/loading.gif" style="height: 40px;">
+
                                                 </div>
                                             </div>
 
