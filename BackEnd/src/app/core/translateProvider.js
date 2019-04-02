@@ -372,10 +372,15 @@
         "SelectCategory":"Select category",
         "SizeName":"size",
         "addItemBtn": "Add item",
+        "Weight":"Weight",
+        "Length":"Length",
       }
 
       var ar_translations = {
-        "CheckPromotion": "تحقق الترويج",
+       
+        "Weight":"الوزن",
+        "Length":"الطول",
+         "CheckPromotion": "تحقق الترويج",
         "PriceShouldbeMoreThanCost": "يجب أن يكون السعر أكثر من التكلفة",
 
         "PromotionLbl": "ترويج",

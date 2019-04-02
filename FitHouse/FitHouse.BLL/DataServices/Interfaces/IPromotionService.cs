@@ -12,5 +12,7 @@ namespace FitHouse.BLL.DataServices.Interfaces
     public interface IPromotionService : IService<Promotion>
     {
         PagedResultsDto GetAllPromotiones(int page, int pageSize);
+        bool CheckNameExist(string objName, long recordId);
+
     }
 }

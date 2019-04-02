@@ -19,7 +19,8 @@
                         <label for="regular1" class="control-label">{{'startDateLbl' | translate}}</label>
                         <div class="form-group pmd-textfield pmd-textfield-floating-label">
                             <input type="text" ng-model="editOrderCtrl.Order.orderStartDate"
-                                ng-change="editOrderCtrl.changeDate" id="startdate" class="form-control" />
+                                ng-readonly="editOrderCtrl.Order.orderStatus==2" ng-change="editOrderCtrl.changeDate" id="startdate"
+                                class="form-control" />
                         </div>
 
                     </div>
@@ -138,7 +139,7 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody>
-                                                        
+
                                                         <tr ng-repeat="meal in request.meal.mealDetails">
                                                             <td data-title="Name" width="15%">{{meal.itemSize.itemNameDictionary[selectedLanguage]
                                                                 | limitTo:10}}</td>
@@ -148,7 +149,8 @@
                                                             <td data-title="Description">{{meal.itemSize.cost}}</td>
                                                             <td data-title="Description">{{meal.itemSize.price}}</td>
                                                             <td data-title="Description">{{meal.itemSize.vat}}</td>
-                                                            <td data-title="totalPrice">{{meal.itemSize.totalPrice}}</td>
+                                                            <td data-title="totalPrice">{{meal.itemSize.totalPrice}}
+                                                            </td>
 
                                                         </tr>
                                                     </tbody>

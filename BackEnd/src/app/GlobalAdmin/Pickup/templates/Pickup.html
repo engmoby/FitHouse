@@ -41,11 +41,13 @@
                         <h4>{{ pickup.price}}</h4>
                     </td>
                     <td>
-                        <div class="btn-switch" ng-class="{'btn-switch--on':pickup.isPaid}" ng-model="pickup.isPaid"
-                            ng-click="UpdatePickup(pickup)">
+                        <div ng-hide="pickup.orderStatus==2">
+                            <div class="btn-switch" ng-class="{'btn-switch--on':pickup.isPaid}" ng-model="pickup.isPaid"
+                                ng-click="UpdatePickup(pickup)">
 
-                            <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':pickup.isPaid}"
-                                ng-model="pickup.isPaid" ng-click="UpdatePickup(pickup)">
+                                <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':pickup.isPaid}"
+                                    ng-model="pickup.isPaid" ng-click="UpdatePickup(pickup)">
+                                </div>
                             </div>
                     </td>
                     <td data-title="Name">

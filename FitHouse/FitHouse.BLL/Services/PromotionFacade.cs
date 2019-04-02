@@ -27,7 +27,7 @@ namespace FitHouse.BLL.Services
 
         public PagedResultsDto GetAllPromotions(int page, int pageSize)
         {
-            return  _promotionService.GetAllPromotiones(page, pageSize);
+            return _promotionService.GetAllPromotiones(page, pageSize);
 
         }
 
@@ -37,6 +37,7 @@ namespace FitHouse.BLL.Services
             {
                 return EditPromotion(promotionDto);
             }
+            ValidatePromotion(promotionDto);
             var promotion = Mapper.Map<Promotion>(promotionDto);
             promotion.Title = promotionDto.Title.Trim();
             promotion.Value = promotionDto.Value;
@@ -54,6 +55,8 @@ namespace FitHouse.BLL.Services
         {
             var promotion = _promotionService.Query(x => x.PromotionId == promotionDto.PromotionId).Select().FirstOrDefault();
             if (promotion == null) throw new NotFoundException(ErrorCodes.ProductNotFound);
+            ValidatePromotion(promotionDto);
+
             promotion.Title = promotionDto.Title.Trim();
             promotion.Value = promotionDto.Value;
             promotion.StartDate = promotionDto.StartDate;
@@ -77,14 +80,14 @@ namespace FitHouse.BLL.Services
         public PromotionDto CheckPromotion(string promotionTitle, Enums.OrderType type)
         {
             var promotionObj = _promotionService.Query(x => x.Title == promotionTitle.Trim()).Select().FirstOrDefault();
-            if (promotionObj== null)
+            if (promotionObj == null)
                 throw new NotFoundException(ErrorCodes.PromoCodeNotExist);
             if (promotionObj.StartDate > TstTime)
                 throw new NotFoundException(ErrorCodes.PromoCodeNotStart);
             if (promotionObj.EndDate < TstTime)
                 throw new NotFoundException(ErrorCodes.PromoCodeFinished);
 
-            if (type == Enums.OrderType.CustomProgram) 
+            if (type == Enums.OrderType.CustomProgram)
                 if (!promotionObj.IsCustomProgram) throw new NotFoundException(ErrorCodes.PromoCodeNotAllowed);
 
             if (type == Enums.OrderType.Program)
@@ -97,6 +100,12 @@ namespace FitHouse.BLL.Services
 
             var returnPromotion = Mapper.Map<PromotionDto>(promotionObj);
             return returnPromotion;
+        }
+        private void ValidatePromotion(PromotionDto promotionDto)
+        {
+            if (_promotionService.CheckNameExist(promotionDto.Title, promotionDto.PromotionId))
+                throw new ValidationException(ErrorCodes.NameIsExist);
+
         }
     }
 }
