@@ -18,6 +18,7 @@
 		vm.itemList = [];
 		vm.counties = [];
 		vm.validate = false;
+		vm.selectedBranchId = 0;
 		vm.ProgramTotalPrice = 0;
 		vm.ProgramDiscount = JSON.parse(localStorage.getItem("ProgramDiscount"));
 		vm.daysCount = JSON.parse(localStorage.getItem("programDaysCount"));
@@ -33,15 +34,43 @@
 		vm.DeliveryFees = 0;
 		vm.RepeatList = [];
 		vm.daylistCount = []
+
 		for (var j = 0; j < vm.daysCount; j++) {
-			var m = []
+			var mealList = []
+			var dat = vm.startDate;
 			for (var k = 0; k < vm.mealsCount; k++) {
-				m.push({ selectedItemList: [] })
+				mealList.push({ selectedItemList: [] })
+			}
+			var newdate = new Date(dat);
+			newdate.setDate(newdate.getDate() + j);
+			dat = newdate;
+			var dd = dat.getDay();
+			if (j != 0) {
+				for (var l = 0; vm.SelectedDays.length -1; l++) {
+					debugger;
+					var dd = vm.SelectedDays[l].dayId;
+					if (dat.getDay() === vm.SelectedDays[l].dayId)
+						newdate.setDate(newdate.getDate() + j + 1);
+					if (dat.getDay() === vm.SelectedDays[l].dayId)
+						newdate.setDate(newdate.getDate() + j + 1);
+					if (dat.getDay() === vm.SelectedDays[l].dayId)
+						newdate.setDate(newdate.getDate() + j + 1);
+					if (dat.getDay() === vm.SelectedDays[l].dayId)
+						newdate.setDate(newdate.getDate() + j + 1);
+					if (dat.getDay() === vm.SelectedDays[l].dayId)
+						newdate.setDate(newdate.getDate() + j + 1);
+					if (dat.getDay() === vm.SelectedDays[l].dayId)
+						newdate.setDate(newdate.getDate() + j + 1);
+					if (dat.getDay() === vm.SelectedDays[l].dayId)
+						newdate.setDate(newdate.getDate() + j + 1);
+				}
 			}
 			vm.daylistCount.push({
-				meals: m
+				meals: mealList,
+				date: dat
 			})
 		}
+		console.log(vm.daylistCount);
 		vm.itemList = [];
 		vm.today = new Date(vm.startDate);
 		for (var i = 1; i < vm.daysCount; i++) {
@@ -54,7 +83,7 @@
 		vm.Repeat = function () {
 			//vm.RepeatList = [];
 			debugger;
-			console.log(vm.daylistCount[0].meals[0].selectedItemList);
+			//console.log(vm.daylistCount[0].meals[0].selectedItemList);
 			var dd = vm.daylistCount;
 
 			var firstDay = $filter('filter')(vm.itemList, x => (x.dayNumber == 1));
@@ -66,16 +95,21 @@
 
 			for (var i = 1; i < vm.daysCount; i++) {
 				for (var l = 0; l < firstDay.length; l++) {
-				//	firstDay[l].dayNumber = i + 1;
+					//	firstDay[l].dayNumber = i + 1;
 					// vm.RepeatList.push(firstDay[l]);
 					vm.daylistCount[i].meals.forEach(element => {
-						 // element.selectedItemList=[];
+						debugger;
+						var ss = element;
+						firstDay[l].dayNumber = i + 1;
+						// element.selectedItemList=[];
 						element.selectedItemList.push(firstDay[l])
+						vm.itemList.push(firstDay[l]);
 					});
 				}
 			}
-			var fff= vm.daylistCount;
-			vm.itemList = vm.RepeatList;
+			var fff = vm.daylistCount;
+			//vm.itemList = vm.RepeatList;
+			//console.log(vm.itemList);
 			//$scope.itemModel = vm.RepeatList;
 		}
 

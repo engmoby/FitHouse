@@ -34,8 +34,7 @@
                                         <h4 class="panel-title">
 
                                             {{'Day' | translate}} : {{counterDay=$index+1}}
-                                            <!-- {{CustomCtrl.today | date:'EEE'}}
-                                            <input type="text" name="value{{counterDay}}" ng-model="CustomCtrl.today"> -->
+                                            ({{CustomCtrl.daylistCount[$index].date | date:'yyyy-MM-dd'}})
 
                                             <i
                                                 class="material-icons md-dark pmd-sm pmd-accordion-arrow">keyboard_arrow_down</i>
@@ -212,8 +211,7 @@
                                     role="tabpanel" aria-labelledby="headingOne">
                                     <div class="panel-body">
                                         <ul>
-                                            <li
-                                                ng-repeat="meal in dayObj.meals">
+                                            <li ng-repeat="meal in dayObj.meals">
                                                 <!--EVENT-->
                                                 <div class="row events">
                                                     <!-- <div class="col-md-2"> <img src="/assets/img/meal.jpeg" alt="" />
@@ -223,7 +221,7 @@
                                                         <a ng-init="counterMeal=counterMeal+1;">{{'Meal' | translate}}
                                                             : {{counterMeal=$index+1}}
                                                         </a>
-                                                         
+
                                                     </h3>
 
                                                     <!-- </div> -->
@@ -368,14 +366,6 @@
                     <h4>{{'addressLbl' | translate}}</h4>
                     <div class="col-md-12">
                         <div class="head-typo typo-com collap-expand book-form inn-com-form">
-                            <!-- Switch -->
-                            <!-- <div class="switch">
-                                <label> {{'Delivery' | translate}}
-                                    <input type="checkbox" ng-model="CustomCtrl.orderType.type"
-                                        ng-click="CustomCtrl.changeOrderType()">
-                                    <span class="lever"></span>
-                                    {{'PickUp' | translate}} </label>
-                            </div> -->
                             <div class="col-md-12">
                                 <h5>{{'OrderType' | translate}}</h5>
                                 <p>
@@ -507,7 +497,6 @@
 
                 </div>
                 <div class="row">
-                    <!-- {{ CustomCtrl.RepeatList}} -->
                     <div class="col-md-10"></div>
                     <div class="col-md-4">
                         {{'price' | translate}}:{{ CustomCtrl.ProgramTotalPrice| number:2}} SR

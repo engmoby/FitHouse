@@ -242,7 +242,7 @@
         "ProgramPrice": "Program Price",
         "ProgramCost": "Program Cost",
         "ProgramVAT": "Program VAT",
-        "ProgramDiscount": "Program Discount",
+        "ProgramDiscount": "Discount",
         "englishProgramName": "Program Name",
         "englishProgramDescription": "Program Description",
         "ProgramDaysCount": "Program Total Days",
@@ -340,29 +340,31 @@
 
         "ProgramDaysMinValue": "Minimum Program Days Value is : ",
         "maxlength": "Length Error",
-        "wrongpattern": "wrong pattern", 
+        "wrongpattern": "wrong pattern",
 
-        "MakeitPrepering": "Make it Prepering", 
+        "MakeitPrepering": "Make it Prepering",
         "NoPickupsAvailable": "No Pickups Available",
         "PromotionLbl": "Promotion",
         "NewPromotionLbl": "New Promotion",
         "UpdatePromotionLbl": "Update Promotion",
         "NoPromotionAvailable": "No Promotion Available",
         "CheckPromotion": "Check Promotion",
- }
+        "PriceShouldbeMoreThanCost": "Price Should be More Than Cost",
+      }
 
       var ar_translations = {
         "CheckPromotion": "تحقق الترويج",
- 
+        "PriceShouldbeMoreThanCost": "يجب أن يكون السعر أكثر من التكلفة",
+
         "PromotionLbl": "ترويج",
         "NewPromotionLbl": " ترويج جديد",
         "UpdatePromotionLbl": "تحديث ترويج",
         "NoPromotionAvailable": "لا يوجد ترويج متاح",
-        
+
         "NoPickupsAvailable": "لا التقاط المتاحة",
-        "MakeitPrepering": "اجعلها تحضير", 
-        "wrongpattern": "نمط خاطئ", 
-        "maxlength": "خطأ في عدد الارقام", 
+        "MakeitPrepering": "اجعلها تحضير",
+        "wrongpattern": "نمط خاطئ",
+        "maxlength": "خطأ في عدد الارقام",
         "ProgramDaysMinValue": "الحد الأدنى من قيمة أيام البرنامج هو: ",
 
         "Reports": "التقارير",
@@ -475,7 +477,7 @@
         "ProgramPrice": "سعر البرنامج",
         "ProgramCost": "تكلفة البرنامج",
         "ProgramVAT": "ضريبة البرنامج",
-        "ProgramDiscount": "خصم للبرنامج",
+        "ProgramDiscount": "خصم ",
         "ProgramTotalPrice": "اجمالي السعر",
         "englishProgramName": "اسم البرنامج",
         "englishProgramDescription": "شرح البرنامج",

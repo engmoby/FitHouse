@@ -32,7 +32,7 @@
         vm.maxPause;
         vm.allowPause;
         vm.allowHistory;
-        vm.programDiscount;
+        vm.programDiscount=$scope.settingsPrepService.programDiscount;
 
         if ($scope.settingsPrepService.isActive != undefined) {
             if ($scope.settingsPrepService.isSMS && $scope.settingsPrepService.isMail) {
