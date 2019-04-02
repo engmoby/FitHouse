@@ -2,10 +2,10 @@
     <div ng-if="OrderList.results.length == 0">
         <span>{{'NoOrdersAvailable' | translate}}</span>
     </div>
-   
+
     <button class="btn pmd-ripple-effect btn-default" style="background-color: #e4e5e6;color: black!important;"
-     type="button" ng-click="changePage(1)">{{'refresh' |translate}}</button>
-         <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="OrderList.results.length > 0">
+        type="button" ng-click="changePage(1)">{{'refresh' |translate}}</button>
+    <div class="pmd-card pmd-z-depth pmd-card-custom-view" ng-if="OrderList.results.length > 0">
         <div class="table-responsive"></div>
         <table class="table pmd-table table-hover">
             <thead>
@@ -24,7 +24,7 @@
             <tbody>
                 <tr ng-repeat="order in OrderList.results">
                     <td data-title="Name">{{order.user.firstName}}{{order.user.lastName}}</td>
-                    <td data-title="Name">#{{order.orderCode}} </td>
+                    <td data-title="Name">#{{order.orderCode}}  </td>
 
                     <td data-title="Name">{{order.orderDate | date : "d/MMM/yy h:mm a" }} </td>
                     <td data-title="Name">{{order.orderStartDate | date : "d/MMM/yy h:mm a"}} </td>
@@ -32,17 +32,21 @@
 
                         <h4>{{ order.price}}</h4>
                     </td>
+                    <!-- <td ng-hide="order.orderStatus==2"> -->
                     <td>
-                        <div class="btn-switch" ng-class="{'btn-switch--on':order.isPaid}" ng-model="order.isPaid"
-                            ng-click="UpdateOrder(order)">
-
-                            <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':order.isPaid}" ng-model="order.isPaid"
+                        <div ng-hide="order.orderStatus==2">
+                            <div class="btn-switch" ng-class="{'btn-switch--on':order.isPaid}" ng-model="order.isPaid"
                                 ng-click="UpdateOrder(order)">
+
+                                <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':order.isPaid}"
+                                    ng-model="order.isPaid" ng-click="UpdateOrder(order)">
+                                </div>
                             </div>
                     </td>
                     <td data-title="Name">
                         <img ng-if="order.isDelivery == true" src="assets\img\delivery.png" title="delivery">
-                        <img ng-if="order.isDelivery == false" src="assets\img\takeaway.png" title="take away" style="width: 44px;height: 39px;">
+                        <img ng-if="order.isDelivery == false" src="assets\img\takeaway.png" title="take away"
+                            style="width: 44px;height: 39px;">
                     </td>
 
                     <td data-title="Name">
@@ -59,7 +63,8 @@
             </tbody>
         </table>
     </div>
-    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount" paging-action="changePage(page)"
-        flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">
+    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"
+        paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true"
+        disabled-class="hide">
     </div>
 </div>

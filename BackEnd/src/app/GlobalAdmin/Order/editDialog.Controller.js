@@ -55,6 +55,12 @@
             var updateObj = new OrdersResource();
             //  updateObj.OrderStartDate = $('#startdate').val();
             debugger;
+
+            if (!vm.Order.isPaid) {
+                ToastService.show("right", "bottom", "fadeInUp", $translate.instant('Must Make it Paid first'), "error");
+                blockUI.stop();
+                return;
+            }
             if ($scope.orderStatus) {
                 updateObj.orderStatus = "Prepering";
             }

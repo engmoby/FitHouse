@@ -354,7 +354,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                        <h4 class="panel-title">\n' +
     '\n' +
     '                                            {{\'Day\' | translate}} : {{counterDay=$index+1}}\n' +
-    '                                            ({{CustomCtrl.daylistCount[$index].date | date:\'yyyy-MM-dd\'}})\n' +
+    '                                            ({{CustomCtrl.daylistCount[$index].date | date:\'EEEE  yyyy-MM-dd\'}})\n' +
     '\n' +
     '                                            <i\n' +
     '                                                class="material-icons md-dark pmd-sm pmd-accordion-arrow">keyboard_arrow_down</i>\n' +

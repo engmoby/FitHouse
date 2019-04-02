@@ -789,29 +789,31 @@
 				mealList.push({ selectedItemList: [] })
 			}
 			var newdate = new Date(dat);
-			newdate.setDate(newdate.getDate() + j);
+			 newdate.setDate(newdate.getDate() + 1);
 			dat = newdate;
-			var dd = dat.getDay();
 			if (j != 0) {
-				for (var l = 0; vm.SelectedDays.length -1; l++) {
+				for (var l = 0; l < vm.SelectedDays.length; l++) {
 					debugger;
 					var dd = vm.SelectedDays[l].dayId;
-					if (dat.getDay() === vm.SelectedDays[l].dayId)
-						newdate.setDate(newdate.getDate() + j + 1);
-					if (dat.getDay() === vm.SelectedDays[l].dayId)
-						newdate.setDate(newdate.getDate() + j + 1);
-					if (dat.getDay() === vm.SelectedDays[l].dayId)
-						newdate.setDate(newdate.getDate() + j + 1);
-					if (dat.getDay() === vm.SelectedDays[l].dayId)
-						newdate.setDate(newdate.getDate() + j + 1);
-					if (dat.getDay() === vm.SelectedDays[l].dayId)
-						newdate.setDate(newdate.getDate() + j + 1);
-					if (dat.getDay() === vm.SelectedDays[l].dayId)
-						newdate.setDate(newdate.getDate() + j + 1);
-					if (dat.getDay() === vm.SelectedDays[l].dayId)
-						newdate.setDate(newdate.getDate() + j + 1);
+					var daaaa = dat.getDay();
+					if (dd == 1 )
+						newdate.setDate(newdate.getDate() + j);
+					if (dd == 2)
+						newdate.setDate(newdate.getDate() + j);
+					if (dd == 3)
+						newdate.setDate(newdate.getDate() + j);
+					if (dd == 4)
+						newdate.setDate(newdate.getDate() + j);
+					if (dd == 5)
+						newdate.setDate(newdate.getDate() + j);
+					if (dd == 6)
+						newdate.setDate(newdate.getDate() + j);
+					if (dd == 7)
+						newdate.setDate(newdate.getDate() + j);
 				}
 			}
+			dat = newdate;
+
 			vm.daylistCount.push({
 				meals: mealList,
 				date: dat
