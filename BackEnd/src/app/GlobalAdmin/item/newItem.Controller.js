@@ -4,10 +4,10 @@
 	angular
 		.module('home')
 		.controller('newItemController', ['$scope', 'blockUI','$translate', '$http', '$stateParams', 'appCONSTANTS',
-		 '$state', 'ToastService', 'TranslateItemResource', 'defaultItemsPrepService','allSizesPrepService', newItemController])
+		 '$state', 'ToastService', 'TranslateItemResource','allSizesPrepService', newItemController])
 
 	function newItemController($scope,blockUI, $translate, $http, $stateParams, appCONSTANTS, 
-		$state, ToastService, TranslateItemResource, defaultItemsPrepService,allSizesPrepService) {
+		$state, ToastService, TranslateItemResource,allSizesPrepService) {
 		var vm = this;
 		// vm.disable = true;
 		vm.language = appCONSTANTS.supportedLanguage;

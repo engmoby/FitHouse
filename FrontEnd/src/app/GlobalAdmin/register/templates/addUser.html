@@ -184,8 +184,8 @@
                         <div ng-messages="newclientForm.addressDescription.$error">
                             <div
                                 ng-if="newclientForm.addressDescription.$error.required && !newclientForm.addressDescription.$pristine">
-                                {{'Address' | translate}}
-                                {{'ReqError' | translate}}
+                                <!-- {{'Address' | translate}} -->
+                                {{'requiredErr' | translate}}
                             </div>
                             <div
                                 ng-if="(newclientForm.addressDescription.$error.minlength || newclientForm.addressDescription.$error.maxlength)">

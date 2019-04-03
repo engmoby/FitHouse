@@ -556,7 +556,7 @@
                         displayName: 'Items'
                     },
                     resolve: {
-                        defaultItemsPrepService: defaultItemsPrepService,
+                        
                         allSizesPrepService:allSizesPrepService
                     }
                 })
