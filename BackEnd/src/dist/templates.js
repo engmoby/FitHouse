@@ -3075,6 +3075,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                <tr>\n' +
     '                    <th>{{\'ProgramName\' | translate}}</th>\n' +
     '                    <th>{{\'ProgramDescription\' | translate}}</th>\n' +
+    '                    <th>{{\'price\' | translate}}</th>\n' +
     '                    <th>{{\'Status\' | translate}}</th>\n' +
     '                    <th></th>\n' +
     '                </tr>\n' +
@@ -3083,26 +3084,31 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                <tr ng-repeat="program in programList.results">\n' +
     '                    <td data-title="Name">{{program.programNameDictionary[selectedLanguage]}}</td>\n' +
     '                    <td data-title="Name">{{program.programDescriptionDictionary[selectedLanguage]}}</td>\n' +
+    '                    <td data-title="Name">{{program.price}}</td>\n' +
     '                    <td>\n' +
-    '                        <div class="btn-switch" ng-class="{\'btn-switch--on\':program.isActive}" ng-model="program.isActive"\n' +
-    '                            ng-click="programCtrl.UpdateProgram(program)">\n' +
+    '                        <div class="btn-switch" ng-class="{\'btn-switch--on\':program.isActive}"\n' +
+    '                            ng-model="program.isActive" ng-click="programCtrl.UpdateProgram(program)">\n' +
     '\n' +
     '                            <div class="btn-switch-circle" ng-class="{\'btn-switch-circle--on\':program.isActive}"\n' +
     '                                ng-model="program.isActive" ng-click="programCtrl.UpdateProgram(program)">\n' +
     '                            </div>\n' +
     '                    </td>\n' +
     '                    <td width="30%" ng-show="!program.isStatic">\n' +
-    '                        <a ng-click="$state.go(\'programDetails\', {programId: program.programId});" class="cursorPointer">{{\'ProgramDetails\'\n' +
+    '                        <a ng-click="$state.go(\'programDetails\', {programId: program.programId});"\n' +
+    '                            class="cursorPointer">{{\'ProgramDetails\'\n' +
     '                            | translate}}</a>\n' +
-    '                        <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go(\'editProgram\', {programId: program.programId});">mode_edit</i>\n' +
-    '                        <i class="material-icons pmd-md deleteButton cursorPointer font25" ng-click="programCtrl.openDeleteDialog(program,program.titleDictionary[selectedLanguage],program.programId)">delete</i>\n' +
+    '                        <i class="material-icons md-dark pmd-md cursorPointer font25"\n' +
+    '                            ng-click="$state.go(\'editProgram\', {programId: program.programId});">mode_edit</i>\n' +
+    '                        <i class="material-icons pmd-md deleteButton cursorPointer font25"\n' +
+    '                            ng-click="programCtrl.openDeleteDialog(program,program.titleDictionary[selectedLanguage],program.programId)">delete</i>\n' +
     '                    </td>\n' +
     '                </tr>\n' +
     '            </tbody>\n' +
     '        </table>\n' +
     '    </div>\n' +
-    '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount" paging-action="changePage(page)"\n' +
-    '        flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">\n' +
+    '    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"\n' +
+    '        paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true"\n' +
+    '        disabled-class="hide">\n' +
     '    </div>\n' +
     '</div>');
 }]);
@@ -6090,8 +6096,8 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '        <form class="form-horizontal" name="updateclientForm" autocomplete="off">\n' +
     '            <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">\n' +
     '                <label for="first-name">{{\'FirstNameLbl\' | translate}}</label>\n' +
-    '                <input required type="text" class="mat-input form-control" name="firstName" ng-model="clientObj.firstName"\n' +
-    '                    minlength="3" maxlength="255">\n' +
+    '                <input required type="text" class="mat-input form-control" name="firstName"\n' +
+    '                    ng-model="clientObj.firstName" minlength="3" maxlength="255">\n' +
     '                <div ng-messages="updateclientForm.firstName.$error">\n' +
     '                    <div ng-if="updateclientForm.firstName.$error.required && !updateclientForm.firstName.$pristine">{{\'FirstNameLengthError\'\n' +
     '                | translate}}</div>\n' +
@@ -6155,29 +6161,6 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                </div>\n' +
     '            </div>\n' +
     '            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                <label for="first-name">{{\'Length\' | translate}}</label>\n' +
-    '                <input type="number" class="mat-input form-control" name="length" ng-model="clientObj.length" positive\n' +
-    '                    ng-pattern="/^[0-9]{1,3}$/" ng-minlength="1" ng-maxlength="3">\n' +
-    '                <div ng-messages="updateclientForm.length.$error" class="error">\n' +
-    '                    <div ng-if="(updateclientForm.length.$error.minlength || updateclientForm.length.$error.maxlength)">\n' +
-    '                        {{\'maxlength\' | translate}}</div>\n' +
-    '                    <div ng-if="updateclientForm.length.$error.pattern && !updateclientForm.length.$pristine">\n' +
-    '                        {{\'wrongpattern\' | translate}}</div>\n' +
-    '                </div>\n' +
-    '            </div>\n' +
-    '        \n' +
-    '            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
-    '                <label for="first-name">{{\'Weight\' | translate}}</label>\n' +
-    '                <input type="number" class="mat-input form-control" name="weight" ng-model="clientObj.weight" positive\n' +
-    '                    ng-pattern="/^[0-9]{1,3}$/" ng-minweight="1" ng-maxlength="3">\n' +
-    '                <div ng-messages="updateclientForm.weight.$error" class="error">\n' +
-    '                    <div ng-if="(updateclientForm.weight.$error.minweight || updateclientForm.weight.$error.maxlength)">\n' +
-    '                        {{\'maxlength\' | translate}}</div>\n' +
-    '                    <div ng-if="updateclientForm.weight.$error.pattern && !updateclientForm.weight.$pristine">\n' +
-    '                        {{\'wrongpattern\' | translate}}</div>\n' +
-    '                </div>\n' +
-    '            </div>\n' +
-    '            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
     '                <label for="first-name">{{\'ConfirmPasswordLbl\' | translate}}</label>\n' +
     '                <input required type="password" class="mat-input form-control" name="confirmPassword"\n' +
     '                    ng-model="clientObj.confirmPassword" equalto="updateclientForm.password">\n' +
@@ -6190,7 +6173,30 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                | translate}}</div>\n' +
     '                </div>\n' +
     '            </div>\n' +
-    '          \n' +
+    '            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                <label for="first-name">{{\'Length\' | translate}}</label>\n' +
+    '                <input type="number" class="mat-input form-control" name="length" ng-model="clientObj.length" positive\n' +
+    '                    ng-pattern="/^[0-9]{1,3}$/" ng-minlength="1" ng-maxlength="3">\n' +
+    '                <div ng-messages="updateclientForm.length.$error" class="error">\n' +
+    '                    <div ng-if="(updateclientForm.length.$error.minlength || updateclientForm.length.$error.maxlength)">\n' +
+    '                        {{\'maxlength\' | translate}}</div>\n' +
+    '                    <div ng-if="updateclientForm.length.$error.pattern && !updateclientForm.length.$pristine">\n' +
+    '                        {{\'wrongpattern\' | translate}}</div>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '\n' +
+    '            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
+    '                <label for="first-name">{{\'Weight\' | translate}}</label>\n' +
+    '                <input type="number" class="mat-input form-control" name="weight" ng-model="clientObj.weight" positive\n' +
+    '                    ng-pattern="/^[0-9]{1,3}$/" ng-minweight="1" ng-maxlength="3">\n' +
+    '                <div ng-messages="updateclientForm.weight.$error" class="error">\n' +
+    '                    <div ng-if="(updateclientForm.weight.$error.minweight || updateclientForm.weight.$error.maxlength)">\n' +
+    '                        {{\'maxlength\' | translate}}</div>\n' +
+    '                    <div ng-if="updateclientForm.weight.$error.pattern && !updateclientForm.weight.$pristine">\n' +
+    '                        {{\'wrongpattern\' | translate}}</div>\n' +
+    '                </div>\n' +
+    '            </div>\n' +
+    '\n' +
     '            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
     '                <label for="first-name">{{\'Country\' | translate}}</label>\n' +
     '                <select required style="width:100% !important" class="select-tags form-control pmd-select2-tags"\n' +
@@ -6232,7 +6238,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                    class="form-control select-with-search pmd-select2-tags" ng-change="editClientCtrl.branchChange()"\n' +
     '                    ng-model="editClientCtrl.selectedBranchId"\n' +
     '                    ng-options="a.branchId as a.titleDictionary[selectedLanguage] for a in editClientCtrl.branchList"></select>\n' +
-    '            </div> \n' +
+    '            </div>\n' +
     '        </form>\n' +
     '    </div>\n' +
     '\n' +
@@ -8587,17 +8593,6 @@ angular.module('home').run(['$templateCache', function($templateCache) {
 }]);
 
 angular.module('home').run(['$templateCache', function($templateCache) {
-  $templateCache.put('./app/core/Delete/templates/ConfirmDeleteDialog.html',
-    '<div class="modal-content">\n' +
-    '	<div class="modal-body">{{\'deleteConfirmationLbl\' | translate}}<strong>{{deleteDlCtrl.itemName}}</strong> {{deleteDlCtrl.message}}? </div>\n' +
-    '	<div class="pmd-modal-action text-right">\n' +
-    '		<button class="btn pmd-ripple-effect btn-primary pmd-btn-flat" type="button" ng-click="deleteDlCtrl.Confirm()">{{\'deleteBtn\' | translate}}</button>\n' +
-    '		<button class="btn pmd-ripple-effect btn-default pmd-btn-flat" type="button" ng-click="deleteDlCtrl.close()">{{\'cancelBtn\' | translate}}</button>\n' +
-    '	</div>\n' +
-    '</div>');
-}]);
-
-angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/core/login/templates/login.html',
     '<div class="logincard" ng-if="!isLoggedIn()" style="margin-right: 84px;\n' +
     'margin-left: -140px;">\n' +
@@ -8649,5 +8644,16 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '\n' +
     '\n' +
     '    </div>\n' +
+    '</div>');
+}]);
+
+angular.module('home').run(['$templateCache', function($templateCache) {
+  $templateCache.put('./app/core/Delete/templates/ConfirmDeleteDialog.html',
+    '<div class="modal-content">\n' +
+    '	<div class="modal-body">{{\'deleteConfirmationLbl\' | translate}}<strong>{{deleteDlCtrl.itemName}}</strong> {{deleteDlCtrl.message}}? </div>\n' +
+    '	<div class="pmd-modal-action text-right">\n' +
+    '		<button class="btn pmd-ripple-effect btn-primary pmd-btn-flat" type="button" ng-click="deleteDlCtrl.Confirm()">{{\'deleteBtn\' | translate}}</button>\n' +
+    '		<button class="btn pmd-ripple-effect btn-default pmd-btn-flat" type="button" ng-click="deleteDlCtrl.close()">{{\'cancelBtn\' | translate}}</button>\n' +
+    '	</div>\n' +
     '</div>');
 }]);

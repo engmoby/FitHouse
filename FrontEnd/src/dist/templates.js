@@ -821,13 +821,13 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                <div class="row">\n' +
     '                    <div class="col-md-10"></div>\n' +
     '                    <div class="col-md-4">\n' +
-    '                        {{\'price\' | translate}}:{{ CustomCtrl.ProgramTotalPrice| number:2}} SR\n' +
-    '                        <br> {{\'DeliveryPrice\' | translate}}:{{ CustomCtrl.DeliveryFees}} SR\n' +
+    '                        {{\'price\' | translate}} : {{ CustomCtrl.ProgramTotalPrice| number:2}} SR\n' +
+    '                        <br> {{\'DeliveryPrice\' | translate}} : {{ CustomCtrl.DeliveryFees}} SR\n' +
     '                        <br>{{\'ProgramDiscount\' | translate}} : {{ CustomCtrl.ProgramDiscount}} %\n' +
-    '                        <br>{{\'Total\' | translate}} :{{ CustomCtrl.Total| number:2}} SR\n' +
+    '                        <br>{{\'Total\' | translate}} : {{ CustomCtrl.Total| number:2}} SR\n' +
     '                        <br>\n' +
     '                        <button style="background-color: #e4e5e6;color: black!important;"\n' +
-    '                            ng-disabled="CustomCtrl.itemList.length <= 0 || CustomCtrl.selectedBranchId <= 0"\n' +
+    '                            ng-disabled="CustomCtrl.itemList.length <= 0 || CustomCtrl.selectedBranchId <= 0 || stepTwoProgramForm.$invalid"\n' +
     '                            class="btn pmd-ripple-effect btn-primary" type="button"\n' +
     '                            ng-click="CustomCtrl.AddNewProgram();">\n' +
     '                            {{\'Order\' | translate}}</button>\n' +
@@ -2389,7 +2389,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '		$(".select-add-tags").select2({\n' +
     '			tags: true,\n' +
     '			theme: "bootstrap",\n' +
-    '            maximumSelectionLength: 5,\n' +
+    '			maximumSelectionLength: 5,\n' +
     '			insertTag: function (data, tag) {\n' +
     '				// Insert the tag at the end of the results\n' +
     '				data.push(tag);\n' +
@@ -2409,17 +2409,17 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '\n' +
     '	$(function () {\n' +
     '		var today = new Date();\n' +
-    '        today.setDate(today.getDate()+1)\n' +
+    '		today.setDate(today.getDate() + 1)\n' +
     '		$(\'#startdate\').datetimepicker({\n' +
     '			widgetPositioning: { vertical: "top" },\n' +
     '\n' +
     '			minDate: today\n' +
     '\n' +
     '		})\n' +
-    '		.on(\'dp.change\', function (e) {\n' +
+    '			.on(\'dp.change\', function (e) {\n' +
     '\n' +
-    '			angular.element(document.getElementById(\'startdate\')).scope().dateChange();\n' +
-    '		});\n' +
+    '				angular.element(document.getElementById(\'startdate\')).scope().dateChange();\n' +
+    '			});\n' +
     '	});\n' +
     '\n' +
     '	// $(function () {\n' +
@@ -2502,22 +2502,29 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '						</div>\n' +
     '						<div class="row">\n' +
     '							<div class="input-field col s6">\n' +
-    '								<input required numbers-only type="text" class="validate" name="programDaysCount"\n' +
-    '									ng-model="programDaysCount" minlength="1" maxlength="2">\n' +
+    '								<input required type="text" class="validate" name="programDaysCount"\n' +
+    '									ng-pattern="/^[1-9]+[0-9]*$/" ng-model="programDaysCount" minlength="1"\n' +
+    '									maxlength="2">\n' +
     '								<label>{{\'ProgramDaysCount\' | translate}}</label>\n' +
     '								<div ng-show="settingsPrepService.minNoDaysPerProgram > programDaysCount">\n' +
-    '									<p>{{\'minAllowedDays= \' | translate}} {{settingsPrepService.minNoDaysPerProgram}}\n' +
+    '									<p>{{\'minAllowedDays\' | translate}} : {{settingsPrepService.minNoDaysPerProgram}}\n' +
     '									</p>\n' +
     '								</div>\n' +
+    '								<div\n' +
+    '									ng-if="cutomizeProgram.programDaysCount.$error.pattern && !cutomizeProgram.programDaysCount.$pristine">\n' +
+    '									{{\'wrongpattern\' | translate}}</div>\n' +
     '							</div>\n' +
     '							<div class="input-field col s6">\n' +
-    '								<input required numbers-only type="text" class="validate" name="mealPerDay"\n' +
-    '									ng-model="mealPerDay" minlength="1" maxlength="2">\n' +
+    '								<input required type="text" class="validate" name="mealPerDay"\n' +
+    '									ng-pattern="/^[1-9]+[0-9]*$/" ng-model="mealPerDay" minlength="0" maxlength="2">\n' +
     '								<label>{{\'MealPerDay\' | translate}}</label>\n' +
+    '								<div\n' +
+    '									ng-if="cutomizeProgram.mealPerDay.$error.pattern && !cutomizeProgram.mealPerDay.$pristine">\n' +
+    '									{{\'wrongpattern\' | translate}}</div>\n' +
     '							</div>\n' +
     '						</div>\n' +
     '\n' +
-    '						<div class="row">\n' +
+    '						<!-- <div class="row">\n' +
     '							<div class="input-field col s6">\n' +
     '								<div ng-messages="cutomizeProgram.programDaysCount.$error">\n' +
     '									<div\n' +
@@ -2541,7 +2548,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '									<div ng-if="1 > mealPerDay">{{\'minMealsIsOne\' | translate}}</div>\n' +
     '								</div>\n' +
     '							</div>\n' +
-    '						</div>\n' +
+    '						</div> -->\n' +
     '\n' +
     '						<div class="row">\n' +
     '							<!-- <div class="input-field col s6">\n' +
@@ -2550,8 +2557,8 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '							<label>{{\'SelectExcludeDays\' | translate}}</label>\n' +
     '\n' +
     '							<div class="input-field col s12">\n' +
-    '								<select style="width:100% !important" class="form-control select-add-tags"\n' +
-    '									multiple ng-model="SelectedDays"\n' +
+    '								<select style="width:100% !important" class="form-control select-add-tags" multiple\n' +
+    '									ng-model="SelectedDays"\n' +
     '									ng-options="day as day.dayNameDictionary[selectedLanguage] for day in dayList">\n' +
     '								</select>\n' +
     '							</div>\n' +
@@ -2574,7 +2581,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '						<div class="row">\n' +
     '							<div class="input-field col s12">\n' +
     '\n' +
-    '								<input name="itemDatetime"  ng-model="itemDatetime" type="text" id="startdate"\n' +
+    '								<input name="itemDatetime" ng-model="itemDatetime" type="text" id="startdate"\n' +
     '									class="form-control" placeholder="{{\'startDate\' | translate}}" />\n' +
     '								<!-- <label for="from"></label> -->\n' +
     '							</div>\n' +
@@ -2588,11 +2595,11 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '								</div>\n' +
     '							</div>\n' +
     '						</div>\n' +
-    '					 \n' +
+    '\n' +
     '						<div class="row">\n' +
     '							<div class="input-field col s12">\n' +
-    '								<input ng-disabled="cutomizeProgram.$invalid  || !dateIsValid" type="submit" class="form-btn"\n' +
-    '									ng-click="submitCustomise()" value="{{\'MakeOrder\' | translate}}">\n' +
+    '								<input ng-disabled="cutomizeProgram.$invalid  || !dateIsValid" type="submit"\n' +
+    '									class="form-btn" ng-click="submitCustomise()" value="{{\'MakeOrder\' | translate}}">\n' +
     '\n' +
     '								<!-- <button style="width: 90%; height: 50%;" class="form-btn" ng-disabled="cutomizeProgram.$invalid  || settingsPrepService.minNoDaysPerProgram > programDaysCount" ng-click="submitCustomise()"></button> -->\n' +
     '							</div>\n' +

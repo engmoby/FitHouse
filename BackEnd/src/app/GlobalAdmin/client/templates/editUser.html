@@ -7,8 +7,8 @@
         <form class="form-horizontal" name="updateclientForm" autocomplete="off">
             <div class="form-group pmd-textfield pmd-textfield-floating-label-completed">
                 <label for="first-name">{{'FirstNameLbl' | translate}}</label>
-                <input required type="text" class="mat-input form-control" name="firstName" ng-model="clientObj.firstName"
-                    minlength="3" maxlength="255">
+                <input required type="text" class="mat-input form-control" name="firstName"
+                    ng-model="clientObj.firstName" minlength="3" maxlength="255">
                 <div ng-messages="updateclientForm.firstName.$error">
                     <div ng-if="updateclientForm.firstName.$error.required && !updateclientForm.firstName.$pristine">{{'FirstNameLengthError'
                 | translate}}</div>
@@ -72,29 +72,6 @@
                 </div>
             </div>
             <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-                <label for="first-name">{{'Length' | translate}}</label>
-                <input type="number" class="mat-input form-control" name="length" ng-model="clientObj.length" positive
-                    ng-pattern="/^[0-9]{1,3}$/" ng-minlength="1" ng-maxlength="3">
-                <div ng-messages="updateclientForm.length.$error" class="error">
-                    <div ng-if="(updateclientForm.length.$error.minlength || updateclientForm.length.$error.maxlength)">
-                        {{'maxlength' | translate}}</div>
-                    <div ng-if="updateclientForm.length.$error.pattern && !updateclientForm.length.$pristine">
-                        {{'wrongpattern' | translate}}</div>
-                </div>
-            </div>
-        
-            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
-                <label for="first-name">{{'Weight' | translate}}</label>
-                <input type="number" class="mat-input form-control" name="weight" ng-model="clientObj.weight" positive
-                    ng-pattern="/^[0-9]{1,3}$/" ng-minweight="1" ng-maxlength="3">
-                <div ng-messages="updateclientForm.weight.$error" class="error">
-                    <div ng-if="(updateclientForm.weight.$error.minweight || updateclientForm.weight.$error.maxlength)">
-                        {{'maxlength' | translate}}</div>
-                    <div ng-if="updateclientForm.weight.$error.pattern && !updateclientForm.weight.$pristine">
-                        {{'wrongpattern' | translate}}</div>
-                </div>
-            </div>
-            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                 <label for="first-name">{{'ConfirmPasswordLbl' | translate}}</label>
                 <input required type="password" class="mat-input form-control" name="confirmPassword"
                     ng-model="clientObj.confirmPassword" equalto="updateclientForm.password">
@@ -107,7 +84,30 @@
                 | translate}}</div>
                 </div>
             </div>
-          
+            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                <label for="first-name">{{'Length' | translate}}</label>
+                <input type="number" class="mat-input form-control" name="length" ng-model="clientObj.length" positive
+                    ng-pattern="/^[0-9]{1,3}$/" ng-minlength="1" ng-maxlength="3">
+                <div ng-messages="updateclientForm.length.$error" class="error">
+                    <div ng-if="(updateclientForm.length.$error.minlength || updateclientForm.length.$error.maxlength)">
+                        {{'maxlength' | translate}}</div>
+                    <div ng-if="updateclientForm.length.$error.pattern && !updateclientForm.length.$pristine">
+                        {{'wrongpattern' | translate}}</div>
+                </div>
+            </div>
+
+            <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
+                <label for="first-name">{{'Weight' | translate}}</label>
+                <input type="number" class="mat-input form-control" name="weight" ng-model="clientObj.weight" positive
+                    ng-pattern="/^[0-9]{1,3}$/" ng-minweight="1" ng-maxlength="3">
+                <div ng-messages="updateclientForm.weight.$error" class="error">
+                    <div ng-if="(updateclientForm.weight.$error.minweight || updateclientForm.weight.$error.maxlength)">
+                        {{'maxlength' | translate}}</div>
+                    <div ng-if="updateclientForm.weight.$error.pattern && !updateclientForm.weight.$pristine">
+                        {{'wrongpattern' | translate}}</div>
+                </div>
+            </div>
+
             <div class="form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
                 <label for="first-name">{{'Country' | translate}}</label>
                 <select required style="width:100% !important" class="select-tags form-control pmd-select2-tags"
@@ -149,7 +149,7 @@
                     class="form-control select-with-search pmd-select2-tags" ng-change="editClientCtrl.branchChange()"
                     ng-model="editClientCtrl.selectedBranchId"
                     ng-options="a.branchId as a.titleDictionary[selectedLanguage] for a in editClientCtrl.branchList"></select>
-            </div> 
+            </div>
         </form>
     </div>
 

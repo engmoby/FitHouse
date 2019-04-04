@@ -3,7 +3,7 @@
 		$(".select-add-tags").select2({
 			tags: true,
 			theme: "bootstrap",
-            maximumSelectionLength: 5,
+			maximumSelectionLength: 5,
 			insertTag: function (data, tag) {
 				// Insert the tag at the end of the results
 				data.push(tag);
@@ -23,17 +23,17 @@
 
 	$(function () {
 		var today = new Date();
-        today.setDate(today.getDate()+1)
+		today.setDate(today.getDate() + 1)
 		$('#startdate').datetimepicker({
 			widgetPositioning: { vertical: "top" },
 
 			minDate: today
 
 		})
-		.on('dp.change', function (e) {
+			.on('dp.change', function (e) {
 
-			angular.element(document.getElementById('startdate')).scope().dateChange();
-		});
+				angular.element(document.getElementById('startdate')).scope().dateChange();
+			});
 	});
 
 	// $(function () {
@@ -116,22 +116,29 @@
 						</div>
 						<div class="row">
 							<div class="input-field col s6">
-								<input required numbers-only type="text" class="validate" name="programDaysCount"
-									ng-model="programDaysCount" minlength="1" maxlength="2">
+								<input required type="text" class="validate" name="programDaysCount"
+									ng-pattern="/^[1-9]+[0-9]*$/" ng-model="programDaysCount" minlength="1"
+									maxlength="2">
 								<label>{{'ProgramDaysCount' | translate}}</label>
 								<div ng-show="settingsPrepService.minNoDaysPerProgram > programDaysCount">
-									<p>{{'minAllowedDays= ' | translate}} {{settingsPrepService.minNoDaysPerProgram}}
+									<p>{{'minAllowedDays' | translate}} : {{settingsPrepService.minNoDaysPerProgram}}
 									</p>
 								</div>
+								<div
+									ng-if="cutomizeProgram.programDaysCount.$error.pattern && !cutomizeProgram.programDaysCount.$pristine">
+									{{'wrongpattern' | translate}}</div>
 							</div>
 							<div class="input-field col s6">
-								<input required numbers-only type="text" class="validate" name="mealPerDay"
-									ng-model="mealPerDay" minlength="1" maxlength="2">
+								<input required type="text" class="validate" name="mealPerDay"
+									ng-pattern="/^[1-9]+[0-9]*$/" ng-model="mealPerDay" minlength="0" maxlength="2">
 								<label>{{'MealPerDay' | translate}}</label>
+								<div
+									ng-if="cutomizeProgram.mealPerDay.$error.pattern && !cutomizeProgram.mealPerDay.$pristine">
+									{{'wrongpattern' | translate}}</div>
 							</div>
 						</div>
 
-						<div class="row">
+						<!-- <div class="row">
 							<div class="input-field col s6">
 								<div ng-messages="cutomizeProgram.programDaysCount.$error">
 									<div
@@ -155,7 +162,7 @@
 									<div ng-if="1 > mealPerDay">{{'minMealsIsOne' | translate}}</div>
 								</div>
 							</div>
-						</div>
+						</div> -->
 
 						<div class="row">
 							<!-- <div class="input-field col s6">
@@ -164,8 +171,8 @@
 							<label>{{'SelectExcludeDays' | translate}}</label>
 
 							<div class="input-field col s12">
-								<select style="width:100% !important" class="form-control select-add-tags"
-									multiple ng-model="SelectedDays"
+								<select style="width:100% !important" class="form-control select-add-tags" multiple
+									ng-model="SelectedDays"
 									ng-options="day as day.dayNameDictionary[selectedLanguage] for day in dayList">
 								</select>
 							</div>
@@ -188,7 +195,7 @@
 						<div class="row">
 							<div class="input-field col s12">
 
-								<input name="itemDatetime"  ng-model="itemDatetime" type="text" id="startdate"
+								<input name="itemDatetime" ng-model="itemDatetime" type="text" id="startdate"
 									class="form-control" placeholder="{{'startDate' | translate}}" />
 								<!-- <label for="from"></label> -->
 							</div>
@@ -202,11 +209,11 @@
 								</div>
 							</div>
 						</div>
-					 
+
 						<div class="row">
 							<div class="input-field col s12">
-								<input ng-disabled="cutomizeProgram.$invalid  || !dateIsValid" type="submit" class="form-btn"
-									ng-click="submitCustomise()" value="{{'MakeOrder' | translate}}">
+								<input ng-disabled="cutomizeProgram.$invalid  || !dateIsValid" type="submit"
+									class="form-btn" ng-click="submitCustomise()" value="{{'MakeOrder' | translate}}">
 
 								<!-- <button style="width: 90%; height: 50%;" class="form-btn" ng-disabled="cutomizeProgram.$invalid  || settingsPrepService.minNoDaysPerProgram > programDaysCount" ng-click="submitCustomise()"></button> -->
 							</div>

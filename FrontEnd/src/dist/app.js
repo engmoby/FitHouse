@@ -788,15 +788,20 @@
 			for (var k = 0; k < vm.mealsCount; k++) {
 				mealList.push({ selectedItemList: [] })
 			}
+			debugger;
 			var newdate = new Date(dat);
-			 newdate.setDate(newdate.getDate() + 1);
 			dat = newdate;
 			if (j != 0) {
+				if (vm.SelectedDays.length == 0) {
+					var newdate = new Date(dat);
+					newdate.setDate(newdate.getDate() + 1);
+					dat = newdate;
+
+				}
 				for (var l = 0; l < vm.SelectedDays.length; l++) {
 					debugger;
 					var dd = vm.SelectedDays[l].dayId;
-					var daaaa = dat.getDay();
-					if (dd == 1 )
+					if (dd == 1)
 						newdate.setDate(newdate.getDate() + j);
 					if (dd == 2)
 						newdate.setDate(newdate.getDate() + j);
@@ -852,6 +857,19 @@
 				}
 			}
 			var fff = vm.daylistCount;
+			vm.totalPrice = 0;
+			for (var i = 0; i < vm.itemList.length; i++) {
+				vm.ProgramPrice = vm.ProgramPrice + vm.itemList[i].price;
+				vm.ProgramCost = vm.ProgramCost + vm.itemList[i].cost;
+				vm.ProgramVAT = vm.ProgramVAT + vm.itemList[i].vat;
+				vm.totalPrice += vm.itemList[i].totalPrice;
+			}
+			vm.ProgramTotalPrice = vm.totalPrice;
+			vm.ProgramTotalPriceBefore = vm.totalPrice;
+
+
+			vm.Total = vm.totalPrice - (vm.totalPrice * (vm.ProgramDiscount / 100)) + vm.DeliveryFees;
+
 		}
 
 		vm.categories = AllcategoriesPrepService;
@@ -1137,7 +1155,7 @@
 					vm.DeliveryFees = results.deliveryPrice;
 				}
 
-				vm.Total = vm.ProgramTotalPrice + vm.DeliveryFees;
+				vm.Total = vm.Total + vm.DeliveryFees;
 
 
 			},
