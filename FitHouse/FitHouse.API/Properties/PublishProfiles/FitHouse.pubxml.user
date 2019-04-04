@@ -1447,7 +1447,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/23/2018 03:44:10</publishTime>
     </File>
     <File Include="bin/ar-EG/FitHouse.Resources.resources.dll">
-      <publishTime>03/25/2019 07:48:12</publishTime>
+      <publishTime>04/03/2019 17:21:47</publishTime>
     </File>
     <File Include="bin/AutoMapper.dll">
       <publishTime>07/23/2018 03:44:10</publishTime>
@@ -1468,19 +1468,19 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/23/2018 03:44:10</publishTime>
     </File>
     <File Include="bin/FitHouse.API.dll">
-      <publishTime>03/25/2019 08:32:18</publishTime>
+      <publishTime>04/03/2019 20:09:38</publishTime>
     </File>
     <File Include="bin/FitHouse.BLL.dll">
-      <publishTime>03/25/2019 08:32:14</publishTime>
+      <publishTime>04/03/2019 17:21:45</publishTime>
     </File>
     <File Include="bin/FitHouse.Common.dll">
-      <publishTime>03/25/2019 08:32:12</publishTime>
+      <publishTime>04/03/2019 17:21:43</publishTime>
     </File>
     <File Include="bin/FitHouse.DAL.dll">
-      <publishTime>03/25/2019 08:32:12</publishTime>
+      <publishTime>04/03/2019 17:21:44</publishTime>
     </File>
     <File Include="bin/FitHouse.Resources.dll">
-      <publishTime>03/25/2019 07:48:12</publishTime>
+      <publishTime>04/03/2019 17:21:47</publishTime>
     </File>
     <File Include="bin/ImageFileCache.WPF.dll">
       <publishTime>07/23/2018 03:44:10</publishTime>
@@ -1555,10 +1555,10 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/23/2018 03:44:10</publishTime>
     </File>
     <File Include="bin/Repository.Pattern.dll">
-      <publishTime>03/21/2019 15:01:53</publishTime>
+      <publishTime>04/03/2019 17:21:43</publishTime>
     </File>
     <File Include="bin/Repository.Pattern.Ef6.dll">
-      <publishTime>03/21/2019 15:01:53</publishTime>
+      <publishTime>04/03/2019 17:21:44</publishTime>
     </File>
     <File Include="bin/roslyn/csc.exe">
       <publishTime>07/23/2018 03:44:10</publishTime>
@@ -1597,7 +1597,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/23/2018 03:44:10</publishTime>
     </File>
     <File Include="bin/Service.Pattern.dll">
-      <publishTime>03/21/2019 15:01:53</publishTime>
+      <publishTime>04/03/2019 17:21:44</publishTime>
     </File>
     <File Include="bin/Swashbuckle.Core.dll">
       <publishTime>07/08/2017 01:30:56</publishTime>
@@ -1741,7 +1741,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/23/2018 03:44:10</publishTime>
     </File>
     <File Include="Web.config">
-      <publishTime>03/25/2019 08:32:22</publishTime>
+      <publishTime>04/03/2019 17:21:54</publishTime>
     </File>
   </ItemGroup>
 </Project>

@@ -22,7 +22,7 @@
         $scope.programList = programPrepService;
         vm.language = appCONSTANTS.supportedLanguage;
         vm.programObject;
-
+        console.log($scope.programList);
         $scope.totalCount = programPrepService.totalCount;
         vm.UpdateProgram = function (program) {
             change(program, false);

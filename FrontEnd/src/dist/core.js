@@ -54,9 +54,9 @@
 	angular
 		.module('core')
 		.constant('appCONSTANTS', {
-			'API_URL': 'http://localhost:32569/api/',
+			//'API_URL': 'http://localhost:32569/api/',
 			// 'API_URL': 'http://fithouse.azurewebsites.net/api/',
-			//	'API_URL': 'http://fithouse-testing.azurewebsites.net/api/',
+			'API_URL': 'http://fithouse-testing.azurewebsites.net/api/',
 
 			'defaultLanguage': 'en',
 			'supportedLanguage': {
@@ -647,10 +647,16 @@ angular.module('core')
         "SelectCategory":"Select category",
         "selectSizeLbl":"Select Size",
         
+        "Weight":"Weight",
+        "minAllowedDays":"Min Allowed Days",
+        "Length":"Length",
       }
 
       var ar_translations = {
-        
+        "minAllowedDays":"الحد الأدنى المسموح به أيام",
+       
+        "Weight":"الوزن",
+        "Length":"الطول", 
         "RepeatDayOne": "تكرار وجبات اليوم الأول لباقي الأسبوع؟",
         "maxlength": "خطأ في عدد الارقام", 
         "PromotionLbl": "ترويج",

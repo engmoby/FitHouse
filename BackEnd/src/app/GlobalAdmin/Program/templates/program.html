@@ -16,6 +16,7 @@
                 <tr>
                     <th>{{'ProgramName' | translate}}</th>
                     <th>{{'ProgramDescription' | translate}}</th>
+                    <th>{{'price' | translate}}</th>
                     <th>{{'Status' | translate}}</th>
                     <th></th>
                 </tr>
@@ -24,25 +25,30 @@
                 <tr ng-repeat="program in programList.results">
                     <td data-title="Name">{{program.programNameDictionary[selectedLanguage]}}</td>
                     <td data-title="Name">{{program.programDescriptionDictionary[selectedLanguage]}}</td>
+                    <td data-title="Name">{{program.price}}</td>
                     <td>
-                        <div class="btn-switch" ng-class="{'btn-switch--on':program.isActive}" ng-model="program.isActive"
-                            ng-click="programCtrl.UpdateProgram(program)">
+                        <div class="btn-switch" ng-class="{'btn-switch--on':program.isActive}"
+                            ng-model="program.isActive" ng-click="programCtrl.UpdateProgram(program)">
 
                             <div class="btn-switch-circle" ng-class="{'btn-switch-circle--on':program.isActive}"
                                 ng-model="program.isActive" ng-click="programCtrl.UpdateProgram(program)">
                             </div>
                     </td>
                     <td width="30%" ng-show="!program.isStatic">
-                        <a ng-click="$state.go('programDetails', {programId: program.programId});" class="cursorPointer">{{'ProgramDetails'
+                        <a ng-click="$state.go('programDetails', {programId: program.programId});"
+                            class="cursorPointer">{{'ProgramDetails'
                             | translate}}</a>
-                        <i class="material-icons md-dark pmd-md cursorPointer font25" ng-click="$state.go('editProgram', {programId: program.programId});">mode_edit</i>
-                        <i class="material-icons pmd-md deleteButton cursorPointer font25" ng-click="programCtrl.openDeleteDialog(program,program.titleDictionary[selectedLanguage],program.programId)">delete</i>
+                        <i class="material-icons md-dark pmd-md cursorPointer font25"
+                            ng-click="$state.go('editProgram', {programId: program.programId});">mode_edit</i>
+                        <i class="material-icons pmd-md deleteButton cursorPointer font25"
+                            ng-click="programCtrl.openDeleteDialog(program,program.titleDictionary[selectedLanguage],program.programId)">delete</i>
                     </td>
                 </tr>
             </tbody>
         </table>
     </div>
-    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount" paging-action="changePage(page)"
-        flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true" disabled-class="hide">
+    <div style="text-align:center;direction: ltr" paging page="1" page-size="10" total="totalCount"
+        paging-action="changePage(page)" flex="nogrow" show-prev-next="true" show-first-last="true" hide-if-empty="true"
+        disabled-class="hide">
     </div>
 </div>

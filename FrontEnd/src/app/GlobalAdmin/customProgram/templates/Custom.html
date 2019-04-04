@@ -499,13 +499,13 @@
                 <div class="row">
                     <div class="col-md-10"></div>
                     <div class="col-md-4">
-                        {{'price' | translate}}:{{ CustomCtrl.ProgramTotalPrice| number:2}} SR
-                        <br> {{'DeliveryPrice' | translate}}:{{ CustomCtrl.DeliveryFees}} SR
+                        {{'price' | translate}} : {{ CustomCtrl.ProgramTotalPrice| number:2}} SR
+                        <br> {{'DeliveryPrice' | translate}} : {{ CustomCtrl.DeliveryFees}} SR
                         <br>{{'ProgramDiscount' | translate}} : {{ CustomCtrl.ProgramDiscount}} %
-                        <br>{{'Total' | translate}} :{{ CustomCtrl.Total| number:2}} SR
+                        <br>{{'Total' | translate}} : {{ CustomCtrl.Total| number:2}} SR
                         <br>
                         <button style="background-color: #e4e5e6;color: black!important;"
-                            ng-disabled="CustomCtrl.itemList.length <= 0 || CustomCtrl.selectedBranchId <= 0"
+                            ng-disabled="CustomCtrl.itemList.length <= 0 || CustomCtrl.selectedBranchId <= 0 || stepTwoProgramForm.$invalid"
                             class="btn pmd-ripple-effect btn-primary" type="button"
                             ng-click="CustomCtrl.AddNewProgram();">
                             {{'Order' | translate}}</button>
