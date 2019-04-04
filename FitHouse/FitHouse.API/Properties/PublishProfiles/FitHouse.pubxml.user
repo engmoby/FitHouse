@@ -1447,7 +1447,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/23/2018 03:44:10</publishTime>
     </File>
     <File Include="bin/ar-EG/FitHouse.Resources.resources.dll">
-      <publishTime>04/03/2019 17:21:47</publishTime>
+      <publishTime>04/04/2019 13:08:39</publishTime>
     </File>
     <File Include="bin/AutoMapper.dll">
       <publishTime>07/23/2018 03:44:10</publishTime>
@@ -1468,7 +1468,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>07/23/2018 03:44:10</publishTime>
     </File>
     <File Include="bin/FitHouse.API.dll">
-      <publishTime>04/03/2019 20:09:38</publishTime>
+      <publishTime>04/04/2019 13:13:47</publishTime>
     </File>
     <File Include="bin/FitHouse.BLL.dll">
       <publishTime>04/03/2019 17:21:45</publishTime>
@@ -1480,7 +1480,7 @@ by editing this MSBuild file. In order to learn more about this please visit htt
       <publishTime>04/03/2019 17:21:44</publishTime>
     </File>
     <File Include="bin/FitHouse.Resources.dll">
-      <publishTime>04/03/2019 17:21:47</publishTime>
+      <publishTime>04/04/2019 13:08:44</publishTime>
     </File>
     <File Include="bin/ImageFileCache.WPF.dll">
       <publishTime>07/23/2018 03:44:10</publishTime>

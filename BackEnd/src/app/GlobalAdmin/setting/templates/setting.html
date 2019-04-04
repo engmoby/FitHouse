@@ -205,7 +205,7 @@
         </div>
 
         <button style="background-color: #e4e5e6;color: black!important;" ng-click="settingCtrl.UpdateSetting()"
-            class="btn pmd-ripple-effect btn-primary pmd-z-depth ng-binding" type="button">{{'Save' | translate}} </button>
+            class="btn pmd-ripple-effect btn-primary pmd-z-depth ng-binding" ng-disabled="settingForm.$invalid  " type="button">{{'Save' | translate}} </button>
 
     </div>
 

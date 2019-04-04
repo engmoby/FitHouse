@@ -1,7 +1,7 @@
 <div class="modal-content">
     <div class="modal-header bordered">
         <button class="close" type="button" ng-click="editBranchFeesCtrl.close()">×</button>
-        <h2 class="pmd-card-title-text">{{'UpdateDeliveryFees' | translate}}</h2>
+        <h2 class="pmd-card-title-text">{{'DeliveryPrice' | translate}}</h2>
     </div>
 
     <div class="modal-body">
@@ -36,7 +36,7 @@
         </form>
         <div class="pmd-modal-action text-right">
             <button ng-disabled="editFeesForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button"
-                ng-click="editBranchFeesCtrl.UpdateFees()">{{'Edit' | translate}}</button>
+            style="background-color: #e4e5e6;color: black!important;"   ng-click="editBranchFeesCtrl.UpdateFees()">{{'Edit' | translate}}</button>
         </div>
 
     </div>

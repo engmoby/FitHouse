@@ -97,10 +97,10 @@
                 }
 
                 if ($scope.discount == undefined || $scope.discount == 0) {
-                    $scope.Total = $scope.progDetailsPrepService.price + $scope.DeliveryFees;
+                    $scope.Total = $scope.Total + $scope.DeliveryFees;
                 }
                 else {
-                    $scope.Total = ($scope.progDetailsPrepService.price + $scope.DeliveryFees) - ($scope.progDetailsPrepService.price * ($scope.discount / 100));
+                    $scope.Total = ($scope.Total + $scope.DeliveryFees) ;//- ($scope.Total * ($scope.discount / 100));
                 }
                 // blockUI.stop();
 

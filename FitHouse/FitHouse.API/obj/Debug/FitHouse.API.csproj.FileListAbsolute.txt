@@ -354,7 +354,7 @@ E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.API\bin\Microsoft.Owin.S
 E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.API\bin\System.Web.Http.Owin.xml
 E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.API\bin\LinqKit.pdb
 E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.API\bin\LinqKit.xml
-E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.API\bin\ar-EG\FitHouse.Resources.resources.dll
 E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.API\obj\Debug\FitHouse.API.csprojResolveAssemblyReference.cache
 E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.API\obj\Debug\FitHouse.API.dll
 E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.API\obj\Debug\FitHouse.API.pdb
+E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.API\bin\ar-EG\FitHouse.Resources.resources.dll

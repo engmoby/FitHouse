@@ -253,7 +253,7 @@
 
     mealsPrepService.$inject = ['GetMealsResource', '$stateParams']
     function mealsPrepService(GetMealsResource, $stateParams) {
-        return GetMealsResource.getAllMeals().$promise;
+        return GetMealsResource.getAllMeals({ pageSize: 0 }).$promise;
     }
 
     mealPrepService.$inject = ['MealResource', '$stateParams']

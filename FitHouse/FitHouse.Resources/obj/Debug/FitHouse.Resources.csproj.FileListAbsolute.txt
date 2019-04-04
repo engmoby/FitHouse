@@ -63,13 +63,13 @@ E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.Resources\bin\roslyn\VBC
 E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.Resources\bin\FitHouse.Resources.dll.config
 E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.Resources\bin\FitHouse.Resources.dll
 E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.Resources\bin\FitHouse.Resources.pdb
-E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.Resources\bin\ar-EG\FitHouse.Resources.resources.dll
 E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.Resources\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.Resources\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.xml
 E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.Resources\obj\Debug\FitHouse.Resources.csprojResolveAssemblyReference.cache
 E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.Resources\obj\Debug\FitHouse.Resources.Resource.resources
-E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.Resources\obj\Debug\FitHouse.Resources.Resource.ar-EG.resources
 E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.Resources\obj\Debug\FitHouse.Resources.csproj.GenerateResource.Cache
-E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.Resources\obj\Debug\ar-EG\FitHouse.Resources.resources.dll
 E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.Resources\obj\Debug\FitHouse.Resources.dll
 E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.Resources\obj\Debug\FitHouse.Resources.pdb
+E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.Resources\bin\ar-EG\FitHouse.Resources.resources.dll
+E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.Resources\obj\Debug\FitHouse.Resources.Resource.ar-EG.resources
+E:\Projects\FitHouse\Project\FitHouse\FitHouse\FitHouse.Resources\obj\Debug\ar-EG\FitHouse.Resources.resources.dll
