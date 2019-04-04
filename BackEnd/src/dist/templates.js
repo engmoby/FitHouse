@@ -7429,7 +7429,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '					class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
     '\n' +
     '					<label for="first-name">{{\'mealtotalDiscount\' | translate}} </label>\n' +
-    '					<input type="number" ng-change="editMealCtrl.calclulatetotalDiscount()"\n' +
+    '					<input type="number" disabled ng-change="editMealCtrl.calclulatetotalDiscount()"\n' +
     '						class="mat-input form-control" name="mealtotalDiscount"\n' +
     '						ng-model="editMealCtrl.mealtotalDiscount" minlength="1" maxlength="12">\n' +
     '					<div ng-messages="editMealForm.mealtotalDiscount.$error">\n' +
@@ -8086,7 +8086,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '            </form>\n' +
     '        </div>\n' +
     '        <div class="pmd-modal-action text-right">\n' +
-    '            <button ng-disabled="editSizeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editSizeDlCtrl.updateSize()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '            <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="editSizeForm.$invalid" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="editSizeDlCtrl.updateSize()">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '            <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="editSizeDlCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
     '        </div>\n' +
     '    </div>\n' +
@@ -8145,7 +8145,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '            </form>\n' +
     '        </div>\n' +
     '        <div class="pmd-modal-action text-right">\n' +
-    '            <button ng-disabled="newSizeForm.$invalid || sizeDlCtrl.isChanged" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="sizeDlCtrl.AddNewSize()">{{\'saveChangesBtn\' | translate}}</button>\n' +
+    '            <button style="background-color: #e4e5e6;color: black!important;" ng-disabled="newSizeForm.$invalid || sizeDlCtrl.isChanged" class="btn pmd-ripple-effect btn-primary" type="button" ng-click="sizeDlCtrl.AddNewSize()">{{\'saveChangesBtn\' | translate}}</button>\n' +
     '            <button class="btn pmd-ripple-effect btn-default" type="button" ng-click="sizeDlCtrl.close()">{{\'DiscardBtn\' | translate}}</button>\n' +
     '        </div>\n' +
     '    </div>\n' +
