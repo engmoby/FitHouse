@@ -272,7 +272,7 @@
 					class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 
 					<label for="first-name">{{'mealtotalDiscount' | translate}} </label>
-					<input type="number" ng-change="editMealCtrl.calclulatetotalDiscount()"
+					<input type="number" disabled ng-change="editMealCtrl.calclulatetotalDiscount()"
 						class="mat-input form-control" name="mealtotalDiscount"
 						ng-model="editMealCtrl.mealtotalDiscount" minlength="1" maxlength="12">
 					<div ng-messages="editMealForm.mealtotalDiscount.$error">
