@@ -23,6 +23,7 @@
                         <table class="table">
                             <thead>
                                 <tr>
+                                    <th>{{'AddressDescription' | translate}}</th>
                                     <th>{{'appartmentNo' | translate}}</th>
                                     <th>{{'FLoor' | translate}}</th>
                                     <th></th>
@@ -30,6 +31,7 @@
                             </thead>
                             <tbody>
                                 <tr ng-repeat="address in AddressList">
+                                    <td data-title="Name">{{address.description}}</td>
                                     <td data-title="Name">{{address.appartmentNo}}</td>
 
                                     <td data-title="Name">{{address.floor}}</td>

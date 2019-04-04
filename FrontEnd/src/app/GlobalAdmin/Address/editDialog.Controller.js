@@ -184,13 +184,15 @@
                 // vm.branchList.push({ branchId: 0, titleDictionary: { "en": "Select Branch", "ar": "اختار فرع" } });
                 // vm.selectedBranchId = 0;
                 //vm.selecteArea = vm.area.concat($filter('filter')(vm.area, { areaId: vm.selectedAreaId })[0].branches);
-                var indexarea = vm.area.indexOf($filter('filter')(vm.area, { 'areaId': vm.selectedAreaId }, true)[0]);
-                vm.selectedAreaId = vm.area[indexarea];
+                // var indexarea = vm.area.indexOf($filter('filter')(vm.area, { 'areaId': vm.selectedAreaId }, true)[0]);
+                // vm.selectedAreaId = vm.area[indexarea];
 
                 //  var indexbranch = vm.branchList.indexOf($filter('filter')(vm.branchList, { 'branchId': vm.Address.branchId }, true)[0]);
 
                 debugger;
-                vm.selectedBranchId = vm.selectedAreaId.branches[0].branchId;
+                vm.branchList = vm.branchList.concat(($filter('filter')(vm.area, { areaId: vm.selectedAreaId }))[0].branches);
+
+                vm.selectedBranchId = vm.branchList[0].branchId //vm.selectedAreaId.branches[0].branchId;
                 //alert(vm.selectedBranchId);
             }
         }

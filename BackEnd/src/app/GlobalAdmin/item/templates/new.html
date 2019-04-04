@@ -58,7 +58,7 @@
 
 				<label for="first-name">{{'vat' | translate}} </label>
 				<input type="number"  class="mat-input form-control" name="vat" ng-model="newItemCtrl.vat"
-				 min="1" ng-maxlength="3">
+				 min="0" ng-maxlength="3">
 				<div ng-messages="newItemForm.vat.$error">
 					<div ng-if="newItemForm.vat.$error.required && !newItemForm.vat.$pristine">{{'requiredErr' | translate}}</div>
 					<div ng-if="newItemForm.vat.$error.maxlength">{{'vatLengthError' | translate}}</div>
@@ -91,7 +91,7 @@
 
 				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 					<label for="first-name">{{'fat' | translate}} </label>
-					<input type="number" class="mat-input form-control" name="fat" ng-model="newItemCtrl.SelectedSize[$index].fat" min="1" ng-maxlength="5">
+					<input type="number" class="mat-input form-control" name="fat" ng-model="newItemCtrl.SelectedSize[$index].fat" min="0" ng-maxlength="5">
 					<div ng-messages="newItemForm.fat.$error">
 						<div ng-if="newItemForm.fat.$error.required && !newItemForm.fat.$pristine">{{'requiredErr' |
 							translate}}</div>
@@ -102,7 +102,7 @@
 
 				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 					<label for="first-name">{{'carbs' | translate}} </label>
-					<input type="number" class="mat-input form-control" name="carbs" ng-model="newItemCtrl.SelectedSize[$index].carbs" min="1" ng-maxlength="5">
+					<input type="number" class="mat-input form-control" name="carbs" ng-model="newItemCtrl.SelectedSize[$index].carbs" min="0" ng-maxlength="5">
 					<div ng-messages="newItemForm.carbs.$error">
 						<div ng-if="newItemForm.carbs.$error.required && !newItemForm.carbs.$pristine">{{'requiredErr' | translate}}</div>
 						<div ng-if="newItemForm.carbs.$error.maxlength">{{'carbsLengthError' | translate}}</div>
@@ -111,7 +111,7 @@
 
 				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">
 					<label for="first-name">{{'calories' | translate}} </label>
-					<input type="number" class="mat-input form-control" name="calories" ng-model="newItemCtrl.SelectedSize[$index].calories" min="1"
+					<input type="number" class="mat-input form-control" name="calories" ng-model="newItemCtrl.SelectedSize[$index].calories" min="0"
 					 ng-maxlength="5">
 					<div ng-messages="newItemForm.calories.$error">
 						<div ng-if="newItemForm.calories.$error.required && !newItemForm.calories.$pristine">{{'requiredErr' |
@@ -123,7 +123,7 @@
 
 				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed"><label
 					 for="first-name">{{'protein' | translate}} </label>
-					<input type="number" class="mat-input form-control" name="protein" ng-model="newItemCtrl.SelectedSize[$index].protein" min="1"
+					<input type="number" class="mat-input form-control" name="protein" ng-model="newItemCtrl.SelectedSize[$index].protein" min="0"
 					 ng-maxlength="5">
 					<div ng-messages="newItemForm.protein.$error">
 						<div ng-if="newItemForm.protein.$error.required && !newItemForm.protein.$pristine">{{'requiredErr' | translate}}</div>

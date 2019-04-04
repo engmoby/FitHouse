@@ -23,7 +23,7 @@
                                 <div role="tablist" class="tab-pane" ng-class="{'active':$index == 0}" ng-repeat="lang in sizeDlCtrl.language" id="{{lang.value}}-form">
                                     <div class="form-group pmd-textfield pmd-textfield-floating-label">
                                         <label for="first-name"> {{ lang.value+'Name' | translate}} </label>
-                                        <input required type="text" class="mat-input form-control" name="sizeNameDictionary{{lang.value+'Name'}}" ng-model="sizeDlCtrl.sizeNameDictionary[lang.key]" ng-minlength="3" ng-maxlength="10">
+                                        <input required type="text" class="mat-input form-control" name="sizeNameDictionary{{lang.value+'Name'}}" ng-model="sizeDlCtrl.sizeNameDictionary[lang.key]" ng-minlength="1" ng-maxlength="10">
                                         <div ng-messages="newSizeForm.sizeNameDictionary{{lang.value+'Name'}}.$error" >
                                             
                                             <div ng-show="newSizeForm.sizeNameDictionary{{lang.value+'Name'}}.$error.required && !newSizeForm.sizeNameDictionary{{lang.value+'Name'}}.$pristine">{{'requiredErr' | translate}}</div>

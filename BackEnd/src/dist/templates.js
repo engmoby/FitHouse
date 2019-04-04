@@ -941,7 +941,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                                    <thead>\n' +
     '                                                        <tr>\n' +
     '                                                            <th>{{\'Name\' | translate}}</th>\n' +
-    '                                                            <th>{{\'carb\' | translate}}</th>\n' +
+    '                                                            <th>{{\'carbs\' | translate}}</th>\n' +
     '                                                            <th>{{\'calories\' | translate}}</th>\n' +
     '                                                            <th>{{\'protein\' | translate}}</th>\n' +
     '                                                            <th>{{\'costlbl\' | translate}}</th>\n' +
@@ -1622,7 +1622,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                            <thead>\n' +
     '                                <tr>\n' +
     '                                    <th>{{\'Name\' | translate}}</th>\n' +
-    '                                    <th>{{\'carb\' | translate}}</th>\n' +
+    '                                    <th>{{\'carbs\' | translate}}</th>\n' +
     '                                    <th>{{\'calories\' | translate}}</th>\n' +
     '                                    <th>{{\'protein\' | translate}}</th>\n' +
     '                                    <th>{{\'costlbl\' | translate}}</th>\n' +
@@ -1685,7 +1685,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                                    <thead>\n' +
     '                                                        <tr>\n' +
     '                                                            <th>{{\'Name\' | translate}}</th>\n' +
-    '                                                            <th>{{\'carb\' | translate}}</th>\n' +
+    '                                                            <th>{{\'carbs\' | translate}}</th>\n' +
     '                                                            <th>{{\'calories\' | translate}}</th>\n' +
     '                                                            <th>{{\'protein\' | translate}}</th>\n' +
     '                                                            <th>{{\'costlbl\' | translate}}</th>\n' +
@@ -1929,7 +1929,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                            <thead>\n' +
     '                                <tr>\n' +
     '                                    <th>{{\'Name\' | translate}}</th>\n' +
-    '                                    <th>{{\'carb\' | translate}}</th>\n' +
+    '                                    <th>{{\'carbs\' | translate}}</th>\n' +
     '                                    <th>{{\'calories\' | translate}}</th>\n' +
     '                                    <th>{{\'protein\' | translate}}</th>\n' +
     '                                    <th>{{\'costlbl\' | translate}}</th>\n' +
@@ -1989,7 +1989,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                                    <thead>\n' +
     '                                                        <tr>\n' +
     '                                                            <th>{{\'Name\' | translate}}</th>\n' +
-    '                                                            <th>{{\'carb\' | translate}}</th>\n' +
+    '                                                            <th>{{\'carbs\' | translate}}</th>\n' +
     '                                                            <th>{{\'calories\' | translate}}</th>\n' +
     '                                                            <th>{{\'protein\' | translate}}</th>\n' +
     '                                                            <th>{{\'costlbl\' | translate}}</th>\n' +
@@ -2393,7 +2393,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '							<tr>\n' +
     '								<th>{{\'Name\' | translate}}</th>\n' +
     '							<th>{{\'SizeName\' | translate}}</th>\n' +
-    '								<th>{{\'carb\' | translate}}</th>\n' +
+    '								<th>{{\'carbs\' | translate}}</th>\n' +
     '								<th>{{\'calories\' | translate}}</th>\n' +
     '								<th>{{\'protein\' | translate}}</th>\n' +
     '								<!-- <th>{{\'costlbl\' | translate}}</th> -->\n' +
@@ -6964,7 +6964,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '\n' +
     '				<label for="first-name">{{\'vat\' | translate}} </label>\n' +
     '				<input type="number"  class="mat-input form-control" name="vat" ng-model="newItemCtrl.vat"\n' +
-    '				 min="1" ng-maxlength="3">\n' +
+    '				 min="0" ng-maxlength="3">\n' +
     '				<div ng-messages="newItemForm.vat.$error">\n' +
     '					<div ng-if="newItemForm.vat.$error.required && !newItemForm.vat.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
     '					<div ng-if="newItemForm.vat.$error.maxlength">{{\'vatLengthError\' | translate}}</div>\n' +
@@ -6997,7 +6997,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '\n' +
     '				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
     '					<label for="first-name">{{\'fat\' | translate}} </label>\n' +
-    '					<input type="number" class="mat-input form-control" name="fat" ng-model="newItemCtrl.SelectedSize[$index].fat" min="1" ng-maxlength="5">\n' +
+    '					<input type="number" class="mat-input form-control" name="fat" ng-model="newItemCtrl.SelectedSize[$index].fat" min="0" ng-maxlength="5">\n' +
     '					<div ng-messages="newItemForm.fat.$error">\n' +
     '						<div ng-if="newItemForm.fat.$error.required && !newItemForm.fat.$pristine">{{\'requiredErr\' |\n' +
     '							translate}}</div>\n' +
@@ -7008,7 +7008,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '\n' +
     '				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
     '					<label for="first-name">{{\'carbs\' | translate}} </label>\n' +
-    '					<input type="number" class="mat-input form-control" name="carbs" ng-model="newItemCtrl.SelectedSize[$index].carbs" min="1" ng-maxlength="5">\n' +
+    '					<input type="number" class="mat-input form-control" name="carbs" ng-model="newItemCtrl.SelectedSize[$index].carbs" min="0" ng-maxlength="5">\n' +
     '					<div ng-messages="newItemForm.carbs.$error">\n' +
     '						<div ng-if="newItemForm.carbs.$error.required && !newItemForm.carbs.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
     '						<div ng-if="newItemForm.carbs.$error.maxlength">{{\'carbsLengthError\' | translate}}</div>\n' +
@@ -7017,7 +7017,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '\n' +
     '				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed">\n' +
     '					<label for="first-name">{{\'calories\' | translate}} </label>\n' +
-    '					<input type="number" class="mat-input form-control" name="calories" ng-model="newItemCtrl.SelectedSize[$index].calories" min="1"\n' +
+    '					<input type="number" class="mat-input form-control" name="calories" ng-model="newItemCtrl.SelectedSize[$index].calories" min="0"\n' +
     '					 ng-maxlength="5">\n' +
     '					<div ng-messages="newItemForm.calories.$error">\n' +
     '						<div ng-if="newItemForm.calories.$error.required && !newItemForm.calories.$pristine">{{\'requiredErr\' |\n' +
@@ -7029,7 +7029,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '\n' +
     '				<div class="col-md-3 form-group pmd-textfield pmd-textfield-floating-label pmd-textfield-floating-label-completed"><label\n' +
     '					 for="first-name">{{\'protein\' | translate}} </label>\n' +
-    '					<input type="number" class="mat-input form-control" name="protein" ng-model="newItemCtrl.SelectedSize[$index].protein" min="1"\n' +
+    '					<input type="number" class="mat-input form-control" name="protein" ng-model="newItemCtrl.SelectedSize[$index].protein" min="0"\n' +
     '					 ng-maxlength="5">\n' +
     '					<div ng-messages="newItemForm.protein.$error">\n' +
     '						<div ng-if="newItemForm.protein.$error.required && !newItemForm.protein.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
@@ -7279,7 +7279,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '							<tr>\n' +
     '								<th>{{\'Name\' | translate}}</th>\n' +
     '							<th>{{\'SizeName\' | translate}}</th>\n' +
-    '								<th>{{\'carb\' | translate}}</th>\n' +
+    '								<th>{{\'carbs\' | translate}}</th>\n' +
     '								<th>{{\'calories\' | translate}}</th>\n' +
     '								<th>{{\'protein\' | translate}}</th>\n' +
     '								<th>{{\'fat\' | translate}}</th>\n' +
@@ -7567,7 +7567,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '						<tr>\n' +
     '							<th>{{\'Name\' | translate}}</th>\n' +
     '							<th>{{\'SizeName\' | translate}}</th>\n' +
-    '							<th>{{\'carb\' | translate}}</th>\n' +
+    '							<th>{{\'carbs\' | translate}}</th>\n' +
     '							<th>{{\'calories\' | translate}}</th>\n' +
     '							<th>{{\'protein\' | translate}}</th>\n' +
     '							<th>{{\'fat\' | translate}}</th>\n' +
@@ -8128,7 +8128,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
     '                                <div role="tablist" class="tab-pane" ng-class="{\'active\':$index == 0}" ng-repeat="lang in sizeDlCtrl.language" id="{{lang.value}}-form">\n' +
     '                                    <div class="form-group pmd-textfield pmd-textfield-floating-label">\n' +
     '                                        <label for="first-name"> {{ lang.value+\'Name\' | translate}} </label>\n' +
-    '                                        <input required type="text" class="mat-input form-control" name="sizeNameDictionary{{lang.value+\'Name\'}}" ng-model="sizeDlCtrl.sizeNameDictionary[lang.key]" ng-minlength="3" ng-maxlength="10">\n' +
+    '                                        <input required type="text" class="mat-input form-control" name="sizeNameDictionary{{lang.value+\'Name\'}}" ng-model="sizeDlCtrl.sizeNameDictionary[lang.key]" ng-minlength="1" ng-maxlength="10">\n' +
     '                                        <div ng-messages="newSizeForm.sizeNameDictionary{{lang.value+\'Name\'}}.$error" >\n' +
     '                                            \n' +
     '                                            <div ng-show="newSizeForm.sizeNameDictionary{{lang.value+\'Name\'}}.$error.required && !newSizeForm.sizeNameDictionary{{lang.value+\'Name\'}}.$pristine">{{\'requiredErr\' | translate}}</div>\n' +
@@ -8164,7 +8164,7 @@ angular.module('home').run(['$templateCache', function($templateCache) {
   $templateCache.put('./app/GlobalAdmin/size/templates/size.html',
     '<div >\n' +
     '        <div style="margin-bottom:10px">\n' +
-    '            <button  ng-click="$state.go(\'newsize\');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'AddSizeBtn\' | translate}}</button>\n' +
+    '            <button style="background-color: #e4e5e6;color: black!important;" ng-click="$state.go(\'newsize\');" class="btn pmd-ripple-effect btn-primary pmd-z-depth" type="button">{{\'AddSizeBtn\' | translate}}</button>\n' +
     '    \n' +
     '        </div>\n' +
     '        <div ng-if="sizeCtrl.sizes.results.length == 0">\n' +
